@@ -2,154 +2,133 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp, Target, Zap, BarChart3, CheckCircle2, X } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import HeroStats from "@/components/HeroStats";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import FloatingChatButton from "@/components/FloatingChatButton";
 import Navigation from "@/components/Navigation";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-
 const Home = () => {
-  const services = [
-    {
-      title: "SEO",
-      description: "Technical SEO, content strategy, and link building that drives revenue, not just rankings.",
-      href: "/services/seo",
-    },
-    {
-      title: "Paid Media",
-      description: "Google, Meta, and LinkedIn campaigns engineered for pipeline, not vanity metrics.",
-      href: "/services/paid-media",
-    },
-    {
-      title: "Web Design & Development",
-      description: "High-converting sites that blend premium design with technical performance.",
-      href: "/services/web-design",
-    },
-    {
-      title: "Content & Email",
-      description: "Long-form content and nurture sequences that educate, engage, and convert.",
-      href: "/services/content-email",
-    },
-  ];
-
-  const process = [
-    {
-      number: "01",
-      title: "Discovery & Audit",
-      description: "Deep dive into your current state, competitors, and opportunities. We identify quick wins and long-term strategy.",
-    },
-    {
-      number: "02",
-      title: "Roadmap & Quick Wins",
-      description: "Prioritized action plan with immediate optimizations that show results within 30 days.",
-    },
-    {
-      number: "03",
-      title: "Build & Launch",
-      description: "Execute campaigns, content, and technical improvements with full transparency and tracking.",
-    },
-    {
-      number: "04",
-      title: "Optimize & Scale",
-      description: "Continuous testing, refinement, and scaling based on real performance data.",
-    },
-  ];
-
-  const caseStudies = [
-    {
-      title: "184% Increase in Organic Leads",
-      industry: "Professional Services",
-      description: "Full technical SEO overhaul and content strategy delivered consistent lead growth.",
-      metric: "+184%",
-      metricLabel: "Organic Leads",
-      href: "/case-studies/professional-services-seo",
-    },
-    {
-      title: "3.2x ROAS in 90 Days",
-      industry: "SaaS",
-      description: "Google Ads restructure with conversion tracking and landing page optimization.",
-      metric: "3.2x",
-      metricLabel: "Return on Ad Spend",
-      href: "/case-studies/saas-paid-media",
-    },
-    {
-      title: "Complete Website Redesign",
-      industry: "Multi-Location Business",
-      description: "Modern, conversion-focused design increased leads by 127% within 6 months.",
-      metric: "+127%",
-      metricLabel: "Lead Volume",
-      href: "/case-studies/multi-location-web-design",
-    },
-  ];
-
-  const comparison = [
-    { feature: "Strategic depth", avorria: true, typical: false },
-    { feature: "Full conversion tracking setup", avorria: true, typical: false },
-    { feature: "Technical SEO as standard", avorria: true, typical: false },
-    { feature: "Clear, actionable reporting", avorria: true, typical: false },
-    { feature: "Design focused on ROI, not awards", avorria: true, typical: false },
-    { feature: "AI-enhanced workflows", avorria: true, typical: false },
-  ];
-
-  const testimonials = [
-    {
-      quote: "Avorria cut through the noise and focused entirely on what mattered: qualified leads and revenue. Best agency decision we've made.",
-      author: "Sarah Mitchell",
-      role: "CEO",
-      company: "TechFlow Solutions",
-      result: "+240% qualified leads in 6 months",
-    },
-    {
-      quote: "Finally, an agency that doesn't treat SEO like magic. Clear strategy, transparent reporting, and results we can track directly to revenue.",
-      author: "James Cooper",
-      role: "Marketing Director",
-      company: "Premier Legal Group",
-      result: "£180k additional revenue attributed",
-    },
-    {
-      quote: "The website redesign wasn't just pretty—it fundamentally changed how prospects interact with our brand. Conversion rate doubled.",
-      author: "Rachel Kim",
-      role: "Founder",
-      company: "Elevate Consulting",
-      result: "2x conversion rate improvement",
-    },
-  ];
-
-  const faqs = [
-    {
-      question: "What's your minimum budget for working together?",
-      answer: "Our typical engagements start at £2,500/month for focused initiatives (e.g., SEO or paid media) and £5,000+/month for comprehensive digital strategies. We're transparent about costs and what you'll get at each tier.",
-    },
-    {
-      question: "How long until we see results?",
-      answer: "Quick wins (conversion optimization, paid media improvements) typically show results within 30-60 days. SEO and content strategies build momentum over 3-6 months. We set realistic expectations and provide transparent reporting throughout.",
-    },
-    {
-      question: "Do you work with specific industries?",
-      answer: "We specialize in professional services, SaaS, multi-location businesses, and high-ticket service providers. Our approach works best when there's a clear sales process and measurable conversions.",
-    },
-    {
-      question: "What KPIs do you actually report on?",
-      answer: "We focus on business metrics: leads, pipeline value, cost per acquisition, and revenue attribution. We track traffic and rankings, but only as leading indicators of the metrics that matter to your business.",
-    },
-    {
-      question: "Do you require long-term contracts?",
-      answer: "Most clients work with us on a 6-12 month basis because real growth takes time. We do require a 3-month minimum to implement strategy properly, but we're confident you'll want to continue based on results.",
-    },
-    {
-      question: "How do you use AI in your work?",
-      answer: "We use AI for research, content ideation, data analysis, and optimization—not as a replacement for strategy. It helps us move faster and test more hypotheses, but human expertise drives every decision.",
-    },
-  ];
-
-  return (
-    <>
+  const services = [{
+    title: "SEO",
+    description: "Technical SEO, content strategy, and link building that drives revenue, not just rankings.",
+    href: "/services/seo"
+  }, {
+    title: "Paid Media",
+    description: "Google, Meta, and LinkedIn campaigns engineered for pipeline, not vanity metrics.",
+    href: "/services/paid-media"
+  }, {
+    title: "Web Design & Development",
+    description: "High-converting sites that blend premium design with technical performance.",
+    href: "/services/web-design"
+  }, {
+    title: "Content & Email",
+    description: "Long-form content and nurture sequences that educate, engage, and convert.",
+    href: "/services/content-email"
+  }];
+  const process = [{
+    number: "01",
+    title: "Discovery & Audit",
+    description: "Deep dive into your current state, competitors, and opportunities. We identify quick wins and long-term strategy."
+  }, {
+    number: "02",
+    title: "Roadmap & Quick Wins",
+    description: "Prioritized action plan with immediate optimizations that show results within 30 days."
+  }, {
+    number: "03",
+    title: "Build & Launch",
+    description: "Execute campaigns, content, and technical improvements with full transparency and tracking."
+  }, {
+    number: "04",
+    title: "Optimize & Scale",
+    description: "Continuous testing, refinement, and scaling based on real performance data."
+  }];
+  const caseStudies = [{
+    title: "184% Increase in Organic Leads",
+    industry: "Professional Services",
+    description: "Full technical SEO overhaul and content strategy delivered consistent lead growth.",
+    metric: "+184%",
+    metricLabel: "Organic Leads",
+    href: "/case-studies/professional-services-seo"
+  }, {
+    title: "3.2x ROAS in 90 Days",
+    industry: "SaaS",
+    description: "Google Ads restructure with conversion tracking and landing page optimization.",
+    metric: "3.2x",
+    metricLabel: "Return on Ad Spend",
+    href: "/case-studies/saas-paid-media"
+  }, {
+    title: "Complete Website Redesign",
+    industry: "Multi-Location Business",
+    description: "Modern, conversion-focused design increased leads by 127% within 6 months.",
+    metric: "+127%",
+    metricLabel: "Lead Volume",
+    href: "/case-studies/multi-location-web-design"
+  }];
+  const comparison = [{
+    feature: "Strategic depth",
+    avorria: true,
+    typical: false
+  }, {
+    feature: "Full conversion tracking setup",
+    avorria: true,
+    typical: false
+  }, {
+    feature: "Technical SEO as standard",
+    avorria: true,
+    typical: false
+  }, {
+    feature: "Clear, actionable reporting",
+    avorria: true,
+    typical: false
+  }, {
+    feature: "Design focused on ROI, not awards",
+    avorria: true,
+    typical: false
+  }, {
+    feature: "AI-enhanced workflows",
+    avorria: true,
+    typical: false
+  }];
+  const testimonials = [{
+    quote: "Avorria cut through the noise and focused entirely on what mattered: qualified leads and revenue. Best agency decision we've made.",
+    author: "Sarah Mitchell",
+    role: "CEO",
+    company: "TechFlow Solutions",
+    result: "+240% qualified leads in 6 months"
+  }, {
+    quote: "Finally, an agency that doesn't treat SEO like magic. Clear strategy, transparent reporting, and results we can track directly to revenue.",
+    author: "James Cooper",
+    role: "Marketing Director",
+    company: "Premier Legal Group",
+    result: "£180k additional revenue attributed"
+  }, {
+    quote: "The website redesign wasn't just pretty—it fundamentally changed how prospects interact with our brand. Conversion rate doubled.",
+    author: "Rachel Kim",
+    role: "Founder",
+    company: "Elevate Consulting",
+    result: "2x conversion rate improvement"
+  }];
+  const faqs = [{
+    question: "What's your minimum budget for working together?",
+    answer: "Our typical engagements start at £2,500/month for focused initiatives (e.g., SEO or paid media) and £5,000+/month for comprehensive digital strategies. We're transparent about costs and what you'll get at each tier."
+  }, {
+    question: "How long until we see results?",
+    answer: "Quick wins (conversion optimization, paid media improvements) typically show results within 30-60 days. SEO and content strategies build momentum over 3-6 months. We set realistic expectations and provide transparent reporting throughout."
+  }, {
+    question: "Do you work with specific industries?",
+    answer: "We specialize in professional services, SaaS, multi-location businesses, and high-ticket service providers. Our approach works best when there's a clear sales process and measurable conversions."
+  }, {
+    question: "What KPIs do you actually report on?",
+    answer: "We focus on business metrics: leads, pipeline value, cost per acquisition, and revenue attribution. We track traffic and rankings, but only as leading indicators of the metrics that matter to your business."
+  }, {
+    question: "Do you require long-term contracts?",
+    answer: "Most clients work with us on a 6-12 month basis because real growth takes time. We do require a 3-month minimum to implement strategy properly, but we're confident you'll want to continue based on results."
+  }, {
+    question: "How do you use AI in your work?",
+    answer: "We use AI for research, content ideation, data analysis, and optimization—not as a replacement for strategy. It helps us move faster and test more hypotheses, but human expertise drives every decision."
+  }];
+  return <>
       {/* Override default navigation with transparent version */}
       <div className="relative z-50">
         <Navigation transparent={true} />
@@ -157,15 +136,12 @@ const Home = () => {
 
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
-        <section
-          className="relative min-h-screen flex items-center justify-center overflow-hidden"
-          style={{
-            backgroundImage: `url(${heroCityscape})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundAttachment: "fixed",
-          }}
-        >
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{
+        backgroundImage: `url(${heroCityscape})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed"
+      }}>
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
@@ -174,11 +150,11 @@ const Home = () => {
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
               <div className="space-y-8 mb-16 animate-fade-in">
-                <h1 className="text-5xl lg:text-7xl font-light leading-tight text-white">
+                <h1 className="text-5xl leading-tight text-white font-extralight lg:text-5xl">
                   Digital Marketing, SEO & Web Experiences{" "}
                   <span className="font-semibold text-accent">That Actually Convert</span>
                 </h1>
-                <p className="text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl">
+                <p className="text-xl text-white/90 leading-relaxed max-w-3xl font-extralight lg:text-base">
                   Avorria is your performance-first digital partner – combining high-end design,
                   technical SEO and paid acquisition to turn traffic into pipeline.
                 </p>
@@ -188,19 +164,16 @@ const Home = () => {
                   <Button variant="accent" size="lg" className="text-lg px-8 py-6" asChild>
                     <Link to="/contact">Book a Strategy Call</Link>
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground"
-                    asChild
-                  >
+                  <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground" asChild>
                     <Link to="/case-studies">View Case Studies</Link>
                   </Button>
                 </div>
               </div>
 
               {/* Stats Row */}
-              <div className="animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+              <div className="animate-fade-in-up" style={{
+              animationDelay: "300ms"
+            }}>
                 <HeroStats />
               </div>
             </div>
@@ -234,22 +207,13 @@ const Home = () => {
           <div className="text-center mt-6">
             <p className="text-sm text-muted-foreground mb-3">Explore our location-specific services:</p>
             <div className="flex flex-wrap justify-center gap-3">
-              <Link
-                to="/seo/london"
-                className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
-              >
+              <Link to="/seo/london" className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
                 SEO in London
               </Link>
-              <Link
-                to="/web-design/for/trades"
-                className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
-              >
+              <Link to="/web-design/for/trades" className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
                 Web Design for Trades
               </Link>
-              <Link
-                to="/paid-media/for/professional-services"
-                className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
-              >
+              <Link to="/paid-media/for/professional-services" className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
                 Paid Media for Professional Services
               </Link>
             </div>
@@ -269,29 +233,23 @@ const Home = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[
-              {
-                icon: Target,
-                title: "Pipeline-First Strategy",
-                description: "We build campaigns around your sales process, not random tactics.",
-              },
-              {
-                icon: Zap,
-                title: "Technical SEO Meets Design",
-                description: "Sites that rank well and convert—not one or the other.",
-              },
-              {
-                icon: BarChart3,
-                title: "End-to-End Tracking",
-                description: "Full conversion tracking, attribution, and reporting as standard.",
-              },
-              {
-                icon: TrendingUp,
-                title: "AI-Enhanced Delivery",
-                description: "Faster research, smarter testing, better optimization.",
-              },
-            ].map((prop, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow animate-fade-in-up">
+            {[{
+              icon: Target,
+              title: "Pipeline-First Strategy",
+              description: "We build campaigns around your sales process, not random tactics."
+            }, {
+              icon: Zap,
+              title: "Technical SEO Meets Design",
+              description: "Sites that rank well and convert—not one or the other."
+            }, {
+              icon: BarChart3,
+              title: "End-to-End Tracking",
+              description: "Full conversion tracking, attribution, and reporting as standard."
+            }, {
+              icon: TrendingUp,
+              title: "AI-Enhanced Delivery",
+              description: "Faster research, smarter testing, better optimization."
+            }].map((prop, index) => <Card key={index} className="border-border hover:shadow-lg transition-shadow animate-fade-in-up">
                 <CardContent className="p-6 space-y-4">
                   <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
                     <prop.icon className="text-accent" size={24} />
@@ -299,8 +257,7 @@ const Home = () => {
                   <h3 className="text-xl font-semibold text-foreground">{prop.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{prop.description}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -317,23 +274,18 @@ const Home = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {services.map((service, index) => (
-              <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
+            {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors">
                     {service.title}
                   </h3>
                   <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                  <Link
-                    to={service.href}
-                    className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors"
-                  >
+                  <Link to={service.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors">
                     View service details
                     <ArrowRight className="ml-2" size={18} />
                   </Link>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" asChild>
@@ -355,18 +307,14 @@ const Home = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {process.map((step, index) => (
-              <div key={index} className="relative">
+            {process.map((step, index) => <div key={index} className="relative">
                 <div className="space-y-4">
                   <div className="text-6xl font-light text-accent/20">{step.number}</div>
                   <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                 </div>
-                {index < process.length - 1 && (
-                  <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />
-                )}
-              </div>
-            ))}
+                {index < process.length - 1 && <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />}
+              </div>)}
           </div>
         </div>
       </section>
@@ -383,8 +331,7 @@ const Home = () => {
             </p>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => (
-              <Card key={index} className="border-border hover:shadow-xl transition-all group">
+            {caseStudies.map((study, index) => <Card key={index} className="border-border hover:shadow-xl transition-all group">
                 <CardContent className="p-8 space-y-4">
                   <div className="text-5xl font-light text-accent mb-4">{study.metric}</div>
                   <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
@@ -395,16 +342,12 @@ const Home = () => {
                   </h3>
                   <p className="text-sm text-muted-foreground mb-2">{study.industry}</p>
                   <p className="text-muted-foreground leading-relaxed">{study.description}</p>
-                  <Link
-                    to={study.href}
-                    className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-colors"
-                  >
+                  <Link to={study.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-colors">
                     View full case study
                     <ArrowRight className="ml-2" size={16} />
                   </Link>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
           <div className="text-center mt-12">
             <Button variant="outline" size="lg" asChild>
@@ -432,28 +375,15 @@ const Home = () => {
                 <div className="text-center font-semibold text-foreground">Avorria</div>
                 <div className="text-center font-semibold text-muted-foreground">Typical Agency</div>
               </div>
-              {comparison.map((row, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-3 gap-4 p-6 border-b border-border last:border-0 hover:bg-muted/30 transition-colors"
-                >
+              {comparison.map((row, index) => <div key={index} className="grid grid-cols-3 gap-4 p-6 border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
                   <div className="col-span-1 text-foreground">{row.feature}</div>
                   <div className="text-center">
-                    {row.avorria ? (
-                      <CheckCircle2 className="inline text-accent" size={24} />
-                    ) : (
-                      <X className="inline text-muted-foreground" size={24} />
-                    )}
+                    {row.avorria ? <CheckCircle2 className="inline text-accent" size={24} /> : <X className="inline text-muted-foreground" size={24} />}
                   </div>
                   <div className="text-center">
-                    {row.typical ? (
-                      <CheckCircle2 className="inline text-accent" size={24} />
-                    ) : (
-                      <X className="inline text-muted-foreground" size={24} />
-                    )}
+                    {row.typical ? <CheckCircle2 className="inline text-accent" size={24} /> : <X className="inline text-muted-foreground" size={24} />}
                   </div>
-                </div>
-              ))}
+                </div>)}
             </CardContent>
           </Card>
         </div>
@@ -468,8 +398,7 @@ const Home = () => {
             </h2>
           </div>
           <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="border-border">
+            {testimonials.map((testimonial, index) => <Card key={index} className="border-border">
                 <CardContent className="p-8 space-y-6">
                   <p className="text-foreground leading-relaxed italic">"{testimonial.quote}"</p>
                   <div className="pt-4 border-t border-border">
@@ -480,8 +409,7 @@ const Home = () => {
                     <p className="text-sm text-accent font-medium mt-2">{testimonial.result}</p>
                   </div>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </div>
         </div>
       </section>
@@ -495,16 +423,14 @@ const Home = () => {
             </h2>
           </div>
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`} className="border border-border bg-background px-6 rounded-lg">
+            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border bg-background px-6 rounded-lg">
                 <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
                   {faq.question}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground leading-relaxed">
                   {faq.answer}
                 </AccordionContent>
-              </AccordionItem>
-            ))}
+              </AccordionItem>)}
           </Accordion>
         </div>
       </section>
@@ -532,8 +458,6 @@ const Home = () => {
         </div>
       </section>
     </div>
-    </>
-  );
+    </>;
 };
-
 export default Home;
