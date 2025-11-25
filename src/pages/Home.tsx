@@ -8,6 +8,11 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import HeroStats from "@/components/HeroStats";
+import ScrollIndicator from "@/components/ScrollIndicator";
+import FloatingChatButton from "@/components/FloatingChatButton";
+import Navigation from "@/components/Navigation";
+import heroCityscape from "@/assets/hero-cityscape.jpg";
 
 const Home = () => {
   const services = [
@@ -144,76 +149,71 @@ const Home = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-8 animate-fade-in">
-              <h1 className="text-5xl lg:text-6xl font-light leading-tight text-foreground">
-                Digital marketing that treats{" "}
-                <span className="font-semibold text-accent">revenue</span> as the only
-                KPI that matters.
-              </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed">
-                Full-stack digital marketing, SEO, and web design for businesses who are
-                done wasting budget on agency fluff.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
-                    Book a Strategy Call
-                    <ArrowRight className="ml-2" size={20} />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link to="/contact">Get Free SEO Audit</Link>
-                </Button>
-              </div>
-            </div>
-            <div className="relative animate-fade-in">
-              <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
-                <div className="space-y-6">
-                  <div className="flex items-center justify-between pb-4 border-b border-border">
-                    <span className="text-sm font-medium text-muted-foreground">Performance Dashboard</span>
-                    <span className="text-xs text-muted-foreground">Live</span>
-                  </div>
-                  <div className="grid grid-cols-2 gap-6">
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Organic Traffic</p>
-                      <p className="text-3xl font-semibold text-foreground">+184%</p>
-                      <p className="text-xs text-accent flex items-center mt-1">
-                        <TrendingUp size={14} className="mr-1" /> vs. last quarter
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Qualified Leads</p>
-                      <p className="text-3xl font-semibold text-foreground">+240%</p>
-                      <p className="text-xs text-accent flex items-center mt-1">
-                        <TrendingUp size={14} className="mr-1" /> vs. last quarter
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Conversion Rate</p>
-                      <p className="text-3xl font-semibold text-foreground">4.8%</p>
-                      <p className="text-xs text-accent flex items-center mt-1">
-                        <TrendingUp size={14} className="mr-1" /> +2.1% improvement
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-sm text-muted-foreground mb-1">Revenue Impact</p>
-                      <p className="text-3xl font-semibold text-foreground">£180k</p>
-                      <p className="text-xs text-accent flex items-center mt-1">
-                        <TrendingUp size={14} className="mr-1" /> attributed this quarter
-                      </p>
-                    </div>
-                  </div>
+    <>
+      {/* Override default navigation with transparent version */}
+      <div className="relative z-50">
+        <Navigation transparent={true} />
+      </div>
+
+      <div className="min-h-screen">
+        {/* Full-Screen Hero Section */}
+        <section
+          className="relative min-h-screen flex items-center justify-center overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroCityscape})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
+        >
+          {/* Dark overlay gradient */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+
+          {/* Hero Content */}
+          <div className="container mx-auto px-6 relative z-10">
+            <div className="max-w-4xl">
+              {/* Hero Copy - Center-left aligned */}
+              <div className="space-y-8 mb-16 animate-fade-in">
+                <h1 className="text-5xl lg:text-7xl font-light leading-tight text-white">
+                  Digital Marketing, SEO & Web Experiences{" "}
+                  <span className="font-semibold text-accent">That Actually Convert</span>
+                </h1>
+                <p className="text-xl lg:text-2xl text-white/90 leading-relaxed max-w-3xl">
+                  Avorria is your performance-first digital partner – combining high-end design,
+                  technical SEO and paid acquisition to turn traffic into pipeline.
+                </p>
+
+                {/* Dual CTAs */}
+                <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                  <Button variant="accent" size="lg" className="text-lg px-8 py-6" asChild>
+                    <Link to="/contact">Book a Strategy Call</Link>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground"
+                    asChild
+                  >
+                    <Link to="/case-studies">View Case Studies</Link>
+                  </Button>
                 </div>
+              </div>
+
+              {/* Stats Row */}
+              <div className="animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+                <HeroStats />
               </div>
             </div>
           </div>
-        </div>
-      </section>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+            <ScrollIndicator />
+          </div>
+        </section>
+
+        {/* Floating Chat Button */}
+        <FloatingChatButton />
 
       {/* Trust Bar */}
       <section className="py-12 border-y border-border bg-background">
@@ -510,7 +510,7 @@ const Home = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 px-6 bg-background">
+      <section id="contact" className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
             Ready to stop experimenting and start scaling?
@@ -532,6 +532,7 @@ const Home = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 
