@@ -14,6 +14,10 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
 import DynamicLanding from "./pages/DynamicLanding";
+import Resources from "./pages/Resources";
+import ResourceDetail from "./pages/ResourceDetail";
+import Comparison from "./pages/Comparison";
+import WhyAvorria from "./pages/WhyAvorria";
 import NotFound from "./pages/NotFound";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -47,6 +51,14 @@ const App = () => (
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pricing" element={<Pricing />} />
+              
+              {/* Resources */}
+              <Route path="/resources" element={<Resources />} />
+              <Route path="/resources/:slug" element={<ResourceDetail />} />
+              
+              {/* Why Avorria */}
+              <Route path="/why-avorria" element={<WhyAvorria />} />
+              <Route path="/why/:slug" element={<Comparison />} />
               
               {/* Landing Page Routes */}
               <Route path="/:serviceSlug/:locationSlug" element={<DynamicLanding />} />
