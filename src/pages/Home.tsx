@@ -231,6 +231,29 @@ const Home = () => {
           <p className="text-center text-xs text-muted-foreground mt-8">
             We specialize in SMBs, multi-site brands, and high-ticket service businesses.
           </p>
+          <div className="text-center mt-6">
+            <p className="text-sm text-muted-foreground mb-3">Explore our location-specific services:</p>
+            <div className="flex flex-wrap justify-center gap-3">
+              <Link
+                to="/seo/london"
+                className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
+              >
+                SEO in London
+              </Link>
+              <Link
+                to="/web-design/for/trades"
+                className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
+              >
+                Web Design for Trades
+              </Link>
+              <Link
+                to="/paid-media/for/professional-services"
+                className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors"
+              >
+                Paid Media for Professional Services
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
 
