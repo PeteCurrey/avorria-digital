@@ -10,151 +10,112 @@ import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-
 const Home = () => {
-  const services = [
-    {
-      title: "SEO",
-      description: "Technical SEO, content strategy and on-site optimisation that focuses on commercial keywords, not ego rankings. We fix what's broken, build what's missing and link it all to real leads and revenue.",
-      href: "/services/seo"
-    },
-    {
-      title: "Paid Media (Google, Meta, LinkedIn)",
-      description: "Acquisition that pays for itself. We design and run campaigns tied tightly to your offer, your funnel and your sales process – with clear ROAS and CPL targets, not 'best effort.'",
-      href: "/services/paid-media"
-    },
-    {
-      title: "Web Design & Development",
-      description: "High-end websites and landing pages built for speed, clarity and conversion. Modern stack, clean code, proper tracking and a layout that makes your sales process obvious.",
-      href: "/services/web-design"
-    },
-    {
-      title: "Content & Email",
-      description: "Content that attracts the right people and email that moves them through the funnel. From SEO articles and playbooks to nurture flows and launch campaigns.",
-      href: "/services/content-email"
-    },
-    {
-      title: "Social & Personal Brand",
-      description: "Done-for-you content systems for founders and expert teams. Think LinkedIn, Instagram and short-form content that positions you as the obvious choice in your market.",
-      href: "/services/social-personal-brand"
-    }
-  ];
-
-  const process = [
-    {
-      number: "01",
-      title: "Discovery & audit",
-      description: "We review your current site, traffic, tracking and campaigns. You'll get a blunt view of what's working, what isn't and what's missing."
-    },
-    {
-      number: "02",
-      title: "Roadmap & quick wins",
-      description: "We map out a 90-day plan that balances quick commercial wins with the foundations you've been putting off – tracking, site speed, structure, funnels."
-    },
-    {
-      number: "03",
-      title: "Build, launch, optimise",
-      description: "We execute. New assets, improved journeys, tighter campaigns. Everything shipped with tracking, QA and a clear 'before vs after'."
-    },
-    {
-      number: "04",
-      title: "Review, refine, scale",
-      description: "Every month you get a clear dashboard and a straight answer: what we did, what moved, what we're doing next. When the numbers justify it, we scale."
-    }
-  ];
-
-  const caseStudies = [
-    {
-      metric: "+184%",
-      metricLabel: "organic leads in 6 months",
-      description: "for a multi-site service brand."
-    },
-    {
-      metric: "38%",
-      metricLabel: "drop in cost per qualified lead",
-      description: "after rebuilding the funnel and landing pages."
-    },
-    {
-      metric: "2.4x",
-      metricLabel: "pipeline from inbound",
-      description: "in under a year for a B2B services business."
-    }
-  ];
-
-  const comparison = [
-    {
-      feature: "Reporting",
-      typical: "Slide decks full of clicks and impressions.",
-      avorria: "Dashboards showing leads, pipeline and ROI – plus a one-minute written summary."
-    },
-    {
-      feature: "Strategy",
-      typical: "'We'll test some campaigns and see what happens.'",
-      avorria: "Clear 90-day roadmap tied to business targets."
-    },
-    {
-      feature: "Technical depth",
-      typical: "Surface-level SEO and tagging.",
-      avorria: "Technical audits, proper tracking, site architecture and CRO as standard."
-    },
-    {
-      feature: "Design",
-      typical: "Pretty sites that don't convert.",
-      avorria: "Clean, modern UX engineered around CTAs, proof and clarity."
-    },
-    {
-      feature: "Communication",
-      typical: "Monthly calls when renewal is due.",
-      avorria: "Regular updates, proactive ideas and straight answers."
-    }
-  ];
-
-  const testimonials = [
-    {
-      quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
-      author: "",
-      role: "",
-      company: ""
-    },
-    {
-      quote: "They rebuilt our site and landing pages without drama. Same traffic, better structure, calls and enquiries went up. No hype, just a very competent team.",
-      author: "",
-      role: "",
-      company: ""
-    },
-    {
-      quote: "We didn't want another 'creative agency'. We wanted someone to help us hit numbers. Avorria behaves like an in-house growth function, not a vendor.",
-      author: "",
-      role: "",
-      company: ""
-    }
-  ];
-
-  const faqs = [
-    {
-      question: "What size businesses do you work with?",
-      answer: "Mostly established service businesses, multi-location brands and B2B teams who are already investing in marketing and want to get more disciplined and effective with it."
-    },
-    {
-      question: "Do you only work on retainers?",
-      answer: "No. We do one-off rebuilds and projects where it makes sense, but most of our impact comes from ongoing work – strategy, execution and optimisation over time."
-    },
-    {
-      question: "Is there a minimum budget?",
-      answer: "If you're spending less than £2k/month in total on marketing, you're probably better off with lighter, DIY support. Above that, we can usually make a meaningful difference."
-    },
-    {
-      question: "Do you tie into our CRM and internal reporting?",
-      answer: "Yes. Wherever possible we build dashboards that connect marketing numbers to your sales pipeline and revenue, not just clicks and forms."
-    },
-    {
-      question: "How do we get started?",
-      answer: "Either request a free SEO & website audit, or book a strategy call. We'll review your current setup, give you a straight assessment and outline what we'd actually do."
-    }
-  ];
-
-  return (
-    <>
+  const services = [{
+    title: "SEO",
+    description: "Technical SEO, content strategy and on-site optimisation that focuses on commercial keywords, not ego rankings. We fix what's broken, build what's missing and link it all to real leads and revenue.",
+    href: "/services/seo"
+  }, {
+    title: "Paid Media (Google, Meta, LinkedIn)",
+    description: "Acquisition that pays for itself. We design and run campaigns tied tightly to your offer, your funnel and your sales process – with clear ROAS and CPL targets, not 'best effort.'",
+    href: "/services/paid-media"
+  }, {
+    title: "Web Design & Development",
+    description: "High-end websites and landing pages built for speed, clarity and conversion. Modern stack, clean code, proper tracking and a layout that makes your sales process obvious.",
+    href: "/services/web-design"
+  }, {
+    title: "Content & Email",
+    description: "Content that attracts the right people and email that moves them through the funnel. From SEO articles and playbooks to nurture flows and launch campaigns.",
+    href: "/services/content-email"
+  }, {
+    title: "Social & Personal Brand",
+    description: "Done-for-you content systems for founders and expert teams. Think LinkedIn, Instagram and short-form content that positions you as the obvious choice in your market.",
+    href: "/services/social-personal-brand"
+  }];
+  const process = [{
+    number: "01",
+    title: "Discovery & audit",
+    description: "We review your current site, traffic, tracking and campaigns. You'll get a blunt view of what's working, what isn't and what's missing."
+  }, {
+    number: "02",
+    title: "Roadmap & quick wins",
+    description: "We map out a 90-day plan that balances quick commercial wins with the foundations you've been putting off – tracking, site speed, structure, funnels."
+  }, {
+    number: "03",
+    title: "Build, launch, optimise",
+    description: "We execute. New assets, improved journeys, tighter campaigns. Everything shipped with tracking, QA and a clear 'before vs after'."
+  }, {
+    number: "04",
+    title: "Review, refine, scale",
+    description: "Every month you get a clear dashboard and a straight answer: what we did, what moved, what we're doing next. When the numbers justify it, we scale."
+  }];
+  const caseStudies = [{
+    metric: "+184%",
+    metricLabel: "organic leads in 6 months",
+    description: "for a multi-site service brand."
+  }, {
+    metric: "38%",
+    metricLabel: "drop in cost per qualified lead",
+    description: "after rebuilding the funnel and landing pages."
+  }, {
+    metric: "2.4x",
+    metricLabel: "pipeline from inbound",
+    description: "in under a year for a B2B services business."
+  }];
+  const comparison = [{
+    feature: "Reporting",
+    typical: "Slide decks full of clicks and impressions.",
+    avorria: "Dashboards showing leads, pipeline and ROI – plus a one-minute written summary."
+  }, {
+    feature: "Strategy",
+    typical: "'We'll test some campaigns and see what happens.'",
+    avorria: "Clear 90-day roadmap tied to business targets."
+  }, {
+    feature: "Technical depth",
+    typical: "Surface-level SEO and tagging.",
+    avorria: "Technical audits, proper tracking, site architecture and CRO as standard."
+  }, {
+    feature: "Design",
+    typical: "Pretty sites that don't convert.",
+    avorria: "Clean, modern UX engineered around CTAs, proof and clarity."
+  }, {
+    feature: "Communication",
+    typical: "Monthly calls when renewal is due.",
+    avorria: "Regular updates, proactive ideas and straight answers."
+  }];
+  const testimonials = [{
+    quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
+    author: "",
+    role: "",
+    company: ""
+  }, {
+    quote: "They rebuilt our site and landing pages without drama. Same traffic, better structure, calls and enquiries went up. No hype, just a very competent team.",
+    author: "",
+    role: "",
+    company: ""
+  }, {
+    quote: "We didn't want another 'creative agency'. We wanted someone to help us hit numbers. Avorria behaves like an in-house growth function, not a vendor.",
+    author: "",
+    role: "",
+    company: ""
+  }];
+  const faqs = [{
+    question: "What size businesses do you work with?",
+    answer: "Mostly established service businesses, multi-location brands and B2B teams who are already investing in marketing and want to get more disciplined and effective with it."
+  }, {
+    question: "Do you only work on retainers?",
+    answer: "No. We do one-off rebuilds and projects where it makes sense, but most of our impact comes from ongoing work – strategy, execution and optimisation over time."
+  }, {
+    question: "Is there a minimum budget?",
+    answer: "If you're spending less than £2k/month in total on marketing, you're probably better off with lighter, DIY support. Above that, we can usually make a meaningful difference."
+  }, {
+    question: "Do you tie into our CRM and internal reporting?",
+    answer: "Yes. Wherever possible we build dashboards that connect marketing numbers to your sales pipeline and revenue, not just clicks and forms."
+  }, {
+    question: "How do we get started?",
+    answer: "Either request a free SEO & website audit, or book a strategy call. We'll review your current setup, give you a straight assessment and outline what we'd actually do."
+  }];
+  return <>
       {/* Override default navigation with transparent version */}
       <div className="relative z-50">
         <Navigation transparent={true} />
@@ -162,15 +123,12 @@ const Home = () => {
 
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
-        <section
-          className="relative min-h-screen flex items-center justify-center overflow-hidden"
-          style={{
-            backgroundImage: `url(${heroCityscape})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            backgroundAttachment: "fixed"
-          }}
-        >
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{
+        backgroundImage: `url(${heroCityscape})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed"
+      }}>
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
@@ -179,11 +137,11 @@ const Home = () => {
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
               <div className="space-y-8 mb-16 animate-fade-in">
-                <h1 className="text-5xl leading-tight text-white font-extralight lg:text-6xl">
-                  Digital marketing, SEO & web experiences that actually convert.
+                <h1 className="text-5xl leading-tight text-white lg:text-3xl font-extralight">
+                  Digital Marketing, SEO &amp; Web Experiences that Actually Convert.
                 </h1>
-                <p className="text-xl text-white/90 leading-relaxed max-w-3xl font-light lg:text-xl">
-                  Avorria is your performance-first digital partner. We combine high-end design, technical SEO and paid acquisition to turn traffic into pipeline – not just prettier dashboards.
+                <p className="text-xl text-white/90 leading-relaxed max-w-3xl lg:text-base font-extralight">
+                  Avorria is your performance-first digital partner. We combine high end design, technical SEO &amp; paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
                 {/* Dual CTAs */}
@@ -191,19 +149,16 @@ const Home = () => {
                   <Button variant="accent" size="lg" className="text-lg px-8 py-6" asChild>
                     <Link to="/contact">Book a strategy call</Link>
                   </Button>
-                  <Button
-                    variant="outline"
-                    size="lg"
-                    className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground"
-                    asChild
-                  >
+                  <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground" asChild>
                     <Link to="/free-seo-website-audit">Get a free SEO & website audit</Link>
                   </Button>
                 </div>
               </div>
 
               {/* Stats Row */}
-              <div className="animate-fade-in-up" style={{ animationDelay: "300ms" }}>
+              <div className="animate-fade-in-up" style={{
+              animationDelay: "300ms"
+            }}>
                 <HeroStats />
               </div>
             </div>
@@ -308,23 +263,18 @@ const Home = () => {
               </p>
             </div>
             <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {services.map((service, index) => (
-                <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
+              {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
                   <CardContent className="p-8">
                     <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors">
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                    <Link
-                      to={service.href}
-                      className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors"
-                    >
+                    <Link to={service.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors">
                       View service details
                       <ArrowRight className="ml-2" size={18} />
                     </Link>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
             <div className="text-center mt-12">
               <Button variant="outline" size="lg" asChild>
@@ -341,18 +291,14 @@ const Home = () => {
               <h2 className="text-4xl font-light mb-4 text-foreground">Simple process. Serious output.</h2>
             </div>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {process.map((step, index) => (
-                <div key={index} className="relative">
+              {process.map((step, index) => <div key={index} className="relative">
                   <div className="space-y-4">
                     <div className="text-6xl font-light text-accent/20">{step.number}</div>
                     <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
                     <p className="text-muted-foreground leading-relaxed">{step.description}</p>
                   </div>
-                  {index < process.length - 1 && (
-                    <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />
-                  )}
-                </div>
-              ))}
+                  {index < process.length - 1 && <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />}
+                </div>)}
             </div>
           </div>
         </section>
@@ -367,15 +313,13 @@ const Home = () => {
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {caseStudies.map((study, index) => (
-                <Card key={index} className="border-border hover:shadow-xl transition-all group">
+              {caseStudies.map((study, index) => <Card key={index} className="border-border hover:shadow-xl transition-all group">
                   <CardContent className="p-8 space-y-4">
                     <div className="text-5xl font-light text-accent mb-4">{study.metric}</div>
                     <div className="text-sm font-medium text-muted-foreground mb-2">{study.metricLabel}</div>
                     <p className="text-muted-foreground leading-relaxed">{study.description}</p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
             <div className="text-center mt-12">
               <Button variant="outline" size="lg" asChild>
@@ -410,13 +354,11 @@ const Home = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {comparison.map((item, index) => (
-                        <tr key={index} className="border-b border-border last:border-b-0">
+                      {comparison.map((item, index) => <tr key={index} className="border-b border-border last:border-b-0">
                           <td className="p-6 font-medium text-foreground">{item.feature}</td>
                           <td className="p-6 text-muted-foreground">{item.typical}</td>
                           <td className="p-6 text-foreground font-medium">{item.avorria}</td>
-                        </tr>
-                      ))}
+                        </tr>)}
                     </tbody>
                   </table>
                 </div>
@@ -457,13 +399,11 @@ const Home = () => {
               <h2 className="text-4xl font-light mb-4 text-foreground">What clients say when the noise stops.</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="border-border">
+              {testimonials.map((testimonial, index) => <Card key={index} className="border-border">
                   <CardContent className="p-8">
                     <p className="text-muted-foreground leading-relaxed mb-6 italic">"{testimonial.quote}"</p>
                   </CardContent>
-                </Card>
-              ))}
+                </Card>)}
             </div>
           </div>
         </section>
@@ -475,18 +415,12 @@ const Home = () => {
               <h2 className="text-4xl font-light mb-4 text-foreground">Questions we get a lot.</h2>
             </div>
             <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="border border-border bg-background px-6 rounded-lg"
-                >
+              {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border bg-background px-6 rounded-lg">
                   <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
                     {faq.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
-                </AccordionItem>
-              ))}
+                </AccordionItem>)}
             </Accordion>
           </div>
         </section>
@@ -518,8 +452,6 @@ const Home = () => {
         <SlideInPanel />
         <ExitIntentPopover />
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Home;
