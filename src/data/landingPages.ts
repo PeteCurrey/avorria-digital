@@ -698,6 +698,376 @@ export const landingPages: LandingPage[] = [
     relatedCaseStudies: ["saas-paid-media", "legal-services-seo-revenue"],
     relatedArticles: ["paid-media-lead-quality", "attribution-professional-services"],
   },
+
+  // SEO Agency Sheffield
+  {
+    id: "seo-agency-sheffield",
+    title: "SEO Agency Sheffield",
+    slug: "seo-agency-sheffield",
+    type: "service-location",
+    service: getServiceBySlug("seo")!,
+    location: getLocationBySlug("sheffield")!,
+    heroHeadline: "SEO agency in Sheffield that actually brings in leads, not just rankings.",
+    heroSubheadline: "Avorria is a performance-focused SEO partner for Sheffield businesses. We sort your site, content and tracking so you can see – in hard numbers – what organic search is doing for enquiries and revenue.",
+    primaryCTA: "Book an SEO call (Sheffield)",
+    secondaryCTA: "Get a free SEO & website audit",
+    problemBullets: [
+      "You've used 'SEO guys' before and all you got was a monthly report and no real change in enquiries.",
+      "You rank for your brand name and a few random terms, but not the searches that matter in Sheffield and South Yorkshire.",
+      "Your site looks okay, but people don't fill in forms or pick up the phone.",
+      "You're spending on ads or directories because SEO has never really been sorted.",
+      "Nobody can show you a clear line from SEO to your pipeline.",
+    ],
+    solutionBullets: [
+      "Local and regional SEO strategy around the services and areas that actually make you money.",
+      "Technical and on-page clean-up so Google understands what you do and who you do it for.",
+      "Service and location pages built for conversion – clear offers, proof and CTAs.",
+      "Tracking wired into calls, forms and enquiries so you can see what came from where.",
+      "Simple dashboards showing organic leads and pipeline – not just 'visibility'.",
+    ],
+    keyMetrics: [
+      {
+        value: "+63%",
+        label: "Qualified Enquiries",
+        description: "Increase in qualified enquiries in 3 months after fixing structure and key pages",
+      },
+      {
+        value: "+82%",
+        label: "Organic Traffic",
+        description: "Non-branded organic traffic up over 9 months for a regional service firm",
+      },
+      {
+        value: "Clear View",
+        label: "Local Insights",
+        description: "Clear view of which Sheffield and South Yorkshire searches actually drive business",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We'd tried a couple of SEO suppliers in Sheffield and got nowhere. Once Avorria rebuilt the structure and pages, our organic leads finally started to look like the reports.",
+      author: "",
+      role: "",
+      company: "",
+    },
+    faqList: [
+      {
+        question: "Do we have to be based in Sheffield?",
+        answer: "No, but a lot of our clients are in Sheffield and South Yorkshire. If your customers are here, it helps that we understand the market.",
+      },
+      {
+        question: "Can you work alongside our existing web developer?",
+        answer: "Yes. We can either implement changes ourselves or provide dev-ready specs and content for your current team.",
+      },
+      {
+        question: "How long until we see results locally?",
+        answer: "You'll usually see early movement within 2–3 months and meaningful impact in 4–6, depending on how competitive your space is and where we're starting from.",
+      },
+      {
+        question: "Is this just about Google rankings?",
+        answer: "No. It's about leads and revenue. Rankings are a means to that end, not the goal.",
+      },
+    ],
+    targetKeyword: "SEO agency Sheffield",
+    metaTitle: "SEO Agency Sheffield | Performance-Focused SEO | Avorria",
+    metaDescription: "Sheffield SEO agency that brings in leads, not just rankings. Technical SEO, content strategy and tracking that shows real business impact.",
+    relatedCaseStudies: [],
+    relatedArticles: [],
+  },
+
+  // SEO Agency London
+  {
+    id: "seo-agency-london",
+    title: "SEO Agency London",
+    slug: "seo-agency-london",
+    type: "service-location",
+    service: getServiceBySlug("seo")!,
+    location: getLocationBySlug("london")!,
+    heroHeadline: "SEO agency in London for teams who are done with vague reports.",
+    heroSubheadline: "We work with London-based businesses who want SEO tied directly to pipeline. No buzzword decks – just a clear strategy, proper implementation and reporting you can actually run decisions from.",
+    primaryCTA: "Talk to a London SEO strategist",
+    secondaryCTA: "Request an SEO & website audit",
+    problemBullets: [
+      "You're paying London agency retainers for generic work you could have got anywhere.",
+      "You get big slide decks, but nobody can say what changed commercially.",
+      "You're ranking for content pieces, not the high-intent searches you care about.",
+      "Technical issues, Core Web Vitals and architecture keep getting pushed to 'later'.",
+      "Leadership wants to know what SEO is really delivering and nobody has a credible answer.",
+    ],
+    solutionBullets: [
+      "London and UK search strategy focused on the products, services and sectors that matter most.",
+      "Technical and structural work to remove drag from everything else you do.",
+      "Content and on-page strategy that connects SEO directly to funnel stages.",
+      "Integrated reporting with your CRM so you see organic-sourced pipeline, not just traffic.",
+      "Honest conversations about when to double down and when to cut losses.",
+    ],
+    keyMetrics: [
+      {
+        value: "2x",
+        label: "Pipeline Growth",
+        description: "Organic-sourced pipeline up in 12 months for a London-based B2B services firm",
+      },
+      {
+        value: "+94%",
+        label: "Organic Traffic",
+        description: "Non-branded organic up after restructuring site architecture and content",
+      },
+      {
+        value: "Board Level",
+        label: "Reporting",
+        description: "Board-level reporting that finally put SEO alongside other channels in the plan",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We wanted a London partner that felt like an internal growth team. Avorria are the first SEO agency that talks about pipeline and trade-offs, not just rankings.",
+      author: "",
+      role: "",
+      company: "",
+    },
+    faqList: [
+      {
+        question: "We already have a global SEO partner – can you focus just on the UK/London side?",
+        answer: "Yes. We can operate as the local layer, aligning with global strategy but making sure UK and London performance is actually looked after.",
+      },
+      {
+        question: "Do you handle content and dev or just strategy?",
+        answer: "We can do both. If you prefer, we'll act as the strategic/technical layer, briefing your existing content and dev teams.",
+      },
+      {
+        question: "How do you report results?",
+        answer: "Via a live-style dashboard and short written summaries. You'll see traffic, leads, pipeline and key pages – not just keyword tables.",
+      },
+      {
+        question: "Are you only for big budgets?",
+        answer: "We're best suited to teams already investing in marketing who want to tighten things up. If your total budget is tiny, a lighter, DIY approach may make more sense.",
+      },
+    ],
+    targetKeyword: "SEO agency London",
+    metaTitle: "SEO Agency London | Pipeline-Focused SEO Strategy | Avorria",
+    metaDescription: "London SEO agency for teams done with vague reports. Clear strategy, proper implementation and reporting tied directly to pipeline and revenue.",
+    relatedCaseStudies: [],
+    relatedArticles: [],
+  },
+
+  // Web Design Sheffield
+  {
+    id: "web-design-sheffield",
+    title: "Web Design Sheffield",
+    slug: "web-design-sheffield",
+    type: "service-location",
+    service: getServiceBySlug("web-design")!,
+    location: getLocationBySlug("sheffield")!,
+    heroHeadline: "Web design in Sheffield that makes your site behave like a sales asset.",
+    heroSubheadline: "We design and build websites for Sheffield businesses that look sharp and convert visitors into enquiries, bookings and orders – with tracking to prove it.",
+    primaryCTA: "Talk about a website rebuild (Sheffield)",
+    secondaryCTA: "Request a website & funnel teardown",
+    problemBullets: [
+      "Your site looks 'okay' but doesn't generate enough enquiries from Sheffield or beyond.",
+      "It was designed like a brochure, not a sales journey.",
+      "There's no clear CTA above the fold, just a menu and a vague strapline.",
+      "You're scared to touch anything because nobody quite remembers how it was built.",
+      "Every redesign has been about looks, not leads.",
+    ],
+    solutionBullets: [
+      "Homepages and service pages structured around your real offers and process.",
+      "Clear CTAs, proof, FAQs and next steps so visitors know exactly what to do.",
+      "Fast, mobile-friendly design that doesn't frustrate people.",
+      "Clean code and a modern stack your team can actually work with.",
+      "Full tracking on forms, calls and key actions so we can improve, not guess.",
+    ],
+    keyMetrics: [
+      {
+        value: "+63%",
+        label: "Qualified Enquiries",
+        description: "Increase in 3 months after a focused homepage and services rebuild",
+      },
+      {
+        value: "+41%",
+        label: "Form Completion",
+        description: "Form completion rate up after simplifying contact and quote flows",
+      },
+      {
+        value: "Less Bounce",
+        label: "Better Engagement",
+        description: "Less bounce, more calls from Sheffield and surrounding areas",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We didn't want a flashy agency site, we wanted the phone to ring. Avorria rebuilt our key pages and we saw the difference in weeks, not years.",
+      author: "",
+      role: "",
+      company: "",
+    },
+    faqList: [
+      {
+        question: "Do you only do full rebuilds?",
+        answer: "No. Sometimes a focused set of changes to structure and key pages is smarter than ripping everything up. We'll tell you which path makes sense.",
+      },
+      {
+        question: "Can you work on our existing platform?",
+        answer: "Usually yes. If your platform is genuinely holding you back, we'll recommend a sensible migration – not a vanity rebuild.",
+      },
+      {
+        question: "Who writes the copy?",
+        answer: "We can handle it end-to-end, collaborate with you, or give your team detailed wireframes and messaging to work from.",
+      },
+      {
+        question: "Will this help our SEO too?",
+        answer: "Almost certainly. Clear structure, good content and fast pages are exactly what both users and search engines want.",
+      },
+    ],
+    targetKeyword: "web design Sheffield",
+    metaTitle: "Web Design Sheffield | Conversion-Focused Websites | Avorria",
+    metaDescription: "Sheffield web design that makes your site behave like a sales asset. Sharp design that converts visitors into enquiries and orders.",
+    relatedCaseStudies: [],
+    relatedArticles: [],
+  },
+
+  // Digital Marketing Agency Yorkshire
+  {
+    id: "digital-marketing-agency-yorkshire",
+    title: "Digital Marketing Agency Yorkshire",
+    slug: "digital-marketing-agency-yorkshire",
+    type: "service-location",
+    service: getServiceBySlug("digital-marketing")!,
+    location: getLocationBySlug("yorkshire")!,
+    heroHeadline: "Digital marketing agency in Yorkshire for teams who want pipeline, not noise.",
+    heroSubheadline: "Avorria partners with Yorkshire businesses who are done spinning up random campaigns. We connect SEO, paid and web so every pound has a job and every channel is held accountable.",
+    primaryCTA: "Book a strategy call (Yorkshire)",
+    secondaryCTA: "Request a free audit",
+    problemBullets: [
+      "You've tried 'someone who does Facebook/Google' and a couple of agencies – everybody talked big, nobody stuck around.",
+      "You're spread across multiple suppliers with no joined-up plan.",
+      "Reports talk about impressions and clicks, not leads and revenue.",
+      "Your website, SEO and ads all feel disconnected.",
+      "You're not against spending – you just want to see it work.",
+    ],
+    solutionBullets: [
+      "Joined-up strategy for SEO, paid media and web based on your real commercial targets.",
+      "Clear 90-day plans instead of random campaigns.",
+      "Fixing tracking and reporting so you can see what's working across Yorkshire and beyond.",
+      "A single team that takes responsibility for execution and optimisation.",
+      "Regular reviews where we talk ruthless numbers, not vague 'brand activity'.",
+    ],
+    keyMetrics: [
+      {
+        value: "2.4x",
+        label: "Pipeline Growth",
+        description: "Pipeline from inbound up in under a year for a regional services brand",
+      },
+      {
+        value: "-38%",
+        label: "Cost Per Lead",
+        description: "Cost per qualified lead down by aligning SEO, ads and landing pages",
+      },
+      {
+        value: "Board Buy-In",
+        label: "Clear Impact",
+        description: "Board finally understood what digital was doing – and funded more of it",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We wanted a Yorkshire partner that would behave like an in-house team. Avorria are the first agency who actually show us how digital ties into revenue.",
+      author: "",
+      role: "",
+      company: "",
+    },
+    faqList: [
+      {
+        question: "Do you work with businesses outside Yorkshire?",
+        answer: "Yes, but many of our clients are based in Yorkshire or the North and like having a partner who understands the region.",
+      },
+      {
+        question: "Are you full-service?",
+        answer: "We focus on what drives pipeline: SEO, paid, web, content and tracking. If you need other specialist work (PR, brand filming etc.), we'll collaborate with partners.",
+      },
+      {
+        question: "Do you do one-off projects or only retainers?",
+        answer: "Both. We often start with a focused project (rebuild, audit, fix) then move into ongoing work if it makes sense.",
+      },
+      {
+        question: "How do we get started?",
+        answer: "Usually with a free audit or a strategy call. We'll review what you're doing now and tell you where we'd start.",
+      },
+    ],
+    targetKeyword: "digital marketing agency Yorkshire",
+    metaTitle: "Digital Marketing Agency Yorkshire | Pipeline-First Strategy | Avorria",
+    metaDescription: "Yorkshire digital marketing agency for teams who want pipeline, not noise. Joined-up SEO, paid media and web strategies that drive revenue.",
+    relatedCaseStudies: [],
+    relatedArticles: [],
+  },
+
+  // Digital Marketing Agency UK
+  {
+    id: "digital-marketing-agency-uk",
+    title: "Digital Marketing Agency UK",
+    slug: "digital-marketing-agency-uk",
+    type: "service-location",
+    service: getServiceBySlug("digital-marketing")!,
+    location: getLocationBySlug("uk")!,
+    heroHeadline: "UK digital marketing partner for businesses who want grown-up conversations about growth.",
+    heroSubheadline: "We work with UK-based businesses that are already investing in marketing and want to tighten everything up – strategy, execution, tracking and reporting – under one roof.",
+    primaryCTA: "Book a UK strategy call",
+    secondaryCTA: "Request a free SEO & website audit",
+    problemBullets: [
+      "You're working with multiple freelancers/shops and nobody truly owns performance.",
+      "Every channel is 'doing something', but no one can clearly explain what it adds up to.",
+      "The website isn't built for conversions, but everyone keeps driving paid traffic to it.",
+      "Reporting is fragmented and full of noise.",
+      "You suspect you're overpaying for underperformance.",
+    ],
+    solutionBullets: [
+      "Clear positioning of channels: what SEO, paid, content and web each own.",
+      "90-day plans with specific bets, tests and targets.",
+      "Fixing the website and funnel so marketing spend isn't wasted.",
+      "Joined-up tracking and dashboards that your leadership team can actually read.",
+      "Regular reviews where we recommend what to stop, start and scale.",
+    ],
+    keyMetrics: [
+      {
+        value: "Multiple 6-Fig",
+        label: "Pipeline Uplift",
+        description: "Multiple six-figure pipeline uplift attributed to cleaned-up digital across UK clients",
+      },
+      {
+        value: "Decisive",
+        label: "Marketing Meetings",
+        description: "Marketing meetings went from chaotic to decisive once the numbers were clear",
+      },
+      {
+        value: "Leadership Buy-In",
+        label: "Confidence",
+        description: "Leadership confidence increased because they finally understood what was working",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We treat Avorria as our UK growth team. They challenge us, show us the numbers and own the execution. It's exactly what we needed.",
+      author: "",
+      role: "",
+      company: "",
+    },
+    faqList: [
+      {
+        question: "Do you specialise in any particular sectors?",
+        answer: "We work best with service-led businesses, multi-location brands and B2B companies where leads and pipeline are the main measure of success.",
+      },
+      {
+        question: "Do you lock us into long contracts?",
+        answer: "No. We usually recommend a 6–12 month runway to do meaningful work, but we don't hide behind punitive terms.",
+      },
+      {
+        question: "Can you work with our existing in-house team?",
+        answer: "Yes. We can be the strategic/technical layer on top of your in-house execution, or take full ownership where you don't have capacity.",
+      },
+      {
+        question: "How do we know if we're a good fit?",
+        answer: "If you're already spending and want clarity, discipline and better outcomes from that spend, we're probably aligned. A strategy call will make it obvious either way.",
+      },
+    ],
+    targetKeyword: "digital marketing agency UK",
+    metaTitle: "Digital Marketing Agency UK | Full-Funnel Growth Strategy | Avorria",
+    metaDescription: "UK digital marketing partner for businesses who want grown-up conversations about growth. Strategy, execution, tracking and reporting under one roof.",
+    relatedCaseStudies: [],
+    relatedArticles: [],
+  },
 ];
 
 export const getLandingPageBySlug = (slug: string): LandingPage | undefined => {

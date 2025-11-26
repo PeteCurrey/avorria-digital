@@ -36,6 +36,28 @@ export const locations: Location[] = [
     slug: "leeds",
     isPrimaryMarket: false,
   },
+  {
+    id: "sheffield",
+    city: "Sheffield",
+    country: "United Kingdom",
+    slug: "sheffield",
+    isPrimaryMarket: true,
+  },
+  {
+    id: "yorkshire",
+    city: "Yorkshire",
+    region: "Yorkshire",
+    country: "United Kingdom",
+    slug: "yorkshire",
+    isPrimaryMarket: true,
+  },
+  {
+    id: "uk",
+    city: "UK",
+    country: "United Kingdom",
+    slug: "uk",
+    isPrimaryMarket: true,
+  },
 ];
 
 export const getLocationBySlug = (slug: string): Location | undefined => {

@@ -425,6 +425,31 @@ const Home = () => {
           </div>
         </section>
 
+        {/* Local Expertise Callout */}
+        <section className="py-16 px-6 bg-background border-y border-border">
+          <div className="container mx-auto max-w-4xl text-center">
+            <p className="text-lg text-muted-foreground">
+              Prefer to work with a team who knows your patch? See our{" "}
+              <Link to="/seo-agency/sheffield" className="text-accent hover:text-accent/80 font-medium">
+                SEO
+              </Link>
+              {" "}and{" "}
+              <Link to="/web-design/sheffield" className="text-accent hover:text-accent/80 font-medium">
+                web design services in Sheffield
+              </Link>
+              ,{" "}
+              <Link to="/digital-marketing-agency/yorkshire" className="text-accent hover:text-accent/80 font-medium">
+                Yorkshire
+              </Link>
+              {" "}and{" "}
+              <Link to="/digital-marketing-agency/uk" className="text-accent hover:text-accent/80 font-medium">
+                across the UK
+              </Link>
+              .
+            </p>
+          </div>
+        </section>
+
         {/* Testimonials */}
         <section className="py-24 px-6 bg-background">
           <div className="container mx-auto">

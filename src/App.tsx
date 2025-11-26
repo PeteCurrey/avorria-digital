@@ -111,6 +111,11 @@ const App = () => (
               <Route path="/client" element={<ClientPortal />} />
               
               {/* Landing Page Routes */}
+              <Route path="/seo-agency/sheffield" element={<DynamicLanding />} />
+              <Route path="/seo-agency/london" element={<DynamicLanding />} />
+              <Route path="/web-design/sheffield" element={<DynamicLanding />} />
+              <Route path="/digital-marketing-agency/yorkshire" element={<DynamicLanding />} />
+              <Route path="/digital-marketing-agency/uk" element={<DynamicLanding />} />
               <Route path="/:serviceSlug/:locationSlug" element={<DynamicLanding />} />
               <Route path="/:serviceSlug/for/:industrySlug" element={<DynamicLanding />} />
               

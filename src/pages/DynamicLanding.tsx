@@ -11,10 +11,21 @@ const DynamicLanding = () => {
   // Try to find an existing landing page first
   let landingPage = null;
 
+  // First, try to match by combined slug pattern (service-location or service-industry)
   if (serviceSlug && locationSlug) {
     landingPage = getLandingPageBySlug(`${serviceSlug}-${locationSlug}`);
   } else if (serviceSlug && industrySlug) {
     landingPage = getLandingPageBySlug(`${serviceSlug}-${industrySlug}`);
+  }
+
+  // If no match found, try to construct and match exact URL path as slug
+  // This handles custom URL patterns like /seo-agency/sheffield
+  if (!landingPage) {
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    if (pathSegments.length >= 2) {
+      const potentialSlug = pathSegments.join('-');
+      landingPage = getLandingPageBySlug(potentialSlug);
+    }
   }
 
   // If landing page exists, render it
