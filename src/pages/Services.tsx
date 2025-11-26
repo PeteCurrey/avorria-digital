@@ -174,9 +174,16 @@ const Services = () => {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/pricing">View Pricing</Link>
+              <Link to="/project-estimator">Get Project Estimate</Link>
             </Button>
           </div>
+          <p className="text-sm text-muted-foreground mt-6">
+            Not sure which service is right for you?{" "}
+            <Link to="/project-estimator" className="text-accent hover:underline">
+              Use our project estimator
+            </Link>{" "}
+            to scope your needs properly.
+          </p>
         </div>
       </section>
     </div>
