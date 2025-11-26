@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -105,6 +106,37 @@ const WebDesign = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Conversion-Led Web Design & Development | Avorria</title>
+        <meta name="description" content="Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one." />
+        
+        <meta property="og:title" content="Conversion-Led Web Design & Development | Avorria" />
+        <meta property="og:description" content="Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one." />
+        <meta property="og:url" content="https://avorria.com/services/web-design" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Conversion-Led Web Design & Development | Avorria" />
+        <meta name="twitter:description" content="Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one." />
+        
+        <link rel="canonical" href="https://avorria.com/services/web-design" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Web Design and Development",
+            "provider": {
+              "@type": "Organization",
+              "name": "Avorria"
+            },
+            "areaServed": ["UK", "EU"],
+            "description": "Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one."
+          })}
+        </script>
+      </Helmet>
+
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
@@ -363,6 +395,7 @@ const WebDesign = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

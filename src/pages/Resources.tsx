@@ -16,11 +16,36 @@ const Resources = () => {
   return (
     <>
       <Helmet>
-        <title>Resources & Guides | Avorria</title>
+        <title>Growth Playbooks & Guides | Avorria Resources</title>
         <meta
           name="description"
-          content="Digital marketing guides, playbooks and resources for business owners. No fluff—just practical advice on SEO, web design, paid media and analytics."
+          content="Operator-level guides on SEO, paid media, web, content and analytics. Playbooks, field notes and deep dives used to run real growth systems."
         />
+        
+        <meta property="og:title" content="Growth Playbooks & Guides | Avorria Resources" />
+        <meta property="og:description" content="Operator-level guides on SEO, paid media, web, content and analytics. Playbooks, field notes and deep dives used to run real growth systems." />
+        <meta property="og:url" content="https://avorria.com/resources" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Growth Playbooks & Guides | Avorria Resources" />
+        <meta name="twitter:description" content="Operator-level guides on SEO, paid media, web, content and analytics. Playbooks, field notes and deep dives used to run real growth systems." />
+        
+        <link rel="canonical" href="https://avorria.com/resources" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": pillarGuides.map((guide, index) => ({
+              "@type": "Article",
+              "position": index + 1,
+              "name": guide.title,
+              "description": guide.summary,
+              "url": `https://avorria.com/resources/${guide.slug}`
+            }))
+          })}
+        </script>
       </Helmet>
 
       <div className="min-h-screen">

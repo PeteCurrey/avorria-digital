@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp } from "lucide-react";
@@ -79,6 +80,41 @@ const CaseStudies = () => {
       : caseStudies.filter((study) => study.service === activeFilter);
 
   return (
+    <>
+      <Helmet>
+        <title>Case Studies – Proven Pipeline Uplift | Avorria</title>
+        <meta name="description" content="Real examples of how we've lifted organic leads, reduced CPL and cleaned up tracking for teams that were stuck." />
+        
+        <meta property="og:title" content="Case Studies – Proven Pipeline Uplift | Avorria" />
+        <meta property="og:description" content="Real examples of how we've lifted organic leads, reduced CPL and cleaned up tracking for teams that were stuck." />
+        <meta property="og:url" content="https://avorria.com/case-studies" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Case Studies – Proven Pipeline Uplift | Avorria" />
+        <meta name="twitter:description" content="Real examples of how we've lifted organic leads, reduced CPL and cleaned up tracking for teams that were stuck." />
+        
+        <link rel="canonical" href="https://avorria.com/case-studies" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": caseStudies.map((study, index) => ({
+              "@type": "Article",
+              "position": index + 1,
+              "name": study.title,
+              "description": study.description,
+              "url": `https://avorria.com${study.href}`,
+              "about": {
+                "@type": "Service",
+                "serviceType": study.service
+              }
+            }))
+          })}
+        </script>
+      </Helmet>
+
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background via-secondary to-background relative overflow-hidden">
@@ -193,6 +229,7 @@ const CaseStudies = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 
