@@ -6,6 +6,8 @@ import PaidMediaTab from "@/components/dashboard/PaidMediaTab";
 import FunnelTab from "@/components/dashboard/FunnelTab";
 import ContentTab from "@/components/dashboard/ContentTab";
 import NotesTab from "@/components/dashboard/NotesTab";
+import AuditsTab from "@/components/dashboard/AuditsTab";
+import HealthHistoryTab from "@/components/dashboard/HealthHistoryTab";
 
 // Future: Add auth checks and client-specific data loading
 // import { useAuth } from "@/hooks/useAuth";
@@ -43,6 +45,10 @@ const ClientPortal = () => {
         return <ContentTab />;
       case "notes":
         return <NotesTab />;
+      case "audits":
+        return <AuditsTab />;
+      case "health":
+        return <HealthHistoryTab />;
       default:
         return <OverviewTab />;
     }
