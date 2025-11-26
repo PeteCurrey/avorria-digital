@@ -4,6 +4,376 @@ import { getIndustryBySlug } from "./industries";
 import { getLocationBySlug } from "./locations";
 
 export const landingPages: LandingPage[] = [
+  // SEO for Trades & Home Services
+  {
+    id: "seo-trades-home-services",
+    title: "SEO for Trades & Home Services",
+    slug: "seo-trades-home-services",
+    type: "service-industry",
+    service: getServiceBySlug("seo")!,
+    industry: getIndustryBySlug("trades-home-services")!,
+    heroHeadline: "SEO for trades & home services that fills your diary, not just your rankings.",
+    heroSubheadline: "We help plumbers, electricians, HVAC, roofers and home services win the local searches that turn into actual jobs – with pages and tracking set up to prove it.",
+    primaryCTA: "Get a trades SEO strategy call",
+    secondaryCTA: "Request a local SEO & website audit",
+    problemBullets: [
+      "You're buried under national directories and lead brokers in Google.",
+      "You rank for your brand name, but not for the jobs you actually want.",
+      "Your site gets visits, but most people bounce or never pick up the phone.",
+      "Google Business Profile is half-filled, outdated or full of random photos.",
+      "You're paying for ads or SEO with no clear view of which calls came from where.",
+    ],
+    solutionBullets: [
+      "Local SEO strategy focused on the jobs, locations and margins that matter.",
+      "Proper service-area pages and local landing pages that actually convert.",
+      "Google Business Profile optimisation and reviews strategy.",
+      "Tracking on calls, forms and quote requests so you can see which channels pay.",
+      "Simple dashboards you or your office manager can actually understand.",
+    ],
+    keyMetrics: [
+      {
+        value: "+74%",
+        label: "Local Enquiries",
+        description: "Increase in local enquiries in 6 months after rebuilding location pages",
+      },
+      {
+        value: "+36%",
+        label: "Tracked Calls",
+        description: "More calls tracked back to SEO after fixing Google Business profiles",
+      },
+      {
+        value: "-28%",
+        label: "Lead Cost",
+        description: "Lead cost down by shifting focus from lead brokers to owned channels",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We'd been relying on word of mouth and some random ads. Once the local pages and profiles were sorted, the phones picked up – and we actually knew which jobs came from SEO vs everything else.",
+      author: "Mark Thompson",
+      role: "Owner",
+      company: "Thompson Heating & Plumbing",
+    },
+    faqList: [
+      {
+        question: "We're a small team – is SEO overkill for us?",
+        answer: "Not if you pick your battles. We focus on the services and areas that bring the best jobs, not trying to rank for every generic term in the country.",
+      },
+      {
+        question: "We already get leads from Checkatrade/lead brokers. Why bother?",
+        answer: "Those platforms will always take their cut. Building your own SEO assets means more direct enquiries, better margins and not being held hostage by a middleman.",
+      },
+      {
+        question: "Can you handle multiple branches/areas?",
+        answer: "Yes. We build a sensible structure for multiple locations so Google – and customers – know who to call where.",
+      },
+      {
+        question: "How do we know it's working?",
+        answer: "We track calls, forms and quote requests by channel, so you can see exactly what SEO is doing for your pipeline.",
+      },
+    ],
+    targetKeyword: "seo for trades",
+    metaTitle: "SEO for Trades & Home Services | Avorria",
+    metaDescription: "SEO for plumbers, electricians, HVAC and home services that fills your diary. Local SEO strategy, Google Business Profile optimization and conversion tracking.",
+    relatedCaseStudies: ["multi-location-web-design", "home-services-local-seo"],
+    relatedArticles: ["local-seo-home-services", "website-conversion-tips-trades"],
+  },
+
+  // SEO for Professional Services
+  {
+    id: "seo-professional-services",
+    title: "SEO for Professional Services",
+    slug: "seo-professional-services",
+    type: "service-industry",
+    service: getServiceBySlug("seo")!,
+    industry: getIndustryBySlug("professional-services")!,
+    heroHeadline: "SEO for professional services that attracts better-fit clients, not more tyre-kickers.",
+    heroSubheadline: "We design SEO around how serious buyers research firms like yours – and connect organic visibility to qualified enquiries, not random traffic.",
+    primaryCTA: "Book a professional services SEO call",
+    secondaryCTA: "Request an SEO & website audit",
+    problemBullets: [
+      "You get plenty of contact form spam but few serious enquiries.",
+      "You rank for vague 'informational' searches that never turn into work.",
+      "Your site reads like a brochure, not a trusted advisor.",
+      "There's no clear path from content to enquiry, just a lonely 'contact us' in the footer.",
+      "Partners want to see the commercial impact, not just rankings.",
+    ],
+    solutionBullets: [
+      "Keyword strategy focused on high-intent, 'ready to talk' search terms.",
+      "Service and sector pages that explain outcomes, not just credentials.",
+      "Thought-leadership and guides that feed real enquiries, not vanity metrics.",
+      "Clear, professional conversion paths (book a consultation, request a review, etc.).",
+      "Reporting that links organic visits to qualified leads and proposals.",
+    ],
+    keyMetrics: [
+      {
+        value: "+61%",
+        label: "Qualified Enquiries",
+        description: "Increase in qualified enquiries for a specialist B2B firm in 8 months",
+      },
+      {
+        value: "2x",
+        label: "Organic Leads",
+        description: "Doubling of organic leads from C-suite personas after restructuring content",
+      },
+      {
+        value: "Shorter",
+        label: "Sales Cycles",
+        description: "Shorter sales cycles when prospects arrive pre-educated via SEO content",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "SEO used to feel like a black box. We now know exactly which topics and pages are driving decent enquiries – and which to stop wasting time on.",
+      author: "Claire Barton",
+      role: "Partner",
+      company: "Barton Legal Partners",
+    },
+    faqList: [
+      {
+        question: "We have a long sales cycle – does SEO still help?",
+        answer: "Yes. SEO is perfect for educating buyers early and mid-funnel, then capturing them when they're ready to engage – provided it's structured around your real buying journey.",
+      },
+      {
+        question: "Are we going to have to write endless content?",
+        answer: "Not unless it's justified. We focus on high-impact pieces and can handle planning, briefs and production with your team's input.",
+      },
+      {
+        question: "How do we avoid attracting the wrong type of client?",
+        answer: "Positioning and messaging. We shape topics, language and calls-to-action so your ideal client recognises themselves – and the wrong ones self-select out.",
+      },
+      {
+        question: "Can you work around compliance and brand guidelines?",
+        answer: "Yes. We're used to operating inside regulated environments and structured sign-off processes.",
+      },
+    ],
+    targetKeyword: "seo for professional services",
+    metaTitle: "SEO for Professional Services | Avorria",
+    metaDescription: "SEO for law firms, consultancies and professional services that attracts better-fit clients. High-intent keyword strategy and conversion-focused content.",
+    relatedCaseStudies: ["professional-services-seo", "legal-services-seo-revenue"],
+    relatedArticles: ["professional-services-content", "seo-roi-measurement"],
+  },
+
+  // SEO for B2B SaaS
+  {
+    id: "seo-b2b-saas",
+    title: "SEO for B2B SaaS",
+    slug: "seo-b2b-saas",
+    type: "service-industry",
+    service: getServiceBySlug("seo")!,
+    industry: getIndustryBySlug("b2b-saas")!,
+    heroHeadline: "B2B SaaS SEO that feeds your pipeline, not just your blog.",
+    heroSubheadline: "We build SEO strategies around your ICP, pain points and product, then tie them into demos, trials and opportunities – not just 'traffic growth'.",
+    primaryCTA: "Talk B2B SaaS SEO",
+    secondaryCTA: "Request a SaaS SEO audit",
+    problemBullets: [
+      "You're ranking for top-of-funnel queries that never turn into trials.",
+      "Your blog is a random collection of topics, not structured demand capture.",
+      "There's no clear bridge from SEO content to product pages and onboarding.",
+      "Attribution between content, trials and closed-won is a mess.",
+      "You get lots of sign-ups, few real users.",
+    ],
+    solutionBullets: [
+      "ICP-focused keyword & topic mapping (by persona, problem, and stage).",
+      "Product-led SEO pages that show the 'job to be done', not just features.",
+      "Playbooks and use case hubs that link to demos and trials.",
+      "Clean tracking from SEO entry points through to sign-ups and opportunities.",
+      "CRO on key pages (pricing, demo, sign-up) to improve trial → SQL.",
+    ],
+    keyMetrics: [
+      {
+        value: "2.1x",
+        label: "Pipeline",
+        description: "Organic-sourced pipeline up in 12 months for a B2B SaaS platform",
+      },
+      {
+        value: "+89%",
+        label: "Qualified Sign-ups",
+        description: "Increase in product-qualified sign-ups from SEO after restructuring content",
+      },
+      {
+        value: "Better",
+        label: "Lead Quality",
+        description: "Fewer junk sign-ups, more demo requests from ICP accounts",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We'd spent years writing content. Avorria restructured it around our ICP and product and suddenly SEO became a credible pipeline source, not just a brand activity.",
+      author: "David Chen",
+      role: "VP Marketing",
+      company: "CloudFlow Solutions",
+    },
+    faqList: [
+      {
+        question: "Do you do programmatic/at-scale pages?",
+        answer: "Where it makes sense, yes – but only if it's aligned to demand and avoids thin, spammy duplication.",
+      },
+      {
+        question: "Can you plug into HubSpot/Salesforce for attribution?",
+        answer: "Yes, we can work with your CRM to track SEO-originated sign-ups and opportunities properly.",
+      },
+      {
+        question: "What about international SEO?",
+        answer: "We can plan and implement multi-region, multi-language structures where the economics justify it.",
+      },
+      {
+        question: "How quickly can we see impact?",
+        answer: "Depending on your starting point, you'll typically see early movement in 2–3 months and compounding gains beyond that.",
+      },
+    ],
+    targetKeyword: "b2b saas seo",
+    metaTitle: "B2B SaaS SEO | Pipeline-Focused SEO Services | Avorria",
+    metaDescription: "B2B SaaS SEO that feeds your pipeline. ICP-focused keyword strategy, product-led content and clean attribution from SEO to demos and opportunities.",
+    relatedCaseStudies: ["saas-paid-media", "professional-services-seo"],
+    relatedArticles: ["saas-content-strategy", "attribution-professional-services"],
+  },
+
+  // SEO for E-commerce Brands
+  {
+    id: "seo-ecommerce-brands",
+    title: "SEO for E-commerce Brands",
+    slug: "seo-ecommerce-brands",
+    type: "service-industry",
+    service: getServiceBySlug("seo")!,
+    industry: getIndustryBySlug("ecommerce-brands")!,
+    heroHeadline: "E-commerce SEO that moves revenue, not just rankings.",
+    heroSubheadline: "We fix structure, categories and on-site SEO so that more of your organic traffic turns into actual orders – and we show you the uplift clearly.",
+    primaryCTA: "Book an e-commerce SEO call",
+    secondaryCTA: "Get an e-commerce SEO audit",
+    problemBullets: [
+      "Category pages are thin, duplicated or impossible to navigate.",
+      "Product pages rely on manufacturer descriptions and look like everyone else's.",
+      "You get decent organic sessions but weak add-to-cart and checkout rates.",
+      "Faceted navigation and filters are messing with crawl and indexation.",
+      "It's hard to tell what SEO is actually worth in revenue.",
+    ],
+    solutionBullets: [
+      "Category structure and internal linking designed for buyers and crawlers.",
+      "Upgraded product and category content that actually sells.",
+      "Tech clean-up around filters, duplicates, canonicalisation and indexation.",
+      "SEO + CRO on key templates to improve add-to-cart, checkout and AOV.",
+      "Clear reporting on organic revenue, not just traffic.",
+    ],
+    keyMetrics: [
+      {
+        value: "+47%",
+        label: "Organic Revenue",
+        description: "YoY after restructuring categories and templates",
+      },
+      {
+        value: "+32%",
+        label: "Add-to-Cart Rate",
+        description: "From organic sessions after CRO on key pages",
+      },
+      {
+        value: "Better",
+        label: "Visibility",
+        description: "Fewer orphaned products, more visibility on high-margin categories",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "We'd been chasing random keywords for years. Once the structure and templates were sorted, organic revenue finally started to look like the traffic graphs.",
+      author: "Emma Caldwell",
+      role: "E-commerce Director",
+      company: "UrbanThread",
+    },
+    faqList: [
+      {
+        question: "Which platforms do you work with?",
+        answer: "Shopify, WooCommerce and most custom stacks. If your platform is genuinely holding you back, we'll say so.",
+      },
+      {
+        question: "Can you handle large catalogues?",
+        answer: "Yes – but we prioritise ruthlessly. Not every product needs bespoke SEO; categories and key SKUs come first.",
+      },
+      {
+        question: "Do you handle content and dev changes?",
+        answer: "We can implement directly or provide dev-ready and content-ready briefs for your internal team.",
+      },
+      {
+        question: "How do you measure success?",
+        answer: "Organic revenue, assisted revenue, and improvements in key conversion steps – not just traffic volume.",
+      },
+    ],
+    targetKeyword: "ecommerce seo",
+    metaTitle: "E-commerce SEO Services | Revenue-Focused SEO | Avorria",
+    metaDescription: "E-commerce SEO that moves revenue. Category structure, product optimization, technical clean-up and conversion-focused SEO strategy.",
+    relatedCaseStudies: ["ecommerce-cro", "multi-location-web-design"],
+    relatedArticles: ["ecommerce-seo-guide", "category-page-optimization"],
+  },
+
+  // SEO for Multi-Location Brands
+  {
+    id: "seo-multi-location-brands",
+    title: "SEO for Multi-Location Brands",
+    slug: "seo-multi-location-brands",
+    type: "service-industry",
+    service: getServiceBySlug("seo")!,
+    industry: getIndustryBySlug("multi-location-brands")!,
+    heroHeadline: "SEO for multi-location brands that keeps every site and profile pulling its weight.",
+    heroSubheadline: "We bring order to the chaos of multiple locations, profiles and pages – so customers find the right place, in the right city, with the right information, every time.",
+    primaryCTA: "Discuss multi-location SEO",
+    secondaryCTA: "Request a multi-location SEO audit",
+    problemBullets: [
+      "Each location has a slightly different, sometimes outdated web presence.",
+      "Some branches get all the leads; others barely see a contact form.",
+      "Google Business Profiles are inconsistent or unmanaged.",
+      "Location pages are cloned and thin, so Google doesn't trust them.",
+      "Head office has no clear view of which locations win or lose in search.",
+    ],
+    solutionBullets: [
+      "Global/local SEO strategy that respects brand but adapts to local realities.",
+      "Structured, unique location pages with local proof and CTAs.",
+      "GBProfile optimisation and process for reviews, photos and updates.",
+      "Tracking by location (calls and forms) so you know where demand is.",
+      "Simple reporting that multi-site leadership can actually use.",
+    ],
+    keyMetrics: [
+      {
+        value: "+52%",
+        label: "Local Enquiries",
+        description: "Across priority locations in 9 months",
+      },
+      {
+        value: "Clear",
+        label: "Performance View",
+        description: "Clear view of which branches need support and where demand is strongest",
+      },
+      {
+        value: "Better",
+        label: "Brand Consistency",
+        description: "Brand consistency improved while local relevance went up",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "Before, each location did its own thing. Now we have a system – Google knows where to send people, and so do we.",
+      author: "Rachel Foster",
+      role: "Head of Marketing",
+      company: "National Fitness Co.",
+    },
+    faqList: [
+      {
+        question: "We already have a centralised CMS – can you work with it?",
+        answer: "Yes. We design location templates that scale inside your current stack, then handle the rollout.",
+      },
+      {
+        question: "How do you avoid duplicate content across locations?",
+        answer: "By planning unique elements per location (services, proof, FAQs, team) and using smart templates instead of copy-paste pages.",
+      },
+      {
+        question: "Can you train our local teams to maintain profiles?",
+        answer: "Yes. We can provide playbooks and light training so branches don't accidentally undo the work.",
+      },
+      {
+        question: "Will this interfere with our paid campaigns?",
+        answer: "It should make them more effective – clearer structure and profiles help both SEO and PPC.",
+      },
+    ],
+    targetKeyword: "multi location seo",
+    metaTitle: "Multi-Location SEO Services | Avorria",
+    metaDescription: "SEO for multi-location brands. Structured local pages, Google Business Profile optimization and location-level tracking and reporting.",
+    relatedCaseStudies: ["multi-location-web-design", "home-services-local-seo"],
+    relatedArticles: ["multi-location-seo-strategy", "local-seo-guide"],
+  },
+
   // SEO in London
   {
     id: "seo-london",

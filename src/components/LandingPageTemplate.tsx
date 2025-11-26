@@ -419,30 +419,37 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
 
         {/* Internal Links Footer */}
         <section className="py-16 px-6 bg-secondary border-t border-border">
-          <div className="container mx-auto max-w-4xl">
-            <div className="grid md:grid-cols-3 gap-8 text-center">
+          <div className="container mx-auto max-w-5xl">
+            <div className="grid md:grid-cols-4 gap-8 text-center">
               <div>
                 <Link
                   to={service.pillarPageUrl}
-                  className="text-accent hover:text-accent/80 font-medium text-lg"
+                  className="text-accent hover:text-accent/80 font-medium text-lg block"
                 >
                   All {service.name} Services →
                 </Link>
               </div>
-              {industry && (
-                <div>
-                  <Link
-                    to={`/industries/${industry.slug}`}
-                    className="text-accent hover:text-accent/80 font-medium text-lg"
-                  >
-                    {industry.name} Resources →
-                  </Link>
-                </div>
-              )}
+              <div>
+                <Link
+                  to="/free-seo-website-audit"
+                  className="text-accent hover:text-accent/80 font-medium text-lg block"
+                >
+                  Free SEO & Website Audit →
+                </Link>
+              </div>
+              <div>
+                <Link
+                  to="/project-estimator"
+                  className="text-accent hover:text-accent/80 font-medium text-lg block"
+                >
+                  Project Estimator →
+                </Link>
+                <p className="text-xs text-muted-foreground mt-1">Not sure scope or budget?</p>
+              </div>
               <div>
                 <Link
                   to="/case-studies"
-                  className="text-accent hover:text-accent/80 font-medium text-lg"
+                  className="text-accent hover:text-accent/80 font-medium text-lg block"
                 >
                   View Case Studies →
                 </Link>
