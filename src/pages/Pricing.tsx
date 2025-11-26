@@ -247,9 +247,16 @@ const Pricing = () => {
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/services">View Services</Link>
+              <Link to="/project-estimator">Use Project Estimator</Link>
             </Button>
           </div>
+          <p className="text-sm text-muted-foreground mt-6">
+            Not sure exactly what you need?{" "}
+            <Link to="/project-estimator" className="text-accent hover:underline">
+              Try our project estimator
+            </Link>{" "}
+            to get a realistic ballpark and structured brief.
+          </p>
         </div>
       </section>
     </div>

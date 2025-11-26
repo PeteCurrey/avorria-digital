@@ -20,6 +20,7 @@ import Comparison from "./pages/Comparison";
 import WhyAvorria from "./pages/WhyAvorria";
 import NotFound from "./pages/NotFound";
 import AuditFunnel from "./pages/AuditFunnel";
+import ProjectEstimator from "./pages/ProjectEstimator";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -63,6 +64,9 @@ const App = () => (
               
               {/* Free Audit Funnel */}
               <Route path="/free-seo-website-audit" element={<AuditFunnel />} />
+              
+              {/* Project Estimator */}
+              <Route path="/project-estimator" element={<ProjectEstimator />} />
               
               {/* Landing Page Routes */}
               <Route path="/:serviceSlug/:locationSlug" element={<DynamicLanding />} />
