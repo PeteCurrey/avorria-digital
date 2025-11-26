@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -122,6 +123,37 @@ const SEOServices = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>SEO for Real Businesses, Not Bloggers | Avorria</title>
+        <meta name="description" content="Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust." />
+        
+        <meta property="og:title" content="SEO for Real Businesses, Not Bloggers | Avorria" />
+        <meta property="og:description" content="Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust." />
+        <meta property="og:url" content="https://avorria.com/services/seo" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="SEO for Real Businesses, Not Bloggers | Avorria" />
+        <meta name="twitter:description" content="Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust." />
+        
+        <link rel="canonical" href="https://avorria.com/services/seo" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "SEO Services",
+            "provider": {
+              "@type": "Organization",
+              "name": "Avorria"
+            },
+            "areaServed": ["UK", "EU"],
+            "description": "Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust."
+          })}
+        </script>
+      </Helmet>
+
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
@@ -518,6 +550,7 @@ const SEOServices = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, BarChart3, TrendingUp, Target } from "lucide-react";
@@ -52,6 +53,36 @@ const Reporting = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Reporting & Dashboards that Treat You Like an Operator | Avorria</title>
+        <meta name="description" content="Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place – no 40-slide decks." />
+        
+        <meta property="og:title" content="Reporting & Dashboards that Treat You Like an Operator | Avorria" />
+        <meta property="og:description" content="Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place – no 40-slide decks." />
+        <meta property="og:url" content="https://avorria.com/reporting" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Reporting & Dashboards that Treat You Like an Operator | Avorria" />
+        <meta name="twitter:description" content="Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place – no 40-slide decks." />
+        
+        <link rel="canonical" href="https://avorria.com/reporting" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Marketing Reporting & Dashboards",
+            "provider": {
+              "@type": "Organization",
+              "name": "Avorria"
+            },
+            "description": "Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place – no 40-slide decks."
+          })}
+        </script>
+      </Helmet>
+
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
@@ -225,6 +256,7 @@ const Reporting = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 
