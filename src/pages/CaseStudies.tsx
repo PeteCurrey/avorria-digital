@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp } from "lucide-react";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 
 const CaseStudies = () => {
   const [activeFilter, setActiveFilter] = useState("All");
@@ -80,15 +81,19 @@ const CaseStudies = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
-            Real clients. Real metrics.{" "}
-            <span className="font-semibold text-accent">Real results.</span>
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up">
-            Explore how we've helped businesses like yours achieve measurable growth through strategic digital marketing.
-          </p>
+      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background via-secondary to-background relative overflow-hidden">
+        {/* Subtle gradient mesh */}
+        <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-40" />
+        
+        <div className="container mx-auto max-w-4xl text-center relative">
+          <ScrollReveal>
+            <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground">
+              Proof that we actually move the numbers.
+            </h1>
+            <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
+              These are real client engagements with real outcomes. We treat case studies as operating playbooks, not trophies.
+            </p>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -116,25 +121,29 @@ const CaseStudies = () => {
       {/* Case Studies Grid */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" stagger={80}>
             {filteredStudies.map((study, index) => (
               <Card
                 key={index}
-                className="border-border hover:shadow-xl transition-all group animate-fade-in-up"
+                className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group"
               >
                 <CardContent className="p-8 space-y-4 flex flex-col h-full">
                   <div className="flex items-start justify-between mb-2">
-                    <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-md">
+                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-accent/20 to-accent/10 text-accent text-xs font-semibold rounded-md">
                       {study.service}
                     </span>
-                    <TrendingUp className="text-accent" size={20} />
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-[var(--duration-base)]">
+                      <TrendingUp className="text-accent" size={20} />
+                    </div>
                   </div>
                   <div className="flex-1 space-y-4">
-                    <div className="text-4xl font-light text-accent">{study.metric}</div>
+                    <div className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-accent to-[hsl(280,75%,60%)]">
+                      {study.metric}
+                    </div>
                     <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                       {study.metricLabel}
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                       {study.title}
                     </h3>
                     <p className="text-sm text-muted-foreground">{study.industry}</p>
@@ -143,15 +152,15 @@ const CaseStudies = () => {
                   </div>
                   <Link
                     to={study.href}
-                    className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-colors mt-auto"
+                    className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-all duration-[var(--duration-fast)] mt-auto group/link"
                   >
                     View full case study
-                    <ArrowRight className="ml-2" size={16} />
+                    <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)]" size={16} />
                   </Link>
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </ScrollRevealGrid>
 
           {filteredStudies.length === 0 && (
             <div className="text-center py-16">
