@@ -27,8 +27,7 @@ const Navigation = ({ transparent = false }: NavigationProps) => {
     { name: "Case Studies", href: "/case-studies" },
     { name: "Industries", href: "/industries" },
     { name: "Resources", href: "/resources" },
-    { name: "Free Audit", href: "/free-seo-website-audit" },
-    { name: "Estimator", href: "/project-estimator" },
+    { name: "Reporting", href: "/reporting" },
     { name: "Pricing", href: "/pricing" },
     { name: "About", href: "/about" },
   ];
