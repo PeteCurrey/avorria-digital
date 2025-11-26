@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp, Target, Zap, BarChart3, CheckCircle2, X } from "lucide-react";
@@ -119,6 +120,36 @@ const Home = () => {
     answer: "Either request a free SEO & website audit, or book a strategy call. We'll review your current setup, give you a straight assessment and outline what we'd actually do."
   }];
   return <>
+      <Helmet>
+        <title>Avorria – Digital Growth Systems for Serious Teams</title>
+        <meta name="description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
+        
+        <meta property="og:title" content="Avorria – Digital Growth Systems for Serious Teams" />
+        <meta property="og:description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
+        <meta property="og:url" content="https://avorria.com" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Avorria – Digital Growth Systems for Serious Teams" />
+        <meta name="twitter:description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
+        
+        <link rel="canonical" content="https://avorria.com" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Avorria",
+            "url": "https://avorria.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": "https://avorria.com/search?q={search_term_string}",
+              "query-input": "required name=search_term_string"
+            }
+          })}
+        </script>
+      </Helmet>
+
       {/* Override default navigation with transparent version */}
       <div className="relative z-50">
         <Navigation transparent={true} />

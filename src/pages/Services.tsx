@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Search, Target, Palette, Mail, Share2, BarChart3 } from "lucide-react";
@@ -44,6 +45,37 @@ const Services = () => {
   ];
 
   return (
+    <>
+      <Helmet>
+        <title>Services – SEO, Paid Media, Web & Analytics | Avorria</title>
+        <meta name="description" content="Explore Avorria's growth stack – SEO, paid media, web design, content, social and analytics. Pick the entry point that matches where your pipeline is stuck." />
+        
+        <meta property="og:title" content="Services – SEO, Paid Media, Web & Analytics | Avorria" />
+        <meta property="og:description" content="Explore Avorria's growth stack – SEO, paid media, web design, content, social and analytics. Pick the entry point that matches where your pipeline is stuck." />
+        <meta property="og:url" content="https://avorria.com/services" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Services – SEO, Paid Media, Web & Analytics | Avorria" />
+        <meta name="twitter:description" content="Explore Avorria's growth stack – SEO, paid media, web design, content, social and analytics. Pick the entry point that matches where your pipeline is stuck." />
+        
+        <link rel="canonical" href="https://avorria.com/services" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": services.map((service, index) => ({
+              "@type": "Service",
+              "position": index + 1,
+              "name": service.title,
+              "description": service.description,
+              "url": `https://avorria.com${service.href}`
+            }))
+          })}
+        </script>
+      </Helmet>
+
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
@@ -240,6 +272,7 @@ const Services = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

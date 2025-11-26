@@ -1,209 +1,308 @@
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Target, Zap, Shield, Users } from "lucide-react";
+import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle } from "lucide-react";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 
 const About = () => {
-  const values = [
+  const principles = [
     {
       icon: Target,
-      title: "Revenue-First Mindset",
-      description: "Every campaign, every optimization, every decision is tied directly to business outcomes. We measure success by your growth, not our activity.",
+      title: "Pipeline or it doesn't count.",
+      description: "If we can't connect an activity to leads, opportunities or revenue, it doesn't belong in the plan.",
     },
     {
-      icon: Zap,
-      title: "Move Fast, Think Deep",
-      description: "We combine strategic rigor with execution speed. AI enhances our workflows, but human expertise drives every decision.",
+      icon: Lock,
+      title: "Tracking before tactics.",
+      description: "We fix the measurement mess first, otherwise every decision is just an opinion war.",
     },
     {
-      icon: Shield,
-      title: "Radical Transparency",
-      description: "You'll always know what we're doing, why we're doing it, and how it's performing. No black boxes, no agency mystique.",
+      icon: Pencil,
+      title: "Design serves decisions.",
+      description: "We love clean interfaces, but only when they make it easier for the right people to say 'yes'.",
     },
     {
-      icon: Users,
-      title: "Partnership, Not Vendor",
-      description: "We're an extension of your team, not a distant service provider. Your wins are our wins.",
+      icon: MessageSquare,
+      title: "Radical clarity.",
+      description: "We'll tell you if something isn't working, even if it makes a nice slide.",
     },
   ];
 
-  const team = [
+  const bestFit = [
+    "B2B, services, SaaS or multi-location brands",
+    "Already spending on marketing, but know it can work harder",
+    "Willing to be challenged and make decisions",
+    "Want a partner who talks in numbers and trade-offs, not hype",
+  ];
+
+  const notAFit = [
+    "Looking for the cheapest quote",
+    "Want to outsource responsibility but keep all the control",
+    "Expect miracles in 30 days on a tiny budget",
+    "Want campaigns for the sake of activity",
+  ];
+
+  const howWeWork = [
     {
-      name: "Strategic Lead",
-      role: "Digital Strategy & Analytics",
-      description: "Translates business goals into measurable digital strategies. Data-driven decision making is the foundation of everything.",
+      step: "1",
+      title: "Reality check.",
+      description: "Audits, discovery calls and data pulls to understand where you really are.",
     },
     {
-      name: "SEO Director",
-      role: "Technical SEO & Content",
-      description: "Combines technical excellence with content strategy to build organic engines that drive qualified leads.",
+      step: "2",
+      title: "90-day operating plan.",
+      description: "We choose a small number of big bets and key fixes, then assign owners and timelines.",
     },
     {
-      name: "Creative Lead",
-      role: "Web Design & UX",
-      description: "Designs sites that don't just look premium—they convert. Every layout decision is backed by data and user behavior.",
-    },
-    {
-      name: "Performance Lead",
-      role: "Paid Media & CRO",
-      description: "Engineers campaigns for pipeline, not impressions. Obsessed with ROI, testing, and continuous optimization.",
+      step: "3",
+      title: "Execution & optimisation.",
+      description: "We build, ship, and adjust based on actual numbers – not how everyone feels.",
     },
   ];
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto max-w-4xl">
-          <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground text-center animate-fade-in">
-            Strategy, creativity, and execution{" "}
-            <span className="font-semibold text-accent">under one roof</span>
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed text-center mb-10 animate-fade-in-up">
-            Avorria exists because most agencies confuse activity with results. We're different.
-          </p>
-        </div>
-      </section>
+    <>
+      <Helmet>
+        <title>About Avorria – Your Operator-Level Growth Partner</title>
+        <meta name="description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
+        
+        <meta property="og:title" content="About Avorria – Your Operator-Level Growth Partner" />
+        <meta property="og:description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
+        <meta property="og:url" content="https://avorria.com/about" />
+        <meta property="og:type" content="website" />
+        
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="About Avorria – Your Operator-Level Growth Partner" />
+        <meta name="twitter:description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
+        
+        <link rel="canonical" href="https://avorria.com/about" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "Avorria",
+            "url": "https://avorria.com",
+            "logo": "https://avorria.com/logo.png",
+            "description": "A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Sheffield",
+              "addressRegion": "South Yorkshire",
+              "addressCountry": "UK"
+            },
+            "sameAs": [
+              "https://www.linkedin.com/company/avorria"
+            ]
+          })}
+        </script>
+      </Helmet>
 
-      {/* Story Section */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <div className="space-y-6 text-lg text-muted-foreground leading-relaxed">
-            <p>
-              We started Avorria after years of watching businesses waste budgets on agencies that couldn't connect their work to actual revenue growth. Keyword reports, vanity metrics, beautiful creative with no conversion strategy—it was everywhere.
-            </p>
-            <p>
-              The problem wasn't a lack of talent. It was a lack of accountability and a fundamental misunderstanding of what businesses actually need: <span className="text-foreground font-semibold">measurable growth tied to their bottom line</span>.
-            </p>
-            <p>
-              So we built Avorria around a simple idea: treat marketing like a business function, not an art project. That means clear strategies, transparent reporting, and obsessive focus on metrics that matter—leads, pipeline, revenue.
-            </p>
-            <p className="text-foreground font-semibold">
-              We're not here to win awards or look clever. We're here to help you grow.
-            </p>
-          </div>
-        </div>
-      </section>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-background via-background to-secondary/20">
+          <ScrollReveal>
+            <div className="container mx-auto max-w-4xl text-center">
+              <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground">
+                The operators behind{" "}
+                <span className="font-semibold bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+                  the pretty dashboards.
+                </span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
+                Avorria is a small, senior team that has spent years inside real businesses fixing messy marketing, broken tracking and underperforming websites. We care more about your pipeline than our awards shelf.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button variant="accent" size="lg" asChild>
+                  <Link to="/contact">
+                    Meet the team on a call
+                    <ArrowRight className="ml-2" size={20} />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/reporting">See how we report</Link>
+                </Button>
+              </div>
+            </div>
+          </ScrollReveal>
+        </section>
 
-      {/* Values Section */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              What drives us
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Our values aren't just wall art. They guide every decision we make.
-            </p>
+        {/* What We Believe */}
+        <section className="py-24 px-6 bg-background">
+          <div className="container mx-auto">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-light mb-4 text-foreground">
+                  What we actually believe.
+                </h2>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid>
+              <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                {principles.map((principle, index) => (
+                  <Card
+                    key={index}
+                    className="border-border/50 shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all duration-[var(--duration-normal)]"
+                  >
+                    <CardContent className="p-8">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/10 to-primary/10 flex items-center justify-center mb-4">
+                        <principle.icon className="text-accent" size={24} />
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">{principle.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed">{principle.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ScrollRevealGrid>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <value.icon className="text-accent" size={24} />
+        </section>
+
+        {/* Who We Work Best With */}
+        <section className="py-24 px-6 bg-gradient-to-br from-secondary/30 to-background">
+          <div className="container mx-auto max-w-5xl">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-light mb-4 text-foreground">
+                  Who we work best with.
+                </h2>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid>
+              <div className="grid md:grid-cols-2 gap-8">
+                <Card className="border-green-500/20 bg-gradient-to-br from-green-500/5 to-background shadow-soft">
+                  <CardContent className="p-8">
+                    <h3 className="text-xl font-semibold text-foreground mb-6">Best fit</h3>
+                    <ul className="space-y-3">
+                      {bestFit.map((item, idx) => (
+                        <li key={idx} className="flex items-start text-sm text-muted-foreground">
+                          <CheckCircle2 className="text-green-500 mr-2 flex-shrink-0 mt-0.5" size={16} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+
+                <Card className="border-red-500/20 bg-gradient-to-br from-red-500/5 to-background shadow-soft">
+                  <CardContent className="p-8">
+                    <h3 className="text-xl font-semibold text-foreground mb-6">Probably not a fit</h3>
+                    <ul className="space-y-3">
+                      {notAFit.map((item, idx) => (
+                        <li key={idx} className="flex items-start text-sm text-muted-foreground">
+                          <XCircle className="text-red-500 mr-2 flex-shrink-0 mt-0.5" size={16} />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </div>
+            </ScrollRevealGrid>
+          </div>
+        </section>
+
+        {/* Team Leadership */}
+        <section className="py-24 px-6 bg-background">
+          <div className="container mx-auto max-w-4xl">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-light mb-4 text-foreground">
+                  Founder / Lead
+                </h2>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollReveal>
+              <Card className="border-border/50 shadow-soft max-w-2xl mx-auto">
+                <CardContent className="p-10">
+                  <div className="flex items-start gap-6">
+                    <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white text-2xl font-semibold flex-shrink-0">
+                      A
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-semibold text-foreground mb-1">Avorria Leadership</h3>
+                      <p className="text-accent font-medium mb-4">Founder / Operator</p>
+                      <ul className="space-y-2 text-muted-foreground">
+                        <li className="flex items-start">
+                          <span className="text-accent mr-2">•</span>
+                          <span>Built and scaled multiple service brands across B2B, SaaS and multi-location sectors.</span>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="text-accent mr-2">•</span>
+                          <span>Has lived through broken tracking, bad agencies and messy migrations – then fixed them.</span>
+                        </li>
+                        <li className="flex items-start">
+                          <span className="text-accent mr-2">•</span>
+                          <span>Thinks like an owner, not a supplier.</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground">{value.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{value.description}</p>
                 </CardContent>
               </Card>
-            ))}
+            </ScrollReveal>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Team Section */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              The team behind the results
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Specialists who think like business owners, not creatives chasing awards.
-            </p>
+        {/* How We Work Together */}
+        <section className="py-24 px-6 bg-gradient-to-br from-secondary/30 to-background">
+          <div className="container mx-auto max-w-5xl">
+            <ScrollReveal>
+              <div className="text-center mb-12">
+                <h2 className="text-4xl font-light mb-4 text-foreground">
+                  How we work together.
+                </h2>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid>
+              <div className="grid md:grid-cols-3 gap-8">
+                {howWeWork.map((item, index) => (
+                  <Card key={index} className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
+                    <CardContent className="p-8">
+                      <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white text-xl font-semibold mb-4">
+                        {item.step}
+                      </div>
+                      <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
+                      <p className="text-muted-foreground leading-relaxed text-sm">{item.description}</p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </ScrollRevealGrid>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {team.map((member, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-8 space-y-4 text-center">
-                  <div className="w-20 h-20 rounded-full bg-accent/10 mx-auto flex items-center justify-center">
-                    <span className="text-2xl font-light text-accent">{member.name.charAt(0)}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground">{member.name}</h3>
-                    <p className="text-sm text-accent font-medium">{member.role}</p>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{member.description}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* How We Work Section */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              How we work with clients
-            </h2>
-          </div>
-          <Card className="border-border">
-            <CardContent className="p-10 space-y-8">
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Partnership Model</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  We integrate with your team as a strategic partner, not a distant vendor. You'll have direct access to specialists, regular strategy sessions, and a shared Slack channel for fast communication.
-                </p>
+        {/* CTA Section */}
+        <section className="py-24 px-6 bg-background">
+          <ScrollReveal>
+            <div className="container mx-auto max-w-4xl text-center">
+              <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
+                Ready to work with a team that treats your budget like their own?
+              </h2>
+              <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+                Book a strategy call to discuss your goals, challenges, and how we can help.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button variant="accent" size="lg" asChild>
+                  <Link to="/contact">
+                    Get a free audit
+                    <ArrowRight className="ml-2" size={20} />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/contact">Book a strategy call</Link>
+                </Button>
               </div>
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Communication Cadence</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Weekly async updates, bi-weekly strategy calls, and monthly deep-dive reports. We're responsive, but we don't waste your time with unnecessary meetings.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Reporting Rhythm</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Real-time dashboards for daily performance checks. Detailed monthly reports that focus on business metrics: leads, pipeline value, cost per acquisition, and revenue attribution. No vanity fluff.
-                </p>
-              </div>
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Continuous Optimization</h3>
-                <p className="text-muted-foreground leading-relaxed">
-                  Marketing isn't set-and-forget. We continuously test, learn, and refine based on data. Every month brings new insights and optimizations that compound over time.
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
-            Ready to work with a team that treats your budget like their own?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Book a strategy call to discuss your goals, challenges, and how we can help.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
-                Book a Strategy Call
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/case-studies">View Case Studies</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-    </div>
+            </div>
+          </ScrollReveal>
+        </section>
+      </div>
+    </>
   );
 };
 
