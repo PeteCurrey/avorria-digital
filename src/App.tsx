@@ -26,6 +26,7 @@ import DashboardDemo from "./pages/DashboardDemo";
 import ClientPortal from "./pages/ClientPortal";
 import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
+import WebsitesWeFire from "./pages/WebsitesWeFire";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -76,6 +77,9 @@ const App = () => (
               {/* Agency Teardown */}
               <Route path="/agency-report-teardown" element={<AgencyTeardown />} />
               <Route path="/agency-report-teardown/thanks" element={<AgencyTeardownThanks />} />
+              
+              {/* Websites We'd Fire */}
+              <Route path="/websites-we-would-fire" element={<WebsitesWeFire />} />
               
               {/* Reporting & Dashboard */}
               <Route path="/reporting" element={<Reporting />} />
