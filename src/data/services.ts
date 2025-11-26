@@ -41,6 +41,16 @@ export const services: Service[] = [
     secondaryCTA: "View Samples",
     pillarPageUrl: "/services/content-email",
   },
+  {
+    id: "digital-marketing",
+    name: "Digital Marketing",
+    slug: "digital-marketing",
+    shortDescription: "Integrated SEO, paid media, web and content strategies for full-funnel growth.",
+    longDescription: "End-to-end digital marketing for teams who want pipeline, not noise.",
+    primaryCTA: "Book Strategy Call",
+    secondaryCTA: "Get Free Audit",
+    pillarPageUrl: "/services",
+  },
 ];
 
 export const getServiceBySlug = (slug: string): Service | undefined => {

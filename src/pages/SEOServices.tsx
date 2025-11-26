@@ -414,6 +414,62 @@ const SEOServices = () => {
         </div>
       </section>
 
+      {/* SEO by Location */}
+      <section className="py-24 px-6 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-light mb-4 text-foreground">SEO by location</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Prefer to work with a team who knows your patch?
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="border-border hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3 text-foreground">SEO Agency Sheffield</h3>
+                <p className="text-muted-foreground mb-4">
+                  Performance-focused SEO for Sheffield and South Yorkshire businesses.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/seo-agency/sheffield">
+                    Learn more
+                    <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="border-border hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3 text-foreground">SEO Agency London</h3>
+                <p className="text-muted-foreground mb-4">
+                  Pipeline-focused SEO strategy for London-based teams.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/seo-agency/london">
+                    Learn more
+                    <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="border-border hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3 text-foreground">SEO Across the UK</h3>
+                <p className="text-muted-foreground mb-4">
+                  Work with us wherever you're based in the UK.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/digital-marketing-agency/uk">
+                    Learn more
+                    <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-3xl">

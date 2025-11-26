@@ -273,6 +273,48 @@ const WebDesign = () => {
         </div>
       </section>
 
+      {/* Web Design by Location */}
+      <section className="py-24 px-6 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-light mb-4 text-foreground">Web design by location</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Looking for a local web design partner?
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+            <Card className="border-border hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3 text-foreground">Web Design Sheffield</h3>
+                <p className="text-muted-foreground mb-4">
+                  Conversion-focused websites for Sheffield businesses.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/web-design/sheffield">
+                    Learn more
+                    <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+            <Card className="border-border hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <h3 className="text-xl font-semibold mb-3 text-foreground">Web Design Across the UK</h3>
+                <p className="text-muted-foreground mb-4">
+                  We work with businesses across the UK and beyond.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/contact">
+                    Get in touch
+                    <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-3xl">
