@@ -24,6 +24,8 @@ import ProjectEstimator from "./pages/ProjectEstimator";
 import Reporting from "./pages/Reporting";
 import DashboardDemo from "./pages/DashboardDemo";
 import ClientPortal from "./pages/ClientPortal";
+import AgencyTeardown from "./pages/AgencyTeardown";
+import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -70,6 +72,10 @@ const App = () => (
               
               {/* Project Estimator */}
               <Route path="/project-estimator" element={<ProjectEstimator />} />
+              
+              {/* Agency Teardown */}
+              <Route path="/agency-report-teardown" element={<AgencyTeardown />} />
+              <Route path="/agency-report-teardown/thanks" element={<AgencyTeardownThanks />} />
               
               {/* Reporting & Dashboard */}
               <Route path="/reporting" element={<Reporting />} />
