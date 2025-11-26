@@ -21,6 +21,9 @@ import WhyAvorria from "./pages/WhyAvorria";
 import NotFound from "./pages/NotFound";
 import AuditFunnel from "./pages/AuditFunnel";
 import ProjectEstimator from "./pages/ProjectEstimator";
+import Reporting from "./pages/Reporting";
+import DashboardDemo from "./pages/DashboardDemo";
+import ClientPortal from "./pages/ClientPortal";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -67,6 +70,11 @@ const App = () => (
               
               {/* Project Estimator */}
               <Route path="/project-estimator" element={<ProjectEstimator />} />
+              
+              {/* Reporting & Dashboard */}
+              <Route path="/reporting" element={<Reporting />} />
+              <Route path="/reporting/demo" element={<DashboardDemo />} />
+              <Route path="/client" element={<ClientPortal />} />
               
               {/* Landing Page Routes */}
               <Route path="/:serviceSlug/:locationSlug" element={<DynamicLanding />} />
