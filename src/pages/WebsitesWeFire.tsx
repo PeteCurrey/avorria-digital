@@ -294,8 +294,7 @@ const WebsitesWeFire = () => {
                   Websites We'd Fire <span className="text-accent">(And How We'd Fix Them)</span>
                 </h1>
                 <p className="text-lg text-muted-foreground">
-                  If your homepage is a vanity brochure instead of a sales asset, it's costing you.
-                  Here's what we'd sack on sight – and what an Avorria rebuild would do instead.
+                  If your homepage is a vanity brochure instead of a sales asset, it's quietly taxing your pipeline. Here's what we'd sack on sight – and what an Avorria rebuild would do instead.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
                   <Button

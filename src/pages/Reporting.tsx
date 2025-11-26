@@ -12,29 +12,19 @@ import {
 const Reporting = () => {
   const reportingCadence = [
     {
-      title: "Weekly Snapshot",
-      description: "Quick performance pulse",
-      items: ["Key metrics at a glance", "Week-over-week trends", "Any immediate action items"],
+      title: "Weekly snapshots",
+      description: "Short check-ins, key movements, any fires that need putting out. Ideal for you or your marketing lead to keep a finger on the pulse.",
+      items: [] as string[],
     },
     {
-      title: "Monthly Deep-Dive",
-      description: "Full performance review",
-      items: [
-        "Comprehensive channel breakdown",
-        "Campaign-level analysis",
-        "Content performance",
-        "Next month's action plan",
-      ],
+      title: "Monthly deep-dives",
+      description: "Channel performance, tests, learnings and decisions. We agree what to stop, start and scale – and update the 90-day plan accordingly.",
+      items: [] as string[],
     },
     {
-      title: "Quarterly Strategy Review",
-      description: "Big-picture planning",
-      items: [
-        "Progress against goals",
-        "Market & competitive insights",
-        "Budget allocation review",
-        "Strategic roadmap for next quarter",
-      ],
+      title: "Quarterly strategy reviews",
+      description: "Bigger-picture conversations about positioning, offers, budgets and where we're heading. Less \"what happened last week\", more \"where do we want to be in six months?\".",
+      items: [] as string[],
     },
   ];
 
@@ -42,22 +32,22 @@ const Reporting = () => {
     {
       question: "What tools do you use for reporting?",
       answer:
-        "We use a combination of Google Analytics 4, Search Console, ad platform dashboards (Google Ads, Meta, LinkedIn), and our own custom reporting interface. Everything is consolidated into one client dashboard so you don't need to log into multiple tools.",
+        "It depends on the stack you already have. We're tool-agnostic – we care that the numbers are right and visible. We can plug into GA4, ad platforms, your CRM and spreadsheets if we have to.",
     },
     {
       question: "Can you integrate with our CRM?",
       answer:
-        "Yes. We integrate with most major CRMs (HubSpot, Salesforce, Pipedrive, etc.) to track leads and pipeline value directly in your dashboard. This gives you a complete view from first visit to closed deal.",
+        "In most cases, yes. Wherever possible, we connect leads and revenue back to campaigns so you see the full journey, not just the top of the funnel.",
     },
     {
       question: "Can we customise the dashboard?",
       answer:
-        "Absolutely. We'll tailor the dashboard to focus on the metrics that matter most to your business. If you care about pipeline value more than sessions, we'll prioritize that. If you want to track specific conversion events, we'll add them.",
+        "Absolutely. There's a core structure we know works, but we'll adapt it to your business model, sales process and internal reporting rhythm.",
     },
     {
-      question: "Do you cover both SEO and Paid in one place?",
+      question: "Do we still get human explanation or just a dashboard link?",
       answer:
-        "Yes. One of the benefits of working with Avorria is that all your channels—organic, paid, content, email—are reported in a single unified view. You see how they work together, not in isolation.",
+        "You get both. The dashboard is the truth; the written summary and calls are where we translate that into decisions.",
     },
   ];
 
@@ -71,8 +61,7 @@ const Reporting = () => {
             <span className="font-semibold text-accent">operator, not a passenger</span>
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up">
-            Every engagement comes with a transparent, plain-English dashboard that shows traffic, leads,
-            pipeline and revenue—not vanity charts.
+            Every engagement comes with a plain-English dashboard that shows traffic, leads, pipeline and ROI in one place – plus a short narrative on what we did, what changed and what we're doing next.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
             <Button variant="accent" size="lg" asChild>
@@ -92,10 +81,7 @@ const Reporting = () => {
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-6xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">What We Show You — At a Glance</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              No vanity metrics. No mystery retainers. Just the numbers that actually matter to your business.
-            </p>
+            <h2 className="text-4xl font-light mb-4 text-foreground">The numbers that actually matter.</h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -106,8 +92,7 @@ const Reporting = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-foreground">Traffic & Visibility</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Organic, paid, branded vs non-branded. We show you where your visitors are coming from and
-                  which channels are driving actual business value.
+                  All the basics, without the fluff. Organic vs paid, branded vs non-branded, and how visibility is trending over time. Enough to understand the health of the machine at a glance.
                 </p>
               </CardContent>
             </Card>
@@ -119,8 +104,7 @@ const Reporting = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-foreground">Leads & Pipeline</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Leads, qualified leads, pipeline value. We connect marketing activity directly to your sales
-                  funnel so you can see what's actually working.
+                  Leads, qualified leads and estimated pipeline value across channels. We connect marketing activity to sales outcomes, not just "engagement".
                 </p>
               </CardContent>
             </Card>
@@ -132,8 +116,7 @@ const Reporting = () => {
                 </div>
                 <h3 className="text-2xl font-semibold text-foreground">Efficiency & ROI</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Cost per lead, ROAS, revenue multiples. We obsess over efficiency so you can confidently
-                  scale what's working and cut what's not.
+                  Cost per lead, cost per qualified lead, ROAS and other hard measures. If a channel can't justify itself in numbers, it doesn't stay in the plan.
                 </p>
               </CardContent>
             </Card>
@@ -145,10 +128,7 @@ const Reporting = () => {
       <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">Reporting Rhythm</h2>
-            <p className="text-lg text-muted-foreground">
-              Consistent cadence, no surprises, always aligned on what's next
-            </p>
+            <h2 className="text-4xl font-light mb-4 text-foreground">A reporting cadence you can actually run your business on.</h2>
           </div>
 
           <div className="space-y-8">
@@ -161,15 +141,7 @@ const Reporting = () => {
                     </div>
                     <div className="flex-1">
                       <h3 className="text-2xl font-semibold text-foreground mb-2">{item.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-4">{item.description}</p>
-                      <ul className="space-y-2">
-                        {item.items.map((listItem, listIdx) => (
-                          <li key={listIdx} className="flex items-start gap-2 text-sm text-foreground">
-                            <span className="text-accent mt-0.5">✓</span>
-                            <span>{listItem}</span>
-                          </li>
-                        ))}
-                      </ul>
+                      <p className="text-muted-foreground">{item.description}</p>
                     </div>
                   </div>
                 </CardContent>
@@ -177,39 +149,42 @@ const Reporting = () => {
             ))}
           </div>
 
-          <Card className="border-accent/20 bg-accent/5 mt-12">
-            <CardContent className="p-8">
-              <h3 className="text-xl font-semibold text-foreground mb-4">Our Reporting Guarantees</h3>
-              <ul className="space-y-3">
-                <li className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="text-accent font-semibold">✓</span>
-                  <span>
-                    <strong>No surprise retainers</strong> – You always know what we're working on and why
-                  </span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="text-accent font-semibold">✓</span>
-                  <span>
-                    <strong>No unexplained line items</strong> – Every action is documented and justified
-                  </span>
-                </li>
-                <li className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="text-accent font-semibold">✓</span>
-                  <span>
-                    <strong>You know what's next</strong> – Clear roadmap and priorities at all times
-                  </span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+        </div>
+      </section>
+
+      {/* Visual Pattern / Screens Section */}
+      <section className="py-24 px-6 bg-background">
+        <div className="container mx-auto max-w-4xl">
+          <h2 className="text-4xl font-light mb-6 text-foreground text-center">
+            No 40-slide decks. One clear control panel.
+          </h2>
+          <p className="text-lg text-muted-foreground mb-8 text-center max-w-2xl mx-auto">
+            We don't believe in sending you a slide deck you'll never read. You get a live-style dashboard and a short written summary that answers three questions:
+          </p>
+          <div className="grid md:grid-cols-3 gap-6 mb-12">
+            <Card className="p-6 border-border">
+              <h3 className="text-lg font-semibold text-foreground mb-2">Are we on track?</h3>
+            </Card>
+            <Card className="p-6 border-border">
+              <h3 className="text-lg font-semibold text-foreground mb-2">What changed?</h3>
+            </Card>
+            <Card className="p-6 border-border">
+              <h3 className="text-lg font-semibold text-foreground mb-2">What are we doing about it?</h3>
+            </Card>
+          </div>
+          <div className="text-center">
+            <Button variant="accent" size="lg" asChild>
+              <Link to="/reporting/demo">View dashboard demo</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 px-6 bg-background">
+      <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">Reporting FAQs</h2>
+            <h2 className="text-4xl font-light mb-4 text-foreground">Reporting questions we get a lot.</h2>
           </div>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
@@ -231,24 +206,20 @@ const Reporting = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-24 px-6 bg-secondary">
+      <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl font-light mb-6 text-foreground">
-            See the live-style dashboard demo
+            Want reporting that makes decisions easier, not harder?
           </h2>
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Explore a fully interactive demo dashboard with real-world data patterns. This is what working with
-            Avorria actually looks like.
-          </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="accent" size="lg" asChild>
               <Link to="/reporting/demo">
-                View Dashboard Demo
+                View live dashboard demo
                 <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/contact">Book Strategy Call</Link>
+              <Link to="/contact">Book a strategy call</Link>
             </Button>
           </div>
         </div>

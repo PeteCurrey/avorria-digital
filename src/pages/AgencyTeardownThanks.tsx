@@ -50,14 +50,13 @@ const AgencyTeardownThanks = () => {
                 <CheckCircle2 className="w-8 h-8 text-accent" />
               </div>
               
-              <h1 className="text-3xl md:text-4xl font-light mb-4 text-foreground">
-                Got it – we'll tear this down and come back with the truth.
-              </h1>
-              
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                We'll review your report/proposal and send a plain-English breakdown within <strong>3–5 working days</strong>. 
-                If we think your agency is doing good work, we'll say so. If not, you'll know exactly why.
-              </p>
+            <h1 className="text-3xl md:text-4xl font-light mb-4 text-foreground">
+              Got it – we'll tear this down and come back with the truth.
+            </h1>
+            
+            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+              We'll review your report/proposal and send a plain-English breakdown within <strong>3–5 working days</strong>. If we think your agency is doing good work, we'll say so. If not, you'll know exactly why.
+            </p>
 
               {/* What Happens Next */}
               <div className="bg-background/50 rounded-lg p-6 mb-8 text-left">
