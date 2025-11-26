@@ -140,7 +140,7 @@ const Home = () => {
                 <h1 className="text-5xl leading-tight text-white lg:text-3xl font-extralight">
                   Digital Marketing, SEO &amp; Web Experiences that Actually Convert.
                 </h1>
-                <p className="text-xl text-white/90 leading-relaxed max-w-3xl lg:text-base font-extralight">
+                <p className="text-xl text-white/90 leading-relaxed max-w-3xl font-extralight lg:text-base">
                   Avorria is your performance-first digital partner. We combine high end design, technical SEO &amp; paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
