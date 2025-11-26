@@ -29,6 +29,14 @@ import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 import WebsitesWeFire from "./pages/WebsitesWeFire";
 import MarketingAssets from "./pages/MarketingAssets";
+import LocalSEO from "./pages/seo/LocalSEO";
+import TechnicalSEO from "./pages/seo/TechnicalSEO";
+import ContentSEO from "./pages/seo/ContentSEO";
+import AnalyticsTracking from "./pages/seo/AnalyticsTracking";
+import WebsiteMigrations from "./pages/seo/WebsiteMigrations";
+import SEOGlossary from "./pages/SEOGlossary";
+import FAQs from "./pages/FAQs";
+import WebsiteHealthCheck from "./pages/WebsiteHealthCheck";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -67,6 +75,18 @@ const App = () => (
               <Route path="/resources" element={<Resources />} />
               <Route path="/resources/:slug" element={<ResourceDetail />} />
               <Route path="/resources/marketing-assets" element={<MarketingAssets />} />
+              <Route path="/resources/seo-glossary" element={<SEOGlossary />} />
+              
+              {/* SEO Sub-Services */}
+              <Route path="/services/seo/local-seo" element={<LocalSEO />} />
+              <Route path="/services/seo/technical-seo" element={<TechnicalSEO />} />
+              <Route path="/services/seo/content-seo" element={<ContentSEO />} />
+              <Route path="/services/seo/analytics-tracking" element={<AnalyticsTracking />} />
+              <Route path="/services/seo/website-migrations" element={<WebsiteMigrations />} />
+              
+              {/* FAQs & Tools */}
+              <Route path="/faqs" element={<FAQs />} />
+              <Route path="/website-health-check" element={<WebsiteHealthCheck />} />
               
               {/* Why Avorria */}
               <Route path="/why-avorria" element={<WhyAvorria />} />
