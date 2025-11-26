@@ -10,127 +10,151 @@ import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
+
 const Home = () => {
-  const services = [{
-    title: "SEO",
-    description: "Technical SEO, content strategy, and link building that drives revenue, not just rankings.",
-    href: "/services/seo"
-  }, {
-    title: "Paid Media",
-    description: "Google, Meta, and LinkedIn campaigns engineered for pipeline, not vanity metrics.",
-    href: "/services/paid-media"
-  }, {
-    title: "Web Design & Development",
-    description: "High-converting sites that blend premium design with technical performance.",
-    href: "/services/web-design"
-  }, {
-    title: "Content & Email",
-    description: "Long-form content and nurture sequences that educate, engage, and convert.",
-    href: "/services/content-email"
-  }];
-  const process = [{
-    number: "01",
-    title: "Discovery & Audit",
-    description: "Deep dive into your current state, competitors, and opportunities. We identify quick wins and long-term strategy."
-  }, {
-    number: "02",
-    title: "Roadmap & Quick Wins",
-    description: "Prioritized action plan with immediate optimizations that show results within 30 days."
-  }, {
-    number: "03",
-    title: "Build & Launch",
-    description: "Execute campaigns, content, and technical improvements with full transparency and tracking."
-  }, {
-    number: "04",
-    title: "Optimize & Scale",
-    description: "Continuous testing, refinement, and scaling based on real performance data."
-  }];
-  const caseStudies = [{
-    title: "184% Increase in Organic Leads",
-    industry: "Professional Services",
-    description: "Full technical SEO overhaul and content strategy delivered consistent lead growth.",
-    metric: "+184%",
-    metricLabel: "Organic Leads",
-    href: "/case-studies/professional-services-seo"
-  }, {
-    title: "3.2x ROAS in 90 Days",
-    industry: "SaaS",
-    description: "Google Ads restructure with conversion tracking and landing page optimization.",
-    metric: "3.2x",
-    metricLabel: "Return on Ad Spend",
-    href: "/case-studies/saas-paid-media"
-  }, {
-    title: "Complete Website Redesign",
-    industry: "Multi-Location Business",
-    description: "Modern, conversion-focused design increased leads by 127% within 6 months.",
-    metric: "+127%",
-    metricLabel: "Lead Volume",
-    href: "/case-studies/multi-location-web-design"
-  }];
-  const comparison = [{
-    feature: "Strategic depth",
-    avorria: true,
-    typical: false
-  }, {
-    feature: "Full conversion tracking setup",
-    avorria: true,
-    typical: false
-  }, {
-    feature: "Technical SEO as standard",
-    avorria: true,
-    typical: false
-  }, {
-    feature: "Clear, actionable reporting",
-    avorria: true,
-    typical: false
-  }, {
-    feature: "Design focused on ROI, not awards",
-    avorria: true,
-    typical: false
-  }, {
-    feature: "AI-enhanced workflows",
-    avorria: true,
-    typical: false
-  }];
-  const testimonials = [{
-    quote: "Avorria cut through the noise and focused entirely on what mattered: qualified leads and revenue. Best agency decision we've made.",
-    author: "Sarah Mitchell",
-    role: "CEO",
-    company: "TechFlow Solutions",
-    result: "+240% qualified leads in 6 months"
-  }, {
-    quote: "Finally, an agency that doesn't treat SEO like magic. Clear strategy, transparent reporting, and results we can track directly to revenue.",
-    author: "James Cooper",
-    role: "Marketing Director",
-    company: "Premier Legal Group",
-    result: "£180k additional revenue attributed"
-  }, {
-    quote: "The website redesign wasn't just pretty—it fundamentally changed how prospects interact with our brand. Conversion rate doubled.",
-    author: "Rachel Kim",
-    role: "Founder",
-    company: "Elevate Consulting",
-    result: "2x conversion rate improvement"
-  }];
-  const faqs = [{
-    question: "What's your minimum budget for working together?",
-    answer: "Our typical engagements start at £2,500/month for focused initiatives (e.g., SEO or paid media) and £5,000+/month for comprehensive digital strategies. We're transparent about costs and what you'll get at each tier."
-  }, {
-    question: "How long until we see results?",
-    answer: "Quick wins (conversion optimization, paid media improvements) typically show results within 30-60 days. SEO and content strategies build momentum over 3-6 months. We set realistic expectations and provide transparent reporting throughout."
-  }, {
-    question: "Do you work with specific industries?",
-    answer: "We specialize in professional services, SaaS, multi-location businesses, and high-ticket service providers. Our approach works best when there's a clear sales process and measurable conversions."
-  }, {
-    question: "What KPIs do you actually report on?",
-    answer: "We focus on business metrics: leads, pipeline value, cost per acquisition, and revenue attribution. We track traffic and rankings, but only as leading indicators of the metrics that matter to your business."
-  }, {
-    question: "Do you require long-term contracts?",
-    answer: "Most clients work with us on a 6-12 month basis because real growth takes time. We do require a 3-month minimum to implement strategy properly, but we're confident you'll want to continue based on results."
-  }, {
-    question: "How do you use AI in your work?",
-    answer: "We use AI for research, content ideation, data analysis, and optimization—not as a replacement for strategy. It helps us move faster and test more hypotheses, but human expertise drives every decision."
-  }];
-  return <>
+  const services = [
+    {
+      title: "SEO",
+      description: "Technical SEO, content strategy and on-site optimisation that focuses on commercial keywords, not ego rankings. We fix what's broken, build what's missing and link it all to real leads and revenue.",
+      href: "/services/seo"
+    },
+    {
+      title: "Paid Media (Google, Meta, LinkedIn)",
+      description: "Acquisition that pays for itself. We design and run campaigns tied tightly to your offer, your funnel and your sales process – with clear ROAS and CPL targets, not 'best effort.'",
+      href: "/services/paid-media"
+    },
+    {
+      title: "Web Design & Development",
+      description: "High-end websites and landing pages built for speed, clarity and conversion. Modern stack, clean code, proper tracking and a layout that makes your sales process obvious.",
+      href: "/services/web-design"
+    },
+    {
+      title: "Content & Email",
+      description: "Content that attracts the right people and email that moves them through the funnel. From SEO articles and playbooks to nurture flows and launch campaigns.",
+      href: "/services/content-email"
+    },
+    {
+      title: "Social & Personal Brand",
+      description: "Done-for-you content systems for founders and expert teams. Think LinkedIn, Instagram and short-form content that positions you as the obvious choice in your market.",
+      href: "/services/social-personal-brand"
+    }
+  ];
+
+  const process = [
+    {
+      number: "01",
+      title: "Discovery & audit",
+      description: "We review your current site, traffic, tracking and campaigns. You'll get a blunt view of what's working, what isn't and what's missing."
+    },
+    {
+      number: "02",
+      title: "Roadmap & quick wins",
+      description: "We map out a 90-day plan that balances quick commercial wins with the foundations you've been putting off – tracking, site speed, structure, funnels."
+    },
+    {
+      number: "03",
+      title: "Build, launch, optimise",
+      description: "We execute. New assets, improved journeys, tighter campaigns. Everything shipped with tracking, QA and a clear 'before vs after'."
+    },
+    {
+      number: "04",
+      title: "Review, refine, scale",
+      description: "Every month you get a clear dashboard and a straight answer: what we did, what moved, what we're doing next. When the numbers justify it, we scale."
+    }
+  ];
+
+  const caseStudies = [
+    {
+      metric: "+184%",
+      metricLabel: "organic leads in 6 months",
+      description: "for a multi-site service brand."
+    },
+    {
+      metric: "38%",
+      metricLabel: "drop in cost per qualified lead",
+      description: "after rebuilding the funnel and landing pages."
+    },
+    {
+      metric: "2.4x",
+      metricLabel: "pipeline from inbound",
+      description: "in under a year for a B2B services business."
+    }
+  ];
+
+  const comparison = [
+    {
+      feature: "Reporting",
+      typical: "Slide decks full of clicks and impressions.",
+      avorria: "Dashboards showing leads, pipeline and ROI – plus a one-minute written summary."
+    },
+    {
+      feature: "Strategy",
+      typical: "'We'll test some campaigns and see what happens.'",
+      avorria: "Clear 90-day roadmap tied to business targets."
+    },
+    {
+      feature: "Technical depth",
+      typical: "Surface-level SEO and tagging.",
+      avorria: "Technical audits, proper tracking, site architecture and CRO as standard."
+    },
+    {
+      feature: "Design",
+      typical: "Pretty sites that don't convert.",
+      avorria: "Clean, modern UX engineered around CTAs, proof and clarity."
+    },
+    {
+      feature: "Communication",
+      typical: "Monthly calls when renewal is due.",
+      avorria: "Regular updates, proactive ideas and straight answers."
+    }
+  ];
+
+  const testimonials = [
+    {
+      quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
+      author: "",
+      role: "",
+      company: ""
+    },
+    {
+      quote: "They rebuilt our site and landing pages without drama. Same traffic, better structure, calls and enquiries went up. No hype, just a very competent team.",
+      author: "",
+      role: "",
+      company: ""
+    },
+    {
+      quote: "We didn't want another 'creative agency'. We wanted someone to help us hit numbers. Avorria behaves like an in-house growth function, not a vendor.",
+      author: "",
+      role: "",
+      company: ""
+    }
+  ];
+
+  const faqs = [
+    {
+      question: "What size businesses do you work with?",
+      answer: "Mostly established service businesses, multi-location brands and B2B teams who are already investing in marketing and want to get more disciplined and effective with it."
+    },
+    {
+      question: "Do you only work on retainers?",
+      answer: "No. We do one-off rebuilds and projects where it makes sense, but most of our impact comes from ongoing work – strategy, execution and optimisation over time."
+    },
+    {
+      question: "Is there a minimum budget?",
+      answer: "If you're spending less than £2k/month in total on marketing, you're probably better off with lighter, DIY support. Above that, we can usually make a meaningful difference."
+    },
+    {
+      question: "Do you tie into our CRM and internal reporting?",
+      answer: "Yes. Wherever possible we build dashboards that connect marketing numbers to your sales pipeline and revenue, not just clicks and forms."
+    },
+    {
+      question: "How do we get started?",
+      answer: "Either request a free SEO & website audit, or book a strategy call. We'll review your current setup, give you a straight assessment and outline what we'd actually do."
+    }
+  ];
+
+  return (
+    <>
       {/* Override default navigation with transparent version */}
       <div className="relative z-50">
         <Navigation transparent={true} />
@@ -138,12 +162,15 @@ const Home = () => {
 
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{
-        backgroundImage: `url(${heroCityscape})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed"
-      }}>
+        <section
+          className="relative min-h-screen flex items-center justify-center overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroCityscape})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed"
+          }}
+        >
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
@@ -152,30 +179,31 @@ const Home = () => {
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
               <div className="space-y-8 mb-16 animate-fade-in">
-                <h1 className="text-5xl leading-tight text-white font-extralight lg:text-5xl">
-                  Digital Marketing, SEO & Web Experiences{" "}
-                  <span className="font-semibold text-accent">That Actually Convert</span>
+                <h1 className="text-5xl leading-tight text-white font-extralight lg:text-6xl">
+                  Digital marketing, SEO & web experiences that actually convert.
                 </h1>
-                <p className="text-xl text-white/90 leading-relaxed max-w-3xl font-extralight lg:text-base">
-                  Avorria is your performance-first digital partner – combining high-end design,
-                  technical SEO and paid acquisition to turn traffic into pipeline.
+                <p className="text-xl text-white/90 leading-relaxed max-w-3xl font-light lg:text-xl">
+                  Avorria is your performance-first digital partner. We combine high-end design, technical SEO and paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
                 {/* Dual CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Button variant="accent" size="lg" className="text-lg px-8 py-6" asChild>
-                    <Link to="/contact">Book a Strategy Call</Link>
+                    <Link to="/contact">Book a strategy call</Link>
                   </Button>
-                  <Button variant="outline" size="lg" className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground" asChild>
-                    <Link to="/case-studies">View Case Studies</Link>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-8 py-6 border-white text-white hover:bg-white hover:text-foreground"
+                    asChild
+                  >
+                    <Link to="/free-seo-website-audit">Get a free SEO & website audit</Link>
                   </Button>
                 </div>
               </div>
 
               {/* Stats Row */}
-              <div className="animate-fade-in-up" style={{
-              animationDelay: "300ms"
-            }}>
+              <div className="animate-fade-in-up" style={{ animationDelay: "300ms" }}>
                 <HeroStats />
               </div>
             </div>
@@ -190,280 +218,283 @@ const Home = () => {
         {/* Floating Chat Button */}
         <FloatingChatButton />
 
-      {/* Trust Bar */}
-      <section className="py-12 border-y border-border bg-background">
-        <div className="container mx-auto px-6">
-          <p className="text-center text-sm text-muted-foreground mb-8">
-            Trusted by teams who are done wasting budget on noise.
-          </p>
-          <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
-            <div className="text-xl font-semibold text-foreground">TechFlow</div>
-            <div className="text-xl font-semibold text-foreground">Premier Legal</div>
-            <div className="text-xl font-semibold text-foreground">Elevate</div>
-            <div className="text-xl font-semibold text-foreground">BuildRight</div>
-            <div className="text-xl font-semibold text-foreground">Vertex</div>
-          </div>
-          <p className="text-center text-xs text-muted-foreground mt-8">
-            We specialize in SMBs, multi-site brands, and high-ticket service businesses.
-          </p>
-          <div className="text-center mt-6">
-            <p className="text-sm text-muted-foreground mb-3">Explore our location-specific services:</p>
-            <div className="flex flex-wrap justify-center gap-3">
-              <Link to="/seo/london" className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
-                SEO in London
-              </Link>
-              <Link to="/web-design/for/trades" className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
-                Web Design for Trades
-              </Link>
-              <Link to="/paid-media/for/professional-services" className="text-sm px-4 py-2 rounded-md bg-secondary hover:bg-secondary/80 text-foreground transition-colors">
-                Paid Media for Professional Services
-              </Link>
+        {/* Trust Bar */}
+        <section className="py-12 border-y border-border bg-background">
+          <div className="container mx-auto px-6">
+            <h2 className="text-center text-lg font-semibold text-foreground mb-4">
+              Trusted by teams who are done wasting budget on noise.
+            </h2>
+            <p className="text-center text-muted-foreground mb-8 max-w-3xl mx-auto">
+              We work with growing service businesses, multi-site brands and high-ticket B2B teams who want grown-up conversations about revenue, not vanity metrics.
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
+              <div className="text-xl font-semibold text-foreground">TechFlow</div>
+              <div className="text-xl font-semibold text-foreground">Premier Legal</div>
+              <div className="text-xl font-semibold text-foreground">Elevate</div>
+              <div className="text-xl font-semibold text-foreground">BuildRight</div>
+              <div className="text-xl font-semibold text-foreground">Vertex</div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Value Props */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              Performance-led, not vanity-focused
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Every campaign, every optimization, every decision is tied directly to business outcomes.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {[{
-              icon: Target,
-              title: "Pipeline-First Strategy",
-              description: "We build campaigns around your sales process, not random tactics."
-            }, {
-              icon: Zap,
-              title: "Technical SEO Meets Design",
-              description: "Sites that rank well and convert—not one or the other."
-            }, {
-              icon: BarChart3,
-              title: "End-to-End Tracking",
-              description: "Full conversion tracking, attribution, and reporting as standard."
-            }, {
-              icon: TrendingUp,
-              title: "AI-Enhanced Delivery",
-              description: "Faster research, smarter testing, better optimization."
-            }].map((prop, index) => <Card key={index} className="border-border hover:shadow-lg transition-shadow animate-fade-in-up">
-                <CardContent className="p-6 space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <prop.icon className="text-accent" size={24} />
-                  </div>
-                  <h3 className="text-xl font-semibold text-foreground">{prop.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{prop.description}</p>
-                </CardContent>
-              </Card>)}
-          </div>
-        </div>
-      </section>
-
-      {/* Services Overview */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              Full-stack digital services
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Strategy, execution, and optimization across every channel that matters.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                  <Link to={service.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors">
-                    View service details
-                    <ArrowRight className="ml-2" size={18} />
-                  </Link>
-                </CardContent>
-              </Card>)}
-          </div>
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/services">View All Services</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* Process Section */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              How we work with you
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              A proven process that delivers quick wins and long-term growth.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {process.map((step, index) => <div key={index} className="relative">
-                <div className="space-y-4">
-                  <div className="text-6xl font-light text-accent/20">{step.number}</div>
-                  <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
-                  <p className="text-muted-foreground leading-relaxed">{step.description}</p>
-                </div>
-                {index < process.length - 1 && <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />}
-              </div>)}
-          </div>
-        </div>
-      </section>
-
-      {/* Case Studies Highlights */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              Results that speak louder than promises
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Real clients, real metrics, real business impact.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {caseStudies.map((study, index) => <Card key={index} className="border-border hover:shadow-xl transition-all group">
+        {/* Value Props */}
+        <section className="py-24 px-6 bg-secondary">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">Why teams work with Avorria</h2>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+              <Card className="border-border hover:shadow-lg transition-shadow">
                 <CardContent className="p-8 space-y-4">
-                  <div className="text-5xl font-light text-accent mb-4">{study.metric}</div>
-                  <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
-                    {study.metricLabel}
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <Target className="text-accent" size={24} />
                   </div>
-                  <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
-                    {study.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-2">{study.industry}</p>
-                  <p className="text-muted-foreground leading-relaxed">{study.description}</p>
-                  <Link to={study.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-colors">
-                    View full case study
-                    <ArrowRight className="ml-2" size={16} />
-                  </Link>
+                  <h3 className="text-2xl font-semibold text-foreground">Pipeline-first, not buzzword-first</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
+                  </p>
                 </CardContent>
-              </Card>)}
-          </div>
-          <div className="text-center mt-12">
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/case-studies">View All Case Studies</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+              </Card>
 
-      {/* Comparison Table */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-4xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              Avorria vs typical agencies
+              <Card className="border-border hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 space-y-4">
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <Zap className="text-accent" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-foreground">Technical firepower baked in</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 space-y-4">
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <TrendingUp className="text-accent" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-foreground">Design that earns its keep</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-border hover:shadow-lg transition-shadow">
+                <CardContent className="p-8 space-y-4">
+                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
+                    <BarChart3 className="text-accent" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-foreground">Plain-English reporting</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Services Overview */}
+        <section className="py-24 px-6 bg-background">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">What we actually do</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Strategy, execution and optimisation under one roof.
+              </p>
+              <p className="text-muted-foreground max-w-3xl mx-auto mt-4">
+                You don't need five different suppliers. You need one team that can connect the dots – from strategy and messaging through to build, launch and ongoing optimisation.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+              {services.map((service, index) => (
+                <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
+                    <Link
+                      to={service.href}
+                      className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors"
+                    >
+                      View service details
+                      <ArrowRight className="ml-2" size={18} />
+                    </Link>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="text-center mt-12">
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/services">View All Services</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section className="py-24 px-6 bg-secondary">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">Simple process. Serious output.</h2>
+            </div>
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {process.map((step, index) => (
+                <div key={index} className="relative">
+                  <div className="space-y-4">
+                    <div className="text-6xl font-light text-accent/20">{step.number}</div>
+                    <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                  </div>
+                  {index < process.length - 1 && (
+                    <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Case Studies Highlights */}
+        <section className="py-24 px-6 bg-background">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">Proof over promises.</h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                We're not allowed to put most client numbers on a public website. But here's the flavour of what happens when you stop treating marketing as an experiment and start treating it as an operating function.
+              </p>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {caseStudies.map((study, index) => (
+                <Card key={index} className="border-border hover:shadow-xl transition-all group">
+                  <CardContent className="p-8 space-y-4">
+                    <div className="text-5xl font-light text-accent mb-4">{study.metric}</div>
+                    <div className="text-sm font-medium text-muted-foreground mb-2">{study.metricLabel}</div>
+                    <p className="text-muted-foreground leading-relaxed">{study.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+            <div className="text-center mt-12">
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/case-studies">View case studies</Link>
+              </Button>
+            </div>
+          </div>
+        </section>
+
+        {/* Comparison Table */}
+        <section className="py-24 px-6 bg-secondary">
+          <div className="container mx-auto max-w-5xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">
+                What makes Avorria different to a typical agency?
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                If you've ever stared at an agency report and thought "I still don't know if this is working", you already know the problem. We built Avorria as the opposite of that experience.
+              </p>
+            </div>
+            <Card className="border-border">
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="bg-secondary">
+                      <tr>
+                        <th className="text-left p-6 text-foreground font-semibold border-b border-border">Feature</th>
+                        <th className="text-left p-6 text-foreground font-semibold border-b border-border">
+                          Typical agency
+                        </th>
+                        <th className="text-left p-6 text-accent font-semibold border-b border-border">Avorria</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {comparison.map((item, index) => (
+                        <tr key={index} className="border-b border-border last:border-b-0">
+                          <td className="p-6 font-medium text-foreground">{item.feature}</td>
+                          <td className="p-6 text-muted-foreground">{item.typical}</td>
+                          <td className="p-6 text-foreground font-medium">{item.avorria}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section className="py-24 px-6 bg-background">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">What clients say when the noise stops.</h2>
+            </div>
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {testimonials.map((testimonial, index) => (
+                <Card key={index} className="border-border">
+                  <CardContent className="p-8">
+                    <p className="text-muted-foreground leading-relaxed mb-6 italic">"{testimonial.quote}"</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-24 px-6 bg-secondary">
+          <div className="container mx-auto max-w-3xl">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-light mb-4 text-foreground">Questions we get a lot.</h2>
+            </div>
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border border-border bg-background px-6 rounded-lg"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-24 px-6 bg-background">
+          <div className="container mx-auto max-w-4xl text-center">
+            <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
+              Ready to treat marketing like an operating function, not a gamble?
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              What you actually get when you work with us.
+            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+              If you're tired of noise, guesswork and vague reports, let's talk. We'll review your current setup and show you what a disciplined, revenue-focused marketing engine could look like.
             </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="lg" asChild>
+                <Link to="/contact">
+                  Book a strategy call
+                  <ArrowRight className="ml-2" size={20} />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/free-seo-website-audit">Request a free SEO & website audit</Link>
+              </Button>
+            </div>
           </div>
-          <Card className="border-border">
-            <CardContent className="p-0">
-              <div className="grid grid-cols-3 gap-4 p-6 border-b border-border bg-muted/50">
-                <div className="col-span-1"></div>
-                <div className="text-center font-semibold text-foreground">Avorria</div>
-                <div className="text-center font-semibold text-muted-foreground">Typical Agency</div>
-              </div>
-              {comparison.map((row, index) => <div key={index} className="grid grid-cols-3 gap-4 p-6 border-b border-border last:border-0 hover:bg-muted/30 transition-colors">
-                  <div className="col-span-1 text-foreground">{row.feature}</div>
-                  <div className="text-center">
-                    {row.avorria ? <CheckCircle2 className="inline text-accent" size={24} /> : <X className="inline text-muted-foreground" size={24} />}
-                  </div>
-                  <div className="text-center">
-                    {row.typical ? <CheckCircle2 className="inline text-accent" size={24} /> : <X className="inline text-muted-foreground" size={24} />}
-                  </div>
-                </div>)}
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+        </section>
 
-      {/* Testimonials */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              What clients say about working with us
-            </h2>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => <Card key={index} className="border-border">
-                <CardContent className="p-8 space-y-6">
-                  <p className="text-foreground leading-relaxed italic">"{testimonial.quote}"</p>
-                  <div className="pt-4 border-t border-border">
-                    <p className="font-semibold text-foreground">{testimonial.author}</p>
-                    <p className="text-sm text-muted-foreground">
-                      {testimonial.role}, {testimonial.company}
-                    </p>
-                    <p className="text-sm text-accent font-medium mt-2">{testimonial.result}</p>
-                  </div>
-                </CardContent>
-              </Card>)}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-3xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              Frequently asked questions
-            </h2>
-          </div>
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border bg-background px-6 rounded-lg">
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>)}
-          </Accordion>
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section id="contact" className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
-            Ready to stop experimenting and start scaling?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Book a strategy call to discuss your goals, challenges, and how we can help you hit them.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
-                Book a Strategy Call
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/contact">Request a Proposal</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
-      
-      <FloatingChatButton />
-      <SlideInPanel />
-      <ExitIntentPopover />
-    </div>
-    </>;
+        {/* Slide-in Panel and Exit Intent */}
+        <SlideInPanel />
+        <ExitIntentPopover />
+      </div>
+    </>
+  );
 };
+
 export default Home;

@@ -7,94 +7,115 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, X } from "lucide-react";
 
 const SEOServices = () => {
   const painPoints = [
-    "Your current SEO agency sends keyword reports with no business impact",
-    "You're ranking well but not getting qualified leads",
-    "Technical issues are holding back your organic performance",
-    "Content strategy exists in isolation from sales goals",
-    "You have no visibility into SEO ROI or revenue attribution",
+    "You get long reports but still don't know what's actually been done each month.",
+    "Rankings may be up, but leads and revenue haven't shifted.",
+    "Nobody can clearly explain how SEO ties into your overall funnel and sales process.",
+    "You've got content, but no clear structure, clusters or internal linking strategy.",
+    "Technical issues and slow pages keep getting 'added to the list' but never fixed.",
   ];
 
-  const included = [
-    "Comprehensive technical SEO audits and ongoing fixes",
-    "On-page optimization for conversions and rankings",
-    "Strategic content planning with keyword clusters",
-    "Internal linking architecture and site structure",
-    "Local SEO optimization (GMB, citations, reviews)",
-    "Schema markup and structured data implementation",
-    "Link building and digital PR outreach",
-    "Conversion tracking and analytics setup",
-    "Monthly dashboards and actionable reports",
-  ];
+  const included = {
+    technical: [
+      "Full technical audit and prioritised fix list.",
+      "Site architecture and internal linking strategy.",
+      "Core Web Vitals, speed and crawlability improvements.",
+      "Schema and structured data setup where relevant.",
+    ],
+    onPage: [
+      "Page-level optimisation for key commercial pages.",
+      "Title, meta, headings and content tuned for intent, not keyword stuffing.",
+      "Improved UX elements that support conversion (CTAs, proof, clarity).",
+    ],
+    content: [
+      "Keyword research focused on commercial and high-intent terms.",
+      "Topic clusters and content plans tied to stages of your buyer journey.",
+      "Briefs and/or full content creation where required.",
+      "Ongoing optimisation of existing content.",
+    ],
+    local: [
+      "Local landing pages planned and built properly.",
+      "Google Business Profile optimisation and management.",
+      "Citations and local SERP assets (where they matter).",
+    ],
+    tracking: [
+      "Clean analytics and goals setup.",
+      "Dashboards showing organic traffic, leads and pipeline – not just rankings.",
+      "Clear monthly commentary on what changed and why.",
+    ],
+  };
 
   const timeline = [
     {
-      period: "Month 0-1",
-      title: "Audit & Foundation",
-      description: "Deep technical audit, competitor analysis, quick win identification, tracking setup.",
+      period: "Month 0–1",
+      title: "Audit & foundations",
+      description:
+        "Technical and content audit. Tracking and analytics clean-up. Quick on-page wins on high-impact pages.",
     },
     {
-      period: "Month 2-3",
-      title: "Implementation & Optimization",
-      description: "Technical fixes deployed, on-page optimization, content strategy launch, initial link building.",
+      period: "Months 2–3",
+      title: "Structure & content",
+      description:
+        "Implement core technical fixes. Roll out new information architecture and internal linking. Launch priority content and update existing assets.",
     },
     {
-      period: "Month 4-6",
-      title: "Content & Authority Building",
-      description: "Pillar content published, link velocity increases, local SEO optimized, rankings improve.",
+      period: "Months 4–6",
+      title: "Compounding gains",
+      description:
+        "Expand content clusters. Strengthen ranking positions for core terms. Tune pages and CTAs based on real conversion data.",
     },
     {
       period: "Month 6+",
-      title: "Scale & Refine",
-      description: "Continuous optimization, advanced content, competitive positioning, measurable ROI growth.",
+      title: "Scale and refine",
+      description:
+        "Double down where we see strongest ROI. Explore new keyword sets and assets. Continually reallocate effort based on what the data actually shows.",
+    },
+  ];
+
+  const deliverables = [
+    "A clear initial audit and prioritised action plan.",
+    "Monthly dashboards covering organic traffic, leads and key pages.",
+    "Short, plain-English summary of work completed and results.",
+    "Access to our reporting hub so you can check numbers any time.",
+    "A backlog of upcoming SEO actions so you always know what's next.",
+  ];
+
+  const caseStudies = [
+    {
+      title: "Multi-location services brand",
+      result: "+132% non-branded organic traffic and +89% organic enquiries in 9 months.",
+      description: "Rebuilt architecture and content strategy.",
+    },
+    {
+      title: "Specialist B2B services company",
+      result: "Ranking for high-intent terms they'd been missing for years.",
+      description: "Technical clean-up and targeted content.",
     },
   ];
 
   const faqs = [
     {
-      question: "How long does SEO take to show results?",
-      answer: "Technical improvements and on-page optimizations can show impact within 30-60 days. Content-driven SEO typically builds momentum over 3-6 months. We focus on quick wins early while building long-term strategy.",
+      question: "How long until we see results?",
+      answer:
+        "It depends where you're starting from, but most clients see early movement in 2–3 months and meaningful commercial impact in 4–6 months. We'll be clear about realistic timelines upfront.",
     },
     {
-      question: "Do you guarantee rankings or traffic?",
-      answer: "We don't guarantee specific rankings because Google's algorithm is constantly changing. What we do guarantee: strategic, data-driven work that follows best practices and a transparent reporting process. Our track record speaks for itself.",
+      question: "Do you lock us into long contracts?",
+      answer:
+        "No. We normally recommend at least a 6-month runway for SEO, but we don't hide behind punitive long-term contracts.",
     },
     {
-      question: "How do you measure SEO success?",
-      answer: "We track rankings and traffic as leading indicators, but we focus on business metrics: organic leads, conversion rate, cost per acquisition, and revenue attribution. SEO success means business growth.",
+      question: "Can you work with our in-house dev/content team?",
+      answer:
+        "Yes. We can either handle implementation end-to-end, or act as the strategic and technical layer that briefs your internal teams.",
     },
     {
-      question: "What's included in your monthly SEO retainer?",
-      answer: "Ongoing technical monitoring, content strategy and creation, link building, performance tracking, monthly reports, and strategic recommendations. The exact mix depends on your business goals and competitive landscape.",
-    },
-    {
-      question: "Do you work with local businesses?",
-      answer: "Absolutely. Local SEO is a core strength—Google My Business optimization, local citations, review management, and location-specific content. Perfect for multi-location businesses and service areas.",
-    },
-    {
-      question: "How is your SEO different from other agencies?",
-      answer: "We treat SEO as a revenue channel, not a vanity project. Every tactic is connected to your sales process. We set up proper tracking, report on business metrics, and optimize for conversions—not just rankings.",
-    },
-  ];
-
-  const caseStudies = [
-    {
-      title: "Professional Services Firm",
-      result: "+184% organic leads in 6 months",
-      description: "Complete technical overhaul, content strategy focused on high-intent keywords, and conversion optimization led to sustained lead growth.",
-    },
-    {
-      title: "Multi-Location Business",
-      result: "+220% local search visibility",
-      description: "Local SEO program with GMB optimization, citation building, and location-specific content delivered massive visibility gains.",
-    },
-    {
-      title: "SaaS Company",
-      result: "£140k attributed revenue from organic",
-      description: "Bottom-funnel keyword targeting, technical excellence, and conversion tracking proved clear SEO ROI.",
+      question: "Will SEO replace paid ads?",
+      answer:
+        "Not usually. SEO and paid work best together – SEO for compounding inbound demand, paid for speed and control. We'll help you balance both.",
     },
   ];
 
@@ -104,21 +125,20 @@ const SEOServices = () => {
       <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
         <div className="container mx-auto max-w-4xl text-center">
           <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
-            Technical SEO, content, and CRO{" "}
-            <span className="font-semibold text-accent">under one roof</span>
+            SEO that connects rankings to revenue.
           </h1>
           <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up">
-            SEO services that drive revenue and qualified leads—not just rankings and reports.
+            We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline – then remove the friction that stops those visitors becoming customers.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
             <Button variant="accent" size="lg" asChild>
               <Link to="/contact">
-                Book SEO Strategy Call
+                Book an SEO strategy call
                 <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/contact">Request Free SEO Audit</Link>
+              <Link to="/free-seo-website-audit">Get a free SEO audit</Link>
             </Button>
           </div>
         </div>
@@ -128,14 +148,14 @@ const SEOServices = () => {
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl">
           <h2 className="text-3xl font-light mb-10 text-foreground text-center">
-            Tired of SEO agencies that don't deliver business results?
+            If you're already paying for SEO, some of this might sting.
           </h2>
           <Card className="border-border">
             <CardContent className="p-8">
               <ul className="space-y-4">
                 {painPoints.map((point, index) => (
                   <li key={index} className="flex items-start text-muted-foreground">
-                    <span className="text-accent mr-3 mt-1 font-bold">✗</span>
+                    <X className="text-accent mr-3 mt-1 flex-shrink-0" size={20} />
                     <span className="text-lg">{point}</span>
                   </li>
                 ))}
@@ -143,7 +163,7 @@ const SEOServices = () => {
             </CardContent>
           </Card>
           <p className="text-center text-lg text-foreground mt-8 font-medium">
-            We focus on metrics that matter: leads, pipeline, and revenue.
+            You don't need more waffle about algorithms. You need a clear plan to win the right searches, fix the technical drag and connect organic performance to your pipeline.
           </p>
         </div>
       </section>
@@ -152,29 +172,78 @@ const SEOServices = () => {
       <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-4xl font-light mb-12 text-foreground text-center">
-            What's included in our SEO services
+            What Avorria SEO actually covers.
           </h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            {included.map((item, index) => (
-              <div key={index} className="flex items-start space-x-3">
-                <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                <p className="text-foreground text-lg">{item}</p>
+          
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">Technical & structure</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {included.technical.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                    <p className="text-foreground">{item}</p>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">On-page optimisation</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {included.onPage.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                    <p className="text-foreground">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">Content & keyword strategy</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {included.content.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                    <p className="text-foreground">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">Local & multi-location SEO (if relevant)</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {included.local.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                    <p className="text-foreground">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-2xl font-semibold text-foreground mb-4">Tracking & reporting</h3>
+              <div className="grid md:grid-cols-2 gap-4">
+                {included.tracking.map((item, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                    <p className="text-foreground">{item}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SEO Process Timeline */}
+      {/* Process Timeline */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              SEO process & timeline
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              How we build momentum and deliver results over time.
-            </p>
+            <h2 className="text-4xl font-light mb-4 text-foreground">How a typical SEO engagement runs.</h2>
           </div>
           <div className="space-y-8">
             {timeline.map((phase, index) => (
@@ -195,71 +264,58 @@ const SEOServices = () => {
               </Card>
             ))}
           </div>
+          <p className="text-center text-muted-foreground mt-8 max-w-3xl mx-auto">
+            SEO is compounding by nature. Our job is to shorten the time it takes to see commercial impact – and to show you transparently what's happening along the way.
+          </p>
         </div>
       </section>
 
       {/* Deliverables & Reporting */}
       <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-light mb-10 text-foreground text-center">
-            Deliverables & reporting
-          </h2>
+          <h2 className="text-4xl font-light mb-10 text-foreground text-center">What you see as a client.</h2>
           <Card className="border-border">
             <CardContent className="p-10 space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">Monthly Reports Include:</h3>
-                <ul className="space-y-2 text-muted-foreground">
-                  <li className="flex items-start">
-                    <span className="text-accent mr-2">•</span>
-                    Performance dashboard: traffic, rankings, conversions
+              <ul className="space-y-4">
+                {deliverables.map((item, index) => (
+                  <li key={index} className="flex items-start">
+                    <CheckCircle2 className="text-accent mr-3 mt-1 flex-shrink-0" size={20} />
+                    <span className="text-foreground text-lg">{item}</span>
                   </li>
-                  <li className="flex items-start">
-                    <span className="text-accent mr-2">•</span>
-                    Work completed and impact analysis
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-accent mr-2">•</span>
-                    Key wins and opportunities identified
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-accent mr-2">•</span>
-                    Next month's roadmap and priorities
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-accent mr-2">•</span>
-                    Revenue attribution and lead quality metrics
-                  </li>
-                </ul>
-              </div>
-              <div className="pt-6 border-t border-border">
-                <p className="text-foreground font-medium">
-                  You'll always know exactly what we're doing, why we're doing it, and how it's impacting your business.
-                </p>
-              </div>
+                ))}
+              </ul>
             </CardContent>
           </Card>
         </div>
       </section>
 
-      {/* Case Study Results */}
+      {/* Case Study Teaser */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              SEO results we've delivered
-            </h2>
+            <h2 className="text-4xl font-light mb-4 text-foreground">What good SEO looks like in practice.</h2>
           </div>
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {caseStudies.map((study, index) => (
               <Card key={index} className="border-border hover:shadow-xl transition-shadow">
                 <CardContent className="p-8 space-y-4">
                   <TrendingUp className="text-accent" size={32} />
                   <h3 className="text-xl font-semibold text-foreground">{study.title}</h3>
-                  <p className="text-2xl font-light text-accent">{study.result}</p>
+                  <p className="text-lg font-medium text-accent">{study.result}</p>
                   <p className="text-muted-foreground leading-relaxed">{study.description}</p>
                 </CardContent>
               </Card>
             ))}
+          </div>
+          <div className="text-center mt-12">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="outline" size="lg" asChild>
+                <Link to="/case-studies">View case studies</Link>
+              </Button>
+              <Button variant="accent" size="lg" asChild>
+                <Link to="/contact">Book an SEO strategy call</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </section>
@@ -268,9 +324,7 @@ const SEOServices = () => {
       <section className="py-24 px-6 bg-secondary">
         <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">
-              SEO questions answered
-            </h2>
+            <h2 className="text-4xl font-light mb-4 text-foreground">SEO FAQ</h2>
           </div>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
@@ -282,33 +336,31 @@ const SEOServices = () => {
                 <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
+                <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
       </section>
 
-      {/* CTA */}
+      {/* Final CTA */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
-            Ready to turn SEO into a predictable revenue channel?
+            Want blunt, grown-up SEO advice?
           </h2>
           <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Book a strategy call or request a free audit to see where your opportunities are.
+            Send us your site and we'll tell you exactly where you're wasting potential, what's holding you back and what we'd do first.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
-                Book SEO Strategy Call
+              <Link to="/free-seo-website-audit">
+                Get a free SEO audit
                 <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/contact">Request Free SEO Audit</Link>
+              <Link to="/contact">Book an SEO strategy call</Link>
             </Button>
           </div>
         </div>
