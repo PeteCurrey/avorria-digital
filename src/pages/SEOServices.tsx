@@ -289,6 +289,100 @@ const SEOServices = () => {
         </div>
       </section>
 
+      {/* SEO by Industry */}
+      <section className="py-24 px-6 bg-background">
+        <div className="container mx-auto max-w-6xl">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-light mb-4 text-foreground">SEO by industry</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Industry-specific SEO strategies built around how your buyers actually search and evaluate.
+            </p>
+          </div>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <Card className="border-border hover:shadow-xl transition-shadow">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-3">Trades & Home Services</h3>
+                <p className="text-muted-foreground mb-6">
+                  Local SEO that fills your diary with the right jobs in the right locations.
+                </p>
+                <Button variant="link" asChild className="p-0 h-auto">
+                  <Link to="/seo/for/trades-home-services">
+                    Learn more <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover:shadow-xl transition-shadow">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-3">Professional Services</h3>
+                <p className="text-muted-foreground mb-6">
+                  SEO that attracts better-fit clients and feeds your pipeline with qualified enquiries.
+                </p>
+                <Button variant="link" asChild className="p-0 h-auto">
+                  <Link to="/seo/for/professional-services">
+                    Learn more <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover:shadow-xl transition-shadow">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-3">B2B SaaS</h3>
+                <p className="text-muted-foreground mb-6">
+                  SEO that feeds your pipeline with demos and trials, not just blog traffic.
+                </p>
+                <Button variant="link" asChild className="p-0 h-auto">
+                  <Link to="/seo/for/b2b-saas">
+                    Learn more <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover:shadow-xl transition-shadow">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-3">E-commerce Brands</h3>
+                <p className="text-muted-foreground mb-6">
+                  SEO that moves revenue, not just rankings – with clean structure and conversion focus.
+                </p>
+                <Button variant="link" asChild className="p-0 h-auto">
+                  <Link to="/seo/for/ecommerce-brands">
+                    Learn more <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover:shadow-xl transition-shadow">
+              <CardContent className="p-8">
+                <h3 className="text-xl font-semibold text-foreground mb-3">Multi-Location Brands</h3>
+                <p className="text-muted-foreground mb-6">
+                  SEO that keeps every location and profile pulling its weight with structured local strategy.
+                </p>
+                <Button variant="link" asChild className="p-0 h-auto">
+                  <Link to="/seo/for/multi-location-brands">
+                    Learn more <ArrowRight className="ml-2" size={16} />
+                  </Link>
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="border-border hover:shadow-xl transition-shadow bg-secondary/30">
+              <CardContent className="p-8 flex flex-col justify-center items-center text-center h-full">
+                <p className="text-muted-foreground mb-4">
+                  Don't see your industry? We work with many sectors.
+                </p>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/contact">Discuss your industry</Link>
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Case Study Teaser */}
       <section className="py-24 px-6 bg-background">
         <div className="container mx-auto">
