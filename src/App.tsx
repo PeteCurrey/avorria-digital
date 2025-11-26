@@ -28,6 +28,7 @@ import ClientPortal from "./pages/ClientPortal";
 import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 import WebsitesWeFire from "./pages/WebsitesWeFire";
+import MarketingAssets from "./pages/MarketingAssets";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -65,6 +66,7 @@ const App = () => (
               {/* Resources */}
               <Route path="/resources" element={<Resources />} />
               <Route path="/resources/:slug" element={<ResourceDetail />} />
+              <Route path="/resources/marketing-assets" element={<MarketingAssets />} />
               
               {/* Why Avorria */}
               <Route path="/why-avorria" element={<WhyAvorria />} />
