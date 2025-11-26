@@ -3,6 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Target, LineChart, Palette, MessageSquare } from "lucide-react";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { LogoWall } from "@/components/LogoWall";
+import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 
 const WhyAvorria = () => {
   const principles = [
@@ -62,37 +65,50 @@ const WhyAvorria = () => {
 
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-          <div className="container mx-auto max-w-4xl text-center">
-            <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
-              Why teams who are done with fluff{" "}
-              <span className="font-semibold text-accent">pick Avorria</span>
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up max-w-3xl mx-auto">
-              If you're already investing in marketing but feel like you're flying blind, you don't need more ideas. You need a partner who can turn spend into a disciplined, measurable growth engine.
-            </p>
+        <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background via-secondary to-background relative overflow-hidden">
+          <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-40" />
+          
+          <div className="container mx-auto max-w-4xl text-center relative">
+            <ScrollReveal>
+              <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground">
+                Why teams who are done with fluff{" "}
+                <span className="font-semibold bg-clip-text text-transparent bg-gradient-to-r from-accent to-[hsl(280,75%,60%)]">
+                  pick Avorria
+                </span>
+              </h1>
+              <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
+                If you're already investing in marketing but feel like you're flying blind, you don't need more ideas. You need a partner who can turn spend into a disciplined, measurable growth engine.
+              </p>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Operating Principles */}
         <section className="py-24 px-6 bg-background">
           <div className="container mx-auto max-w-6xl">
-            <h2 className="text-3xl font-semibold text-foreground mb-12 text-center">
-              How we think about growth.
-            </h2>
-            <div className="grid md:grid-cols-2 gap-8">
+            <ScrollReveal>
+              <h2 className="text-3xl lg:text-4xl font-semibold text-foreground mb-12 text-center">
+                How we think about growth.
+              </h2>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-8" stagger={100}>
               {principles.map((principle, index) => (
-                <Card key={index} className="border-border hover:shadow-xl transition-all group">
+                <Card key={index} className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
                   <CardContent className="p-8">
-                    <div className="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
                       <principle.icon className="text-accent" size={28} />
                     </div>
-                    <h3 className="text-2xl font-semibold text-foreground mb-4">{principle.title}</h3>
+                    <h3 className="text-2xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                      {principle.title}
+                    </h3>
                     <p className="text-muted-foreground leading-relaxed">{principle.description}</p>
                   </CardContent>
                 </Card>
               ))}
-            </div>
+            </ScrollRevealGrid>
+            
+            <OpinionatedQuote quote="We will never send you a 40-slide deck and call it reporting." />
           </div>
         </section>
 

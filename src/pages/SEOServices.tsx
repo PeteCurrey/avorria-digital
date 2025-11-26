@@ -8,6 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, CheckCircle2, TrendingUp, X } from "lucide-react";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 
 const SEOServices = () => {
   const painPoints = [

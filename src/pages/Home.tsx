@@ -9,6 +9,9 @@ import FloatingChatButton from "@/components/FloatingChatButton";
 import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { LogoWall } from "@/components/LogoWall";
+import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 const Home = () => {
   const services = [{
@@ -182,71 +185,83 @@ const Home = () => {
             <p className="text-center text-muted-foreground mb-8 max-w-3xl mx-auto">
               We work with growing service businesses, multi-site brands and high-ticket B2B teams who want grown-up conversations about revenue, not vanity metrics.
             </p>
-            <div className="flex flex-wrap justify-center items-center gap-12 opacity-60">
-              <div className="text-xl font-semibold text-foreground">TechFlow</div>
-              <div className="text-xl font-semibold text-foreground">Premier Legal</div>
-              <div className="text-xl font-semibold text-foreground">Elevate</div>
-              <div className="text-xl font-semibold text-foreground">BuildRight</div>
-              <div className="text-xl font-semibold text-foreground">Vertex</div>
-            </div>
+            <LogoWall type="clients" />
           </div>
         </section>
 
         {/* Value Props */}
-        <section className="py-24 px-6 bg-secondary">
-          <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">Why teams work with Avorria</h2>
-            </div>
-            <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-              <Card className="border-border hover:shadow-lg transition-shadow">
+        <section className="py-24 px-6 bg-secondary relative overflow-hidden">
+          {/* Subtle gradient mesh background */}
+          <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-50" />
+          
+          <div className="container mx-auto relative">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <h2 className="text-4xl lg:text-5xl font-light mb-4 text-foreground max-w-3xl mx-auto">
+                  Why teams work with Avorria
+                </h2>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto" stagger={100}>
+              <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <Target className="text-accent" size={24} />
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <Target className="text-accent" size={28} />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground">Pipeline-first, not buzzword-first</h3>
+                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                    Pipeline-first, not buzzword-first
+                  </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-border hover:shadow-lg transition-shadow">
+              <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <Zap className="text-accent" size={24} />
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <Zap className="text-accent" size={28} />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground">Technical firepower baked in</h3>
+                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                    Technical firepower baked in
+                  </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-border hover:shadow-lg transition-shadow">
+              <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <TrendingUp className="text-accent" size={24} />
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <TrendingUp className="text-accent" size={28} />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground">Design that earns its keep</h3>
+                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                    Design that earns its keep
+                  </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-border hover:shadow-lg transition-shadow">
+              <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
                 <CardContent className="p-8 space-y-4">
-                  <div className="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center">
-                    <BarChart3 className="text-accent" size={24} />
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <BarChart3 className="text-accent" size={28} />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground">Plain-English reporting</h3>
+                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                    Plain-English reporting
+                  </h3>
                   <p className="text-muted-foreground leading-relaxed">
                     You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
                   </p>
                 </CardContent>
               </Card>
-            </div>
+            </ScrollRevealGrid>
+
+            <OpinionatedQuote quote="If your SEO report doesn't mention revenue, it's a vanity exercise." />
           </div>
         </section>
 
@@ -262,20 +277,20 @@ const Home = () => {
                 You don't need five different suppliers. You need one team that can connect the dots – from strategy and messaging through to build, launch and ongoing optimisation.
               </p>
             </div>
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all hover:shadow-lg group">
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto" stagger={100}>
+              {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all duration-[var(--duration-base)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 group">
                   <CardContent className="p-8">
-                    <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors">
+                    <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                       {service.title}
                     </h3>
                     <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                    <Link to={service.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors">
+                    <Link to={service.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-all duration-[var(--duration-fast)] group/link">
                       View service details
-                      <ArrowRight className="ml-2" size={18} />
+                      <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)]" size={18} />
                     </Link>
                   </CardContent>
                 </Card>)}
-            </div>
+            </ScrollRevealGrid>
             <div className="text-center mt-12">
               <Button variant="outline" size="lg" asChild>
                 <Link to="/services">View All Services</Link>

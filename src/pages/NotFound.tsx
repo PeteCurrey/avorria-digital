@@ -1,21 +1,61 @@
-import { useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Home, FileText } from "lucide-react";
 
 const NotFound = () => {
-  const location = useLocation();
-
-  useEffect(() => {
-    console.error("404 Error: User attempted to access non-existent route:", location.pathname);
-  }, [location.pathname]);
-
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">Oops! Page not found</p>
-        <a href="/" className="text-primary underline hover:text-primary/90">
-          Return to Home
-        </a>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background via-secondary to-background px-6">
+      <div className="max-w-2xl text-center space-y-8">
+        {/* 404 Large Text */}
+        <div className="relative">
+          <h1 className="text-9xl font-light text-foreground/10 select-none">
+            404
+          </h1>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="text-2xl font-semibold text-accent">Page not found</div>
+          </div>
+        </div>
+
+        {/* Message */}
+        <div className="space-y-4">
+          <h2 className="text-3xl lg:text-4xl font-semibold text-foreground">
+            You've found a dead URL.
+          </h2>
+          <p className="text-lg text-muted-foreground max-w-lg mx-auto">
+            The good news is we're much better at fixing websites than maintaining this one. Let's get you back on track.
+          </p>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
+          <Button variant="accent" size="lg" asChild>
+            <Link to="/">
+              <Home className="mr-2" size={20} />
+              Back to Home
+            </Link>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/services">
+              View Services
+              <ArrowRight className="ml-2" size={20} />
+            </Link>
+          </Button>
+          <Button variant="outline" size="lg" asChild>
+            <Link to="/resources">
+              <FileText className="mr-2" size={20} />
+              Browse Resources
+            </Link>
+          </Button>
+        </div>
+
+        {/* Help Text */}
+        <p className="text-sm text-muted-foreground pt-8">
+          If you think this page should exist,{" "}
+          <Link to="/contact" className="text-accent hover:underline">
+            let us know
+          </Link>
+          .
+        </p>
       </div>
     </div>
   );
