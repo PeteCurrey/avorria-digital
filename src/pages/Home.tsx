@@ -6,6 +6,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import HeroStats from "@/components/HeroStats";
 import ScrollIndicator from "@/components/ScrollIndicator";
 import FloatingChatButton from "@/components/FloatingChatButton";
+import { SlideInPanel } from "@/components/SlideInPanel";
+import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 const Home = () => {
@@ -457,6 +459,10 @@ const Home = () => {
           </div>
         </div>
       </section>
+      
+      <FloatingChatButton />
+      <SlideInPanel />
+      <ExitIntentPopover />
     </div>
     </>;
 };

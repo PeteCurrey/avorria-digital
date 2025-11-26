@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Clock, ArrowLeft } from "lucide-react";
 import { getResourceBySlug, getResourcesByCategory } from "@/data/resources";
 import ResourceTOC from "@/components/ResourceTOC";
+import { ContentUpgrade } from "@/components/ContentUpgrade";
 import ReactMarkdown from "react-markdown";
 
 const ResourceDetail = () => {
@@ -114,6 +115,37 @@ const ResourceDetail = () => {
               <div className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground prose-a:text-accent prose-a:no-underline hover:prose-a:underline">
                 <ReactMarkdown>{resource.content}</ReactMarkdown>
               </div>
+
+              {/* Content Upgrade based on service */}
+              {resource.serviceRelation === "seo" && (
+                <ContentUpgrade
+                  title="Want us to quickly review your current SEO setup?"
+                  description="Drop your site in and we'll send you a short, plain-English teardown of what's working, what's broken and what to fix first."
+                  buttonText="Get my SEO audit"
+                  source="seo-pillar"
+                  variant="seo"
+                />
+              )}
+              
+              {resource.serviceRelation === "web-design" && (
+                <ContentUpgrade
+                  title="Want a conversion review of your website?"
+                  description="We'll review your homepage, key landing pages and funnel – then send you specific recommendations to improve your conversion rate."
+                  buttonText="Get my website audit"
+                  source="web-pillar"
+                  variant="web"
+                />
+              )}
+              
+              {resource.serviceRelation === "analytics" && (
+                <ContentUpgrade
+                  title="Not sure if your tracking is broken?"
+                  description="We'll audit your GA4, ad tracking and CRM integration, then tell you exactly what's being measured (or not)."
+                  buttonText="Get my tracking audit"
+                  source="analytics-pillar"
+                  variant="analytics"
+                />
+              )}
 
               {/* Bottom CTA */}
               <Card className="bg-secondary border-border mt-16">
