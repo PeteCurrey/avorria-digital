@@ -733,7 +733,7 @@ Leads are coming in but they're not showing up in your CRM, or they're showing u
 ### Disaster #4: No UTM Parameters
 You're running multiple campaigns, but everything shows up as "direct traffic" in Analytics because you didn't tag your URLs.
 
-**Fix:** Use UTM parameters on all campaign links. Structure: `?utm_source=linkedin&utm_medium=paid&utm_campaign=q1-leadgen`
+**Fix:** Use UTM parameters on all campaign links. Structure: \`?utm_source=linkedin&utm_medium=paid&utm_campaign=q1-leadgen\`
 
 ### Disaster #5: Attribution Chaos
 Multiple tools (ads platforms, analytics, CRM) report different numbers, and nobody knows which is right.
