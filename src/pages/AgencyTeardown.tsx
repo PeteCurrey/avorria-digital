@@ -124,9 +124,7 @@ const AgencyTeardown = () => {
               <span className="text-accent">We'll Tell You If It's Worth What You're Paying.</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-              If your monthly PDF is 40 slides of charts and no clear next steps, you're not alone. 
-              Send us your latest report or proposal and we'll break it down in plain English – what's solid, 
-              what's fluff, and where you're being short-changed.
+              If your monthly PDF is 40 slides of charts and no clear plan, you're not alone. Send us your latest report or proposal and we'll break it down in plain English – what's solid, what's fluff, and where you're being short-changed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 

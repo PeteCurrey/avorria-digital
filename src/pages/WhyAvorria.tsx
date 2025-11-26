@@ -8,27 +8,27 @@ const WhyAvorria = () => {
   const principles = [
     {
       icon: Target,
-      title: "Pipeline, Not Vanity Metrics",
+      title: "Pipeline over vanity",
       description:
-        "We don't optimise for impressions, clicks, or rankings. We optimise for qualified leads, cost per lead, and revenue. If a metric doesn't tie back to your business outcomes, we don't report it.",
+        "We care about pipeline, revenue and margin impact. If a tactic or channel can't be linked to that, it doesn't stay in the plan.",
     },
     {
       icon: LineChart,
-      title: "Tracking First, Channels Second",
+      title: "Tracking before tactics",
       description:
-        "Most agencies launch campaigns and hope tracking magically works. We set up proper analytics, conversion events, and attribution before spending a penny on ads or SEO. No guessing, no flying blind.",
+        "We fix tracking and reporting first. There's no point \"optimising\" campaigns if you can't trust the numbers.",
     },
     {
       icon: Palette,
-      title: "Design Led, Conversion Obsessed",
+      title: "Design that does a job",
       description:
-        "We build sites that look like they belong in a top agency portfolio—but they're optimised for leads, not awards. Beautiful design and high conversion rates aren't mutually exclusive.",
+        "We love clean, modern interfaces – but only when they make it easier for the right people to say \"yes\". Aesthetics serve conversion.",
     },
     {
       icon: MessageSquare,
-      title: "Radical Clarity in Reporting",
+      title: "Radical clarity",
       description:
-        "No 40-page PDFs. No jargon-filled executive summaries. You get a live dashboard you can check anytime, and a monthly call where we talk about what's working, what's not, and what we're doing next.",
+        "We tell you what's working, what isn't and what we'd do if it were our money. No sugar-coating, no buzzword bingo.",
     },
   ];
 
@@ -69,8 +69,7 @@ const WhyAvorria = () => {
               <span className="font-semibold text-accent">pick Avorria</span>
             </h1>
             <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up max-w-3xl mx-auto">
-              Most agencies optimise for their portfolio. We optimise for your pipeline. Here's what that means in
-              practice.
+              If you're already investing in marketing but feel like you're flying blind, you don't need more ideas. You need a partner who can turn spend into a disciplined, measurable growth engine.
             </p>
           </div>
         </section>
@@ -79,7 +78,7 @@ const WhyAvorria = () => {
         <section className="py-24 px-6 bg-background">
           <div className="container mx-auto max-w-6xl">
             <h2 className="text-3xl font-semibold text-foreground mb-12 text-center">
-              Our Operating Principles
+              How we think about growth.
             </h2>
             <div className="grid md:grid-cols-2 gap-8">
               {principles.map((principle, index) => (
@@ -100,16 +99,26 @@ const WhyAvorria = () => {
         {/* How We Work */}
         <section className="py-24 px-6 bg-secondary">
           <div className="container mx-auto max-w-4xl">
-            <h2 className="text-3xl font-semibold text-foreground mb-12 text-center">How We Work</h2>
+            <h2 className="text-3xl font-semibold text-foreground mb-12 text-center">What it's like to work with us.</h2>
             <div className="space-y-8">
-              {howWeWork.map((item, index) => (
-                <Card key={index} className="border-border">
-                  <CardContent className="p-8">
-                    <h3 className="text-xl font-semibold text-accent mb-3">{item.phase}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{item.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+              <Card className="border-border">
+                <CardContent className="p-8">
+                  <h3 className="text-xl font-semibold text-accent mb-3">1. We start with your reality, not our playbook.</h3>
+                  <p className="text-muted-foreground leading-relaxed">We look at your current numbers, team, constraints and appetite for change. Then we build a plan around that, not some generic "full-funnel" template.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-border">
+                <CardContent className="p-8">
+                  <h3 className="text-xl font-semibold text-accent mb-3">2. We own execution, not just slide decks.</h3>
+                  <p className="text-muted-foreground leading-relaxed">We don't disappear after the strategy doc. We build the assets, run the campaigns, fix the tracking and adjust based on data.</p>
+                </CardContent>
+              </Card>
+              <Card className="border-border">
+                <CardContent className="p-8">
+                  <h3 className="text-xl font-semibold text-accent mb-3">3. We act like an internal growth function.</h3>
+                  <p className="text-muted-foreground leading-relaxed">You get proactive ideas, honest pushback and clear recommendations – not just task updates.</p>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
@@ -118,39 +127,24 @@ const WhyAvorria = () => {
         <section className="py-24 px-6 bg-background">
           <div className="container mx-auto max-w-5xl">
             <h2 className="text-3xl font-semibold text-foreground mb-12 text-center">
-              How Do We Compare?
+              Dig into the detail.
             </h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="border-border hover:shadow-xl transition-all group">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors">
-                    Avorria vs Typical Agency
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    See how we stack up against the typical agency model—from strategy depth to reporting clarity
-                    and contract flexibility.
-                  </p>
-                  <Button variant="outline" asChild className="group-hover:border-accent">
-                    <Link to="/why/avorria-vs-typical-agency">
-                      Read Comparison
+            <div className="space-y-6">
+              <Card className="border-border">
+                <CardContent className="p-6 text-center">
+                  <Button variant="outline" asChild className="w-full">
+                    <Link to="/reporting">
+                      See how we report
                       <ArrowRight className="ml-2" size={18} />
                     </Link>
                   </Button>
                 </CardContent>
               </Card>
-
-              <Card className="border-border hover:shadow-xl transition-all group">
-                <CardContent className="p-8">
-                  <h3 className="text-2xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors">
-                    Avorria vs DIY / In-House
-                  </h3>
-                  <p className="text-muted-foreground mb-6">
-                    Should you DIY your marketing, hire internally, or work with us? Here's when each approach makes
-                    sense.
-                  </p>
-                  <Button variant="outline" asChild className="group-hover:border-accent">
-                    <Link to="/why/avorria-vs-diy">
-                      Read Comparison
+              <Card className="border-border">
+                <CardContent className="p-6 text-center">
+                  <Button variant="outline" asChild className="w-full">
+                    <Link to="/websites-we-would-fire">
+                      Check out the 'Websites We'd Fire' gallery
                       <ArrowRight className="ml-2" size={18} />
                     </Link>
                   </Button>
@@ -204,21 +198,20 @@ const WhyAvorria = () => {
         <section className="py-24 px-6 bg-background">
           <div className="container mx-auto max-w-4xl text-center">
             <h2 className="text-4xl font-light mb-6 text-foreground">
-              Speak to a strategist, not a salesperson
+              If you want another hype deck, we're not it.
             </h2>
             <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-              Book a call and we'll walk through your current setup, identify opportunities, and show you what a
-              performance-first approach looks like—no pitch deck, no pressure.
+              If you want someone to help you hit numbers, clean up the mess and build a sane growth engine, we should talk.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
                 <Link to="/contact">
-                  Book Strategy Call
+                  Book a strategy call
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/pricing">View Pricing</Link>
+                <Link to="/free-seo-website-audit">Request a free audit</Link>
               </Button>
             </div>
           </div>

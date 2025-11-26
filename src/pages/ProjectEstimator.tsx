@@ -180,11 +180,8 @@ const ProjectEstimator = () => {
         <section className="pt-32 pb-20 px-6">
           <div className="container mx-auto max-w-4xl">
             <h1 className="text-4xl lg:text-5xl font-light leading-tight mb-4 text-foreground text-center">
-              Your Project Brief & <span className="font-semibold text-accent">Ballpark Estimate</span>
+              Here's what makes sense based on what you've told us.
             </h1>
-            <p className="text-lg text-muted-foreground text-center mb-12">
-              Based on what you've told us, here's a realistic view of what this could look like.
-            </p>
 
             <div className="space-y-8">
               {/* Project Snapshot */}
@@ -235,7 +232,7 @@ const ProjectEstimator = () => {
                   <h2 className="text-2xl font-semibold text-foreground">Ballpark Investment Range</h2>
                   <p className="text-3xl font-light text-accent">{ballpark.range}</p>
                   <p className="text-sm text-muted-foreground">
-                    This is an indicative range based on the information you've provided. Not a formal quote.
+                    This isn't a formal quote, but it's an honest range based on similar projects. If it's wildly out of line with what you had in mind, it's better we both know now.
                   </p>
                   {ballpark.fit === "needs-clarification" && (
                     <p className="text-sm text-foreground bg-background/50 p-4 rounded-md">
@@ -348,14 +345,14 @@ const ProjectEstimator = () => {
       <section className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
-            <h1 className="text-4xl lg:text-5xl font-light leading-tight mb-4 text-foreground">
+            <h1 className="text-4xl lg:text-5xl font-light leading-tight mb-4 text-foreground text-center">
               Project Estimator & <span className="font-semibold text-accent">Brief Builder</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Answer a few focused questions and we'll give you a realistic budget range and a structured brief that our team can turn into a proposal.
+              Answer a few focused questions and we'll give you a realistic budget range and a structured brief our team can turn into a proposal – no back-and-forth guesswork.
             </p>
             <p className="text-sm text-muted-foreground mt-4 italic">
-              This is for serious prospects only—not tyre-kickers.
+              This is for serious projects and serious buyers. If you're just kicking tyres, start with a free audit instead.
             </p>
           </div>
 
