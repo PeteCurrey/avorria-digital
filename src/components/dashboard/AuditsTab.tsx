@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, AlertTriangle } from "lucide-react";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 
 // Future integration:
 // - Tie audits to authenticated user ID
@@ -61,14 +62,17 @@ const AuditsTab = () => {
 
   if (selectedAudit) {
     return (
-      <div className="space-y-6">
+      <div className="space-y-8">
         {/* Back Button */}
+        <ScrollReveal>
         <Button variant="ghost" onClick={() => setSelectedAudit(null)}>
           ← Back to all audits
         </Button>
+        </ScrollReveal>
 
         {/* Audit Detail */}
-        <Card>
+        <ScrollReveal>
+        <Card className="border-border/50 shadow-soft">
           <CardHeader>
             <div className="flex items-start justify-between">
               <div>
@@ -86,32 +90,34 @@ const AuditsTab = () => {
             </div>
           </CardHeader>
         </Card>
+        </ScrollReveal>
 
         {/* Summary Cards */}
         {selectedAudit.overallScore && (
+          <ScrollRevealGrid>
           <div className="grid md:grid-cols-4 gap-4">
-            <Card>
+            <Card className="shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
               <CardContent className="p-4">
                 <p className="text-sm text-muted-foreground mb-1">SEO Score</p>
                 <p className="text-2xl font-light text-green-500">78</p>
                 <Progress value={78} className="mt-2" />
               </CardContent>
             </Card>
-            <Card>
+            <Card className="shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
               <CardContent className="p-4">
                 <p className="text-sm text-muted-foreground mb-1">Conversion</p>
                 <p className="text-2xl font-light text-yellow-500">70</p>
                 <Progress value={70} className="mt-2" />
               </CardContent>
             </Card>
-            <Card>
+            <Card className="shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
               <CardContent className="p-4">
                 <p className="text-sm text-muted-foreground mb-1">Tracking</p>
                 <p className="text-2xl font-light text-green-500">80</p>
                 <Progress value={80} className="mt-2" />
               </CardContent>
             </Card>
-            <Card>
+            <Card className="shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
               <CardContent className="p-4">
                 <p className="text-sm text-muted-foreground mb-1">Performance</p>
                 <p className="text-2xl font-light text-yellow-500">65</p>
@@ -119,11 +125,13 @@ const AuditsTab = () => {
               </CardContent>
             </Card>
           </div>
+          </ScrollRevealGrid>
         )}
 
         {/* Detailed Sections */}
+        <ScrollRevealGrid>
         <div className="space-y-6">
-          <Card>
+          <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
             <CardHeader>
               <CardTitle className="text-xl">What's working</CardTitle>
             </CardHeader>
@@ -143,7 +151,7 @@ const AuditsTab = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
             <CardHeader>
               <CardTitle className="text-xl">What's holding you back</CardTitle>
             </CardHeader>
@@ -167,7 +175,7 @@ const AuditsTab = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
             <CardHeader>
               <CardTitle className="text-xl">Priority actions (0–30 days)</CardTitle>
             </CardHeader>
@@ -187,7 +195,7 @@ const AuditsTab = () => {
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
             <CardHeader>
               <CardTitle className="text-xl">Next 90 days roadmap</CardTitle>
             </CardHeader>
@@ -202,9 +210,11 @@ const AuditsTab = () => {
             </CardContent>
           </Card>
         </div>
+        </ScrollRevealGrid>
 
         {/* CTA */}
-        <Card className="bg-secondary/30">
+        <ScrollReveal>
+        <Card className="bg-gradient-to-br from-accent/10 to-primary/10 border-accent/20 shadow-soft">
           <CardContent className="p-6 text-center">
             <h3 className="text-xl font-light mb-3 text-foreground">
               Turn this into a 90-day execution plan with Avorria
@@ -221,20 +231,24 @@ const AuditsTab = () => {
             </Button>
           </CardContent>
         </Card>
+        </ScrollReveal>
       </div>
     );
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
+      <ScrollReveal>
       <div>
         <h2 className="text-3xl font-light mb-2 text-foreground">Your audits</h2>
         <p className="text-muted-foreground">
           View all audits and assessments we've completed for your business.
         </p>
       </div>
+      </ScrollReveal>
 
-      <Card>
+      <ScrollReveal>
+      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
         <Table>
           <TableHeader>
             <TableRow>
@@ -284,6 +298,7 @@ const AuditsTab = () => {
           </TableBody>
         </Table>
       </Card>
+      </ScrollReveal>
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts";
 import { Download } from "lucide-react";
+import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 
 const OverviewTab = () => {
   // Mock data
@@ -81,8 +82,9 @@ const OverviewTab = () => {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       {/* Header with Date Range */}
+      <ScrollReveal>
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-light text-foreground mb-1">Performance Overview</h2>
@@ -113,17 +115,21 @@ const OverviewTab = () => {
           </Button>
         </div>
       </div>
+      </ScrollReveal>
 
       {/* Top KPI Strip */}
+      <ScrollRevealGrid>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <KPICard label="Monthly Sessions" value={24318} delta={18} deltaLabel="vs prev" />
         <KPICard label="Leads" value={412} delta={27} deltaLabel="vs prev" />
         <KPICard label="Qualified Leads" value={137} delta={19} deltaLabel="vs prev" />
         <KPICard label="Est. Pipeline Value" value="£486,000" delta={22} deltaLabel="vs prev" format="currency" />
       </div>
+      </ScrollRevealGrid>
 
       {/* Traffic → Leads Time Series */}
-      <Card className="border-border">
+      <ScrollReveal>
+      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
         <CardHeader>
           <CardTitle className="text-xl font-light">Traffic → Leads Trend</CardTitle>
         </CardHeader>
@@ -148,9 +154,11 @@ const OverviewTab = () => {
           </ResponsiveContainer>
         </CardContent>
       </Card>
+      </ScrollReveal>
 
       {/* Channel Performance Table */}
-      <Card className="border-border">
+      <ScrollReveal>
+      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
         <CardHeader>
           <CardTitle className="text-xl font-light">Channel Performance</CardTitle>
         </CardHeader>
@@ -185,10 +193,12 @@ const OverviewTab = () => {
           </div>
         </CardContent>
       </Card>
+      </ScrollReveal>
 
+      <ScrollRevealGrid>
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Funnel Snapshot */}
-        <Card className="border-border">
+        <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
           <CardHeader>
             <CardTitle className="text-xl font-light">Funnel Snapshot</CardTitle>
           </CardHeader>
@@ -218,7 +228,7 @@ const OverviewTab = () => {
         </Card>
 
         {/* What We're Doing About It */}
-        <Card className="border-accent/20 bg-accent/5">
+        <Card className="border-accent/20 bg-gradient-to-br from-accent/5 to-primary/5 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
           <CardHeader>
             <CardTitle className="text-xl font-light">What We're Doing About It</CardTitle>
           </CardHeader>
@@ -234,6 +244,7 @@ const OverviewTab = () => {
           </CardContent>
         </Card>
       </div>
+      </ScrollRevealGrid>
     </div>
   );
 };

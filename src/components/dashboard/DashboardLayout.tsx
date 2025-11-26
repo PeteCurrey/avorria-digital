@@ -30,6 +30,8 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
     { name: "Funnel & Conversions", icon: TrendingUp, path: `${basePath}?tab=funnel` },
     { name: "Content & Email", icon: Mail, path: `${basePath}?tab=content` },
     { name: "Notes & Next Actions", icon: FileText, path: `${basePath}?tab=notes` },
+    { name: "Audits", icon: FileText, path: `${basePath}?tab=audits` },
+    { name: "Website Health", icon: TrendingUp, path: `${basePath}?tab=health` },
   ];
 
   const isActive = (path: string) => {
@@ -40,51 +42,54 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
   };
 
   return (
-    <div className="min-h-screen bg-background flex">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 flex w-full">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 bg-secondary border-r border-border transition-all duration-300 ${
+        className={`fixed lg:static inset-y-0 left-0 z-40 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all duration-[var(--duration-normal)] ${
           sidebarOpen ? "w-64" : "w-0 lg:w-20"
         }`}
       >
         <div className="h-full flex flex-col">
           {/* Sidebar Header */}
-          <div className="h-16 flex items-center justify-between px-6 border-b border-border">
+          <div className="h-16 flex items-center justify-between px-6 border-b border-border/50">
             {sidebarOpen && (
-              <Link to="/" className="text-xl font-light tracking-tight text-foreground">
-                Avorria
-              </Link>
+              <div>
+                <Link to="/" className="text-xl font-semibold tracking-tight bg-gradient-to-r from-primary via-accent to-accent bg-clip-text text-transparent">
+                  Avorria
+                </Link>
+                <p className="text-xs text-muted-foreground mt-0.5">Client Portal</p>
+              </div>
             )}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-background rounded-md transition-colors lg:hidden"
+              className="p-2 hover:bg-secondary/50 rounded-md transition-all duration-[var(--duration-fast)] lg:hidden"
             >
               {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+          <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center gap-3 px-4 py-3 rounded-md transition-all ${
+                className={`group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-[var(--duration-fast)] ${
                   isActive(item.path)
-                    ? "bg-accent/10 text-accent font-medium"
-                    : "text-muted-foreground hover:bg-background hover:text-foreground"
+                    ? "bg-gradient-to-r from-accent/10 to-primary/5 text-accent font-medium shadow-sm"
+                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:-translate-y-0.5"
                 }`}
               >
-                <item.icon size={20} />
-                {sidebarOpen && <span>{item.name}</span>}
+                <item.icon size={20} className="flex-shrink-0" />
+                {sidebarOpen && <span className="text-sm">{item.name}</span>}
               </Link>
             ))}
           </nav>
 
           {/* Sidebar Footer */}
           {sidebarOpen && (
-            <div className="p-4 border-t border-border">
-              <p className="text-xs text-muted-foreground mb-2">Need help?</p>
+            <div className="p-4 border-t border-border/50 bg-secondary/20">
+              <p className="text-xs text-muted-foreground mb-2 font-medium">Need help?</p>
               <Button variant="outline" size="sm" className="w-full" asChild>
                 <Link to="/contact">Contact Support</Link>
               </Button>
@@ -96,43 +101,50 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
       {/* Main Content */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Top Bar */}
-        <header className="h-16 bg-card border-b border-border flex items-center justify-between px-6">
+        <header className="h-16 bg-card/80 backdrop-blur-sm border-b border-border/50 flex items-center justify-between px-6 sticky top-0 z-30">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-secondary rounded-md transition-colors lg:hidden"
+              className="p-2 hover:bg-secondary/50 rounded-md transition-all duration-[var(--duration-fast)] lg:hidden"
             >
               <Menu size={20} />
             </button>
             <div>
               {isDemoMode ? (
                 <div>
-                  <h1 className="text-lg font-medium text-foreground">
+                  <h1 className="text-lg font-semibold text-foreground">
                     Avorria Client Dashboard
                   </h1>
-                  <p className="text-xs text-muted-foreground">Demo Mode</p>
+                  <p className="text-xs text-muted-foreground">Demo Mode · Last updated 2 hours ago</p>
                 </div>
               ) : (
                 <div>
-                  <h1 className="text-lg font-medium text-foreground">
-                    Welcome back, {userName || "Client"}
+                  <h1 className="text-lg font-semibold text-foreground">
+                    {userName || "Client"} · Client Area
                   </h1>
                   <p className="text-xs text-muted-foreground">
-                    Here's your current performance snapshot
+                    Last updated 2 hours ago
                   </p>
                 </div>
               )}
             </div>
           </div>
-          <Button variant="accent" size="sm" asChild>
-            <Link to="/contact">
-              {isDemoMode ? "Talk to us about setting this up" : "Book Strategy Call"}
-            </Link>
-          </Button>
+          <div className="flex items-center gap-3">
+            <Button variant="accent" size="sm" asChild>
+              <Link to="/contact">
+                {isDemoMode ? "Talk to us about setting this up" : "Book Strategy Call"}
+              </Link>
+            </Button>
+            {!isDemoMode && (
+              <div className="w-9 h-9 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-white text-sm font-medium">
+                {userName ? userName.charAt(0).toUpperCase() : "C"}
+              </div>
+            )}
+          </div>
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto p-6">
+        <main className="flex-1 overflow-auto p-6 bg-gradient-to-br from-background via-background to-secondary/5">
           {children}
         </main>
       </div>
