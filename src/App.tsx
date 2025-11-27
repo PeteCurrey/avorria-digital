@@ -26,6 +26,17 @@ import ProjectEstimator from "./pages/ProjectEstimator";
 import Reporting from "./pages/Reporting";
 import DashboardDemo from "./pages/DashboardDemo";
 import ClientPortal from "./pages/ClientPortal";
+import PlatformDashboard from "./pages/platform/PlatformDashboard";
+import PlatformClients from "./pages/platform/PlatformClients";
+import PlatformClientDetail from "./pages/platform/PlatformClientDetail";
+import PlatformCampaigns from "./pages/platform/PlatformCampaigns";
+import PlatformSEOWeb from "./pages/platform/PlatformSEOWeb";
+import PlatformContent from "./pages/platform/PlatformContent";
+import PlatformReporting from "./pages/platform/PlatformReporting";
+import PlatformPlaybooks from "./pages/platform/PlatformPlaybooks";
+import Tools from "./pages/Tools";
+import ClientOverview from "./pages/client/ClientOverview";
+import ClientAudits from "./pages/client/ClientAudits";
 import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 import WebsitesWeFire from "./pages/WebsitesWeFire";
@@ -110,7 +121,23 @@ const App = () => (
               {/* Reporting & Dashboard */}
               <Route path="/reporting" element={<Reporting />} />
               <Route path="/reporting/demo" element={<DashboardDemo />} />
-              <Route path="/client" element={<ClientPortal />} />
+              
+              {/* Platform Routes */}
+              <Route path="/platform" element={<PlatformDashboard />} />
+              <Route path="/platform/clients" element={<PlatformClients />} />
+              <Route path="/platform/clients/:id" element={<PlatformClientDetail />} />
+              <Route path="/platform/campaigns" element={<PlatformCampaigns />} />
+              <Route path="/platform/seo-web" element={<PlatformSEOWeb />} />
+              <Route path="/platform/content" element={<PlatformContent />} />
+              <Route path="/platform/reporting" element={<PlatformReporting />} />
+              <Route path="/platform/playbooks" element={<PlatformPlaybooks />} />
+              
+              {/* Client Portal Routes */}
+              <Route path="/client" element={<ClientOverview />} />
+              <Route path="/client/audits" element={<ClientAudits />} />
+              
+              {/* Tools */}
+              <Route path="/tools" element={<Tools />} />
               
               {/* Landing Page Routes */}
               <Route path="/seo-agency/sheffield" element={<DynamicLanding />} />
