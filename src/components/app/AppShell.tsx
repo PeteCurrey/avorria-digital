@@ -1,0 +1,217 @@
+import { ReactNode, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
+  LayoutDashboard,
+  Users,
+  Target,
+  Globe,
+  FileText,
+  BarChart3,
+  BookOpen,
+  Settings,
+  Search,
+  Menu,
+  X,
+  FileCheck,
+  Activity,
+  Library,
+} from "lucide-react";
+
+interface AppShellProps {
+  children: ReactNode;
+  type: "platform" | "client";
+  userName?: string;
+  userRole?: string;
+  clientName?: string;
+}
+
+interface NavItem {
+  name: string;
+  path: string;
+  icon: any;
+}
+
+const platformNavItems: NavItem[] = [
+  { name: "Dashboard", path: "/platform", icon: LayoutDashboard },
+  { name: "Clients", path: "/platform/clients", icon: Users },
+  { name: "Campaigns & Channels", path: "/platform/campaigns", icon: Target },
+  { name: "SEO & Web Assets", path: "/platform/seo-web", icon: Globe },
+  { name: "Content & Social", path: "/platform/content", icon: FileText },
+  { name: "Reporting & Alerts", path: "/platform/reporting", icon: BarChart3 },
+  { name: "Playbooks & Docs", path: "/platform/playbooks", icon: BookOpen },
+  { name: "Settings", path: "/platform/settings", icon: Settings },
+];
+
+const clientNavItems: NavItem[] = [
+  { name: "Overview", path: "/client", icon: LayoutDashboard },
+  { name: "Audits", path: "/client/audits", icon: FileCheck },
+  { name: "Website Health", path: "/client/website-health", icon: Activity },
+  { name: "Reporting", path: "/client/reporting", icon: BarChart3 },
+  { name: "Resources", path: "/client/resources", icon: Library },
+];
+
+const AppShell = ({ children, type, userName = "User", userRole = "Team Member", clientName }: AppShellProps) => {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const navItems = type === "platform" ? platformNavItems : clientNavItems;
+  const title = type === "platform" ? "Growth Platform" : "Client Portal";
+
+  const isActive = (path: string) => {
+    if (path === "/platform" || path === "/client") {
+      return location.pathname === path;
+    }
+    return location.pathname.startsWith(path);
+  };
+
+  const getInitials = (name: string) => {
+    return name
+      .split(" ")
+      .map(n => n[0])
+      .join("")
+      .toUpperCase()
+      .slice(0, 2);
+  };
+
+  return (
+    <div className="flex h-screen w-full overflow-hidden bg-background">
+      {/* Sidebar */}
+      <aside
+        className={cn(
+          "flex flex-col border-r border-border bg-card transition-all duration-300",
+          sidebarOpen ? "w-64" : "w-0 md:w-16"
+        )}
+      >
+        {/* Logo & Title */}
+        <div className="flex h-16 items-center border-b border-border px-4">
+          {sidebarOpen ? (
+            <div>
+              <h1 className="text-xl font-semibold text-foreground">Avorria</h1>
+              <p className="text-xs text-muted-foreground">{title}</p>
+            </div>
+          ) : (
+            <div className="hidden md:block text-center w-full">
+              <span className="text-lg font-bold text-primary">A</span>
+            </div>
+          )}
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex-1 overflow-y-auto p-4 space-y-1">
+          {navItems.map((item) => {
+            const Icon = item.icon;
+            const active = isActive(item.path);
+            
+            return (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
+                  active
+                    ? "bg-primary/10 text-primary font-medium"
+                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                )}
+              >
+                <Icon className="h-5 w-5 shrink-0" />
+                {sidebarOpen && <span className="text-sm">{item.name}</span>}
+              </Link>
+            );
+          })}
+        </nav>
+
+        {/* Sidebar footer */}
+        {sidebarOpen && clientName && (
+          <div className="border-t border-border p-4">
+            <p className="text-xs text-muted-foreground mb-1">Client</p>
+            <p className="text-sm font-medium text-foreground">{clientName}</p>
+          </div>
+        )}
+      </aside>
+
+      {/* Main Content */}
+      <div className="flex flex-col flex-1 overflow-hidden">
+        {/* Top Bar */}
+        <header className="flex h-16 items-center justify-between border-b border-border bg-card px-6">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setSidebarOpen(!sidebarOpen)}
+              className="shrink-0"
+            >
+              {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+
+            {/* Search */}
+            <div className="relative hidden md:block w-80">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder={type === "platform" ? "Search clients, campaigns..." : "Search..."}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+          </div>
+
+          {/* User Menu */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" className="flex items-center gap-3">
+                <div className="hidden md:block text-right">
+                  <p className="text-sm font-medium text-foreground">{userName}</p>
+                  <p className="text-xs text-muted-foreground">{userRole}</p>
+                </div>
+                <Avatar className="h-9 w-9">
+                  <AvatarFallback className="bg-primary/10 text-primary">
+                    {getInitials(userName)}
+                  </AvatarFallback>
+                </Avatar>
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuLabel>
+                <div>
+                  <p className="font-medium">{userName}</p>
+                  <p className="text-xs text-muted-foreground">{userRole}</p>
+                </div>
+              </DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => navigate(`/${type}/settings`)}>
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => navigate("/")}>
+                Logout
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </header>
+
+        {/* Page Content */}
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
+          {children}
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default AppShell;
