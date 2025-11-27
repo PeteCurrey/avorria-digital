@@ -81,7 +81,7 @@ const Navigation = ({
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-card/40 backdrop-blur-sm text-foreground hover:bg-card/60 data-[state=open]:bg-card/60 transition-transform duration-200 hover:scale-105">
+                  <NavigationMenuTrigger className="bg-card/40 backdrop-blur-sm text-foreground hover:bg-card/60 data-[state=open]:bg-card/60 transition-transform duration-200 hover:scale-105 font-extralight">
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -108,7 +108,7 @@ const Navigation = ({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Button variant="accent" size="sm" asChild className="transition-transform duration-200 hover:scale-105">
+            <Button variant="default" size="sm" asChild className="transition-transform duration-200 hover:scale-105 font-extralight bg-primary text-primary-foreground hover:bg-primary/90">
               <Link to="/contact">Get in Touch</Link>
             </Button>
           </div>
