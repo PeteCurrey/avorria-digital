@@ -5,6 +5,7 @@ import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import ClientImpersonationBanner from "./ClientImpersonationBanner";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,6 +14,19 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import {
   LayoutDashboard,
   Users,
@@ -29,6 +43,9 @@ import {
   Activity,
   Library,
   LogOut,
+  Eye,
+  Check,
+  ChevronsUpDown,
 } from "lucide-react";
 
 interface AppShellProps {
@@ -67,13 +84,29 @@ const clientNavItems: NavItem[] = [
 const AppShell = ({ children, type, userName = "User", userRole = "Team Member", clientName }: AppShellProps) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { user, signOut } = useAuth();
+  const { user, signOut, impersonatedClient, setImpersonatedClient } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+  const [clientSelectorOpen, setClientSelectorOpen] = useState(false);
+
+  // Demo client list for impersonation
+  const availableClients = [
+    { id: "acme-corp", name: "Acme Corp", industry: "Technology" },
+    { id: "techflow", name: "TechFlow Solutions", industry: "SaaS" },
+    { id: "greenleaf", name: "GreenLeaf Solutions", industry: "Sustainability" },
+    { id: "bluesky", name: "BlueSky Consulting", industry: "Consulting" },
+    { id: "urban-dynamics", name: "Urban Dynamics", industry: "Real Estate" },
+  ];
 
   const handleSignOut = async () => {
     await signOut();
     navigate("/auth/login");
+  };
+
+  const handleClientSelect = (clientName: string) => {
+    setImpersonatedClient(clientName);
+    setClientSelectorOpen(false);
+    navigate("/client");
   };
 
   const displayName = userName !== "User" ? userName : user?.email?.split("@")[0] || "User";
@@ -155,6 +188,9 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
 
       {/* Main Content */}
       <div className="flex flex-col flex-1 overflow-hidden">
+        {/* Impersonation Banner */}
+        <ClientImpersonationBanner />
+        
         {/* Top Bar */}
         <header className="flex h-16 items-center justify-between border-b border-border bg-card px-6">
           <div className="flex items-center gap-4">
@@ -167,16 +203,65 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
               {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </Button>
 
-            {/* Search */}
-            <div className="relative hidden md:block w-80">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder={type === "platform" ? "Search clients, campaigns..." : "Search..."}
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-9"
-              />
+            {/* Search & Client Selector */}
+            <div className="flex items-center gap-3">
+              <div className="relative hidden md:block w-80">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  type="search"
+                  placeholder={type === "platform" ? "Search clients, campaigns..." : "Search..."}
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+
+              {/* Client Selector - Only for platform users */}
+              {type === "platform" && (
+                <Popover open={clientSelectorOpen} onOpenChange={setClientSelectorOpen}>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      aria-expanded={clientSelectorOpen}
+                      className="w-[240px] justify-between"
+                    >
+                      <Eye className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+                      <span className="truncate">View as client...</span>
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-[240px] p-0 bg-popover border-border z-50" align="start">
+                    <Command className="bg-popover">
+                      <CommandInput placeholder="Search clients..." className="h-9" />
+                      <CommandList>
+                        <CommandEmpty>No client found.</CommandEmpty>
+                        <CommandGroup>
+                          {availableClients.map((client) => (
+                            <CommandItem
+                              key={client.id}
+                              value={client.name}
+                              onSelect={() => handleClientSelect(client.name)}
+                              className="cursor-pointer"
+                            >
+                              <Check
+                                className={cn(
+                                  "mr-2 h-4 w-4",
+                                  impersonatedClient === client.name ? "opacity-100" : "opacity-0"
+                                )}
+                              />
+                              <div className="flex flex-col">
+                                <span className="font-medium">{client.name}</span>
+                                <span className="text-xs text-muted-foreground">{client.industry}</span>
+                              </div>
+                            </CommandItem>
+                          ))}
+                        </CommandGroup>
+                      </CommandList>
+                    </Command>
+                  </PopoverContent>
+                </Popover>
+              )}
             </div>
           </div>
 

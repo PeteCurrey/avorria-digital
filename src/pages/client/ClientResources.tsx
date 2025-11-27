@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -7,6 +8,9 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, FileText, Video, Download, ExternalLink } from "lucide-react";
 
 const ClientResources = () => {
+  const { impersonatedClient } = useAuth();
+  const clientName = impersonatedClient || "TechCorp Industries";
+  
   const guides = [
     {
       id: "1",
@@ -92,7 +96,7 @@ const ClientResources = () => {
         type="client"
         userName="Sarah Mitchell"
         userRole="Marketing Director"
-        clientName="TechCorp Industries"
+        clientName={clientName}
       >
         <div className="space-y-6">
           {/* Page Header */}

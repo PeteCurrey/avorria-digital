@@ -1,11 +1,15 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, TrendingDown, FileCheck, Activity, BarChart3, ArrowRight } from "lucide-react";
 
 const ClientOverview = () => {
+  const { impersonatedClient } = useAuth();
+  const clientName = impersonatedClient || "TechCorp Industries";
+  
   const currentFocus = [
     "Scale Google Ads spend while maintaining £45 CPL",
     "Improve organic rankings for 3 priority product pages",
@@ -28,7 +32,7 @@ const ClientOverview = () => {
         type="client"
         userName="Sarah Mitchell"
         userRole="Marketing Director"
-        clientName="TechCorp Industries"
+        clientName={clientName}
       >
         <div className="space-y-6">
           {/* Welcome */}

@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Activity, TrendingUp, AlertCircle, CheckCircle, ArrowRight } from "lucide-react";
 
 const ClientWebsiteHealth = () => {
+  const { impersonatedClient } = useAuth();
+  const clientName = impersonatedClient || "TechCorp Industries";
+  
   // Historical health scores
   const healthHistory = [
     { date: "Jan 2024", overall: 65, seo: 62, performance: 70, conversion: 58, tracking: 60 },
@@ -57,7 +61,7 @@ const ClientWebsiteHealth = () => {
         type="client"
         userName="Sarah Mitchell"
         userRole="Marketing Director"
-        clientName="TechCorp Industries"
+        clientName={clientName}
       >
         <div className="space-y-6">
           {/* Page Header */}
