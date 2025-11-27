@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -15,6 +16,7 @@ import {
 import { Search, Target } from "lucide-react";
 
 const PlatformCampaigns = () => {
+  const navigate = useNavigate();
   const [channelFilter, setChannelFilter] = useState("all");
   const [statusFilter, setStatusFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
@@ -182,7 +184,11 @@ const PlatformCampaigns = () => {
                   </thead>
                   <tbody>
                     {filteredCampaigns.map((campaign) => (
-                      <tr key={campaign.id} className="border-b border-border hover:bg-muted/50">
+                      <tr 
+                        key={campaign.id} 
+                        className="border-b border-border hover:bg-muted/50 cursor-pointer"
+                        onClick={() => navigate(`/platform/campaigns/${campaign.id}`)}
+                      >
                         <td className="p-4">
                           <div className="flex items-center gap-2">
                             <Target className="h-4 w-4 text-muted-foreground" />
@@ -203,7 +209,14 @@ const PlatformCampaigns = () => {
                         </td>
                         <td className="p-4 text-sm text-muted-foreground">{campaign.nextReview}</td>
                         <td className="p-4 text-right">
-                          <Button variant="ghost" size="sm">
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate(`/platform/campaigns/${campaign.id}`);
+                            }}
+                          >
                             View
                           </Button>
                         </td>

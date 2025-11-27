@@ -32,6 +32,7 @@ import PlatformDashboard from "./pages/platform/PlatformDashboard";
 import PlatformClients from "./pages/platform/PlatformClients";
 import PlatformClientDetail from "./pages/platform/PlatformClientDetail";
 import PlatformCampaigns from "./pages/platform/PlatformCampaigns";
+import PlatformCampaignDetail from "./pages/platform/PlatformCampaignDetail";
 import PlatformSEOWeb from "./pages/platform/PlatformSEOWeb";
 import PlatformContent from "./pages/platform/PlatformContent";
 import PlatformReporting from "./pages/platform/PlatformReporting";
@@ -162,6 +163,11 @@ const App = () => (
               <Route path="/platform/campaigns" element={
                 <ProtectedRoute>
                   <PlatformCampaigns />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/campaigns/:id" element={
+                <ProtectedRoute>
+                  <PlatformCampaignDetail />
                 </ProtectedRoute>
               } />
               <Route path="/platform/seo-web" element={
