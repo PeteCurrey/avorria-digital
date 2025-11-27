@@ -65,7 +65,7 @@ const Navigation = ({
     }
   ];
   const shouldBeTransparent = transparent && !isScrolled;
-  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !transparent ? "bg-background/95 backdrop-blur-md shadow-sm" : "bg-transparent"}`}>
+  return <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !transparent ? "bg-background shadow-md" : "bg-transparent"}`}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between gap-6 h-20">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
@@ -81,7 +81,7 @@ const Navigation = ({
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-card/40 backdrop-blur-sm text-foreground hover:bg-card/60 data-[state=open]:bg-card/60">
+                  <NavigationMenuTrigger className="bg-card/40 backdrop-blur-sm text-foreground hover:bg-card/60 data-[state=open]:bg-card/60 transition-transform duration-200 hover:scale-105">
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -108,7 +108,7 @@ const Navigation = ({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Button variant="accent" size="sm" asChild>
+            <Button variant="accent" size="sm" asChild className="transition-transform duration-200 hover:scale-105">
               <Link to="/contact">Get in Touch</Link>
             </Button>
           </div>
