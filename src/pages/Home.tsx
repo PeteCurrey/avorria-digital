@@ -180,10 +180,10 @@ const Home = () => {
 
                 {/* Dual CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60" asChild>
+                  <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight" asChild>
                     <Link to="/contact">Book a strategy call</Link>
                   </Button>
-                  <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60" asChild>
+                  <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight" asChild>
                     <Link to="/free-seo-website-audit">Get a free SEO & website audit</Link>
                   </Button>
                 </div>
