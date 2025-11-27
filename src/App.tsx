@@ -37,6 +37,9 @@ import PlatformPlaybooks from "./pages/platform/PlatformPlaybooks";
 import Tools from "./pages/Tools";
 import ClientOverview from "./pages/client/ClientOverview";
 import ClientAudits from "./pages/client/ClientAudits";
+import ClientWebsiteHealth from "./pages/client/ClientWebsiteHealth";
+import ClientReporting from "./pages/client/ClientReporting";
+import ClientResources from "./pages/client/ClientResources";
 import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 import WebsitesWeFire from "./pages/WebsitesWeFire";
@@ -135,6 +138,9 @@ const App = () => (
               {/* Client Portal Routes */}
               <Route path="/client" element={<ClientOverview />} />
               <Route path="/client/audits" element={<ClientAudits />} />
+              <Route path="/client/website-health" element={<ClientWebsiteHealth />} />
+              <Route path="/client/reporting" element={<ClientReporting />} />
+              <Route path="/client/resources" element={<ClientResources />} />
               
               {/* Tools */}
               <Route path="/tools" element={<Tools />} />
