@@ -34,6 +34,7 @@ import PlatformSEOWeb from "./pages/platform/PlatformSEOWeb";
 import PlatformContent from "./pages/platform/PlatformContent";
 import PlatformReporting from "./pages/platform/PlatformReporting";
 import PlatformPlaybooks from "./pages/platform/PlatformPlaybooks";
+import PlatformSettings from "./pages/platform/PlatformSettings";
 import Tools from "./pages/Tools";
 import ClientOverview from "./pages/client/ClientOverview";
 import ClientAudits from "./pages/client/ClientAudits";
@@ -134,6 +135,7 @@ const App = () => (
               <Route path="/platform/content" element={<PlatformContent />} />
               <Route path="/platform/reporting" element={<PlatformReporting />} />
               <Route path="/platform/playbooks" element={<PlatformPlaybooks />} />
+              <Route path="/platform/settings" element={<PlatformSettings />} />
               
               {/* Client Portal Routes */}
               <Route path="/client" element={<ClientOverview />} />
