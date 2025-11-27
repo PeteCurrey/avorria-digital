@@ -74,16 +74,18 @@ const Navigation = ({
             </span>
           </Link>
 
-          {/* Desktop Navigation - Mega Menu */}
-          <div className="hidden lg:flex items-center flex-1 justify-center">
+          {/* Desktop Navigation - Spacer */}
+          <div className="hidden lg:flex flex-1" />
+
+          <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className={`${shouldBeTransparent ? "text-white/90 hover:text-white data-[state=open]:text-white" : "text-foreground/80"}`}>
+                  <NavigationMenuTrigger className={`bg-card/40 backdrop-blur-sm text-foreground hover:bg-card/60 data-[state=open]:bg-card/60`}>
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="grid grid-cols-4 gap-6 p-6 w-[800px] bg-popover">
+                    <div className="grid grid-cols-4 gap-6 p-6 w-[800px] bg-card/40 backdrop-blur-md border border-border/20">
                       {navSections.map((section) => (
                         <div key={section.title} className="space-y-3">
                           <h4 className="text-sm font-semibold text-foreground mb-3">{section.title}</h4>
@@ -106,14 +108,8 @@ const Navigation = ({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-          </div>
-
-          <div className="hidden lg:flex items-center space-x-4 flex-shrink-0">
-            <Button variant={shouldBeTransparent ? "ghost" : "ghost"} size="sm" asChild className={shouldBeTransparent ? "text-white hover:text-white hover:bg-white/10" : ""}>
-              <Link to="/contact">Get in Touch</Link>
-            </Button>
             <Button variant="accent" size="sm" asChild>
-              <Link to="/contact">Book Strategy Call</Link>
+              <Link to="/contact">Get in Touch</Link>
             </Button>
           </div>
 
