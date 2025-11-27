@@ -58,6 +58,7 @@ import WebsiteHealthCheck from "./pages/WebsiteHealthCheck";
 import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Unauthorized from "./pages/Unauthorized";
+import Onboarding from "./pages/Onboarding";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -131,6 +132,11 @@ const App = () => (
               {/* Auth Routes */}
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/signup" element={<Signup />} />
+              <Route path="/onboarding" element={
+                <ProtectedRoute>
+                  <Onboarding />
+                </ProtectedRoute>
+              } />
               <Route path="/unauthorized" element={<Unauthorized />} />
 
               {/* Reporting & Dashboard */}
