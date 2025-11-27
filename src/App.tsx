@@ -4,6 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from "react-helmet-async";
+import { AuthProvider } from "@/hooks/useAuth";
+import ProtectedRoute from "@/components/auth/ProtectedRoute";
 import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
@@ -53,6 +55,9 @@ import WebsiteMigrations from "./pages/seo/WebsiteMigrations";
 import SEOGlossary from "./pages/SEOGlossary";
 import FAQs from "./pages/FAQs";
 import WebsiteHealthCheck from "./pages/WebsiteHealthCheck";
+import Login from "./pages/auth/Login";
+import Signup from "./pages/auth/Signup";
+import Unauthorized from "./pages/Unauthorized";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -73,11 +78,12 @@ const App = () => (
   <HelmetProvider>
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Layout>
-            <Routes>
+        <AuthProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Layout>
+              <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/seo" element={<SEOServices />} />
@@ -122,27 +128,88 @@ const App = () => (
               {/* Websites We'd Fire */}
               <Route path="/websites-we-would-fire" element={<WebsitesWeFire />} />
               
+              {/* Auth Routes */}
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/signup" element={<Signup />} />
+              <Route path="/unauthorized" element={<Unauthorized />} />
+
               {/* Reporting & Dashboard */}
               <Route path="/reporting" element={<Reporting />} />
               <Route path="/reporting/demo" element={<DashboardDemo />} />
               
-              {/* Platform Routes */}
-              <Route path="/platform" element={<PlatformDashboard />} />
-              <Route path="/platform/clients" element={<PlatformClients />} />
-              <Route path="/platform/clients/:id" element={<PlatformClientDetail />} />
-              <Route path="/platform/campaigns" element={<PlatformCampaigns />} />
-              <Route path="/platform/seo-web" element={<PlatformSEOWeb />} />
-              <Route path="/platform/content" element={<PlatformContent />} />
-              <Route path="/platform/reporting" element={<PlatformReporting />} />
-              <Route path="/platform/playbooks" element={<PlatformPlaybooks />} />
-              <Route path="/platform/settings" element={<PlatformSettings />} />
+              {/* Platform Routes - Protected for internal roles */}
+              <Route path="/platform" element={
+                <ProtectedRoute>
+                  <PlatformDashboard />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/clients" element={
+                <ProtectedRoute>
+                  <PlatformClients />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/clients/:id" element={
+                <ProtectedRoute>
+                  <PlatformClientDetail />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/campaigns" element={
+                <ProtectedRoute>
+                  <PlatformCampaigns />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/seo-web" element={
+                <ProtectedRoute>
+                  <PlatformSEOWeb />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/content" element={
+                <ProtectedRoute>
+                  <PlatformContent />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/reporting" element={
+                <ProtectedRoute>
+                  <PlatformReporting />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/playbooks" element={
+                <ProtectedRoute>
+                  <PlatformPlaybooks />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/settings" element={
+                <ProtectedRoute>
+                  <PlatformSettings />
+                </ProtectedRoute>
+              } />
               
-              {/* Client Portal Routes */}
-              <Route path="/client" element={<ClientOverview />} />
-              <Route path="/client/audits" element={<ClientAudits />} />
-              <Route path="/client/website-health" element={<ClientWebsiteHealth />} />
-              <Route path="/client/reporting" element={<ClientReporting />} />
-              <Route path="/client/resources" element={<ClientResources />} />
+              {/* Client Portal Routes - Protected for client role */}
+              <Route path="/client" element={
+                <ProtectedRoute requiredRole="client">
+                  <ClientOverview />
+                </ProtectedRoute>
+              } />
+              <Route path="/client/audits" element={
+                <ProtectedRoute requiredRole="client">
+                  <ClientAudits />
+                </ProtectedRoute>
+              } />
+              <Route path="/client/website-health" element={
+                <ProtectedRoute requiredRole="client">
+                  <ClientWebsiteHealth />
+                </ProtectedRoute>
+              } />
+              <Route path="/client/reporting" element={
+                <ProtectedRoute requiredRole="client">
+                  <ClientReporting />
+                </ProtectedRoute>
+              } />
+              <Route path="/client/resources" element={
+                <ProtectedRoute requiredRole="client">
+                  <ClientResources />
+                </ProtectedRoute>
+              } />
               
               {/* Tools */}
               <Route path="/tools" element={<Tools />} />
@@ -158,9 +225,10 @@ const App = () => (
               
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Layout>
-        </BrowserRouter>
+              </Routes>
+            </Layout>
+          </BrowserRouter>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </HelmetProvider>

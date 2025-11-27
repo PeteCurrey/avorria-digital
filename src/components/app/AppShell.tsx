@@ -1,6 +1,7 @@
 import { ReactNode, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/useAuth";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,6 +28,7 @@ import {
   FileCheck,
   Activity,
   Library,
+  LogOut,
 } from "lucide-react";
 
 interface AppShellProps {
@@ -65,8 +67,16 @@ const clientNavItems: NavItem[] = [
 const AppShell = ({ children, type, userName = "User", userRole = "Team Member", clientName }: AppShellProps) => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { user, signOut } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSignOut = async () => {
+    await signOut();
+    navigate("/auth/login");
+  };
+
+  const displayName = userName !== "User" ? userName : user?.email?.split("@")[0] || "User";
 
   const navItems = type === "platform" ? platformNavItems : clientNavItems;
   const title = type === "platform" ? "Growth Platform" : "Client Portal";
@@ -175,12 +185,12 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
             <DropdownMenuTrigger asChild>
               <Button variant="ghost" className="flex items-center gap-3">
                 <div className="hidden md:block text-right">
-                  <p className="text-sm font-medium text-foreground">{userName}</p>
+                  <p className="text-sm font-medium text-foreground">{displayName}</p>
                   <p className="text-xs text-muted-foreground">{userRole}</p>
                 </div>
                 <Avatar className="h-9 w-9">
                   <AvatarFallback className="bg-primary/10 text-primary">
-                    {getInitials(userName)}
+                    {getInitials(displayName)}
                   </AvatarFallback>
                 </Avatar>
               </Button>
@@ -188,7 +198,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuLabel>
                 <div>
-                  <p className="font-medium">{userName}</p>
+                  <p className="font-medium">{displayName}</p>
                   <p className="text-xs text-muted-foreground">{userRole}</p>
                 </div>
               </DropdownMenuLabel>
@@ -198,7 +208,8 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
                 Settings
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem onClick={() => navigate("/")}>
+              <DropdownMenuItem onClick={handleSignOut} className="text-destructive">
+                <LogOut className="mr-2 h-4 w-4" />
                 Logout
               </DropdownMenuItem>
             </DropdownMenuContent>
