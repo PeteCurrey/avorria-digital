@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import SEOServices from "./pages/SEOServices";
+import PaidMedia from "./pages/PaidMedia";
 import WebDesign from "./pages/WebDesign";
 import CaseStudies from "./pages/CaseStudies";
 import About from "./pages/About";
@@ -65,6 +66,7 @@ const App = () => (
               <Route path="/" element={<Home />} />
               <Route path="/services" element={<Services />} />
               <Route path="/services/seo" element={<SEOServices />} />
+              <Route path="/services/paid-media" element={<PaidMedia />} />
               <Route path="/services/web-design" element={<WebDesign />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/about" element={<About />} />

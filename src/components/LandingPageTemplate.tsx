@@ -128,6 +128,22 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
       <Helmet>
         <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
+        <link rel="canonical" href={`https://avorria.com${window.location.pathname}`} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={metaTitle} />
+        <meta property="og:description" content={metaDescription} />
+        <meta property="og:url" content={`https://avorria.com${window.location.pathname}`} />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://avorria.com/og-image.jpg" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={metaTitle} />
+        <meta name="twitter:description" content={metaDescription} />
+        <meta name="twitter:image" content="https://avorria.com/og-image.jpg" />
+        
+        {/* JSON-LD Schema */}
         <script type="application/ld+json">{JSON.stringify(generateFAQSchema())}</script>
         <script type="application/ld+json">{JSON.stringify(generateServiceSchema())}</script>
         <script type="application/ld+json">{JSON.stringify(generateBreadcrumbSchema())}</script>
