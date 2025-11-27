@@ -24,14 +24,16 @@ const Signup = () => {
     }
   }, [user, navigate, returnTo]);
 
+  const userType = searchParams.get("type") || "client";
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    const { error } = await signUp(email, password, fullName);
+    const { error } = await signUp(email, password, fullName, userType);
 
     if (!error) {
-      navigate(`/auth/login?returnTo=${returnTo}`);
+      navigate(`/onboarding?type=${userType}`);
     }
 
     setLoading(false);
