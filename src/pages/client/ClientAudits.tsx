@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -9,6 +10,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ArrowRight, CheckCircle, AlertTriangle, Download, Share2 } from "lucide-react";
 
 const ClientAudits = () => {
+  const { impersonatedClient } = useAuth();
+  const clientName = impersonatedClient || "TechCorp Industries";
   const [selectedAudit, setSelectedAudit] = useState<string | null>(null);
 
   const audits = [
@@ -100,7 +103,7 @@ const ClientAudits = () => {
           type="client"
           userName="Sarah Mitchell"
           userRole="Marketing Director"
-          clientName="TechCorp Industries"
+          clientName={clientName}
         >
           <div className="space-y-6">
             {/* Back button */}
@@ -278,7 +281,7 @@ const ClientAudits = () => {
         type="client"
         userName="Sarah Mitchell"
         userRole="Marketing Director"
-        clientName="TechCorp Industries"
+        clientName={clientName}
       >
         <div className="space-y-6">
           {/* Page Header */}

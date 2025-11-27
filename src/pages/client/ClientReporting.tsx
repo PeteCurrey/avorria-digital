@@ -1,4 +1,5 @@
 import { Helmet } from "react-helmet-async";
+import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import OverviewTab from "@/components/dashboard/OverviewTab";
 import SEOTab from "@/components/dashboard/SEOTab";

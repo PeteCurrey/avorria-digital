@@ -8,6 +8,8 @@ interface AuthContextType {
   session: Session | null;
   userRole: string | null;
   loading: boolean;
+  impersonatedClient: string | null;
+  setImpersonatedClient: (clientId: string | null) => void;
   signUp: (email: string, password: string, fullName: string, userType?: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
   signOut: () => Promise<void>;
@@ -19,6 +21,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [session, setSession] = useState<Session | null>(null);
   const [userRole, setUserRole] = useState<string | null>(null);
+  const [impersonatedClient, setImpersonatedClient] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const { toast } = useToast();
 
@@ -143,7 +146,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, session, userRole, loading, signUp, signIn, signOut }}>
+    <AuthContext.Provider value={{ user, session, userRole, loading, impersonatedClient, setImpersonatedClient, signUp, signIn, signOut }}>
       {children}
     </AuthContext.Provider>
   );
