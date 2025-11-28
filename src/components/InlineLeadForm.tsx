@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
+import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -53,6 +54,7 @@ interface InlineLeadFormProps {
 export function InlineLeadForm({ source = "inline", variant = "default" }: InlineLeadFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
+  const [formStarted, setFormStarted] = useState(false);
 
   const {
     register,
@@ -63,17 +65,38 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     resolver: zodResolver(formSchema),
   });
 
+  const handleFirstInteraction = () => {
+    if (!formStarted) {
+      setFormStarted(true);
+      trackFormStart('audit', window.location.pathname, source);
+    }
+  };
+
   const onSubmit = async (data: FormData) => {
-    // Analytics event hook
-    console.log("Event: lead_inline_form_submitted", { source, data });
-    
-    // Future: Send to ESP/CRM
-    // await fetch('/api/leads', { method: 'POST', body: JSON.stringify({ ...data, source }) });
-    
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
-    setSubmitted(true);
+    try {
+      // Track successful submission
+      trackEvent(EVENTS.AUDIT_FORM_SUBMITTED, {
+        source_page: window.location.pathname,
+        form_variant: source,
+        has_website_url: !!data.website,
+        budget_band: data.budget,
+      });
+      
+      // Future: Send to ESP/CRM
+      // await fetch('/api/leads', { method: 'POST', body: JSON.stringify({ ...data, source }) });
+      
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      
+      setSubmitted(true);
+    } catch (error) {
+      // Track error
+      trackEvent(EVENTS.AUDIT_FORM_ERROR, {
+        source_page: window.location.pathname,
+        form_variant: source,
+        error_type: 'submission',
+      });
+    }
   };
 
   const handlePriorityChange = (priority: string, checked: boolean) => {
@@ -125,6 +148,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
               <Input
                 id="name"
                 {...register("name")}
+                onFocus={handleFirstInteraction}
                 className={errors.name ? "border-destructive" : ""}
               />
               {errors.name && (

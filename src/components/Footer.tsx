@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Linkedin, Twitter, Instagram } from "lucide-react";
+import { trackNavClick } from "@/lib/tracking";
 
 const Footer = () => {
   const services = [
@@ -78,6 +79,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link
                     to={link.href}
+                    onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
                     className="text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}
@@ -94,6 +96,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link
                     to={link.href}
+                    onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
                     className="text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}
@@ -126,6 +129,7 @@ const Footer = () => {
                 <li key={link.href}>
                   <Link
                     to={link.href}
+                    onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
                     className="text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}

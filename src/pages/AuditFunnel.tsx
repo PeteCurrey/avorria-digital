@@ -1,5 +1,6 @@
 import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
+import { trackCTAClick } from "@/lib/tracking";
 import Footer from "@/components/Footer";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
@@ -13,11 +14,8 @@ import {
 import { Check, X, Video, FileText, BarChart3, ListChecks } from "lucide-react";
 
 export default function AuditFunnel() {
-  const handleCTAClick = (action: string) => {
-    console.log("Event: cta_" + action);
-  };
-
   const scrollToForm = () => {
+    trackCTAClick('request_audit', '#audit-form', 'hero');
     document.getElementById("audit-form")?.scrollIntoView({ behavior: "smooth" });
   };
 
@@ -101,7 +99,7 @@ export default function AuditFunnel() {
                 size="lg"
                 variant="outline"
                 onClick={() => {
-                  handleCTAClick("see_whats_included");
+                  trackCTAClick('see_whats_included', '#what-you-get', 'hero');
                   document.getElementById("what-you-get")?.scrollIntoView({ behavior: "smooth" });
                 }}
               >

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
+import { trackEvent, EVENTS } from "@/lib/tracking";
 
 const WebsiteHealthCheck = () => {
   const [url, setUrl] = useState("");
@@ -13,10 +14,24 @@ const WebsiteHealthCheck = () => {
 
   const handleCheck = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Compute score via API/crawler; for now, output based on stubbed data
-    console.log("site_health_check_started", { url, email });
+    
+    trackEvent(EVENTS.HEALTH_CHECK_STARTED, {
+      has_email: !!email,
+      source_page: window.location.pathname,
+    });
+    
     setShowResults(true);
-    console.log("site_health_check_completed", { url, email });
+    
+    // Calculate mock results
+    const overallScore = mockResults.overallScore;
+    
+    trackEvent(EVENTS.HEALTH_CHECK_COMPLETED, {
+      overall_score: overallScore,
+      seo_score: mockResults.categories[0].score,
+      performance_score: mockResults.categories[1].score,
+      conversion_score: mockResults.categories[2].score,
+      tracking_score: mockResults.categories[3].score,
+    });
   };
 
   // Mock data - replace with real API call

@@ -14,10 +14,12 @@ import {
 } from "@/components/ui/select";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 
 const Contact = () => {
   const { toast } = useToast();
   const [step, setStep] = useState(1);
+  const [formStarted, setFormStarted] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,11 +33,22 @@ const Contact = () => {
   });
 
   const handleInputChange = (field: string, value: string) => {
+    if (!formStarted) {
+      setFormStarted(true);
+      trackFormStart('contact', window.location.pathname);
+    }
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, {
+      reason: formData.mainGoal || 'general',
+      monthly_spend: formData.monthlySpend,
+      channels: formData.channels,
+    });
+    
     toast({
       title: "Thank you for reaching out!",
       description: "We'll review your information and get back to you within 24 hours.",

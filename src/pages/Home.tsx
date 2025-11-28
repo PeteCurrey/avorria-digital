@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { trackCTAClick } from "@/lib/tracking";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp, Target, Zap, BarChart3, CheckCircle2, X } from "lucide-react";
@@ -181,10 +182,10 @@ const Home = () => {
                 {/* Dual CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
                   <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight" asChild>
-                    <Link to="/contact">Book a strategy call</Link>
+                    <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')}>Book a strategy call</Link>
                   </Button>
                   <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight" asChild>
-                    <Link to="/free-seo-website-audit">Get a free SEO & website audit</Link>
+                    <Link to="/free-seo-website-audit" onClick={() => trackCTAClick('get_free_seo_website_audit', '/free-seo-website-audit', 'hero')}>Get a free SEO & website audit</Link>
                   </Button>
                 </div>
               </div>
