@@ -8,6 +8,8 @@ import ContentTab from "@/components/dashboard/ContentTab";
 import NotesTab from "@/components/dashboard/NotesTab";
 import AuditsTab from "@/components/dashboard/AuditsTab";
 import HealthHistoryTab from "@/components/dashboard/HealthHistoryTab";
+import { useEffect } from "react";
+import { trackEvent, EVENTS } from "@/lib/tracking";
 
 // Future: Add auth checks and client-specific data loading
 // import { useAuth } from "@/hooks/useAuth";
@@ -30,10 +32,15 @@ const ClientPortal = () => {
   // For now, use mock data and a placeholder user name
   const userName = "Sarah"; // Future: user.firstName
 
-  const renderTab = () => {
-    // Analytics event
-    console.log("dashboard_tab_viewed", { tab, client: "demo" });
+  // Track tab views
+  useEffect(() => {
+    trackEvent(EVENTS.CLIENT_TAB_VIEWED, {
+      client_id: 'demo', // Future: user.clientId
+      tab,
+    });
+  }, [tab]);
 
+  const renderTab = () => {
     switch (tab) {
       case "seo":
         return <SEOTab />;

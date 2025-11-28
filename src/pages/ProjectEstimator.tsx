@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ import EstimatorProgress from "@/components/EstimatorProgress";
 import { ArrowLeft, ArrowRight, Download, Calendar, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
+import { trackEvent, EVENTS, getUserType } from "@/lib/tracking";
 
 interface FormData {
   // Step 1
@@ -85,9 +86,22 @@ const ProjectEstimator = () => {
 
   const totalSteps = 6;
 
+  // Track estimator viewed on mount
+  useEffect(() => {
+    trackEvent(EVENTS.ESTIMATOR_VIEWED, {
+      entry_source: document.referrer || 'direct',
+      user_type: getUserType(),
+    });
+  }, []);
+
   const handleNext = () => {
-    // Analytics event
-    console.log("estimator_step_completed", { step: currentStep });
+    const stepKeys = ['business_profile', 'channels', 'current_situation', 'goals_kpis', 'budget_fit', 'contact'];
+    
+    trackEvent(EVENTS.ESTIMATOR_STEP_COMPLETED, {
+      step_number: currentStep,
+      step_key: stepKeys[currentStep - 1] || 'unknown',
+      is_back: false,
+    });
     
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
@@ -95,13 +109,26 @@ const ProjectEstimator = () => {
   };
 
   const handleBack = () => {
+    const stepKeys = ['business_profile', 'channels', 'current_situation', 'goals_kpis', 'budget_fit', 'contact'];
+    
     if (currentStep > 1) {
+      trackEvent(EVENTS.ESTIMATOR_STEP_COMPLETED, {
+        step_number: currentStep - 1,
+        step_key: stepKeys[currentStep - 2] || 'unknown',
+        is_back: true,
+      });
       setCurrentStep(currentStep - 1);
     }
   };
 
   const handleSubmit = () => {
-    console.log("estimator_completed", formData);
+    trackEvent(EVENTS.ESTIMATOR_SUBMITTED, {
+      project_type: formData.projectTypes.join(','),
+      budget_band: formData.investmentLevel,
+      timeline_band: formData.timeline,
+      engagement_model: formData.engagementModel,
+    });
+    
     setShowResults(true);
     
     toast({

@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { trackNavClick } from "@/lib/tracking";
 interface NavigationProps {
   transparent?: boolean;
 }
@@ -105,9 +106,9 @@ const Navigation = ({
                           <h4 className="text-sm font-semibold text-foreground mb-3">{section.title}</h4>
                           <ul className="space-y-2">
                             {section.links.map(link => <li key={link.href}>
-                                <Link to={link.href} className="block text-sm text-muted-foreground hover:text-accent transition-colors py-1">
-                                  {link.name}
-                                </Link>
+                              <Link to={link.href} onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} className="block text-sm text-muted-foreground hover:text-accent transition-colors py-1">
+                                {link.name}
+                              </Link>
                               </li>)}
                           </ul>
                         </div>)}
@@ -117,7 +118,7 @@ const Navigation = ({
               </NavigationMenuList>
             </NavigationMenu>
             <Button variant="default" size="sm" asChild className="transition-transform duration-200 hover:scale-105 font-extralight bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link to="/contact" className="bg-accent">Get in Touch</Link>
+              <Link to="/contact" onClick={() => trackNavClick('get_in_touch', 'header')} className="bg-accent">Get in Touch</Link>
             </Button>
           </div>
 
@@ -133,7 +134,10 @@ const Navigation = ({
                 <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2">
                   {section.title}
                 </h4>
-                {section.links.map(link => <Link key={link.href} to={link.href} className="block py-2 px-2 text-base font-medium text-foreground/80 hover:text-accent transition-colors" onClick={() => setIsMobileMenuOpen(false)}>
+                {section.links.map(link => <Link key={link.href} to={link.href} className="block py-2 px-2 text-base font-medium text-foreground/80 hover:text-accent transition-colors" onClick={() => {
+                    trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header');
+                    setIsMobileMenuOpen(false);
+                  }}>
                     {link.name}
                   </Link>)}
               </div>)}

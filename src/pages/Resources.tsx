@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { ArrowRight, Clock, BookOpen, FileText, Zap } from "lucide-react";
 import { resources, getPillarResources } from "@/data/resources";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
 
 const Resources = () => {
   const pillarGuides = getPillarResources();
@@ -105,7 +106,11 @@ const Resources = () => {
                       <span>{guide.readingTime} min read</span>
                     </div>
                     <Button variant="outline" asChild className="w-full group-hover:border-accent/50">
-                      <Link to={`/resources/${guide.slug}`} className="group/link">
+                      <Link to={`/resources/${guide.slug}`} onClick={() => trackEvent(EVENTS.RESOURCE_OPENED, {
+                        resource_slug: guide.slug,
+                        resource_type: 'pillar',
+                        channel: guide.category.toLowerCase(),
+                      })} className="group/link">
                         Read Guide
                         <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)]" size={18} />
                       </Link>
@@ -180,13 +185,13 @@ const Resources = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
-                <Link to="/contact">
+                <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'resources_cta')}>
                   Book Strategy Call
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/services">View Services</Link>
+                <Link to="/services" onClick={() => trackCTAClick('view_services', '/services', 'resources_cta')}>View Services</Link>
               </Button>
             </div>
           </div>

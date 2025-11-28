@@ -1,15 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
 
 const CaseStudies = () => {
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filters = ["All", "SEO", "Paid Media", "Web Design", "Content"];
+
+  // Track page view on mount
+  useEffect(() => {
+    trackEvent(EVENTS.CASE_STUDY_LIST_VIEWED, {
+      filters_applied: activeFilter === "All" ? "" : `service=${activeFilter}`,
+    });
+  }, []);
+
+  // Track filter changes
+  useEffect(() => {
+    if (activeFilter !== "All") {
+      trackEvent(EVENTS.CASE_STUDY_LIST_VIEWED, {
+        filters_applied: `service=${activeFilter}`,
+      });
+    }
+  }, [activeFilter]);
 
   const caseStudies = [
     {
@@ -188,6 +205,11 @@ const CaseStudies = () => {
                   </div>
                   <Link
                     to={study.href}
+                    onClick={() => trackEvent(EVENTS.CASE_STUDY_OPENED, {
+                      case_study_slug: study.href.split('/').pop(),
+                      case_study_industry: study.industry.toLowerCase().replace(/ /g, '_'),
+                      primary_service: study.service.toLowerCase().replace(/ /g, '_'),
+                    })}
                     className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-all duration-[var(--duration-fast)] mt-auto group/link"
                   >
                     View full case study
@@ -217,13 +239,13 @@ const CaseStudies = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
+              <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'case_studies_cta')}>
                 Book a Strategy Call
                 <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/services">View Our Services</Link>
+              <Link to="/services" onClick={() => trackCTAClick('view_services', '/services', 'case_studies_cta')}>View Our Services</Link>
             </Button>
           </div>
         </div>
