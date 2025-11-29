@@ -149,13 +149,16 @@ const WebDesign = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
             <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
-                Talk about a rebuild
+              <Link to="/web-design/studio">
+                Design your site blueprint
                 <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
             <Button variant="outline" size="lg" asChild>
-              <Link to="/free-seo-website-audit?focus=web">Request a website & funnel teardown</Link>
+              <Link to="/contact">Talk about a rebuild</Link>
+            </Button>
+            <Button variant="outline" size="lg" asChild>
+              <Link to="/free-seo-website-audit?focus=web">Request a teardown</Link>
             </Button>
           </div>
         </div>
@@ -346,6 +349,45 @@ const WebDesign = () => {
               </CardContent>
             </Card>
           </div>
+        </div>
+      </section>
+
+      {/* Web Studio CTA Section */}
+      <section className="py-24 px-6 bg-gradient-to-br from-primary via-primary/95 to-primary/90 relative overflow-hidden">
+        {/* Background effects */}
+        <div 
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: 'radial-gradient(at 20% 30%, hsla(320, 85%, 55%, 0.3) 0px, transparent 50%), radial-gradient(at 80% 70%, hsla(260, 75%, 60%, 0.3) 0px, transparent 50%)'
+          }}
+        />
+        
+        <div className="container mx-auto max-w-4xl text-center relative z-10">
+          <div className="inline-block px-4 py-2 bg-accent/20 backdrop-blur-sm border border-accent/30 rounded-full mb-6">
+            <p className="text-sm text-primary-foreground font-medium">Interactive Experience</p>
+          </div>
+          
+          <h2 className="text-4xl lg:text-5xl font-light mb-6 text-primary-foreground">
+            Configure your website in our immersive Web Studio
+          </h2>
+          <p className="text-xl text-primary-foreground/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+            Not a template builder. A guided onboarding journey where you design your site blueprint – choose your visual direction, structure, and features in an S-Class configurator experience.
+          </p>
+          
+          <Button 
+            size="lg" 
+            asChild
+            className="bg-accent hover:bg-accent/90 text-accent-foreground shadow-[0_0_40px_rgba(var(--accent),0.3)] hover:shadow-[0_0_50px_rgba(var(--accent),0.4)] transition-all duration-300 px-8 py-6 text-lg"
+          >
+            <Link to="/web-design/studio">
+              Enter the Web Studio
+              <ArrowRight className="ml-2" size={20} />
+            </Link>
+          </Button>
+          
+          <p className="text-sm text-primary-foreground/60 mt-6 italic">
+            A high-end scoping experience for serious projects
+          </p>
         </div>
       </section>
 
