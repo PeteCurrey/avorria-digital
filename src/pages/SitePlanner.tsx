@@ -33,15 +33,11 @@ export default function SitePlanner() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   useEffect(() => {
-    if (!user) {
-      toast.error("Please sign in to use the site planner");
-      navigate("/auth/login");
-    } else {
-      trackEvent("site_planner_viewed", {
-        user_id: user.id
-      });
-    }
-  }, [user, navigate]);
+    trackEvent("site_planner_viewed", {
+      user_type: user ? "authenticated" : "anonymous",
+      user_id: user?.id
+    });
+  }, [user]);
 
   useEffect(() => {
     if (plan.name || selectedPages.length > 0) {
@@ -88,7 +84,13 @@ export default function SitePlanner() {
 
   const handleSave = async () => {
     if (!user) {
-      toast.error("Please sign in to save");
+      toast.error("Create a free account to save your website plan", {
+        action: {
+          label: "Sign Up",
+          onClick: () => navigate("/auth/signup")
+        },
+        duration: 6000
+      });
       return;
     }
 
