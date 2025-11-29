@@ -4,7 +4,7 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Activity, FileCheck, Calculator, ArrowRight } from "lucide-react";
+import { Activity, FileCheck, Calculator, ArrowRight, LayoutDashboard } from "lucide-react";
 
 const Tools = () => {
   const tools = [
@@ -28,6 +28,13 @@ const Tools = () => {
       icon: Calculator,
       path: "/project-estimator",
       targetUser: "For serious prospects who want realistic budgets before booking a call",
+    },
+    {
+      title: "Website Planner",
+      description: "Visual site structure builder to plan your perfect website with page templates and sections.",
+      icon: LayoutDashboard,
+      path: "/site-planner",
+      targetUser: "For clients ready to map out their new website project with our team",
     },
   ];
 
@@ -75,7 +82,7 @@ const Tools = () => {
           </div>
 
           {/* Tools Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
             {tools.map((tool) => {
               const Icon = tool.icon;
               return (

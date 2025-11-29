@@ -60,6 +60,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Unauthorized from "./pages/Unauthorized";
 import Onboarding from "./pages/Onboarding";
+import SitePlanner from "./pages/SitePlanner";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -225,6 +226,11 @@ const App = () => (
               
               {/* Tools */}
               <Route path="/tools" element={<Tools />} />
+              <Route path="/site-planner" element={
+                <ProtectedRoute>
+                  <SitePlanner />
+                </ProtectedRoute>
+              } />
               
               {/* Landing Page Routes */}
               <Route path="/seo-agency/sheffield" element={<DynamicLanding />} />
