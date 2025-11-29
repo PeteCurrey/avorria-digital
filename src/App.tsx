@@ -48,7 +48,6 @@ import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 import WebsitesWeFire from "./pages/WebsitesWeFire";
 import MarketingAssets from "./pages/MarketingAssets";
-import WebStudio from "./pages/WebStudio";
 import LocalSEO from "./pages/seo/LocalSEO";
 import TechnicalSEO from "./pages/seo/TechnicalSEO";
 import ContentSEO from "./pages/seo/ContentSEO";
@@ -61,7 +60,6 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Unauthorized from "./pages/Unauthorized";
 import Onboarding from "./pages/Onboarding";
-import SitePlanner from "./pages/SitePlanner";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -93,7 +91,6 @@ const App = () => (
               <Route path="/services/seo" element={<SEOServices />} />
               <Route path="/services/paid-media" element={<PaidMedia />} />
               <Route path="/services/web-design" element={<WebDesign />} />
-              <Route path="/web-design/studio" element={<WebStudio />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
@@ -228,7 +225,6 @@ const App = () => (
               
               {/* Tools */}
               <Route path="/tools" element={<Tools />} />
-              <Route path="/site-planner" element={<SitePlanner />} />
               
               {/* Landing Page Routes */}
               <Route path="/seo-agency/sheffield" element={<DynamicLanding />} />
