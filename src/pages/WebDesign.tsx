@@ -149,8 +149,8 @@ const WebDesign = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
             <Button variant="accent" size="lg" asChild>
-              <Link to="/web-design/studio">
-                Enter the Web Studio
+              <Link to="/contact">
+                Talk about a rebuild
                 <ArrowRight className="ml-2" size={20} />
               </Link>
             </Button>
