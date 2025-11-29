@@ -226,11 +226,7 @@ const App = () => (
               
               {/* Tools */}
               <Route path="/tools" element={<Tools />} />
-              <Route path="/site-planner" element={
-                <ProtectedRoute>
-                  <SitePlanner />
-                </ProtectedRoute>
-              } />
+              <Route path="/site-planner" element={<SitePlanner />} />
               
               {/* Landing Page Routes */}
               <Route path="/seo-agency/sheffield" element={<DynamicLanding />} />
