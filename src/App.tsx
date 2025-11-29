@@ -48,6 +48,7 @@ import AgencyTeardown from "./pages/AgencyTeardown";
 import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
 import WebsitesWeFire from "./pages/WebsitesWeFire";
 import MarketingAssets from "./pages/MarketingAssets";
+import WebStudio from "./pages/WebStudio";
 import LocalSEO from "./pages/seo/LocalSEO";
 import TechnicalSEO from "./pages/seo/TechnicalSEO";
 import ContentSEO from "./pages/seo/ContentSEO";
@@ -92,6 +93,7 @@ const App = () => (
               <Route path="/services/seo" element={<SEOServices />} />
               <Route path="/services/paid-media" element={<PaidMedia />} />
               <Route path="/services/web-design" element={<WebDesign />} />
+              <Route path="/web-design/studio" element={<WebStudio />} />
               <Route path="/case-studies" element={<CaseStudies />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
