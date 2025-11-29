@@ -179,7 +179,7 @@ export default function SitePlanner() {
         <meta name="description" content="Plan your perfect website with our visual site builder" />
       </Helmet>
 
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-background pt-20">
         <div className="container mx-auto px-6 py-12">
           {/* Header */}
           <div className="mb-8">

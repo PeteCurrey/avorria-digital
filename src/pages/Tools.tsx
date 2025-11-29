@@ -68,7 +68,7 @@ const Tools = () => {
 
       <Navigation />
 
-      <main className="min-h-screen pt-24 pb-16 bg-background">
+      <main className="min-h-screen pt-32 pb-16 bg-background">
         <div className="container max-w-7xl mx-auto px-4">
           {/* Hero */}
           <div className="text-center mb-16">

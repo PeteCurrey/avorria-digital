@@ -117,9 +117,9 @@ export default function WebStudio() {
         <meta name="description" content="Configure your website with Avorria's guided studio experience" />
       </Helmet>
 
-      <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background">
+      <div className="min-h-screen bg-gradient-to-br from-background via-secondary/50 to-background pt-20">
         {/* Progress Bar */}
-        <div className="fixed top-0 left-0 right-0 h-1 bg-border/30 z-50">
+        <div className="fixed top-20 left-0 right-0 h-1 bg-border/30 z-50">
           <div 
             className="h-full bg-gradient-to-r from-accent to-accent/70 transition-all duration-500"
             style={{ width: `${((currentStep + 1) / totalSteps) * 100}%` }}
@@ -127,7 +127,7 @@ export default function WebStudio() {
         </div>
 
         {/* Progress Indicator */}
-        <div className="fixed top-6 left-1/2 -translate-x-1/2 z-40">
+        <div className="fixed top-24 left-1/2 -translate-x-1/2 z-40">
           <div className="bg-card/80 backdrop-blur-sm border border-border rounded-full px-6 py-2 shadow-elegant">
             <p className="text-sm text-muted-foreground">
               Step <span className="text-foreground font-semibold">{currentStep + 1}</span> of {totalSteps}

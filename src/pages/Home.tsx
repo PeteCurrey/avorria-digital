@@ -158,7 +158,7 @@ const Home = () => {
 
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20" style={{
         backgroundImage: `url(${heroCityscape})`,
         backgroundSize: "cover",
         backgroundPosition: "center",

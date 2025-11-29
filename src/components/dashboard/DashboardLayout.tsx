@@ -42,18 +42,18 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 flex w-full">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 flex flex-col lg:flex-row w-full">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all duration-[var(--duration-normal)] ${
-          sidebarOpen ? "w-64" : "w-0 lg:w-20"
+        className={`lg:static inset-y-0 left-0 z-40 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all duration-[var(--duration-normal)] ${
+          sidebarOpen ? "w-full lg:w-64" : "w-0 lg:w-20"
         }`}
       >
         <div className="h-full flex flex-col">
           {/* Sidebar Header */}
-          <div className="h-16 flex items-center justify-between px-6 border-b border-border/50">
+          <div className="h-16 flex items-center justify-between px-6 border-b border-border/50 flex-shrink-0">
             {sidebarOpen && (
-              <div>
+              <div className="flex-1">
                 <Link to="/" className="text-xl font-semibold tracking-tight bg-gradient-to-r from-primary via-accent to-accent bg-clip-text text-transparent">
                   Avorria
                 </Link>
@@ -62,7 +62,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
             )}
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
-              className="p-2 hover:bg-secondary/50 rounded-md transition-all duration-[var(--duration-fast)] lg:hidden"
+              className="p-2 hover:bg-secondary/50 rounded-md transition-all duration-[var(--duration-fast)] lg:hidden flex-shrink-0"
             >
               {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -99,9 +99,9 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 w-full">
         {/* Top Bar */}
-        <header className="h-16 bg-card/80 backdrop-blur-sm border-b border-border/50 flex items-center justify-between px-6 sticky top-0 z-30">
+        <header className="h-16 bg-card/80 backdrop-blur-sm border-b border-border/50 flex items-center justify-between px-6 z-30 flex-shrink-0">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
