@@ -87,7 +87,7 @@ const Navigation = ({
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between gap-6 h-20">
           <Link to="/" className="flex items-center space-x-2 flex-shrink-0 font-extralight text-lg">
-            <span className={`text-2xl font-light tracking-tight transition-colors ${shouldBeTransparent ? "text-white" : "text-foreground"}`}>Avorria</span>
+            <span className={`text-2xl font-extralight tracking-wide transition-colors ${shouldBeTransparent ? "text-white" : "text-foreground"}`}>Avorria</span>
           </Link>
 
           {/* Spacer for logo */}
