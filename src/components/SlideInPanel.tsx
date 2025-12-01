@@ -66,24 +66,24 @@ export function SlideInPanel({
   if (!isVisible || isDismissed) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 animate-slide-in-right">
-      <Card className="w-80 p-6 shadow-lg bg-card border-border">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 animate-slide-in-right max-w-[calc(100vw-2rem)] sm:max-w-none">
+      <Card className="w-full sm:w-80 p-4 sm:p-6 shadow-lg bg-card border-border">
         <button
           onClick={handleClose}
-          className="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors"
+          className="absolute top-2 right-2 sm:top-3 sm:right-3 text-muted-foreground hover:text-foreground transition-colors p-1"
           aria-label="Close"
         >
-          <X className="w-4 h-4" />
+          <X className="w-5 h-5 sm:w-4 sm:h-4" />
         </button>
 
-        <div className="space-y-4 pr-4">
-          <h4 className="text-lg font-light text-foreground">
+        <div className="space-y-3 sm:space-y-4 pr-6">
+          <h4 className="text-base sm:text-lg font-light text-foreground">
             Get a free SEO & website audit
           </h4>
           <p className="text-sm text-muted-foreground">
             We'll record a short Loom-style teardown of your site and send you specific, actionable fixes.
           </p>
-          <Button onClick={handleClick} className="w-full">
+          <Button onClick={handleClick} className="w-full h-11 sm:h-10">
             Get my audit
           </Button>
         </div>

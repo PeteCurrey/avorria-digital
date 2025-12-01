@@ -17,10 +17,10 @@ const FloatingChatButton = () => {
       onClick={handleClick}
       size="icon"
       variant="accent"
-      className="fixed bottom-8 right-8 z-40 w-14 h-14 rounded-full shadow-2xl hover:scale-110 transition-transform animate-fade-in"
+      className="fixed bottom-4 right-4 sm:bottom-8 sm:right-8 z-40 w-12 h-12 sm:w-14 sm:h-14 rounded-full shadow-2xl hover:scale-110 transition-transform animate-fade-in"
       aria-label="Contact us"
     >
-      <MessageCircle size={24} />
+      <MessageCircle className="w-5 h-5 sm:w-6 sm:h-6" />
     </Button>
   );
 };

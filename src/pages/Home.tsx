@@ -158,33 +158,33 @@ const Home = () => {
 
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
-        <section className="relative min-h-screen flex items-center justify-center overflow-hidden" style={{
+        <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 md:pt-0 md:pb-0" style={{
         backgroundImage: `url(${heroCityscape})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        backgroundAttachment: "fixed"
+        backgroundAttachment: "scroll"
       }}>
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
 
           {/* Hero Content */}
-          <div className="container mx-auto px-6 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
-              <div className="space-y-8 mb-16 animate-fade-in">
-                <h1 className="text-5xl leading-tight text-white lg:text-3xl font-extralight">
+              <div className="space-y-6 md:space-y-8 mb-10 md:mb-16 animate-fade-in">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl leading-tight text-white font-extralight">
                   Digital Marketing, SEO &amp; Web Experiences that Actually Convert.
                 </h1>
-                <p className="text-xl text-white/90 leading-relaxed max-w-3xl font-extralight lg:text-base">
+                <p className="text-base sm:text-lg md:text-xl text-white/90 leading-relaxed max-w-3xl font-extralight">
                   Avorria is your performance-first digital partner. We combine high end design, technical SEO &amp; paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
                 {/* Dual CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight" asChild>
+                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
+                  <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight w-full sm:w-auto" asChild>
                     <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')}>Book a strategy call</Link>
                   </Button>
-                  <Button size="lg" className="text-lg px-8 py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight" asChild>
+                  <Button size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 font-extralight w-full sm:w-auto" asChild>
                     <Link to="/free-seo-website-audit" onClick={() => trackCTAClick('get_free_seo_website_audit', '/free-seo-website-audit', 'hero')}>Get a free SEO & website audit</Link>
                   </Button>
                 </div>
@@ -199,8 +199,8 @@ const Home = () => {
             </div>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10">
+          {/* Scroll Indicator - hidden on mobile */}
+          <div className="absolute bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:block">
             <ScrollIndicator />
           </div>
         </section>
@@ -209,12 +209,12 @@ const Home = () => {
         <FloatingChatButton />
 
         {/* Trust Bar */}
-        <section className="py-12 border-y border-border bg-background">
-          <div className="container mx-auto px-6">
-            <h2 className="text-center text-lg font-semibold text-foreground mb-4">
+        <section className="py-8 sm:py-12 border-y border-border bg-background">
+          <div className="container mx-auto px-4 sm:px-6">
+            <h2 className="text-center text-base sm:text-lg font-semibold text-foreground mb-3 sm:mb-4">
               Trusted by teams who are done wasting budget on noise.
             </h2>
-            <p className="text-center text-muted-foreground mb-8 max-w-3xl mx-auto">
+            <p className="text-center text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8 max-w-3xl mx-auto">
               We work with growing service businesses, multi-site brands and high-ticket B2B teams who want grown-up conversations about revenue, not vanity metrics.
             </p>
             <LogoWall type="clients" />
@@ -222,71 +222,71 @@ const Home = () => {
         </section>
 
         {/* Value Props */}
-        <section className="py-24 px-6 bg-secondary relative overflow-hidden">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-secondary relative overflow-hidden">
           {/* Subtle gradient mesh background */}
           <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-50" />
           
           <div className="container mx-auto relative">
             <ScrollReveal>
-              <div className="text-center mb-16">
-                <h2 className="text-4xl lg:text-5xl font-light mb-4 text-foreground max-w-3xl mx-auto">
+              <div className="text-center mb-10 sm:mb-16">
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4 text-foreground max-w-3xl mx-auto">
                   Why teams work with Avorria
                 </h2>
               </div>
             </ScrollReveal>
             
-            <ScrollRevealGrid className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto" stagger={100}>
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-4 sm:gap-8 max-w-6xl mx-auto" stagger={100}>
               <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
-                    <Target className="text-accent" size={28} />
+                <CardContent className="p-5 sm:p-8 space-y-3 sm:space-y-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <Target className="text-accent w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                     Pipeline-first, not buzzword-first
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
-                    <Zap className="text-accent" size={28} />
+                <CardContent className="p-5 sm:p-8 space-y-3 sm:space-y-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <Zap className="text-accent w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                     Technical firepower baked in
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
-                    <TrendingUp className="text-accent" size={28} />
+                <CardContent className="p-5 sm:p-8 space-y-3 sm:space-y-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <TrendingUp className="text-accent w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                     Design that earns its keep
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
                   </p>
                 </CardContent>
               </Card>
 
               <Card className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group">
-                <CardContent className="p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
-                    <BarChart3 className="text-accent" size={28} />
+                <CardContent className="p-5 sm:p-8 space-y-3 sm:space-y-4">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-[var(--duration-base)]">
+                    <BarChart3 className="text-accent w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                     Plain-English reporting
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
                     You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
                   </p>
                 </CardContent>
@@ -298,33 +298,33 @@ const Home = () => {
         </section>
 
         {/* Services Overview */}
-        <section className="py-24 px-6 bg-background">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-background">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">What we actually do</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4 text-foreground">What we actually do</h2>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 Strategy, execution and optimisation under one roof.
               </p>
-              <p className="text-muted-foreground max-w-3xl mx-auto mt-4">
+              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto mt-3 sm:mt-4">
                 You don't need five different suppliers. You need one team that can connect the dots – from strategy and messaging through to build, launch and ongoing optimisation.
               </p>
             </div>
-            <ScrollRevealGrid className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto" stagger={100}>
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto" stagger={100}>
               {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all duration-[var(--duration-base)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 group">
-                  <CardContent className="p-8">
-                    <h3 className="text-2xl font-semibold mb-3 text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                  <CardContent className="p-5 sm:p-8">
+                    <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
                       {service.title}
                     </h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">{service.description}</p>
-                    <Link to={service.href} className="inline-flex items-center text-accent hover:text-accent/80 font-medium transition-all duration-[var(--duration-fast)] group/link">
+                    <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed">{service.description}</p>
+                    <Link to={service.href} className="inline-flex items-center text-sm sm:text-base text-accent hover:text-accent/80 font-medium transition-all duration-[var(--duration-fast)] group/link">
                       View service details
-                      <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)]" size={18} />
+                      <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)] w-4 h-4 sm:w-[18px] sm:h-[18px]" />
                     </Link>
                   </CardContent>
                 </Card>)}
             </ScrollRevealGrid>
-            <div className="text-center mt-12">
-              <Button variant="outline" size="lg" asChild>
+            <div className="text-center mt-8 sm:mt-12">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                 <Link to="/services">View All Services</Link>
               </Button>
             </div>
@@ -332,17 +332,17 @@ const Home = () => {
         </section>
 
         {/* Process Section */}
-        <section className="py-24 px-6 bg-secondary">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-secondary">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">Simple process. Serious output.</h2>
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">Simple process. Serious output.</h2>
             </div>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
               {process.map((step, index) => <div key={index} className="relative">
-                  <div className="space-y-4">
-                    <div className="text-6xl font-light text-accent/20">{step.number}</div>
-                    <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.description}</p>
+                  <div className="space-y-2 sm:space-y-4">
+                    <div className="text-4xl sm:text-6xl font-light text-accent/20">{step.number}</div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-foreground">{step.title}</h3>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{step.description}</p>
                   </div>
                   {index < process.length - 1 && <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />}
                 </div>)}
@@ -351,25 +351,25 @@ const Home = () => {
         </section>
 
         {/* Case Studies Highlights */}
-        <section className="py-24 px-6 bg-background">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-background">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">Proof over promises.</h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4 text-foreground">Proof over promises.</h2>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 We're not allowed to put most client numbers on a public website. But here's the flavour of what happens when you stop treating marketing as an experiment and start treating it as an operating function.
               </p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 max-w-5xl mx-auto">
               {caseStudies.map((study, index) => <Card key={index} className="border-border hover:shadow-xl transition-all group">
-                  <CardContent className="p-8 space-y-4">
-                    <div className="text-5xl font-light text-accent mb-4">{study.metric}</div>
-                    <div className="text-sm font-medium text-muted-foreground mb-2">{study.metricLabel}</div>
-                    <p className="text-muted-foreground leading-relaxed">{study.description}</p>
+                  <CardContent className="p-5 sm:p-8 space-y-3 sm:space-y-4">
+                    <div className="text-4xl sm:text-5xl font-light text-accent mb-2 sm:mb-4">{study.metric}</div>
+                    <div className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">{study.metricLabel}</div>
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{study.description}</p>
                   </CardContent>
                 </Card>)}
             </div>
-            <div className="text-center mt-12">
-              <Button variant="outline" size="lg" asChild>
+            <div className="text-center mt-8 sm:mt-12">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                 <Link to="/case-studies">View case studies</Link>
               </Button>
             </div>
@@ -377,34 +377,34 @@ const Home = () => {
         </section>
 
         {/* Comparison Table */}
-        <section className="py-24 px-6 bg-secondary">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-secondary">
           <div className="container mx-auto max-w-5xl">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4 text-foreground">
                 What makes Avorria different to a typical agency?
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
                 If you've ever stared at an agency report and thought "I still don't know if this is working", you already know the problem. We built Avorria as the opposite of that experience.
               </p>
             </div>
             <Card className="border-border">
               <CardContent className="p-0">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
+                <div className="overflow-x-auto -mx-4 sm:mx-0">
+                  <table className="w-full min-w-[600px]">
                     <thead className="bg-secondary">
                       <tr>
-                        <th className="text-left p-6 text-foreground font-semibold border-b border-border">Feature</th>
-                        <th className="text-left p-6 text-foreground font-semibold border-b border-border">
+                        <th className="text-left p-3 sm:p-6 text-sm sm:text-base text-foreground font-semibold border-b border-border">Feature</th>
+                        <th className="text-left p-3 sm:p-6 text-sm sm:text-base text-foreground font-semibold border-b border-border">
                           Typical agency
                         </th>
-                        <th className="text-left p-6 text-accent font-semibold border-b border-border">Avorria</th>
+                        <th className="text-left p-3 sm:p-6 text-sm sm:text-base text-accent font-semibold border-b border-border">Avorria</th>
                       </tr>
                     </thead>
                     <tbody>
                       {comparison.map((item, index) => <tr key={index} className="border-b border-border last:border-b-0">
-                          <td className="p-6 font-medium text-foreground">{item.feature}</td>
-                          <td className="p-6 text-muted-foreground">{item.typical}</td>
-                          <td className="p-6 text-foreground font-medium">{item.avorria}</td>
+                          <td className="p-3 sm:p-6 text-sm sm:text-base font-medium text-foreground">{item.feature}</td>
+                          <td className="p-3 sm:p-6 text-sm sm:text-base text-muted-foreground">{item.typical}</td>
+                          <td className="p-3 sm:p-6 text-sm sm:text-base text-foreground font-medium">{item.avorria}</td>
                         </tr>)}
                     </tbody>
                   </table>
@@ -415,9 +415,9 @@ const Home = () => {
         </section>
 
         {/* Local Expertise Callout */}
-        <section className="py-16 px-6 bg-background border-y border-border">
+        <section className="py-10 sm:py-16 px-4 sm:px-6 bg-background border-y border-border">
           <div className="container mx-auto max-w-4xl text-center">
-            <p className="text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Prefer to work with a team who knows your patch? See our{" "}
               <Link to="/seo-agency/sheffield" className="text-accent hover:text-accent/80 font-medium">
                 SEO
@@ -440,15 +440,15 @@ const Home = () => {
         </section>
 
         {/* Testimonials */}
-        <section className="py-24 px-6 bg-background">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-background">
           <div className="container mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">What clients say when the noise stops.</h2>
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">What clients say when the noise stops.</h2>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 max-w-5xl mx-auto">
               {testimonials.map((testimonial, index) => <Card key={index} className="border-border">
-                  <CardContent className="p-8">
-                    <p className="text-muted-foreground leading-relaxed mb-6 italic">"{testimonial.quote}"</p>
+                  <CardContent className="p-5 sm:p-8">
+                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed mb-4 sm:mb-6 italic">"{testimonial.quote}"</p>
                   </CardContent>
                 </Card>)}
             </div>
@@ -456,39 +456,39 @@ const Home = () => {
         </section>
 
         {/* FAQ */}
-        <section className="py-24 px-6 bg-secondary">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-secondary">
           <div className="container mx-auto max-w-3xl">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-light mb-4 text-foreground">Questions we get a lot.</h2>
+            <div className="text-center mb-10 sm:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">Questions we get a lot.</h2>
             </div>
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border bg-background px-6 rounded-lg">
-                  <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
+            <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
+              {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-border bg-background px-4 sm:px-6 rounded-lg">
+                  <AccordionTrigger className="text-left text-sm sm:text-base font-semibold text-foreground hover:text-accent py-4 sm:py-5">
                     {faq.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
+                  <AccordionContent className="text-sm sm:text-base text-muted-foreground leading-relaxed pb-4">{faq.answer}</AccordionContent>
                 </AccordionItem>)}
             </Accordion>
           </div>
         </section>
 
         {/* Final CTA */}
-        <section className="py-24 px-6 bg-background">
+        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-background">
           <div className="container mx-auto max-w-4xl text-center">
-            <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-light mb-4 sm:mb-6 text-foreground">
               Ready to treat marketing like an operating function, not a gamble?
             </h2>
-            <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
+            <p className="text-base sm:text-xl text-muted-foreground mb-8 sm:mb-10 max-w-2xl mx-auto">
               If you're tired of noise, guesswork and vague reports, let's talk. We'll review your current setup and show you what a disciplined, revenue-focused marketing engine could look like.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="lg" asChild>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
+              <Button variant="accent" size="lg" className="w-full sm:w-auto" asChild>
                 <Link to="/contact">
                   Book a strategy call
-                  <ArrowRight className="ml-2" size={20} />
+                  <ArrowRight className="ml-2 w-5 h-5" />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                 <Link to="/free-seo-website-audit">Request a free SEO & website audit</Link>
               </Button>
             </div>
