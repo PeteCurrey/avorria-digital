@@ -129,29 +129,31 @@ const Navigation = ({
         </div>
 
         {/* Mobile Menu */}
-        {isMobileMenuOpen && <div className="lg:hidden py-6 space-y-6 animate-fade-in">
-            {navSections.map(section => <div key={section.title} className="space-y-2">
-                <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2">
-                  {section.title}
-                </h4>
-                {section.links.map(link => <Link key={link.href} to={link.href} className="block py-2 px-2 text-base font-medium text-foreground/80 hover:text-accent transition-colors" onClick={() => {
-                    trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header');
-                    setIsMobileMenuOpen(false);
-                  }}>
-                    {link.name}
-                  </Link>)}
-              </div>)}
-            <div className="pt-4 space-y-3 px-2">
-              <Button variant="ghost" className="w-full" asChild>
-                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  Get in Touch
-                </Link>
-              </Button>
-              <Button variant="accent" className="w-full" asChild>
-                <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
-                  Book Strategy Call
-                </Link>
-              </Button>
+        {isMobileMenuOpen && <div className="lg:hidden fixed inset-x-0 top-20 bottom-0 bg-background z-40 overflow-y-auto animate-fade-in">
+            <div className="container mx-auto px-4 py-6 space-y-6">
+              {navSections.map(section => <div key={section.title} className="space-y-2">
+                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2">
+                    {section.title}
+                  </h4>
+                  {section.links.map(link => <Link key={link.href} to={link.href} className="block py-3 px-3 text-base font-medium text-foreground hover:text-accent hover:bg-muted/50 rounded-md transition-colors" onClick={() => {
+                      trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header');
+                      setIsMobileMenuOpen(false);
+                    }}>
+                      {link.name}
+                    </Link>)}
+                </div>)}
+              <div className="pt-6 space-y-3 px-2 border-t border-border">
+                <Button variant="outline" className="w-full h-12 text-base" asChild>
+                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    Get in Touch
+                  </Link>
+                </Button>
+                <Button variant="accent" className="w-full h-12 text-base" asChild>
+                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                    Book Strategy Call
+                  </Link>
+                </Button>
+              </div>
             </div>
           </div>}
       </div>

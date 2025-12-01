@@ -32,15 +32,15 @@ const Footer = () => {
 
   return (
     <footer className="bg-secondary border-t border-border">
-      <div className="container mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 mb-12">
-          <div className="lg:col-span-1">
-            <Link to="/" className="inline-block mb-6">
+      <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-12 mb-10 sm:mb-12">
+          <div className="col-span-2 md:col-span-3 lg:col-span-1">
+            <Link to="/" className="inline-block mb-4 sm:mb-6">
               <span className="text-2xl font-light tracking-tight text-foreground">
                 Avorria
               </span>
             </Link>
-            <p className="text-sm text-muted-foreground leading-relaxed mb-6">
+            <p className="text-sm text-muted-foreground leading-relaxed mb-4 sm:mb-6">
               The performance-led digital partner that makes agency fluff look amateur.
               Revenue-focused marketing, technical SEO, and conversion-optimized design.
             </p>
@@ -73,14 +73,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Services</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Services</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {services.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
                     onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -90,14 +90,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Locations</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Locations</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {locations.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
                     onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -107,13 +107,13 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Industries</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Industries</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {industries.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -123,14 +123,14 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold text-foreground mb-4">Company</h3>
-            <ul className="space-y-3">
+            <h3 className="font-semibold text-foreground mb-3 sm:mb-4 text-sm sm:text-base">Company</h3>
+            <ul className="space-y-2 sm:space-y-3">
               {company.map((link) => (
                 <li key={link.href}>
                   <Link
                     to={link.href}
                     onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
-                    className="text-sm text-muted-foreground hover:text-accent transition-colors"
+                    className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors"
                   >
                     {link.name}
                   </Link>
@@ -140,15 +140,15 @@ const Footer = () => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <p className="text-sm text-muted-foreground">
+        <div className="pt-6 sm:pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
+          <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
             © {new Date().getFullYear()} Avorria. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <Link to="/privacy" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+            <Link to="/privacy" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-sm text-muted-foreground hover:text-accent transition-colors">
+            <Link to="/terms" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
               Terms of Service
             </Link>
           </div>
