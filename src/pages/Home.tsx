@@ -327,10 +327,10 @@ const Home = () => {
                 <Link 
                   key={index} 
                   to={service.href}
-                  className={`group relative overflow-hidden rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+                  className="group relative overflow-hidden rounded-2xl"
                 >
                   <Card className="h-full border-0 bg-transparent overflow-hidden">
-                    <div className={`relative ${index === 0 ? 'h-80 sm:h-96' : 'h-64 sm:h-80'} overflow-hidden`}>
+                    <div className="relative h-72 sm:h-80 overflow-hidden">
                       {/* Image */}
                       <img 
                         src={service.image} 
@@ -342,7 +342,7 @@ const Home = () => {
                       
                       {/* Content */}
                       <CardContent className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
-                        <h3 className={`${index === 0 ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'} font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300`}>
+                        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
                           {service.title}
                         </h3>
                         <p className="text-sm sm:text-base text-white/80 mb-4 leading-relaxed line-clamp-2">{service.description}</p>
