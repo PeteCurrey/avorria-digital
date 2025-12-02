@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Search, Target, Palette, Mail, Share2, BarChart3 } from "lucide-react";
+import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 
 const Services = () => {
   const services = [
@@ -77,16 +78,27 @@ const Services = () => {
       </Helmet>
 
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
+      {/* Hero Section with Parallax */}
+      <section 
+        className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: `url(${heroServicesDigital})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+        
+        <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white animate-fade-in">
             Growth systems, not random campaigns.
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up max-w-3xl mx-auto">
+          <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-10 animate-fade-in-up max-w-3xl mx-auto">
             We design, build and optimise the assets that actually move your pipeline – from SEO and ads to websites, content and tracking. Every service below is delivered with the same mindset: clear strategy, precise execution and ruthless focus on commercial outcomes.
           </p>
-          <Button variant="accent" size="lg" asChild className="animate-fade-in-up">
+          <Button size="lg" className="bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60 animate-fade-in-up" asChild>
             <Link to="/contact">
               Book Strategy Call
               <ArrowRight className="ml-2" size={20} />
