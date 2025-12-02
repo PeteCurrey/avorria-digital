@@ -15,27 +15,38 @@ import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollRe
 import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
+import serviceSeo from "@/assets/service-seo.jpg";
+import servicePaidMedia from "@/assets/service-paid-media.jpg";
+import serviceWebDesign from "@/assets/service-web-design.jpg";
+import serviceContentEmail from "@/assets/service-content-email.jpg";
+import serviceSocialBrand from "@/assets/service-social-brand.jpg";
+
 const Home = () => {
   const services = [{
     title: "SEO",
-    description: "Technical SEO, content strategy and on-site optimisation that focuses on commercial keywords, not ego rankings. We fix what's broken, build what's missing and link it all to real leads and revenue.",
-    href: "/services/seo"
+    description: "Technical SEO, content strategy and on-site optimisation that focuses on commercial keywords, not ego rankings.",
+    href: "/services/seo",
+    image: serviceSeo
   }, {
-    title: "Paid Media (Google, Meta, LinkedIn)",
-    description: "Acquisition that pays for itself. We design and run campaigns tied tightly to your offer, your funnel and your sales process – with clear ROAS and CPL targets, not 'best effort.'",
-    href: "/services/paid-media"
+    title: "Paid Media",
+    description: "Acquisition that pays for itself with clear ROAS and CPL targets tied to your offer and sales process.",
+    href: "/services/paid-media",
+    image: servicePaidMedia
   }, {
     title: "Web Design & Development",
-    description: "High-end websites and landing pages built for speed, clarity and conversion. Modern stack, clean code, proper tracking and a layout that makes your sales process obvious.",
-    href: "/services/web-design"
+    description: "High-end websites built for speed, clarity and conversion. Modern stack with proper tracking.",
+    href: "/services/web-design",
+    image: serviceWebDesign
   }, {
     title: "Content & Email",
-    description: "Content that attracts the right people and email that moves them through the funnel. From SEO articles and playbooks to nurture flows and launch campaigns.",
-    href: "/services/content-email"
+    description: "Content that attracts the right people and email that moves them through the funnel.",
+    href: "/services/content-email",
+    image: serviceContentEmail
   }, {
     title: "Social & Personal Brand",
-    description: "Done-for-you content systems for founders and expert teams. Think LinkedIn, Instagram and short-form content that positions you as the obvious choice in your market.",
-    href: "/services/social-personal-brand"
+    description: "Done-for-you content systems for founders that position you as the obvious choice.",
+    href: "/services/social-personal-brand",
+    image: serviceSocialBrand
   }];
   const process = [{
     number: "01",
@@ -297,80 +308,132 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Services Overview */}
-        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-background">
+        {/* Services Overview - Premium Grid */}
+        <section className="py-20 sm:py-32 px-4 sm:px-6 bg-gradient-to-b from-background via-background to-secondary/30">
           <div className="container mx-auto">
-            <div className="text-center mb-10 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4 text-foreground">What we actually do</h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Strategy, execution and optimisation under one roof.
-              </p>
-              <p className="text-sm sm:text-base text-muted-foreground max-w-3xl mx-auto mt-3 sm:mt-4">
-                You don't need five different suppliers. You need one team that can connect the dots – from strategy and messaging through to build, launch and ongoing optimisation.
-              </p>
-            </div>
-            <ScrollRevealGrid className="grid md:grid-cols-2 gap-4 sm:gap-8 max-w-5xl mx-auto" stagger={100}>
-              {services.map((service, index) => <Card key={index} className="border-border hover:border-accent/50 transition-all duration-[var(--duration-base)] hover:shadow-[var(--shadow-card-hover)] hover:-translate-y-1 group">
-                  <CardContent className="p-5 sm:p-8">
-                    <h3 className="text-xl sm:text-2xl font-semibold mb-2 sm:mb-3 text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6 leading-relaxed">{service.description}</p>
-                    <Link to={service.href} className="inline-flex items-center text-sm sm:text-base text-accent hover:text-accent/80 font-medium transition-all duration-[var(--duration-fast)] group/link">
-                      View service details
-                      <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)] w-4 h-4 sm:w-[18px] sm:h-[18px]" />
-                    </Link>
-                  </CardContent>
-                </Card>)}
+            <ScrollReveal>
+              <div className="text-center mb-12 sm:mb-20">
+                <span className="inline-block text-xs sm:text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">Our Services</span>
+                <h2 className="text-3xl sm:text-5xl font-light mb-4 sm:mb-6 text-foreground">What we actually do</h2>
+                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                  One team that connects the dots – from strategy through to execution and optimisation.
+                </p>
+              </div>
+            </ScrollReveal>
+            
+            {/* Featured Services Grid */}
+            <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-7xl mx-auto" stagger={100}>
+              {services.map((service, index) => (
+                <Link 
+                  key={index} 
+                  to={service.href}
+                  className={`group relative overflow-hidden rounded-2xl ${index === 0 ? 'md:col-span-2 lg:col-span-2' : ''}`}
+                >
+                  <Card className="h-full border-0 bg-transparent overflow-hidden">
+                    <div className={`relative ${index === 0 ? 'h-80 sm:h-96' : 'h-64 sm:h-80'} overflow-hidden`}>
+                      {/* Image */}
+                      <img 
+                        src={service.image} 
+                        alt={service.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      {/* Gradient overlay */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                      
+                      {/* Content */}
+                      <CardContent className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                        <h3 className={`${index === 0 ? 'text-2xl sm:text-3xl' : 'text-xl sm:text-2xl'} font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300`}>
+                          {service.title}
+                        </h3>
+                        <p className="text-sm sm:text-base text-white/80 mb-4 leading-relaxed line-clamp-2">{service.description}</p>
+                        <span className="inline-flex items-center text-sm text-accent font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                          Explore service
+                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        </span>
+                      </CardContent>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
             </ScrollRevealGrid>
-            <div className="text-center mt-8 sm:mt-12">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                <Link to="/services">View All Services</Link>
+            
+            <div className="text-center mt-12 sm:mt-16">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto border-accent/30 hover:border-accent hover:bg-accent/5" asChild>
+                <Link to="/services">
+                  View All Services
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
               </Button>
             </div>
           </div>
         </section>
 
-        {/* Process Section */}
-        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-secondary">
-          <div className="container mx-auto">
-            <div className="text-center mb-10 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">Simple process. Serious output.</h2>
-            </div>
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-              {process.map((step, index) => <div key={index} className="relative">
-                  <div className="space-y-2 sm:space-y-4">
-                    <div className="text-4xl sm:text-6xl font-light text-accent/20">{step.number}</div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-foreground">{step.title}</h3>
-                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{step.description}</p>
+        {/* Process Section - Premium */}
+        <section className="py-20 sm:py-32 px-4 sm:px-6 bg-gradient-to-b from-secondary to-secondary/50 relative overflow-hidden">
+          {/* Background decoration */}
+          <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-30" />
+          
+          <div className="container mx-auto relative">
+            <ScrollReveal>
+              <div className="text-center mb-12 sm:mb-20">
+                <span className="inline-block text-xs sm:text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">How We Work</span>
+                <h2 className="text-3xl sm:text-5xl font-light mb-4 text-foreground">Simple process. Serious output.</h2>
+              </div>
+            </ScrollReveal>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
+              {process.map((step, index) => (
+                <ScrollReveal key={index}>
+                  <div className="relative group">
+                    <div className="space-y-4 sm:space-y-6">
+                      <div className="text-5xl sm:text-7xl font-extralight text-accent/20 group-hover:text-accent/40 transition-colors duration-500">{step.number}</div>
+                      <h3 className="text-lg sm:text-xl font-semibold text-foreground">{step.title}</h3>
+                      <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{step.description}</p>
+                    </div>
+                    {index < process.length - 1 && (
+                      <div className="hidden lg:block absolute top-14 -right-5 w-10 h-px bg-gradient-to-r from-accent/50 to-transparent" />
+                    )}
                   </div>
-                  {index < process.length - 1 && <div className="hidden lg:block absolute top-12 -right-4 w-8 h-0.5 bg-accent/30" />}
-                </div>)}
+                </ScrollReveal>
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Case Studies Highlights */}
-        <section className="py-16 sm:py-24 px-4 sm:px-6 bg-background">
+        {/* Case Studies Highlights - Premium */}
+        <section className="py-20 sm:py-32 px-4 sm:px-6 bg-background relative">
           <div className="container mx-auto">
-            <div className="text-center mb-10 sm:mb-16">
-              <h2 className="text-3xl sm:text-4xl font-light mb-3 sm:mb-4 text-foreground">Proof over promises.</h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-                We're not allowed to put most client numbers on a public website. But here's the flavour of what happens when you stop treating marketing as an experiment and start treating it as an operating function.
-              </p>
-            </div>
-            <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-8 max-w-5xl mx-auto">
-              {caseStudies.map((study, index) => <Card key={index} className="border-border hover:shadow-xl transition-all group">
-                  <CardContent className="p-5 sm:p-8 space-y-3 sm:space-y-4">
-                    <div className="text-4xl sm:text-5xl font-light text-accent mb-2 sm:mb-4">{study.metric}</div>
-                    <div className="text-xs sm:text-sm font-medium text-muted-foreground mb-1 sm:mb-2">{study.metricLabel}</div>
-                    <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{study.description}</p>
+            <ScrollReveal>
+              <div className="text-center mb-12 sm:mb-20">
+                <span className="inline-block text-xs sm:text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">Results</span>
+                <h2 className="text-3xl sm:text-5xl font-light mb-4 sm:mb-6 text-foreground">Proof over promises.</h2>
+                <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Here's the flavour of what happens when you stop treating marketing as an experiment.
+                </p>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto" stagger={100}>
+              {caseStudies.map((study, index) => (
+                <Card key={index} className="border-border/50 bg-gradient-to-br from-card to-secondary/20 hover:shadow-xl hover:shadow-accent/5 transition-all duration-500 group overflow-hidden">
+                  <CardContent className="p-8 sm:p-10 relative">
+                    {/* Decorative accent line */}
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <div className="text-5xl sm:text-6xl font-extralight text-accent mb-3">{study.metric}</div>
+                    <div className="text-sm font-medium text-foreground mb-2">{study.metricLabel}</div>
+                    <p className="text-sm text-muted-foreground leading-relaxed">{study.description}</p>
                   </CardContent>
-                </Card>)}
-            </div>
-            <div className="text-center mt-8 sm:mt-12">
-              <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
-                <Link to="/case-studies">View case studies</Link>
+                </Card>
+              ))}
+            </ScrollRevealGrid>
+            
+            <div className="text-center mt-12 sm:mt-16">
+              <Button variant="outline" size="lg" className="w-full sm:w-auto border-accent/30 hover:border-accent hover:bg-accent/5" asChild>
+                <Link to="/case-studies">
+                  View case studies
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
               </Button>
             </div>
           </div>
