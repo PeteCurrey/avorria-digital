@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -15,6 +16,7 @@ import {
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
+import heroContactOffice from "@/assets/hero-contact-office.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
@@ -69,15 +71,33 @@ const Contact = () => {
   };
 
   return (
+    <>
+      <Helmet>
+        <title>Contact Avorria – Book a Strategy Call | Avorria</title>
+        <meta name="description" content="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services." />
+        <link rel="canonical" href="https://avorria.com/contact" />
+      </Helmet>
+      
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
+      {/* Hero Section with Parallax */}
+      <section 
+        className="relative min-h-[50vh] flex items-center justify-center overflow-hidden"
+        style={{
+          backgroundImage: `url(${heroContactOffice})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundAttachment: "fixed",
+        }}
+      >
+        {/* Dark overlay */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+        
+        <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white animate-fade-in">
             Let's talk about{" "}
             <span className="font-semibold text-accent">your growth goals</span>
           </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up">
+          <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-6 animate-fade-in-up">
             Book a strategy call or request a proposal. We'll respond within 24 hours.
           </p>
         </div>
@@ -354,6 +374,7 @@ const Contact = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

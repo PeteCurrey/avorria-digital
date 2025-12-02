@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import heroAboutTeam from "@/assets/hero-about-team.jpg";
 
 const About = () => {
   const principles = [
@@ -100,27 +101,38 @@ const About = () => {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="pt-32 pb-20 px-6 bg-gradient-to-br from-background via-background to-secondary/20">
+        {/* Hero Section with Parallax */}
+        <section 
+          className="relative min-h-[70vh] flex items-center justify-center overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroAboutTeam})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed",
+          }}
+        >
+          {/* Dark overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+          
           <ScrollReveal>
-            <div className="container mx-auto max-w-4xl text-center">
-              <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground">
+            <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white">
                 The operators behind{" "}
-                <span className="font-semibold bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
+                <span className="font-semibold text-accent">
                   the pretty dashboards.
                 </span>
               </h1>
-              <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
+              <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-10 max-w-3xl mx-auto">
                 Avorria is a small, senior team that has spent years inside real businesses fixing messy marketing, broken tracking and underperforming websites. We care more about your pipeline than our awards shelf.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="accent" size="lg" asChild>
+                <Button size="lg" className="bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60" asChild>
                   <Link to="/contact">
                     Meet the team on a call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild>
+                <Button size="lg" className="bg-card/40 backdrop-blur-sm text-foreground border border-border/50 hover:bg-card/60" asChild>
                   <Link to="/reporting">See how we report</Link>
                 </Button>
               </div>
