@@ -168,7 +168,7 @@ export default {
   					backgroundPosition: '100% 50%'
   				}
   			},
-  			'counter': {
+  			counter: {
   				from: {
   					'--num': '0'
   				},
