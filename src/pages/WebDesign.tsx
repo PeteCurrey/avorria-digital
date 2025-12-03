@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -9,8 +8,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { ArrowRight, CheckCircle2, X, TrendingUp } from "lucide-react";
-import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
-import { OpinionatedQuote } from "@/components/OpinionatedQuote";
+import { HeroBand, SectionBand, ContentBand } from "@/components/ContentBand";
+import serviceWebDesign from "@/assets/service-web-design.jpg";
 
 const WebDesign = () => {
   const painPoints = [
@@ -44,25 +43,25 @@ const WebDesign = () => {
 
   const approach = [
     {
-      step: "Step 1",
+      step: "01",
       title: "Discovery & diagnosis",
       description:
         "We review your current site, analytics and funnel. We map where visitors drop off, what they're missing and what needs to change to support your sales process.",
     },
     {
-      step: "Step 2",
+      step: "02",
       title: "Wireframes & messaging",
       description:
         "We design the structure and messaging first: what goes where, which proof sits by which CTA, how we handle objections and educate different buyer types.",
     },
     {
-      step: "Step 3",
+      step: "03",
       title: "Visual design & build",
       description:
         "Once the bones are right, we apply your brand and build the site or pages on a modern stack. Fast, responsive and easy to extend.",
     },
     {
-      step: "Step 4",
+      step: "04",
       title: "Launch, measure, refine",
       description:
         "We don't throw it live and disappear. We monitor behaviour, test improvements and refine based on actual performance, not opinions.",
@@ -137,190 +136,179 @@ const WebDesign = () => {
         </script>
       </Helmet>
 
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
-            Websites and funnels that look sharp and sell hard.
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up">
-            We design and build web experiences that feel like top-tier agency work – but every section, layout and CTA is engineered for conversions, not awards.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
-                Talk about a rebuild
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/free-seo-website-audit?focus=web">Request a website & funnel teardown</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <HeroBand
+          headline="Websites and funnels that look sharp and sell hard."
+          body="We design and build web experiences that feel like top-tier agency work – but every section, layout and CTA is engineered for conversions, not awards."
+          cta={{ text: "Talk about a rebuild", href: "/contact" }}
+          secondaryCta={{ text: "Request a website teardown", href: "/free-seo-website-audit?focus=web" }}
+          minHeight="70vh"
+        />
 
-      {/* Pain Points */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-light mb-10 text-foreground text-center">
-            If your site looks good but converts badly, it's not "fine".
-          </h2>
-          <Card className="border-border">
-            <CardContent className="p-8">
-              <ul className="space-y-4">
-                {painPoints.map((point, index) => (
-                  <li key={index} className="flex items-start text-muted-foreground">
-                    <X className="text-accent mr-3 mt-1 flex-shrink-0" size={20} />
-                    <span className="text-lg">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <p className="text-center text-lg text-foreground mt-8 font-medium">
-            Pretty is optional. Clarity and conversion are not. Your site is either helping your pipeline or quietly taxing it.
-          </p>
-        </div>
-      </section>
-
-      {/* What We Build */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-light mb-12 text-foreground text-center">
-            What Avorria designs and builds.
-          </h2>
-
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Websites</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {whatWeBuild.websites.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
-              </div>
+        {/* Pain Points - Dark gradient */}
+        <SectionBand background="gradient" padding="large">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-12 text-center">
+              If your site looks good but converts badly, it's not "fine".
+            </h2>
+            <div className="space-y-4 mb-10">
+              {painPoints.map((point, index) => (
+                <div key={index} className="flex items-start gap-4 p-4 rounded-lg bg-white/5 border border-white/10">
+                  <X className="text-accent flex-shrink-0 mt-0.5" size={22} />
+                  <span className="text-lg text-white/90">{point}</span>
+                </div>
+              ))}
             </div>
-
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Landing pages & funnels</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {whatWeBuild.landingPages.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Under the hood</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {whatWeBuild.underTheHood.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <p className="text-center text-xl text-white font-medium">
+              Pretty is optional. Clarity and conversion are not. Your site is either helping your pipeline or quietly taxing it.
+            </p>
           </div>
-        </div>
-      </section>
+        </SectionBand>
 
-      {/* Our Approach */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">Design, dev and CRO in one loop.</h2>
-          </div>
-          <div className="space-y-8">
-            {approach.map((phase, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-8">
-                  <div className="flex flex-col md:flex-row md:items-center md:space-x-8">
-                    <div className="md:w-32 mb-4 md:mb-0">
-                      <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-md text-sm">
-                        {phase.step}
-                      </span>
-                    </div>
-                    <div className="flex-1">
-                      <h3 className="text-2xl font-semibold text-foreground mb-2">{phase.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{phase.description}</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+        {/* Content Band - What we build visual */}
+        <ContentBand
+          subheadline="What we build"
+          headline="Websites, landing pages & funnels."
+          body="Every asset we create is designed to look premium and perform commercially – from high-conversion homepages to campaign-specific landing pages."
+          image={serviceWebDesign}
+          imageAlt="Web design showcase"
+          background="dark"
+          reverse
+        >
+          <div className="grid grid-cols-1 gap-3 mt-6">
+            {whatWeBuild.websites.slice(0, 3).map((item, index) => (
+              <div key={index} className="flex items-start gap-3">
+                <CheckCircle2 className="text-accent flex-shrink-0 mt-0.5" size={18} />
+                <span className="text-white/80 text-sm">{item}</span>
+              </div>
             ))}
           </div>
-        </div>
-      </section>
+        </ContentBand>
 
-      {/* What Good Looks Like */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-light mb-10 text-foreground text-center">
-            Signs your site is finally doing its job.
-          </h2>
-          <Card className="border-border">
-            <CardContent className="p-10 space-y-6">
-              <ul className="space-y-4">
-                {goodSigns.map((item, index) => (
-                  <li key={index} className="flex items-start">
-                    <CheckCircle2 className="text-accent mr-3 mt-1 flex-shrink-0" size={20} />
-                    <span className="text-foreground text-lg">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+        {/* Full What We Build - Light section */}
+        <SectionBand background="light" padding="large">
+          <div className="max-w-5xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-16 text-center text-foreground">
+              What Avorria designs and builds.
+            </h2>
 
-      {/* Case Snippets */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <div className="space-y-6">
-            {caseSnippets.map((snippet, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-8 flex items-start space-x-4">
-                  <TrendingUp className="text-accent flex-shrink-0" size={28} />
-                  <p className="text-foreground text-lg leading-relaxed">{snippet}</p>
-                </CardContent>
-              </Card>
-            ))}
+            <div className="grid md:grid-cols-3 gap-12">
+              <div>
+                <h3 className="text-2xl font-semibold text-foreground mb-6">Websites</h3>
+                <div className="space-y-4">
+                  {whatWeBuild.websites.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={18} />
+                      <p className="text-muted-foreground">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-semibold text-foreground mb-6">Landing pages & funnels</h3>
+                <div className="space-y-4">
+                  {whatWeBuild.landingPages.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={18} />
+                      <p className="text-muted-foreground">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-2xl font-semibold text-foreground mb-6">Under the hood</h3>
+                <div className="space-y-4">
+                  {whatWeBuild.underTheHood.map((item, index) => (
+                    <div key={index} className="flex items-start gap-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={18} />
+                      <p className="text-muted-foreground">{item}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="text-center mt-12">
+        </SectionBand>
+
+        {/* Our Approach - Dark mesh */}
+        <SectionBand background="mesh" padding="large">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4">Design, dev and CRO in one loop.</h2>
+            </div>
+            <div className="space-y-6">
+              {approach.map((phase, index) => (
+                <div key={index} className="flex flex-col md:flex-row md:items-start gap-6 md:gap-10 p-8 rounded-xl bg-white/5 border border-white/10">
+                  <div className="flex-shrink-0">
+                    <span className="inline-flex items-center justify-center w-14 h-14 rounded-xl bg-accent/20 text-accent text-xl font-semibold">
+                      {phase.step}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-2xl font-semibold text-white mb-3">{phase.title}</h3>
+                    <p className="text-white/70 leading-relaxed text-lg">{phase.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </SectionBand>
+
+        {/* What Good Looks Like - Light */}
+        <SectionBand background="light" padding="large">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-12 text-foreground text-center">
+              Signs your site is finally doing its job.
+            </h2>
+            <div className="space-y-4">
+              {goodSigns.map((item, index) => (
+                <div key={index} className="flex items-start gap-4 p-5 rounded-lg border border-border bg-card">
+                  <CheckCircle2 className="text-accent flex-shrink-0 mt-0.5" size={22} />
+                  <span className="text-foreground text-lg">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </SectionBand>
+
+        {/* Case Snippets - Dark gradient */}
+        <SectionBand background="gradient" padding="large">
+          <div className="max-w-4xl mx-auto">
+            <div className="space-y-6 mb-12">
+              {caseSnippets.map((snippet, index) => (
+                <div key={index} className="flex items-start gap-5 p-8 rounded-xl bg-white/5 border border-white/10">
+                  <TrendingUp className="text-accent flex-shrink-0" size={32} />
+                  <p className="text-white text-xl leading-relaxed">{snippet}</p>
+                </div>
+              ))}
+            </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" size="lg" asChild>
-                <Link to="/free-seo-website-audit?focus=web">Request a website & funnel teardown</Link>
+              <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Link to="/free-seo-website-audit?focus=web">Request a website teardown</Link>
               </Button>
               <Button variant="accent" size="lg" asChild>
                 <Link to="/websites-we-would-fire">View 'Websites We'd Fire' gallery</Link>
               </Button>
             </div>
           </div>
-        </div>
-      </section>
+        </SectionBand>
 
-      {/* Web Design by Location */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-light mb-4 text-foreground">Web design by location</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Looking for a local web design partner?
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
+        {/* Web Design by Location - Light */}
+        <SectionBand background="light" padding="default">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">Web design by location</h2>
+              <p className="text-lg text-muted-foreground">
+                Looking for a local web design partner?
+              </p>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="p-8 rounded-xl border border-border bg-card hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-semibold mb-3 text-foreground">Web Design Sheffield</h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-6">
                   Conversion-focused websites for Sheffield businesses.
                 </p>
                 <Button variant="outline" size="sm" asChild>
@@ -329,12 +317,10 @@ const WebDesign = () => {
                     <ArrowRight className="ml-2" size={16} />
                   </Link>
                 </Button>
-              </CardContent>
-            </Card>
-            <Card className="border-border hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
+              </div>
+              <div className="p-8 rounded-xl border border-border bg-card hover:shadow-lg transition-shadow">
                 <h3 className="text-xl font-semibold mb-3 text-foreground">Web Design Across the UK</h3>
-                <p className="text-muted-foreground mb-4">
+                <p className="text-muted-foreground mb-6">
                   We work with businesses across the UK and beyond.
                 </p>
                 <Button variant="outline" size="sm" asChild>
@@ -343,58 +329,57 @@ const WebDesign = () => {
                     <ArrowRight className="ml-2" size={16} />
                   </Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </SectionBand>
 
-      {/* FAQ */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-3xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">FAQ – Web Design & Dev</h2>
+        {/* FAQ - Dark */}
+        <SectionBand background="dark" padding="large">
+          <div className="max-w-3xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4">FAQ – Web Design & Dev</h2>
+            </div>
+            <Accordion type="single" collapsible className="space-y-4">
+              {faqs.map((faq, index) => (
+                <AccordionItem
+                  key={index}
+                  value={`item-${index}`}
+                  className="border border-white/10 bg-white/5 px-6 rounded-lg"
+                >
+                  <AccordionTrigger className="text-left font-semibold text-white hover:text-accent">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/70 leading-relaxed">{faq.answer}</AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
           </div>
-          <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="border border-border bg-background px-6 rounded-lg"
-              >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </div>
-      </section>
+        </SectionBand>
 
-      {/* Final CTA */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
-            Need your website to behave like a sales asset?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Send us your current site and we'll show you exactly what we'd change, in what order, and why – no drama, no jargon.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/free-seo-website-audit?focus=web">
-                Request a website & funnel teardown
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/contact">Talk about a rebuild</Link>
-            </Button>
+        {/* Final CTA - Mesh */}
+        <SectionBand background="mesh" padding="large">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-6">
+              Need your website to behave like a sales asset?
+            </h2>
+            <p className="text-xl text-white/75 mb-10 max-w-2xl mx-auto">
+              Send us your current site and we'll show you exactly what we'd change, in what order, and why – no drama, no jargon.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
+                <Link to="/free-seo-website-audit?focus=web">
+                  Request a website teardown
+                  <ArrowRight className="ml-2" size={20} />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                <Link to="/contact">Talk about a rebuild</Link>
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </SectionBand>
+      </div>
     </>
   );
 };

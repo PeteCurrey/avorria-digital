@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -43,15 +43,18 @@ All colors MUST be HSL.
     --gradient-primary: linear-gradient(135deg, hsl(320, 85%, 55%) 0%, hsl(260, 75%, 60%) 100%);
     --gradient-hero: linear-gradient(135deg, hsl(250, 75%, 60%) 0%, hsl(280, 70%, 65%) 50%, hsl(320, 75%, 60%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(0, 0%, 100%), hsl(220, 15%, 98%));
-    --gradient-mesh: radial-gradient(at 27% 37%, hsla(250, 75%, 90%, 0.15) 0px, transparent 50%),
-                      radial-gradient(at 97% 21%, hsla(280, 70%, 90%, 0.15) 0px, transparent 50%),
-                      radial-gradient(at 52% 99%, hsla(320, 75%, 90%, 0.15) 0px, transparent 50%);
+    --gradient-mesh: radial-gradient(at 27% 37%, hsla(320, 85%, 55%, 0.08) 0px, transparent 50%),
+                      radial-gradient(at 97% 21%, hsla(260, 75%, 60%, 0.08) 0px, transparent 50%),
+                      radial-gradient(at 52% 99%, hsla(250, 75%, 60%, 0.06) 0px, transparent 50%);
+    --gradient-dark: linear-gradient(180deg, hsl(220, 25%, 8%) 0%, hsl(220, 25%, 6%) 100%);
+    --gradient-dark-radial: radial-gradient(ellipse at top, hsl(250, 30%, 15%) 0%, hsl(220, 25%, 8%) 70%);
 
     /* Shadows - elegant and soft */
     --shadow-elegant: 0 10px 40px -10px hsla(220, 25%, 12%, 0.1);
     --shadow-card: 0 4px 20px -4px hsla(220, 25%, 12%, 0.08);
     --shadow-card-hover: 0 8px 30px -6px hsla(220, 25%, 12%, 0.15);
     --shadow-soft: 0 2px 8px -2px hsla(220, 25%, 12%, 0.06);
+    --shadow-glow: 0 0 60px -10px hsla(320, 85%, 55%, 0.15);
 
     /* Motion system - single easing curve */
     --ease-primary: cubic-bezier(0.4, 0, 0.2, 1);
@@ -59,12 +62,29 @@ All colors MUST be HSL.
     --duration-base: 280ms;
     --duration-slow: 340ms;
 
-    /* Typography scale */
-    --type-h1: 3.5rem; /* 56px */
-    --type-h2: 2.5rem; /* 40px */
-    --type-h3: 1.75rem; /* 28px */
-    --type-body: 1rem; /* 16px */
-    --type-small: 0.875rem; /* 14px */ --shadow-sm: 0px 1px 1.5px 0px hsla(0, 0%, 0%, 0.1); --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.1); --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.1); --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.1);
+    /* Typography scale - increased for premium feel */
+    --type-display: clamp(3rem, 8vw, 5rem);
+    --type-h1: clamp(2.5rem, 6vw, 4rem);
+    --type-h2: clamp(2rem, 4vw, 3rem);
+    --type-h3: clamp(1.5rem, 3vw, 2rem);
+    --type-body: 1.125rem;
+    --type-body-sm: 1rem;
+    --type-small: 0.875rem;
+    
+    /* Line heights - tighter for headlines */
+    --leading-display: 1.05;
+    --leading-tight: 1.1;
+    --leading-snug: 1.25;
+    --leading-normal: 1.6;
+
+    /* Section spacing */
+    --section-py: clamp(5rem, 12vw, 8rem);
+    --section-py-lg: clamp(6rem, 15vw, 10rem);
+    
+    --shadow-sm: 0px 1px 1.5px 0px hsla(0, 0%, 0%, 0.1);
+    --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.1);
+    --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.1);
+    --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.1);
   }
 
   .dark {
@@ -100,6 +120,10 @@ All colors MUST be HSL.
     --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.1);
     --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.1);
     --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.1);
+    
+    --gradient-mesh: radial-gradient(at 27% 37%, hsla(320, 85%, 55%, 0.12) 0px, transparent 50%),
+                      radial-gradient(at 97% 21%, hsla(260, 75%, 60%, 0.12) 0px, transparent 50%),
+                      radial-gradient(at 52% 99%, hsla(250, 75%, 60%, 0.08) 0px, transparent 50%);
   }
 }
 
@@ -108,9 +132,38 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans antialiased;
     font-feature-settings: "rlig" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Premium typography */
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-light tracking-tight;
+    line-height: var(--leading-tight);
+  }
+
+  h1 {
+    font-size: var(--type-h1);
+  }
+
+  h2 {
+    font-size: var(--type-h2);
+  }
+
+  h3 {
+    font-size: var(--type-h3);
+  }
+
+  p {
+    line-height: var(--leading-normal);
   }
 }
 
@@ -119,6 +172,15 @@ All colors MUST be HSL.
   .text-gradient-accent {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, hsl(320 85% 55%) 0%, hsl(260 75% 60%) 100%);
+  }
+
+  /* Premium text colors for dark sections */
+  .text-soft {
+    color: hsla(0, 0%, 100%, 0.85);
+  }
+
+  .text-softer {
+    color: hsla(0, 0%, 100%, 0.7);
   }
 
   .line-clamp-2 {
@@ -133,6 +195,38 @@ All colors MUST be HSL.
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  /* Full-width section backgrounds */
+  .section-dark {
+    @apply bg-[hsl(220,25%,8%)] text-white;
+  }
+
+  .section-gradient {
+    background: linear-gradient(180deg, hsl(220, 25%, 8%) 0%, hsl(250, 30%, 12%) 50%, hsl(220, 25%, 8%) 100%);
+    @apply text-white;
+  }
+
+  .section-mesh {
+    @apply bg-[hsl(220,25%,8%)] text-white relative;
+  }
+
+  .section-mesh::before {
+    content: '';
+    @apply absolute inset-0;
+    background: var(--gradient-mesh);
+    opacity: 0.6;
+  }
+
+  /* Section padding system */
+  .section-py {
+    padding-top: var(--section-py);
+    padding-bottom: var(--section-py);
+  }
+
+  .section-py-lg {
+    padding-top: var(--section-py-lg);
+    padding-bottom: var(--section-py-lg);
   }
 
   /* Premium card hover glow */
@@ -157,5 +251,22 @@ All colors MUST be HSL.
 
   .card-glow:hover::before {
     opacity: 1;
+  }
+
+  /* Hero section minimum height */
+  .hero-min {
+    min-height: 70vh;
+  }
+
+  .hero-full {
+    min-height: 80vh;
+  }
+
+  /* Noise texture overlay */
+  .noise-overlay::after {
+    content: '';
+    @apply absolute inset-0 pointer-events-none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E");
   }
 }
