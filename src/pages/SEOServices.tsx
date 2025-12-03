@@ -11,6 +11,8 @@ import {
 import { ArrowRight, CheckCircle2, TrendingUp, X } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
+import { HeroBand, ContentBand, SectionBand } from "@/components/ContentBand";
+import heroSeoImage from "@/assets/service-seo.jpg";
 
 const SEOServices = () => {
   const painPoints = [
@@ -156,190 +158,192 @@ const SEOServices = () => {
 
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground animate-fade-in">
-            SEO that connects rankings to revenue.
-          </h1>
-          <p className="text-xl text-muted-foreground leading-relaxed mb-10 animate-fade-in-up">
-            We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline – then remove the friction that stops those visitors becoming customers.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/contact">
-                Book an SEO strategy call
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/free-seo-website-audit">Get a free SEO audit</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
+      <HeroBand
+        headline="SEO that connects rankings to revenue."
+        body="We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline – then remove the friction that stops those visitors becoming customers."
+        backgroundImage={heroSeoImage}
+        cta={{ text: "Book an SEO strategy call", href: "/contact" }}
+        secondaryCta={{ text: "Get a free SEO audit", href: "/free-seo-website-audit" }}
+      />
 
       {/* Pain Points */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-3xl font-light mb-10 text-foreground text-center">
-            If you're already paying for SEO, some of this might sting.
-          </h2>
-          <Card className="border-border">
-            <CardContent className="p-8">
-              <ul className="space-y-4">
-                {painPoints.map((point, index) => (
-                  <li key={index} className="flex items-start text-muted-foreground">
-                    <X className="text-accent mr-3 mt-1 flex-shrink-0" size={20} />
-                    <span className="text-lg">{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-          <p className="text-center text-lg text-foreground mt-8 font-medium">
+      <SectionBand background="gradient" padding="large">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-section-headline font-light mb-10 text-center">
+              If you're already paying for SEO, some of this might sting.
+            </h2>
+          </ScrollReveal>
+          <div className="bg-black/30 backdrop-blur-sm border border-white/10 rounded-xl p-8 md:p-10">
+            <ul className="space-y-5">
+              {painPoints.map((point, index) => (
+                <li key={index} className="flex items-start text-white/80">
+                  <X className="text-accent mr-4 mt-1 flex-shrink-0" size={20} />
+                  <span className="text-lg leading-relaxed">{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="text-center text-xl text-white/90 mt-10 font-medium max-w-3xl mx-auto">
             You don't need more waffle about algorithms. You need a clear plan to win the right searches, fix the technical drag and connect organic performance to your pipeline.
           </p>
         </div>
-      </section>
+      </SectionBand>
 
       {/* What's Included */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-5xl">
-          <h2 className="text-4xl font-light mb-12 text-foreground text-center">
-            What Avorria SEO actually covers.
-          </h2>
+      <SectionBand background="dark" padding="large">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-section-headline font-light mb-16 text-center">
+              What Avorria SEO actually covers.
+            </h2>
+          </ScrollReveal>
           
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Technical & structure</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {included.technical.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
+          <div className="grid md:grid-cols-2 gap-12 lg:gap-16">
+            <ScrollReveal>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">Technical & structure</h3>
+                <div className="space-y-4">
+                  {included.technical.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                      <p className="text-white/80">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">On-page optimisation</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {included.onPage.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
+            <ScrollReveal>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">On-page optimisation</h3>
+                <div className="space-y-4">
+                  {included.onPage.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                      <p className="text-white/80">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Content & keyword strategy</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {included.content.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
+            <ScrollReveal>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">Content & keyword strategy</h3>
+                <div className="space-y-4">
+                  {included.content.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                      <p className="text-white/80">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Local & multi-location SEO (if relevant)</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {included.local.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
+            <ScrollReveal>
+              <div className="space-y-6">
+                <h3 className="text-2xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">Local & multi-location SEO</h3>
+                <div className="space-y-4">
+                  {included.local.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                      <p className="text-white/80">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
 
-            <div>
-              <h3 className="text-2xl font-semibold text-foreground mb-4">Tracking & reporting</h3>
-              <div className="grid md:grid-cols-2 gap-4">
-                {included.tracking.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
-                    <p className="text-foreground">{item}</p>
-                  </div>
-                ))}
+            <ScrollReveal className="md:col-span-2">
+              <div className="space-y-6 max-w-2xl mx-auto">
+                <h3 className="text-2xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">Tracking & reporting</h3>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {included.tracking.map((item, index) => (
+                    <div key={index} className="flex items-start space-x-3">
+                      <CheckCircle2 className="text-accent flex-shrink-0 mt-1" size={20} />
+                      <p className="text-white/80">{item}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
-      </section>
+      </SectionBand>
 
       {/* Process Timeline */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">How a typical SEO engagement runs.</h2>
-          </div>
-          <div className="space-y-8">
+      <SectionBand background="mesh" padding="large">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-section-headline font-light mb-4">How a typical SEO engagement runs.</h2>
+            </div>
+          </ScrollReveal>
+          <div className="space-y-6">
             {timeline.map((phase, index) => (
-              <Card key={index} className="border-border hover:shadow-lg transition-shadow">
-                <CardContent className="p-8">
+              <ScrollReveal key={index}>
+                <div className="relative bg-black/20 backdrop-blur-sm border border-white/10 rounded-xl p-8 hover:bg-black/30 transition-all duration-300">
                   <div className="flex flex-col md:flex-row md:items-center md:space-x-8">
-                    <div className="md:w-32 mb-4 md:mb-0">
-                      <span className="inline-block px-4 py-2 bg-accent/10 text-accent font-semibold rounded-md text-sm">
+                    <div className="md:w-36 mb-4 md:mb-0">
+                      <span className="inline-block px-4 py-2 bg-accent/20 text-accent font-semibold rounded-lg text-sm">
                         {phase.period}
                       </span>
                     </div>
                     <div className="flex-1">
-                      <h3 className="text-2xl font-semibold text-foreground mb-2">{phase.title}</h3>
-                      <p className="text-muted-foreground leading-relaxed">{phase.description}</p>
+                      <h3 className="text-2xl font-semibold text-white mb-2">{phase.title}</h3>
+                      <p className="text-white/70 leading-relaxed">{phase.description}</p>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+              </ScrollReveal>
             ))}
           </div>
-          <p className="text-center text-muted-foreground mt-8 max-w-3xl mx-auto">
+          <p className="text-center text-white/70 mt-12 max-w-3xl mx-auto text-lg">
             SEO is compounding by nature. Our job is to shorten the time it takes to see commercial impact – and to show you transparently what's happening along the way.
           </p>
         </div>
-      </section>
+      </SectionBand>
 
       {/* Deliverables & Reporting */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-4xl">
-          <h2 className="text-4xl font-light mb-10 text-foreground text-center">What you see as a client.</h2>
-          <Card className="border-border">
-            <CardContent className="p-10 space-y-6">
-              <ul className="space-y-4">
-                {deliverables.map((item, index) => (
-                  <li key={index} className="flex items-start">
-                    <CheckCircle2 className="text-accent mr-3 mt-1 flex-shrink-0" size={20} />
-                    <span className="text-foreground text-lg">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+      <SectionBand background="gradient" padding="large">
+        <div className="max-w-4xl mx-auto">
+          <ScrollReveal>
+            <h2 className="text-section-headline font-light mb-12 text-center">What you see as a client.</h2>
+          </ScrollReveal>
+          <div className="bg-black/30 backdrop-blur-sm border border-white/10 rounded-xl p-10 space-y-6">
+            <ul className="space-y-5">
+              {deliverables.map((item, index) => (
+                <li key={index} className="flex items-start">
+                  <CheckCircle2 className="text-accent mr-4 mt-1 flex-shrink-0" size={22} />
+                  <span className="text-white/90 text-lg">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
-      </section>
+      </SectionBand>
 
       {/* SEO by Industry */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">SEO by industry</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Industry-specific SEO strategies built around how your buyers actually search and evaluate.
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-border hover:shadow-xl transition-shadow">
+      <SectionBand background="dark" padding="large">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-section-headline font-light mb-4">SEO by industry</h2>
+              <p className="text-xl text-white/70 max-w-2xl mx-auto">
+                Industry-specific SEO strategies built around how your buyers actually search and evaluate.
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={100}>
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-3">Trades & Home Services</h3>
-                <p className="text-muted-foreground mb-6">
+                <h3 className="text-xl font-semibold text-white mb-3">Trades & Home Services</h3>
+                <p className="text-white/60 mb-6">
                   Local SEO that fills your diary with the right jobs in the right locations.
                 </p>
-                <Button variant="link" asChild className="p-0 h-auto">
+                <Button variant="link" asChild className="p-0 h-auto text-accent">
                   <Link to="/seo/for/trades-home-services">
                     Learn more <ArrowRight className="ml-2" size={16} />
                   </Link>
@@ -347,13 +351,13 @@ const SEOServices = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border hover:shadow-xl transition-shadow">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-3">Professional Services</h3>
-                <p className="text-muted-foreground mb-6">
+                <h3 className="text-xl font-semibold text-white mb-3">Professional Services</h3>
+                <p className="text-white/60 mb-6">
                   SEO that attracts better-fit clients and feeds your pipeline with qualified enquiries.
                 </p>
-                <Button variant="link" asChild className="p-0 h-auto">
+                <Button variant="link" asChild className="p-0 h-auto text-accent">
                   <Link to="/seo/for/professional-services">
                     Learn more <ArrowRight className="ml-2" size={16} />
                   </Link>
@@ -361,13 +365,13 @@ const SEOServices = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border hover:shadow-xl transition-shadow">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-3">B2B SaaS</h3>
-                <p className="text-muted-foreground mb-6">
+                <h3 className="text-xl font-semibold text-white mb-3">B2B SaaS</h3>
+                <p className="text-white/60 mb-6">
                   SEO that feeds your pipeline with demos and trials, not just blog traffic.
                 </p>
-                <Button variant="link" asChild className="p-0 h-auto">
+                <Button variant="link" asChild className="p-0 h-auto text-accent">
                   <Link to="/seo/for/b2b-saas">
                     Learn more <ArrowRight className="ml-2" size={16} />
                   </Link>
@@ -375,13 +379,13 @@ const SEOServices = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border hover:shadow-xl transition-shadow">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-3">E-commerce Brands</h3>
-                <p className="text-muted-foreground mb-6">
+                <h3 className="text-xl font-semibold text-white mb-3">E-commerce Brands</h3>
+                <p className="text-white/60 mb-6">
                   SEO that moves revenue, not just rankings – with clean structure and conversion focus.
                 </p>
-                <Button variant="link" asChild className="p-0 h-auto">
+                <Button variant="link" asChild className="p-0 h-auto text-accent">
                   <Link to="/seo/for/ecommerce-brands">
                     Learn more <ArrowRight className="ml-2" size={16} />
                   </Link>
@@ -389,13 +393,13 @@ const SEOServices = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border hover:shadow-xl transition-shadow">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-8">
-                <h3 className="text-xl font-semibold text-foreground mb-3">Multi-Location Brands</h3>
-                <p className="text-muted-foreground mb-6">
+                <h3 className="text-xl font-semibold text-white mb-3">Multi-Location Brands</h3>
+                <p className="text-white/60 mb-6">
                   SEO that keeps every location and profile pulling its weight with structured local strategy.
                 </p>
-                <Button variant="link" asChild className="p-0 h-auto">
+                <Button variant="link" asChild className="p-0 h-auto text-accent">
                   <Link to="/seo/for/multi-location-brands">
                     Learn more <ArrowRight className="ml-2" size={16} />
                   </Link>
@@ -403,41 +407,43 @@ const SEOServices = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-border hover:shadow-xl transition-shadow bg-secondary/30">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-8 flex flex-col justify-center items-center text-center h-full">
-                <p className="text-muted-foreground mb-4">
+                <p className="text-white/60 mb-4">
                   Don't see your industry? We work with many sectors.
                 </p>
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
                   <Link to="/contact">Discuss your industry</Link>
                 </Button>
               </CardContent>
             </Card>
-          </div>
+          </ScrollRevealGrid>
         </div>
-      </section>
+      </SectionBand>
 
       {/* Case Study Teaser */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">What good SEO looks like in practice.</h2>
-          </div>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      <SectionBand background="gradient" padding="large">
+        <div className="max-w-5xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-section-headline font-light mb-4">What good SEO looks like in practice.</h2>
+            </div>
+          </ScrollReveal>
+          <ScrollRevealGrid className="grid md:grid-cols-2 gap-8" stagger={100}>
             {caseStudies.map((study, index) => (
-              <Card key={index} className="border-border hover:shadow-xl transition-shadow">
+              <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
                 <CardContent className="p-8 space-y-4">
                   <TrendingUp className="text-accent" size={32} />
-                  <h3 className="text-xl font-semibold text-foreground">{study.title}</h3>
+                  <h3 className="text-xl font-semibold text-white">{study.title}</h3>
                   <p className="text-lg font-medium text-accent">{study.result}</p>
-                  <p className="text-muted-foreground leading-relaxed">{study.description}</p>
+                  <p className="text-white/60 leading-relaxed">{study.description}</p>
                 </CardContent>
               </Card>
             ))}
-          </div>
+          </ScrollRevealGrid>
           <div className="text-center mt-12">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" size="lg" asChild>
+              <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
                 <Link to="/case-studies">View case studies</Link>
               </Button>
               <Button variant="accent" size="lg" asChild>
@@ -446,25 +452,27 @@ const SEOServices = () => {
             </div>
           </div>
         </div>
-      </section>
+      </SectionBand>
 
       {/* SEO by Location */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-6xl">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-light mb-4 text-foreground">SEO by location</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Prefer to work with a team who knows your patch?
-            </p>
-          </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <Card className="border-border hover:shadow-lg transition-shadow">
+      <SectionBand background="dark" padding="large">
+        <div className="max-w-6xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-12">
+              <h2 className="text-section-headline font-light mb-4">SEO by location</h2>
+              <p className="text-lg text-white/70 max-w-2xl mx-auto">
+                Prefer to work with a team who knows your patch?
+              </p>
+            </div>
+          </ScrollReveal>
+          <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={100}>
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">SEO Agency Sheffield</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-xl font-semibold mb-3 text-white">SEO Agency Sheffield</h3>
+                <p className="text-white/60 mb-4">
                   Performance-focused SEO for Sheffield and South Yorkshire businesses.
                 </p>
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
                   <Link to="/seo-agency/sheffield">
                     Learn more
                     <ArrowRight className="ml-2" size={16} />
@@ -472,13 +480,13 @@ const SEOServices = () => {
                 </Button>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-lg transition-shadow">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">SEO Agency London</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-xl font-semibold mb-3 text-white">SEO Agency London</h3>
+                <p className="text-white/60 mb-4">
                   Pipeline-focused SEO strategy for London-based teams.
                 </p>
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
                   <Link to="/seo-agency/london">
                     Learn more
                     <ArrowRight className="ml-2" size={16} />
@@ -486,13 +494,13 @@ const SEOServices = () => {
                 </Button>
               </CardContent>
             </Card>
-            <Card className="border-border hover:shadow-lg transition-shadow">
+            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">SEO Across the UK</h3>
-                <p className="text-muted-foreground mb-4">
+                <h3 className="text-xl font-semibold mb-3 text-white">SEO Across the UK</h3>
+                <p className="text-white/60 mb-4">
                   Work with us wherever you're based in the UK.
                 </p>
-                <Button variant="outline" size="sm" asChild>
+                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
                   <Link to="/digital-marketing-agency/uk">
                     Learn more
                     <ArrowRight className="ml-2" size={16} />
@@ -500,55 +508,59 @@ const SEOServices = () => {
                 </Button>
               </CardContent>
             </Card>
-          </div>
+          </ScrollRevealGrid>
         </div>
-      </section>
+      </SectionBand>
 
       {/* FAQ */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-3xl">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-light mb-4 text-foreground">SEO FAQ</h2>
-          </div>
+      <SectionBand background="mesh" padding="large">
+        <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
+            <div className="text-center mb-16">
+              <h2 className="text-section-headline font-light mb-4">SEO FAQ</h2>
+            </div>
+          </ScrollReveal>
           <Accordion type="single" collapsible className="space-y-4">
             {faqs.map((faq, index) => (
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="border border-border bg-background px-6 rounded-lg"
+                className="border border-white/10 bg-black/20 backdrop-blur-sm px-6 rounded-lg"
               >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:text-accent">
+                <AccordionTrigger className="text-left font-semibold text-white hover:text-accent">
                   {faq.question}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">{faq.answer}</AccordionContent>
+                <AccordionContent className="text-white/70 leading-relaxed">{faq.answer}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
         </div>
-      </section>
+      </SectionBand>
 
       {/* Final CTA */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl lg:text-5xl font-light mb-6 text-foreground">
-            Want blunt, grown-up SEO advice?
-          </h2>
-          <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Send us your site and we'll tell you exactly where you're wasting potential, what's holding you back and what we'd do first.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/free-seo-website-audit">
-                Get a free SEO audit
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/contact">Book an SEO strategy call</Link>
-            </Button>
-          </div>
+      <SectionBand background="gradient" padding="hero">
+        <div className="max-w-4xl mx-auto text-center">
+          <ScrollReveal>
+            <h2 className="text-section-headline lg:text-6xl font-light mb-6">
+              Want blunt, grown-up SEO advice?
+            </h2>
+            <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
+              Send us your site and we'll tell you exactly where you're wasting potential, what's holding you back and what we'd do first.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
+                <Link to="/free-seo-website-audit">
+                  Get a free SEO audit
+                  <ArrowRight className="ml-2" size={20} />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                <Link to="/contact">Book an SEO strategy call</Link>
+              </Button>
+            </div>
+          </ScrollReveal>
         </div>
-      </section>
+      </SectionBand>
     </div>
     </>
   );
