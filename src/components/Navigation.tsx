@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
-  Menu, X, ChevronRight, ArrowRight,
-  Layers, Search, Target, Palette, Sparkles,
+  Menu, X, ChevronRight, ArrowRight, ExternalLink,
+  Layers, Search, Target, Palette, Sparkles, Bot,
   Users, Award, BarChart3, LineChart,
   BookOpen, Wrench, BookText, GraduationCap,
   DollarSign, Mail, ClipboardCheck, HelpCircle
@@ -145,6 +145,21 @@ const Navigation = ({
           <div className="hidden lg:flex flex-1"></div>
 
           <div className="hidden lg:flex items-center space-x-3 flex-shrink-0">
+            <a 
+              href="http://ai.avorria.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              onClick={() => trackNavClick('avorria_ai', 'header')}
+              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-normal transition-all duration-200 ${
+                shouldBeTransparent 
+                  ? "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm" 
+                  : "bg-muted/50 text-foreground hover:bg-muted"
+              }`}
+            >
+              <Bot className="w-4 h-4" />
+              Avorria AI
+              <ExternalLink className="w-3 h-3 opacity-60" />
+            </a>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -312,6 +327,22 @@ const Navigation = ({
                 </div>
               ))}
               <div className="pt-6 space-y-3 px-2 border-t border-border">
+                <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>
+                  <a 
+                    href="http://ai.avorria.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackNavClick('avorria_ai', 'header');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="inline-flex items-center justify-center gap-2"
+                  >
+                    <Bot className="w-5 h-5" />
+                    Avorria AI
+                    <ExternalLink className="w-4 h-4 opacity-60" />
+                  </a>
+                </Button>
                 <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>
                   <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                     Get in Touch
