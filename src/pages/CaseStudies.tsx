@@ -2,9 +2,8 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, TrendingUp } from "lucide-react";
-import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { HeroBand, SectionBand } from "@/components/ContentBand";
 import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
 
 const CaseStudies = () => {
@@ -132,125 +131,113 @@ const CaseStudies = () => {
         </script>
       </Helmet>
 
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background via-secondary to-background relative overflow-hidden">
-        {/* Subtle gradient mesh */}
-        <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-40" />
-        
-        <div className="container mx-auto max-w-4xl text-center relative">
-          <ScrollReveal>
-            <h1 className="text-5xl lg:text-6xl font-light leading-tight mb-6 text-foreground">
-              Proof that we actually move the numbers.
-            </h1>
-            <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
-              These are real client engagements with real outcomes. We treat case studies as operating playbooks, not trophies.
-            </p>
-          </ScrollReveal>
-        </div>
-      </section>
+      <div className="min-h-screen">
+        {/* Hero Section */}
+        <HeroBand
+          headline="Proof that we actually move the numbers."
+          body="These are real client engagements with real outcomes. We treat case studies as operating playbooks, not trophies."
+          minHeight="60vh"
+        />
 
-      {/* Filters */}
-      <section className="py-8 px-6 bg-background border-b border-border sticky top-20 z-40 bg-background/95 backdrop-blur-md">
-        <div className="container mx-auto">
-          <div className="flex flex-wrap justify-center gap-3">
-            {filters.map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setActiveFilter(filter)}
-                className={`px-6 py-2 rounded-md text-sm font-medium transition-all ${
-                  activeFilter === filter
-                    ? "bg-accent text-accent-foreground shadow-md"
-                    : "bg-secondary text-foreground hover:bg-secondary/80"
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
+        {/* Filters - Sticky */}
+        <section className="py-6 px-6 bg-[hsl(220,25%,8%)] border-b border-white/10 sticky top-20 z-40 backdrop-blur-md">
+          <div className="container mx-auto">
+            <div className="flex flex-wrap justify-center gap-3">
+              {filters.map((filter) => (
+                <button
+                  key={filter}
+                  onClick={() => setActiveFilter(filter)}
+                  className={`px-6 py-2.5 rounded-full text-sm font-medium transition-all ${
+                    activeFilter === filter
+                      ? "bg-accent text-accent-foreground shadow-md"
+                      : "bg-white/5 text-white/80 hover:bg-white/10 border border-white/10"
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Case Studies Grid */}
-      <section className="py-24 px-6 bg-background">
-        <div className="container mx-auto">
-          <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-8" stagger={80}>
-            {filteredStudies.map((study, index) => (
-              <Card
-                key={index}
-                className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group"
-              >
-                <CardContent className="p-8 space-y-4 flex flex-col h-full">
-                  <div className="flex items-start justify-between mb-2">
-                    <span className="inline-block px-3 py-1 bg-gradient-to-r from-accent/20 to-accent/10 text-accent text-xs font-semibold rounded-md">
+        {/* Case Studies Grid - Light */}
+        <SectionBand background="light" padding="large">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {filteredStudies.map((study, index) => (
+                <Link
+                  key={index}
+                  to={study.href}
+                  onClick={() => trackEvent(EVENTS.CASE_STUDY_OPENED, {
+                    case_study_slug: study.href.split('/').pop(),
+                    case_study_industry: study.industry.toLowerCase().replace(/ /g, '_'),
+                    primary_service: study.service.toLowerCase().replace(/ /g, '_'),
+                  })}
+                  className="group block p-8 rounded-xl border border-border bg-card hover:shadow-[var(--shadow-card-hover)] hover:border-accent/30 transition-all duration-300"
+                >
+                  <div className="flex items-start justify-between mb-4">
+                    <span className="inline-block px-3 py-1 bg-accent/10 text-accent text-xs font-semibold rounded-full">
                       {study.service}
                     </span>
-                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors duration-[var(--duration-base)]">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
                       <TrendingUp className="text-accent" size={20} />
                     </div>
                   </div>
-                  <div className="flex-1 space-y-4">
-                    <div className="text-4xl lg:text-5xl font-light text-transparent bg-clip-text bg-gradient-to-r from-accent to-[hsl(280,75%,60%)]">
+                  
+                  <div className="space-y-4">
+                    <div className="text-4xl lg:text-5xl font-light text-gradient-accent">
                       {study.metric}
                     </div>
-                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                    <div className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
                       {study.metricLabel}
                     </div>
-                    <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                    <h3 className="text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
                       {study.title}
                     </h3>
                     <p className="text-sm text-muted-foreground">{study.industry}</p>
                     <p className="text-muted-foreground leading-relaxed">{study.description}</p>
                     <p className="text-xs text-muted-foreground italic">{study.details}</p>
                   </div>
-                  <Link
-                    to={study.href}
-                    onClick={() => trackEvent(EVENTS.CASE_STUDY_OPENED, {
-                      case_study_slug: study.href.split('/').pop(),
-                      case_study_industry: study.industry.toLowerCase().replace(/ /g, '_'),
-                      primary_service: study.service.toLowerCase().replace(/ /g, '_'),
-                    })}
-                    className="inline-flex items-center text-accent hover:text-accent/80 font-medium text-sm transition-all duration-[var(--duration-fast)] mt-auto group/link"
-                  >
+                  
+                  <div className="mt-6 inline-flex items-center text-accent font-medium text-sm group-hover:gap-3 gap-2 transition-all">
                     View full case study
-                    <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)]" size={16} />
-                  </Link>
-                </CardContent>
-              </Card>
-            ))}
-          </ScrollRevealGrid>
-
-          {filteredStudies.length === 0 && (
-            <div className="text-center py-16">
-              <p className="text-lg text-muted-foreground">No case studies found for this filter.</p>
+                    <ArrowRight className="group-hover:translate-x-1 transition-transform" size={16} />
+                  </div>
+                </Link>
+              ))}
             </div>
-          )}
-        </div>
-      </section>
 
-      {/* CTA Section */}
-      <section className="py-24 px-6 bg-secondary">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-4xl font-light mb-6 text-foreground">
-            Want results like these for your business?
-          </h2>
-          <p className="text-lg text-muted-foreground mb-10 max-w-2xl mx-auto">
-            Every business is different. Book a strategy call to discuss your goals and how we can help you achieve them.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="accent" size="lg" asChild>
-              <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'case_studies_cta')}>
-                Book a Strategy Call
-                <ArrowRight className="ml-2" size={20} />
-              </Link>
-            </Button>
-            <Button variant="outline" size="lg" asChild>
-              <Link to="/services" onClick={() => trackCTAClick('view_services', '/services', 'case_studies_cta')}>View Our Services</Link>
-            </Button>
+            {filteredStudies.length === 0 && (
+              <div className="text-center py-16">
+                <p className="text-lg text-muted-foreground">No case studies found for this filter.</p>
+              </div>
+            )}
           </div>
-        </div>
-      </section>
-    </div>
+        </SectionBand>
+
+        {/* CTA Section - Dark gradient */}
+        <SectionBand background="gradient" padding="large">
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6">
+              Want results like these for your business?
+            </h2>
+            <p className="text-lg md:text-xl text-white/75 mb-10 max-w-2xl mx-auto">
+              Every business is different. Book a strategy call to discuss your goals and how we can help you achieve them.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
+                <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'case_studies_cta')}>
+                  Book a Strategy Call
+                  <ArrowRight className="ml-2" size={20} />
+                </Link>
+              </Button>
+              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                <Link to="/services" onClick={() => trackCTAClick('view_services', '/services', 'case_studies_cta')}>View Our Services</Link>
+              </Button>
+            </div>
+          </div>
+        </SectionBand>
+      </div>
     </>
   );
 };
