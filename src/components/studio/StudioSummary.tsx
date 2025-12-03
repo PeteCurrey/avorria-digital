@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { trackEvent } from "@/lib/tracking";
 import type { StudioConfig } from "@/types/studio";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 interface StudioSummaryProps {
   config: StudioConfig;
@@ -25,22 +26,57 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
     timeline: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    trackEvent("studio_blueprint_submitted", {
-      purpose: config.purpose,
-      palette: config.palette,
-      site_size: config.siteSize,
-      module_count: config.modules.length,
-      feature_count: config.features.length,
-      budget_band: formData.budget,
-      timeline_band: formData.timeline,
-    });
+    try {
+      // Get current user if logged in
+      const { data: { user } } = await supabase.auth.getUser();
 
-    console.log("Studio Blueprint Submitted:", { config, formData });
-    toast.success("Blueprint sent! We'll be in touch soon.");
-    setSubmitted(true);
+      const { error } = await supabase.from("website_blueprints").insert({
+        user_id: user?.id || null,
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone || null,
+        budget: formData.budget,
+        timeline: formData.timeline,
+        purpose: config.purpose,
+        minimal: config.minimal,
+        bold: config.bold,
+        palette: config.palette,
+        site_size: config.siteSize,
+        modules: config.modules,
+        features: config.features,
+        straight_talking: config.straightTalking,
+        analytical: config.analytical,
+        understated: config.understated,
+        notes: config.notes || null,
+      });
+
+      if (error) throw error;
+
+      trackEvent("studio_blueprint_submitted", {
+        purpose: config.purpose,
+        palette: config.palette,
+        site_size: config.siteSize,
+        module_count: config.modules.length,
+        feature_count: config.features.length,
+        budget_band: formData.budget,
+        timeline_band: formData.timeline,
+      });
+
+      toast.success("Blueprint sent! We'll be in touch soon.");
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Failed to save blueprint:", error);
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (submitted) {
@@ -222,8 +258,8 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
           </div>
         </div>
 
-        <Button type="submit" size="lg" className="w-full font-extralight">
-          Send my blueprint to Avorria
+        <Button type="submit" size="lg" className="w-full font-extralight" disabled={isSubmitting}>
+          {isSubmitting ? "Sending..." : "Send my blueprint to Avorria"}
         </Button>
       </form>
     </div>

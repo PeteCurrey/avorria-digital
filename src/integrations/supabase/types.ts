@@ -62,6 +62,81 @@ export type Database = {
         }
         Relationships: []
       }
+      website_blueprints: {
+        Row: {
+          analytical: number
+          bold: number
+          budget: string | null
+          company: string | null
+          created_at: string
+          email: string
+          features: Json | null
+          id: string
+          minimal: number
+          modules: Json | null
+          name: string
+          notes: string | null
+          palette: string
+          phone: string | null
+          purpose: string
+          site_size: string
+          status: string
+          straight_talking: number
+          timeline: string | null
+          understated: number
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          analytical?: number
+          bold?: number
+          budget?: string | null
+          company?: string | null
+          created_at?: string
+          email: string
+          features?: Json | null
+          id?: string
+          minimal?: number
+          modules?: Json | null
+          name: string
+          notes?: string | null
+          palette: string
+          phone?: string | null
+          purpose: string
+          site_size: string
+          status?: string
+          straight_talking?: number
+          timeline?: string | null
+          understated?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          analytical?: number
+          bold?: number
+          budget?: string | null
+          company?: string | null
+          created_at?: string
+          email?: string
+          features?: Json | null
+          id?: string
+          minimal?: number
+          modules?: Json | null
+          name?: string
+          notes?: string | null
+          palette?: string
+          phone?: string | null
+          purpose?: string
+          site_size?: string
+          status?: string
+          straight_talking?: number
+          timeline?: string | null
+          understated?: number
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       website_plan_pages: {
         Row: {
           created_at: string
