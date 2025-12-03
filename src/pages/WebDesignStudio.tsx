@@ -57,13 +57,28 @@ const STEPS = [{
 const WebStudioPage: React.FC = () => {
   const [state, setState] = useState<StudioState>(defaultState);
   const [activeStep, setActiveStep] = useState(0);
+  const [showIndicator, setShowIndicator] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const configSectionRef = useRef<HTMLElement>(null);
 
-  // Track active step based on scroll position
+  // Track active step and indicator visibility based on scroll position
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY + window.innerHeight / 3;
+      
+      // Check if configurator section is in view
+      if (configSectionRef.current) {
+        const sectionTop = configSectionRef.current.offsetTop;
+        const sectionBottom = sectionTop + configSectionRef.current.offsetHeight;
+        const viewportTop = window.scrollY;
+        const viewportBottom = viewportTop + window.innerHeight;
+        
+        const isInView = viewportBottom > sectionTop + 200 && viewportTop < sectionBottom - 200;
+        setShowIndicator(isInView);
+      }
+      
+      // Track active step
       for (let i = stepRefs.current.length - 1; i >= 0; i--) {
         const ref = stepRefs.current[i];
         if (ref && ref.offsetTop <= scrollPosition) {
@@ -73,6 +88,7 @@ const WebStudioPage: React.FC = () => {
       }
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -218,7 +234,7 @@ const WebStudioPage: React.FC = () => {
         </section>
 
         {/* STUDIO CONFIGURATOR */}
-        <section id="studio-config" className="relative min-h-screen bg-slate-950 px-6 py-24 md:px-12 md:py-32">
+        <section ref={configSectionRef} id="studio-config" className="relative min-h-screen bg-slate-950 px-6 py-24 md:px-12 md:py-32">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute -top-1/2 left-1/4 h-96 w-96 rounded-full bg-sky-900/10 blur-[120px]" />
             <div className="absolute -bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-emerald-900/10 blur-[120px]" />
@@ -247,18 +263,16 @@ const WebStudioPage: React.FC = () => {
               </motion.header>
 
               {/* Step Indicator */}
-              <motion.div initial={{
-              opacity: 0,
-              y: 10
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.6,
-              delay: 0.1
-            }} className="sticky top-24 z-20 -mx-2 px-2 py-4 backdrop-blur-xl bg-slate-950/80 rounded-2xl border border-slate-800/30">
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ 
+                  opacity: showIndicator ? 1 : 0,
+                  y: showIndicator ? 0 : 10,
+                  pointerEvents: showIndicator ? "auto" : "none"
+                }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="sticky top-24 z-20 -mx-2 px-2 py-4 backdrop-blur-xl bg-slate-950/80 rounded-2xl border border-slate-800/30"
+              >
                 <div className="flex items-center justify-between gap-2">
                   {STEPS.map((step, index) => <button key={step.id} onClick={() => {
                   const ref = stepRefs.current[index];
