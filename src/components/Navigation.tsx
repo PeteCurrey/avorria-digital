@@ -9,6 +9,7 @@ import {
   DollarSign, Mail, ClipboardCheck, HelpCircle
 } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { trackNavClick } from "@/lib/tracking";
 
 interface NavigationProps {
@@ -145,21 +146,30 @@ const Navigation = ({
           <div className="hidden lg:flex flex-1"></div>
 
           <div className="hidden lg:flex items-center space-x-3 flex-shrink-0">
-            <a 
-              href="http://ai.avorria.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onClick={() => trackNavClick('avorria_ai', 'header')}
-              className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-normal transition-all duration-200 ${
-                shouldBeTransparent 
-                  ? "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm" 
-                  : "bg-muted/50 text-foreground hover:bg-muted"
-              }`}
-            >
-              <Bot className="w-4 h-4" />
-              Avorria AI
-              <ExternalLink className="w-3 h-3 opacity-60" />
-            </a>
+            <TooltipProvider delayDuration={200}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <a 
+                    href="http://ai.avorria.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => trackNavClick('avorria_ai', 'header')}
+                    className={`group inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
+                      shouldBeTransparent 
+                        ? "bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-white hover:from-violet-500/30 hover:to-fuchsia-500/30 backdrop-blur-sm border border-white/20 shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)]" 
+                        : "bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 text-foreground hover:from-violet-500/20 hover:to-fuchsia-500/20 border border-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.15)] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"
+                    }`}
+                  >
+                    <Bot className="w-4 h-4 text-violet-400 group-hover:text-violet-300 transition-colors" />
+                    Avorria AI
+                    <ExternalLink className="w-3 h-3 opacity-60" />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" className="max-w-[200px] text-center">
+                  <p>Explore our AI-powered tools and solutions</p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
