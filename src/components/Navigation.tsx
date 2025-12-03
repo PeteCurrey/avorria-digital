@@ -97,7 +97,7 @@ const Navigation = ({
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  <NavigationMenuTrigger className="bg-card/40 backdrop-blur-sm text-foreground hover:bg-card/60 data-[state=open]:bg-card/60 transition-transform duration-200 hover:scale-105 font-extralight">
+                  <NavigationMenuTrigger className={`backdrop-blur-sm transition-transform duration-200 hover:scale-105 font-extralight ${shouldBeTransparent ? "bg-white/10 text-white hover:bg-white/20 data-[state=open]:bg-white/20" : "bg-card/40 text-foreground hover:bg-card/60 data-[state=open]:bg-card/60"}`}>
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
@@ -117,8 +117,8 @@ const Navigation = ({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Button variant="default" size="sm" asChild className="transition-transform duration-200 hover:scale-105 font-extralight bg-primary text-primary-foreground hover:bg-primary/90">
-              <Link to="/contact" onClick={() => trackNavClick('get_in_touch', 'header')} className="bg-accent">Get in Touch</Link>
+            <Button variant="default" size="sm" asChild className={`transition-transform duration-200 hover:scale-105 font-extralight ${shouldBeTransparent ? "bg-white text-background hover:bg-white/90" : "bg-primary text-primary-foreground hover:bg-primary/90"}`}>
+              <Link to="/contact" onClick={() => trackNavClick('get_in_touch', 'header')}>Get in Touch</Link>
             </Button>
           </div>
 
