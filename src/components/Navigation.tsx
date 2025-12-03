@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, Layers, Search, Target, Palette, Users, Award, BarChart3, LineChart, BookOpen, Wrench, BookText, DollarSign, Mail, ClipboardCheck, HelpCircle } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
 import { trackNavClick } from "@/lib/tracking";
+
 interface NavigationProps {
   transparent?: boolean;
 }
+
 const Navigation = ({
   transparent = false
 }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const location = useLocation();
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -21,65 +23,78 @@ const Navigation = ({
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
   const navSections = [{
     title: "What We Do",
     links: [{
       name: "Services Overview",
-      href: "/services"
+      href: "/services",
+      icon: Layers
     }, {
       name: "SEO Services",
-      href: "/seo-services"
+      href: "/services/seo",
+      icon: Search
     }, {
       name: "Paid Media",
-      href: "/paid-media"
+      href: "/services/paid-media",
+      icon: Target
     }, {
       name: "Web Design",
-      href: "/web-design"
+      href: "/services/web-design",
+      icon: Palette
     }]
   }, {
     title: "Why Avorria",
     links: [{
       name: "About Us",
-      href: "/about"
+      href: "/about",
+      icon: Users
     }, {
       name: "Why Choose Us",
-      href: "/why-avorria"
+      href: "/why-avorria",
+      icon: Award
     }, {
       name: "Case Studies",
-      href: "/case-studies"
+      href: "/case-studies",
+      icon: BarChart3
     }, {
       name: "Reporting",
-      href: "/reporting"
+      href: "/reporting",
+      icon: LineChart
     }]
   }, {
     title: "Resources",
     links: [{
       name: "Resources Hub",
-      href: "/resources"
-    }, {
-      name: "Industries",
-      href: "/industries"
+      href: "/resources",
+      icon: BookOpen
     }, {
       name: "SEO Glossary",
-      href: "/seo-glossary"
+      href: "/resources/seo-glossary",
+      icon: BookText
     }, {
       name: "Tools",
-      href: "/tools"
+      href: "/tools",
+      icon: Wrench
     }]
   }, {
     title: "Get Started",
     links: [{
       name: "Pricing",
-      href: "/pricing"
+      href: "/pricing",
+      icon: DollarSign
     }, {
       name: "Contact",
-      href: "/contact"
+      href: "/contact",
+      icon: Mail
     }, {
       name: "Free Audit",
-      href: "/free-seo-website-audit"
+      href: "/free-seo-website-audit",
+      icon: ClipboardCheck
     }, {
       name: "FAQs",
-      href: "/faqs"
+      href: "/faqs",
+      icon: HelpCircle
     }]
   }];
   const shouldBeTransparent = transparent && !isScrolled;
@@ -101,17 +116,29 @@ const Navigation = ({
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="grid grid-cols-4 gap-6 p-6 w-[800px] bg-popover">
-                      {navSections.map(section => <div key={section.title} className="space-y-3">
-                          <h4 className="text-sm font-semibold text-foreground mb-3">{section.title}</h4>
-                          <ul className="space-y-2">
-                            {section.links.map(link => <li key={link.href}>
-                              <Link to={link.href} onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} className="block text-sm text-muted-foreground hover:text-accent transition-colors py-1">
-                                {link.name}
-                              </Link>
-                              </li>)}
+                    <div className="grid grid-cols-4 gap-8 p-8 w-[820px] bg-popover border border-border/50 shadow-xl">
+                      {navSections.map(section => (
+                        <div key={section.title} className="space-y-4">
+                          <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">{section.title}</h4>
+                          <ul className="space-y-1">
+                            {section.links.map(link => {
+                              const Icon = link.icon;
+                              return (
+                                <li key={link.href}>
+                                  <Link 
+                                    to={link.href} 
+                                    onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} 
+                                    className="flex items-center gap-3 text-sm text-foreground/80 hover:text-accent hover:bg-accent/5 transition-all py-2.5 px-2 rounded-md group"
+                                  >
+                                    <Icon className="w-4 h-4 text-muted-foreground group-hover:text-accent transition-colors" />
+                                    <span>{link.name}</span>
+                                  </Link>
+                                </li>
+                              );
+                            })}
                           </ul>
-                        </div>)}
+                        </div>
+                      ))}
                     </div>
                   </NavigationMenuContent>
                 </NavigationMenuItem>
@@ -135,12 +162,23 @@ const Navigation = ({
                   <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider px-2">
                     {section.title}
                   </h4>
-                  {section.links.map(link => <Link key={link.href} to={link.href} className="block py-3 px-3 text-base font-medium text-foreground hover:text-accent hover:bg-muted/50 rounded-md transition-colors" onClick={() => {
-                      trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header');
-                      setIsMobileMenuOpen(false);
-                    }}>
-                      {link.name}
-                    </Link>)}
+                  {section.links.map(link => {
+                    const Icon = link.icon;
+                    return (
+                      <Link 
+                        key={link.href} 
+                        to={link.href} 
+                        className="flex items-center gap-3 py-3 px-3 text-base font-medium text-foreground hover:text-accent hover:bg-muted/50 rounded-md transition-colors" 
+                        onClick={() => {
+                          trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header');
+                          setIsMobileMenuOpen(false);
+                        }}
+                      >
+                        <Icon className="w-5 h-5 text-muted-foreground" />
+                        {link.name}
+                      </Link>
+                    );
+                  })}
                 </div>)}
               <div className="pt-6 space-y-3 px-2 border-t border-border">
                 <Button variant="outline" className="w-full h-12 text-base" asChild>
