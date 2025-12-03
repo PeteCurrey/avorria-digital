@@ -117,7 +117,7 @@ const Navigation = ({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            <Button variant="default" size="sm" asChild className={`transition-transform duration-200 hover:scale-105 font-extralight ${shouldBeTransparent ? "bg-white text-background hover:bg-white/90" : "bg-primary text-primary-foreground hover:bg-primary/90"}`}>
+            <Button variant="default" size="sm" asChild className={`transition-transform duration-200 hover:scale-105 font-extralight ${shouldBeTransparent ? "bg-white text-black hover:bg-white/90" : "bg-primary text-primary-foreground hover:bg-primary/90"}`}>
               <Link to="/contact" onClick={() => trackNavClick('get_in_touch', 'header')}>Get in Touch</Link>
             </Button>
           </div>
