@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { trackEvent } from "@/lib/tracking";
 import { HeroCanvas } from "@/components/studio/HeroCanvas";
+import { StudioSummary } from "@/components/studio/StudioSummary";
+import type { StudioConfig } from "@/types/studio";
 type Purpose = "lead_gen" | "authority" | "saas" | "platform";
 type MoodDensity = "minimal" | "content_rich";
 type MoodEnergy = "calm" | "bold";
@@ -53,6 +55,10 @@ const STEPS = [{
   id: "personality",
   label: "Personality",
   number: "05"
+}, {
+  id: "summary",
+  label: "Submit",
+  number: "06"
 }];
 const WebStudioPage: React.FC = () => {
   const [state, setState] = useState<StudioState>(defaultState);
@@ -625,9 +631,46 @@ const WebStudioPage: React.FC = () => {
                     <label className="mb-3 block text-xs text-slate-500">
                       Anything we should know?
                     </label>
-                    <textarea placeholder="Examples you like, competitors, banned phrases..." value={state.notes} onChange={e => handleUpdate("notes", e.target.value)} className="min-h-[100px] w-full resize-none rounded-lg border border-slate-800/50 bg-slate-950/50 px-4 py-3 text-sm text-slate-300 placeholder-slate-600 transition-colors focus:border-slate-700 focus:outline-none" />
+                  <textarea placeholder="Examples you like, competitors, banned phrases..." value={state.notes} onChange={e => handleUpdate("notes", e.target.value)} className="min-h-[100px] w-full resize-none rounded-lg border border-slate-800/50 bg-slate-950/50 px-4 py-3 text-sm text-slate-300 placeholder-slate-600 transition-colors focus:border-slate-700 focus:outline-none" />
                   </div>
                 </div>
+              </motion.div>
+
+              {/* Step 6 – Summary & Submit */}
+              <motion.div ref={el => {
+              stepRefs.current[5] = el;
+            }} initial={{
+              opacity: 0,
+              y: 20
+            }} whileInView={{
+              opacity: 1,
+              y: 0
+            }} viewport={{
+              once: true
+            }} transition={{
+              duration: 0.8,
+              delay: 0.1
+            }} className="scroll-mt-48 rounded-2xl border border-slate-800/40 bg-slate-900/20 p-8">
+                <StudioSummary
+                  config={{
+                    purpose: state.purpose === "lead_gen" ? "lead-generation" 
+                      : state.purpose === "authority" ? "content-hub"
+                      : state.purpose === "saas" ? "product-saas"
+                      : state.purpose === "platform" ? "service-portal"
+                      : "lead-generation",
+                    minimal: state.density === "minimal" ? 20 : 80,
+                    bold: state.energy === "bold" ? 80 : 20,
+                    palette: state.palette === "mono" ? "monochrome" : state.palette,
+                    siteSize: state.structureSize,
+                    modules: [],
+                    features: state.features,
+                    straightTalking: state.straightTalking,
+                    analytical: state.analytical,
+                    understated: state.understated,
+                    notes: state.notes,
+                  }}
+                  setConfig={() => {}}
+                />
               </motion.div>
             </div>
 
