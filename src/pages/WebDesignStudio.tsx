@@ -632,7 +632,7 @@ const WebStudioPage: React.FC = () => {
             </div>
 
             {/* RIGHT: Concept Canvas */}
-            <div className="w-full lg:w-[58%]">
+            <div className="w-full lg:w-[58%] lg:self-start">
               <div className="sticky top-24">
                 <motion.div ref={previewRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
                 rotateX,
