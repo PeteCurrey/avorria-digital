@@ -65,10 +65,11 @@ import Onboarding from "./pages/Onboarding";
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
+  const isStudioPage = location.pathname === "/web-design/studio";
 
   return (
     <>
-      {!isHomePage && <Navigation />}
+      {!isHomePage && <Navigation transparent={isStudioPage} />}
       {children}
       <Footer />
     </>
