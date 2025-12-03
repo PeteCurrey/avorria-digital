@@ -1,14 +1,16 @@
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { trackEvent } from "@/lib/tracking";
 import { HeroCanvas } from "@/components/studio/HeroCanvas";
+
 type Purpose = "lead_gen" | "authority" | "saas" | "platform";
 type MoodDensity = "minimal" | "content_rich";
 type MoodEnergy = "calm" | "bold";
 type Palette = "light" | "dark" | "mono" | "gradient";
 type StructureSize = "lean" | "standard" | "expanded";
+
 type StudioState = {
   purpose: Purpose | null;
   density: MoodDensity;
@@ -21,6 +23,7 @@ type StudioState = {
   understated: number;
   notes: string;
 };
+
 const defaultState: StudioState = {
   purpose: null,
   density: "minimal",
@@ -33,9 +36,37 @@ const defaultState: StudioState = {
   understated: 50,
   notes: ""
 };
+
+const STEPS = [
+  { id: "purpose", label: "Purpose", number: "01" },
+  { id: "mood", label: "Mood", number: "02" },
+  { id: "structure", label: "Structure", number: "03" },
+  { id: "features", label: "Features", number: "04" },
+  { id: "personality", label: "Personality", number: "05" },
+];
 const WebStudioPage: React.FC = () => {
   const [state, setState] = useState<StudioState>(defaultState);
+  const [activeStep, setActiveStep] = useState(0);
   const previewRef = useRef<HTMLDivElement>(null);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Track active step based on scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      
+      for (let i = stepRefs.current.length - 1; i >= 0; i--) {
+        const ref = stepRefs.current[i];
+        if (ref && ref.offsetTop <= scrollPosition) {
+          setActiveStep(i);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Mouse tracking for parallax
   const mouseX = useMotionValue(0);
@@ -208,19 +239,87 @@ like you'd spec a flagship.<span className="block mt-2 text-slate-300/90">
                 </h2>
               </motion.header>
 
+              {/* Step Indicator */}
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: 0.1 }}
+                className="sticky top-24 z-20 -mx-2 px-2 py-4 backdrop-blur-xl bg-slate-950/80 rounded-2xl border border-slate-800/30"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  {STEPS.map((step, index) => (
+                    <button
+                      key={step.id}
+                      onClick={() => {
+                        const ref = stepRefs.current[index];
+                        if (ref) {
+                          ref.scrollIntoView({ behavior: "smooth", block: "start" });
+                        }
+                      }}
+                      className="group flex-1 flex flex-col items-center gap-2"
+                    >
+                      <div className="relative flex items-center w-full">
+                        {/* Connector line */}
+                        {index > 0 && (
+                          <div 
+                            className={`absolute right-1/2 h-px w-full transition-colors duration-500 ${
+                              index <= activeStep ? "bg-sky-500/50" : "bg-slate-700/50"
+                            }`} 
+                          />
+                        )}
+                        {/* Step dot */}
+                        <div 
+                          className={`relative z-10 mx-auto h-2 w-2 rounded-full transition-all duration-500 ${
+                            index === activeStep 
+                              ? "bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.6)] scale-125" 
+                              : index < activeStep 
+                                ? "bg-sky-500/60" 
+                                : "bg-slate-600 group-hover:bg-slate-500"
+                          }`}
+                        />
+                      </div>
+                      <span 
+                        className={`text-[9px] uppercase tracking-[0.2em] transition-colors duration-300 ${
+                          index === activeStep 
+                            ? "text-sky-300" 
+                            : index < activeStep 
+                              ? "text-slate-500" 
+                              : "text-slate-600 group-hover:text-slate-500"
+                        }`}
+                      >
+                        {step.label}
+                      </span>
+                    </button>
+                  ))}
+                </div>
+                
+                {/* Progress bar */}
+                <div className="mt-3 h-px w-full bg-slate-800/50 rounded-full overflow-hidden">
+                  <motion.div 
+                    className="h-full bg-gradient-to-r from-sky-500/80 to-emerald-500/60"
+                    initial={{ width: "0%" }}
+                    animate={{ width: `${((activeStep + 1) / STEPS.length) * 100}%` }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                  />
+                </div>
+              </motion.div>
+
               {/* Step 1 – Purpose */}
-              <motion.div initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.8,
-              delay: 0.1
-            }} className="space-y-6">
+              <motion.div 
+                ref={(el) => { stepRefs.current[0] = el; }}
+                initial={{
+                opacity: 0,
+                y: 20
+              }} whileInView={{
+                opacity: 1,
+                y: 0
+              }} viewport={{
+                once: true
+              }} transition={{
+                duration: 0.8,
+                delay: 0.1
+              }} className="space-y-6 scroll-mt-48">
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
                     01 · Purpose
@@ -272,18 +371,20 @@ like you'd spec a flagship.<span className="block mt-2 text-slate-300/90">
               </motion.div>
 
               {/* Step 2 – Mood */}
-              <motion.div initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.8,
-              delay: 0.2
-            }} className="space-y-6">
+              <motion.div 
+                ref={(el) => { stepRefs.current[1] = el; }}
+                initial={{
+                opacity: 0,
+                y: 20
+              }} whileInView={{
+                opacity: 1,
+                y: 0
+              }} viewport={{
+                once: true
+              }} transition={{
+                duration: 0.8,
+                delay: 0.2
+              }} className="space-y-6 scroll-mt-48">
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
                     02 · Mood
@@ -336,18 +437,20 @@ like you'd spec a flagship.<span className="block mt-2 text-slate-300/90">
               </motion.div>
 
               {/* Step 3 – Structure */}
-              <motion.div initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.8,
-              delay: 0.3
-            }} className="space-y-6">
+              <motion.div 
+                ref={(el) => { stepRefs.current[2] = el; }}
+                initial={{
+                opacity: 0,
+                y: 20
+              }} whileInView={{
+                opacity: 1,
+                y: 0
+              }} viewport={{
+                once: true
+              }} transition={{
+                duration: 0.8,
+                delay: 0.3
+              }} className="space-y-6 scroll-mt-48">
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
                     03 · Structure
@@ -397,18 +500,20 @@ like you'd spec a flagship.<span className="block mt-2 text-slate-300/90">
               </motion.div>
 
               {/* Step 4 – Features */}
-              <motion.div initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.8,
-              delay: 0.4
-            }} className="space-y-6">
+              <motion.div 
+                ref={(el) => { stepRefs.current[3] = el; }}
+                initial={{
+                opacity: 0,
+                y: 20
+              }} whileInView={{
+                opacity: 1,
+                y: 0
+              }} viewport={{
+                once: true
+              }} transition={{
+                duration: 0.8,
+                delay: 0.4
+              }} className="space-y-6 scroll-mt-48">
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
                     04 · Features
@@ -461,18 +566,20 @@ like you'd spec a flagship.<span className="block mt-2 text-slate-300/90">
               </motion.div>
 
               {/* Step 5 – Brand Personality */}
-              <motion.div initial={{
-              opacity: 0,
-              y: 20
-            }} whileInView={{
-              opacity: 1,
-              y: 0
-            }} viewport={{
-              once: true
-            }} transition={{
-              duration: 0.8,
-              delay: 0.5
-            }} className="space-y-6">
+              <motion.div 
+                ref={(el) => { stepRefs.current[4] = el; }}
+                initial={{
+                opacity: 0,
+                y: 20
+              }} whileInView={{
+                opacity: 1,
+                y: 0
+              }} viewport={{
+                once: true
+              }} transition={{
+                duration: 0.8,
+                delay: 0.5
+              }} className="space-y-6 scroll-mt-48">
                 <div>
                   <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
                     05 · Personality
