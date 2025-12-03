@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { trackEvent } from "@/lib/tracking";
+import { HeroCanvas } from "@/components/studio/HeroCanvas";
 
 type Purpose = "lead_gen" | "authority" | "saas" | "platform";
 type MoodDensity = "minimal" | "content_rich";
@@ -16,6 +17,11 @@ type StudioState = {
   energy: MoodEnergy;
   palette: Palette;
   structureSize: StructureSize;
+  features: string[];
+  straightTalking: number;
+  analytical: number;
+  understated: number;
+  notes: string;
 };
 
 const defaultState: StudioState = {
@@ -24,6 +30,11 @@ const defaultState: StudioState = {
   energy: "calm",
   palette: "dark",
   structureSize: "standard",
+  features: [],
+  straightTalking: 50,
+  analytical: 50,
+  understated: 50,
+  notes: "",
 };
 
 const WebStudioPage: React.FC = () => {
@@ -114,16 +125,7 @@ const WebStudioPage: React.FC = () => {
       <div className="min-h-screen bg-slate-950 text-slate-50 selection:bg-sky-400/30">
         {/* HERO – Cinematic */}
         <section className="relative h-screen w-full overflow-hidden">
-          <video
-            className="absolute inset-0 h-full w-full object-cover opacity-60"
-            autoPlay
-            muted
-            loop
-            playsInline
-            poster="/placeholder.svg"
-          >
-            <source src="/studio/avorria-web-studio.mp4" type="video/mp4" />
-          </video>
+          <HeroCanvas className="absolute inset-0 h-full w-full" />
 
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-r from-slate-950/30 via-transparent to-slate-950/30" />
@@ -412,6 +414,152 @@ const WebStudioPage: React.FC = () => {
                   })}
                 </div>
               </motion.div>
+
+              {/* Step 4 – Features */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.4 }}
+                className="space-y-6"
+              >
+                <div>
+                  <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
+                    04 · Features
+                  </p>
+                  <h3 className="mt-2 text-lg font-light tracking-wide text-slate-200">
+                    Advanced capabilities?
+                  </h3>
+                </div>
+
+                <div className="grid grid-cols-1 gap-2">
+                  {[
+                    { id: "tools", label: "Interactive tools & calculators" },
+                    { id: "content", label: "Content library with filters" },
+                    { id: "portal", label: "Client portal / log-in journeys" },
+                    { id: "animations", label: "Animations & micro-interactions" },
+                    { id: "seo", label: "SEO & migration foundations" },
+                    { id: "analytics", label: "Deep analytics & reporting" },
+                  ].map((feature) => {
+                    const selected = state.features.includes(feature.id);
+                    return (
+                      <motion.button
+                        key={feature.id}
+                        type="button"
+                        onClick={() => {
+                          const newFeatures = selected
+                            ? state.features.filter((f) => f !== feature.id)
+                            : [...state.features, feature.id];
+                          handleUpdate("features", newFeatures);
+                        }}
+                        whileHover={{ x: 2 }}
+                        whileTap={{ scale: 0.995 }}
+                        className={`group relative flex items-center justify-between rounded-xl border px-4 py-3 text-left transition-all duration-300 ${
+                          selected
+                            ? "border-violet-500/30 bg-violet-500/5"
+                            : "border-slate-800/50 hover:border-slate-700/70 hover:bg-slate-900/20"
+                        }`}
+                      >
+                        <span className={`text-sm transition-colors duration-300 ${selected ? "text-slate-200" : "text-slate-400"}`}>
+                          {feature.label}
+                        </span>
+                        <div className={`flex h-4 w-4 items-center justify-center rounded border transition-all duration-300 ${
+                          selected
+                            ? "border-violet-400 bg-violet-400"
+                            : "border-slate-600"
+                        }`}>
+                          {selected && (
+                            <svg className="h-2.5 w-2.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                            </svg>
+                          )}
+                        </div>
+                      </motion.button>
+                    );
+                  })}
+                </div>
+              </motion.div>
+
+              {/* Step 5 – Brand Personality */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                className="space-y-6"
+              >
+                <div>
+                  <p className="text-[10px] font-medium uppercase tracking-[0.3em] text-slate-600">
+                    05 · Personality
+                  </p>
+                  <h3 className="mt-2 text-lg font-light tracking-wide text-slate-200">
+                    How should it speak?
+                  </h3>
+                </div>
+
+                <div className="space-y-6">
+                  {/* Straight-talking to Polished */}
+                  <div className="rounded-xl border border-slate-800/40 bg-slate-900/20 px-5 py-4">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="text-xs text-slate-500">Straight-talking</span>
+                      <span className="text-xs text-slate-500">Polished</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={state.straightTalking}
+                      onChange={(e) => handleUpdate("straightTalking", parseInt(e.target.value))}
+                      className="w-full accent-sky-400 [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-slate-700 [&::-webkit-slider-thumb]:mt-[-4px] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-sky-400"
+                    />
+                  </div>
+
+                  {/* Analytical to Story-led */}
+                  <div className="rounded-xl border border-slate-800/40 bg-slate-900/20 px-5 py-4">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="text-xs text-slate-500">Analytical</span>
+                      <span className="text-xs text-slate-500">Story-led</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={state.analytical}
+                      onChange={(e) => handleUpdate("analytical", parseInt(e.target.value))}
+                      className="w-full accent-emerald-400 [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-slate-700 [&::-webkit-slider-thumb]:mt-[-4px] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-emerald-400"
+                    />
+                  </div>
+
+                  {/* Understated to Showpiece */}
+                  <div className="rounded-xl border border-slate-800/40 bg-slate-900/20 px-5 py-4">
+                    <div className="mb-4 flex items-center justify-between">
+                      <span className="text-xs text-slate-500">Understated</span>
+                      <span className="text-xs text-slate-500">Showpiece</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      value={state.understated}
+                      onChange={(e) => handleUpdate("understated", parseInt(e.target.value))}
+                      className="w-full accent-violet-400 [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-slate-700 [&::-webkit-slider-thumb]:mt-[-4px] [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-violet-400"
+                    />
+                  </div>
+
+                  {/* Notes */}
+                  <div className="rounded-xl border border-slate-800/40 bg-slate-900/20 px-5 py-4">
+                    <label className="mb-3 block text-xs text-slate-500">
+                      Anything we should know?
+                    </label>
+                    <textarea
+                      placeholder="Examples you like, competitors, banned phrases..."
+                      value={state.notes}
+                      onChange={(e) => handleUpdate("notes", e.target.value)}
+                      className="min-h-[100px] w-full resize-none rounded-lg border border-slate-800/50 bg-slate-950/50 px-4 py-3 text-sm text-slate-300 placeholder-slate-600 transition-colors focus:border-slate-700 focus:outline-none"
+                    />
+                  </div>
+                </div>
+              </motion.div>
             </div>
 
             {/* RIGHT: Concept Canvas */}
@@ -501,15 +649,39 @@ const WebStudioPage: React.FC = () => {
                       ))}
                     </motion.div>
 
+                    {/* Feature indicators */}
+                    {state.features.length > 0 && (
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        className="mt-4 flex flex-wrap gap-2"
+                      >
+                        {state.features.includes("animations") && (
+                          <div className="h-1.5 w-12 animate-pulse rounded-full bg-violet-400/40" />
+                        )}
+                        {state.features.includes("tools") && (
+                          <div className="h-6 w-20 rounded-lg border border-white/10 bg-white/[0.03]" />
+                        )}
+                        {state.features.includes("portal") && (
+                          <div className="h-6 w-6 rounded-full border border-white/10 bg-white/[0.03]" />
+                        )}
+                      </motion.div>
+                    )}
+
                     <div className="absolute bottom-8 left-8 right-8">
-                      <div className="flex items-center justify-between">
-                        <div className="flex gap-2">
+                      <div className="flex flex-wrap items-center justify-between gap-2">
+                        <div className="flex flex-wrap gap-2">
                           <span className="rounded-full border border-white/[0.06] bg-white/[0.02] px-3 py-1 text-[10px] text-slate-500">
                             {state.density === "minimal" ? "Minimal" : "Content-rich"}
                           </span>
                           <span className="rounded-full border border-white/[0.06] bg-white/[0.02] px-3 py-1 text-[10px] text-slate-500">
                             {state.energy === "bold" ? "Bold" : "Calm"}
                           </span>
+                          {state.features.length > 0 && (
+                            <span className="rounded-full border border-violet-500/20 bg-violet-500/5 px-3 py-1 text-[10px] text-violet-300/70">
+                              {state.features.length} feature{state.features.length !== 1 ? "s" : ""}
+                            </span>
+                          )}
                         </div>
                         <span className="rounded-full border border-white/[0.06] bg-white/[0.02] px-3 py-1 text-[10px] text-slate-500">
                           {state.structureSize === "lean" ? "Lean" : state.structureSize === "expanded" ? "Expanded" : "Standard"}
