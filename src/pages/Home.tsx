@@ -22,7 +22,6 @@ import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
 import serviceContentEmail from "@/assets/service-content-email.jpg";
 import serviceSocialBrand from "@/assets/service-social-brand.jpg";
-
 const Home = () => {
   const services = [{
     title: "SEO",
@@ -151,16 +150,16 @@ const Home = () => {
         
         <script type="application/ld+json">
           {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "Avorria",
-            "url": "https://avorria.com",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": "https://avorria.com/search?q={search_term_string}",
-              "query-input": "required name=search_term_string"
-            }
-          })}
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "name": "Avorria",
+          "url": "https://avorria.com",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://avorria.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        })}
         </script>
       </Helmet>
 
@@ -172,7 +171,7 @@ const Home = () => {
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 md:pt-0 md:pb-0" style={{
-        backgroundImage: `url(${heroCityscape})`,
+        backgroundImage: "url(\"/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg\")",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "scroll"
@@ -188,10 +187,10 @@ const Home = () => {
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
               <div className="space-y-6 md:space-y-8 mb-10 md:mb-16 animate-fade-in">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white font-light">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight text-white font-light lg:text-3xl">
                   Digital Marketing, SEO &amp; Web Experiences that Actually Convert.
                 </h1>
-                <p className="text-lg md:text-xl lg:text-2xl text-white/85 leading-relaxed max-w-3xl font-light">
+                <p className="text-lg md:text-xl text-white/85 leading-relaxed max-w-3xl font-extralight lg:text-base">
                   Avorria is your performance-first digital partner. We combine high end design, technical SEO &amp; paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
@@ -325,20 +324,11 @@ const Home = () => {
           
           {/* Featured Services Grid */}
           <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto" stagger={100}>
-            {services.map((service, index) => (
-              <Link 
-                key={index} 
-                to={service.href}
-                className="group relative overflow-hidden rounded-2xl"
-              >
+            {services.map((service, index) => <Link key={index} to={service.href} className="group relative overflow-hidden rounded-2xl">
                 <Card className="h-full border-0 bg-transparent overflow-hidden">
                   <div className="relative h-72 sm:h-80 overflow-hidden">
                     {/* Image */}
-                    <img 
-                      src={service.image} 
-                      alt={service.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
+                    <img src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                     {/* Gradient overlay */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
                     
@@ -355,8 +345,7 @@ const Home = () => {
                     </CardContent>
                   </div>
                 </Card>
-              </Link>
-            ))}
+              </Link>)}
           </ScrollRevealGrid>
           
           <div className="text-center mt-12 sm:mt-16">
@@ -379,20 +368,16 @@ const Home = () => {
           </ScrollReveal>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
-            {process.map((step, index) => (
-              <ScrollReveal key={index}>
+            {process.map((step, index) => <ScrollReveal key={index}>
                 <div className="relative group">
                   <div className="space-y-4 sm:space-y-6">
                     <div className="text-6xl sm:text-7xl font-extralight text-accent/30 group-hover:text-accent/50 transition-colors duration-500">{step.number}</div>
                     <h3 className="text-lg sm:text-xl font-semibold text-white">{step.title}</h3>
                     <p className="text-sm sm:text-base text-white/60 leading-relaxed">{step.description}</p>
                   </div>
-                  {index < process.length - 1 && (
-                    <div className="hidden lg:block absolute top-14 -right-5 w-10 h-px bg-gradient-to-r from-accent/50 to-transparent" />
-                  )}
+                  {index < process.length - 1 && <div className="hidden lg:block absolute top-14 -right-5 w-10 h-px bg-gradient-to-r from-accent/50 to-transparent" />}
                 </div>
-              </ScrollReveal>
-            ))}
+              </ScrollReveal>)}
           </div>
         </SectionBand>
 
@@ -409,8 +394,7 @@ const Home = () => {
           </ScrollReveal>
           
           <ScrollRevealGrid className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto" stagger={100}>
-            {caseStudies.map((study, index) => (
-              <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-500 group overflow-hidden">
+            {caseStudies.map((study, index) => <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-500 group overflow-hidden">
                 <CardContent className="p-8 sm:p-10 relative">
                   {/* Decorative accent line */}
                   <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
@@ -419,8 +403,7 @@ const Home = () => {
                   <div className="text-sm font-medium text-white mb-2">{study.metricLabel}</div>
                   <p className="text-sm text-white/60 leading-relaxed">{study.description}</p>
                 </CardContent>
-              </Card>
-            ))}
+              </Card>)}
           </ScrollRevealGrid>
           
           <div className="text-center mt-12 sm:mt-16">
