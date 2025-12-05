@@ -15,6 +15,7 @@ import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollRe
 import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
+import HeroGradient from "@/components/HeroGradient";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
@@ -178,6 +179,9 @@ const Home = () => {
       }}>
           {/* Dark overlay gradient */}
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-[hsl(220,25%,8%)]" />
+          
+          {/* Animated gradient overlay */}
+          <HeroGradient />
 
           {/* Hero Content */}
           <div className="container mx-auto px-4 sm:px-6 relative z-10">

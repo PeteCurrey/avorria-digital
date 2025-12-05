@@ -1,9 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, Target, TrendingUp, LineChart, Zap } from "lucide-react";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
+import { HeroBand, SectionBand } from "@/components/ContentBand";
+import HeroGradient from "@/components/HeroGradient";
 
 const PaidMedia = () => {
   return (
@@ -82,29 +83,30 @@ const PaidMedia = () => {
 
       <div className="min-h-screen">
         {/* Hero Section */}
-        <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background via-background to-secondary">
-          <div className="container mx-auto max-w-6xl">
+        <section className="relative min-h-[80vh] flex items-center section-dark overflow-hidden">
+          <HeroGradient />
+          <div className="container mx-auto px-6 relative z-10 py-32">
             <ScrollReveal>
               <div className="text-center max-w-4xl mx-auto space-y-8">
-                <div className="inline-block px-4 py-2 bg-accent/10 rounded-full mb-4">
+                <div className="inline-block px-4 py-2 bg-accent/10 rounded-full mb-4 border border-accent/20">
                   <span className="text-sm font-semibold text-accent uppercase tracking-wide">
                     Paid Media Management
                   </span>
                 </div>
-                <h1 className="text-5xl lg:text-6xl font-light leading-tight text-foreground">
+                <h1 className="text-display-lg text-foreground">
                   Paid media that ties spend to pipeline
                 </h1>
-                <p className="text-xl text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+                <p className="text-body-lg text-soft max-w-3xl mx-auto">
                   Google, Meta and LinkedIn campaigns structured around offers, not random keywords. We cut any spend that can't justify itself in hard numbers.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-                  <Button variant="accent" size="lg" asChild>
+                  <Button variant="accent" size="lg" className="w-full sm:w-auto" asChild>
                     <Link to="/contact">
                       Book a strategy call
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg" asChild>
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
                     <Link to="/free-seo-website-audit">Get a free audit</Link>
                   </Button>
                 </div>
@@ -114,195 +116,150 @@ const PaidMedia = () => {
         </section>
 
         {/* Pain Points */}
-        <section className="py-24 px-6 bg-secondary">
-          <div className="container mx-auto max-w-5xl">
+        <SectionBand background="gradient" padding="large">
+          <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <h2 className="text-4xl font-light mb-12 text-foreground text-center">
+              <h2 className="text-display-md text-foreground mb-12 text-center">
                 Tired of spending on ads that don't convert?
               </h2>
             </ScrollReveal>
             <ScrollReveal delay={0.1}>
-              <Card className="border-border">
-                <CardContent className="p-10">
-                  <ul className="space-y-4">
-                    <li className="flex items-start text-muted-foreground">
-                      <span className="text-accent mr-3 mt-1 font-bold">✗</span>
-                      <span className="text-lg">Burning budget on "awareness" campaigns with no clear path to revenue</span>
+              <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-2xl p-10">
+                <ul className="space-y-6">
+                  {[
+                    "Burning budget on \"awareness\" campaigns with no clear path to revenue",
+                    "Agency optimizing for CTR and CPM while cost per qualified lead quietly doubles",
+                    "Disconnected channels running in silos with no unified strategy",
+                    "Attribution chaos – can't prove which campaigns actually drive pipeline"
+                  ].map((item, i) => (
+                    <li key={i} className="flex items-start text-soft">
+                      <span className="text-accent mr-4 mt-1 font-bold text-lg">✗</span>
+                      <span className="text-lg">{item}</span>
                     </li>
-                    <li className="flex items-start text-muted-foreground">
-                      <span className="text-accent mr-3 mt-1 font-bold">✗</span>
-                      <span className="text-lg">Agency optimizing for CTR and CPM while cost per qualified lead quietly doubles</span>
-                    </li>
-                    <li className="flex items-start text-muted-foreground">
-                      <span className="text-accent mr-3 mt-1 font-bold">✗</span>
-                      <span className="text-lg">Disconnected channels running in silos with no unified strategy</span>
-                    </li>
-                    <li className="flex items-start text-muted-foreground">
-                      <span className="text-accent mr-3 mt-1 font-bold">✗</span>
-                      <span className="text-lg">Attribution chaos – can't prove which campaigns actually drive pipeline</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+                  ))}
+                </ul>
+              </div>
             </ScrollReveal>
           </div>
-        </section>
+        </SectionBand>
 
         {/* What We Do */}
-        <section className="py-24 px-6 bg-background">
-          <div className="container mx-auto max-w-6xl">
+        <SectionBand background="dark" padding="large">
+          <div className="max-w-6xl mx-auto">
             <ScrollReveal>
               <div className="text-center mb-16">
-                <h2 className="text-4xl font-light mb-4 text-foreground">
+                <h2 className="text-display-md text-foreground mb-6">
                   How Avorria approaches paid media
                 </h2>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                <p className="text-body-lg text-soft max-w-2xl mx-auto">
                   We structure campaigns around commercial offers, not vanity metrics. Every pound spent needs to justify itself in leads, opportunities or revenue.
                 </p>
               </div>
             </ScrollReveal>
             
             <div className="grid md:grid-cols-2 gap-8">
-              <ScrollReveal delay={0.1}>
-                <Card className="border-border hover:shadow-lg transition-all">
-                  <CardContent className="p-8">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                      <Target className="text-accent" size={24} />
+              {[
+                {
+                  icon: Target,
+                  title: "Offer-led campaign structure",
+                  description: "We build campaigns around what you're actually selling – not generic \"brand awareness\". Every campaign maps to a specific offer, landing page, and commercial outcome."
+                },
+                {
+                  icon: LineChart,
+                  title: "Pipeline-first tracking",
+                  description: "We connect ad spend to leads, opportunities and revenue using proper attribution. You'll know exactly which campaigns are worth scaling and which should be cut."
+                },
+                {
+                  icon: TrendingUp,
+                  title: "Ruthless optimization",
+                  description: "Weekly reviews of what's working and what's not. We kill underperforming campaigns fast and double down on winners. No emotional attachment to creative that doesn't convert."
+                },
+                {
+                  icon: Zap,
+                  title: "Multi-channel coordination",
+                  description: "Google Search, Meta, LinkedIn – we run them as a coordinated system, not separate campaigns. Messaging, offers and landing pages stay consistent while tactics adapt to each platform."
+                }
+              ].map((item, i) => (
+                <ScrollReveal key={item.title} delay={0.1 * (i + 1)}>
+                  <div className="group bg-card/30 backdrop-blur-sm border border-border/50 rounded-2xl p-8 hover:bg-card/50 transition-all duration-300">
+                    <div className="w-14 h-14 rounded-xl bg-accent/10 flex items-center justify-center mb-6 group-hover:bg-accent/20 transition-colors">
+                      <item.icon className="text-accent" size={28} />
                     </div>
-                    <h3 className="text-2xl font-semibold text-foreground mb-4">
-                      Offer-led campaign structure
+                    <h3 className="text-heading-md text-foreground mb-4">
+                      {item.title}
                     </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      We build campaigns around what you're actually selling – not generic "brand awareness". Every campaign maps to a specific offer, landing page, and commercial outcome.
+                    <p className="text-soft leading-relaxed">
+                      {item.description}
                     </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.2}>
-                <Card className="border-border hover:shadow-lg transition-all">
-                  <CardContent className="p-8">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                      <LineChart className="text-accent" size={24} />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-foreground mb-4">
-                      Pipeline-first tracking
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      We connect ad spend to leads, opportunities and revenue using proper attribution. You'll know exactly which campaigns are worth scaling and which should be cut.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.3}>
-                <Card className="border-border hover:shadow-lg transition-all">
-                  <CardContent className="p-8">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                      <TrendingUp className="text-accent" size={24} />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-foreground mb-4">
-                      Ruthless optimization
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Weekly reviews of what's working and what's not. We kill underperforming campaigns fast and double down on winners. No emotional attachment to creative that doesn't convert.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.4}>
-                <Card className="border-border hover:shadow-lg transition-all">
-                  <CardContent className="p-8">
-                    <div className="w-12 h-12 rounded-full bg-accent/10 flex items-center justify-center mb-6">
-                      <Zap className="text-accent" size={24} />
-                    </div>
-                    <h3 className="text-2xl font-semibold text-foreground mb-4">
-                      Multi-channel coordination
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed">
-                      Google Search, Meta, LinkedIn – we run them as a coordinated system, not separate campaigns. Messaging, offers and landing pages stay consistent while tactics adapt to each platform.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
-        </section>
+        </SectionBand>
 
         {/* Platforms */}
-        <section className="py-24 px-6 bg-secondary">
-          <div className="container mx-auto max-w-5xl">
+        <SectionBand background="mesh" padding="large">
+          <div className="max-w-5xl mx-auto">
             <ScrollReveal>
-              <h2 className="text-4xl font-light mb-12 text-foreground text-center">
+              <h2 className="text-display-md text-foreground mb-12 text-center">
                 Platforms we manage
               </h2>
             </ScrollReveal>
             <div className="grid md:grid-cols-3 gap-8">
-              <ScrollReveal delay={0.1}>
-                <Card className="border-border">
-                  <CardContent className="p-8 text-center">
-                    <h3 className="text-xl font-semibold text-foreground mb-3">Google Ads</h3>
-                    <p className="text-muted-foreground">
-                      Search, Display, Shopping and YouTube campaigns built around high-intent keywords and commercial queries.
+              {[
+                {
+                  title: "Google Ads",
+                  description: "Search, Display, Shopping and YouTube campaigns built around high-intent keywords and commercial queries."
+                },
+                {
+                  title: "Meta (Facebook & Instagram)",
+                  description: "Lead gen campaigns, retargeting funnels and lookalike audiences focused on qualified prospects, not just impressions."
+                },
+                {
+                  title: "LinkedIn Ads",
+                  description: "B2B campaigns targeting decision-makers by role, company size and industry with content that respects their time."
+                }
+              ].map((platform, i) => (
+                <ScrollReveal key={platform.title} delay={0.1 * (i + 1)}>
+                  <div className="bg-card/40 backdrop-blur-sm border border-border/50 rounded-2xl p-8 text-center h-full">
+                    <h3 className="text-heading-sm text-foreground mb-4">{platform.title}</h3>
+                    <p className="text-soft">
+                      {platform.description}
                     </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.2}>
-                <Card className="border-border">
-                  <CardContent className="p-8 text-center">
-                    <h3 className="text-xl font-semibold text-foreground mb-3">Meta (Facebook & Instagram)</h3>
-                    <p className="text-muted-foreground">
-                      Lead gen campaigns, retargeting funnels and lookalike audiences focused on qualified prospects, not just impressions.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
-
-              <ScrollReveal delay={0.3}>
-                <Card className="border-border">
-                  <CardContent className="p-8 text-center">
-                    <h3 className="text-xl font-semibold text-foreground mb-3">LinkedIn Ads</h3>
-                    <p className="text-muted-foreground">
-                      B2B campaigns targeting decision-makers by role, company size and industry with content that respects their time.
-                    </p>
-                  </CardContent>
-                </Card>
-              </ScrollReveal>
+                  </div>
+                </ScrollReveal>
+              ))}
             </div>
           </div>
-        </section>
+        </SectionBand>
 
         {/* CTA Section */}
-        <section className="py-24 px-6 bg-background">
-          <div className="container mx-auto max-w-4xl">
+        <SectionBand background="gradient" padding="large">
+          <div className="max-w-4xl mx-auto">
             <ScrollReveal>
-              <Card className="border-border bg-gradient-to-br from-accent/5 to-accent/10">
-                <CardContent className="p-12 text-center">
-                  <h2 className="text-4xl font-light mb-6 text-foreground">
-                    Ready to make your paid media accountable?
-                  </h2>
-                  <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                    Book a free strategy call and we'll audit your current campaigns, show you where budget is being wasted, and build a plan focused on pipeline and revenue.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button variant="accent" size="lg" asChild>
-                      <Link to="/contact">
-                        Book a strategy call
-                        <ArrowRight className="ml-2" size={20} />
-                      </Link>
-                    </Button>
-                    <Button variant="outline" size="lg" asChild>
-                      <Link to="/pricing">View pricing</Link>
-                    </Button>
-                  </div>
-                </CardContent>
-              </Card>
+              <div className="bg-gradient-to-br from-accent/10 via-accent/5 to-transparent border border-accent/20 rounded-3xl p-12 md:p-16 text-center">
+                <h2 className="text-display-md text-foreground mb-6">
+                  Ready to make your paid media accountable?
+                </h2>
+                <p className="text-body-lg text-soft mb-10 max-w-2xl mx-auto">
+                  Book a free strategy call and we'll audit your current campaigns, show you where budget is being wasted, and build a plan focused on pipeline and revenue.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button variant="accent" size="lg" className="w-full sm:w-auto" asChild>
+                    <Link to="/contact">
+                      Book a strategy call
+                      <ArrowRight className="ml-2" size={20} />
+                    </Link>
+                  </Button>
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto" asChild>
+                    <Link to="/pricing">View pricing</Link>
+                  </Button>
+                </div>
+              </div>
             </ScrollReveal>
           </div>
-        </section>
+        </SectionBand>
       </div>
     </>
   );
