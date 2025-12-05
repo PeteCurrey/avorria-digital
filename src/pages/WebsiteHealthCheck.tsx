@@ -205,7 +205,10 @@ const WebsiteHealthCheck = () => {
                   <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                     <Button size="lg" variant="default">Request a free SEO & website audit</Button>
                     <Button size="lg" variant="outline" onClick={() => {
-                      console.log("site_health_check_email_optin", { url, email });
+                      trackEvent(EVENTS.HEALTH_CHECK_EMAIL_OPTIN, {
+                        has_url: !!url,
+                        has_email: !!email,
+                      });
                       alert(email ? "Report sent to your email!" : "Please enter your email to save this report.");
                     }}>
                       Save this report to my email

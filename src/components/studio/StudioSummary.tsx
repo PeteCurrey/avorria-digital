@@ -9,6 +9,16 @@ import { trackEvent } from "@/lib/tracking";
 import type { StudioConfig } from "@/types/studio";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { z } from "zod";
+
+const formSchema = z.object({
+  name: z.string().trim().min(1, "Name is required").max(100, "Name must be less than 100 characters"),
+  company: z.string().trim().min(1, "Company is required").max(100, "Company must be less than 100 characters"),
+  email: z.string().trim().email("Invalid email address").max(255, "Email must be less than 255 characters"),
+  phone: z.string().trim().max(30, "Phone must be less than 30 characters").optional().or(z.literal("")),
+  budget: z.string().min(1, "Budget is required"),
+  timeline: z.string().min(1, "Timeline is required"),
+});
 
 interface StudioSummaryProps {
   config: StudioConfig;
@@ -25,11 +35,27 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
     budget: "",
     timeline: "",
   });
-
+  const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrors({});
+
+    // Validate form data
+    const result = formSchema.safeParse(formData);
+    if (!result.success) {
+      const fieldErrors: Record<string, string> = {};
+      result.error.issues.forEach((issue) => {
+        if (issue.path[0]) {
+          fieldErrors[issue.path[0] as string] = issue.message;
+        }
+      });
+      setErrors(fieldErrors);
+      toast.error("Please fix the form errors.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
@@ -167,11 +193,11 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
             </Label>
             <Input
               id="name"
-              required
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="font-extralight"
+              className={`font-extralight ${errors.name ? "border-destructive" : ""}`}
             />
+            {errors.name && <p className="mt-1 text-sm text-destructive">{errors.name}</p>}
           </div>
           <div>
             <Label htmlFor="company" className="font-extralight">
@@ -179,11 +205,11 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
             </Label>
             <Input
               id="company"
-              required
               value={formData.company}
               onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-              className="font-extralight"
+              className={`font-extralight ${errors.company ? "border-destructive" : ""}`}
             />
+            {errors.company && <p className="mt-1 text-sm text-destructive">{errors.company}</p>}
           </div>
         </div>
 
@@ -195,11 +221,11 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
             <Input
               id="email"
               type="email"
-              required
               value={formData.email}
               onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="font-extralight"
+              className={`font-extralight ${errors.email ? "border-destructive" : ""}`}
             />
+            {errors.email && <p className="mt-1 text-sm text-destructive">{errors.email}</p>}
           </div>
           <div>
             <Label htmlFor="phone" className="font-extralight">
@@ -210,8 +236,9 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              className="font-extralight"
+              className={`font-extralight ${errors.phone ? "border-destructive" : ""}`}
             />
+            {errors.phone && <p className="mt-1 text-sm text-destructive">{errors.phone}</p>}
           </div>
         </div>
 
@@ -221,11 +248,10 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
               Budget band *
             </Label>
             <Select
-              required
               value={formData.budget}
               onValueChange={(value) => setFormData({ ...formData, budget: value })}
             >
-              <SelectTrigger className="font-extralight">
+              <SelectTrigger className={`font-extralight ${errors.budget ? "border-destructive" : ""}`}>
                 <SelectValue placeholder="Select budget" />
               </SelectTrigger>
               <SelectContent>
@@ -235,17 +261,17 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
                 <SelectItem value="50k+">£50k+</SelectItem>
               </SelectContent>
             </Select>
+            {errors.budget && <p className="mt-1 text-sm text-destructive">{errors.budget}</p>}
           </div>
           <div>
             <Label htmlFor="timeline" className="font-extralight">
               Timeline *
             </Label>
             <Select
-              required
               value={formData.timeline}
               onValueChange={(value) => setFormData({ ...formData, timeline: value })}
             >
-              <SelectTrigger className="font-extralight">
+              <SelectTrigger className={`font-extralight ${errors.timeline ? "border-destructive" : ""}`}>
                 <SelectValue placeholder="Select timeline" />
               </SelectTrigger>
               <SelectContent>
@@ -255,6 +281,7 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
                 <SelectItem value="6+">6+ months</SelectItem>
               </SelectContent>
             </Select>
+            {errors.timeline && <p className="mt-1 text-sm text-destructive">{errors.timeline}</p>}
           </div>
         </div>
 
