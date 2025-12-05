@@ -183,23 +183,23 @@ const Navigation = ({
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[880px] bg-popover/98 backdrop-blur-xl border border-border/60 shadow-2xl rounded-xl overflow-hidden">
+                    <div className="w-[calc(100vw-3rem)] max-w-[880px] bg-popover/98 backdrop-blur-xl border border-border/60 shadow-2xl rounded-xl overflow-hidden">
                       {/* Header */}
-                      <div className="px-8 py-5 border-b border-border/40 bg-muted/30">
+                      <div className="px-4 md:px-8 py-4 md:py-5 border-b border-border/40 bg-muted/30">
                         <p className="text-sm text-muted-foreground">
                           Explore our services, resources, and learn why businesses choose Avorria.
                         </p>
                       </div>
                       
-                      {/* Content Grid */}
-                      <div className="grid grid-cols-4 gap-0 divide-x divide-border/40">
+                      {/* Content Grid - responsive */}
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-border/40">
                         {navSections.map((section, sectionIndex) => (
-                          <div key={section.title} className="p-5">
-                            <div className="mb-4">
+                          <div key={section.title} className={`p-4 md:p-5 ${sectionIndex >= 2 ? 'border-t border-border/40 lg:border-t-0' : ''}`}>
+                            <div className="mb-3 md:mb-4">
                               <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
                                 {section.title}
                               </h4>
-                              <p className="text-xs text-muted-foreground mt-0.5">
+                              <p className="text-xs text-muted-foreground mt-0.5 hidden md:block">
                                 {section.description}
                               </p>
                             </div>
@@ -211,30 +211,30 @@ const Navigation = ({
                                     <Link 
                                       to={link.href} 
                                       onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} 
-                                      className={`group flex items-start gap-3 p-2.5 rounded-lg transition-all duration-200 ${
+                                      className={`group flex items-start gap-2 md:gap-3 p-2 md:p-2.5 rounded-lg transition-all duration-200 ${
                                         link.highlight 
                                           ? "bg-accent/10 hover:bg-accent/20 border border-accent/20" 
                                           : "hover:bg-muted/60"
                                       }`}
                                     >
-                                      <div className={`flex-shrink-0 w-8 h-8 rounded-md flex items-center justify-center transition-colors ${
+                                      <div className={`flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-md flex items-center justify-center transition-colors ${
                                         link.highlight 
                                           ? "bg-accent/20 text-accent" 
                                           : "bg-muted text-muted-foreground group-hover:bg-accent/10 group-hover:text-accent"
                                       }`}>
-                                        <Icon className="w-4 h-4" />
+                                        <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
                                       </div>
                                       <div className="flex-1 min-w-0">
-                                        <span className={`block text-sm font-medium transition-colors ${
+                                        <span className={`block text-xs md:text-sm font-medium transition-colors ${
                                           link.highlight ? "text-accent" : "text-foreground group-hover:text-accent"
                                         }`}>
                                           {link.name}
                                         </span>
-                                        <span className="block text-xs text-muted-foreground mt-0.5 leading-tight">
+                                        <span className="hidden md:block text-xs text-muted-foreground mt-0.5 leading-tight">
                                           {link.description}
                                         </span>
                                       </div>
-                                      <ChevronRight className={`w-4 h-4 mt-0.5 flex-shrink-0 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0 ${
+                                      <ChevronRight className={`w-3.5 h-3.5 md:w-4 md:h-4 mt-0.5 flex-shrink-0 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0 ${
                                         link.highlight ? "text-accent" : "text-muted-foreground"
                                       }`} />
                                     </Link>
@@ -247,7 +247,7 @@ const Navigation = ({
                       </div>
                       
                       {/* Footer CTA */}
-                      <div className="px-8 py-4 border-t border-border/40 bg-muted/20 flex items-center justify-between">
+                      <div className="px-4 md:px-8 py-3 md:py-4 border-t border-border/40 bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-2">
                         <p className="text-sm text-muted-foreground">
                           Not sure where to start?
                         </p>
