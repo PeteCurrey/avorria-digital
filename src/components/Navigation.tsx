@@ -186,22 +186,20 @@ const Navigation = ({
                                     <Link 
                                       to={link.href} 
                                       onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} 
-                                      className={`group flex items-start gap-2 md:gap-3 p-2 md:p-2.5 rounded-lg transition-all duration-200 ${
+                                      className={`group relative flex items-center gap-2 md:gap-3 py-2 px-2 md:px-3 rounded-r-lg transition-all duration-200 border-l-2 ${
                                         link.highlight 
-                                          ? "bg-accent/10 hover:bg-accent/20 border border-accent/20" 
-                                          : "hover:bg-muted/60"
+                                          ? "border-l-accent bg-accent/5" 
+                                          : "border-l-transparent hover:border-l-accent hover:bg-muted/40"
                                       }`}
                                     >
-                                      <div className={`flex-shrink-0 w-7 h-7 md:w-8 md:h-8 rounded-md flex items-center justify-center transition-colors ${
+                                      <Icon className={`flex-shrink-0 w-4 h-4 transition-colors ${
                                         link.highlight 
-                                          ? "bg-accent/20 text-accent" 
-                                          : "bg-muted text-muted-foreground group-hover:bg-accent/10 group-hover:text-accent"
-                                      }`}>
-                                        <Icon className="w-3.5 h-3.5 md:w-4 md:h-4" />
-                                      </div>
+                                          ? "text-accent" 
+                                          : "text-muted-foreground group-hover:text-foreground"
+                                      }`} />
                                       <div className="flex-1 min-w-0">
                                         <span className={`block text-xs md:text-sm font-medium transition-colors ${
-                                          link.highlight ? "text-accent" : "text-foreground group-hover:text-accent"
+                                          link.highlight ? "text-accent" : "text-foreground"
                                         }`}>
                                           {link.name}
                                         </span>
@@ -209,9 +207,6 @@ const Navigation = ({
                                           {link.description}
                                         </span>
                                       </div>
-                                      <ChevronRight className={`w-3.5 h-3.5 md:w-4 md:h-4 mt-0.5 flex-shrink-0 opacity-0 -translate-x-1 transition-all group-hover:opacity-100 group-hover:translate-x-0 ${
-                                        link.highlight ? "text-accent" : "text-muted-foreground"
-                                      }`} />
                                     </Link>
                                   </li>
                                 );
@@ -371,21 +366,19 @@ const Navigation = ({
                       <Link 
                         key={link.href} 
                         to={link.href} 
-                        className={`flex items-center gap-3 py-3 px-3 rounded-lg transition-all ${
+                        className={`flex items-center gap-3 py-2.5 px-3 rounded-r-lg transition-all border-l-2 ${
                           link.highlight 
-                            ? "bg-accent/10 border border-accent/20" 
-                            : "hover:bg-muted/50"
+                            ? "border-l-accent bg-accent/5" 
+                            : "border-l-transparent hover:border-l-accent hover:bg-muted/40"
                         }`}
                         onClick={() => {
                           trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header');
                           setIsMobileMenuOpen(false);
                         }}
                       >
-                        <div className={`w-9 h-9 rounded-md flex items-center justify-center ${
-                          link.highlight ? "bg-accent/20 text-accent" : "bg-muted text-muted-foreground"
-                        }`}>
-                          <Icon className="w-5 h-5" />
-                        </div>
+                        <Icon className={`w-5 h-5 ${
+                          link.highlight ? "text-accent" : "text-muted-foreground"
+                        }`} />
                         <div className="flex-1">
                           <span className={`block text-sm font-medium ${link.highlight ? "text-accent" : "text-foreground"}`}>
                             {link.name}
