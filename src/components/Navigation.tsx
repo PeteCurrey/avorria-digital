@@ -9,7 +9,6 @@ import {
   DollarSign, Mail, ClipboardCheck, HelpCircle
 } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { trackNavClick } from "@/lib/tracking";
 
 interface NavigationProps {
@@ -146,30 +145,6 @@ const Navigation = ({
           <div className="hidden lg:flex flex-1"></div>
 
           <div className="hidden lg:flex items-center space-x-3 flex-shrink-0">
-            <TooltipProvider delayDuration={200}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <a 
-                    href="http://ai.avorria.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    onClick={() => trackNavClick('avorria_ai', 'header')}
-                    className={`group inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                      shouldBeTransparent 
-                        ? "bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-white hover:from-violet-500/30 hover:to-fuchsia-500/30 backdrop-blur-sm border border-white/20 shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_25px_rgba(139,92,246,0.5)]" 
-                        : "bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 text-foreground hover:from-violet-500/20 hover:to-fuchsia-500/20 border border-violet-500/20 shadow-[0_0_15px_rgba(139,92,246,0.15)] hover:shadow-[0_0_20px_rgba(139,92,246,0.3)]"
-                    }`}
-                  >
-                    <Bot className="w-4 h-4 text-violet-400 group-hover:text-violet-300 transition-colors" />
-                    Avorria AI
-                    <ExternalLink className="w-3 h-3 opacity-60" />
-                  </a>
-                </TooltipTrigger>
-                <TooltipContent side="bottom" className="max-w-[200px] text-center">
-                  <p>Explore our AI-powered tools and solutions</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -246,11 +221,32 @@ const Navigation = ({
                         ))}
                       </div>
                       
-                      {/* Footer CTA */}
-                      <div className="px-4 md:px-8 py-3 md:py-4 border-t border-border/40 bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-2">
-                        <p className="text-sm text-muted-foreground">
-                          Not sure where to start?
-                        </p>
+                      {/* Footer CTA with Avorria AI & Media */}
+                      <div className="px-4 md:px-8 py-3 md:py-4 border-t border-border/40 bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-3">
+                        <div className="flex items-center gap-2">
+                          <a 
+                            href="http://ai.avorria.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            onClick={() => trackNavClick('avorria_ai', 'header')}
+                            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-gradient-to-r from-violet-500/15 to-fuchsia-500/15 text-foreground hover:from-violet-500/25 hover:to-fuchsia-500/25 border border-violet-500/25 shadow-[0_0_12px_rgba(139,92,246,0.15)] hover:shadow-[0_0_18px_rgba(139,92,246,0.3)]"
+                          >
+                            <Bot className="w-3.5 h-3.5 text-violet-400" />
+                            Avorria AI
+                            <ExternalLink className="w-3 h-3 opacity-60" />
+                          </a>
+                          <a 
+                            href="https://media.avorria.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            onClick={() => trackNavClick('avorria_media', 'header')}
+                            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-foreground hover:from-amber-500/25 hover:to-orange-500/25 border border-amber-500/25 shadow-[0_0_12px_rgba(245,158,11,0.15)] hover:shadow-[0_0_18px_rgba(245,158,11,0.3)]"
+                          >
+                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+                            Avorria Media
+                            <ExternalLink className="w-3 h-3 opacity-60" />
+                          </a>
+                        </div>
                         <Link 
                           to="/contact"
                           onClick={() => trackNavClick('book_call_menu', 'header')}
@@ -337,22 +333,40 @@ const Navigation = ({
                 </div>
               ))}
               <div className="pt-6 space-y-3 px-2 border-t border-border">
-                <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>
-                  <a 
-                    href="http://ai.avorria.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackNavClick('avorria_ai', 'header');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="inline-flex items-center justify-center gap-2"
-                  >
-                    <Bot className="w-5 h-5" />
-                    Avorria AI
-                    <ExternalLink className="w-4 h-4 opacity-60" />
-                  </a>
-                </Button>
+                <div className="grid grid-cols-2 gap-2">
+                  <Button variant="outline" className="h-12 text-sm rounded-lg bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border-violet-500/20" asChild>
+                    <a 
+                      href="http://ai.avorria.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackNavClick('avorria_ai', 'header');
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="inline-flex items-center justify-center gap-2"
+                    >
+                      <Bot className="w-4 h-4 text-violet-400" />
+                      Avorria AI
+                      <ExternalLink className="w-3 h-3 opacity-60" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="h-12 text-sm rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-amber-500/20" asChild>
+                    <a 
+                      href="https://media.avorria.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackNavClick('avorria_media', 'header');
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="inline-flex items-center justify-center gap-2"
+                    >
+                      <Sparkles className="w-4 h-4 text-amber-400" />
+                      Avorria Media
+                      <ExternalLink className="w-3 h-3 opacity-60" />
+                    </a>
+                  </Button>
+                </div>
                 <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>
                   <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                     Get in Touch
