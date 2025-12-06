@@ -240,15 +240,15 @@ const WebStudioPage: React.FC = () => {
         </section>
 
         {/* STUDIO CONFIGURATOR */}
-        <section ref={configSectionRef} id="studio-config" className="relative min-h-screen bg-slate-950 px-6 py-24 md:px-12 md:py-32">
+        <section ref={configSectionRef} id="studio-config" className="relative min-h-screen bg-slate-950 px-6 py-20 md:px-12 md:py-28">
           <div className="pointer-events-none absolute inset-0 overflow-hidden">
             <div className="absolute -top-1/2 left-1/4 h-96 w-96 rounded-full bg-sky-900/10 blur-[120px]" />
             <div className="absolute -bottom-1/4 right-1/4 h-96 w-96 rounded-full bg-emerald-900/10 blur-[120px]" />
           </div>
 
-          <div className="relative mx-auto flex max-w-7xl flex-col gap-16 lg:flex-row lg:gap-20">
+          <div className="relative mx-auto flex max-w-7xl flex-col-reverse gap-8 lg:flex-row lg:gap-16">
             {/* LEFT: Controls */}
-            <div className="w-full lg:w-[42%] space-y-16">
+            <div className="w-full lg:w-[45%] space-y-12">
               <motion.header initial={{
               opacity: 0,
               y: 20
@@ -674,110 +674,197 @@ const WebStudioPage: React.FC = () => {
               </motion.div>
             </div>
 
-            {/* RIGHT: Concept Canvas */}
-            <div className="w-full lg:w-[58%] lg:self-start">
-              <div className="sticky top-24">
-                <motion.div ref={previewRef} onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
-                rotateX,
-                rotateY,
-                transformPerspective: 1200
-              }} className="relative">
-                  <div className={`absolute -inset-4 rounded-[2.5rem] bg-gradient-to-br ${previewBg} opacity-20 blur-2xl transition-all duration-700`} />
+            {/* RIGHT: Concept Canvas - Sticky Preview */}
+            <div className="w-full lg:w-[55%]">
+              <div className="lg:sticky lg:top-20 lg:h-[calc(100vh-5rem)] flex flex-col">
+                {/* Preview Header */}
+                <div className="mb-4 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="h-3 w-3 rounded-full bg-emerald-400 animate-pulse shadow-[0_0_12px_rgba(52,211,153,0.5)]" />
+                    <span className="text-[10px] uppercase tracking-[0.3em] text-slate-400">
+                      Live Preview
+                    </span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="rounded-full bg-slate-800/60 px-3 py-1.5 text-[10px] text-slate-400 border border-slate-700/50">
+                      Step {activeStep + 1} of {STEPS.length}
+                    </span>
+                  </div>
+                </div>
+                
+                <motion.div 
+                  ref={previewRef} 
+                  onMouseMove={handleMouseMove} 
+                  onMouseLeave={handleMouseLeave} 
+                  style={{
+                    rotateX,
+                    rotateY,
+                    transformPerspective: 1200
+                  }} 
+                  className="relative flex-1"
+                >
+                  {/* Glow effect */}
+                  <div className={`absolute -inset-6 rounded-[3rem] bg-gradient-to-br ${previewBg} opacity-30 blur-3xl transition-all duration-700`} />
                   
-                  <motion.div layout className={`relative h-[560px] w-full rounded-[2rem] border border-white/[0.06] bg-gradient-to-br ${previewBg} p-8 shadow-2xl shadow-black/50 transition-all duration-700 md:h-[640px]`}>
-                    <div className="flex items-center justify-between">
-                      <span className="text-[10px] uppercase tracking-[0.25em] text-slate-500">
-                        Concept Canvas
-                      </span>
-                      <span className="rounded-full bg-white/[0.03] px-3 py-1 text-[10px] text-slate-400 backdrop-blur-sm">
+                  {/* Browser frame */}
+                  <motion.div 
+                    layout 
+                    className={`relative h-full min-h-[500px] w-full rounded-[1.75rem] border border-white/[0.08] bg-gradient-to-br ${previewBg} shadow-2xl shadow-black/60 transition-all duration-700 overflow-hidden`}
+                  >
+                    {/* Browser chrome */}
+                    <div className="flex items-center gap-2 px-5 py-3 border-b border-white/[0.04] bg-black/20">
+                      <div className="flex gap-1.5">
+                        <div className="h-2.5 w-2.5 rounded-full bg-red-500/60" />
+                        <div className="h-2.5 w-2.5 rounded-full bg-yellow-500/60" />
+                        <div className="h-2.5 w-2.5 rounded-full bg-green-500/60" />
+                      </div>
+                      <div className="flex-1 mx-4">
+                        <div className="h-5 w-48 max-w-full rounded-md bg-white/[0.04] border border-white/[0.04] flex items-center px-2">
+                          <span className="text-[9px] text-slate-500 truncate">yourwebsite.com</span>
+                        </div>
+                      </div>
+                      <span className="rounded-full bg-white/[0.03] px-3 py-1 text-[9px] text-slate-400 backdrop-blur-sm border border-white/[0.04]">
                         {purposeLabel}
                       </span>
                     </div>
-
-                    <motion.div layout transition={{
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1]
-                  }} className={`mt-8 ${heroHeight} relative overflow-hidden rounded-2xl border border-white/[0.04] transition-all duration-500 ${state.energy === "bold" ? "bg-white/[0.03]" : "bg-black/20"}`}>
-                      <div className="absolute inset-0 p-6">
-                        <div className="flex h-full items-center justify-between">
-                          <div className="space-y-3">
-                            <motion.div layout className={`rounded-full ${state.palette === "light" ? "bg-slate-800/80" : "bg-white/80"}`} style={{
-                            height: 10,
-                            width: state.purpose === "lead_gen" ? 180 : 120
-                          }} />
-                            <motion.div layout className={`h-2 rounded-full ${state.palette === "light" ? "bg-slate-800/40" : "bg-white/30"}`} style={{
-                            width: state.purpose === "authority" ? 200 : 140
-                          }} />
+                    
+                    {/* Content area */}
+                    <div className="p-6 h-[calc(100%-52px)] overflow-hidden">
+                      {/* Hero section */}
+                      <motion.div 
+                        layout 
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} 
+                        className={`${heroHeight} relative overflow-hidden rounded-xl border border-white/[0.04] transition-all duration-500 ${state.energy === "bold" ? "bg-gradient-to-br from-white/[0.06] to-white/[0.02]" : "bg-black/30"}`}
+                      >
+                        <div className="absolute inset-0 p-5">
+                          <div className="flex h-full items-center justify-between">
+                            <div className="space-y-2.5">
+                              <motion.div 
+                                layout 
+                                className={`rounded-full ${state.palette === "light" ? "bg-slate-800/80" : "bg-white/90"}`} 
+                                style={{ height: 8, width: state.purpose === "lead_gen" ? 160 : 100 }} 
+                              />
+                              <motion.div 
+                                layout 
+                                className={`h-1.5 rounded-full ${state.palette === "light" ? "bg-slate-800/40" : "bg-white/40"}`} 
+                                style={{ width: state.purpose === "authority" ? 180 : 120 }} 
+                              />
+                              <motion.div 
+                                layout 
+                                className={`h-1 rounded-full ${state.palette === "light" ? "bg-slate-800/20" : "bg-white/20"}`} 
+                                style={{ width: 80 }} 
+                              />
+                            </div>
+                            {state.purpose === "lead_gen" && (
+                              <motion.div 
+                                initial={{ opacity: 0, scale: 0.8 }} 
+                                animate={{ opacity: 1, scale: 1 }} 
+                                exit={{ opacity: 0, scale: 0.8 }} 
+                                className="h-9 w-24 rounded-full bg-gradient-to-r from-sky-400 to-sky-500 shadow-[0_0_30px_rgba(56,189,248,0.5)]" 
+                              />
+                            )}
                           </div>
-                          {state.purpose === "lead_gen" && <motion.div initial={{
-                          opacity: 0,
-                          scale: 0.8
-                        }} animate={{
-                          opacity: 1,
-                          scale: 1
-                        }} exit={{
-                          opacity: 0,
-                          scale: 0.8
-                        }} className="h-10 w-28 rounded-full bg-sky-400/80 shadow-[0_0_30px_rgba(56,189,248,0.4)]" />}
                         </div>
-                      </div>
-                    </motion.div>
+                        {/* Decorative gradient */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/[0.02]" />
+                      </motion.div>
 
-                    <motion.div layout transition={{
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1]
-                  }} className={`mt-4 grid gap-3 ${state.density === "minimal" ? "grid-cols-2" : "grid-cols-3"}`}>
-                      {Array.from({
-                      length: sectionCount
-                    }).map((_, idx) => <motion.div key={idx} layout initial={{
-                      opacity: 0,
-                      y: 10
-                    }} animate={{
-                      opacity: 1,
-                      y: 0
-                    }} transition={{
-                      duration: 0.4,
-                      delay: idx * 0.05
-                    }} className={`rounded-xl border border-white/[0.03] bg-black/20 p-5 backdrop-blur-sm ${idx === 0 && state.structureSize === "expanded" ? "col-span-2" : ""}`}>
-                          <div className={`h-2 w-16 rounded-full ${state.palette === "light" ? "bg-slate-700/60" : "bg-white/50"}`} />
-                          <div className={`mt-3 h-1.5 w-full rounded-full ${state.palette === "light" ? "bg-slate-700/20" : "bg-white/10"}`} />
-                          <div className={`mt-2 h-1.5 w-3/4 rounded-full ${state.palette === "light" ? "bg-slate-700/10" : "bg-white/[0.06]"}`} />
-                        </motion.div>)}
-                    </motion.div>
+                      {/* Content sections */}
+                      <motion.div 
+                        layout 
+                        transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} 
+                        className={`mt-4 grid gap-3 ${state.density === "minimal" ? "grid-cols-2" : "grid-cols-3"}`}
+                      >
+                        {Array.from({ length: sectionCount }).map((_, idx) => (
+                          <motion.div 
+                            key={idx} 
+                            layout 
+                            initial={{ opacity: 0, y: 10 }} 
+                            animate={{ opacity: 1, y: 0 }} 
+                            transition={{ duration: 0.4, delay: idx * 0.05 }} 
+                            className={`rounded-lg border border-white/[0.04] bg-gradient-to-br from-white/[0.03] to-transparent p-4 backdrop-blur-sm ${idx === 0 && state.structureSize === "expanded" ? "col-span-2" : ""}`}
+                          >
+                            <div className={`h-1.5 w-14 rounded-full ${state.palette === "light" ? "bg-slate-700/60" : "bg-white/60"}`} />
+                            <div className={`mt-2.5 h-1 w-full rounded-full ${state.palette === "light" ? "bg-slate-700/20" : "bg-white/15"}`} />
+                            <div className={`mt-1.5 h-1 w-4/5 rounded-full ${state.palette === "light" ? "bg-slate-700/10" : "bg-white/[0.08]"}`} />
+                            <div className={`mt-1.5 h-1 w-3/5 rounded-full ${state.palette === "light" ? "bg-slate-700/10" : "bg-white/[0.05]"}`} />
+                          </motion.div>
+                        ))}
+                      </motion.div>
 
-                    {/* Feature indicators */}
-                    {state.features.length > 0 && <motion.div initial={{
-                    opacity: 0
-                  }} animate={{
-                    opacity: 1
-                  }} className="mt-4 flex flex-wrap gap-2">
-                        {state.features.includes("animations") && <div className="h-1.5 w-12 animate-pulse rounded-full bg-violet-400/40" />}
-                        {state.features.includes("tools") && <div className="h-6 w-20 rounded-lg border border-white/10 bg-white/[0.03]" />}
-                        {state.features.includes("portal") && <div className="h-6 w-6 rounded-full border border-white/10 bg-white/[0.03]" />}
-                      </motion.div>}
+                      {/* Feature indicators */}
+                      {state.features.length > 0 && (
+                        <motion.div 
+                          initial={{ opacity: 0 }} 
+                          animate={{ opacity: 1 }} 
+                          className="mt-4 flex flex-wrap gap-2"
+                        >
+                          {state.features.includes("animations") && (
+                            <div className="h-1.5 w-14 animate-pulse rounded-full bg-gradient-to-r from-violet-400/60 to-fuchsia-400/40" />
+                          )}
+                          {state.features.includes("tools") && (
+                            <div className="h-7 w-24 rounded-lg border border-white/10 bg-white/[0.04] flex items-center justify-center">
+                              <div className="h-1 w-12 rounded-full bg-white/20" />
+                            </div>
+                          )}
+                          {state.features.includes("portal") && (
+                            <div className="h-7 w-7 rounded-full border border-white/10 bg-white/[0.04] flex items-center justify-center">
+                              <div className="h-3 w-3 rounded-full bg-white/20" />
+                            </div>
+                          )}
+                          {state.features.includes("content") && (
+                            <div className="h-5 w-16 rounded-md border border-white/10 bg-white/[0.04]" />
+                          )}
+                          {state.features.includes("analytics") && (
+                            <div className="flex gap-0.5">
+                              {[40, 60, 30, 80, 50].map((h, i) => (
+                                <div key={i} className="w-1 rounded-full bg-emerald-400/40" style={{ height: h * 0.12 }} />
+                              ))}
+                            </div>
+                          )}
+                        </motion.div>
+                      )}
 
-                    <div className="absolute bottom-8 left-8 right-8">
-                      <div className="flex flex-wrap items-center justify-between gap-2">
-                        <div className="flex flex-wrap gap-2">
-                          <span className="rounded-full border border-white/[0.06] bg-white/[0.02] px-3 py-1 text-[10px] text-slate-500">
-                            {state.density === "minimal" ? "Minimal" : "Content-rich"}
+                      {/* Status bar at bottom */}
+                      <div className="absolute bottom-4 left-6 right-6">
+                        <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-black/30 backdrop-blur-sm p-3 border border-white/[0.04]">
+                          <div className="flex flex-wrap gap-2">
+                            <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[9px] text-slate-400 font-medium">
+                              {state.density === "minimal" ? "Minimal" : "Content-rich"}
+                            </span>
+                            <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[9px] text-slate-400 font-medium">
+                              {state.energy === "bold" ? "Bold" : "Calm"}
+                            </span>
+                            {state.features.length > 0 && (
+                              <span className="rounded-full border border-violet-500/30 bg-violet-500/10 px-2.5 py-1 text-[9px] text-violet-300 font-medium">
+                                {state.features.length} feature{state.features.length !== 1 ? "s" : ""}
+                              </span>
+                            )}
+                          </div>
+                          <span className="rounded-full border border-white/[0.08] bg-white/[0.03] px-2.5 py-1 text-[9px] text-slate-400 font-medium">
+                            {state.structureSize === "lean" ? "Lean" : state.structureSize === "expanded" ? "Expanded" : "Standard"}
                           </span>
-                          <span className="rounded-full border border-white/[0.06] bg-white/[0.02] px-3 py-1 text-[10px] text-slate-500">
-                            {state.energy === "bold" ? "Bold" : "Calm"}
-                          </span>
-                          {state.features.length > 0 && <span className="rounded-full border border-violet-500/20 bg-violet-500/5 px-3 py-1 text-[10px] text-violet-300/70">
-                              {state.features.length} feature{state.features.length !== 1 ? "s" : ""}
-                            </span>}
                         </div>
-                        <span className="rounded-full border border-white/[0.06] bg-white/[0.02] px-3 py-1 text-[10px] text-slate-500">
-                          {state.structureSize === "lean" ? "Lean" : state.structureSize === "expanded" ? "Expanded" : "Standard"}
-                        </span>
                       </div>
                     </div>
 
-                    <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-gradient-to-br from-white/10 via-transparent to-transparent blur-3xl opacity-30" />
+                    {/* Decorative elements */}
+                    <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-gradient-to-br from-white/10 via-transparent to-transparent blur-3xl opacity-20" />
+                    <div className="pointer-events-none absolute -left-16 -bottom-16 h-48 w-48 rounded-full bg-gradient-to-tr from-sky-500/10 via-transparent to-transparent blur-3xl opacity-30" />
                   </motion.div>
                 </motion.div>
+                
+                {/* Preview footer info */}
+                <div className="mt-4 flex items-center justify-center gap-4 text-[10px] text-slate-500">
+                  <span className="flex items-center gap-1.5">
+                    <div className="h-1.5 w-1.5 rounded-full bg-sky-400/60" />
+                    Hover for 3D effect
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <div className="h-1.5 w-1.5 rounded-full bg-emerald-400/60" />
+                    Updates in real-time
+                  </span>
+                </div>
               </div>
             </div>
           </div>
