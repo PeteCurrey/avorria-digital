@@ -3,9 +3,9 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
   Menu, X, ChevronRight, ArrowRight, ExternalLink,
-  Layers, Search, Target, Palette, Sparkles, Bot,
+  Layers, Search, Target, Palette, Sparkles, Bot, Zap,
   Users, Award, BarChart3, LineChart,
-  BookOpen, Wrench, BookText, GraduationCap,
+  BookOpen, Wrench, GraduationCap,
   DollarSign, Mail, ClipboardCheck, HelpCircle
 } from "lucide-react";
 import { NavigationMenu, NavigationMenuContent, NavigationMenuItem, NavigationMenuList, NavigationMenuTrigger } from "@/components/ui/navigation-menu";
@@ -246,6 +246,17 @@ const Navigation = ({
                             Avorria Media
                             <ExternalLink className="w-3 h-3 opacity-60" />
                           </a>
+                          <a 
+                            href="https://marketing.avorria.com" 
+                            target="_blank" 
+                            rel="noopener noreferrer"
+                            onClick={() => trackNavClick('marketing_command', 'header')}
+                            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 text-foreground hover:from-emerald-500/25 hover:to-teal-500/25 border border-emerald-500/25 shadow-[0_0_12px_rgba(16,185,129,0.15)] hover:shadow-[0_0_18px_rgba(16,185,129,0.3)]"
+                          >
+                            <Zap className="w-3.5 h-3.5 text-emerald-400" />
+                            Marketing Command
+                            <ExternalLink className="w-3 h-3 opacity-60" />
+                          </a>
                         </div>
                         <Link 
                           to="/contact"
@@ -333,8 +344,8 @@ const Navigation = ({
                 </div>
               ))}
               <div className="pt-6 space-y-3 px-2 border-t border-border">
-                <div className="grid grid-cols-2 gap-2">
-                  <Button variant="outline" className="h-12 text-sm rounded-lg bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border-violet-500/20" asChild>
+                <div className="grid grid-cols-3 gap-2">
+                  <Button variant="outline" className="h-12 text-xs rounded-lg bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border-violet-500/20" asChild>
                     <a 
                       href="http://ai.avorria.com" 
                       target="_blank" 
@@ -343,14 +354,13 @@ const Navigation = ({
                         trackNavClick('avorria_ai', 'header');
                         setIsMobileMenuOpen(false);
                       }}
-                      className="inline-flex items-center justify-center gap-2"
+                      className="inline-flex items-center justify-center gap-1"
                     >
                       <Bot className="w-4 h-4 text-violet-400" />
-                      Avorria AI
-                      <ExternalLink className="w-3 h-3 opacity-60" />
+                      AI
                     </a>
                   </Button>
-                  <Button variant="outline" className="h-12 text-sm rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-amber-500/20" asChild>
+                  <Button variant="outline" className="h-12 text-xs rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-amber-500/20" asChild>
                     <a 
                       href="https://media.avorria.com" 
                       target="_blank" 
@@ -359,11 +369,25 @@ const Navigation = ({
                         trackNavClick('avorria_media', 'header');
                         setIsMobileMenuOpen(false);
                       }}
-                      className="inline-flex items-center justify-center gap-2"
+                      className="inline-flex items-center justify-center gap-1"
                     >
                       <Sparkles className="w-4 h-4 text-amber-400" />
-                      Avorria Media
-                      <ExternalLink className="w-3 h-3 opacity-60" />
+                      Media
+                    </a>
+                  </Button>
+                  <Button variant="outline" className="h-12 text-xs rounded-lg bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border-emerald-500/20" asChild>
+                    <a 
+                      href="https://marketing.avorria.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      onClick={() => {
+                        trackNavClick('marketing_command', 'header');
+                        setIsMobileMenuOpen(false);
+                      }}
+                      className="inline-flex items-center justify-center gap-1"
+                    >
+                      <Zap className="w-4 h-4 text-emerald-400" />
+                      Command
                     </a>
                   </Button>
                 </div>
