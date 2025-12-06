@@ -221,51 +221,106 @@ const Navigation = ({
                         ))}
                       </div>
                       
-                      {/* Footer CTA with Avorria AI & Media */}
-                      <div className="px-4 md:px-8 py-3 md:py-4 border-t border-border/40 bg-muted/20 flex flex-col sm:flex-row items-center justify-between gap-3">
-                        <div className="flex items-center gap-2">
-                          <a 
-                            href="http://ai.avorria.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            onClick={() => trackNavClick('avorria_ai', 'header')}
-                            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-gradient-to-r from-violet-500/15 to-fuchsia-500/15 text-foreground hover:from-violet-500/25 hover:to-fuchsia-500/25 border border-violet-500/25 shadow-[0_0_12px_rgba(139,92,246,0.15)] hover:shadow-[0_0_18px_rgba(139,92,246,0.3)]"
+                      {/* Avorria Ecosystem Section */}
+                      <div className="px-4 md:px-8 py-4 md:py-5 border-t border-border/40 bg-gradient-to-r from-muted/30 via-muted/20 to-muted/30">
+                        <div className="flex flex-col gap-4">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                                Avorria Ecosystem
+                              </h4>
+                              <p className="text-xs text-muted-foreground mt-0.5">
+                                Our platform suite for growth
+                              </p>
+                            </div>
+                            <Link 
+                              to="/contact"
+                              onClick={() => trackNavClick('book_call_menu', 'header')}
+                              className="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
+                            >
+                              Book a free strategy call
+                              <ArrowRight className="w-4 h-4" />
+                            </Link>
+                          </div>
+                          
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            {/* Avorria AI */}
+                            <a 
+                              href="http://ai.avorria.com" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => trackNavClick('avorria_ai', 'header')}
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-gradient-to-br from-violet-500/10 to-fuchsia-500/5 hover:from-violet-500/20 hover:to-fuchsia-500/10 border border-violet-500/20 hover:border-violet-500/30"
+                            >
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                                <Bot className="w-4.5 h-4.5 text-violet-400" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-sm font-medium text-foreground">Avorria AI</span>
+                                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-60" />
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-0.5 leading-tight">
+                                  AI-powered marketing assistant & automation
+                                </p>
+                              </div>
+                            </a>
+                            
+                            {/* Avorria Media */}
+                            <a 
+                              href="https://media.avorria.com" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => trackNavClick('avorria_media', 'header')}
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-gradient-to-br from-amber-500/10 to-orange-500/5 hover:from-amber-500/20 hover:to-orange-500/10 border border-amber-500/20 hover:border-amber-500/30"
+                            >
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                                <Sparkles className="w-4.5 h-4.5 text-amber-400" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-sm font-medium text-foreground">Avorria Media</span>
+                                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-60" />
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-0.5 leading-tight">
+                                  Creative content & video production
+                                </p>
+                              </div>
+                            </a>
+                            
+                            {/* Marketing Command */}
+                            <a 
+                              href="https://marketing.avorria.com" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => trackNavClick('marketing_command', 'header')}
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 hover:from-emerald-500/20 hover:to-teal-500/10 border border-emerald-500/20 hover:border-emerald-500/30"
+                            >
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                                <Zap className="w-4.5 h-4.5 text-emerald-400" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-sm font-medium text-foreground">Marketing Command</span>
+                                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-60" />
+                                </div>
+                                <p className="text-xs text-muted-foreground mt-0.5 leading-tight">
+                                  Campaign management & analytics hub
+                                </p>
+                              </div>
+                            </a>
+                          </div>
+                          
+                          {/* Mobile CTA */}
+                          <Link 
+                            to="/contact"
+                            onClick={() => trackNavClick('book_call_menu', 'header')}
+                            className="sm:hidden inline-flex items-center justify-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors pt-2"
                           >
-                            <Bot className="w-3.5 h-3.5 text-violet-400" />
-                            Avorria AI
-                            <ExternalLink className="w-3 h-3 opacity-60" />
-                          </a>
-                          <a 
-                            href="https://media.avorria.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            onClick={() => trackNavClick('avorria_media', 'header')}
-                            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-gradient-to-r from-amber-500/15 to-orange-500/15 text-foreground hover:from-amber-500/25 hover:to-orange-500/25 border border-amber-500/25 shadow-[0_0_12px_rgba(245,158,11,0.15)] hover:shadow-[0_0_18px_rgba(245,158,11,0.3)]"
-                          >
-                            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-                            Avorria Media
-                            <ExternalLink className="w-3 h-3 opacity-60" />
-                          </a>
-                          <a 
-                            href="https://marketing.avorria.com" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            onClick={() => trackNavClick('marketing_command', 'header')}
-                            className="group inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-300 bg-gradient-to-r from-emerald-500/15 to-teal-500/15 text-foreground hover:from-emerald-500/25 hover:to-teal-500/25 border border-emerald-500/25 shadow-[0_0_12px_rgba(16,185,129,0.15)] hover:shadow-[0_0_18px_rgba(16,185,129,0.3)]"
-                          >
-                            <Zap className="w-3.5 h-3.5 text-emerald-400" />
-                            Marketing Command
-                            <ExternalLink className="w-3 h-3 opacity-60" />
-                          </a>
+                            Book a free strategy call
+                            <ArrowRight className="w-4 h-4" />
+                          </Link>
                         </div>
-                        <Link 
-                          to="/contact"
-                          onClick={() => trackNavClick('book_call_menu', 'header')}
-                          className="inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
-                        >
-                          Book a free strategy call
-                          <ArrowRight className="w-4 h-4" />
-                        </Link>
                       </div>
                     </div>
                   </NavigationMenuContent>
@@ -343,54 +398,79 @@ const Navigation = ({
                   })}
                 </div>
               ))}
-              <div className="pt-6 space-y-3 px-2 border-t border-border">
-                <div className="grid grid-cols-3 gap-2">
-                  <Button variant="outline" className="h-12 text-xs rounded-lg bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border-violet-500/20" asChild>
-                    <a 
-                      href="http://ai.avorria.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackNavClick('avorria_ai', 'header');
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="inline-flex items-center justify-center gap-1"
-                    >
-                      <Bot className="w-4 h-4 text-violet-400" />
-                      AI
-                    </a>
-                  </Button>
-                  <Button variant="outline" className="h-12 text-xs rounded-lg bg-gradient-to-r from-amber-500/10 to-orange-500/10 border-amber-500/20" asChild>
-                    <a 
-                      href="https://media.avorria.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackNavClick('avorria_media', 'header');
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="inline-flex items-center justify-center gap-1"
-                    >
-                      <Sparkles className="w-4 h-4 text-amber-400" />
-                      Media
-                    </a>
-                  </Button>
-                  <Button variant="outline" className="h-12 text-xs rounded-lg bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border-emerald-500/20" asChild>
-                    <a 
-                      href="https://marketing.avorria.com" 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackNavClick('marketing_command', 'header');
-                        setIsMobileMenuOpen(false);
-                      }}
-                      className="inline-flex items-center justify-center gap-1"
-                    >
-                      <Zap className="w-4 h-4 text-emerald-400" />
-                      Command
-                    </a>
-                  </Button>
+              {/* Avorria Ecosystem - Mobile */}
+              <div className="pt-6 space-y-4 px-2 border-t border-border">
+                <div>
+                  <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-1">
+                    Avorria Ecosystem
+                  </h4>
+                  <p className="text-xs text-muted-foreground">Our platform suite</p>
                 </div>
+                
+                <div className="space-y-2">
+                  <a 
+                    href="http://ai.avorria.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackNavClick('avorria_ai', 'header');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-violet-500/10 to-fuchsia-500/5 border border-violet-500/20"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                      <Bot className="w-5 h-5 text-violet-400" />
+                    </div>
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-foreground">Avorria AI</span>
+                      <p className="text-xs text-muted-foreground">AI-powered marketing assistant</p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                  </a>
+                  
+                  <a 
+                    href="https://media.avorria.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackNavClick('avorria_media', 'header');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/5 border border-amber-500/20"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                      <Sparkles className="w-5 h-5 text-amber-400" />
+                    </div>
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-foreground">Avorria Media</span>
+                      <p className="text-xs text-muted-foreground">Creative content & video</p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                  </a>
+                  
+                  <a 
+                    href="https://marketing.avorria.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    onClick={() => {
+                      trackNavClick('marketing_command', 'header');
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/5 border border-emerald-500/20"
+                  >
+                    <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                      <Zap className="w-5 h-5 text-emerald-400" />
+                    </div>
+                    <div className="flex-1">
+                      <span className="text-sm font-medium text-foreground">Marketing Command</span>
+                      <p className="text-xs text-muted-foreground">Campaign management hub</p>
+                    </div>
+                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
+                  </a>
+                </div>
+              </div>
+              
+              <div className="pt-4 space-y-3 px-2">
                 <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>
                   <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                     Get in Touch
