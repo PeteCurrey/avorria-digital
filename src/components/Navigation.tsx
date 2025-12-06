@@ -186,9 +186,9 @@ const Navigation = ({
                                     <Link 
                                       to={link.href} 
                                       onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} 
-                                      className={`group relative flex items-center gap-2 md:gap-3 py-2 px-2 md:px-3 rounded-r-lg transition-all duration-200 border-l-2 ${
+                                      className={`group relative flex items-center gap-2 md:gap-3 py-2 px-2 md:px-3 rounded-r-lg transition-all duration-200 border-l-2 hover:translate-x-1 ${
                                         link.highlight 
-                                          ? "border-l-accent bg-accent/5" 
+                                          ? "border-l-accent bg-accent/5 translate-x-1" 
                                           : "border-l-transparent hover:border-l-accent hover:bg-muted/40"
                                       }`}
                                     >
@@ -366,9 +366,9 @@ const Navigation = ({
                       <Link 
                         key={link.href} 
                         to={link.href} 
-                        className={`flex items-center gap-3 py-2.5 px-3 rounded-r-lg transition-all border-l-2 ${
+                        className={`flex items-center gap-3 py-2.5 px-3 rounded-r-lg transition-all duration-200 border-l-2 hover:translate-x-1 ${
                           link.highlight 
-                            ? "border-l-accent bg-accent/5" 
+                            ? "border-l-accent bg-accent/5 translate-x-1" 
                             : "border-l-transparent hover:border-l-accent hover:bg-muted/40"
                         }`}
                         onClick={() => {
