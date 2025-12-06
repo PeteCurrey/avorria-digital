@@ -15,6 +15,12 @@ import PaidMedia from "./pages/PaidMedia";
 import WebDesign from "./pages/WebDesign";
 import WebDesignStudio from "./pages/WebDesignStudio";
 import CaseStudies from "./pages/CaseStudies";
+import CaseStudyDetail from "./pages/CaseStudyDetail";
+import ContentEmail from "./pages/ContentEmail";
+import SocialPersonalBrand from "./pages/SocialPersonalBrand";
+import Analytics from "./pages/Analytics";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Pricing from "./pages/Pricing";
@@ -96,6 +102,12 @@ const App = () => (
               <Route path="/web-design" element={<WebDesign />} />
               <Route path="/web-design/studio" element={<WebDesignStudio />} />
               <Route path="/case-studies" element={<CaseStudies />} />
+              <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+              <Route path="/services/content-email" element={<ContentEmail />} />
+              <Route path="/services/social-personal-brand" element={<SocialPersonalBrand />} />
+              <Route path="/services/analytics" element={<Analytics />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/terms" element={<Terms />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/pricing" element={<Pricing />} />
