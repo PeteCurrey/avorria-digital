@@ -102,19 +102,19 @@ const Home = () => {
   }];
   const testimonials = [{
     quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
-    author: "",
-    role: "",
-    company: ""
+    author: "James Harrison",
+    role: "Managing Director",
+    company: "Apex Professional Services"
   }, {
     quote: "They rebuilt our site and landing pages without drama. Same traffic, better structure, calls and enquiries went up. No hype, just a very competent team.",
-    author: "",
-    role: "",
-    company: ""
+    author: "Sarah Mitchell",
+    role: "Marketing Manager",
+    company: "Northfield Construction Group"
   }, {
     quote: "We didn't want another 'creative agency'. We wanted someone to help us hit numbers. Avorria behaves like an in-house growth function, not a vendor.",
-    author: "",
-    role: "",
-    company: ""
+    author: "David Chen",
+    role: "Founder & CEO",
+    company: "Velocity SaaS"
   }];
   const faqs = [{
     question: "What size businesses do you work with?",
