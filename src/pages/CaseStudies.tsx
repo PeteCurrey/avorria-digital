@@ -5,11 +5,42 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Building2, Car, Truck } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
-import { caseStudies, getFeaturedCaseStudies, filterOptions } from "@/data/caseStudies";
+import { caseStudies as staticCaseStudies, filterOptions, CaseStudy } from "@/data/caseStudies";
+import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseFeaturedCarousel } from "@/components/case-studies/CaseFeaturedCarousel";
 import { CaseFilterBar } from "@/components/case-studies/CaseFilterBar";
 import { CaseGrid } from "@/components/case-studies/CaseGrid";
+
+// Convert DB format to component format
+const dbToCaseStudy = (db: CaseStudyDB): CaseStudy => ({
+  slug: db.slug,
+  title: db.title,
+  client: db.client,
+  sector: db.sector,
+  services: db.services,
+  timeframe: db.timeframe,
+  year: db.year,
+  outcome: db.outcome,
+  heroMedia: {
+    type: db.hero_media_type,
+    src: db.hero_media_src,
+    poster: db.hero_media_poster,
+  },
+  headline: db.headline,
+  subheadline: db.subheadline,
+  kpiBadges: db.kpi_badges,
+  problem: db.problem,
+  approach: db.approach,
+  outcomes: db.outcomes,
+  galleryMedia: db.gallery_media,
+  beforeMedia: db.before_media,
+  afterMedia: db.after_media,
+  quote: db.quote,
+  pdfContent: db.pdf_content,
+  relatedSlugs: db.related_slugs,
+  isFeatured: db.is_featured,
+});
 
 interface FilterState {
   sector: string;
@@ -26,7 +57,20 @@ const CaseStudies = () => {
     year: "all",
   });
 
-  const featuredCases = getFeaturedCaseStudies();
+  // Fetch from database
+  const { data: dbCaseStudies } = useCaseStudiesPublic();
+
+  // Merge DB and static case studies (DB takes priority for matching slugs)
+  const caseStudies = useMemo(() => {
+    const dbConverted = dbCaseStudies?.map(dbToCaseStudy) || [];
+    const dbSlugs = new Set(dbConverted.map(cs => cs.slug));
+    const staticOnly = staticCaseStudies.filter(cs => !dbSlugs.has(cs.slug));
+    return [...dbConverted, ...staticOnly];
+  }, [dbCaseStudies]);
+
+  const featuredCases = useMemo(() => {
+    return caseStudies.filter(cs => cs.isFeatured);
+  }, [caseStudies]);
 
   // Track page view
   useEffect(() => {
