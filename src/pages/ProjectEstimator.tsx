@@ -18,6 +18,7 @@ import { ArrowLeft, ArrowRight, Download, Calendar, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, getUserType } from "@/lib/tracking";
+import { useCreateLead } from "@/hooks/useLeads";
 
 interface FormData {
   // Step 1
@@ -57,6 +58,7 @@ interface FormData {
 
 const ProjectEstimator = () => {
   const { toast } = useToast();
+  const createLead = useCreateLead();
   const [currentStep, setCurrentStep] = useState(1);
   const [showResults, setShowResults] = useState(false);
   const [formData, setFormData] = useState<FormData>({
@@ -121,7 +123,39 @@ const ProjectEstimator = () => {
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    // Save lead to database
+    try {
+      await createLead.mutateAsync({
+        name: `${formData.firstName} ${formData.lastName}`.trim(),
+        email: formData.email,
+        phone: formData.phone || null,
+        company: formData.businessName,
+        source: 'estimator',
+        metadata: {
+          projectTypes: formData.projectTypes,
+          engagementModel: formData.engagementModel,
+          timeline: formData.timeline,
+          websiteUrl: formData.websiteUrl,
+          industry: formData.industry,
+          dealValue: formData.dealValue,
+          audience: formData.audience,
+          monthlySpend: formData.monthlySpend,
+          currentChannels: formData.currentChannels,
+          biggestFrustration: formData.biggestFrustration,
+          mainObjective: formData.mainObjective,
+          keyMetric: formData.keyMetric,
+          nonNegotiables: formData.nonNegotiables,
+          investmentLevel: formData.investmentLevel,
+          involvementLevel: formData.involvementLevel,
+          role: formData.role,
+          openToCall: formData.openToCall,
+        },
+      });
+    } catch (error) {
+      console.error('Error saving estimator lead:', error);
+    }
+
     trackEvent(EVENTS.ESTIMATOR_SUBMITTED, {
       project_type: formData.projectTypes.join(','),
       budget_band: formData.investmentLevel,

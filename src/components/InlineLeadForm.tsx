@@ -15,6 +15,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
+import { useCreateLead } from "@/hooks/useLeads";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -55,12 +56,14 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
   const [submitted, setSubmitted] = useState(false);
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [formStarted, setFormStarted] = useState(false);
+  const createLead = useCreateLead();
 
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setValue,
+    getValues,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   });
@@ -74,6 +77,19 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
 
   const onSubmit = async (data: FormData) => {
     try {
+      // Save lead to database
+      await createLead.mutateAsync({
+        name: data.name,
+        email: data.email,
+        company: data.company,
+        source: source === 'audit-funnel' ? 'audit' : 'audit',
+        metadata: {
+          website: data.website,
+          budget: data.budget,
+          priorities: data.priorities,
+        },
+      });
+
       // Track successful submission
       trackEvent(EVENTS.AUDIT_FORM_SUBMITTED, {
         source_page: window.location.pathname,
@@ -81,12 +97,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
         has_website_url: !!data.website,
         budget_band: data.budget,
       });
-      
-      // Future: Send to ESP/CRM
-      // await fetch('/api/leads', { method: 'POST', body: JSON.stringify({ ...data, source }) });
-      
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       
       setSubmitted(true);
     } catch (error) {
