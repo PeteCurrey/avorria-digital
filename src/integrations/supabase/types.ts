@@ -107,6 +107,48 @@ export type Database = {
         }
         Relationships: []
       }
+      leads: {
+        Row: {
+          company: string | null
+          created_at: string
+          email: string
+          id: string
+          metadata: Json | null
+          name: string
+          notes: string | null
+          phone: string | null
+          source: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          metadata?: Json | null
+          name: string
+          notes?: string | null
+          phone?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          metadata?: Json | null
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          source?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
