@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Quote } from "lucide-react";
+import { ArrowLeft, Quote, Loader2 } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
-import { getCaseStudyBySlug, getRelatedCaseStudies } from "@/data/caseStudies";
+import { getCaseStudyBySlug, getRelatedCaseStudies, CaseStudy } from "@/data/caseStudies";
+import { useCaseStudyBySlug, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseTimeline } from "@/components/case-studies/CaseTimeline";
 import { CaseMetrics } from "@/components/case-studies/CaseMetrics";
@@ -14,15 +15,61 @@ import { BeforeAfterSlider } from "@/components/case-studies/BeforeAfterSlider";
 import { CaseCTACluster } from "@/components/case-studies/CaseCTACluster";
 import { RelatedProjects } from "@/components/case-studies/RelatedProjects";
 
+// Convert DB format to component format
+const dbToCaseStudy = (db: CaseStudyDB): CaseStudy => ({
+  slug: db.slug,
+  title: db.title,
+  client: db.client,
+  sector: db.sector,
+  services: db.services,
+  timeframe: db.timeframe,
+  year: db.year,
+  outcome: db.outcome,
+  heroMedia: {
+    type: db.hero_media_type,
+    src: db.hero_media_src,
+    poster: db.hero_media_poster,
+  },
+  headline: db.headline,
+  subheadline: db.subheadline,
+  kpiBadges: db.kpi_badges,
+  problem: db.problem,
+  approach: db.approach,
+  outcomes: db.outcomes,
+  galleryMedia: db.gallery_media,
+  beforeMedia: db.before_media,
+  afterMedia: db.after_media,
+  quote: db.quote,
+  pdfContent: db.pdf_content,
+  relatedSlugs: db.related_slugs,
+  isFeatured: db.is_featured,
+});
+
 const CaseStudyDetail = () => {
   const { slug } = useParams<{ slug: string }>();
-  const caseStudy = slug ? getCaseStudyBySlug(slug) : null;
+  
+  // Try database first
+  const { data: dbCaseStudy, isLoading } = useCaseStudyBySlug(slug || "");
+  
+  // Fall back to static data
+  const staticCaseStudy = slug ? getCaseStudyBySlug(slug) : null;
+  
+  // Use DB version if available, otherwise static
+  const caseStudy = dbCaseStudy ? dbToCaseStudy(dbCaseStudy) : staticCaseStudy;
 
   useEffect(() => {
     if (caseStudy) {
       trackEvent("case_detail_viewed", { case_slug: slug, sector: caseStudy.sector });
     }
   }, [slug, caseStudy]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[hsl(220,25%,8%)]">
+        <Loader2 className="h-8 w-8 animate-spin text-accent" />
+      </div>
+    );
+  }
 
   if (!caseStudy) {
     return (

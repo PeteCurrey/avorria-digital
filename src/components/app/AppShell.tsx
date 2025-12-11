@@ -46,6 +46,7 @@ import {
   Eye,
   Check,
   ChevronsUpDown,
+  Briefcase,
 } from "lucide-react";
 
 interface AppShellProps {
@@ -65,6 +66,7 @@ interface NavItem {
 const platformNavItems: NavItem[] = [
   { name: "Dashboard", path: "/platform", icon: LayoutDashboard },
   { name: "Clients", path: "/platform/clients", icon: Users },
+  { name: "Case Studies", path: "/platform/case-studies", icon: Briefcase },
   { name: "Campaigns & Channels", path: "/platform/campaigns", icon: Target },
   { name: "SEO & Web Assets", path: "/platform/seo-web", icon: Globe },
   { name: "Content & Social", path: "/platform/content", icon: FileText },

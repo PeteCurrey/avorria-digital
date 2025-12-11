@@ -45,6 +45,7 @@ import PlatformContent from "./pages/platform/PlatformContent";
 import PlatformReporting from "./pages/platform/PlatformReporting";
 import PlatformPlaybooks from "./pages/platform/PlatformPlaybooks";
 import PlatformSettings from "./pages/platform/PlatformSettings";
+import PlatformCaseStudies from "./pages/platform/PlatformCaseStudies";
 import Tools from "./pages/Tools";
 import ClientOverview from "./pages/client/ClientOverview";
 import ClientAudits from "./pages/client/ClientAudits";
@@ -209,6 +210,11 @@ const App = () => (
               <Route path="/platform/settings" element={
                 <ProtectedRoute>
                   <PlatformSettings />
+                </ProtectedRoute>
+              } />
+              <Route path="/platform/case-studies" element={
+                <ProtectedRoute>
+                  <PlatformCaseStudies />
                 </ProtectedRoute>
               } />
               

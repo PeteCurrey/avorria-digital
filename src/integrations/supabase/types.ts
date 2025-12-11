@@ -14,6 +14,99 @@ export type Database = {
   }
   public: {
     Tables: {
+      case_studies: {
+        Row: {
+          after_media: string | null
+          approach: Json
+          before_media: string | null
+          client: string
+          created_at: string
+          gallery_media: Json
+          headline: string
+          hero_media_poster: string | null
+          hero_media_src: string
+          hero_media_type: string
+          id: string
+          is_featured: boolean
+          is_published: boolean
+          kpi_badges: Json
+          outcome: string
+          outcomes: Json
+          pdf_content: Json | null
+          problem: string
+          quote: Json | null
+          related_slugs: string[] | null
+          sector: string
+          services: string[]
+          slug: string
+          subheadline: string
+          timeframe: string
+          title: string
+          updated_at: string
+          year: number
+        }
+        Insert: {
+          after_media?: string | null
+          approach?: Json
+          before_media?: string | null
+          client: string
+          created_at?: string
+          gallery_media?: Json
+          headline: string
+          hero_media_poster?: string | null
+          hero_media_src: string
+          hero_media_type?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          kpi_badges?: Json
+          outcome: string
+          outcomes?: Json
+          pdf_content?: Json | null
+          problem: string
+          quote?: Json | null
+          related_slugs?: string[] | null
+          sector: string
+          services?: string[]
+          slug: string
+          subheadline: string
+          timeframe: string
+          title: string
+          updated_at?: string
+          year: number
+        }
+        Update: {
+          after_media?: string | null
+          approach?: Json
+          before_media?: string | null
+          client?: string
+          created_at?: string
+          gallery_media?: Json
+          headline?: string
+          hero_media_poster?: string | null
+          hero_media_src?: string
+          hero_media_type?: string
+          id?: string
+          is_featured?: boolean
+          is_published?: boolean
+          kpi_badges?: Json
+          outcome?: string
+          outcomes?: Json
+          pdf_content?: Json | null
+          problem?: string
+          quote?: Json | null
+          related_slugs?: string[] | null
+          sector?: string
+          services?: string[]
+          slug?: string
+          subheadline?: string
+          timeframe?: string
+          title?: string
+          updated_at?: string
+          year?: number
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
