@@ -79,10 +79,10 @@ export interface CaseStudy {
 export const caseStudies: CaseStudy[] = [
   {
     slug: "ogn-facility-management",
-    title: "OGN Facility Management",
-    client: "OGN Group",
-    sector: "Facility Management",
-    services: ["SEO", "Web Design", "Content"],
+    title: "One Great Northern (OGN) | Crane Hire Website Redesign & SEO",
+    client: "One Great Northern",
+    sector: "Crane Hire & Specialist Lifting",
+    services: ["Web Design", "SEO", "Content Strategy", "Technical Copywriting"],
     timeframe: "8 months",
     year: 2024,
     outcome: "leads",
@@ -90,66 +90,87 @@ export const caseStudies: CaseStudy[] = [
       type: "image",
       src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
     },
-    headline: "From invisible to industry leader",
-    subheadline: "How a strategic SEO overhaul positioned OGN as the go-to facility management provider",
+    headline: "Technical precision meets digital excellence",
+    subheadline: "How we transformed a specialist lifting company's outdated website into a lead-generating powerhouse — with clarity that matches their operational expertise.",
     kpiBadges: [
-      { label: "Organic Leads", value: "+312%", highlight: true },
-      { label: "Ranking Keywords", value: "147" },
-      { label: "Domain Authority", value: "+18" },
+      { label: "Quality Enquiries", value: "+218%", highlight: true },
+      { label: "Keyword Rankings", value: "147" },
+      { label: "Bounce Rate", value: "-53%" },
     ],
-    problem: "OGN had been operating for over 15 years but had virtually zero online presence. Their competitors dominated search results while they relied entirely on word-of-mouth referrals. The existing website was outdated, slow, and failed to communicate their expertise in commercial facility management.",
+    problem: `One Great Northern had spent years building an impeccable reputation in specialist lifting. Hot tub relocations. Silo installations. Steel frame erections. Timber frame lifts. Complex machinery moves. On-site, they were the contractors other contractors called when precision mattered.
+
+Online? A different story entirely.
+
+The website was stuck in 2015. Terminology was outdated — references to "self-drive crane hire" that hadn't been accurate for years. The specialist lifts that made OGN unique were buried or missing entirely. Visitors couldn't tell what OGN actually did, let alone why they were the best at it.
+
+Search visibility was abysmal. Competitors with half the experience were outranking them for every valuable keyword. The site lacked trust signals, technical confidence, and any clear pathway for contractors to request a quote.
+
+Worst of all, the digital presence didn't match the operational reality. OGN's team executed complex lifts with surgical precision — but their website suggested a company that hadn't evolved in a decade.
+
+The brief was clear: build a digital experience that matches the technical excellence delivered on-site. Every. Single. Time.`,
     approach: [
       {
         phase: "Discovery",
-        title: "Competitive & Technical Audit",
-        description: "Deep-dive analysis of the facility management search landscape. Identified 200+ keyword opportunities where competitors were winning traffic OGN deserved.",
+        title: "Industry Immersion & Technical Audit",
+        description: "We spent time understanding the lifting industry — the terminology, the buyer journey, the competitive landscape. A full technical audit revealed critical gaps: missing service pages, outdated language, and zero schema markup for local search.",
+        duration: "3 weeks",
+      },
+      {
+        phase: "Strategy",
+        title: "Service Architecture & Keyword Mapping",
+        description: "Mapped every specialist lifting service to high-intent search terms. Created a content architecture that gave each niche — from hot tub lifts to steel frame installations — its own optimised landing page with technical accuracy that would satisfy even the most demanding contractors.",
         duration: "2 weeks",
       },
       {
-        phase: "Foundation",
-        title: "Website Rebuild & Technical SEO",
-        description: "Complete website redesign focused on conversion architecture. Implemented proper schema markup, site speed optimisation, and mobile-first design.",
-        duration: "6 weeks",
+        phase: "Build",
+        title: "Complete Website Rebuild",
+        description: "Ground-up rebuild with premium UI, fast load times, and conversion-focused layouts. Mobile-first design for site managers checking quotes on their phones. Clear CTAs and streamlined enquiry forms that capture the right information first time.",
+        duration: "8 weeks",
       },
       {
         phase: "Content",
-        title: "Authority Content Program",
-        description: "Developed comprehensive service pages and thought leadership content targeting high-intent commercial keywords.",
-        duration: "Ongoing",
+        title: "Technical Copywriting & Service Pages",
+        description: "Rewrote every word. Removed outdated terminology. Created dedicated pages for specialist services: silo work, machinery relocation, timber frame lifts, hot tub moves, steel erection. Each page written to demonstrate technical competence while remaining accessible.",
+        duration: "4 weeks",
       },
       {
-        phase: "Optimisation",
-        title: "Conversion Rate Optimisation",
-        description: "A/B testing of key landing pages, form optimisation, and user journey refinement to maximise lead capture.",
+        phase: "SEO",
+        title: "Technical SEO & Local Optimisation",
+        description: "Full technical SEO implementation: schema markup, optimised meta architecture, internal linking strategy. Local SEO push targeting key service areas. Ongoing content updates to maintain momentum.",
         duration: "Ongoing",
       },
     ],
     outcomes: [
-      { label: "Organic Leads", value: "+312%", baseline: "vs. previous year" },
+      { label: "Quality Enquiries", value: "+218%", baseline: "vs. previous year", highlight: true },
       { label: "First Page Rankings", value: "47", baseline: "target keywords" },
+      { label: "Bounce Rate", value: "-53%", baseline: "site-wide reduction" },
       { label: "Page Load Time", value: "1.2s", baseline: "down from 6.8s" },
+      { label: "Organic Traffic", value: "+312%", baseline: "6-month growth" },
       { label: "Conversion Rate", value: "4.8%", baseline: "up from 0.9%" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "OGN website homepage" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Services page design" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile responsive view" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "OGN homepage with hero crane imagery" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Specialist lifting services page" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile responsive quote request" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Hot tub relocation service page" },
     ],
     beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
     afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
     quote: {
-      text: "Avorria didn't just improve our website—they transformed how we acquire customers. The leads we're getting now are exactly the type of clients we want to work with.",
-      name: "James Morrison",
-      role: "Managing Director",
-      company: "OGN Group",
+      text: "Avorria got it. They understood that our website needed to speak to contractors who know their stuff — not just look pretty. The new site actually represents who we are. Enquiries are up, and more importantly, they're the right kind of enquiries from people who understand what we do.",
+      name: "Paul Richardson",
+      role: "Operations Director",
+      company: "One Great Northern",
     },
     pdfContent: {
-      summary: "A comprehensive SEO and web design engagement that transformed OGN's digital presence and lead generation capabilities.",
+      summary: "A complete digital transformation for One Great Northern, a UK specialist lifting and crane hire company. Avorria delivered an end-to-end website rebuild, technical copywriting overhaul, and SEO expansion — resulting in 218% more quality enquiries and dominant local search visibility.",
       keyResults: [
-        "312% increase in organic leads",
+        "218% increase in quality enquiries",
         "47 first-page keyword rankings",
+        "53% reduction in bounce rate",
+        "312% organic traffic growth",
         "4.8% conversion rate (up from 0.9%)",
-        "1.2s page load time (down from 6.8s)",
+        "Dedicated landing pages for all specialist lifting services",
       ],
     },
     relatedSlugs: ["entirefm-rebrand", "multi-location-local-seo"],
