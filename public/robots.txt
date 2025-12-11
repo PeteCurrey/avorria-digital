@@ -12,3 +12,9 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /platform
+Disallow: /client
+Disallow: /auth
+
+Sitemap: https://avorria.com/sitemap.xml
