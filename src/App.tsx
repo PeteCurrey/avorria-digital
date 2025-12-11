@@ -68,6 +68,7 @@ import Login from "./pages/auth/Login";
 import Signup from "./pages/auth/Signup";
 import Unauthorized from "./pages/Unauthorized";
 import Onboarding from "./pages/Onboarding";
+import Admin from "./pages/Admin";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -156,6 +157,9 @@ const App = () => (
                 </ProtectedRoute>
               } />
               <Route path="/unauthorized" element={<Unauthorized />} />
+              
+              {/* Admin Route */}
+              <Route path="/admin" element={<Admin />} />
 
               {/* Reporting & Dashboard */}
               <Route path="/reporting" element={<Reporting />} />
