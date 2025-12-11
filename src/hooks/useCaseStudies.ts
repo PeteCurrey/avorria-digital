@@ -2,6 +2,13 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
+export interface BeforeAfterPair {
+  id: string;
+  label: string;
+  beforeImage: string;
+  afterImage: string;
+}
+
 export interface CaseStudyDB {
   id: string;
   slug: string;
@@ -24,6 +31,7 @@ export interface CaseStudyDB {
   gallery_media: { type: 'image' | 'video'; src: string; alt: string }[];
   before_media?: string;
   after_media?: string;
+  before_after_pairs?: BeforeAfterPair[];
   quote?: { text: string; name: string; role: string; company?: string };
   pdf_content?: { summary: string; keyResults: string[] };
   related_slugs: string[];
@@ -47,7 +55,7 @@ export const useCaseStudiesAdmin = () => {
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      return data as CaseStudyDB[];
+      return data as unknown as CaseStudyDB[];
     },
   });
 };
@@ -64,7 +72,7 @@ export const useCaseStudiesPublic = () => {
         .order('year', { ascending: false });
       
       if (error) throw error;
-      return data as CaseStudyDB[];
+      return data as unknown as CaseStudyDB[];
     },
   });
 };
@@ -81,7 +89,7 @@ export const useCaseStudyBySlug = (slug: string) => {
         .single();
       
       if (error) throw error;
-      return data as CaseStudyDB;
+      return data as unknown as CaseStudyDB;
     },
     enabled: !!slug,
   });

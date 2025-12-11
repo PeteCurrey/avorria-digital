@@ -6,17 +6,22 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft, Quote, Loader2 } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
 import { getCaseStudyBySlug, getRelatedCaseStudies, CaseStudy } from "@/data/caseStudies";
-import { useCaseStudyBySlug, CaseStudyDB } from "@/hooks/useCaseStudies";
+import { useCaseStudyBySlug, CaseStudyDB, BeforeAfterPair } from "@/hooks/useCaseStudies";
 import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseTimeline } from "@/components/case-studies/CaseTimeline";
 import { CaseMetrics } from "@/components/case-studies/CaseMetrics";
 import { CaseGallery } from "@/components/case-studies/CaseGallery";
 import { BeforeAfterSlider } from "@/components/case-studies/BeforeAfterSlider";
+import { BeforeAfterSliderMulti } from "@/components/case-studies/BeforeAfterSliderMulti";
 import { CaseCTACluster } from "@/components/case-studies/CaseCTACluster";
 import { RelatedProjects } from "@/components/case-studies/RelatedProjects";
 
+interface CaseStudyExtended extends CaseStudy {
+  beforeAfterPairs?: BeforeAfterPair[];
+}
+
 // Convert DB format to component format
-const dbToCaseStudy = (db: CaseStudyDB): CaseStudy => ({
+const dbToCaseStudy = (db: CaseStudyDB): CaseStudyExtended => ({
   slug: db.slug,
   title: db.title,
   client: db.client,
@@ -39,6 +44,7 @@ const dbToCaseStudy = (db: CaseStudyDB): CaseStudy => ({
   galleryMedia: db.gallery_media,
   beforeMedia: db.before_media,
   afterMedia: db.after_media,
+  beforeAfterPairs: db.before_after_pairs,
   quote: db.quote,
   pdfContent: db.pdf_content,
   relatedSlugs: db.related_slugs,
@@ -55,7 +61,11 @@ const CaseStudyDetail = () => {
   const staticCaseStudy = slug ? getCaseStudyBySlug(slug) : null;
   
   // Use DB version if available, otherwise static
-  const caseStudy = dbCaseStudy ? dbToCaseStudy(dbCaseStudy) : staticCaseStudy;
+  const caseStudy: CaseStudyExtended | null = dbCaseStudy 
+    ? dbToCaseStudy(dbCaseStudy) 
+    : staticCaseStudy 
+      ? { ...staticCaseStudy, beforeAfterPairs: undefined }
+      : null;
 
   useEffect(() => {
     if (caseStudy) {
@@ -160,8 +170,18 @@ const CaseStudyDetail = () => {
           </div>
         </section>
 
-        {/* Before/After */}
-        {caseStudy.beforeMedia && caseStudy.afterMedia && (
+        {/* Before/After - Multi-page or single */}
+        {caseStudy.beforeAfterPairs && caseStudy.beforeAfterPairs.length > 0 ? (
+          <section className="py-20 px-6 section-dark">
+            <div className="container mx-auto max-w-4xl">
+              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+                <h2 className="text-3xl font-light text-white">Before & After</h2>
+                <p className="text-white/60 mt-2">Drag to compare the transformation</p>
+              </motion.div>
+              <BeforeAfterSliderMulti pairs={caseStudy.beforeAfterPairs} />
+            </div>
+          </section>
+        ) : caseStudy.beforeMedia && caseStudy.afterMedia ? (
           <section className="py-20 px-6 section-dark">
             <div className="container mx-auto max-w-4xl">
               <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
@@ -170,7 +190,7 @@ const CaseStudyDetail = () => {
               <BeforeAfterSlider beforeImage={caseStudy.beforeMedia} afterImage={caseStudy.afterMedia} />
             </div>
           </section>
-        )}
+        ) : null}
 
         {/* Gallery */}
         {caseStudy.galleryMedia.length > 0 && (

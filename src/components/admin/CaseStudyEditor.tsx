@@ -20,8 +20,10 @@ import {
   useUpdateCaseStudy,
   CaseStudyDB,
   CaseStudyInsert,
+  BeforeAfterPair,
 } from "@/hooks/useCaseStudies";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { ImageUploader, MultiImageUploader } from "./ImageUploader";
 
 interface CaseStudyEditorProps {
   caseStudy: CaseStudyDB | null;
@@ -46,6 +48,7 @@ const defaultCaseStudy: CaseStudyInsert = {
   approach: [{ phase: "Discovery", title: "", description: "", duration: "" }],
   outcomes: [{ label: "", value: "", baseline: "", highlight: false }],
   gallery_media: [],
+  before_after_pairs: [],
   related_slugs: [],
   is_featured: false,
   is_published: false,
@@ -75,9 +78,10 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
           gallery_media: caseStudy.gallery_media,
           before_media: caseStudy.before_media,
           after_media: caseStudy.after_media,
+          before_after_pairs: caseStudy.before_after_pairs || [],
           quote: caseStudy.quote,
           pdf_content: caseStudy.pdf_content,
-          related_slugs: caseStudy.related_slugs,
+          related_slugs: caseStudy.related_slugs || [],
           is_featured: caseStudy.is_featured,
           is_published: caseStudy.is_published,
         }
@@ -653,51 +657,162 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
 
             {/* Media Tab */}
             <TabsContent value="media">
-              <Card>
-                <CardHeader>
-                  <CardTitle>Before/After & Gallery</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="beforeMedia">Before Image URL</Label>
-                      <Input
-                        id="beforeMedia"
-                        value={formData.before_media || ""}
-                        onChange={(e) =>
-                          updateField("before_media", e.target.value)
-                        }
-                        placeholder="/lovable-uploads/..."
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="afterMedia">After Image URL</Label>
-                      <Input
-                        id="afterMedia"
-                        value={formData.after_media || ""}
-                        onChange={(e) =>
-                          updateField("after_media", e.target.value)
-                        }
-                        placeholder="/lovable-uploads/..."
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Related Case Studies (slugs, comma-separated)</Label>
-                    <Input
-                      value={formData.related_slugs.join(", ")}
-                      onChange={(e) =>
-                        updateField(
-                          "related_slugs",
-                          e.target.value.split(",").map((s) => s.trim())
-                        )
-                      }
-                      placeholder="entirefm-rebrand, ogn-facility-management"
+              <div className="space-y-6">
+                {/* Hero Image */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Hero Image</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ImageUploader
+                      label="Hero Background"
+                      value={formData.hero_media_src}
+                      onChange={(url) => updateField("hero_media_src", url)}
+                      folder="hero"
                     />
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+
+                {/* Before/After Pairs */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center justify-between">
+                      <span>Before & After Comparisons</span>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => {
+                          const newPair: BeforeAfterPair = {
+                            id: crypto.randomUUID(),
+                            label: `Page ${(formData.before_after_pairs?.length || 0) + 1}`,
+                            beforeImage: "",
+                            afterImage: "",
+                          };
+                          updateField("before_after_pairs", [
+                            ...(formData.before_after_pairs || []),
+                            newPair,
+                          ]);
+                        }}
+                      >
+                        <Plus className="h-4 w-4 mr-1" /> Add Page
+                      </Button>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {(formData.before_after_pairs || []).length === 0 ? (
+                      <p className="text-sm text-muted-foreground text-center py-8">
+                        No before/after comparisons yet. Add pages to show website transformations.
+                      </p>
+                    ) : (
+                      (formData.before_after_pairs || []).map((pair, index) => (
+                        <div
+                          key={pair.id}
+                          className="p-4 border border-border rounded-lg space-y-4"
+                        >
+                          <div className="flex items-center justify-between">
+                            <Input
+                              value={pair.label}
+                              onChange={(e) => {
+                                const updated = [...(formData.before_after_pairs || [])];
+                                updated[index] = { ...updated[index], label: e.target.value };
+                                updateField("before_after_pairs", updated);
+                              }}
+                              placeholder="Page label (e.g., Homepage, About)"
+                              className="max-w-xs"
+                            />
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="icon"
+                              onClick={() => {
+                                updateField(
+                                  "before_after_pairs",
+                                  (formData.before_after_pairs || []).filter((_, i) => i !== index)
+                                );
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4 text-destructive" />
+                            </Button>
+                          </div>
+                          <div className="grid grid-cols-2 gap-4">
+                            <ImageUploader
+                              label="Before"
+                              value={pair.beforeImage}
+                              onChange={(url) => {
+                                const updated = [...(formData.before_after_pairs || [])];
+                                updated[index] = { ...updated[index], beforeImage: url };
+                                updateField("before_after_pairs", updated);
+                              }}
+                              folder={`before-after/${formData.slug || "new"}`}
+                            />
+                            <ImageUploader
+                              label="After"
+                              value={pair.afterImage}
+                              onChange={(url) => {
+                                const updated = [...(formData.before_after_pairs || [])];
+                                updated[index] = { ...updated[index], afterImage: url };
+                                updateField("before_after_pairs", updated);
+                              }}
+                              folder={`before-after/${formData.slug || "new"}`}
+                            />
+                          </div>
+                        </div>
+                      ))
+                    )}
+                  </CardContent>
+                </Card>
+
+                {/* Gallery */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Project Gallery</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <MultiImageUploader
+                      label="Gallery Images"
+                      images={(formData.gallery_media || []).map((m, i) => ({
+                        id: `gallery-${i}`,
+                        url: m.src,
+                        label: m.alt,
+                      }))}
+                      onChange={(images) => {
+                        updateField(
+                          "gallery_media",
+                          images.map((img) => ({
+                            type: "image" as const,
+                            src: img.url,
+                            alt: img.label || "",
+                          }))
+                        );
+                      }}
+                      folder={`gallery/${formData.slug || "new"}`}
+                    />
+                  </CardContent>
+                </Card>
+
+                {/* Related Studies */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Related Case Studies</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2">
+                      <Label>Related slugs (comma-separated)</Label>
+                      <Input
+                        value={formData.related_slugs.join(", ")}
+                        onChange={(e) =>
+                          updateField(
+                            "related_slugs",
+                            e.target.value.split(",").map((s) => s.trim())
+                          )
+                        }
+                        placeholder="entirefm-rebrand, ogn-facility-management"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </TabsContent>
 
             {/* Quote Tab */}

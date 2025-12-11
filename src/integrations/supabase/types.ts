@@ -18,6 +18,7 @@ export type Database = {
         Row: {
           after_media: string | null
           approach: Json
+          before_after_pairs: Json | null
           before_media: string | null
           client: string
           created_at: string
@@ -48,6 +49,7 @@ export type Database = {
         Insert: {
           after_media?: string | null
           approach?: Json
+          before_after_pairs?: Json | null
           before_media?: string | null
           client: string
           created_at?: string
@@ -78,6 +80,7 @@ export type Database = {
         Update: {
           after_media?: string | null
           approach?: Json
+          before_after_pairs?: Json | null
           before_media?: string | null
           client?: string
           created_at?: string
