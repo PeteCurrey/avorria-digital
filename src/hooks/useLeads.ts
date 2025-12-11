@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import type { Json } from "@/integrations/supabase/types";
 
 export interface Lead {
   id: string;
@@ -11,16 +12,32 @@ export interface Lead {
   source: string;
   status: string;
   notes: string | null;
-  metadata: Record<string, unknown>;
+  metadata: Json;
   created_at: string;
   updated_at: string;
 }
 
-export type LeadInsert = Omit<Lead, 'id' | 'created_at' | 'updated_at' | 'metadata'> & {
-  metadata?: Record<string, unknown>;
+export type LeadInsert = {
+  name: string;
+  email: string;
+  phone?: string | null;
+  company?: string | null;
+  source?: string;
+  status?: string;
+  notes?: string | null;
+  metadata?: Json;
 };
 
-export type LeadUpdate = Partial<Omit<Lead, 'id' | 'created_at' | 'updated_at'>>;
+export type LeadUpdate = {
+  name?: string;
+  email?: string;
+  phone?: string | null;
+  company?: string | null;
+  source?: string;
+  status?: string;
+  notes?: string | null;
+  metadata?: Json;
+};
 
 // Fetch all leads (admin only)
 export function useLeadsAdmin() {
@@ -46,7 +63,7 @@ export function useCreateLead() {
     mutationFn: async (lead: LeadInsert) => {
       const { data, error } = await supabase
         .from('leads')
-        .insert(lead)
+        .insert([lead])
         .select()
         .single();
       

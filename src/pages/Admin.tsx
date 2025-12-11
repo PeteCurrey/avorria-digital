@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import { format } from "date-fns";
 import { 
   LayoutDashboard, 
   FileText, 
@@ -50,17 +51,16 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { useCaseStudiesAdmin, useToggleFeatured, useTogglePublished, useDeleteCaseStudy, CaseStudyDB } from "@/hooks/useCaseStudies";
+import { useLeadsAdmin, useUpdateLead, useDeleteLead, Lead } from "@/hooks/useLeads";
 import CaseStudyEditor from "@/components/admin/CaseStudyEditor";
-
-// Mock data for leads
-const mockLeads = [
-  { id: 1, name: "John Smith", email: "john@company.com", phone: "07700 900123", source: "Free Audit", status: "new", date: "2024-01-15" },
-  { id: 2, name: "Sarah Johnson", email: "sarah@agency.co.uk", phone: "07700 900456", source: "Contact Form", status: "contacted", date: "2024-01-14" },
-  { id: 3, name: "Mike Wilson", email: "mike@startup.io", phone: "07700 900789", source: "Project Estimator", status: "qualified", date: "2024-01-13" },
-  { id: 4, name: "Emma Brown", email: "emma@retail.com", phone: "07700 900012", source: "Web Design Studio", status: "new", date: "2024-01-12" },
-  { id: 5, name: "David Lee", email: "david@tech.co", phone: "07700 900345", source: "Agency Teardown", status: "converted", date: "2024-01-10" },
-];
 
 // Mock analytics data
 const mockAnalytics = {
@@ -87,13 +87,30 @@ const mockAnalytics = {
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [searchQuery, setSearchQuery] = useState("");
+  const [leadsSearchQuery, setLeadsSearchQuery] = useState("");
   const [editingCaseStudy, setEditingCaseStudy] = useState<CaseStudyDB | null>(null);
   const [isCreating, setIsCreating] = useState(false);
 
   const { data: caseStudies, isLoading: caseStudiesLoading } = useCaseStudiesAdmin();
+  const { data: leads, isLoading: leadsLoading, refetch: refetchLeads } = useLeadsAdmin();
   const toggleFeatured = useToggleFeatured();
   const togglePublished = useTogglePublished();
   const deleteCaseStudy = useDeleteCaseStudy();
+  const updateLead = useUpdateLead();
+  const deleteLead = useDeleteLead();
+
+  const filteredLeads = leads?.filter(lead =>
+    lead.name.toLowerCase().includes(leadsSearchQuery.toLowerCase()) ||
+    lead.email.toLowerCase().includes(leadsSearchQuery.toLowerCase()) ||
+    (lead.company?.toLowerCase().includes(leadsSearchQuery.toLowerCase()))
+  );
+
+  const leadStats = {
+    new: leads?.filter(l => l.status === 'new').length || 0,
+    contacted: leads?.filter(l => l.status === 'contacted').length || 0,
+    qualified: leads?.filter(l => l.status === 'qualified').length || 0,
+    converted: leads?.filter(l => l.status === 'converted').length || 0,
+  };
 
   const filteredCaseStudies = caseStudies?.filter(cs => 
     cs.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -160,7 +177,7 @@ const Admin = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Total Leads</p>
-                    <p className="text-2xl font-bold text-foreground">{mockLeads.length}</p>
+                    <p className="text-2xl font-bold text-foreground">{leads?.length || 0}</p>
                   </div>
                   <Users className="h-8 w-8 text-primary/50" />
                 </div>
@@ -226,15 +243,21 @@ const Admin = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-4">
-                      {mockLeads.slice(0, 3).map(lead => (
-                        <div key={lead.id} className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
-                          <div>
-                            <p className="font-medium text-foreground">{lead.name}</p>
-                            <p className="text-sm text-muted-foreground">{lead.source}</p>
+                      {leadsLoading ? (
+                        <p className="text-muted-foreground text-center py-4">Loading...</p>
+                      ) : leads?.length === 0 ? (
+                        <p className="text-muted-foreground text-center py-4">No leads yet</p>
+                      ) : (
+                        leads?.slice(0, 3).map(lead => (
+                          <div key={lead.id} className="flex items-center justify-between p-3 bg-background/50 rounded-lg">
+                            <div>
+                              <p className="font-medium text-foreground">{lead.name}</p>
+                              <p className="text-sm text-muted-foreground">{lead.source}</p>
+                            </div>
+                            {getStatusBadge(lead.status)}
                           </div>
-                          {getStatusBadge(lead.status)}
-                        </div>
-                      ))}
+                        ))
+                      )}
                     </div>
                   </CardContent>
                 </Card>
@@ -449,6 +472,8 @@ const Admin = () => {
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search leads..."
+                    value={leadsSearchQuery}
+                    onChange={(e) => setLeadsSearchQuery(e.target.value)}
                     className="pl-10 bg-card/50 border-border/50"
                   />
                 </div>
@@ -457,7 +482,7 @@ const Admin = () => {
                     <Download className="h-4 w-4 mr-2" />
                     Export CSV
                   </Button>
-                  <Button variant="outline" className="border-border/50">
+                  <Button variant="outline" className="border-border/50" onClick={() => refetchLeads()}>
                     <RefreshCw className="h-4 w-4 mr-2" />
                     Refresh
                   </Button>
@@ -468,25 +493,25 @@ const Admin = () => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <Card className="bg-card/50 border-border/50">
                   <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-blue-400">{mockLeads.filter(l => l.status === 'new').length}</p>
+                    <p className="text-2xl font-bold text-blue-400">{leadStats.new}</p>
                     <p className="text-sm text-muted-foreground">New</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card/50 border-border/50">
                   <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-yellow-400">{mockLeads.filter(l => l.status === 'contacted').length}</p>
+                    <p className="text-2xl font-bold text-yellow-400">{leadStats.contacted}</p>
                     <p className="text-sm text-muted-foreground">Contacted</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card/50 border-border/50">
                   <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-purple-400">{mockLeads.filter(l => l.status === 'qualified').length}</p>
+                    <p className="text-2xl font-bold text-purple-400">{leadStats.qualified}</p>
                     <p className="text-sm text-muted-foreground">Qualified</p>
                   </CardContent>
                 </Card>
                 <Card className="bg-card/50 border-border/50">
                   <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-green-400">{mockLeads.filter(l => l.status === 'converted').length}</p>
+                    <p className="text-2xl font-bold text-green-400">{leadStats.converted}</p>
                     <p className="text-sm text-muted-foreground">Converted</p>
                   </CardContent>
                 </Card>
@@ -495,57 +520,92 @@ const Admin = () => {
               {/* Leads Table */}
               <Card className="bg-card/50 border-border/50">
                 <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="border-border/50">
-                        <TableHead>Name</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Source</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {mockLeads.map((lead) => (
-                        <TableRow key={lead.id} className="border-border/50">
-                          <TableCell className="font-medium">{lead.name}</TableCell>
-                          <TableCell>
-                            <div className="space-y-1">
-                              <div className="flex items-center gap-2 text-sm">
-                                <Mail className="h-3 w-3 text-muted-foreground" />
-                                {lead.email}
-                              </div>
-                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <Phone className="h-3 w-3" />
-                                {lead.phone}
-                              </div>
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline">{lead.source}</Badge>
-                          </TableCell>
-                          <TableCell>{getStatusBadge(lead.status)}</TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <Calendar className="h-3 w-3" />
-                              {lead.date}
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              <Button variant="ghost" size="icon">
-                                <Eye className="h-4 w-4" />
-                              </Button>
-                              <Button variant="ghost" size="icon">
-                                <Edit className="h-4 w-4" />
-                              </Button>
-                            </div>
-                          </TableCell>
+                  {leadsLoading ? (
+                    <div className="p-8 text-center text-muted-foreground">Loading leads...</div>
+                  ) : filteredLeads?.length === 0 ? (
+                    <div className="p-8 text-center text-muted-foreground">No leads found</div>
+                  ) : (
+                    <Table>
+                      <TableHeader>
+                        <TableRow className="border-border/50">
+                          <TableHead>Name</TableHead>
+                          <TableHead>Contact</TableHead>
+                          <TableHead>Source</TableHead>
+                          <TableHead>Status</TableHead>
+                          <TableHead>Date</TableHead>
+                          <TableHead className="text-right">Actions</TableHead>
                         </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                      </TableHeader>
+                      <TableBody>
+                        {filteredLeads?.map((lead) => (
+                          <TableRow key={lead.id} className="border-border/50">
+                            <TableCell>
+                              <div>
+                                <p className="font-medium">{lead.name}</p>
+                                {lead.company && <p className="text-sm text-muted-foreground">{lead.company}</p>}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <div className="space-y-1">
+                                <div className="flex items-center gap-2 text-sm">
+                                  <Mail className="h-3 w-3 text-muted-foreground" />
+                                  {lead.email}
+                                </div>
+                                {lead.phone && (
+                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                    <Phone className="h-3 w-3" />
+                                    {lead.phone}
+                                  </div>
+                                )}
+                              </div>
+                            </TableCell>
+                            <TableCell>
+                              <Badge variant="outline" className="capitalize">{lead.source}</Badge>
+                            </TableCell>
+                            <TableCell>
+                              <Select
+                                value={lead.status}
+                                onValueChange={(value) => updateLead.mutate({ id: lead.id, updates: { status: value } })}
+                              >
+                                <SelectTrigger className="w-32 h-8">
+                                  <SelectValue />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value="new">New</SelectItem>
+                                  <SelectItem value="contacted">Contacted</SelectItem>
+                                  <SelectItem value="qualified">Qualified</SelectItem>
+                                  <SelectItem value="converted">Converted</SelectItem>
+                                  <SelectItem value="lost">Lost</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </TableCell>
+                            <TableCell>
+                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                <Calendar className="h-3 w-3" />
+                                {format(new Date(lead.created_at), 'MMM d, yyyy')}
+                              </div>
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <Button 
+                                  variant="ghost" 
+                                  size="icon"
+                                  className="text-destructive hover:text-destructive"
+                                  onClick={() => {
+                                    if (confirm("Delete this lead?")) {
+                                      deleteLead.mutate(lead.id);
+                                    }
+                                  }}
+                                >
+                                  <Trash2 className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  )}
                 </CardContent>
               </Card>
             </TabsContent>
