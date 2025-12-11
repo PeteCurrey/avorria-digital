@@ -80,7 +80,13 @@ const CaseStudyDetail = () => {
           <div className="container mx-auto max-w-4xl">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
               <span className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">The Challenge</span>
-              <p className="text-2xl md:text-3xl text-white/90 font-light leading-relaxed">{caseStudy.problem}</p>
+              <div className="space-y-6">
+                {caseStudy.problem.split('\n\n').map((paragraph, index) => (
+                  <p key={index} className="text-xl md:text-2xl text-white/90 font-light leading-relaxed">
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
             </motion.div>
           </div>
         </section>
