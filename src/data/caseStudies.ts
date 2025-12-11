@@ -268,7 +268,304 @@ The challenge was clear: modernise the entire digital experience, sharpen the va
         "71% improvement in lead quality scores",
       ],
     },
-    relatedSlugs: ["ogn-facility-management", "professional-services-seo"],
+    relatedSlugs: ["ogn-facility-management", "classic-cars-direct"],
+    isFeatured: true,
+  },
+  {
+    slug: "classic-cars-direct",
+    title: "Classic Cars Direct | Luxury Automotive Website Redesign",
+    client: "Classic Cars Direct",
+    sector: "Classic & Prestige Automotive",
+    services: ["Brand Identity", "Web Design", "UX Design", "SEO", "Content Strategy"],
+    timeframe: "5 months",
+    year: 2024,
+    outcome: "leads",
+    heroMedia: {
+      type: "image",
+      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    },
+    headline: "Where heritage meets digital excellence",
+    subheadline: "Transforming a premium classic car dealership into a digital showroom that matches the calibre of its inventory.",
+    kpiBadges: [
+      { label: "Lead Quality", value: "+187%", highlight: true },
+      { label: "Time on Site", value: "+142%" },
+      { label: "Enquiry Value", value: "+£48k avg" },
+    ],
+    problem: `Classic Cars Direct had spent decades building an enviable reputation among collectors, enthusiasts, and investors. Their showroom floor housed automotive icons — Aston Martins, Jaguars, Ferraris, Bentleys — each with provenance, each with a story worth telling.
+
+But their website? It read like a used car classifieds page.
+
+The digital experience was a stark contrast to the white-glove service offered in person. Stock was presented as thumbnail galleries with minimal context. The craftsmanship, heritage, and investment potential of these vehicles were reduced to bullet-point specifications. There was no storytelling. No provenance. No sense of the prestige that made Classic Cars Direct the destination for serious collectors.
+
+The photography — while technically adequate — lacked the cinematic quality that these machines deserved. Trust signals were weak. The site didn't convey exclusivity; it conveyed urgency, which is precisely the wrong tone when selling a vehicle that might be someone's retirement fund.
+
+Worse still, the website was invisible in search. Competitors with lesser stock but stronger digital presence were capturing the enquiries that should have been landing at Classic Cars Direct. High-net-worth individuals searching for "classic Aston Martin for sale" or "investment-grade Ferrari" were finding everyone except the dealer best positioned to serve them.
+
+The brief was clear: create a digital showroom experience that honours the heritage of the vehicles and matches the premium expectations of discerning collectors.`,
+    approach: [
+      {
+        phase: "Discovery",
+        title: "Collector Persona & Market Research",
+        description: "Deep-dive into the psychology of classic car collectors. What drives a purchase? What builds trust? We analysed competitor positioning, collector forums, and auction house presentation to understand the visual and emotional language that resonates with high-net-worth buyers.",
+        duration: "3 weeks",
+      },
+      {
+        phase: "Brand",
+        title: "Luxury Brand Identity Refinement",
+        description: "Evolved the existing brand into something befitting the inventory. New visual language: refined typography, a sophisticated colour palette, and design elements that whisper exclusivity rather than shout availability. Every detail considered through the lens of premium perception.",
+        duration: "3 weeks",
+      },
+      {
+        phase: "Design",
+        title: "Cinematic UX & Gallery System",
+        description: "Designed a gallery experience worthy of the vehicles. Full-bleed hero imagery. Provenance storytelling templates. Vehicle detail pages that unfold like a magazine feature. A viewing request flow that feels like booking a private appointment, not submitting a form.",
+        duration: "6 weeks",
+      },
+      {
+        phase: "Content",
+        title: "Heritage Storytelling & Vehicle Narratives",
+        description: "Rewrote every vehicle listing with the depth it deserved. Production numbers. Racing history. Notable previous owners. Each car presented as an opportunity, not just a transaction. Created content templates that the team could use to maintain quality as inventory changes.",
+        duration: "4 weeks",
+      },
+      {
+        phase: "SEO",
+        title: "Collector-Intent SEO Strategy",
+        description: "Built an SEO strategy targeting high-intent collectors. Model-specific landing pages. Investment-grade content. Schema markup for vehicles. Long-tail targeting for specific marques and eras. Technical optimisation to ensure the premium experience loaded fast.",
+        duration: "Ongoing",
+      },
+    ],
+    outcomes: [
+      { label: "Qualified Lead Volume", value: "+187%", baseline: "serious enquiries", highlight: true },
+      { label: "Average Enquiry Value", value: "+£48k", baseline: "per vehicle enquiry" },
+      { label: "Time on Site", value: "+142%", baseline: "engagement increase" },
+      { label: "Organic Visibility", value: "+203%", baseline: "collector search terms" },
+      { label: "Page Views per Session", value: "4.8", baseline: "up from 1.9" },
+      { label: "Bounce Rate", value: "-58%", baseline: "site-wide reduction" },
+    ],
+    galleryMedia: [
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Classic Cars Direct homepage with Aston Martin hero" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Vehicle detail page with provenance storytelling" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile gallery experience" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Viewing request form" },
+    ],
+    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    quote: {
+      text: "Avorria understood something crucial: our clients aren't buying cars, they're acquiring pieces of automotive history. The new website finally tells that story. Enquiry quality has transformed — we're now speaking to serious collectors from the first conversation, not tyre-kickers who stumbled in from Google.",
+      name: "James Thornton",
+      role: "Director",
+      company: "Classic Cars Direct",
+    },
+    pdfContent: {
+      summary: "A premium digital transformation for Classic Cars Direct, a leading UK classic and prestige car dealership. Avorria delivered a complete brand evolution, cinematic website redesign, heritage storytelling framework, and collector-focused SEO strategy — resulting in 187% more qualified leads and a significant increase in average enquiry value.",
+      keyResults: [
+        "187% increase in qualified leads",
+        "£48k increase in average enquiry value",
+        "142% improvement in time on site",
+        "203% growth in organic visibility",
+        "58% reduction in bounce rate",
+        "Gallery experience matching showroom quality",
+      ],
+    },
+    relatedSlugs: ["entirefm-rebrand", "aes-autoelectrical", "dp-automotive"],
+    isFeatured: true,
+  },
+  {
+    slug: "aes-autoelectrical",
+    title: "AES Autoelectrical | Vehicle Diagnostics Website & Local SEO",
+    client: "AES Autoelectrical",
+    sector: "Automotive Electrics & Diagnostics",
+    services: ["Web Design", "Local SEO", "UX Optimisation", "Content Strategy"],
+    timeframe: "4 months",
+    year: 2024,
+    outcome: "leads",
+    heroMedia: {
+      type: "image",
+      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    },
+    headline: "Precision diagnostics. Crystal-clear digital presence.",
+    subheadline: "Transforming a cluttered website into a streamlined booking machine — because customers shouldn't need a diagnostic tool to navigate your services.",
+    kpiBadges: [
+      { label: "Bookings", value: "+163%", highlight: true },
+      { label: "Map Pack Rankings", value: "Top 3" },
+      { label: "Mobile Conversions", value: "+94%" },
+    ],
+    problem: `AES Autoelectrical had built a reputation for solving the problems other garages couldn't. Key programming. Remote fob coding. Battery registration. Advanced diagnostics. Chapter 8 lighting. Auxiliary systems. If it had wires and a vehicle around it, AES could fix it.
+
+But their website was sending mixed signals.
+
+The homepage was a wall of text that read like a technical manual — impressive to other auto electricians, confusing to customers. Service listings were crammed together without clear hierarchy. Was key cutting the same as fob programming? Did they do commercial vehicles? Could they handle modern EVs? Visitors couldn't tell without reading every paragraph.
+
+The booking flow was an afterthought. A contact form buried at the bottom of pages, with no indication of what information to provide. Customers often called instead — not because they preferred to call, but because the website made booking feel harder than it needed to be.
+
+Local SEO was an untapped goldmine. AES served a specific geographic area but wasn't appearing in map results for any of the high-intent searches that mattered: "car key programmer near me," "vehicle diagnostics [location]," "auto electrician [area]." Competitors with inferior skills were winning the visibility game.
+
+The brief: declutter, clarify, and convert. Make it obvious what AES does, make it easy to book, and make sure they show up when locals search.`,
+    approach: [
+      {
+        phase: "Discovery",
+        title: "Service Audit & Customer Journey Mapping",
+        description: "Catalogued every service AES offers and mapped them against customer understanding. Created clear service categories: keys & remotes, diagnostics, electrical repairs, lighting solutions. Each with plain-English explanations of what problems they solve.",
+        duration: "2 weeks",
+      },
+      {
+        phase: "Architecture",
+        title: "Information Architecture Redesign",
+        description: "Rebuilt the site structure around how customers search, not how technicians think. Clear service categories with dedicated landing pages. Intuitive navigation that gets visitors to the right service in two clicks maximum.",
+        duration: "2 weeks",
+      },
+      {
+        phase: "Design",
+        title: "Mobile-First UX & Booking Optimisation",
+        description: "Designed mobile-first with thumb-friendly navigation and prominent booking CTAs. Simplified the enquiry form to capture essential details without friction. Added service-specific booking options so AES knows what equipment to prepare.",
+        duration: "5 weeks",
+      },
+      {
+        phase: "Local SEO",
+        title: "Local Search Domination Strategy",
+        description: "Comprehensive local SEO push: optimised Google Business Profile, built location-specific service pages, implemented schema markup for auto services, developed a review generation workflow to build social proof.",
+        duration: "Ongoing",
+      },
+      {
+        phase: "Content",
+        title: "Service Page Content & FAQs",
+        description: "Created conversion-focused service pages with clear pricing guidance, FAQs addressing common concerns, and trust signals that demonstrate expertise without overwhelming visitors.",
+        duration: "3 weeks",
+      },
+    ],
+    outcomes: [
+      { label: "Online Bookings", value: "+163%", baseline: "direct website bookings", highlight: true },
+      { label: "Google Map Pack", value: "Top 3", baseline: "primary service keywords" },
+      { label: "Mobile Conversions", value: "+94%", baseline: "mobile booking rate" },
+      { label: "Organic Traffic", value: "+127%", baseline: "local search traffic" },
+      { label: "Call Volume", value: "+68%", baseline: "trackable calls from web" },
+      { label: "Page Load Speed", value: "1.3s", baseline: "down from 4.7s" },
+    ],
+    galleryMedia: [
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "AES homepage with clear service categories" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Key programming service page" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile booking experience" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Vehicle diagnostics landing page" },
+    ],
+    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    quote: {
+      text: "The phone used to ring with people asking what we actually do. Now it rings with people ready to book. Avorria sorted out our services so customers understand them, made booking dead simple, and got us showing up on Google Maps. Bookings are through the roof.",
+      name: "Steve Andrews",
+      role: "Owner",
+      company: "AES Autoelectrical",
+    },
+    pdfContent: {
+      summary: "A comprehensive website refresh and local SEO campaign for AES Autoelectrical, a specialist vehicle diagnostics and auto electrical service provider. Avorria delivered service clarity, mobile-first booking optimisation, and local search dominance — resulting in 163% more online bookings and top 3 map pack rankings.",
+      keyResults: [
+        "163% increase in online bookings",
+        "Top 3 Google Map Pack rankings",
+        "94% improvement in mobile conversions",
+        "127% growth in local organic traffic",
+        "Clear service segmentation driving better enquiry quality",
+        "Simplified booking flow reducing friction",
+      ],
+    },
+    relatedSlugs: ["dp-automotive", "ogn-facility-management", "classic-cars-direct"],
+    isFeatured: true,
+  },
+  {
+    slug: "dp-automotive",
+    title: "DP Automotive | Garage Website Redesign & Trust Building",
+    client: "DP Automotive",
+    sector: "Vehicle Repairs & Diagnostics",
+    services: ["Brand Refresh", "Web Design", "CRO", "SEO"],
+    timeframe: "3 months",
+    year: 2024,
+    outcome: "leads",
+    heroMedia: {
+      type: "image",
+      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    },
+    headline: "Professional service deserves professional presentation",
+    subheadline: "Modernising a trusted local garage's digital identity — because quality workmanship shouldn't be hidden behind an outdated website.",
+    kpiBadges: [
+      { label: "Enquiries", value: "+148%", highlight: true },
+      { label: "Mobile Traffic", value: "+186%" },
+      { label: "Trust Score", value: "A+" },
+    ],
+    problem: `DP Automotive had spent years building something increasingly rare: a garage customers actually trust. No surprise invoices. No unnecessary upsells. Honest diagnostics and quality repairs. Word of mouth kept them busy, but they knew they were leaving growth on the table.
+
+The website was the weak link.
+
+It wasn't responsive — mobile users saw a desktop site squeezed into their phone screens. Navigation was clunky. The service list was a paragraph of text with no clear organisation. There were no trust signals: no reviews, no certifications, no team photos. Nothing to reassure a first-time visitor that DP Automotive was different from every other garage claiming to be "honest."
+
+The visual design felt dated. Stock imagery of generic garages. Bland colours that said "we do MOTs" rather than "we're the garage your friends recommended." It didn't reflect the professionalism and care that DP Automotive brought to every job.
+
+Conversion was an afterthought. The contact page was a dead end — no phone number prominently displayed, no clear next steps, no sense of what would happen after someone submitted the form. Potential customers were bouncing to competitors with more confidence-inspiring websites.
+
+The brief: modernise the brand, rebuild trust signals, and create a digital experience that converts visitors into loyal customers.`,
+    approach: [
+      {
+        phase: "Discovery",
+        title: "Brand & Trust Audit",
+        description: "Analysed competitor positioning and identified trust gaps. Catalogued DP Automotive's genuine differentiators: transparent pricing, diagnostic explanations, customer communication. Built a strategy to make these visible online.",
+        duration: "2 weeks",
+      },
+      {
+        phase: "Brand",
+        title: "Visual Identity Refresh",
+        description: "Evolved the brand with a cleaner, more professional aesthetic. New colour palette that feels modern without feeling corporate. Photography direction for authentic team and workshop imagery that builds familiarity.",
+        duration: "2 weeks",
+      },
+      {
+        phase: "Design",
+        title: "Mobile-First Website Rebuild",
+        description: "Designed a fully responsive website prioritising mobile users — because people searching for garages are often on their phones. Strong CTAs, click-to-call functionality, and a streamlined booking enquiry flow.",
+        duration: "5 weeks",
+      },
+      {
+        phase: "Trust",
+        title: "Trust Signal Implementation",
+        description: "Integrated Google Reviews prominently. Added certifications and accreditations. Created an 'Our Approach' section explaining the DP Automotive difference. Team photos to put faces to the business.",
+        duration: "2 weeks",
+      },
+      {
+        phase: "SEO",
+        title: "Local SEO & Service Pages",
+        description: "Optimised for local garage searches with service-specific pages targeting key terms. Schema markup for local business and automotive services. Google Business Profile optimisation to support map pack visibility.",
+        duration: "Ongoing",
+      },
+    ],
+    outcomes: [
+      { label: "Website Enquiries", value: "+148%", baseline: "booking requests", highlight: true },
+      { label: "Mobile Traffic", value: "+186%", baseline: "mobile visitors" },
+      { label: "Bounce Rate", value: "-52%", baseline: "site-wide reduction" },
+      { label: "Page Speed", value: "1.4s", baseline: "down from 5.1s" },
+      { label: "Google Reviews CTR", value: "+73%", baseline: "review engagement" },
+      { label: "Direct Calls", value: "+91%", baseline: "click-to-call conversions" },
+    ],
+    galleryMedia: [
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "DP Automotive refreshed homepage" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile responsive service pages" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Trust signals and reviews integration" },
+      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Booking enquiry form" },
+    ],
+    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    quote: {
+      text: "Our old website was embarrassing. Customers would mention they almost went elsewhere because it looked so dated. Now people comment on how professional it is. The phone rings more, the enquiries are better, and we finally look like the garage we actually are.",
+      name: "Daniel Peters",
+      role: "Owner",
+      company: "DP Automotive",
+    },
+    pdfContent: {
+      summary: "A complete brand refresh and website redesign for DP Automotive, a trusted local garage specialising in vehicle repairs and diagnostics. Avorria delivered mobile-first design, trust signal integration, and conversion optimisation — resulting in 148% more enquiries and a digital presence that matches the quality of service.",
+      keyResults: [
+        "148% increase in website enquiries",
+        "186% growth in mobile traffic",
+        "52% reduction in bounce rate",
+        "91% increase in click-to-call conversions",
+        "Trust signals driving better customer confidence",
+        "Mobile-first experience for on-the-go searchers",
+      ],
+    },
+    relatedSlugs: ["aes-autoelectrical", "ogn-facility-management", "entirefm-rebrand"],
     isFeatured: true,
   },
   {
