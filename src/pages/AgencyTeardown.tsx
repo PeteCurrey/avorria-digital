@@ -9,9 +9,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import { Upload, FileText, BarChart3, TrendingDown, MessagesSquare } from "lucide-react";
+import { useCreateLead } from "@/hooks/useLeads";
 
 const AgencyTeardown = () => {
   const navigate = useNavigate();
+  const createLead = useCreateLead();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -45,7 +47,6 @@ const AgencyTeardown = () => {
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       setFile(e.dataTransfer.files[0]);
       
-      // Event: teardown_upload_started
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'teardown_upload_started');
       }
@@ -56,7 +57,6 @@ const AgencyTeardown = () => {
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
       
-      // Event: teardown_upload_started
       if (typeof window !== 'undefined' && (window as any).gtag) {
         (window as any).gtag('event', 'teardown_upload_started');
       }
@@ -71,38 +71,38 @@ const AgencyTeardown = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Event: teardown_upload_submitted
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', 'teardown_upload_submitted', {
-        monthly_fee_band: formData.monthlyFee,
-        relationship_length: formData.relationshipLength,
-        open_to_switch: formData.openToSwitch,
+    try {
+      // Save lead to database
+      await createLead.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        source: 'teardown',
+        notes: formData.painDescription,
+        metadata: {
+          website: formData.website,
+          monthlyFee: formData.monthlyFee,
+          relationshipLength: formData.relationshipLength,
+          openToSwitch: formData.openToSwitch,
+          fileName: file?.name,
+          fileSize: file?.size,
+        },
       });
+
+      if (typeof window !== 'undefined' && (window as any).gtag) {
+        (window as any).gtag('event', 'teardown_upload_submitted', {
+          monthly_fee_band: formData.monthlyFee,
+          relationship_length: formData.relationshipLength,
+          open_to_switch: formData.openToSwitch,
+        });
+      }
+
+      navigate("/agency-report-teardown/thanks");
+    } catch (error) {
+      console.error('Error submitting teardown form:', error);
+    } finally {
+      setIsSubmitting(false);
     }
-
-    // TODO: Wire file upload to storage (e.g. S3/Supabase) and send metadata + link to CRM/ESP.
-    // Payload structure for backend integration:
-    // {
-    //   name: formData.name,
-    //   email: formData.email,
-    //   company: formData.company,
-    //   website: formData.website,
-    //   currentAgencyFeeBand: formData.monthlyFee,
-    //   relationshipLengthBand: formData.relationshipLength,
-    //   painDescription: formData.painDescription,
-    //   allowContactForSwitch: formData.openToSwitch,
-    //   fileUrl: "[uploaded file URL]",
-    //   fileName: file?.name,
-    //   fileSize: file?.size,
-    //   source: "agency_teardown",
-    //   status: "new",
-    //   createdAt: new Date().toISOString()
-    // }
-
-    // Simulate upload delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-
-    navigate("/agency-report-teardown/thanks");
   };
 
   return (

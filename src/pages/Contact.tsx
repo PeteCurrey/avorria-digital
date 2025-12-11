@@ -16,12 +16,15 @@ import {
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
+import { useCreateLead } from "@/hooks/useLeads";
 import heroContactOffice from "@/assets/hero-contact-office.jpg";
 
 const Contact = () => {
   const { toast } = useToast();
+  const createLead = useCreateLead();
   const [step, setStep] = useState(1);
   const [formStarted, setFormStarted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -42,32 +45,60 @@ const Contact = () => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSubmitting(true);
     
-    trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, {
-      reason: formData.mainGoal || 'general',
-      monthly_spend: formData.monthlySpend,
-      channels: formData.channels,
-    });
-    
-    toast({
-      title: "Thank you for reaching out!",
-      description: "We'll review your information and get back to you within 24 hours.",
-    });
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      company: "",
-      website: "",
-      monthlySpend: "",
-      channels: "",
-      mainGoal: "",
-      timeline: "",
-      message: "",
-    });
-    setStep(1);
+    try {
+      // Save lead to database
+      await createLead.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        company: formData.company,
+        source: 'contact',
+        notes: formData.message,
+        metadata: {
+          website: formData.website,
+          monthlySpend: formData.monthlySpend,
+          channels: formData.channels,
+          mainGoal: formData.mainGoal,
+          timeline: formData.timeline,
+        },
+      });
+      
+      trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, {
+        reason: formData.mainGoal || 'general',
+        monthly_spend: formData.monthlySpend,
+        channels: formData.channels,
+      });
+      
+      toast({
+        title: "Thank you for reaching out!",
+        description: "We'll review your information and get back to you within 24 hours.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        website: "",
+        monthlySpend: "",
+        channels: "",
+        mainGoal: "",
+        timeline: "",
+        message: "",
+      });
+      setStep(1);
+    } catch (error) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or email us directly.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -264,8 +295,8 @@ const Contact = () => {
                           >
                             Back
                           </Button>
-                          <Button type="submit" variant="accent" className="flex-1">
-                            Submit Request
+                          <Button type="submit" variant="accent" className="flex-1" disabled={isSubmitting}>
+                            {isSubmitting ? "Submitting..." : "Submit Request"}
                           </Button>
                         </div>
                       </div>
