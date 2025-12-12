@@ -34,12 +34,16 @@ const AnimatedLogo = ({ isTransparent = false }: AnimatedLogoProps) => {
         <motion.span
           initial={{ marginLeft: "-4.2ch" }}
           animate={{ marginLeft: "0ch" }}
+          whileHover={{ 
+            scale: [1, 1.3, 1],
+            transition: { duration: 0.4, ease: "easeInOut" }
+          }}
           transition={{ 
             delay: 0.3,
             duration: 0.7,
             ease: [0.25, 0.1, 0.25, 1]
           }}
-          className="text-pink-500 font-bold inline-block align-baseline"
+          className="text-pink-500 font-bold inline-block align-baseline cursor-pointer"
         >
           .
         </motion.span>
