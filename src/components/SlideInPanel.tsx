@@ -2,25 +2,20 @@ import { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-
 interface SlideInPanelProps {
   triggerAfterScroll?: number; // Percentage of page scrolled (0-100)
   triggerAfterSeconds?: number; // Seconds elapsed
 }
-
 export function SlideInPanel({
   triggerAfterScroll = 50,
-  triggerAfterSeconds = 30,
+  triggerAfterSeconds = 30
 }: SlideInPanelProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
-
   useEffect(() => {
     if (isDismissed) return;
-
     let scrollTriggered = false;
     let timeTriggered = false;
-
     const checkTriggers = () => {
       if (scrollTriggered || timeTriggered) {
         setIsVisible(true);
@@ -29,9 +24,7 @@ export function SlideInPanel({
 
     // Scroll trigger
     const handleScroll = () => {
-      const scrollPercent =
-        (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-
+      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
       if (scrollPercent >= triggerAfterScroll) {
         scrollTriggered = true;
         checkTriggers();
@@ -43,36 +36,25 @@ export function SlideInPanel({
       timeTriggered = true;
       checkTriggers();
     }, triggerAfterSeconds * 1000);
-
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
     };
   }, [triggerAfterScroll, triggerAfterSeconds, isDismissed]);
-
   const handleClose = () => {
     console.log("Event: lead_slidein_closed");
     setIsVisible(false);
     setIsDismissed(true);
   };
-
   const handleClick = () => {
     console.log("Event: lead_slidein_opened");
     window.location.href = "/free-seo-website-audit?source=slidein";
   };
-
   if (!isVisible || isDismissed) return null;
-
-  return (
-    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 animate-slide-in-right max-w-[calc(100vw-2rem)] sm:max-w-none">
-      <Card className="w-full sm:w-80 p-4 sm:p-6 shadow-lg bg-card border-border">
-        <button
-          onClick={handleClose}
-          className="absolute top-2 right-2 sm:top-3 sm:right-3 text-muted-foreground hover:text-foreground transition-colors p-1"
-          aria-label="Close"
-        >
+  return <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 animate-slide-in-right max-w-[calc(100vw-2rem)] sm:max-w-none">
+      <Card className="w-full sm:w-80 p-4 sm:p-6 shadow-lg bg-card border-border rounded-sm opacity-75">
+        <button onClick={handleClose} className="absolute top-2 right-2 sm:top-3 sm:right-3 text-muted-foreground hover:text-foreground transition-colors p-1" aria-label="Close">
           <X className="w-5 h-5 sm:w-4 sm:h-4" />
         </button>
 
@@ -88,6 +70,5 @@ export function SlideInPanel({
           </Button>
         </div>
       </Card>
-    </div>
-  );
+    </div>;
 }

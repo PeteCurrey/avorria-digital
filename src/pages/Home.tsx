@@ -197,7 +197,7 @@ const Home = () => {
                 {/* Dual CTAs */}
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2 sm:pt-4">
                   <Button variant="accent" size="lg" className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 w-full sm:w-auto" asChild>
-                    <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')}>
+                    <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')} className="opacity-90">
                       Book a strategy call
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
@@ -350,7 +350,7 @@ const Home = () => {
           
           <div className="text-center mt-12 sm:mt-16">
             <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10" asChild>
-              <Link to="/services">
+              <Link to="/services" className="bg-accent">
                 View All Services
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
@@ -408,7 +408,7 @@ const Home = () => {
           
           <div className="text-center mt-12 sm:mt-16">
             <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10" asChild>
-              <Link to="/case-studies">
+              <Link to="/case-studies" className="bg-accent">
                 View case studies
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Link>
@@ -532,7 +532,7 @@ const Home = () => {
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10" asChild>
-                  <Link to="/free-seo-website-audit">Request a free SEO & website audit</Link>
+                  <Link to="/free-seo-website-audit" className="bg-muted-foreground">Request a free SEO & website audit</Link>
                 </Button>
               </div>
             </ScrollReveal>
