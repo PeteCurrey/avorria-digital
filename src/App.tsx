@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -11,67 +12,82 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import BackToTop from "./components/BackToTop";
 import CookieConsent from "./components/CookieConsent";
+import { Loader2 } from "lucide-react";
+
+// Critical path - load immediately
 import Home from "./pages/Home";
 import Services from "./pages/Services";
-import SEOServices from "./pages/SEOServices";
-import PaidMedia from "./pages/PaidMedia";
-import WebDesign from "./pages/WebDesign";
-import WebDesignStudio from "./pages/WebDesignStudio";
-import CaseStudies from "./pages/CaseStudies";
-import CaseStudyDetail from "./pages/CaseStudyDetail";
-import ContentEmail from "./pages/ContentEmail";
-import SocialPersonalBrand from "./pages/SocialPersonalBrand";
-import Analytics from "./pages/Analytics";
-import Privacy from "./pages/Privacy";
-import Terms from "./pages/Terms";
-import About from "./pages/About";
 import Contact from "./pages/Contact";
-import Pricing from "./pages/Pricing";
-import DynamicLanding from "./pages/DynamicLanding";
-import Resources from "./pages/Resources";
-import ResourceDetail from "./pages/ResourceDetail";
-import Comparison from "./pages/Comparison";
-import WhyAvorria from "./pages/WhyAvorria";
-import NotFound from "./pages/NotFound";
-import AuditFunnel from "./pages/AuditFunnel";
-import ProjectEstimator from "./pages/ProjectEstimator";
-import Reporting from "./pages/Reporting";
-import DashboardDemo from "./pages/DashboardDemo";
-import ClientPortal from "./pages/ClientPortal";
-import PlatformDashboard from "./pages/platform/PlatformDashboard";
-import PlatformClients from "./pages/platform/PlatformClients";
-import PlatformClientDetail from "./pages/platform/PlatformClientDetail";
-import PlatformCampaigns from "./pages/platform/PlatformCampaigns";
-import PlatformCampaignDetail from "./pages/platform/PlatformCampaignDetail";
-import PlatformSEOWeb from "./pages/platform/PlatformSEOWeb";
-import PlatformContent from "./pages/platform/PlatformContent";
-import PlatformReporting from "./pages/platform/PlatformReporting";
-import PlatformPlaybooks from "./pages/platform/PlatformPlaybooks";
-import PlatformSettings from "./pages/platform/PlatformSettings";
-import PlatformCaseStudies from "./pages/platform/PlatformCaseStudies";
-import Tools from "./pages/Tools";
-import ClientOverview from "./pages/client/ClientOverview";
-import ClientAudits from "./pages/client/ClientAudits";
-import ClientWebsiteHealth from "./pages/client/ClientWebsiteHealth";
-import ClientReporting from "./pages/client/ClientReporting";
-import ClientResources from "./pages/client/ClientResources";
-import AgencyTeardown from "./pages/AgencyTeardown";
-import AgencyTeardownThanks from "./pages/AgencyTeardownThanks";
-import WebsitesWeFire from "./pages/WebsitesWeFire";
-import MarketingAssets from "./pages/MarketingAssets";
-import LocalSEO from "./pages/seo/LocalSEO";
-import TechnicalSEO from "./pages/seo/TechnicalSEO";
-import ContentSEO from "./pages/seo/ContentSEO";
-import AnalyticsTracking from "./pages/seo/AnalyticsTracking";
-import WebsiteMigrations from "./pages/seo/WebsiteMigrations";
-import SEOGlossary from "./pages/SEOGlossary";
-import FAQs from "./pages/FAQs";
-import WebsiteHealthCheck from "./pages/WebsiteHealthCheck";
-import Login from "./pages/auth/Login";
-import Signup from "./pages/auth/Signup";
-import Unauthorized from "./pages/Unauthorized";
-import Onboarding from "./pages/Onboarding";
-import Admin from "./pages/Admin";
+import CaseStudies from "./pages/CaseStudies";
+
+// Lazy load less critical pages for better initial bundle size
+const SEOServices = lazy(() => import("./pages/SEOServices"));
+const PaidMedia = lazy(() => import("./pages/PaidMedia"));
+const WebDesign = lazy(() => import("./pages/WebDesign"));
+const WebDesignStudio = lazy(() => import("./pages/WebDesignStudio"));
+const CaseStudyDetail = lazy(() => import("./pages/CaseStudyDetail"));
+const ContentEmail = lazy(() => import("./pages/ContentEmail"));
+const SocialPersonalBrand = lazy(() => import("./pages/SocialPersonalBrand"));
+const Analytics = lazy(() => import("./pages/Analytics"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
+const About = lazy(() => import("./pages/About"));
+const Pricing = lazy(() => import("./pages/Pricing"));
+const DynamicLanding = lazy(() => import("./pages/DynamicLanding"));
+const Resources = lazy(() => import("./pages/Resources"));
+const ResourceDetail = lazy(() => import("./pages/ResourceDetail"));
+const Comparison = lazy(() => import("./pages/Comparison"));
+const WhyAvorria = lazy(() => import("./pages/WhyAvorria"));
+const NotFound = lazy(() => import("./pages/NotFound"));
+const AuditFunnel = lazy(() => import("./pages/AuditFunnel"));
+const ProjectEstimator = lazy(() => import("./pages/ProjectEstimator"));
+const Reporting = lazy(() => import("./pages/Reporting"));
+const DashboardDemo = lazy(() => import("./pages/DashboardDemo"));
+const Tools = lazy(() => import("./pages/Tools"));
+const AgencyTeardown = lazy(() => import("./pages/AgencyTeardown"));
+const AgencyTeardownThanks = lazy(() => import("./pages/AgencyTeardownThanks"));
+const WebsitesWeFire = lazy(() => import("./pages/WebsitesWeFire"));
+const MarketingAssets = lazy(() => import("./pages/MarketingAssets"));
+const LocalSEO = lazy(() => import("./pages/seo/LocalSEO"));
+const TechnicalSEO = lazy(() => import("./pages/seo/TechnicalSEO"));
+const ContentSEO = lazy(() => import("./pages/seo/ContentSEO"));
+const AnalyticsTracking = lazy(() => import("./pages/seo/AnalyticsTracking"));
+const WebsiteMigrations = lazy(() => import("./pages/seo/WebsiteMigrations"));
+const SEOGlossary = lazy(() => import("./pages/SEOGlossary"));
+const FAQs = lazy(() => import("./pages/FAQs"));
+const WebsiteHealthCheck = lazy(() => import("./pages/WebsiteHealthCheck"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const Signup = lazy(() => import("./pages/auth/Signup"));
+const Unauthorized = lazy(() => import("./pages/Unauthorized"));
+const Onboarding = lazy(() => import("./pages/Onboarding"));
+const Admin = lazy(() => import("./pages/Admin"));
+
+// Platform pages - lazy load all
+const PlatformDashboard = lazy(() => import("./pages/platform/PlatformDashboard"));
+const PlatformClients = lazy(() => import("./pages/platform/PlatformClients"));
+const PlatformClientDetail = lazy(() => import("./pages/platform/PlatformClientDetail"));
+const PlatformCampaigns = lazy(() => import("./pages/platform/PlatformCampaigns"));
+const PlatformCampaignDetail = lazy(() => import("./pages/platform/PlatformCampaignDetail"));
+const PlatformSEOWeb = lazy(() => import("./pages/platform/PlatformSEOWeb"));
+const PlatformContent = lazy(() => import("./pages/platform/PlatformContent"));
+const PlatformReporting = lazy(() => import("./pages/platform/PlatformReporting"));
+const PlatformPlaybooks = lazy(() => import("./pages/platform/PlatformPlaybooks"));
+const PlatformSettings = lazy(() => import("./pages/platform/PlatformSettings"));
+const PlatformCaseStudies = lazy(() => import("./pages/platform/PlatformCaseStudies"));
+
+// Client pages - lazy load all
+const ClientOverview = lazy(() => import("./pages/client/ClientOverview"));
+const ClientAudits = lazy(() => import("./pages/client/ClientAudits"));
+const ClientWebsiteHealth = lazy(() => import("./pages/client/ClientWebsiteHealth"));
+const ClientReporting = lazy(() => import("./pages/client/ClientReporting"));
+const ClientResources = lazy(() => import("./pages/client/ClientResources"));
+
+// Loading fallback component
+const PageLoader = () => (
+  <div className="min-h-screen flex items-center justify-center bg-background">
+    <Loader2 className="h-8 w-8 animate-spin text-accent" />
+  </div>
+);
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -102,20 +118,21 @@ const App = () => (
             <BackToTop />
             <CookieConsent />
             <Layout>
-              <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/services" element={<Services />} />
-              <Route path="/services/seo" element={<SEOServices />} />
-              <Route path="/services/paid-media" element={<PaidMedia />} />
-              <Route path="/services/web-design" element={<WebDesign />} />
-              <Route path="/web-design" element={<WebDesign />} />
-              <Route path="/web-design/studio" element={<WebDesignStudio />} />
-              <Route path="/case-studies" element={<CaseStudies />} />
-              <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
-              <Route path="/services/content-email" element={<ContentEmail />} />
-              <Route path="/services/social-personal-brand" element={<SocialPersonalBrand />} />
-              <Route path="/services/analytics" element={<Analytics />} />
-              <Route path="/privacy" element={<Privacy />} />
+              <Suspense fallback={<PageLoader />}>
+                <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/services" element={<Services />} />
+                <Route path="/services/seo" element={<SEOServices />} />
+                <Route path="/services/paid-media" element={<PaidMedia />} />
+                <Route path="/services/web-design" element={<WebDesign />} />
+                <Route path="/web-design" element={<WebDesign />} />
+                <Route path="/web-design/studio" element={<WebDesignStudio />} />
+                <Route path="/case-studies" element={<CaseStudies />} />
+                <Route path="/case-studies/:slug" element={<CaseStudyDetail />} />
+                <Route path="/services/content-email" element={<ContentEmail />} />
+                <Route path="/services/social-personal-brand" element={<SocialPersonalBrand />} />
+                <Route path="/services/analytics" element={<Analytics />} />
+                <Route path="/privacy" element={<Privacy />} />
               <Route path="/terms" element={<Terms />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
@@ -268,9 +285,10 @@ const App = () => (
               <Route path="/:serviceSlug/:locationSlug" element={<DynamicLanding />} />
               <Route path="/:serviceSlug/for/:industrySlug" element={<DynamicLanding />} />
               
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-              </Routes>
+                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+                <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
             </Layout>
           </BrowserRouter>
         </AuthProvider>
