@@ -136,9 +136,9 @@ const Navigation = ({
     <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !transparent ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/40" : "bg-transparent"}`}>
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between gap-6 h-20">
-          <Link to="/" className="flex items-center space-x-2 flex-shrink-0">
-            <span className={`text-2xl font-extralight tracking-wide transition-colors ${shouldBeTransparent ? "text-white" : "text-foreground"}`}>
-              Avorria
+          <Link to="/" className="flex items-center flex-shrink-0">
+            <span className={`text-[1.75rem] font-extralight tracking-wider transition-colors ${shouldBeTransparent ? "text-white" : "text-foreground"}`}>
+              Avorria<span className="text-pink-500 font-bold">.</span>
             </span>
           </Link>
 
