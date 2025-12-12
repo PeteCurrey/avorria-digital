@@ -23,8 +23,10 @@ import {
   Clock,
   ExternalLink,
   Settings,
-  Shield
+  Shield,
+  Gauge
 } from "lucide-react";
+import PerformanceTab from "@/components/admin/PerformanceTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -217,6 +219,10 @@ const Admin = () => {
               <TabsTrigger value="analytics" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <BarChart3 className="h-4 w-4 mr-2" />
                 Analytics
+              </TabsTrigger>
+              <TabsTrigger value="performance" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Gauge className="h-4 w-4 mr-2" />
+                Performance
               </TabsTrigger>
               <TabsTrigger value="seo" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Globe className="h-4 w-4 mr-2" />
@@ -708,6 +714,11 @@ const Admin = () => {
                   </div>
                 </CardContent>
               </Card>
+            </TabsContent>
+
+            {/* Performance Tab */}
+            <TabsContent value="performance">
+              <PerformanceTab />
             </TabsContent>
           </Tabs>
         </div>
