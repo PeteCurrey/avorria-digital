@@ -12,6 +12,9 @@ import { ArrowRight, CheckCircle2, TrendingUp, X } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { HeroBand, ContentBand, SectionBand } from "@/components/ContentBand";
+import ServiceSchema from "@/components/seo/ServiceSchema";
+import FAQSchema from "@/components/seo/FAQSchema";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroSeoImage from "@/assets/service-seo.jpg";
 
 const SEOServices = () => {
@@ -126,34 +129,34 @@ const SEOServices = () => {
 
   return (
     <>
+      <ServiceSchema
+        name="SEO Services"
+        description="Technical SEO, content strategy and organic search optimisation for B2B and service businesses. We focus on commercial keywords that drive qualified leads and revenue."
+        url="/services/seo"
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 47 }}
+      />
+      <FAQSchema faqs={faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Services", url: "/services" },
+        { name: "SEO", url: "/services/seo" }
+      ]} />
       <Helmet>
-        <title>SEO for Real Businesses, Not Bloggers | Avorria</title>
-        <meta name="description" content="Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust." />
+        <title>SEO Agency Sheffield & London | Technical SEO & Content Strategy | Avorria</title>
+        <meta name="description" content="Expert SEO services for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads." />
+        <meta name="keywords" content="SEO agency, SEO services, technical SEO, content strategy, local SEO, B2B SEO, Sheffield SEO agency, London SEO agency, organic search, keyword research" />
         
-        <meta property="og:title" content="SEO for Real Businesses, Not Bloggers | Avorria" />
-        <meta property="og:description" content="Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust." />
+        <meta property="og:title" content="SEO Agency Sheffield & London | Avorria" />
+        <meta property="og:description" content="Technical SEO, content strategy and on-page optimisation focused on commercial keywords that drive qualified leads and revenue." />
         <meta property="og:url" content="https://avorria.com/services/seo" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://avorria.com/og-seo-services.jpg" />
         
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="SEO for Real Businesses, Not Bloggers | Avorria" />
-        <meta name="twitter:description" content="Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust." />
+        <meta name="twitter:title" content="SEO Agency Sheffield & London | Avorria" />
+        <meta name="twitter:description" content="Technical SEO, content strategy and on-page optimisation focused on commercial keywords." />
         
         <link rel="canonical" href="https://avorria.com/services/seo" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "SEO Services",
-            "provider": {
-              "@type": "Organization",
-              "name": "Avorria"
-            },
-            "areaServed": ["UK", "EU"],
-            "description": "Technical SEO, architecture and content strategy focused on commercial keywords, qualified demand and pipeline – with reporting you can actually trust."
-          })}
-        </script>
       </Helmet>
 
     <div className="min-h-screen">
