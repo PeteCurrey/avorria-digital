@@ -267,15 +267,14 @@ export const CaseHeroImage = ({ src, alt = "Project screenshot" }: CaseHeroImage
   
   // Parallax: image moves slower than scroll
   const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+  
+  // Opacity: fade in as section comes into view
+  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [0, 0.5, 1]);
 
   return (
     <section ref={ref} className="relative h-screen w-full snap-start snap-always overflow-hidden">
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        style={{ y }}
+        style={{ y, opacity }}
         className="absolute inset-0 h-[130%] -top-[15%]"
       >
         <img
