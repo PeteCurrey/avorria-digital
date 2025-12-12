@@ -123,6 +123,7 @@ export const useCreateCaseStudy = () => {
         gallery_media: caseStudy.gallery_media,
         before_media: caseStudy.before_media,
         after_media: caseStudy.after_media,
+        before_after_pairs: caseStudy.before_after_pairs,
         quote: caseStudy.quote,
         pdf_content: caseStudy.pdf_content,
         related_slugs: caseStudy.related_slugs,
@@ -133,11 +134,13 @@ export const useCreateCaseStudy = () => {
       const { data, error } = await supabase
         .from('case_studies')
         .insert(insertData)
-        .select()
-        .single();
+        .select();
       
       if (error) throw error;
-      return data;
+      if (!data || data.length === 0) {
+        throw new Error('Permission denied. Please ensure you are logged in with admin or strategist role.');
+      }
+      return data[0];
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
@@ -163,11 +166,13 @@ export const useUpdateCaseStudy = () => {
         .from('case_studies')
         .update(updateData)
         .eq('id', id)
-        .select()
-        .single();
+        .select();
       
       if (error) throw error;
-      return data;
+      if (!data || data.length === 0) {
+        throw new Error('Permission denied. Please ensure you are logged in with admin or strategist role.');
+      }
+      return data[0];
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
