@@ -16,8 +16,6 @@ import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
 import HeroGradient from "@/components/HeroGradient";
-import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
-import FAQSchema from "@/components/seo/FAQSchema";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
@@ -25,6 +23,37 @@ import serviceWebDesign from "@/assets/service-web-design.jpg";
 import serviceContentEmail from "@/assets/service-content-email.jpg";
 import serviceSocialBrand from "@/assets/service-social-brand.jpg";
 const Home = () => {
+  const localBusinessSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "@id": "https://avorria.com/#organization",
+    name: "Avorria",
+    description: "Performance-first digital marketing agency specialising in SEO, paid media, web design, and analytics for B2B and service businesses.",
+    url: "https://avorria.com",
+    telephone: "+44 20 1234 5678",
+    email: "hello@avorria.com",
+    image: "https://avorria.com/og-image.jpg",
+    priceRange: "££££",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "123 Digital Street",
+      addressLocality: "London",
+      addressRegion: "Greater London",
+      postalCode: "EC1A 1BB",
+      addressCountry: "GB",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: 51.5074,
+      longitude: -0.1278,
+    },
+    areaServed: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "City", name: "London" },
+      { "@type": "City", name: "Sheffield" },
+    ],
+  };
+
   const services = [{
     title: "SEO",
     description: "Technical SEO, content strategy and on-site optimisation that focuses on commercial keywords, not ego rankings.",
@@ -134,9 +163,20 @@ const Home = () => {
     question: "How do we get started?",
     answer: "Either request a free SEO & website audit, or book a strategy call. We'll review your current setup, give you a straight assessment and outline what we'd actually do."
   }];
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
+
   return <>
-      <LocalBusinessSchema />
-      <FAQSchema faqs={faqs} />
       <Helmet>
         <title>Avorria – Digital Marketing, SEO & Web Design Agency | Sheffield & London</title>
         <meta name="description" content="Avorria is a performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses generate qualified leads and grow revenue." />
@@ -160,6 +200,8 @@ const Home = () => {
         
         <link rel="canonical" href="https://avorria.com" />
         
+        <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
+        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">
           {JSON.stringify({
           "@context": "https://schema.org",
