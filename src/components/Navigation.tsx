@@ -158,23 +158,23 @@ const Navigation = ({
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[calc(100vw-3rem)] max-w-[880px] bg-popover/98 backdrop-blur-xl border border-border/60 shadow-2xl rounded-xl overflow-hidden">
+                    <div className="w-[calc(100vw-3rem)] max-w-[880px] bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl overflow-hidden">
                       {/* Header */}
-                      <div className="px-4 md:px-8 py-4 md:py-5 border-b border-border/40 bg-muted/30">
-                        <p className="text-sm text-muted-foreground">
+                      <div className="px-4 md:px-8 py-4 md:py-5 border-b border-white/10 bg-slate-950/50">
+                        <p className="text-sm text-white/60">
                           Explore our services, resources, and learn why businesses choose Avorria.
                         </p>
                       </div>
                       
                       {/* Content Grid - responsive */}
-                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-border/40">
+                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-0 divide-x divide-white/10">
                         {navSections.map((section, sectionIndex) => (
-                          <div key={section.title} className={`p-4 md:p-5 ${sectionIndex >= 2 ? 'border-t border-border/40 lg:border-t-0' : ''}`}>
+                          <div key={section.title} className={`p-4 md:p-5 ${sectionIndex >= 2 ? 'border-t border-white/10 lg:border-t-0' : ''}`}>
                             <div className="mb-3 md:mb-4">
-                              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                              <h4 className="text-xs font-semibold text-white uppercase tracking-wider">
                                 {section.title}
                               </h4>
-                              <p className="text-xs text-muted-foreground mt-0.5 hidden md:block">
+                              <p className="text-xs text-white/50 mt-0.5 hidden md:block">
                                 {section.description}
                               </p>
                             </div>
@@ -188,22 +188,22 @@ const Navigation = ({
                                       onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} 
                                       className={`group relative flex items-center gap-2 md:gap-3 py-2 px-2 md:px-3 rounded-r-lg transition-all duration-200 border-l-2 hover:translate-x-1 ${
                                         link.highlight 
-                                          ? "border-l-accent bg-accent/5 translate-x-1" 
-                                          : "border-l-transparent hover:border-l-accent hover:bg-muted/40"
+                                          ? "border-l-accent bg-accent/10 translate-x-1" 
+                                          : "border-l-transparent hover:border-l-accent hover:bg-white/5"
                                       }`}
                                     >
                                       <Icon className={`flex-shrink-0 w-4 h-4 transition-colors ${
                                         link.highlight 
                                           ? "text-accent" 
-                                          : "text-muted-foreground group-hover:text-foreground"
+                                          : "text-white/50 group-hover:text-white"
                                       }`} />
                                       <div className="flex-1 min-w-0">
                                         <span className={`block text-xs md:text-sm font-medium transition-colors ${
-                                          link.highlight ? "text-accent" : "text-foreground"
+                                          link.highlight ? "text-accent" : "text-white"
                                         }`}>
                                           {link.name}
                                         </span>
-                                        <span className="hidden md:block text-xs text-muted-foreground mt-0.5 leading-tight">
+                                        <span className="hidden md:block text-xs text-white/50 mt-0.5 leading-tight">
                                           {link.description}
                                         </span>
                                       </div>
@@ -217,14 +217,14 @@ const Navigation = ({
                       </div>
                       
                       {/* Avorria Ecosystem Section */}
-                      <div className="px-4 md:px-8 py-4 md:py-5 border-t border-border/40 bg-gradient-to-r from-muted/30 via-muted/20 to-muted/30">
+                      <div className="px-4 md:px-8 py-4 md:py-5 border-t border-white/10 bg-slate-950/60">
                         <div className="flex flex-col gap-4">
                           <div className="flex items-center justify-between">
                             <div>
-                              <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider">
+                              <h4 className="text-xs font-semibold text-white uppercase tracking-wider">
                                 Avorria Ecosystem
                               </h4>
-                              <p className="text-xs text-muted-foreground mt-0.5">
+                              <p className="text-xs text-white/50 mt-0.5">
                                 Our platform suite for growth
                               </p>
                             </div>
@@ -238,25 +238,47 @@ const Navigation = ({
                             </Link>
                           </div>
                           
-                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                            {/* Avorria Hub */}
+                            <a 
+                              href="https://hub.avorria.com" 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              onClick={() => trackNavClick('avorria_hub', 'header')}
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
+                            >
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-sky-500/20 backdrop-blur-sm flex items-center justify-center">
+                                <Layers className="w-4.5 h-4.5 text-sky-400" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-1.5">
+                                  <span className="text-sm font-medium text-white">Avorria Hub</span>
+                                  <ExternalLink className="w-3 h-3 text-white/40" />
+                                </div>
+                                <p className="text-xs text-white/50 mt-0.5 leading-tight">
+                                  Central client portal & dashboard
+                                </p>
+                              </div>
+                            </a>
+                            
                             {/* Avorria AI */}
                             <a 
                               href="http://ai.avorria.com" 
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('avorria_ai', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-gradient-to-br from-violet-500/10 to-fuchsia-500/5 hover:from-violet-500/20 hover:to-fuchsia-500/10 border border-violet-500/20 hover:border-violet-500/30"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-violet-500/20 flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-violet-500/20 backdrop-blur-sm flex items-center justify-center">
                                 <Bot className="w-4.5 h-4.5 text-violet-400" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-sm font-medium text-foreground">Avorria AI</span>
-                                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-60" />
+                                  <span className="text-sm font-medium text-white">Avorria AI</span>
+                                  <ExternalLink className="w-3 h-3 text-white/40" />
                                 </div>
-                                <p className="text-xs text-muted-foreground mt-0.5 leading-tight">
-                                  AI-powered marketing assistant & automation
+                                <p className="text-xs text-white/50 mt-0.5 leading-tight">
+                                  AI-powered marketing assistant
                                 </p>
                               </div>
                             </a>
@@ -267,18 +289,18 @@ const Navigation = ({
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('avorria_media', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-gradient-to-br from-amber-500/10 to-orange-500/5 hover:from-amber-500/20 hover:to-orange-500/10 border border-amber-500/20 hover:border-amber-500/30"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-amber-500/20 backdrop-blur-sm flex items-center justify-center">
                                 <Sparkles className="w-4.5 h-4.5 text-amber-400" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-sm font-medium text-foreground">Avorria Media</span>
-                                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-60" />
+                                  <span className="text-sm font-medium text-white">Avorria Media</span>
+                                  <ExternalLink className="w-3 h-3 text-white/40" />
                                 </div>
-                                <p className="text-xs text-muted-foreground mt-0.5 leading-tight">
-                                  Creative content & video production
+                                <p className="text-xs text-white/50 mt-0.5 leading-tight">
+                                  Creative content & video
                                 </p>
                               </div>
                             </a>
@@ -289,18 +311,18 @@ const Navigation = ({
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('marketing_command', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-gradient-to-br from-emerald-500/10 to-teal-500/5 hover:from-emerald-500/20 hover:to-teal-500/10 border border-emerald-500/20 hover:border-emerald-500/30"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 backdrop-blur-sm flex items-center justify-center">
                                 <Zap className="w-4.5 h-4.5 text-emerald-400" />
                               </div>
                               <div className="flex-1 min-w-0">
                                 <div className="flex items-center gap-1.5">
-                                  <span className="text-sm font-medium text-foreground">Marketing Command</span>
-                                  <ExternalLink className="w-3 h-3 text-muted-foreground opacity-60" />
+                                  <span className="text-sm font-medium text-white">Marketing Command</span>
+                                  <ExternalLink className="w-3 h-3 text-white/40" />
                                 </div>
-                                <p className="text-xs text-muted-foreground mt-0.5 leading-tight">
-                                  Campaign management & analytics hub
+                                <p className="text-xs text-white/50 mt-0.5 leading-tight">
+                                  Campaign management hub
                                 </p>
                               </div>
                             </a>
@@ -322,22 +344,6 @@ const Navigation = ({
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-            
-            <a 
-              href="https://hub.avorria.com" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              onClick={() => trackNavClick('avorria_hub', 'header')}
-              className={`flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 hover:scale-105 ${
-                shouldBeTransparent 
-                  ? "bg-accent/20 text-accent border border-accent/30 hover:bg-accent/30" 
-                  : "bg-accent/10 text-accent border border-accent/20 hover:bg-accent/20"
-              }`}
-            >
-              <Sparkles className="w-4 h-4" />
-              Avorria Hub
-              <ExternalLink className="w-3 h-3 opacity-60" />
-            </a>
             
             <Button 
               variant="default" 
