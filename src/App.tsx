@@ -10,6 +10,7 @@ import Navigation from "./components/Navigation";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import BackToTop from "./components/BackToTop";
+import CookieConsent from "./components/CookieConsent";
 import Home from "./pages/Home";
 import Services from "./pages/Services";
 import SEOServices from "./pages/SEOServices";
@@ -99,6 +100,7 @@ const App = () => (
           <BrowserRouter>
             <ScrollToTop />
             <BackToTop />
+            <CookieConsent />
             <Layout>
               <Routes>
               <Route path="/" element={<Home />} />
