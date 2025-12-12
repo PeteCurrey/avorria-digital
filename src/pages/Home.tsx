@@ -16,6 +16,7 @@ import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
 import HeroGradient from "@/components/HeroGradient";
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
@@ -133,6 +134,7 @@ const Home = () => {
     answer: "Either request a free SEO & website audit, or book a strategy call. We'll review your current setup, give you a straight assessment and outline what we'd actually do."
   }];
   return <>
+      <LocalBusinessSchema />
       <Helmet>
         <title>Avorria – Digital Growth Systems for Serious Teams</title>
         <meta name="description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
