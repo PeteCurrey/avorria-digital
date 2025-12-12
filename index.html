@@ -6,6 +6,8 @@
     <title>Avorria - Performance-Led Digital Marketing, SEO & Web Design</title>
     <meta name="description" content="Elite digital marketing agency that treats revenue as the only KPI that matters. Strategic SEO, paid media, and web design for businesses done with agency fluff." />
     <meta name="author" content="Avorria" />
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#ec4899" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -23,5 +25,12 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
   </body>
 </html>
