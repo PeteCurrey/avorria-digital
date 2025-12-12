@@ -1,0 +1,16 @@
+{
+  "name": "Avorria Digital Marketing Agency",
+  "short_name": "Avorria",
+  "description": "Strategic digital marketing agency specializing in SEO, paid media, and web design",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#ec4899",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    }
+  ]
+}

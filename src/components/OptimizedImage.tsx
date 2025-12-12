@@ -7,7 +7,21 @@ interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> 
   className?: string;
   placeholderClassName?: string;
   priority?: boolean;
+  webpSrc?: string;
 }
+
+// Check WebP support once on module load
+const checkWebPSupport = (): Promise<boolean> => {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => resolve(img.width > 0 && img.height > 0);
+    img.onerror = () => resolve(false);
+    img.src = 'data:image/webp;base64,UklGRhoAAABXRUJQVlA4TA0AAAAvAAAAEAcQERGIiP4HAA==';
+  });
+};
+
+let webPSupported: boolean | null = null;
+checkWebPSupport().then(supported => { webPSupported = supported; });
 
 export const OptimizedImage = ({
   src,
@@ -15,11 +29,15 @@ export const OptimizedImage = ({
   className,
   placeholderClassName,
   priority = false,
+  webpSrc,
   ...props
 }: OptimizedImageProps) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [isInView, setIsInView] = useState(priority);
-  const imgRef = useRef<HTMLImageElement>(null);
+  const imgRef = useRef<HTMLDivElement>(null);
+
+  // Determine the best source to use
+  const imageSrc = webpSrc && webPSupported ? webpSrc : src;
 
   useEffect(() => {
     if (priority) {
@@ -60,19 +78,21 @@ export const OptimizedImage = ({
       )}
       
       {isInView && (
-        <img
-          src={src}
-          alt={alt}
-          loading={priority ? "eager" : "lazy"}
-          decoding="async"
-          onLoad={() => setIsLoaded(true)}
-          className={cn(
-            "transition-opacity duration-500",
-            isLoaded ? "opacity-100" : "opacity-0",
-            className
-          )}
-          {...props}
-        />
+        <picture>
+          {webpSrc && <source srcSet={webpSrc} type="image/webp" />}
+          <img
+            src={imageSrc}
+            alt={alt}
+            loading={priority ? "eager" : "lazy"}
+            decoding="async"
+            onLoad={() => setIsLoaded(true)}
+            className={cn(
+              "transition-opacity duration-500 w-full h-full object-cover",
+              isLoaded ? "opacity-100" : "opacity-0"
+            )}
+            {...props}
+          />
+        </picture>
       )}
     </div>
   );
