@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Target, Palette, Mail, Share2, BarChart3 } from "lucide-react";
 import { HeroBand, SectionBand, ContentBand } from "@/components/ContentBand";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
 
@@ -66,18 +67,24 @@ const Services = () => {
 
   return (
     <>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "/" },
+        { name: "Services", url: "/services" }
+      ]} />
       <Helmet>
-        <title>Services – SEO, Paid Media, Web & Analytics | Avorria</title>
-        <meta name="description" content="Explore Avorria's growth stack – SEO, paid media, web design, content, social and analytics. Pick the entry point that matches where your pipeline is stuck." />
+        <title>Digital Marketing Services | SEO, Paid Media, Web Design | Avorria</title>
+        <meta name="description" content="Full-service digital marketing: SEO, paid media, web design, content marketing and analytics. We help B2B and service businesses generate qualified leads and grow revenue." />
+        <meta name="keywords" content="digital marketing services, SEO services, PPC management, web design services, content marketing, analytics, B2B marketing, lead generation" />
         
-        <meta property="og:title" content="Services – SEO, Paid Media, Web & Analytics | Avorria" />
-        <meta property="og:description" content="Explore Avorria's growth stack – SEO, paid media, web design, content, social and analytics. Pick the entry point that matches where your pipeline is stuck." />
+        <meta property="og:title" content="Digital Marketing Services | SEO, Paid Media, Web Design | Avorria" />
+        <meta property="og:description" content="Full-service digital marketing: SEO, paid media, web design, content and analytics for B2B and service businesses." />
         <meta property="og:url" content="https://avorria.com/services" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://avorria.com/og-services.jpg" />
         
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Services – SEO, Paid Media, Web & Analytics | Avorria" />
-        <meta name="twitter:description" content="Explore Avorria's growth stack – SEO, paid media, web design, content, social and analytics. Pick the entry point that matches where your pipeline is stuck." />
+        <meta name="twitter:title" content="Digital Marketing Services | Avorria" />
+        <meta name="twitter:description" content="Full-service digital marketing for B2B and service businesses." />
         
         <link rel="canonical" href="https://avorria.com/services" />
         
@@ -85,12 +92,22 @@ const Services = () => {
           {JSON.stringify({
             "@context": "https://schema.org",
             "@type": "ItemList",
+            "name": "Digital Marketing Services",
+            "description": "Avorria's full-service digital marketing offerings",
+            "numberOfItems": services.length,
             "itemListElement": services.map((service, index) => ({
-              "@type": "Service",
+              "@type": "ListItem",
               "position": index + 1,
-              "name": service.title,
-              "description": service.description,
-              "url": `https://avorria.com${service.href}`
+              "item": {
+                "@type": "Service",
+                "name": service.title,
+                "description": service.description,
+                "url": `https://avorria.com${service.href}`,
+                "provider": {
+                  "@type": "Organization",
+                  "name": "Avorria"
+                }
+              }
             }))
           })}
         </script>

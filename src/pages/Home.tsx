@@ -17,6 +17,7 @@ import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
 import HeroGradient from "@/components/HeroGradient";
 import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
+import FAQSchema from "@/components/seo/FAQSchema";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
@@ -135,35 +136,57 @@ const Home = () => {
   }];
   return <>
       <LocalBusinessSchema />
+      <FAQSchema faqs={faqs} />
       <Helmet>
-        <title>Avorria – Digital Growth Systems for Serious Teams</title>
-        <meta name="description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
+        <title>Avorria – Digital Marketing, SEO & Web Design Agency | Sheffield & London</title>
+        <meta name="description" content="Avorria is a performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses generate qualified leads and grow revenue." />
+        <meta name="keywords" content="digital marketing agency, SEO agency Sheffield, web design agency, paid media, B2B marketing, lead generation, Google Ads management, content marketing" />
         
-        <meta property="og:title" content="Avorria – Digital Growth Systems for Serious Teams" />
-        <meta property="og:description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
+        <meta property="og:title" content="Avorria – Digital Marketing, SEO & Web Design Agency" />
+        <meta property="og:description" content="Performance-first digital marketing that grows revenue, not vanity metrics. Strategic SEO, paid media, web design & analytics for serious businesses." />
         <meta property="og:url" content="https://avorria.com" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://avorria.com/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:locale" content="en_GB" />
+        <meta property="og:site_name" content="Avorria" />
         
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Avorria – Digital Growth Systems for Serious Teams" />
-        <meta name="twitter:description" content="Avorria designs, builds and optimises SEO, paid media, websites and tracking so your marketing actually moves pipeline, not just vanity metrics." />
+        <meta name="twitter:site" content="@avorria" />
+        <meta name="twitter:title" content="Avorria – Digital Marketing, SEO & Web Design Agency" />
+        <meta name="twitter:description" content="Performance-first digital marketing that grows revenue, not vanity metrics." />
+        <meta name="twitter:image" content="https://avorria.com/og-image.jpg" />
         
-        <link rel="canonical" content="https://avorria.com" />
+        <link rel="canonical" href="https://avorria.com" />
         
         <script type="application/ld+json">
           {JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Avorria",
+          "@type": "WebPage",
+          "@id": "https://avorria.com/#webpage",
           "url": "https://avorria.com",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://avorria.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
+          "name": "Avorria – Digital Marketing, SEO & Web Design Agency",
+          "description": "Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics for B2B and service businesses.",
+          "isPartOf": {"@id": "https://avorria.com/#website"},
+          "about": {"@id": "https://avorria.com/#organization"},
+          "primaryImageOfPage": {
+            "@type": "ImageObject",
+            "url": "https://avorria.com/og-image.jpg"
+          },
+          "breadcrumb": {
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://avorria.com"
+            }]
           }
         })}
         </script>
       </Helmet>
+
 
       {/* Override default navigation with transparent version */}
       <div className="relative z-50">
