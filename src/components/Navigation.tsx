@@ -245,9 +245,9 @@ const Navigation = ({
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('avorria_hub', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-sky-400/30 hover:shadow-[0_0_20px_rgba(56,189,248,0.15)]"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-sky-500/20 backdrop-blur-sm flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-sky-500/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:bg-sky-500/30 group-hover:shadow-[0_0_12px_rgba(56,189,248,0.3)]">
                                 <Layers className="w-4.5 h-4.5 text-sky-400" />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -267,9 +267,9 @@ const Navigation = ({
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('avorria_ai', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-violet-400/30 hover:shadow-[0_0_20px_rgba(167,139,250,0.15)]"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-violet-500/20 backdrop-blur-sm flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-violet-500/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:bg-violet-500/30 group-hover:shadow-[0_0_12px_rgba(167,139,250,0.3)]">
                                 <Bot className="w-4.5 h-4.5 text-violet-400" />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -289,9 +289,9 @@ const Navigation = ({
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('avorria_media', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-amber-400/30 hover:shadow-[0_0_20px_rgba(251,191,36,0.15)]"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-amber-500/20 backdrop-blur-sm flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-amber-500/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:bg-amber-500/30 group-hover:shadow-[0_0_12px_rgba(251,191,36,0.3)]">
                                 <Sparkles className="w-4.5 h-4.5 text-amber-400" />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -311,9 +311,9 @@ const Navigation = ({
                               target="_blank" 
                               rel="noopener noreferrer"
                               onClick={() => trackNavClick('marketing_command', 'header')}
-                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-white/20"
+                              className="group flex items-start gap-3 p-3 rounded-xl transition-all duration-300 bg-white/5 backdrop-blur-sm hover:bg-white/10 border border-white/10 hover:border-emerald-400/30 hover:shadow-[0_0_20px_rgba(52,211,153,0.15)]"
                             >
-                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 backdrop-blur-sm flex items-center justify-center">
+                              <div className="flex-shrink-0 w-9 h-9 rounded-lg bg-emerald-500/20 backdrop-blur-sm flex items-center justify-center transition-all duration-300 group-hover:bg-emerald-500/30 group-hover:shadow-[0_0_12px_rgba(52,211,153,0.3)]">
                                 <Zap className="w-4.5 h-4.5 text-emerald-400" />
                               </div>
                               <div className="flex-1 min-w-0">
