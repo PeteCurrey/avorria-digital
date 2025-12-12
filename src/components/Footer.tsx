@@ -6,7 +6,7 @@ const Footer = () => {
   const services = [
     { name: "SEO Services", href: "/services/seo" },
     { name: "Paid Media", href: "/services/paid-media" },
-    { name: "Web Design", href: "/services/web-design" },
+    { name: "Web Design", href: "/web-design" },
     { name: "Content & Email", href: "/services/content-email" },
     { name: "Social & Personal Brand", href: "/services/social-personal-brand" },
   ];
