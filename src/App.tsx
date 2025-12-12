@@ -74,10 +74,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   const isStudioPage = location.pathname === "/web-design/studio";
+  const isCaseStudyPage = location.pathname.startsWith("/case-studies");
 
   return (
     <>
-      {!isHomePage && <Navigation transparent={isStudioPage} />}
+      {!isHomePage && <Navigation transparent={isStudioPage || isCaseStudyPage} />}
       {children}
       <Footer />
     </>

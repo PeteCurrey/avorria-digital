@@ -1,7 +1,8 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 import type { CaseMetric } from "@/data/caseStudies";
 
 interface CaseHeroProps {
@@ -61,6 +62,9 @@ export const CaseHero = ({
               className="w-full h-full object-cover"
             />
           ) : null}
+          
+          {/* Dark Overlay for text readability */}
+          <div className="absolute inset-0 bg-black/50" />
           
           {/* Gradient Overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-[hsl(220,25%,8%)] via-[hsl(220,25%,8%)/0.85] to-transparent" />
@@ -255,14 +259,24 @@ interface CaseHeroImageProps {
 }
 
 export const CaseHeroImage = ({ src, alt = "Project screenshot" }: CaseHeroImageProps) => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  
+  // Parallax: image moves slower than scroll
+  const y = useTransform(scrollYProgress, [0, 1], ["-15%", "15%"]);
+
   return (
-    <section className="relative h-screen w-full snap-start snap-always">
+    <section ref={ref} className="relative h-screen w-full snap-start snap-always overflow-hidden">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.8 }}
-        className="absolute inset-0"
+        style={{ y }}
+        className="absolute inset-0 h-[130%] -top-[15%]"
       >
         <img
           src={src}
