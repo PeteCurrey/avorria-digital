@@ -1,8 +1,0 @@
-# Sitemap redirects to edge functions
-/sitemap-index.xml  https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=index  200
-/sitemap.xml        https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap  200
-/sitemap-news.xml   https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=news  200
-/sitemap-geo.xml    https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=geo  200
-
-# Dynamic robots.txt
-/robots.txt         https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/robots  200

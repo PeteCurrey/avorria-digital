@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc>https://avorria.com/resources/seo-strategy-guide</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Avorria</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2024-12-01</news:publication_date>
+      <news:title>The Complete SEO Strategy Guide for 2025</news:title>
+      <news:keywords>SEO, strategy, digital marketing, search optimization</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://avorria.com/resources/content-marketing-playbook</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Avorria</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2024-11-15</news:publication_date>
+      <news:title>Content Marketing Playbook: From Strategy to Execution</news:title>
+      <news:keywords>content marketing, content strategy, digital marketing</news:keywords>
+    </news:news>
+  </url>
+  <url>
+    <loc>https://avorria.com/resources/paid-media-roi-guide</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Avorria</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>2024-11-01</news:publication_date>
+      <news:title>Maximising Paid Media ROI: A Data-Driven Approach</news:title>
+      <news:keywords>paid media, PPC, advertising, ROI, digital marketing</news:keywords>
+    </news:news>
+  </url>
+</urlset>
