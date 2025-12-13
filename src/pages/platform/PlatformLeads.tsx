@@ -35,8 +35,10 @@ import { toast } from "sonner";
 import { 
   Search, MoreVertical, Mail, Phone, Building2, Calendar,
   TrendingUp, Users, Target, CheckCircle, XCircle, Clock,
-  ArrowRight, ChevronRight, Star, Loader2, FileText, Trash2
+  ArrowRight, ChevronRight, Star, Loader2, FileText, Trash2,
+  AlertCircle, RefreshCw
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // Lead status workflow stages
 const STATUS_WORKFLOW = [
@@ -194,11 +196,18 @@ const PlatformLeads = () => {
           <title>Leads - Avorria Growth Platform</title>
         </Helmet>
         <AppShell type="platform" userName="Alex Morgan" userRole="Account Lead">
-          <div className="flex items-center justify-center h-64">
+          <div className="flex flex-col items-center justify-center h-64 gap-4">
+            <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
+              <AlertCircle className="h-6 w-6 text-destructive" />
+            </div>
             <div className="text-center">
-              <p className="text-destructive mb-2">Failed to load leads</p>
+              <p className="text-destructive font-medium mb-1">Failed to load leads</p>
               <p className="text-sm text-muted-foreground">Please check your permissions and try again.</p>
             </div>
+            <Button variant="outline" onClick={() => window.location.reload()} className="gap-2">
+              <RefreshCw className="h-4 w-4" />
+              Try Again
+            </Button>
           </div>
         </AppShell>
       </>
@@ -230,7 +239,11 @@ const PlatformLeads = () => {
                     <Users className="h-5 w-5 text-blue-600" />
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-foreground">{stats.total}</p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-12 mb-1" />
+                    ) : (
+                      <p className="text-2xl font-light text-foreground">{stats.total}</p>
+                    )}
                     <p className="text-sm text-muted-foreground">Total Leads</p>
                   </div>
                 </div>
@@ -243,7 +256,11 @@ const PlatformLeads = () => {
                     <Clock className="h-5 w-5 text-purple-600" />
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-foreground">{stats.new}</p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-12 mb-1" />
+                    ) : (
+                      <p className="text-2xl font-light text-foreground">{stats.new}</p>
+                    )}
                     <p className="text-sm text-muted-foreground">New Leads</p>
                   </div>
                 </div>
@@ -256,7 +273,11 @@ const PlatformLeads = () => {
                     <Target className="h-5 w-5 text-cyan-600" />
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-foreground">{stats.qualified}</p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-12 mb-1" />
+                    ) : (
+                      <p className="text-2xl font-light text-foreground">{stats.qualified}</p>
+                    )}
                     <p className="text-sm text-muted-foreground">Qualified</p>
                   </div>
                 </div>
@@ -269,7 +290,11 @@ const PlatformLeads = () => {
                     <CheckCircle className="h-5 w-5 text-green-600" />
                   </div>
                   <div>
-                    <p className="text-2xl font-light text-foreground">{stats.won}</p>
+                    {isLoading ? (
+                      <Skeleton className="h-8 w-12 mb-1" />
+                    ) : (
+                      <p className="text-2xl font-light text-foreground">{stats.won}</p>
+                    )}
                     <p className="text-sm text-muted-foreground">Won</p>
                   </div>
                 </div>
@@ -333,8 +358,38 @@ const PlatformLeads = () => {
               {/* Leads Table */}
               {isLoading ? (
                 <Card>
-                  <CardContent className="p-12 flex items-center justify-center">
-                    <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  <CardContent className="p-0">
+                    <div className="overflow-x-auto">
+                      <table className="w-full">
+                        <thead>
+                          <tr className="border-b border-border bg-muted/30">
+                            <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Lead</th>
+                            <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Source</th>
+                            <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Status</th>
+                            <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Score</th>
+                            <th className="text-left py-3 px-4 text-sm font-medium text-muted-foreground">Created</th>
+                            <th className="text-right py-3 px-4 text-sm font-medium text-muted-foreground">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {[1, 2, 3, 4, 5].map((i) => (
+                            <tr key={i} className="border-b border-border">
+                              <td className="py-4 px-4">
+                                <div className="space-y-2">
+                                  <Skeleton className="h-5 w-32" />
+                                  <Skeleton className="h-3 w-48" />
+                                </div>
+                              </td>
+                              <td className="py-4 px-4"><Skeleton className="h-5 w-20" /></td>
+                              <td className="py-4 px-4"><Skeleton className="h-8 w-24" /></td>
+                              <td className="py-4 px-4"><Skeleton className="h-5 w-16" /></td>
+                              <td className="py-4 px-4"><Skeleton className="h-4 w-24" /></td>
+                              <td className="py-4 px-4 text-right"><Skeleton className="h-8 w-8 ml-auto" /></td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </CardContent>
                 </Card>
               ) : filteredLeads.length === 0 ? (
