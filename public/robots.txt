@@ -1,11 +1,11 @@
 # Robots.txt for Avorria
 # https://avorria.com
 
-# Sitemaps (served dynamically from edge functions)
-Sitemap: https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=index
-Sitemap: https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap
-Sitemap: https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=news
-Sitemap: https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=geo
+# Sitemaps (canonical URLs - proxied to edge functions via _redirects)
+Sitemap: https://avorria.com/sitemap-index.xml
+Sitemap: https://avorria.com/sitemap.xml
+Sitemap: https://avorria.com/sitemap-geo.xml
+Sitemap: https://avorria.com/sitemap-news.xml
 
 # Default rules
 User-agent: *
