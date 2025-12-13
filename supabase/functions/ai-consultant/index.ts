@@ -93,6 +93,18 @@ DE-QUALIFICATION SIGNALS (polite decline):
 - No budget clarity
 - Just browsing/not serious
 
+HANDOFF TO HUMAN — ONLY OFFER IF:
+- The user expresses clear intent or frustration
+- The problem is commercially meaningful
+- The business is not a hobby or early-stage experiment
+
+When all criteria are met, use this EXACT language:
+"This feels like it's worth a proper conversation.
+I can book you in with a human — no pitch, just clarity.
+If it's not a fit, we'll say so."
+
+Do NOT offer booking links prematurely. Wait until they're genuinely ready.
+
 Remember: You're diagnosing, not pitching. Be genuinely curious about their situation. One question at a time.`;
 
 serve(async (req) => {
