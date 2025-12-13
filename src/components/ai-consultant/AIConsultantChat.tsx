@@ -16,10 +16,27 @@ interface AIConsultantChatProps {
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-consultant`;
 
+// Fixed opening sequence - exactly as specified
+const OPENING_MESSAGES: Message[] = [
+  {
+    role: "assistant",
+    content: "Most people don't come to Avorria because they want \"marketing\".\nThey come because something isn't pulling its weight — traffic, conversions, clarity, or all three."
+  },
+  {
+    role: "assistant",
+    content: "I can help you work out whether that's fixable — and whether we're even the right people to do it."
+  },
+  {
+    role: "assistant",
+    content: "To start properly, what does your business actually do?"
+  }
+];
+
 const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [openingStep, setOpeningStep] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
@@ -33,86 +50,39 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
   }, [messages]);
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
+    if (isOpen && inputRef.current && openingStep >= 3) {
       setTimeout(() => inputRef.current?.focus(), 300);
     }
-  }, [isOpen]);
+  }, [isOpen, openingStep]);
 
-  // Start conversation with AI's opening statement
-  const startConversation = useCallback(async () => {
+  // Display opening messages with delays
+  const startOpeningSequence = useCallback(() => {
     if (hasStarted) return;
     setHasStarted(true);
-    setIsLoading(true);
-
-    let assistantContent = "";
-
-    try {
-      const response = await fetch(CHAT_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({
-          messages: [{ role: "user", content: "Start the conversation with your opening statement." }],
-        }),
-      });
-
-      if (!response.ok || !response.body) {
-        throw new Error("Failed to start conversation");
-      }
-
-      const reader = response.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done) break;
-
-        buffer += decoder.decode(value, { stream: true });
-        
-        let newlineIndex: number;
-        while ((newlineIndex = buffer.indexOf("\n")) !== -1) {
-          let line = buffer.slice(0, newlineIndex);
-          buffer = buffer.slice(newlineIndex + 1);
-
-          if (line.endsWith("\r")) line = line.slice(0, -1);
-          if (line.startsWith(":") || line.trim() === "") continue;
-          if (!line.startsWith("data: ")) continue;
-
-          const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") break;
-
-          try {
-            const parsed = JSON.parse(jsonStr);
-            const content = parsed.choices?.[0]?.delta?.content;
-            if (content) {
-              assistantContent += content;
-              setMessages([{ role: "assistant", content: assistantContent }]);
-            }
-          } catch {
-            buffer = line + "\n" + buffer;
-            break;
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Error starting conversation:", error);
-      setMessages([{
-        role: "assistant",
-        content: "The companies we work with typically aren't looking for more marketing. They're looking for marketing that actually moves the needle."
-      }]);
-    } finally {
-      setIsLoading(false);
-    }
+    
+    // Message 1 - immediate
+    setMessages([OPENING_MESSAGES[0]]);
+    setOpeningStep(1);
+    
+    // Message 2 - after 1.5s
+    setTimeout(() => {
+      setMessages(prev => [...prev, OPENING_MESSAGES[1]]);
+      setOpeningStep(2);
+    }, 1500);
+    
+    // Message 3 - after another 1.5s
+    setTimeout(() => {
+      setMessages(prev => [...prev, OPENING_MESSAGES[2]]);
+      setOpeningStep(3);
+    }, 3000);
   }, [hasStarted]);
 
   useEffect(() => {
     if (isOpen && !hasStarted) {
-      startConversation();
+      startOpeningSequence();
     }
-  }, [isOpen, hasStarted, startConversation]);
+  }, [isOpen, hasStarted, startOpeningSequence]);
+
 
   const sendMessage = async () => {
     if (!input.trim() || isLoading) return;
