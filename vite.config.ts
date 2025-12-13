@@ -13,14 +13,23 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      react: path.resolve(__dirname, "node_modules/react"),
-      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
-      "react-helmet-async": path.resolve(__dirname, "node_modules/react-helmet-async"),
-      "react-router-dom": path.resolve(__dirname, "node_modules/react-router-dom"),
     },
-    dedupe: ["react", "react-dom", "react-helmet-async", "react-router-dom"],
+    dedupe: [
+      "react", 
+      "react-dom", 
+      "react-helmet-async", 
+      "react-router-dom",
+      "@tanstack/react-query"
+    ],
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "react-helmet-async", "react-router-dom"],
+    include: [
+      "react", 
+      "react-dom", 
+      "react-helmet-async", 
+      "react-router-dom",
+      "@tanstack/react-query"
+    ],
+    force: true,
   },
 }));
