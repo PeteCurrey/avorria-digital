@@ -15,10 +15,12 @@ export default defineConfig(({ mode }) => ({
       "@": path.resolve(__dirname, "./src"),
       react: path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+      "react-helmet-async": path.resolve(__dirname, "node_modules/react-helmet-async"),
+      "react-router-dom": path.resolve(__dirname, "node_modules/react-router-dom"),
     },
-    dedupe: ["react", "react-dom"],
+    dedupe: ["react", "react-dom", "react-helmet-async", "react-router-dom"],
   },
   optimizeDeps: {
-    include: ["react", "react-dom"],
+    include: ["react", "react-dom", "react-helmet-async", "react-router-dom"],
   },
 }));
