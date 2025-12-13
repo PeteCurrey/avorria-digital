@@ -4,6 +4,7 @@ import { getLandingPageBySlug } from "@/data/landingPages";
 import { getServiceBySlug } from "@/data/services";
 import { getLocationBySlug } from "@/data/locations";
 import { getIndustryBySlug } from "@/data/industries";
+import { getServiceLocationPageBySlug } from "@/data/serviceLocationLandingPages";
 
 const DynamicLanding = () => {
   const { serviceSlug, locationSlug, industrySlug } = useParams();
@@ -13,7 +14,13 @@ const DynamicLanding = () => {
 
   // First, try to match by combined slug pattern (service-location or service-industry)
   if (serviceSlug && locationSlug) {
-    landingPage = getLandingPageBySlug(`${serviceSlug}-${locationSlug}`);
+    // Try direct service-location match first
+    landingPage = getServiceLocationPageBySlug(`${serviceSlug}-${locationSlug}`);
+    
+    // If not found, try the general landing pages
+    if (!landingPage) {
+      landingPage = getLandingPageBySlug(`${serviceSlug}-${locationSlug}`);
+    }
   } else if (serviceSlug && industrySlug) {
     landingPage = getLandingPageBySlug(`${serviceSlug}-${industrySlug}`);
   }
@@ -23,8 +30,26 @@ const DynamicLanding = () => {
   if (!landingPage) {
     const pathSegments = window.location.pathname.split('/').filter(Boolean);
     if (pathSegments.length >= 2) {
-      const potentialSlug = pathSegments.join('-');
-      landingPage = getLandingPageBySlug(potentialSlug);
+      // Handle patterns like /seo-agency/sheffield -> seo-sheffield
+      const serviceMapping: Record<string, string> = {
+        'seo-agency': 'seo',
+        'seo': 'seo',
+        'web-design': 'web-design',
+        'digital-marketing-agency': 'digital-marketing',
+        'digital-marketing': 'digital-marketing',
+        'paid-media': 'paid-media',
+        'paid-media-agency': 'paid-media',
+      };
+      
+      const mappedService = serviceMapping[pathSegments[0]];
+      if (mappedService) {
+        const potentialSlug = `${mappedService}-${pathSegments[1]}`;
+        landingPage = getServiceLocationPageBySlug(potentialSlug);
+        
+        if (!landingPage) {
+          landingPage = getLandingPageBySlug(potentialSlug);
+        }
+      }
     }
   }
 

@@ -2,6 +2,7 @@ import { LandingPage } from "@/types/landingPage";
 import { getServiceBySlug } from "./services";
 import { getIndustryBySlug } from "./industries";
 import { getLocationBySlug } from "./locations";
+import { serviceLocationLandingPages, getServiceLocationPageBySlug } from "./serviceLocationLandingPages";
 
 export const landingPages: LandingPage[] = [
   // SEO for Trades & Home Services
@@ -1070,8 +1071,19 @@ export const landingPages: LandingPage[] = [
   },
 ];
 
+// Combined list of all landing pages (industry + location)
+export const allLandingPages: LandingPage[] = [
+  ...landingPages,
+  ...serviceLocationLandingPages,
+];
+
 export const getLandingPageBySlug = (slug: string): LandingPage | undefined => {
-  return landingPages.find((lp) => lp.slug === slug);
+  // First check industry/campaign pages
+  const industryPage = landingPages.find((lp) => lp.slug === slug);
+  if (industryPage) return industryPage;
+  
+  // Then check service-location pages
+  return getServiceLocationPageBySlug(slug);
 };
 
 export const getLandingPagesByType = (type: LandingPage["type"]): LandingPage[] => {
