@@ -16,7 +16,7 @@ import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
 import HeroGradient from "@/components/HeroGradient";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
+import heroPenthouse from "@/assets/hero-penthouse.png";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -238,7 +238,7 @@ const Home = () => {
       <div className="min-h-screen">
         {/* Full-Screen Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16 md:pt-0 md:pb-0" style={{
-        backgroundImage: "url(\"/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg\")",
+        backgroundImage: `url(${heroPenthouse})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "scroll"
