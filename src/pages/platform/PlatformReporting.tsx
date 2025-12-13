@@ -2,55 +2,53 @@ import { Helmet } from "react-helmet-async";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, AlertCircle } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { TrendingUp, TrendingDown, AlertCircle, Plus, CheckCircle } from "lucide-react";
+import { useClients } from "@/hooks/useClients";
+import { useAlerts } from "@/hooks/useAlerts";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PlatformReporting = () => {
+  const { data: clients, isLoading: clientsLoading } = useClients();
+  const { data: alerts, isLoading: alertsLoading } = useAlerts({ unresolved: true });
+
+  const isLoading = clientsLoading || alertsLoading;
+
+  // Calculate portfolio metrics from real data
   const portfolioMetrics = [
-    { label: "Total Organic Sessions", value: "124.5k", change: 12, period: "Last 30 days" },
-    { label: "Total Leads", value: "1,240", change: -5, period: "Last 30 days" },
-    { label: "Organic Pipeline", value: "£1.2M-1.8M", change: 18, period: "Last 90 days" },
-    { label: "Paid Media Spend", value: "£85k", change: 8, period: "Last 30 days" },
+    { 
+      label: "Active Clients", 
+      value: clients?.filter(c => c.status === 'live').length.toString() || "0", 
+      change: 0, 
+      period: "Current" 
+    },
+    { 
+      label: "At Risk", 
+      value: clients?.filter(c => c.status === 'at-risk').length.toString() || "0", 
+      change: 0, 
+      period: "Needs attention" 
+    },
+    { 
+      label: "Onboarding", 
+      value: clients?.filter(c => c.status === 'onboarding').length.toString() || "0", 
+      change: 0, 
+      period: "In progress" 
+    },
+    { 
+      label: "Open Alerts", 
+      value: alerts?.length.toString() || "0", 
+      change: 0, 
+      period: "Unresolved" 
+    },
   ];
 
-  const clientPerformance = [
-    {
-      client: "TechCorp Industries",
-      organic: "up",
-      paid: "down",
-      conversion: "up",
-      status: "healthy",
-    },
-    { client: "GreenLeaf Solutions", organic: "up", paid: "up", conversion: "up", status: "healthy" },
-    {
-      client: "BlueSky Consulting",
-      organic: "down",
-      paid: "up",
-      conversion: "down",
-      status: "watch",
-    },
-    { client: "Urban Dynamics", organic: "up", paid: "down", conversion: "up", status: "healthy" },
-  ];
-
-  const alerts = [
-    {
-      client: "BlueSky Consulting",
-      type: "Organic traffic drop",
-      severity: "high",
-      description: "15% decline in organic sessions MoM",
-    },
-    {
-      client: "TechCorp Industries",
-      type: "Tracking issue",
-      severity: "critical",
-      description: "Demo form tracking broken since Mar 15",
-    },
-    {
-      client: "Urban Dynamics",
-      type: "CPL increase",
-      severity: "medium",
-      description: "Google Ads CPL up 25%",
-    },
-  ];
+  // Client performance derived from actual data
+  const clientPerformance = clients?.slice(0, 5).map(client => ({
+    client: client.name,
+    status: client.status,
+    services: client.services,
+    monthlyValue: client.monthly_value,
+  })) || [];
 
   const getTrendIcon = (trend: string) => {
     return trend === "up" ? (
@@ -62,14 +60,16 @@ const PlatformReporting = () => {
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "healthy":
+      case "live":
         return "bg-green-500/10 text-green-600 border-green-500/20";
-      case "watch":
-        return "bg-yellow-500/10 text-yellow-600 border-yellow-500/20";
+      case "onboarding":
+        return "bg-blue-500/10 text-blue-600 border-blue-500/20";
       case "at-risk":
         return "bg-red-500/10 text-red-600 border-red-500/20";
+      case "paused":
+        return "bg-gray-500/10 text-gray-600 border-gray-500/20";
       default:
-        return "";
+        return "bg-gray-500/10 text-gray-600 border-gray-500/20";
     }
   };
 
@@ -100,78 +100,93 @@ const PlatformReporting = () => {
           </div>
 
           {/* Top Metrics */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {portfolioMetrics.map((metric) => {
-              const isPositive = metric.change >= 0;
-              return (
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {[...Array(4)].map((_, i) => (
+                <Card key={i}>
+                  <CardContent className="p-6">
+                    <Skeleton className="h-4 w-24 mb-2" />
+                    <Skeleton className="h-8 w-16" />
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {portfolioMetrics.map((metric) => (
                 <Card key={metric.label}>
                   <CardContent className="p-6">
                     <p className="text-xs text-muted-foreground mb-2">{metric.label}</p>
                     <p className="text-2xl font-light text-foreground mb-1">{metric.value}</p>
-                    <div className="flex items-center gap-1">
-                      {isPositive ? (
-                        <TrendingUp className="h-3 w-3 text-green-600" />
-                      ) : (
-                        <TrendingDown className="h-3 w-3 text-red-600" />
-                      )}
-                      <span
-                        className={`text-xs ${isPositive ? "text-green-600" : "text-red-600"}`}
-                      >
-                        {isPositive ? "+" : ""}
-                        {metric.change}%
-                      </span>
-                      <span className="text-xs text-muted-foreground ml-1">{metric.period}</span>
-                    </div>
+                    <span className="text-xs text-muted-foreground">{metric.period}</span>
                   </CardContent>
                 </Card>
-              );
-            })}
-          </div>
+              ))}
+            </div>
+          )}
 
           {/* Client Performance Grid */}
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Client Performance Grid</CardTitle>
+              <CardTitle className="text-lg">Client Overview</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="border-b border-border">
-                    <tr className="bg-muted/50">
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Client
-                      </th>
-                      <th className="text-center p-4 text-sm font-medium text-muted-foreground">
-                        Organic
-                      </th>
-                      <th className="text-center p-4 text-sm font-medium text-muted-foreground">
-                        Paid
-                      </th>
-                      <th className="text-center p-4 text-sm font-medium text-muted-foreground">
-                        Conversion
-                      </th>
-                      <th className="text-center p-4 text-sm font-medium text-muted-foreground">
-                        Status
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {clientPerformance.map((client) => (
-                      <tr key={client.client} className="border-b border-border hover:bg-muted/50">
-                        <td className="p-4 font-medium text-foreground">{client.client}</td>
-                        <td className="p-4 text-center">{getTrendIcon(client.organic)}</td>
-                        <td className="p-4 text-center">{getTrendIcon(client.paid)}</td>
-                        <td className="p-4 text-center">{getTrendIcon(client.conversion)}</td>
-                        <td className="p-4 text-center">
-                          <Badge variant="outline" className={getStatusColor(client.status)}>
-                            {client.status}
-                          </Badge>
-                        </td>
+              {isLoading ? (
+                <div className="space-y-4">
+                  {[...Array(4)].map((_, i) => (
+                    <Skeleton key={i} className="h-12 w-full" />
+                  ))}
+                </div>
+              ) : clientPerformance.length === 0 ? (
+                <div className="text-center py-8">
+                  <p className="text-muted-foreground mb-4">No clients to display yet.</p>
+                  <Button variant="outline">
+                    <Plus className="h-4 w-4 mr-2" />
+                    Add Client
+                  </Button>
+                </div>
+              ) : (
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="border-b border-border">
+                      <tr className="bg-muted/50">
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Client
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Services
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Monthly Value
+                        </th>
+                        <th className="text-center p-4 text-sm font-medium text-muted-foreground">
+                          Status
+                        </th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody>
+                      {clientPerformance.map((client) => (
+                        <tr key={client.client} className="border-b border-border hover:bg-muted/50">
+                          <td className="p-4 font-medium text-foreground">{client.client}</td>
+                          <td className="p-4">
+                            <div className="flex gap-1 flex-wrap">
+                              {client.services?.slice(0, 3).map(s => (
+                                <Badge key={s} variant="secondary" className="text-xs">{s}</Badge>
+                              ))}
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-foreground">{client.monthlyValue || '-'}</td>
+                          <td className="p-4 text-center">
+                            <Badge variant="outline" className={getStatusColor(client.status)}>
+                              {client.status}
+                            </Badge>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
             </CardContent>
           </Card>
 
@@ -181,26 +196,39 @@ const PlatformReporting = () => {
               <CardTitle className="text-lg">Alerts</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {alerts.map((alert, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start gap-4 p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
-                  >
-                    <AlertCircle className="h-5 w-5 text-orange-600 mt-1 shrink-0" />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-medium text-foreground">{alert.client}</h3>
-                        <Badge variant="outline" className={getSeverityColor(alert.severity)}>
-                          {alert.severity}
-                        </Badge>
+              {alertsLoading ? (
+                <div className="space-y-4">
+                  {[...Array(3)].map((_, i) => (
+                    <Skeleton key={i} className="h-20 w-full" />
+                  ))}
+                </div>
+              ) : alerts && alerts.length > 0 ? (
+                <div className="space-y-4">
+                  {alerts.map((alert) => (
+                    <div
+                      key={alert.id}
+                      className="flex items-start gap-4 p-4 border border-border rounded-lg hover:bg-muted/50 transition-colors"
+                    >
+                      <AlertCircle className="h-5 w-5 text-orange-600 mt-1 shrink-0" />
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-medium text-foreground">{alert.client_name || 'System'}</h3>
+                          <Badge variant="outline" className={getSeverityColor(alert.severity)}>
+                            {alert.severity}
+                          </Badge>
+                        </div>
+                        <p className="text-sm font-medium text-foreground mb-1">{alert.type}</p>
+                        <p className="text-sm text-muted-foreground">{alert.description}</p>
                       </div>
-                      <p className="text-sm font-medium text-foreground mb-1">{alert.type}</p>
-                      <p className="text-sm text-muted-foreground">{alert.description}</p>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8">
+                  <CheckCircle className="h-12 w-12 mx-auto text-green-500 mb-4" />
+                  <p className="text-muted-foreground">No unresolved alerts. Everything looks good!</p>
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>

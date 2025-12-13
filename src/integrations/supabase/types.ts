@@ -61,6 +61,147 @@ export type Database = {
           },
         ]
       }
+      alerts: {
+        Row: {
+          client_id: string | null
+          client_name: string | null
+          created_at: string
+          description: string | null
+          id: string
+          is_resolved: boolean | null
+          resolved_at: string | null
+          severity: string
+          type: string
+        }
+        Insert: {
+          client_id?: string | null
+          client_name?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_resolved?: boolean | null
+          resolved_at?: string | null
+          severity?: string
+          type: string
+        }
+        Update: {
+          client_id?: string | null
+          client_name?: string | null
+          created_at?: string
+          description?: string | null
+          id?: string
+          is_resolved?: boolean | null
+          resolved_at?: string | null
+          severity?: string
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alerts_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      analytics_snapshots: {
+        Row: {
+          avg_session_duration: string | null
+          bounce_rate: number | null
+          conversions: Json | null
+          created_at: string
+          id: string
+          page_views: number | null
+          snapshot_date: string
+          top_pages: Json | null
+          unique_visitors: number | null
+          website_id: string | null
+        }
+        Insert: {
+          avg_session_duration?: string | null
+          bounce_rate?: number | null
+          conversions?: Json | null
+          created_at?: string
+          id?: string
+          page_views?: number | null
+          snapshot_date: string
+          top_pages?: Json | null
+          unique_visitors?: number | null
+          website_id?: string | null
+        }
+        Update: {
+          avg_session_duration?: string | null
+          bounce_rate?: number | null
+          conversions?: Json | null
+          created_at?: string
+          id?: string
+          page_views?: number | null
+          snapshot_date?: string
+          top_pages?: Json | null
+          unique_visitors?: number | null
+          website_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_snapshots_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "client_websites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      campaigns: {
+        Row: {
+          budget: number | null
+          channel: string
+          client_id: string | null
+          client_name: string | null
+          created_at: string
+          id: string
+          name: string
+          next_review: string | null
+          objective: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          budget?: number | null
+          channel: string
+          client_id?: string | null
+          client_name?: string | null
+          created_at?: string
+          id?: string
+          name: string
+          next_review?: string | null
+          objective?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          budget?: number | null
+          channel?: string
+          client_id?: string | null
+          client_name?: string | null
+          created_at?: string
+          id?: string
+          name?: string
+          next_review?: string | null
+          objective?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "campaigns_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       case_studies: {
         Row: {
           after_media: string | null
@@ -222,6 +363,56 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      clients: {
+        Row: {
+          created_at: string
+          id: string
+          industry: string | null
+          monthly_value: string | null
+          name: string
+          notes: string | null
+          owner_id: string | null
+          owner_name: string | null
+          services: string[] | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          industry?: string | null
+          monthly_value?: string | null
+          name: string
+          notes?: string | null
+          owner_id?: string | null
+          owner_name?: string | null
+          services?: string[] | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          industry?: string | null
+          monthly_value?: string | null
+          name?: string
+          notes?: string | null
+          owner_id?: string | null
+          owner_name?: string | null
+          services?: string[] | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "clients_owner_id_fkey"
+            columns: ["owner_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       competitor_analyses: {
         Row: {
