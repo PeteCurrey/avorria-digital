@@ -1,78 +1,18 @@
 # Avorria Robots.txt
-# https://avorria.com
+# For dynamic robots.txt with full rules, visit:
+# https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/robots
 
-# Search Engine Crawlers - Full Access
-User-agent: Googlebot
-Allow: /
-Crawl-delay: 1
+# Dynamic Sitemap
+Sitemap: https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap
 
-User-agent: Googlebot-Image
-Allow: /
-
-User-agent: Googlebot-News
-Allow: /
-
-User-agent: Bingbot
-Allow: /
-Crawl-delay: 2
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-# Social Media Crawlers
-User-agent: Twitterbot
-Allow: /
-
-User-agent: facebookexternalhit
-Allow: /
-
-User-agent: LinkedInBot
-Allow: /
-
-User-agent: Pinterest
-Allow: /
-
-# Default rules for all other bots
+# Default rules
 User-agent: *
 Allow: /
-
-# Protected/Private Areas
 Disallow: /admin
-Disallow: /admin/*
 Disallow: /platform
-Disallow: /platform/*
 Disallow: /client
-Disallow: /client/*
-Disallow: /auth
-Disallow: /auth/*
 Disallow: /api/
-Disallow: /*.json$
-Disallow: /unauthorized
-
-# Block bad bots
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
-
-# Sitemaps
-Sitemap: https://avorria.com/sitemap.xml
+Disallow: /auth/
 
 # Host
 Host: https://avorria.com
