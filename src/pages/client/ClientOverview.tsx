@@ -4,7 +4,7 @@ import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TrendingUp, TrendingDown, FileCheck, Activity, BarChart3, ArrowRight } from "lucide-react";
+import { TrendingUp, TrendingDown, FileCheck, Activity, BarChart3, ArrowRight, Search, Target } from "lucide-react";
 
 const ClientOverview = () => {
   const { impersonatedClient } = useAuth();
@@ -83,7 +83,27 @@ const ClientOverview = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <Card className="hover:shadow-lg transition-shadow">
+              <CardContent className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <Search className="h-5 w-5 text-primary" />
+                  </div>
+                  <h3 className="font-medium text-foreground">SEO Intelligence</h3>
+                </div>
+                <p className="text-sm text-muted-foreground mb-4">
+                  AI-powered website analysis, competitor insights & keyword research.
+                </p>
+                <Link to="/client/seo-intelligence">
+                  <Button variant="outline" className="w-full">
+                    Open tools
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
                 <div className="flex items-center gap-3 mb-3">

@@ -47,6 +47,8 @@ import {
   Check,
   ChevronsUpDown,
   Briefcase,
+  UserPlus,
+  TrendingUp,
 } from "lucide-react";
 
 interface AppShellProps {
@@ -65,6 +67,7 @@ interface NavItem {
 
 const platformNavItems: NavItem[] = [
   { name: "Dashboard", path: "/platform", icon: LayoutDashboard },
+  { name: "Leads", path: "/platform/leads", icon: UserPlus },
   { name: "Clients", path: "/platform/clients", icon: Users },
   { name: "Case Studies", path: "/platform/case-studies", icon: Briefcase },
   { name: "Campaigns & Channels", path: "/platform/campaigns", icon: Target },
@@ -77,6 +80,7 @@ const platformNavItems: NavItem[] = [
 
 const clientNavItems: NavItem[] = [
   { name: "Overview", path: "/client", icon: LayoutDashboard },
+  { name: "SEO Intelligence", path: "/client/seo-intelligence", icon: TrendingUp },
   { name: "Audits", path: "/client/audits", icon: FileCheck },
   { name: "Website Health", path: "/client/website-health", icon: Activity },
   { name: "Reporting", path: "/client/reporting", icon: BarChart3 },
