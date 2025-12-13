@@ -24,9 +24,11 @@ import {
   ExternalLink,
   Settings,
   Shield,
-  Gauge
+  Gauge,
+  Map
 } from "lucide-react";
 import PerformanceTab from "@/components/admin/PerformanceTab";
+import SitemapManager from "@/components/admin/SitemapManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -227,6 +229,10 @@ const Admin = () => {
               <TabsTrigger value="seo" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Globe className="h-4 w-4 mr-2" />
                 SEO & Health
+              </TabsTrigger>
+              <TabsTrigger value="sitemap" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Map className="h-4 w-4 mr-2" />
+                Sitemap
               </TabsTrigger>
             </TabsList>
 
@@ -719,6 +725,11 @@ const Admin = () => {
             {/* Performance Tab */}
             <TabsContent value="performance">
               <PerformanceTab />
+            </TabsContent>
+
+            {/* Sitemap Tab */}
+            <TabsContent value="sitemap">
+              <SitemapManager />
             </TabsContent>
           </Tabs>
         </div>
