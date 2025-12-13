@@ -14,6 +14,53 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_conversations: {
+        Row: {
+          created_at: string
+          handoff_completed: boolean | null
+          handoff_requested: boolean | null
+          id: string
+          lead_id: string | null
+          messages: Json | null
+          sentiment: string | null
+          session_id: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          handoff_completed?: boolean | null
+          handoff_requested?: boolean | null
+          id?: string
+          lead_id?: string | null
+          messages?: Json | null
+          sentiment?: string | null
+          session_id: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          handoff_completed?: boolean | null
+          handoff_requested?: boolean | null
+          id?: string
+          lead_id?: string | null
+          messages?: Json | null
+          sentiment?: string | null
+          session_id?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ai_conversations_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       case_studies: {
         Row: {
           after_media: string | null
@@ -110,6 +157,184 @@ export type Database = {
         }
         Relationships: []
       }
+      client_activities: {
+        Row: {
+          activity_type: string
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          activity_type: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          activity_type?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      client_websites: {
+        Row: {
+          created_at: string
+          google_analytics_property_id: string | null
+          google_search_console_property: string | null
+          id: string
+          is_primary: boolean
+          name: string
+          updated_at: string
+          url: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          google_analytics_property_id?: string | null
+          google_search_console_property?: string | null
+          id?: string
+          is_primary?: boolean
+          name: string
+          updated_at?: string
+          url: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          google_analytics_property_id?: string | null
+          google_search_console_property?: string | null
+          id?: string
+          is_primary?: boolean
+          name?: string
+          updated_at?: string
+          url?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      competitor_analyses: {
+        Row: {
+          company_name: string | null
+          competitor_url: string
+          created_at: string
+          id: string
+          marketing_tactics: Json | null
+          opportunities: Json | null
+          positioning: string | null
+          raw_response: Json | null
+          strengths: Json | null
+          threat_level: string | null
+          updated_at: string
+          user_id: string
+          weaknesses: Json | null
+          website_id: string
+        }
+        Insert: {
+          company_name?: string | null
+          competitor_url: string
+          created_at?: string
+          id?: string
+          marketing_tactics?: Json | null
+          opportunities?: Json | null
+          positioning?: string | null
+          raw_response?: Json | null
+          strengths?: Json | null
+          threat_level?: string | null
+          updated_at?: string
+          user_id: string
+          weaknesses?: Json | null
+          website_id: string
+        }
+        Update: {
+          company_name?: string | null
+          competitor_url?: string
+          created_at?: string
+          id?: string
+          marketing_tactics?: Json | null
+          opportunities?: Json | null
+          positioning?: string | null
+          raw_response?: Json | null
+          strengths?: Json | null
+          threat_level?: string | null
+          updated_at?: string
+          user_id?: string
+          weaknesses?: Json | null
+          website_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "competitor_analyses_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "client_websites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      keyword_tracking: {
+        Row: {
+          created_at: string
+          current_position: number | null
+          difficulty: number | null
+          id: string
+          intent: string | null
+          keyword: string
+          previous_position: number | null
+          search_volume: number | null
+          tracked_at: string
+          updated_at: string
+          user_id: string
+          website_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_position?: number | null
+          difficulty?: number | null
+          id?: string
+          intent?: string | null
+          keyword: string
+          previous_position?: number | null
+          search_volume?: number | null
+          tracked_at?: string
+          updated_at?: string
+          user_id: string
+          website_id: string
+        }
+        Update: {
+          created_at?: string
+          current_position?: number | null
+          difficulty?: number | null
+          id?: string
+          intent?: string | null
+          keyword?: string
+          previous_position?: number | null
+          search_volume?: number | null
+          tracked_at?: string
+          updated_at?: string
+          user_id?: string
+          website_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "keyword_tracking_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "client_websites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
           company: string | null
@@ -179,6 +404,65 @@ export type Database = {
         }
         Relationships: []
       }
+      proposals: {
+        Row: {
+          accepted_at: string | null
+          content: Json | null
+          created_at: string
+          id: string
+          lead_id: string | null
+          pricing: Json | null
+          sent_at: string | null
+          services: Json | null
+          status: Database["public"]["Enums"]["proposal_status"]
+          title: string
+          updated_at: string
+          user_id: string
+          valid_until: string | null
+          viewed_at: string | null
+        }
+        Insert: {
+          accepted_at?: string | null
+          content?: Json | null
+          created_at?: string
+          id?: string
+          lead_id?: string | null
+          pricing?: Json | null
+          sent_at?: string | null
+          services?: Json | null
+          status?: Database["public"]["Enums"]["proposal_status"]
+          title: string
+          updated_at?: string
+          user_id: string
+          valid_until?: string | null
+          viewed_at?: string | null
+        }
+        Update: {
+          accepted_at?: string | null
+          content?: Json | null
+          created_at?: string
+          id?: string
+          lead_id?: string | null
+          pricing?: Json | null
+          sent_at?: string | null
+          services?: Json | null
+          status?: Database["public"]["Enums"]["proposal_status"]
+          title?: string
+          updated_at?: string
+          user_id?: string
+          valid_until?: string | null
+          viewed_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proposals_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -199,6 +483,68 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      website_audits: {
+        Row: {
+          created_at: string
+          error_message: string | null
+          id: string
+          long_term: Json | null
+          medium_term: Json | null
+          overall_score: number | null
+          quick_wins: Json | null
+          raw_response: Json | null
+          seo_opportunities: Json | null
+          status: Database["public"]["Enums"]["audit_status"]
+          strengths: Json | null
+          technical_issues: Json | null
+          updated_at: string
+          user_id: string
+          website_id: string
+        }
+        Insert: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          long_term?: Json | null
+          medium_term?: Json | null
+          overall_score?: number | null
+          quick_wins?: Json | null
+          raw_response?: Json | null
+          seo_opportunities?: Json | null
+          status?: Database["public"]["Enums"]["audit_status"]
+          strengths?: Json | null
+          technical_issues?: Json | null
+          updated_at?: string
+          user_id: string
+          website_id: string
+        }
+        Update: {
+          created_at?: string
+          error_message?: string | null
+          id?: string
+          long_term?: Json | null
+          medium_term?: Json | null
+          overall_score?: number | null
+          quick_wins?: Json | null
+          raw_response?: Json | null
+          seo_opportunities?: Json | null
+          status?: Database["public"]["Enums"]["audit_status"]
+          strengths?: Json | null
+          technical_issues?: Json | null
+          updated_at?: string
+          user_id?: string
+          website_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "website_audits_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "client_websites"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       website_blueprints: {
         Row: {
@@ -370,6 +716,14 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "strategist" | "specialist" | "client"
+      audit_status: "pending" | "processing" | "completed" | "failed"
+      proposal_status:
+        | "draft"
+        | "sent"
+        | "viewed"
+        | "accepted"
+        | "rejected"
+        | "expired"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -498,6 +852,15 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "strategist", "specialist", "client"],
+      audit_status: ["pending", "processing", "completed", "failed"],
+      proposal_status: [
+        "draft",
+        "sent",
+        "viewed",
+        "accepted",
+        "rejected",
+        "expired",
+      ],
     },
   },
 } as const

@@ -72,6 +72,7 @@ const ClientAudits = lazy(() => import("@/pages/client/ClientAudits"));
 const ClientWebsiteHealth = lazy(() => import("@/pages/client/ClientWebsiteHealth"));
 const ClientReporting = lazy(() => import("@/pages/client/ClientReporting"));
 const ClientResources = lazy(() => import("@/pages/client/ClientResources"));
+const ClientSEOIntelligence = lazy(() => import("@/pages/client/ClientSEOIntelligence"));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -236,6 +237,11 @@ const AnimatedRoutes = () => {
           <Route path="/client/resources" element={
             <ProtectedRoute requiredRole="client">
               <PageTransition><ClientResources /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/seo-intelligence" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientSEOIntelligence /></PageTransition>
             </ProtectedRoute>
           } />
           
