@@ -13,9 +13,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, ArrowRight, Plus, Users } from "lucide-react";
+import { Search, ArrowRight, Users } from "lucide-react";
 import { useClients } from "@/hooks/useClients";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CreateClientDialog } from "@/components/platform/CreateClientDialog";
 
 const PlatformClients = () => {
   const [statusFilter, setStatusFilter] = useState("all");
@@ -63,10 +64,7 @@ const PlatformClients = () => {
                 Manage your client portfolio and track engagement
               </p>
             </div>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Client
-            </Button>
+            <CreateClientDialog />
           </div>
 
           {/* Filters */}
@@ -123,10 +121,7 @@ const PlatformClients = () => {
                 <p className="text-muted-foreground mb-4">
                   Get started by adding your first client to the platform.
                 </p>
-                <Button>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Add Your First Client
-                </Button>
+                <CreateClientDialog />
               </CardContent>
             </Card>
           )}

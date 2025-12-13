@@ -14,9 +14,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, Target, Plus } from "lucide-react";
+import { Search, Target } from "lucide-react";
 import { useCampaigns } from "@/hooks/useCampaigns";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CreateCampaignDialog } from "@/components/platform/CreateCampaignDialog";
 
 const PlatformCampaigns = () => {
   const navigate = useNavigate();
@@ -70,10 +71,7 @@ const PlatformCampaigns = () => {
                 Manage all live and planned campaigns across clients and channels
               </p>
             </div>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Campaign
-            </Button>
+            <CreateCampaignDialog />
           </div>
 
           {/* Filters */}
@@ -147,10 +145,7 @@ const PlatformCampaigns = () => {
                 <p className="text-muted-foreground mb-4">
                   Get started by creating your first campaign.
                 </p>
-                <Button>
-                  <Plus className="h-4 w-4 mr-2" />
-                  Create Your First Campaign
-                </Button>
+                <CreateCampaignDialog />
               </CardContent>
             </Card>
           )}
