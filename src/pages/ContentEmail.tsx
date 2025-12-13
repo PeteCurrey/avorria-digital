@@ -119,10 +119,40 @@ const ContentEmail = () => {
             "serviceType": "Content & Email Marketing",
             "provider": {
               "@type": "Organization",
-              "name": "Avorria"
+              "name": "Avorria",
+              "url": "https://avorria.com"
             },
-            "areaServed": ["UK", "EU"],
+            "areaServed": {
+              "@type": "Country",
+              "name": "United Kingdom"
+            },
             "description": "Strategic content marketing and email automation that drives qualified leads and pipeline."
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://avorria.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://avorria.com/services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Content & Email",
+                "item": "https://avorria.com/services/content-email"
+              }
+            ]
           })}
         </script>
       </Helmet>

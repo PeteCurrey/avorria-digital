@@ -128,10 +128,40 @@ const WebDesign = () => {
             "serviceType": "Web Design and Development",
             "provider": {
               "@type": "Organization",
-              "name": "Avorria"
+              "name": "Avorria",
+              "url": "https://avorria.com"
             },
-            "areaServed": ["UK", "EU"],
+            "areaServed": {
+              "@type": "Country",
+              "name": "United Kingdom"
+            },
             "description": "Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one."
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://avorria.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://avorria.com/services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Web Design",
+                "item": "https://avorria.com/services/web-design"
+              }
+            ]
           })}
         </script>
       </Helmet>
