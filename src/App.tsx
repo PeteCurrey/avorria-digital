@@ -11,6 +11,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import BackToTop from "./components/BackToTop";
 import CookieConsent from "./components/CookieConsent";
 import AnimatedRoutes from "./components/AnimatedRoutes";
+import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -40,6 +41,7 @@ const App = () => (
             <ScrollToTop />
             <BackToTop />
             <CookieConsent />
+            <AIConsultantTrigger />
             <Layout>
               <AnimatedRoutes />
             </Layout>

@@ -7,7 +7,7 @@ import { ArrowRight, TrendingUp, Target, Zap, BarChart3, CheckCircle2, X } from 
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import HeroStats from "@/components/HeroStats";
 import ScrollIndicator from "@/components/ScrollIndicator";
-import FloatingChatButton from "@/components/FloatingChatButton";
+
 import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
@@ -290,8 +290,6 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Floating Chat Button */}
-        <FloatingChatButton />
 
         {/* Trust Bar */}
         <SectionBand background="dark" className="py-12 md:py-16 border-y border-white/10">
