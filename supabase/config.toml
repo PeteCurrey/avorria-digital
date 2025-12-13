@@ -9,5 +9,8 @@ verify_jwt = false
 [functions.google-search-console]
 verify_jwt = false
 
+[functions.ai-consultant]
+verify_jwt = false
+
 [functions.google-analytics]
 verify_jwt = false
