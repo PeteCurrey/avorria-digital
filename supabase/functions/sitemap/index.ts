@@ -114,10 +114,10 @@ Deno.serve(async (req) => {
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseKey)
 
-    // Fetch published case studies
+    // Fetch published case studies with image data
     const { data: caseStudies, error } = await supabase
       .from('case_studies')
-      .select('slug, updated_at')
+      .select('slug, updated_at, hero_media_src, hero_media_type, title, headline, client, sector, services')
       .eq('is_published', true)
       .order('updated_at', { ascending: false })
 
@@ -127,6 +127,27 @@ Deno.serve(async (req) => {
 
     const baseUrl = 'https://avorria.com'
     const today = new Date().toISOString().split('T')[0]
+
+    // Helper to escape XML special characters
+    const escapeXml = (str: string): string => {
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;')
+    }
+
+    // Helper to generate SEO-optimized image caption
+    const generateImageCaption = (study: any): string => {
+      const services = Array.isArray(study.services) ? study.services.join(', ') : ''
+      return `${study.client} ${study.sector} case study - ${services} results by Avorria digital marketing agency`
+    }
+
+    // Helper to generate SEO-optimized image title
+    const generateImageTitle = (study: any): string => {
+      return `${study.headline || study.title} | ${study.client} Success Story`
+    }
 
     // Generate sitemap XML
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
@@ -145,17 +166,35 @@ Deno.serve(async (req) => {
 `
     }
 
-    // Add case studies from database
+    // Add case studies from database with image entries
     if (caseStudies && caseStudies.length > 0) {
       for (const study of caseStudies) {
         const lastmod = study.updated_at 
           ? new Date(study.updated_at).toISOString().split('T')[0]
           : today
+        
+        // Build image entry if hero media exists and is an image
+        let imageEntry = ''
+        if (study.hero_media_src && study.hero_media_type === 'image') {
+          const imageUrl = study.hero_media_src.startsWith('http') 
+            ? study.hero_media_src 
+            : `${baseUrl}${study.hero_media_src}`
+          const caption = escapeXml(generateImageCaption(study))
+          const title = escapeXml(generateImageTitle(study))
+          
+          imageEntry = `
+    <image:image>
+      <image:loc>${escapeXml(imageUrl)}</image:loc>
+      <image:caption>${caption}</image:caption>
+      <image:title>${title}</image:title>
+    </image:image>`
+        }
+
         sitemap += `  <url>
     <loc>${baseUrl}/case-studies/${study.slug}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.7</priority>${imageEntry}
   </url>
 `
       }
