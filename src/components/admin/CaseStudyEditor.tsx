@@ -91,14 +91,16 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
   const createMutation = useCreateCaseStudy();
   const updateMutation = useUpdateCaseStudy();
 
-  const handleSave = () => {
-    if (caseStudy) {
-      updateMutation.mutate(
-        { id: caseStudy.id, updates: formData },
-        { onSuccess: onClose }
-      );
-    } else {
-      createMutation.mutate(formData, { onSuccess: onClose });
+  const handleSave = async () => {
+    try {
+      if (caseStudy) {
+        await updateMutation.mutateAsync({ id: caseStudy.id, updates: formData });
+      } else {
+        await createMutation.mutateAsync(formData);
+      }
+      onClose();
+    } catch (error) {
+      console.error("Error saving case study:", error);
     }
   };
 
