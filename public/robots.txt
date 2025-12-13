@@ -1,9 +1,11 @@
-# Avorria Robots.txt
-# For dynamic robots.txt with full rules, visit:
-# https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/robots
+# Robots.txt for Avorria
+# https://avorria.com
 
-# Dynamic Sitemap
-Sitemap: https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap
+# Sitemaps
+Sitemap: https://avorria.com/sitemap-index.xml
+Sitemap: https://avorria.com/sitemap.xml
+Sitemap: https://avorria.com/sitemap-news.xml
+Sitemap: https://avorria.com/sitemap-geo.xml
 
 # Default rules
 User-agent: *

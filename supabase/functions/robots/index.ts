@@ -15,17 +15,16 @@ serve(async (req) => {
 
   try {
     const baseUrl = "https://avorria.com";
-    const sitemapUrl = `${Deno.env.get('SUPABASE_URL')}/functions/v1/sitemap`;
 
     // Build robots.txt content
     const robotsTxt = `# Robots.txt for Avorria
 # Generated dynamically on ${new Date().toISOString()}
 
 # Sitemaps
-Sitemap: ${sitemapUrl}?type=index
-Sitemap: ${sitemapUrl}
-Sitemap: ${sitemapUrl}?type=news
-Sitemap: ${sitemapUrl}?type=geo
+Sitemap: ${baseUrl}/sitemap-index.xml
+Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap-news.xml
+Sitemap: ${baseUrl}/sitemap-geo.xml
 
 # Default rules for all bots
 User-agent: *

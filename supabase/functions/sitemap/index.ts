@@ -204,15 +204,15 @@ Deno.serve(async (req) => {
       const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <sitemap>
-    <loc>${supabaseUrl}/functions/v1/sitemap</loc>
+    <loc>${baseUrl}/sitemap.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
-    <loc>${supabaseUrl}/functions/v1/sitemap?type=news</loc>
+    <loc>${baseUrl}/sitemap-news.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
   <sitemap>
-    <loc>${supabaseUrl}/functions/v1/sitemap?type=geo</loc>
+    <loc>${baseUrl}/sitemap-geo.xml</loc>
     <lastmod>${today}</lastmod>
   </sitemap>
 </sitemapindex>`
