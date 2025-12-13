@@ -23,35 +23,143 @@ import serviceWebDesign from "@/assets/service-web-design.jpg";
 import serviceContentEmail from "@/assets/service-content-email.jpg";
 import serviceSocialBrand from "@/assets/service-social-brand.jpg";
 const Home = () => {
+  // Organization schema for brand visibility in search results
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": "https://avorria.com/#organization",
+    name: "Avorria",
+    legalName: "Avorria Ltd",
+    description: "Performance-first digital marketing agency specialising in SEO, paid media, web design, and analytics for B2B and service businesses.",
+    url: "https://avorria.com",
+    logo: {
+      "@type": "ImageObject",
+      url: "https://avorria.com/logo.png",
+      width: 512,
+      height: 512,
+    },
+    image: "https://avorria.com/og-image.jpg",
+    email: "hello@avorria.com",
+    telephone: "+44 114 123 4567",
+    foundingDate: "2020",
+    slogan: "Digital Marketing, SEO & Web Experiences that Actually Convert",
+    knowsAbout: [
+      "Search Engine Optimization",
+      "Digital Marketing",
+      "Web Design",
+      "Paid Media Advertising",
+      "Google Ads",
+      "Content Marketing",
+      "Analytics & Tracking",
+      "Conversion Rate Optimization",
+    ],
+    sameAs: [
+      "https://www.linkedin.com/company/avorria",
+      "https://twitter.com/avorria",
+    ],
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Sheffield Digital Campus",
+      addressLocality: "Sheffield",
+      addressRegion: "South Yorkshire",
+      postalCode: "S1 2BJ",
+      addressCountry: "GB",
+    },
+    areaServed: [
+      { "@type": "Country", name: "United Kingdom" },
+      { "@type": "City", name: "Sheffield" },
+      { "@type": "City", name: "London" },
+      { "@type": "AdministrativeArea", name: "Yorkshire" },
+    ],
+    serviceArea: {
+      "@type": "GeoCircle",
+      geoMidpoint: {
+        "@type": "GeoCoordinates",
+        latitude: 53.3811,
+        longitude: -1.4701,
+      },
+      geoRadius: "200 mi",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Digital Marketing Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "SEO Services",
+            description: "Technical SEO, content strategy and on-site optimisation focused on commercial keywords.",
+            url: "https://avorria.com/services/seo",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Paid Media",
+            description: "Google Ads and paid acquisition with clear ROAS and CPL targets.",
+            url: "https://avorria.com/services/paid-media",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Web Design & Development",
+            description: "High-end websites built for speed, clarity and conversion.",
+            url: "https://avorria.com/services/web-design",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Analytics & Tracking",
+            description: "Marketing analytics, tracking setup and data-driven reporting.",
+            url: "https://avorria.com/services/analytics",
+          },
+        },
+      ],
+    },
+  };
+  
+  // Local Business schema for local SEO
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
-    "@id": "https://avorria.com/#organization",
+    "@id": "https://avorria.com/#localbusiness",
     name: "Avorria",
     description: "Performance-first digital marketing agency specialising in SEO, paid media, web design, and analytics for B2B and service businesses.",
     url: "https://avorria.com",
-    telephone: "+44 20 1234 5678",
+    telephone: "+44 114 123 4567",
     email: "hello@avorria.com",
     image: "https://avorria.com/og-image.jpg",
-    priceRange: "££££",
+    priceRange: "£££",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "123 Digital Street",
-      addressLocality: "London",
-      addressRegion: "Greater London",
-      postalCode: "EC1A 1BB",
+      streetAddress: "Sheffield Digital Campus",
+      addressLocality: "Sheffield",
+      addressRegion: "South Yorkshire",
+      postalCode: "S1 2BJ",
       addressCountry: "GB",
     },
     geo: {
       "@type": "GeoCoordinates",
-      latitude: 51.5074,
-      longitude: -0.1278,
+      latitude: 53.3811,
+      longitude: -1.4701,
     },
     areaServed: [
       { "@type": "Country", name: "United Kingdom" },
-      { "@type": "City", name: "London" },
       { "@type": "City", name: "Sheffield" },
+      { "@type": "City", name: "London" },
     ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "17:30",
+    },
   };
 
   const services = [{
@@ -200,8 +308,25 @@ const Home = () => {
         
         <link rel="canonical" href="https://avorria.com" />
         
+        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "@id": "https://avorria.com/#website",
+          "url": "https://avorria.com",
+          "name": "Avorria",
+          "description": "Performance-first digital marketing agency",
+          "publisher": {"@id": "https://avorria.com/#organization"},
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://avorria.com/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        })}
+        </script>
         <script type="application/ld+json">
           {JSON.stringify({
           "@context": "https://schema.org",
