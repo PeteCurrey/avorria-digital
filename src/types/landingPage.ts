@@ -23,8 +23,10 @@ export interface Location {
   city: string;
   region?: string;
   country: string;
+  countryCode?: string;
   slug: string;
   isPrimaryMarket: boolean;
+  coords?: { lat: number; lng: number };
 }
 
 export interface LandingPage {

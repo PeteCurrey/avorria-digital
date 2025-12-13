@@ -28,44 +28,60 @@ const resourceArticles = [
   },
 ]
 
-// Location pages with geo-targeting data
-const locationPages = [
-  { 
-    path: '/seo-agency/sheffield', 
-    city: 'Sheffield', 
-    region: 'South Yorkshire',
-    country: 'GB',
-    coords: { lat: 53.3811, lng: -1.4701 }
-  },
-  { 
-    path: '/seo-agency/london', 
-    city: 'London', 
-    region: 'Greater London',
-    country: 'GB',
-    coords: { lat: 51.5074, lng: -0.1278 }
-  },
-  { 
-    path: '/web-design/sheffield', 
-    city: 'Sheffield', 
-    region: 'South Yorkshire',
-    country: 'GB',
-    coords: { lat: 53.3811, lng: -1.4701 }
-  },
-  { 
-    path: '/digital-marketing-agency/yorkshire', 
-    city: 'Yorkshire', 
-    region: 'Yorkshire and the Humber',
-    country: 'GB',
-    coords: { lat: 53.9591, lng: -1.0815 }
-  },
-  { 
-    path: '/digital-marketing-agency/uk', 
-    city: 'United Kingdom', 
-    region: 'UK',
-    country: 'GB',
-    coords: { lat: 55.3781, lng: -3.4360 }
-  },
+// UK Locations with geo-targeting data
+const ukLocations = [
+  { slug: 'london', city: 'London', region: 'Greater London', country: 'GB', coords: { lat: 51.5074, lng: -0.1278 } },
+  { slug: 'manchester', city: 'Manchester', region: 'Greater Manchester', country: 'GB', coords: { lat: 53.4808, lng: -2.2426 } },
+  { slug: 'birmingham', city: 'Birmingham', region: 'West Midlands', country: 'GB', coords: { lat: 52.4862, lng: -1.8904 } },
+  { slug: 'leeds', city: 'Leeds', region: 'West Yorkshire', country: 'GB', coords: { lat: 53.8008, lng: -1.5491 } },
+  { slug: 'liverpool', city: 'Liverpool', region: 'Merseyside', country: 'GB', coords: { lat: 53.4084, lng: -2.9916 } },
+  { slug: 'edinburgh', city: 'Edinburgh', region: 'Scotland', country: 'GB', coords: { lat: 55.9533, lng: -3.1883 } },
+  { slug: 'glasgow', city: 'Glasgow', region: 'Scotland', country: 'GB', coords: { lat: 55.8642, lng: -4.2518 } },
+  { slug: 'bristol', city: 'Bristol', region: 'South West England', country: 'GB', coords: { lat: 51.4545, lng: -2.5879 } },
+  { slug: 'newcastle', city: 'Newcastle', region: 'Tyne and Wear', country: 'GB', coords: { lat: 54.9783, lng: -1.6178 } },
+  { slug: 'nottingham', city: 'Nottingham', region: 'East Midlands', country: 'GB', coords: { lat: 52.9548, lng: -1.1581 } },
+  { slug: 'cardiff', city: 'Cardiff', region: 'Wales', country: 'GB', coords: { lat: 51.4816, lng: -3.1791 } },
+  { slug: 'sheffield', city: 'Sheffield', region: 'South Yorkshire', country: 'GB', coords: { lat: 53.3811, lng: -1.4701 } },
+  { slug: 'yorkshire', city: 'Yorkshire', region: 'Yorkshire and the Humber', country: 'GB', coords: { lat: 53.9591, lng: -1.0815 } },
+  { slug: 'uk', city: 'United Kingdom', region: 'UK', country: 'GB', coords: { lat: 55.3781, lng: -3.4360 } },
 ]
+
+// USA Locations with geo-targeting data
+const usaLocations = [
+  { slug: 'new-york', city: 'New York', region: 'New York', country: 'US', coords: { lat: 40.7128, lng: -74.0060 } },
+  { slug: 'los-angeles', city: 'Los Angeles', region: 'California', country: 'US', coords: { lat: 34.0522, lng: -118.2437 } },
+  { slug: 'chicago', city: 'Chicago', region: 'Illinois', country: 'US', coords: { lat: 41.8781, lng: -87.6298 } },
+  { slug: 'san-francisco', city: 'San Francisco', region: 'California', country: 'US', coords: { lat: 37.7749, lng: -122.4194 } },
+  { slug: 'boston', city: 'Boston', region: 'Massachusetts', country: 'US', coords: { lat: 42.3601, lng: -71.0589 } },
+  { slug: 'miami', city: 'Miami', region: 'Florida', country: 'US', coords: { lat: 25.7617, lng: -80.1918 } },
+  { slug: 'austin', city: 'Austin', region: 'Texas', country: 'US', coords: { lat: 30.2672, lng: -97.7431 } },
+  { slug: 'denver', city: 'Denver', region: 'Colorado', country: 'US', coords: { lat: 39.7392, lng: -104.9903 } },
+  { slug: 'seattle', city: 'Seattle', region: 'Washington', country: 'US', coords: { lat: 47.6062, lng: -122.3321 } },
+  { slug: 'atlanta', city: 'Atlanta', region: 'Georgia', country: 'US', coords: { lat: 33.7490, lng: -84.3880 } },
+]
+
+// All locations combined
+const allLocations = [...ukLocations, ...usaLocations]
+
+// Services for geo pages
+const geoServices = [
+  { slug: 'seo-agency', name: 'SEO Agency' },
+  { slug: 'web-design', name: 'Web Design' },
+  { slug: 'digital-marketing-agency', name: 'Digital Marketing Agency' },
+  { slug: 'paid-media-agency', name: 'Paid Media Agency' },
+]
+
+// Generate all location pages dynamically
+const locationPages = allLocations.flatMap(loc => 
+  geoServices.map(service => ({
+    path: `/${service.slug}/${loc.slug}`,
+    city: loc.city,
+    region: loc.region,
+    country: loc.country,
+    coords: loc.coords,
+    hreflang: loc.country === 'GB' ? 'en-GB' : 'en-US',
+  }))
+)
 
 // Landing pages (service-industry combinations)
 const landingPages = [
@@ -258,14 +274,14 @@ Deno.serve(async (req) => {
 `
     }
 
-    // Add location pages with hreflang for UK targeting
+    // Add location pages with hreflang for proper geo targeting
     for (const loc of locationPages) {
       sitemap += `  <url>
     <loc>${baseUrl}${loc.path}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en-GB" href="${baseUrl}${loc.path}"/>
+    <xhtml:link rel="alternate" hreflang="${loc.hreflang}" href="${baseUrl}${loc.path}"/>
   </url>
 `
     }

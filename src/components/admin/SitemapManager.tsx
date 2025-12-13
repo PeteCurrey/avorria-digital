@@ -142,10 +142,13 @@ export default function SitemapManager() {
     window.open(url, "_blank");
   };
 
+  // 4 services per location for geo pages
+  const geoPageCount = locations.length * 4;
+  
   const totalUrls =
     staticPages.length +
     landingPages.length +
-    locations.length +
+    geoPageCount +
     resources.length +
     (caseStudyCount || 0);
 
@@ -207,8 +210,9 @@ export default function SitemapManager() {
           <CardContent className="p-4">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">Locations</p>
-                <p className="text-2xl font-bold text-foreground">{locations.length}</p>
+                <p className="text-sm text-muted-foreground">Geo Pages</p>
+                <p className="text-2xl font-bold text-foreground">{geoPageCount}</p>
+                <p className="text-xs text-muted-foreground">{locations.length} locations × 4 services</p>
               </div>
               <MapPin className="h-8 w-8 text-primary/50" />
             </div>
