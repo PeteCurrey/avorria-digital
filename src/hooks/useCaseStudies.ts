@@ -1,4 +1,4 @@
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -18,8 +18,8 @@ export interface CaseStudyDB {
   services: string[];
   timeframe: string;
   year: number;
-  outcome: 'leads' | 'revenue' | 'traffic' | 'efficiency';
-  hero_media_type: 'image' | 'video';
+  outcome: "leads" | "revenue" | "traffic" | "efficiency";
+  hero_media_type: "image" | "video";
   hero_media_src: string;
   hero_media_poster?: string;
   headline: string;
@@ -28,7 +28,7 @@ export interface CaseStudyDB {
   problem: string;
   approach: { phase: string; title: string; description: string; duration?: string }[];
   outcomes: { label: string; value: string; baseline?: string; highlight?: boolean }[];
-  gallery_media: { type: 'image' | 'video'; src: string; alt: string }[];
+  gallery_media: { type: "image" | "video"; src: string; alt: string }[];
   before_media?: string;
   after_media?: string;
   before_after_pairs?: BeforeAfterPair[];
@@ -41,66 +41,153 @@ export interface CaseStudyDB {
   updated_at: string;
 }
 
-export type CaseStudyInsert = Omit<CaseStudyDB, 'id' | 'created_at' | 'updated_at'>;
+export type CaseStudyInsert = Omit<CaseStudyDB, "id" | "created_at" | "updated_at">;
 export type CaseStudyUpdate = Partial<CaseStudyInsert>;
 
+interface QueryResult<T> {
+  data: T | undefined;
+  isLoading: boolean;
+  error: Error | null;
+}
+
+interface MutationResult<TInput, TOutput = void> {
+  mutateAsync: (input: TInput) => Promise<TOutput>;
+  mutate: (input: TInput) => void;
+  isLoading: boolean;
+  isPending: boolean;
+  error: Error | null;
+}
+
 // Fetch all case studies (admin view)
-export const useCaseStudiesAdmin = () => {
-  return useQuery({
-    queryKey: ['case-studies-admin'],
-    queryFn: async () => {
+export const useCaseStudiesAdmin = (): QueryResult<CaseStudyDB[]> => {
+  const [data, setData] = useState<CaseStudyDB[] | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchCaseStudies = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
       const { data, error } = await supabase
-        .from('case_studies')
-        .select('*')
-        .order('created_at', { ascending: false });
-      
+        .from("case_studies")
+        .select("*")
+        .order("created_at", { ascending: false });
+
       if (error) throw error;
-      return data as unknown as CaseStudyDB[];
-    },
-  });
+      setData(data as unknown as CaseStudyDB[]);
+    } catch (err) {
+      console.error("Error fetching case studies:", err);
+      setError(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchCaseStudies();
+  }, [fetchCaseStudies]);
+
+  return { data, isLoading, error };
 };
 
 // Fetch published case studies (public view)
-export const useCaseStudiesPublic = () => {
-  return useQuery({
-    queryKey: ['case-studies-public'],
-    queryFn: async () => {
+export const useCaseStudiesPublic = (): QueryResult<CaseStudyDB[]> => {
+  const [data, setData] = useState<CaseStudyDB[] | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<Error | null>(null);
+
+  const fetchCaseStudies = useCallback(async () => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
       const { data, error } = await supabase
-        .from('case_studies')
-        .select('*')
-        .eq('is_published', true)
-        .order('year', { ascending: false });
-      
+        .from("case_studies")
+        .select("*")
+        .eq("is_published", true)
+        .order("year", { ascending: false });
+
       if (error) throw error;
-      return data as unknown as CaseStudyDB[];
-    },
-  });
+      setData(data as unknown as CaseStudyDB[]);
+    } catch (err) {
+      console.error("Error fetching case studies:", err);
+      setError(err as Error);
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    void fetchCaseStudies();
+  }, [fetchCaseStudies]);
+
+  return { data, isLoading, error };
 };
 
 // Fetch single case study by slug
-export const useCaseStudyBySlug = (slug: string) => {
-  return useQuery({
-    queryKey: ['case-study', slug],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('case_studies')
-        .select('*')
-        .eq('slug', slug)
-        .single();
-      
-      if (error) throw error;
-      return data as unknown as CaseStudyDB;
-    },
-    enabled: !!slug,
-  });
+export const useCaseStudyBySlug = (slug: string): QueryResult<CaseStudyDB | null> => {
+  const [data, setData] = useState<CaseStudyDB | null | undefined>(undefined);
+  const [isLoading, setIsLoading] = useState<boolean>(!!slug);
+  const [error, setError] = useState<Error | null>(null);
+
+  useEffect(() => {
+    if (!slug) {
+      setData(null);
+      setIsLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+
+    const fetchCaseStudy = async () => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const { data, error } = await supabase
+          .from("case_studies")
+          .select("*")
+          .eq("slug", slug)
+          .maybeSingle();
+
+        if (error) throw error;
+        if (!cancelled) {
+          setData((data ?? null) as unknown as CaseStudyDB | null);
+        }
+      } catch (err) {
+        console.error("Error fetching case study:", err);
+        if (!cancelled) {
+          setError(err as Error);
+          setData(null);
+        }
+      } finally {
+        if (!cancelled) {
+          setIsLoading(false);
+        }
+      }
+    };
+
+    void fetchCaseStudy();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [slug]);
+
+  return { data: (data ?? null) as CaseStudyDB | null, isLoading, error };
 };
 
 // Create case study
-export const useCreateCaseStudy = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async (caseStudy: CaseStudyInsert) => {
+export const useCreateCaseStudy = (): MutationResult<CaseStudyInsert, CaseStudyDB> => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const mutateAsync = useCallback(async (caseStudy: CaseStudyInsert) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const insertData: any = {
         slug: caseStudy.slug,
@@ -132,126 +219,206 @@ export const useCreateCaseStudy = () => {
       };
 
       const { data, error } = await supabase
-        .from('case_studies')
+        .from("case_studies")
         .insert(insertData)
         .select();
-      
+
       if (error) throw error;
       if (!data || data.length === 0) {
-        throw new Error('Permission denied. Please ensure you are logged in with admin or strategist role.');
+        throw new Error(
+          "Permission denied. Please ensure you are logged in with admin or strategist role."
+        );
       }
-      return data[0];
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
-      queryClient.invalidateQueries({ queryKey: ['case-studies-public'] });
-      toast.success('Case study created successfully');
-    },
-    onError: (error) => {
+
+      const created = data[0] as unknown as CaseStudyDB;
+      toast.success("Case study created successfully");
+      return created;
+    } catch (err) {
+      const error = err as Error;
       toast.error(`Failed to create case study: ${error.message}`);
+      setError(error);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const mutate = useCallback(
+    (input: CaseStudyInsert) => {
+      void mutateAsync(input);
     },
-  });
+    [mutateAsync]
+  );
+
+  return { mutateAsync, mutate, isLoading, isPending: isLoading, error };
 };
 
 // Update case study
-export const useUpdateCaseStudy = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: CaseStudyUpdate }) => {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const updateData: any = { ...updates };
+export const useUpdateCaseStudy = (): MutationResult<
+  { id: string; updates: CaseStudyUpdate },
+  CaseStudyDB
+> => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
 
-      const { data, error } = await supabase
-        .from('case_studies')
-        .update(updateData)
-        .eq('id', id)
-        .select();
-      
-      if (error) throw error;
-      if (!data || data.length === 0) {
-        throw new Error('Permission denied. Please ensure you are logged in with admin or strategist role.');
+  const mutateAsync = useCallback(
+    async ({ id, updates }: { id: string; updates: CaseStudyUpdate }) => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const updateData: any = { ...updates };
+
+        const { data, error } = await supabase
+          .from("case_studies")
+          .update(updateData)
+          .eq("id", id)
+          .select();
+
+        if (error) throw error;
+        if (!data || data.length === 0) {
+          throw new Error(
+            "Permission denied. Please ensure you are logged in with admin or strategist role."
+          );
+        }
+
+        const updated = data[0] as unknown as CaseStudyDB;
+        toast.success("Case study updated successfully");
+        return updated;
+      } catch (err) {
+        const error = err as Error;
+        toast.error(`Failed to update case study: ${error.message}`);
+        setError(error);
+        throw err;
+      } finally {
+        setIsLoading(false);
       }
-      return data[0];
     },
-    onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
-      queryClient.invalidateQueries({ queryKey: ['case-studies-public'] });
-      queryClient.invalidateQueries({ queryKey: ['case-study', data.slug] });
-      toast.success('Case study updated successfully');
+    []
+  );
+
+  const mutate = useCallback(
+    (input: { id: string; updates: CaseStudyUpdate }) => {
+      void mutateAsync(input);
     },
-    onError: (error) => {
-      toast.error(`Failed to update case study: ${error.message}`);
-    },
-  });
+    [mutateAsync]
+  );
+
+  return { mutateAsync, mutate, isLoading, isPending: isLoading, error };
 };
 
 // Delete case study
-export const useDeleteCaseStudy = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async (id: string) => {
+export const useDeleteCaseStudy = (): MutationResult<string> => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const mutateAsync = useCallback(async (id: string) => {
+    try {
+      setIsLoading(true);
+      setError(null);
+
       const { error } = await supabase
-        .from('case_studies')
+        .from("case_studies")
         .delete()
-        .eq('id', id);
-      
+        .eq("id", id);
+
       if (error) throw error;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
-      queryClient.invalidateQueries({ queryKey: ['case-studies-public'] });
-      toast.success('Case study deleted successfully');
-    },
-    onError: (error) => {
+      toast.success("Case study deleted successfully");
+    } catch (err) {
+      const error = err as Error;
       toast.error(`Failed to delete case study: ${error.message}`);
+      setError(error);
+      throw err;
+    } finally {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const mutate = useCallback(
+    (id: string) => {
+      void mutateAsync(id);
     },
-  });
+    [mutateAsync]
+  );
+
+  return { mutateAsync, mutate, isLoading, isPending: isLoading, error };
 };
 
 // Toggle featured status
-export const useToggleFeatured = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async ({ id, isFeatured }: { id: string; isFeatured: boolean }) => {
-      const { data, error } = await supabase
-        .from('case_studies')
-        .update({ is_featured: isFeatured })
-        .eq('id', id)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+export const useToggleFeatured = (): MutationResult<{ id: string; isFeatured: boolean }> => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const mutateAsync = useCallback(
+    async ({ id, isFeatured }: { id: string; isFeatured: boolean }) => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const { error } = await supabase
+          .from("case_studies")
+          .update({ is_featured: isFeatured })
+          .eq("id", id)
+          .select()
+          .single();
+
+        if (error) throw error;
+      } catch (err) {
+        setError(err as Error);
+        throw err;
+      } finally {
+        setIsLoading(false);
+      }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
-      queryClient.invalidateQueries({ queryKey: ['case-studies-public'] });
+    []
+  );
+
+  const mutate = useCallback(
+    (input: { id: string; isFeatured: boolean }) => {
+      void mutateAsync(input);
     },
-  });
+    [mutateAsync]
+  );
+
+  return { mutateAsync, mutate, isLoading, isPending: isLoading, error };
 };
 
 // Toggle published status
-export const useTogglePublished = () => {
-  const queryClient = useQueryClient();
-  
-  return useMutation({
-    mutationFn: async ({ id, isPublished }: { id: string; isPublished: boolean }) => {
-      const { data, error } = await supabase
-        .from('case_studies')
-        .update({ is_published: isPublished })
-        .eq('id', id)
-        .select()
-        .single();
-      
-      if (error) throw error;
-      return data;
+export const useTogglePublished = (): MutationResult<{ id: string; isPublished: boolean }> => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+
+  const mutateAsync = useCallback(
+    async ({ id, isPublished }: { id: string; isPublished: boolean }) => {
+      try {
+        setIsLoading(true);
+        setError(null);
+
+        const { error } = await supabase
+          .from("case_studies")
+          .update({ is_published: isPublished })
+          .eq("id", id)
+          .select()
+          .single();
+
+        if (error) throw error;
+      } catch (err) {
+        setError(err as Error);
+        throw err;
+      } finally {
+        setIsLoading(false);
+      }
     },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['case-studies-admin'] });
-      queryClient.invalidateQueries({ queryKey: ['case-studies-public'] });
+    []
+  );
+
+  const mutate = useCallback(
+    (input: { id: string; isPublished: boolean }) => {
+      void mutateAsync(input);
     },
-  });
+    [mutateAsync]
+  );
+
+  return { mutateAsync, mutate, isLoading, isPending: isLoading, error };
 };
