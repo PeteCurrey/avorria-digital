@@ -55,6 +55,7 @@ const Admin = lazy(() => import("@/pages/Admin"));
 
 // Platform pages
 const PlatformDashboard = lazy(() => import("@/pages/platform/PlatformDashboard"));
+const PlatformLeads = lazy(() => import("@/pages/platform/PlatformLeads"));
 const PlatformClients = lazy(() => import("@/pages/platform/PlatformClients"));
 const PlatformClientDetail = lazy(() => import("@/pages/platform/PlatformClientDetail"));
 const PlatformCampaigns = lazy(() => import("@/pages/platform/PlatformCampaigns"));
@@ -160,6 +161,11 @@ const AnimatedRoutes = () => {
           <Route path="/platform" element={
             <ProtectedRoute>
               <PageTransition><PlatformDashboard /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/platform/leads" element={
+            <ProtectedRoute>
+              <PageTransition><PlatformLeads /></PageTransition>
             </ProtectedRoute>
           } />
           <Route path="/platform/clients" element={
