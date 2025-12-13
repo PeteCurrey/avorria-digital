@@ -21,8 +21,11 @@ serve(async (req) => {
     const robotsTxt = `# Robots.txt for Avorria
 # Generated dynamically on ${new Date().toISOString()}
 
-# Main sitemap
+# Sitemaps
+Sitemap: ${sitemapUrl}?type=index
 Sitemap: ${sitemapUrl}
+Sitemap: ${sitemapUrl}?type=news
+Sitemap: ${sitemapUrl}?type=geo
 
 # Default rules for all bots
 User-agent: *
