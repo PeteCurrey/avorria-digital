@@ -16,12 +16,27 @@ import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger"
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
-  const isStudioPage = location.pathname === "/web-design/studio";
-  const isCaseStudyPage = location.pathname.startsWith("/case-studies");
+  
+  // Pages with full-screen hero images that need transparent header
+  // These pages have dark hero backgrounds (images or gradients) where white text will be visible
+  const heroPages = [
+    "/web-design/studio",
+    "/services",
+    "/services/seo",
+    "/services/paid-media",
+    "/services/content-email",
+    "/services/social-personal-brand",
+    "/services/analytics",
+    "/about",
+    "/contact",
+  ];
+  
+  const isHeroPage = heroPages.some(page => location.pathname === page) || 
+                     location.pathname.startsWith("/case-studies");
 
   return (
     <>
-      {!isHomePage && <Navigation transparent={isStudioPage || isCaseStudyPage} />}
+      {!isHomePage && <Navigation transparent={isHeroPage} />}
       {children}
       <Footer />
     </>

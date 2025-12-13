@@ -82,8 +82,8 @@ const PaidMedia = () => {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="relative min-h-[80vh] flex items-center section-dark overflow-hidden">
+        {/* Hero Section - flows behind header */}
+        <section className="relative min-h-[80vh] flex items-center section-dark overflow-hidden -mt-20 pt-20">
           <HeroGradient />
           <div className="container mx-auto px-6 relative z-10 py-32">
             <ScrollReveal>

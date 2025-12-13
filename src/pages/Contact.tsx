@@ -110,9 +110,9 @@ const Contact = () => {
       </Helmet>
       
     <div className="min-h-screen">
-      {/* Hero Section with Parallax */}
+      {/* Hero Section with Parallax - flows behind header */}
       <section 
-        className="relative min-h-[50vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20"
         style={{
           backgroundImage: `url(${heroContactOffice})`,
           backgroundSize: "cover",

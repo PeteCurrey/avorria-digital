@@ -204,7 +204,7 @@ export const HeroBand = ({
     <section
       ref={ref}
       className={cn(
-        "relative w-full flex items-center justify-center overflow-hidden",
+        "relative w-full flex items-center justify-center overflow-hidden -mt-20 pt-20",
         className
       )}
       style={{ minHeight }}
