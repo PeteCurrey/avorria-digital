@@ -2,6 +2,639 @@ import { LandingPage, Service, Location } from "@/types/landingPage";
 import { services, getServiceBySlug } from "./services";
 import { locations, getLocationBySlug } from "./locations";
 
+// Location-specific testimonial data
+interface LocationTestimonial {
+  seo: { quote: string; author: string; role: string; company: string };
+  "web-design": { quote: string; author: string; role: string; company: string };
+  "digital-marketing": { quote: string; author: string; role: string; company: string };
+  "paid-media": { quote: string; author: string; role: string; company: string };
+}
+
+const locationTestimonials: Record<string, LocationTestimonial> = {
+  // UK Cities
+  london: {
+    seo: {
+      quote: "We'd been through two agencies before and got nowhere. Avorria rebuilt our site structure and within four months we were ranking for the terms that actually bring in work. The difference is night and day.",
+      author: "James Richardson",
+      role: "Managing Partner",
+      company: "Richardson & Cole Solicitors",
+    },
+    "web-design": {
+      quote: "Our old site looked fine but did nothing for leads. The new site converts visitors properly – enquiries are up 140% and we can finally track what's working.",
+      author: "Sophie Chen",
+      role: "Marketing Director",
+      company: "Canary Wharf Financial Advisors",
+    },
+    "digital-marketing": {
+      quote: "We had three agencies doing SEO, ads and content with no coordination. Avorria brought it together and suddenly we could see what was actually driving pipeline.",
+      author: "Marcus Webb",
+      role: "Commercial Director",
+      company: "Webb Technology Partners",
+    },
+    "paid-media": {
+      quote: "Our previous agency was obsessed with impressions. Avorria restructured everything around actual leads and suddenly the ads started paying for themselves.",
+      author: "Priya Sharma",
+      role: "Head of Growth",
+      company: "Fintech Solutions UK",
+    },
+  },
+  manchester: {
+    seo: {
+      quote: "We'd tried a couple of SEO suppliers in Manchester and got nowhere. Once Avorria rebuilt the structure and pages, our organic leads finally started matching the traffic numbers.",
+      author: "Tom Fletcher",
+      role: "Managing Director",
+      company: "Northern Property Group",
+    },
+    "web-design": {
+      quote: "The site Avorria built us is head and shoulders above anything else in our sector locally. More importantly, it actually converts – enquiries doubled in the first quarter.",
+      author: "Emma Whitfield",
+      role: "Operations Director",
+      company: "Manchester Business Consulting",
+    },
+    "digital-marketing": {
+      quote: "Finally have a single team who understands our whole marketing picture. No more finger-pointing between agencies when results aren't there.",
+      author: "David Morrison",
+      role: "CEO",
+      company: "Morrison Engineering Solutions",
+    },
+    "paid-media": {
+      quote: "Cost per lead is down 38% since Avorria took over our Google Ads. They actually care about ROI, not just spending our budget.",
+      author: "Rachel Adams",
+      role: "Marketing Manager",
+      company: "Northern Logistics Ltd",
+    },
+  },
+  birmingham: {
+    seo: {
+      quote: "We serve clients across the Midlands and Avorria built a local SEO strategy that actually reflects that. Enquiries from our target areas are up 67% year on year.",
+      author: "Andrew Cooper",
+      role: "Director",
+      company: "Midlands Legal Services",
+    },
+    "web-design": {
+      quote: "Our competitors' sites all look the same. Avorria built something that stands out and converts. The feedback from prospects has been incredible.",
+      author: "Sarah Mitchell",
+      role: "Business Development Director",
+      company: "Birmingham Wealth Management",
+    },
+    "digital-marketing": {
+      quote: "We'd been throwing money at marketing with no clear view of what worked. Now we know exactly which channels drive revenue and which to cut.",
+      author: "Michael Turner",
+      role: "Managing Director",
+      company: "Turner Manufacturing Group",
+    },
+    "paid-media": {
+      quote: "Finally have ads that target the right people with the right message. Lead quality improved dramatically once Avorria restructured our campaigns.",
+      author: "Lisa Chen",
+      role: "Head of Marketing",
+      company: "West Midlands Tech Hub",
+    },
+  },
+  leeds: {
+    seo: {
+      quote: "We serve Yorkshire businesses and needed to rank locally. Avorria built location pages that actually work – we now dominate the searches that matter.",
+      author: "James Hartley",
+      role: "Managing Partner",
+      company: "Hartley & Associates Accountants",
+    },
+    "web-design": {
+      quote: "Our new site reflects the quality of our work. It's fast, it looks professional, and most importantly it converts visitors into clients.",
+      author: "Charlotte Evans",
+      role: "Marketing Director",
+      company: "Yorkshire Architecture Studio",
+    },
+    "digital-marketing": {
+      quote: "Having one team handle everything from SEO to ads makes life so much simpler. And the results speak for themselves – pipeline is up 85%.",
+      author: "Robert Walsh",
+      role: "Commercial Director",
+      company: "Walsh Industrial Services",
+    },
+    "paid-media": {
+      quote: "We'd been wasting money on ads that generated clicks but not leads. Avorria fixed our tracking and targeting – now every pound is accountable.",
+      author: "Jennifer Brown",
+      role: "Operations Director",
+      company: "Leeds Business Solutions",
+    },
+  },
+  liverpool: {
+    seo: {
+      quote: "Avorria understood our market and built an SEO strategy around the services that actually make us money. Organic enquiries are now our biggest lead source.",
+      author: "Paul Murphy",
+      role: "Director",
+      company: "Merseyside Construction Group",
+    },
+    "web-design": {
+      quote: "The site they built us looks like something from a London agency but was designed for Liverpool businesses. Enquiries from the site are up 120%.",
+      author: "Karen Williams",
+      role: "Managing Director",
+      company: "Liverpool Creative Agency",
+    },
+    "digital-marketing": {
+      quote: "We needed a marketing partner who could handle everything without the drama. Avorria delivers results without the usual agency nonsense.",
+      author: "Steven Taylor",
+      role: "CEO",
+      company: "Taylor Maritime Services",
+    },
+    "paid-media": {
+      quote: "Our Google Ads were bleeding money. Avorria rebuilt everything from scratch and we now have a positive ROI for the first time in three years.",
+      author: "Angela Roberts",
+      role: "Head of Growth",
+      company: "Roberts Recruitment Liverpool",
+    },
+  },
+  edinburgh: {
+    seo: {
+      quote: "We compete with London firms for Scottish clients. Avorria helped us dominate local search while building authority for national terms too.",
+      author: "Alistair MacKenzie",
+      role: "Senior Partner",
+      company: "MacKenzie Law Edinburgh",
+    },
+    "web-design": {
+      quote: "Our old site was an embarrassment compared to competitors. The new one positions us properly and the conversion rate has tripled.",
+      author: "Fiona Stewart",
+      role: "Marketing Director",
+      company: "Edinburgh Financial Planning",
+    },
+    "digital-marketing": {
+      quote: "Having a single team who understands both Scottish and UK-wide marketing has been invaluable. Results have exceeded our expectations.",
+      author: "Douglas Campbell",
+      role: "Commercial Director",
+      company: "Campbell Engineering Scotland",
+    },
+    "paid-media": {
+      quote: "Avorria runs our ads with proper Scottish market understanding. Cost per acquisition dropped 45% while lead quality went up.",
+      author: "Morag Henderson",
+      role: "Head of Marketing",
+      company: "Henderson Medical Practice",
+    },
+  },
+  glasgow: {
+    seo: {
+      quote: "We needed to rank in Glasgow and across the Central Belt. Avorria built a strategy that covers our whole service area without spreading too thin.",
+      author: "Craig Robertson",
+      role: "Managing Director",
+      company: "Robertson & Sons Builders",
+    },
+    "web-design": {
+      quote: "The site reflects our business properly now. It's not just pretty – it converts. Best investment we've made in marketing.",
+      author: "Nicola Fraser",
+      role: "Director",
+      company: "Glasgow Design Consultancy",
+    },
+    "digital-marketing": {
+      quote: "Finally have marketing that's accountable. We know exactly what's working and Avorria adjusts quickly when something isn't.",
+      author: "Stuart Paterson",
+      role: "CEO",
+      company: "Paterson Technology Group",
+    },
+    "paid-media": {
+      quote: "Our LinkedIn ads were expensive and ineffective. Avorria rebuilt the targeting and creative – now we get qualified leads at half the cost.",
+      author: "Eileen Murray",
+      role: "Business Development Director",
+      company: "Murray HR Consulting",
+    },
+  },
+  bristol: {
+    seo: {
+      quote: "We compete with London agencies for South West clients. Avorria helped us own the local searches while building credibility for bigger opportunities.",
+      author: "Oliver Jenkins",
+      role: "Managing Director",
+      company: "Bristol Technology Ventures",
+    },
+    "web-design": {
+      quote: "Our new website genuinely impresses clients. It loads fast, looks premium, and converts visitors into enquiries consistently.",
+      author: "Hannah Davies",
+      role: "Head of Marketing",
+      company: "South West Architecture Studio",
+    },
+    "digital-marketing": {
+      quote: "Having strategy and execution under one roof has simplified everything. And the results are better than when we had separate agencies.",
+      author: "Matthew Price",
+      role: "Commercial Director",
+      company: "Price Engineering Bristol",
+    },
+    "paid-media": {
+      quote: "Avorria took our messy ad accounts and turned them into a proper lead generation machine. ROAS is 3.5x now.",
+      author: "Rebecca Cole",
+      role: "Marketing Manager",
+      company: "Bristol Professional Services",
+    },
+  },
+  newcastle: {
+    seo: {
+      quote: "We serve the whole North East and needed to rank accordingly. Avorria built location-specific pages that actually convert local traffic.",
+      author: "Gary Thompson",
+      role: "Director",
+      company: "Thompson Legal North East",
+    },
+    "web-design": {
+      quote: "Our competitors' sites are stuck in 2015. Avorria built something modern that positions us as the premium choice in the region.",
+      author: "Clare Wilson",
+      role: "Managing Director",
+      company: "Newcastle Digital Agency",
+    },
+    "digital-marketing": {
+      quote: "We'd been doing bits of marketing everywhere with no real strategy. Avorria brought focus and suddenly everything started working.",
+      author: "Keith Armstrong",
+      role: "CEO",
+      company: "Armstrong Manufacturing Ltd",
+    },
+    "paid-media": {
+      quote: "Our Google Ads finally make sense. We can see exactly which searches bring in work and what we pay for each lead.",
+      author: "Joanne Bell",
+      role: "Operations Director",
+      company: "North East Business Services",
+    },
+  },
+  nottingham: {
+    seo: {
+      quote: "We'd tried DIY SEO and cheap agencies. Avorria was the first to actually explain what they'd do and then deliver on it.",
+      author: "Mark Johnson",
+      role: "Managing Director",
+      company: "East Midlands Property Group",
+    },
+    "web-design": {
+      quote: "The site they built us looks and performs like a six-figure project. It's the best marketing investment we've made.",
+      author: "Victoria Reed",
+      role: "Director",
+      company: "Nottingham Creative Hub",
+    },
+    "digital-marketing": {
+      quote: "Having one team who owns the full picture makes my job so much easier. Results are up and stress is down.",
+      author: "Daniel Lewis",
+      role: "Head of Sales",
+      company: "Lewis & Partners Consulting",
+    },
+    "paid-media": {
+      quote: "Avorria fixed our tracking first, then optimised the campaigns. Now we know exactly what each lead costs and where it came from.",
+      author: "Laura Scott",
+      role: "Marketing Manager",
+      company: "Nottingham Tech Solutions",
+    },
+  },
+  cardiff: {
+    seo: {
+      quote: "We needed to rank across Wales and the South West. Avorria built a strategy that covers our whole service area effectively.",
+      author: "Rhys Morgan",
+      role: "Managing Director",
+      company: "Morgan & Evans Solicitors",
+    },
+    "web-design": {
+      quote: "Our new site positions us as the premium choice in Cardiff. The enquiry quality has improved dramatically since launch.",
+      author: "Sian Williams",
+      role: "Director",
+      company: "Cardiff Business Advisory",
+    },
+    "digital-marketing": {
+      quote: "Finally have a marketing partner who understands the Welsh market. Results have exceeded what we achieved with our previous London agency.",
+      author: "Gareth Davies",
+      role: "Commercial Director",
+      company: "Davies Manufacturing Wales",
+    },
+    "paid-media": {
+      quote: "Our Facebook ads were getting likes but not leads. Avorria rebuilt everything and now social actually contributes to pipeline.",
+      author: "Bethan Jones",
+      role: "Head of Marketing",
+      company: "Jones Financial Cardiff",
+    },
+  },
+  sheffield: {
+    seo: {
+      quote: "We'd been invisible online for years. Avorria fixed the basics, built proper pages, and now we rank for the terms our customers actually search.",
+      author: "Simon Walker",
+      role: "Director",
+      company: "Walker Steel Services",
+    },
+    "web-design": {
+      quote: "Our old site was doing nothing for us. The new one looks great and actually generates enquiries. Should have done this years ago.",
+      author: "Michelle Taylor",
+      role: "Managing Director",
+      company: "Sheffield Design Studio",
+    },
+    "digital-marketing": {
+      quote: "We needed someone to take ownership of all our marketing, not just sell us services. Avorria does exactly that.",
+      author: "Andrew Jackson",
+      role: "CEO",
+      company: "Jackson Engineering Group",
+    },
+    "paid-media": {
+      quote: "Cost per lead dropped 50% when Avorria took over our ads. Same budget, twice as many qualified enquiries.",
+      author: "Helen Green",
+      role: "Operations Director",
+      company: "Green HR Consulting Sheffield",
+    },
+  },
+  // USA Cities
+  "new-york": {
+    seo: {
+      quote: "NYC is brutally competitive for search. Avorria built a strategy that actually cut through, focusing on the neighborhoods and niches where we win.",
+      author: "Michael Rodriguez",
+      role: "Managing Partner",
+      company: "Rodriguez & Associates Law",
+    },
+    "web-design": {
+      quote: "Our old site looked like every other firm in Manhattan. The new one stands out and converts. Enquiries are up 180% since launch.",
+      author: "Jennifer Walsh",
+      role: "CMO",
+      company: "Walsh Capital Partners",
+    },
+    "digital-marketing": {
+      quote: "We'd been doing random marketing with no coherent strategy. Avorria brought discipline and focus – ROI improved immediately.",
+      author: "David Kim",
+      role: "CEO",
+      company: "Kim Technology Ventures",
+    },
+    "paid-media": {
+      quote: "NYC clicks are expensive. Avorria rebuilt our targeting to focus on high-intent searches and our cost per lead dropped 55%.",
+      author: "Sarah Martinez",
+      role: "Head of Growth",
+      company: "Martinez Digital NYC",
+    },
+  },
+  "los-angeles": {
+    seo: {
+      quote: "LA is a huge market but we only serve certain areas. Avorria built local SEO that targets exactly where our customers are.",
+      author: "Brian Chen",
+      role: "Owner",
+      company: "LA Home Services Pro",
+    },
+    "web-design": {
+      quote: "The site they built captures LA perfectly – it's modern, fast, and converts visitors into consultations consistently.",
+      author: "Amanda Foster",
+      role: "Director",
+      company: "Foster Creative Agency LA",
+    },
+    "digital-marketing": {
+      quote: "Having one team handle SEO, ads and content saved us from the finger-pointing between agencies. Results are up and drama is down.",
+      author: "Chris Thompson",
+      role: "VP Marketing",
+      company: "Thompson Entertainment Group",
+    },
+    "paid-media": {
+      quote: "Our Instagram and Google ads finally work together instead of competing. Avorria built proper attribution so we know what drives sales.",
+      author: "Michelle Lee",
+      role: "Marketing Director",
+      company: "Pacific Beauty Brands",
+    },
+  },
+  chicago: {
+    seo: {
+      quote: "We serve the entire Chicagoland area. Avorria built an SEO strategy that covers downtown and suburbs without spreading too thin.",
+      author: "Robert Johnson",
+      role: "Managing Partner",
+      company: "Johnson Legal Group Chicago",
+    },
+    "web-design": {
+      quote: "Our new site loads in under 2 seconds and converts at 3x our old site. The investment paid for itself in the first quarter.",
+      author: "Katherine Miller",
+      role: "COO",
+      company: "Miller Consulting Chicago",
+    },
+    "digital-marketing": {
+      quote: "Finally have marketing that's accountable. We know what works, what doesn't, and Avorria adjusts quickly when markets shift.",
+      author: "Thomas Anderson",
+      role: "CEO",
+      company: "Anderson Manufacturing Midwest",
+    },
+    "paid-media": {
+      quote: "Chicago is competitive for B2B. Avorria rebuilt our LinkedIn strategy and we're now getting meetings with companies we couldn't reach before.",
+      author: "Patricia Davis",
+      role: "Head of Business Development",
+      company: "Davis Professional Services",
+    },
+  },
+  "san-francisco": {
+    seo: {
+      quote: "In a market full of tech companies, SEO is hyper-competitive. Avorria helped us carve out the specific niches where we can actually win.",
+      author: "Jason Park",
+      role: "Founder",
+      company: "Park Tech Solutions",
+    },
+    "web-design": {
+      quote: "Bay Area companies have high standards. Our new site finally reflects the quality of our work and converts accordingly.",
+      author: "Stephanie Hughes",
+      role: "VP Marketing",
+      company: "Hughes Venture Partners",
+    },
+    "digital-marketing": {
+      quote: "We'd been doing the 'spray and pray' approach. Avorria brought focus and suddenly our marketing spend started generating real pipeline.",
+      author: "Kevin Zhang",
+      role: "CMO",
+      company: "Zhang Software Group",
+    },
+    "paid-media": {
+      quote: "SaaS competition in SF is brutal. Avorria rebuilt our paid strategy around actual product demos, not just leads. Pipeline 2x'd.",
+      author: "Rachel Nguyen",
+      role: "Head of Growth",
+      company: "Nguyen AI Platforms",
+    },
+  },
+  boston: {
+    seo: {
+      quote: "We compete with well-established firms for Boston clients. Avorria helped us build authority online that matches our reputation offline.",
+      author: "William Sullivan",
+      role: "Senior Partner",
+      company: "Sullivan & Partners LLP",
+    },
+    "web-design": {
+      quote: "Boston clients expect quality. Our new site delivers that first impression and converts visitors into discovery calls.",
+      author: "Elizabeth Connor",
+      role: "Managing Director",
+      company: "Connor Financial Advisors",
+    },
+    "digital-marketing": {
+      quote: "Having strategy, SEO and paid under one roof simplified everything. No more coordination headaches between agencies.",
+      author: "James O'Brien",
+      role: "CEO",
+      company: "O'Brien Technology Group",
+    },
+    "paid-media": {
+      quote: "Avorria runs our ads with the same analytical rigor we bring to our own work. Cost per qualified lead is down 40%.",
+      author: "Catherine Murphy",
+      role: "Head of Marketing",
+      company: "Murphy Bio Sciences",
+    },
+  },
+  miami: {
+    seo: {
+      quote: "Miami is competitive and multilingual. Avorria built SEO that works for both English and Spanish searches in our market.",
+      author: "Carlos Hernandez",
+      role: "Managing Partner",
+      company: "Hernandez Law Miami",
+    },
+    "web-design": {
+      quote: "Our new site captures the energy of Miami while converting visitors effectively. It's exactly what our brand needed.",
+      author: "Maria Santos",
+      role: "CEO",
+      company: "Santos Luxury Real Estate",
+    },
+    "digital-marketing": {
+      quote: "The Miami market is unique. Avorria understood that and built a strategy that actually fits how business works here.",
+      author: "Roberto Garcia",
+      role: "Commercial Director",
+      company: "Garcia Hospitality Group",
+    },
+    "paid-media": {
+      quote: "Our Facebook and Instagram ads finally target the right people. Lead quality improved dramatically since Avorria took over.",
+      author: "Isabella Rodriguez",
+      role: "Head of Growth",
+      company: "Miami Wellness Brands",
+    },
+  },
+  austin: {
+    seo: {
+      quote: "Austin's tech scene is competitive. Avorria helped us stand out by focusing on the specific problems we solve, not just keywords.",
+      author: "Tyler Williams",
+      role: "Founder",
+      company: "Williams SaaS Ventures",
+    },
+    "web-design": {
+      quote: "Our old site looked like every other Austin startup. The new one reflects our actual quality and converts visitors into demos.",
+      author: "Ashley Martin",
+      role: "VP Marketing",
+      company: "Martin Tech Partners",
+    },
+    "digital-marketing": {
+      quote: "Austin grows fast and marketing needs to keep up. Avorria provides the strategic flexibility to adjust as our market changes.",
+      author: "Brandon Davis",
+      role: "CEO",
+      company: "Davis Innovation Labs",
+    },
+    "paid-media": {
+      quote: "Avorria runs our LinkedIn campaigns like they're spending their own money. Efficiency is up, waste is down.",
+      author: "Megan Johnson",
+      role: "Head of Demand Gen",
+      company: "Johnson Cloud Services",
+    },
+  },
+  denver: {
+    seo: {
+      quote: "We serve the whole Front Range. Avorria built local SEO that covers Denver and surrounding areas without spreading too thin.",
+      author: "Mark Peterson",
+      role: "Owner",
+      company: "Peterson Home Services Colorado",
+    },
+    "web-design": {
+      quote: "Our new site captures Colorado authenticity while performing like a serious business. Enquiries are up 95% since launch.",
+      author: "Laura Nelson",
+      role: "Marketing Director",
+      company: "Nelson Architecture Denver",
+    },
+    "digital-marketing": {
+      quote: "Denver is growing fast and competition is fierce. Avorria helps us stay ahead with marketing that actually adapts.",
+      author: "Scott Mitchell",
+      role: "CEO",
+      company: "Mitchell Outdoor Adventures",
+    },
+    "paid-media": {
+      quote: "Our Google Ads were wasting money on the wrong searches. Avorria rebuilt targeting and cost per lead dropped by half.",
+      author: "Jennifer Ryan",
+      role: "Head of Marketing",
+      company: "Rocky Mountain Consulting",
+    },
+  },
+  seattle: {
+    seo: {
+      quote: "Seattle is full of tech companies competing for attention. Avorria helped us find the specific niches where we can win.",
+      author: "Nathan Lee",
+      role: "Founder",
+      company: "Lee Software Solutions",
+    },
+    "web-design": {
+      quote: "Pacific Northwest clients appreciate quality and authenticity. Our new site delivers both and converts consistently.",
+      author: "Emily Chang",
+      role: "Creative Director",
+      company: "Chang Design Collective",
+    },
+    "digital-marketing": {
+      quote: "Having one team handle the whole marketing picture makes life simpler. And the results are better than our previous multi-agency setup.",
+      author: "Andrew White",
+      role: "VP Sales",
+      company: "White Technology Consulting",
+    },
+    "paid-media": {
+      quote: "Avorria rebuilt our paid strategy around actual qualified leads, not just clicks. The sales team finally has quality to work with.",
+      author: "Rachel Kim",
+      role: "Head of Growth",
+      company: "Seattle AI Ventures",
+    },
+  },
+  atlanta: {
+    seo: {
+      quote: "Atlanta is competitive for professional services. Avorria helped us stand out with SEO that focuses on our actual strengths.",
+      author: "Marcus Williams",
+      role: "Managing Partner",
+      company: "Williams & Associates Atlanta",
+    },
+    "web-design": {
+      quote: "Our new site positions us as the premium choice in Atlanta. The conversion rate has tripled since launch.",
+      author: "Denise Jackson",
+      role: "CEO",
+      company: "Jackson Creative Agency",
+    },
+    "digital-marketing": {
+      quote: "The Southeast is our market. Avorria built a strategy that actually understands regional business development.",
+      author: "Ronald Thompson",
+      role: "Commercial Director",
+      company: "Thompson Industries Southeast",
+    },
+    "paid-media": {
+      quote: "Our Meta ads finally work. Avorria built proper audiences and creative that speaks to our actual customers.",
+      author: "Vanessa Brown",
+      role: "Head of Marketing",
+      company: "Atlanta Professional Services",
+    },
+  },
+};
+
+// Fallback testimonial generator for locations not in the specific list
+const generateFallbackTestimonial = (
+  city: string,
+  serviceSlug: string
+): { quote: string; author: string; role: string; company: string } => {
+  const templates: Record<string, { quote: string; author: string; role: string; company: string }> = {
+    seo: {
+      quote: `We'd tried various SEO approaches in ${city} with mixed results. Avorria brought structure and accountability – we now know exactly what organic search contributes to our pipeline.`,
+      author: "Alex Thompson",
+      role: "Managing Director",
+      company: `${city} Business Solutions`,
+    },
+    "web-design": {
+      quote: `Our old site wasn't converting. Avorria built something that looks premium and actually generates enquiries. Best marketing investment we've made in ${city}.`,
+      author: "Sarah Mitchell",
+      role: "Operations Director",
+      company: `${city} Professional Services`,
+    },
+    "digital-marketing": {
+      quote: `Having one team who owns the full marketing picture has simplified everything for our ${city} business. Results are up and the coordination headaches are gone.`,
+      author: "David Chen",
+      role: "Commercial Director",
+      company: `${city} Growth Partners`,
+    },
+    "paid-media": {
+      quote: `Our paid campaigns finally make sense. Avorria rebuilt everything around actual leads and now we can see clear ROI from our ${city} ad spend.`,
+      author: "Emma Williams",
+      role: "Head of Marketing",
+      company: `${city} Tech Solutions`,
+    },
+  };
+
+  return templates[serviceSlug] || templates.seo;
+};
+
+// Get testimonial for a specific location and service
+const getLocationTestimonial = (
+  locationSlug: string,
+  serviceSlug: string,
+  city: string
+): { quote: string; author: string; role: string; company: string } => {
+  const locationData = locationTestimonials[locationSlug];
+  if (locationData && locationData[serviceSlug as keyof LocationTestimonial]) {
+    return locationData[serviceSlug as keyof LocationTestimonial];
+  }
+  return generateFallbackTestimonial(city, serviceSlug);
+};
+
 // Service-specific content templates
 interface ServiceTemplate {
   problemBullets: (city: string, region: string) => string[];
@@ -11,12 +644,6 @@ interface ServiceTemplate {
     label: string;
     description: string;
   }>;
-  testimonialTemplate: (city: string) => {
-    quote: string;
-    author: string;
-    role: string;
-    company: string;
-  };
   faqList: (city: string, region: string) => Array<{
     question: string;
     answer: string;
@@ -61,12 +688,6 @@ const seoTemplate: ServiceTemplate = {
       description: "Clear view of which local searches actually drive business",
     },
   ],
-  testimonialTemplate: (city) => ({
-    quote: `We'd tried a couple of SEO suppliers in ${city} and got nowhere. Once Avorria rebuilt the structure and pages, our organic leads finally started to look like the reports.`,
-    author: "James Mitchell",
-    role: "Managing Director",
-    company: `${city} Business Solutions`,
-  }),
   faqList: (city, region) => [
     {
       question: `Do we have to be based in ${city}?`,
@@ -145,12 +766,6 @@ const webDesignTemplate: ServiceTemplate = {
       description: "Visitors staying longer and engaging more with content",
     },
   ],
-  testimonialTemplate: (city) => ({
-    quote: `Our old site looked fine but did nothing for leads. The new site from Avorria actually works – enquiries went up within the first month and we can finally see what's happening.`,
-    author: "Sarah Patterson",
-    role: "Operations Director",
-    company: `${city} Professional Services`,
-  }),
   faqList: (city, region) => [
     {
       question: "How long does a website project take?",
@@ -229,12 +844,6 @@ const digitalMarketingTemplate: ServiceTemplate = {
       description: "Finally know which channels drive revenue, not just clicks",
     },
   ],
-  testimonialTemplate: (city) => ({
-    quote: `We had three agencies doing different things with no coordination. Avorria brought it together and suddenly we could see what was working and why. Pipeline went up and spend efficiency improved.`,
-    author: "Michael Thompson",
-    role: "Commercial Director",
-    company: `${city} Growth Partners`,
-  }),
   faqList: (city, region) => [
     {
       question: "Do you handle everything or just strategy?",
@@ -313,12 +922,6 @@ const paidMediaTemplate: ServiceTemplate = {
       description: "Return on ad spend achieved for clients with proper tracking",
     },
   ],
-  testimonialTemplate: (city) => ({
-    quote: `Our previous agency was obsessed with click-through rates. Avorria rebuilt our campaigns around actual leads and suddenly the ads started paying for themselves. We can finally see what we're getting for the spend.`,
-    author: "David Chen",
-    role: "Marketing Manager",
-    company: `${city} Tech Solutions`,
-  }),
   faqList: (city, region) => [
     {
       question: "Which platforms do you work with?",
@@ -439,7 +1042,7 @@ function generateServiceLocationPage(
     problemBullets: template.problemBullets(location.city, region),
     solutionBullets: template.solutionBullets(location.city, region),
     keyMetrics: template.keyMetrics,
-    testimonialSnippet: template.testimonialTemplate(location.city),
+    testimonialSnippet: getLocationTestimonial(location.slug, service.slug, location.city),
     faqList: template.faqList(location.city, region),
     processSteps: template.processSteps,
     workingWithYou: template.workingWithYou(location.city, region),
