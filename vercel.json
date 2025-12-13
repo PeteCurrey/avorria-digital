@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    { "source": "/sitemap.xml", "destination": "https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap" },
+    { "source": "/sitemap-geo.xml", "destination": "https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=geo" },
+    { "source": "/sitemap-news.xml", "destination": "https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=news" },
+    { "source": "/sitemap-index.xml", "destination": "https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/sitemap?type=index" },
+    { "source": "/robots.txt", "destination": "https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/robots" }
+  ]
+}
