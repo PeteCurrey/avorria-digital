@@ -1,6 +1,7 @@
 import { Helmet } from "react-helmet-async";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { format } from "date-fns";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -13,7 +14,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, Target } from "lucide-react";
+import { Search, Target, Plus } from "lucide-react";
+import { useCampaigns } from "@/hooks/useCampaigns";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const PlatformCampaigns = () => {
   const navigate = useNavigate();
@@ -21,53 +24,7 @@ const PlatformCampaigns = () => {
   const [statusFilter, setStatusFilter] = useState("all");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const campaigns = [
-    {
-      id: "1",
-      name: "Enterprise SaaS Lead Gen",
-      client: "TechCorp Industries",
-      channel: "Google Ads",
-      objective: "Lead generation",
-      status: "live",
-      nextReview: "Mar 25, 2024",
-    },
-    {
-      id: "2",
-      name: "Brand Awareness - LinkedIn",
-      client: "GreenLeaf Solutions",
-      channel: "LinkedIn Ads",
-      objective: "Awareness",
-      status: "live",
-      nextReview: "Mar 28, 2024",
-    },
-    {
-      id: "3",
-      name: "Demo Retargeting Flow",
-      client: "TechCorp Industries",
-      channel: "Meta Ads",
-      objective: "Retargeting",
-      status: "live",
-      nextReview: "Mar 30, 2024",
-    },
-    {
-      id: "4",
-      name: "Q2 Content Campaign",
-      client: "BlueSky Consulting",
-      channel: "SEO",
-      objective: "Organic growth",
-      status: "planned",
-      nextReview: "Apr 5, 2024",
-    },
-    {
-      id: "5",
-      name: "Product Launch - Google Search",
-      client: "Urban Dynamics",
-      channel: "Google Ads",
-      objective: "Lead generation",
-      status: "paused",
-      nextReview: "Apr 10, 2024",
-    },
-  ];
+  const { data: campaigns, isLoading } = useCampaigns();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -84,15 +41,18 @@ const PlatformCampaigns = () => {
     }
   };
 
-  const filteredCampaigns = campaigns.filter((campaign) => {
+  const filteredCampaigns = campaigns?.filter((campaign) => {
     const matchesChannel = channelFilter === "all" || campaign.channel === channelFilter;
     const matchesStatus = statusFilter === "all" || campaign.status === statusFilter;
     const matchesSearch =
       searchQuery === "" ||
       campaign.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      campaign.client.toLowerCase().includes(searchQuery.toLowerCase());
+      (campaign.client_name?.toLowerCase().includes(searchQuery.toLowerCase()));
     return matchesChannel && matchesStatus && matchesSearch;
-  });
+  }) || [];
+
+  // Get unique channels for filter
+  const channels = [...new Set(campaigns?.map(c => c.channel) || [])];
 
   return (
     <>
@@ -103,11 +63,17 @@ const PlatformCampaigns = () => {
       <AppShell type="platform" userName="Alex Morgan" userRole="Account Lead">
         <div className="space-y-6">
           {/* Page Header */}
-          <div>
-            <h1 className="text-3xl font-light text-foreground mb-2">Campaigns & Channels</h1>
-            <p className="text-muted-foreground">
-              Manage all live and planned campaigns across clients and channels
-            </p>
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-3xl font-light text-foreground mb-2">Campaigns & Channels</h1>
+              <p className="text-muted-foreground">
+                Manage all live and planned campaigns across clients and channels
+              </p>
+            </div>
+            <Button>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Campaign
+            </Button>
           </div>
 
           {/* Filters */}
@@ -130,10 +96,17 @@ const PlatformCampaigns = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All channels</SelectItem>
-                    <SelectItem value="Google Ads">Google Ads</SelectItem>
-                    <SelectItem value="Meta Ads">Meta Ads</SelectItem>
-                    <SelectItem value="LinkedIn Ads">LinkedIn Ads</SelectItem>
-                    <SelectItem value="SEO">SEO</SelectItem>
+                    {channels.map(channel => (
+                      <SelectItem key={channel} value={channel}>{channel}</SelectItem>
+                    ))}
+                    {channels.length === 0 && (
+                      <>
+                        <SelectItem value="Google Ads">Google Ads</SelectItem>
+                        <SelectItem value="Meta Ads">Meta Ads</SelectItem>
+                        <SelectItem value="LinkedIn Ads">LinkedIn Ads</SelectItem>
+                        <SelectItem value="SEO">SEO</SelectItem>
+                      </>
+                    )}
                   </SelectContent>
                 </Select>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
@@ -152,86 +125,124 @@ const PlatformCampaigns = () => {
             </CardContent>
           </Card>
 
-          {/* Campaigns Table */}
-          <Card>
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <table className="w-full">
-                  <thead className="border-b border-border">
-                    <tr className="bg-muted/50">
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Campaign
-                      </th>
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Client
-                      </th>
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Channel
-                      </th>
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Objective
-                      </th>
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Status
-                      </th>
-                      <th className="text-left p-4 text-sm font-medium text-muted-foreground">
-                        Next Review
-                      </th>
-                      <th className="text-right p-4 text-sm font-medium text-muted-foreground">
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {filteredCampaigns.map((campaign) => (
-                      <tr 
-                        key={campaign.id} 
-                        className="border-b border-border hover:bg-muted/50 cursor-pointer"
-                        onClick={() => navigate(`/platform/campaigns/${campaign.id}`)}
-                      >
-                        <td className="p-4">
-                          <div className="flex items-center gap-2">
-                            <Target className="h-4 w-4 text-muted-foreground" />
-                            <span className="font-medium text-foreground">{campaign.name}</span>
-                          </div>
-                        </td>
-                        <td className="p-4 text-sm text-foreground">{campaign.client}</td>
-                        <td className="p-4">
-                          <Badge variant="secondary" className="text-xs">
-                            {campaign.channel}
-                          </Badge>
-                        </td>
-                        <td className="p-4 text-sm text-muted-foreground">{campaign.objective}</td>
-                        <td className="p-4">
-                          <Badge variant="outline" className={getStatusColor(campaign.status)}>
-                            {campaign.status}
-                          </Badge>
-                        </td>
-                        <td className="p-4 text-sm text-muted-foreground">{campaign.nextReview}</td>
-                        <td className="p-4 text-right">
-                          <Button 
-                            variant="ghost" 
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              navigate(`/platform/campaigns/${campaign.id}`);
-                            }}
-                          >
-                            View
-                          </Button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
+          {/* Loading State */}
+          {isLoading && (
+            <Card>
+              <CardContent className="p-0">
+                <div className="p-6 space-y-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Skeleton key={i} className="h-12 w-full" />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
-          {filteredCampaigns.length === 0 && (
+          {/* Empty State */}
+          {!isLoading && campaigns?.length === 0 && (
+            <Card>
+              <CardContent className="p-12 text-center">
+                <Target className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-lg font-medium text-foreground mb-2">No campaigns yet</h3>
+                <p className="text-muted-foreground mb-4">
+                  Get started by creating your first campaign.
+                </p>
+                <Button>
+                  <Plus className="h-4 w-4 mr-2" />
+                  Create Your First Campaign
+                </Button>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* No Results */}
+          {!isLoading && filteredCampaigns.length === 0 && campaigns && campaigns.length > 0 && (
             <Card>
               <CardContent className="p-12 text-center">
                 <p className="text-muted-foreground">No campaigns found matching your filters.</p>
+              </CardContent>
+            </Card>
+          )}
+
+          {/* Campaigns Table */}
+          {!isLoading && filteredCampaigns.length > 0 && (
+            <Card>
+              <CardContent className="p-0">
+                <div className="overflow-x-auto">
+                  <table className="w-full">
+                    <thead className="border-b border-border">
+                      <tr className="bg-muted/50">
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Campaign
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Client
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Channel
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Objective
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Status
+                        </th>
+                        <th className="text-left p-4 text-sm font-medium text-muted-foreground">
+                          Next Review
+                        </th>
+                        <th className="text-right p-4 text-sm font-medium text-muted-foreground">
+                          Actions
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {filteredCampaigns.map((campaign) => (
+                        <tr 
+                          key={campaign.id} 
+                          className="border-b border-border hover:bg-muted/50 cursor-pointer"
+                          onClick={() => navigate(`/platform/campaigns/${campaign.id}`)}
+                        >
+                          <td className="p-4">
+                            <div className="flex items-center gap-2">
+                              <Target className="h-4 w-4 text-muted-foreground" />
+                              <span className="font-medium text-foreground">{campaign.name}</span>
+                            </div>
+                          </td>
+                          <td className="p-4 text-sm text-foreground">{campaign.client_name || 'No client'}</td>
+                          <td className="p-4">
+                            <Badge variant="secondary" className="text-xs">
+                              {campaign.channel}
+                            </Badge>
+                          </td>
+                          <td className="p-4 text-sm text-muted-foreground">{campaign.objective || '-'}</td>
+                          <td className="p-4">
+                            <Badge variant="outline" className={getStatusColor(campaign.status)}>
+                              {campaign.status}
+                            </Badge>
+                          </td>
+                          <td className="p-4 text-sm text-muted-foreground">
+                            {campaign.next_review 
+                              ? format(new Date(campaign.next_review), 'MMM d, yyyy')
+                              : '-'
+                            }
+                          </td>
+                          <td className="p-4 text-right">
+                            <Button 
+                              variant="ghost" 
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                navigate(`/platform/campaigns/${campaign.id}`);
+                              }}
+                            >
+                              View
+                            </Button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </CardContent>
             </Card>
           )}
