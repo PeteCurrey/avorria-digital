@@ -20,15 +20,15 @@ const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-consultan
 const OPENING_MESSAGES: Message[] = [
   {
     role: "assistant",
-    content: "Most people don't come to Avorria because they want \"marketing\".\nThey come because something isn't pulling its weight — traffic, conversions, clarity, or all three."
+    content: "Most people don't come to Avorria just browsing.\nThey usually have a sense that something isn't working as well as it should — traffic, conversions, clarity, or a mix of things."
   },
   {
     role: "assistant",
-    content: "I can help you work out whether that's fixable — and whether we're even the right people to do it."
+    content: "If you want, I can help you make sense of that and work out whether it's actually fixable — and whether we're the right people to help."
   },
   {
     role: "assistant",
-    content: "To start properly, what does your business actually do?"
+    content: "To get a bit of context, what does your business do?"
   }
 ];
 
