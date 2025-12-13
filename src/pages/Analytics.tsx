@@ -119,10 +119,40 @@ const Analytics = () => {
             "serviceType": "Analytics & Conversion Optimisation",
             "provider": {
               "@type": "Organization",
-              "name": "Avorria"
+              "name": "Avorria",
+              "url": "https://avorria.com"
             },
-            "areaServed": ["UK", "EU"],
+            "areaServed": {
+              "@type": "Country",
+              "name": "United Kingdom"
+            },
             "description": "Analytics setup, tracking and conversion rate optimisation for revenue-focused teams."
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://avorria.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://avorria.com/services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Analytics",
+                "item": "https://avorria.com/services/analytics"
+              }
+            ]
           })}
         </script>
       </Helmet>

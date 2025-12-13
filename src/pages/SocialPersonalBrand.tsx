@@ -118,10 +118,40 @@ const SocialPersonalBrand = () => {
             "serviceType": "Personal Brand & Social Media Management",
             "provider": {
               "@type": "Organization",
-              "name": "Avorria"
+              "name": "Avorria",
+              "url": "https://avorria.com"
             },
-            "areaServed": ["UK", "EU"],
+            "areaServed": {
+              "@type": "Country",
+              "name": "United Kingdom"
+            },
             "description": "Done-for-you personal brand building and social content for founders and executives."
+          })}
+        </script>
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://avorria.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Services",
+                "item": "https://avorria.com/services"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Social & Personal Brand",
+                "item": "https://avorria.com/services/social-personal-brand"
+              }
+            ]
           })}
         </script>
       </Helmet>
