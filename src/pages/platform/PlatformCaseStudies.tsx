@@ -15,8 +15,12 @@ import {
   EyeOff,
   Search,
   FileText,
-  ExternalLink
+  ExternalLink,
+  Loader2,
+  AlertCircle,
+  RefreshCw
 } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   useCaseStudiesAdmin,
   useDeleteCaseStudy,
@@ -42,7 +46,7 @@ const PlatformCaseStudies = () => {
   const [editingStudy, setEditingStudy] = useState<CaseStudyDB | null>(null);
   const [isCreating, setIsCreating] = useState(false);
 
-  const { data: caseStudies, isLoading } = useCaseStudiesAdmin();
+  const { data: caseStudies, isLoading, error } = useCaseStudiesAdmin();
   const deleteMutation = useDeleteCaseStudy();
   const toggleFeatured = useToggleFeatured();
   const togglePublished = useTogglePublished();
@@ -84,6 +88,32 @@ const PlatformCaseStudies = () => {
     );
   }
 
+  // Error state
+  if (error) {
+    return (
+      <>
+        <Helmet>
+          <title>Case Studies Manager - Avorria Growth Platform</title>
+        </Helmet>
+        <AppShell type="platform" userName="Alex Morgan" userRole="Account Lead">
+          <div className="flex flex-col items-center justify-center h-64 gap-4">
+            <div className="w-12 h-12 rounded-full bg-destructive/10 flex items-center justify-center">
+              <AlertCircle className="h-6 w-6 text-destructive" />
+            </div>
+            <div className="text-center">
+              <p className="text-destructive font-medium mb-1">Failed to load case studies</p>
+              <p className="text-sm text-muted-foreground">Please check your permissions and try again.</p>
+            </div>
+            <Button variant="outline" onClick={() => window.location.reload()} className="gap-2">
+              <RefreshCw className="h-4 w-4" />
+              Try Again
+            </Button>
+          </div>
+        </AppShell>
+      </>
+    );
+  }
+
   return (
     <>
       <Helmet>
@@ -120,31 +150,47 @@ const PlatformCaseStudies = () => {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <Card>
               <CardContent className="pt-6">
-                <div className="text-2xl font-bold">{caseStudies?.length || 0}</div>
+                {isLoading ? (
+                  <Skeleton className="h-8 w-12 mb-1" />
+                ) : (
+                  <div className="text-2xl font-bold">{caseStudies?.length || 0}</div>
+                )}
                 <p className="text-sm text-muted-foreground">Total</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <div className="text-2xl font-bold">
-                  {caseStudies?.filter((s) => s.is_published).length || 0}
-                </div>
+                {isLoading ? (
+                  <Skeleton className="h-8 w-12 mb-1" />
+                ) : (
+                  <div className="text-2xl font-bold">
+                    {caseStudies?.filter((s) => s.is_published).length || 0}
+                  </div>
+                )}
                 <p className="text-sm text-muted-foreground">Published</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <div className="text-2xl font-bold">
-                  {caseStudies?.filter((s) => s.is_featured).length || 0}
-                </div>
+                {isLoading ? (
+                  <Skeleton className="h-8 w-12 mb-1" />
+                ) : (
+                  <div className="text-2xl font-bold">
+                    {caseStudies?.filter((s) => s.is_featured).length || 0}
+                  </div>
+                )}
                 <p className="text-sm text-muted-foreground">Featured</p>
               </CardContent>
             </Card>
             <Card>
               <CardContent className="pt-6">
-                <div className="text-2xl font-bold">
-                  {caseStudies?.filter((s) => !s.is_published).length || 0}
-                </div>
+                {isLoading ? (
+                  <Skeleton className="h-8 w-12 mb-1" />
+                ) : (
+                  <div className="text-2xl font-bold">
+                    {caseStudies?.filter((s) => !s.is_published).length || 0}
+                  </div>
+                )}
                 <p className="text-sm text-muted-foreground">Drafts</p>
               </CardContent>
             </Card>
@@ -157,8 +203,25 @@ const PlatformCaseStudies = () => {
             </CardHeader>
             <CardContent>
               {isLoading ? (
-                <div className="text-center py-8 text-muted-foreground">
-                  Loading case studies...
+                <div className="space-y-4">
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} className="flex items-start gap-4 p-4 border border-border rounded-lg">
+                      <Skeleton className="w-24 h-16 rounded shrink-0" />
+                      <div className="flex-1 space-y-2">
+                        <Skeleton className="h-5 w-48" />
+                        <Skeleton className="h-4 w-32" />
+                        <div className="flex gap-2">
+                          <Skeleton className="h-5 w-24" />
+                          <Skeleton className="h-5 w-16" />
+                        </div>
+                      </div>
+                      <div className="flex gap-2">
+                        <Skeleton className="h-8 w-8" />
+                        <Skeleton className="h-8 w-8" />
+                        <Skeleton className="h-8 w-8" />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               ) : filteredStudies?.length === 0 ? (
                 <div className="text-center py-8 text-muted-foreground">
