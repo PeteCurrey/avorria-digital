@@ -58,8 +58,8 @@ interface MutationResult<TInput, TOutput = void> {
   error: Error | null;
 }
 
-// Fetch all case studies (admin view)
-export const useCaseStudiesAdmin = (): QueryResult<CaseStudyDB[]> => {
+// Fetch all case studies (admin view) with realtime updates
+export const useCaseStudiesAdmin = (): QueryResult<CaseStudyDB[]> & { refetch: () => Promise<void> } => {
   const [data, setData] = useState<CaseStudyDB[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
@@ -86,9 +86,45 @@ export const useCaseStudiesAdmin = (): QueryResult<CaseStudyDB[]> => {
 
   useEffect(() => {
     void fetchCaseStudies();
+
+    // Subscribe to realtime updates
+    const channel = supabase
+      .channel("case-studies-realtime")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "case_studies" },
+        (payload) => {
+          setData((prev) => [payload.new as unknown as CaseStudyDB, ...(prev || [])]);
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "case_studies" },
+        (payload) => {
+          setData((prev) =>
+            prev?.map((study) =>
+              study.id === payload.new.id ? (payload.new as unknown as CaseStudyDB) : study
+            )
+          );
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "case_studies" },
+        (payload) => {
+          setData((prev) =>
+            prev?.filter((study) => study.id !== payload.old.id)
+          );
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [fetchCaseStudies]);
 
-  return { data, isLoading, error };
+  return { data, isLoading, error, refetch: fetchCaseStudies };
 };
 
 // Fetch published case studies (public view)

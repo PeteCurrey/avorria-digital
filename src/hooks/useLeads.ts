@@ -54,7 +54,7 @@ interface MutationResult<TInput, TOutput = void> {
   error: Error | null;
 }
 
-// Fetch all leads (admin only)
+// Fetch all leads (admin only) with realtime updates
 export function useLeadsAdmin(): QueryResult<Lead[]> {
   const [data, setData] = useState<Lead[] | undefined>(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -82,6 +82,42 @@ export function useLeadsAdmin(): QueryResult<Lead[]> {
 
   useEffect(() => {
     fetchLeads();
+
+    // Subscribe to realtime updates
+    const channel = supabase
+      .channel("leads-realtime")
+      .on(
+        "postgres_changes",
+        { event: "INSERT", schema: "public", table: "leads" },
+        (payload) => {
+          setData((prev) => [payload.new as Lead, ...(prev || [])]);
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "UPDATE", schema: "public", table: "leads" },
+        (payload) => {
+          setData((prev) =>
+            prev?.map((lead) =>
+              lead.id === payload.new.id ? (payload.new as Lead) : lead
+            )
+          );
+        }
+      )
+      .on(
+        "postgres_changes",
+        { event: "DELETE", schema: "public", table: "leads" },
+        (payload) => {
+          setData((prev) =>
+            prev?.filter((lead) => lead.id !== payload.old.id)
+          );
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, [fetchLeads]);
 
   return { data, isLoading, error, refetch: fetchLeads };
