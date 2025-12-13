@@ -5,3 +5,9 @@ verify_jwt = false
 
 [functions.robots]
 verify_jwt = false
+
+[functions.google-search-console]
+verify_jwt = false
+
+[functions.google-analytics]
+verify_jwt = false
