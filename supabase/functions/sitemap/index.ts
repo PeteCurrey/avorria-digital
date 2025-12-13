@@ -6,16 +6,69 @@ const corsHeaders = {
   'Content-Type': 'application/xml',
 }
 
-// Static resources from the app
-const staticResources = [
-  'seo-for-real-businesses',
-  'high-converting-websites-service-businesses',
-  'marketing-analytics-tracking-playbook',
+// Resource articles with publication metadata
+const resourceArticles = [
+  { 
+    slug: 'seo-for-real-businesses', 
+    title: 'SEO for Real Businesses: A Practical Guide',
+    published: '2024-11-15',
+    keywords: ['SEO', 'small business', 'digital marketing']
+  },
+  { 
+    slug: 'high-converting-websites-service-businesses', 
+    title: 'High-Converting Websites for Service Businesses',
+    published: '2024-10-20',
+    keywords: ['web design', 'conversion optimisation', 'service business']
+  },
+  { 
+    slug: 'marketing-analytics-tracking-playbook', 
+    title: 'Marketing Analytics & Tracking Playbook',
+    published: '2024-09-10',
+    keywords: ['analytics', 'tracking', 'marketing data']
+  },
 ]
 
-// Landing pages (service-industry and service-location combinations)
+// Location pages with geo-targeting data
+const locationPages = [
+  { 
+    path: '/seo-agency/sheffield', 
+    city: 'Sheffield', 
+    region: 'South Yorkshire',
+    country: 'GB',
+    coords: { lat: 53.3811, lng: -1.4701 }
+  },
+  { 
+    path: '/seo-agency/london', 
+    city: 'London', 
+    region: 'Greater London',
+    country: 'GB',
+    coords: { lat: 51.5074, lng: -0.1278 }
+  },
+  { 
+    path: '/web-design/sheffield', 
+    city: 'Sheffield', 
+    region: 'South Yorkshire',
+    country: 'GB',
+    coords: { lat: 53.3811, lng: -1.4701 }
+  },
+  { 
+    path: '/digital-marketing-agency/yorkshire', 
+    city: 'Yorkshire', 
+    region: 'Yorkshire and the Humber',
+    country: 'GB',
+    coords: { lat: 53.9591, lng: -1.0815 }
+  },
+  { 
+    path: '/digital-marketing-agency/uk', 
+    city: 'United Kingdom', 
+    region: 'UK',
+    country: 'GB',
+    coords: { lat: 55.3781, lng: -3.4360 }
+  },
+]
+
+// Landing pages (service-industry combinations)
 const landingPages = [
-  // Service-Industry pages
   'seo-trades-home-services',
   'seo-professional-services',
   'seo-b2b-saas',
@@ -23,13 +76,6 @@ const landingPages = [
   'seo-multi-location-brands',
   'web-design-trades',
   'paid-media-professional-services',
-  // Service-Location pages
-  'seo-london',
-  'seo-agency-sheffield',
-  'seo-agency-london',
-  'web-design-sheffield',
-  'digital-marketing-agency-yorkshire',
-  'digital-marketing-agency-uk',
 ]
 
 // Comparison pages
@@ -38,20 +84,15 @@ const comparisonPages = [
   'avorria-vs-diy',
 ]
 
-// Static pages with their priorities
+// Static pages with their priorities (excluding location pages - handled separately)
 const staticPages = [
-  // Homepage
   { path: '/', priority: '1.0', changefreq: 'weekly' },
-  
-  // Core commercial pages
   { path: '/services', priority: '0.9', changefreq: 'weekly' },
   { path: '/contact', priority: '0.9', changefreq: 'monthly' },
   { path: '/pricing', priority: '0.9', changefreq: 'weekly' },
   { path: '/case-studies', priority: '0.9', changefreq: 'weekly' },
   { path: '/about', priority: '0.8', changefreq: 'monthly' },
   { path: '/why-avorria', priority: '0.8', changefreq: 'monthly' },
-  
-  // Service pillar pages
   { path: '/services/seo', priority: '0.9', changefreq: 'weekly' },
   { path: '/services/paid-media', priority: '0.9', changefreq: 'weekly' },
   { path: '/services/web-design', priority: '0.9', changefreq: 'weekly' },
@@ -59,52 +100,32 @@ const staticPages = [
   { path: '/services/content-email', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/social-personal-brand', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/analytics', priority: '0.8', changefreq: 'monthly' },
-  
-  // SEO sub-service pages
   { path: '/services/seo/local-seo', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/seo/technical-seo', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/seo/content-seo', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/seo/analytics-tracking', priority: '0.7', changefreq: 'monthly' },
   { path: '/services/seo/website-migrations', priority: '0.7', changefreq: 'monthly' },
-  
-  // Lead generation / tools
   { path: '/free-seo-website-audit', priority: '0.9', changefreq: 'weekly' },
   { path: '/project-estimator', priority: '0.8', changefreq: 'monthly' },
   { path: '/website-health-check', priority: '0.8', changefreq: 'monthly' },
   { path: '/agency-report-teardown', priority: '0.7', changefreq: 'monthly' },
   { path: '/tools', priority: '0.7', changefreq: 'monthly' },
-  
-  // Studio
   { path: '/web-design/studio', priority: '0.7', changefreq: 'monthly' },
-  
-  // Resources
   { path: '/resources', priority: '0.8', changefreq: 'weekly' },
   { path: '/resources/seo-glossary', priority: '0.7', changefreq: 'monthly' },
   { path: '/resources/marketing-assets', priority: '0.6', changefreq: 'monthly' },
-  
-  // FAQs
   { path: '/faqs', priority: '0.7', changefreq: 'monthly' },
-  
-  // Reporting demo
   { path: '/reporting', priority: '0.6', changefreq: 'monthly' },
   { path: '/reporting/demo', priority: '0.5', changefreq: 'monthly' },
-  
-  // Content pages
   { path: '/websites-we-would-fire', priority: '0.6', changefreq: 'monthly' },
-  
-  // Location pages (explicit routes)
-  { path: '/seo-agency/sheffield', priority: '0.8', changefreq: 'monthly' },
-  { path: '/seo-agency/london', priority: '0.8', changefreq: 'monthly' },
-  { path: '/web-design/sheffield', priority: '0.8', changefreq: 'monthly' },
-  { path: '/digital-marketing-agency/yorkshire', priority: '0.8', changefreq: 'monthly' },
-  { path: '/digital-marketing-agency/uk', priority: '0.8', changefreq: 'monthly' },
-  
-  // Legal pages
   { path: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { path: '/terms', priority: '0.3', changefreq: 'yearly' },
 ]
 
 Deno.serve(async (req) => {
+  const url = new URL(req.url)
+  const type = url.searchParams.get('type') || 'main'
+
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders })
   }
@@ -113,17 +134,6 @@ Deno.serve(async (req) => {
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!
     const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
     const supabase = createClient(supabaseUrl, supabaseKey)
-
-    // Fetch published case studies with image data
-    const { data: caseStudies, error } = await supabase
-      .from('case_studies')
-      .select('slug, updated_at, hero_media_src, hero_media_type, title, headline, client, sector, services')
-      .eq('is_published', true)
-      .order('updated_at', { ascending: false })
-
-    if (error) {
-      console.error('Error fetching case studies:', error)
-    }
 
     const baseUrl = 'https://avorria.com'
     const today = new Date().toISOString().split('T')[0]
@@ -138,21 +148,103 @@ Deno.serve(async (req) => {
         .replace(/'/g, '&apos;')
     }
 
-    // Helper to generate SEO-optimized image caption
+    // NEWS SITEMAP
+    if (type === 'news') {
+      let newsSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+`
+      for (const article of resourceArticles) {
+        newsSitemap += `  <url>
+    <loc>${baseUrl}/resources/${article.slug}</loc>
+    <news:news>
+      <news:publication>
+        <news:name>Avorria</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:publication_date>${article.published}</news:publication_date>
+      <news:title>${escapeXml(article.title)}</news:title>
+      <news:keywords>${article.keywords.join(', ')}</news:keywords>
+    </news:news>
+  </url>
+`
+      }
+      newsSitemap += `</urlset>`
+
+      console.log(`Generated news sitemap with ${resourceArticles.length} articles`)
+      return new Response(newsSitemap, { headers: corsHeaders, status: 200 })
+    }
+
+    // GEO SITEMAP (for location pages)
+    if (type === 'geo') {
+      let geoSitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:geo="http://www.google.com/geo/schemas/sitemap/1.0">
+`
+      for (const loc of locationPages) {
+        geoSitemap += `  <url>
+    <loc>${baseUrl}${loc.path}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <geo:geo>
+      <geo:format>kml</geo:format>
+    </geo:geo>
+  </url>
+`
+      }
+      geoSitemap += `</urlset>`
+
+      console.log(`Generated geo sitemap with ${locationPages.length} location pages`)
+      return new Response(geoSitemap, { headers: corsHeaders, status: 200 })
+    }
+
+    // SITEMAP INDEX (returns index pointing to all sitemaps)
+    if (type === 'index') {
+      const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${supabaseUrl}/functions/v1/sitemap</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${supabaseUrl}/functions/v1/sitemap?type=news</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${supabaseUrl}/functions/v1/sitemap?type=geo</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+</sitemapindex>`
+
+      console.log('Generated sitemap index')
+      return new Response(sitemapIndex, { headers: corsHeaders, status: 200 })
+    }
+
+    // MAIN SITEMAP (default)
+    const { data: caseStudies, error } = await supabase
+      .from('case_studies')
+      .select('slug, updated_at, hero_media_src, hero_media_type, title, headline, client, sector, services')
+      .eq('is_published', true)
+      .order('updated_at', { ascending: false })
+
+    if (error) {
+      console.error('Error fetching case studies:', error)
+    }
+
     const generateImageCaption = (study: any): string => {
       const services = Array.isArray(study.services) ? study.services.join(', ') : ''
       return `${study.client} ${study.sector} case study - ${services} results by Avorria digital marketing agency`
     }
 
-    // Helper to generate SEO-optimized image title
     const generateImageTitle = (study: any): string => {
       return `${study.headline || study.title} | ${study.client} Success Story`
     }
 
-    // Generate sitemap XML
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 `
 
     // Add static pages
@@ -166,14 +258,25 @@ Deno.serve(async (req) => {
 `
     }
 
-    // Add case studies from database with image entries
+    // Add location pages with hreflang for UK targeting
+    for (const loc of locationPages) {
+      sitemap += `  <url>
+    <loc>${baseUrl}${loc.path}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en-GB" href="${baseUrl}${loc.path}"/>
+  </url>
+`
+    }
+
+    // Add case studies with image entries
     if (caseStudies && caseStudies.length > 0) {
       for (const study of caseStudies) {
         const lastmod = study.updated_at 
           ? new Date(study.updated_at).toISOString().split('T')[0]
           : today
         
-        // Build image entry if hero media exists and is an image
         let imageEntry = ''
         if (study.hero_media_src && study.hero_media_type === 'image') {
           const imageUrl = study.hero_media_src.startsWith('http') 
@@ -200,35 +303,26 @@ Deno.serve(async (req) => {
       }
     }
 
-    // Add resources
-    for (const slug of staticResources) {
+    // Add resource articles
+    for (const article of resourceArticles) {
       sitemap += `  <url>
-    <loc>${baseUrl}/resources/${slug}</loc>
-    <lastmod>${today}</lastmod>
+    <loc>${baseUrl}/resources/${article.slug}</loc>
+    <lastmod>${article.published}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
 `
     }
 
-    // Add landing pages (service-for-industry pattern)
+    // Add landing pages
     for (const slug of landingPages) {
-      // Determine the correct URL pattern based on the slug
       let path = ''
-      if (slug.includes('-agency-') || slug === 'seo-london' || slug === 'web-design-sheffield') {
-        // Location-based landing pages are handled by static routes above
-        continue
-      } else {
-        // Industry-based landing pages: /seo/for/trades-home-services
-        const parts = slug.split('-')
-        const service = parts[0] // e.g., 'seo', 'web', 'paid'
-        if (slug.startsWith('seo-')) {
-          path = `/seo/for/${slug.replace('seo-', '')}`
-        } else if (slug.startsWith('web-design-')) {
-          path = `/web-design/for/${slug.replace('web-design-', '')}`
-        } else if (slug.startsWith('paid-media-')) {
-          path = `/paid-media/for/${slug.replace('paid-media-', '')}`
-        }
+      if (slug.startsWith('seo-')) {
+        path = `/seo/for/${slug.replace('seo-', '')}`
+      } else if (slug.startsWith('web-design-')) {
+        path = `/web-design/for/${slug.replace('web-design-', '')}`
+      } else if (slug.startsWith('paid-media-')) {
+        path = `/paid-media/for/${slug.replace('paid-media-', '')}`
       }
       
       if (path) {
@@ -255,12 +349,9 @@ Deno.serve(async (req) => {
 
     sitemap += `</urlset>`
 
-    console.log(`Generated sitemap with ${staticPages.length} static pages, ${caseStudies?.length || 0} case studies, ${staticResources.length} resources, ${landingPages.length} landing pages, and ${comparisonPages.length} comparison pages`)
+    console.log(`Generated main sitemap with ${staticPages.length} static, ${locationPages.length} location, ${caseStudies?.length || 0} case studies, ${resourceArticles.length} resources`)
 
-    return new Response(sitemap, {
-      headers: corsHeaders,
-      status: 200,
-    })
+    return new Response(sitemap, { headers: corsHeaders, status: 200 })
   } catch (error: unknown) {
     console.error('Sitemap generation error:', error)
     const message = error instanceof Error ? error.message : 'Unknown error'
