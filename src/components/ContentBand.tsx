@@ -237,7 +237,7 @@ export const HeroBand = ({
               {subheadline}
             </p>
           )}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight text-white animate-fade-in">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight text-white/90 animate-fade-in">
             {headline}
           </h1>
           {body && (
@@ -247,30 +247,31 @@ export const HeroBand = ({
           )}
           {children}
           {(cta || secondaryCta) && (
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4 animate-fade-in-up">
-              {cta && (
-                <Button
-                  variant={cta.variant || "accent"}
-                  size="lg"
-                  asChild
-                  className="w-full sm:w-auto"
-                >
-                  <Link to={cta.href}>
-                    {cta.text}
-                    <ArrowRight className="ml-2" size={20} />
-                  </Link>
-                </Button>
-              )}
-              {secondaryCta && (
-                <Button
-                  variant="outline"
-                  size="lg"
-                  asChild
-                  className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
-                >
-                  <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
-                </Button>
-              )}
+            <div className="inline-block p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 animate-fade-in-up">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                {cta && (
+                  <Button
+                    variant={cta.variant || "accent"}
+                    size="lg"
+                    asChild
+                    className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6"
+                  >
+                    <Link to={cta.href}>
+                      {cta.text}
+                      <ArrowRight className="ml-2" size={20} />
+                    </Link>
+                  </Button>
+                )}
+                {secondaryCta && (
+                  <Button
+                    size="lg"
+                    asChild
+                    className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20"
+                  >
+                    <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
+                  </Button>
+                )}
+              </div>
             </div>
           )}
         </div>

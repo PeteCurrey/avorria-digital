@@ -153,75 +153,89 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
       <div className="min-h-screen">
         {/* Hero Section with City Background */}
         <section 
-          className="relative pt-32 pb-20 px-6 min-h-[70vh] flex items-center"
+          className="relative min-h-[85vh] flex items-center -mt-20 pt-20 overflow-hidden"
           style={{
             backgroundImage: location?.slug && getCityImage(location.slug) 
-              ? `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url(${getCityImage(location.slug)})`
+              ? `url(${getCityImage(location.slug)})`
               : 'linear-gradient(to bottom, hsl(var(--background)), hsl(var(--secondary)))',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
           }}
         >
-          <div className="container mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8 animate-fade-in">
-                <div className="space-y-4">
-                  {contextLine && (
-                    <p className="text-sm font-semibold text-accent uppercase tracking-wide">
-                      {contextLine}
-                    </p>
-                  )}
-                  <h1 className="text-5xl lg:text-6xl font-light leading-tight text-foreground">
-                    {heroHeadline}
-                  </h1>
-                  <p className="text-xl text-muted-foreground leading-relaxed">{heroSubheadline}</p>
-                </div>
-                <div className="flex flex-col sm:flex-row gap-4">
-                  <Button
-                    variant="accent"
-                    size="lg"
-                    asChild
-                    onClick={() => {
-                      // Track CTA click
-                      if (typeof window !== "undefined" && (window as any).gtag) {
-                        (window as any).gtag("event", "cta_click", {
-                          cta_text: primaryCTA,
-                          cta_location: "hero",
-                        });
-                      }
-                    }}
-                  >
-                    <Link to="/contact">
-                      {primaryCTA}
-                      <ArrowRight className="ml-2" size={20} />
-                    </Link>
-                  </Button>
-                  <Button variant="outline" size="lg" asChild>
-                    <Link to="/contact">{secondaryCTA}</Link>
-                  </Button>
+          {/* Dark gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-[hsl(220,25%,8%)]" />
+          
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-4xl">
+              <div className="space-y-6 md:space-y-8 animate-fade-in">
+                {contextLine && (
+                  <p className="text-sm font-semibold text-accent uppercase tracking-widest">
+                    {contextLine}
+                  </p>
+                )}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light leading-[1.05] tracking-tight text-white/90">
+                  {heroHeadline}
+                </h1>
+                <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-white/85 max-w-3xl">{heroSubheadline}</p>
+                
+                {/* CTA Box - matching Home page styling */}
+                <div className="inline-block p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button
+                      variant="accent"
+                      size="lg"
+                      asChild
+                      className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6"
+                      onClick={() => {
+                        // Track CTA click
+                        if (typeof window !== "undefined" && (window as any).gtag) {
+                          (window as any).gtag("event", "cta_click", {
+                            cta_text: primaryCTA,
+                            cta_location: "hero",
+                          });
+                        }
+                      }}
+                    >
+                      <Link to="/contact">
+                        {primaryCTA}
+                        <ArrowRight className="ml-2" size={20} />
+                      </Link>
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      asChild
+                      className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20"
+                    >
+                      <Link to="/contact">{secondaryCTA}</Link>
+                    </Button>
+                  </div>
                 </div>
               </div>
-              <div className="relative animate-fade-in">
-                <div className="bg-card border border-border rounded-lg p-8 shadow-lg">
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between pb-4 border-b border-border">
-                      <span className="text-sm font-medium text-muted-foreground">
-                        Performance Dashboard
-                      </span>
-                      <Target className="text-accent" size={20} />
+            </div>
+          </div>
+        </section>
+
+        {/* Key Metrics Section */}
+        <section className="py-16 bg-card/50">
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="bg-card border border-border rounded-lg p-8 shadow-lg max-w-4xl mx-auto">
+              <div className="space-y-6">
+                <div className="flex items-center justify-between pb-4 border-b border-border">
+                  <span className="text-sm font-medium text-muted-foreground">
+                    Performance Dashboard
+                  </span>
+                  <Target className="text-accent" size={20} />
+                </div>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  {keyMetrics.slice(0, 4).map((metric, index) => (
+                    <div key={index}>
+                      <p className="text-sm text-muted-foreground mb-1">{metric.label}</p>
+                      <p className="text-3xl font-semibold text-foreground">{metric.value}</p>
+                      <p className="text-xs text-accent flex items-center mt-1">
+                        <TrendingUp size={14} className="mr-1" /> Real result
+                      </p>
                     </div>
-                    <div className="grid grid-cols-2 gap-6">
-                      {keyMetrics.slice(0, 4).map((metric, index) => (
-                        <div key={index}>
-                          <p className="text-sm text-muted-foreground mb-1">{metric.label}</p>
-                          <p className="text-3xl font-semibold text-foreground">{metric.value}</p>
-                          <p className="text-xs text-accent flex items-center mt-1">
-                            <TrendingUp size={14} className="mr-1" /> Real result
-                          </p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+                  ))}
                 </div>
               </div>
             </div>
