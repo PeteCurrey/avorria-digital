@@ -58,10 +58,48 @@ const usaLocations = [
   { slug: 'denver', city: 'Denver', region: 'Colorado', country: 'US', coords: { lat: 39.7392, lng: -104.9903 } },
   { slug: 'seattle', city: 'Seattle', region: 'Washington', country: 'US', coords: { lat: 47.6062, lng: -122.3321 } },
   { slug: 'atlanta', city: 'Atlanta', region: 'Georgia', country: 'US', coords: { lat: 33.7490, lng: -84.3880 } },
+  { slug: 'las-vegas', city: 'Las Vegas', region: 'Nevada', country: 'US', coords: { lat: 36.1699, lng: -115.1398 } },
+]
+
+// Australia Locations with geo-targeting data
+const auLocations = [
+  { slug: 'sydney', city: 'Sydney', region: 'New South Wales', country: 'AU', coords: { lat: -33.8688, lng: 151.2093 } },
+  { slug: 'melbourne', city: 'Melbourne', region: 'Victoria', country: 'AU', coords: { lat: -37.8136, lng: 144.9631 } },
+  { slug: 'brisbane', city: 'Brisbane', region: 'Queensland', country: 'AU', coords: { lat: -27.4698, lng: 153.0251 } },
+  { slug: 'perth', city: 'Perth', region: 'Western Australia', country: 'AU', coords: { lat: -31.9505, lng: 115.8605 } },
+  { slug: 'adelaide', city: 'Adelaide', region: 'South Australia', country: 'AU', coords: { lat: -34.9285, lng: 138.6007 } },
+  { slug: 'gold-coast', city: 'Gold Coast', region: 'Queensland', country: 'AU', coords: { lat: -28.0167, lng: 153.4000 } },
+  { slug: 'canberra', city: 'Canberra', region: 'Australian Capital Territory', country: 'AU', coords: { lat: -35.2809, lng: 149.1300 } },
+  { slug: 'hobart', city: 'Hobart', region: 'Tasmania', country: 'AU', coords: { lat: -42.8821, lng: 147.3272 } },
+]
+
+// New Zealand Locations with geo-targeting data
+const nzLocations = [
+  { slug: 'auckland', city: 'Auckland', region: 'Auckland Region', country: 'NZ', coords: { lat: -36.8509, lng: 174.7645 } },
+  { slug: 'wellington', city: 'Wellington', region: 'Wellington Region', country: 'NZ', coords: { lat: -41.2866, lng: 174.7756 } },
+]
+
+// Canada Locations with geo-targeting data
+const caLocations = [
+  { slug: 'toronto', city: 'Toronto', region: 'Ontario', country: 'CA', coords: { lat: 43.6532, lng: -79.3832 } },
+  { slug: 'vancouver', city: 'Vancouver', region: 'British Columbia', country: 'CA', coords: { lat: 49.2827, lng: -123.1207 } },
+  { slug: 'montreal', city: 'Montreal', region: 'Quebec', country: 'CA', coords: { lat: 45.5017, lng: -73.5673 } },
 ]
 
 // All locations combined
-const allLocations = [...ukLocations, ...usaLocations]
+const allLocations = [...ukLocations, ...usaLocations, ...auLocations, ...nzLocations, ...caLocations]
+
+// Helper to get hreflang based on country
+const getHreflang = (country: string): string => {
+  switch (country) {
+    case 'GB': return 'en-GB'
+    case 'US': return 'en-US'
+    case 'AU': return 'en-AU'
+    case 'NZ': return 'en-NZ'
+    case 'CA': return 'en-CA'
+    default: return 'en'
+  }
+}
 
 // Services for geo pages
 const geoServices = [
@@ -79,7 +117,7 @@ const locationPages = allLocations.flatMap(loc =>
     region: loc.region,
     country: loc.country,
     coords: loc.coords,
-    hreflang: loc.country === 'GB' ? 'en-GB' : 'en-US',
+    hreflang: getHreflang(loc.country),
   }))
 )
 
