@@ -334,6 +334,58 @@ export const locations: Location[] = [
     isPrimaryMarket: true,
     coords: { lat: -42.8821, lng: 147.3272 },
   },
+  // New Zealand Cities
+  {
+    id: "auckland",
+    city: "Auckland",
+    region: "Auckland Region",
+    country: "New Zealand",
+    countryCode: "NZ",
+    slug: "auckland",
+    isPrimaryMarket: true,
+    coords: { lat: -36.8509, lng: 174.7645 },
+  },
+  {
+    id: "wellington",
+    city: "Wellington",
+    region: "Wellington Region",
+    country: "New Zealand",
+    countryCode: "NZ",
+    slug: "wellington",
+    isPrimaryMarket: true,
+    coords: { lat: -41.2866, lng: 174.7756 },
+  },
+  // Canada Cities
+  {
+    id: "toronto",
+    city: "Toronto",
+    region: "Ontario",
+    country: "Canada",
+    countryCode: "CA",
+    slug: "toronto",
+    isPrimaryMarket: true,
+    coords: { lat: 43.6532, lng: -79.3832 },
+  },
+  {
+    id: "vancouver",
+    city: "Vancouver",
+    region: "British Columbia",
+    country: "Canada",
+    countryCode: "CA",
+    slug: "vancouver",
+    isPrimaryMarket: true,
+    coords: { lat: 49.2827, lng: -123.1207 },
+  },
+  {
+    id: "montreal",
+    city: "Montreal",
+    region: "Quebec",
+    country: "Canada",
+    countryCode: "CA",
+    slug: "montreal",
+    isPrimaryMarket: true,
+    coords: { lat: 45.5017, lng: -73.5673 },
+  },
 ];
 
 export const getLocationBySlug = (slug: string): Location | undefined => {
