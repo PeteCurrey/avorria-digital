@@ -29,10 +29,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     "/services/analytics",
     "/about",
     "/contact",
+    "/seo-agency",
+    "/digital-marketing-agency",
+    "/paid-media-agency",
+    "/web-design",
   ];
   
+  // Check if current path is a hero page or a location page (service/location pattern)
+  const isLocationPage = /^\/(seo-agency|digital-marketing-agency|paid-media-agency|web-design)\/[^/]+$/.test(location.pathname);
+  
   const isHeroPage = heroPages.some(page => location.pathname === page) || 
-                     location.pathname.startsWith("/case-studies");
+                     location.pathname.startsWith("/case-studies") ||
+                     isLocationPage;
 
   return (
     <>
