@@ -635,6 +635,17 @@ const getLocationTestimonial = (
   return generateFallbackTestimonial(city, serviceSlug);
 };
 
+// Currency helper based on country code
+const getCurrency = (countryCode: string): { symbol: string; code: string } => {
+  switch (countryCode) {
+    case "US":
+    case "AU":
+      return { symbol: "$", code: countryCode === "AU" ? "AUD" : "USD" };
+    default:
+      return { symbol: "£", code: "GBP" };
+  }
+};
+
 // Service-specific content templates
 interface ServiceTemplate {
   problemBullets: (city: string, region: string) => string[];
@@ -653,7 +664,7 @@ interface ServiceTemplate {
     description: string;
   }>;
   workingWithYou: (city: string, region: string) => string;
-  pricingSnapshot: string;
+  pricingSnapshot: (currencySymbol: string) => string;
 }
 
 const seoTemplate: ServiceTemplate = {
@@ -730,8 +741,8 @@ const seoTemplate: ServiceTemplate = {
   ],
   workingWithYou: (city, region) =>
     `We work with businesses across ${city} and ${region} who are serious about growing through organic search. Whether you're a single-location business or expanding across the region, we bring the same discipline: clear strategy, proper tracking, and a focus on commercial outcomes rather than vanity metrics.`,
-  pricingSnapshot:
-    "SEO retainers typically start from £1,500/month for local SEO and go up to £5,000+/month for larger regional or national campaigns. We'll scope properly based on your situation and give you honest expectations.",
+  pricingSnapshot: (currency) =>
+    `SEO retainers typically start from ${currency}1,500/month for local SEO and go up to ${currency}5,000+/month for larger regional or national campaigns. We'll scope properly based on your situation and give you honest expectations.`,
 };
 
 const webDesignTemplate: ServiceTemplate = {
@@ -808,8 +819,8 @@ const webDesignTemplate: ServiceTemplate = {
   ],
   workingWithYou: (city, region) =>
     `We design and build websites for businesses in ${city} and across ${region} who want their site to work as a proper sales tool. Not just something that looks nice, but a site that converts visitors into leads and gives you clear visibility on what's happening.`,
-  pricingSnapshot:
-    "Website projects typically range from £5,000 for a focused business site to £25,000+ for larger builds with custom functionality. We'll scope based on your needs and give you a fixed price upfront.",
+  pricingSnapshot: (currency) =>
+    `Website projects typically range from ${currency}5,000 for a focused business site to ${currency}25,000+ for larger builds with custom functionality. We'll scope based on your needs and give you a fixed price upfront.`,
 };
 
 const digitalMarketingTemplate: ServiceTemplate = {
@@ -886,8 +897,8 @@ const digitalMarketingTemplate: ServiceTemplate = {
   ],
   workingWithYou: (city, region) =>
     `We partner with businesses across ${city} and ${region} who want marketing that actually moves the needle. Not more activity for activity's sake, but a focused approach that connects spend to pipeline and revenue.`,
-  pricingSnapshot:
-    "Digital marketing retainers typically start from £3,000/month and scale based on scope and channels. We'll propose something that fits your budget and goals.",
+  pricingSnapshot: (currency) =>
+    `Digital marketing retainers typically start from ${currency}3,000/month and scale based on scope and channels. We'll propose something that fits your budget and goals.`,
 };
 
 const paidMediaTemplate: ServiceTemplate = {
@@ -964,8 +975,8 @@ const paidMediaTemplate: ServiceTemplate = {
   ],
   workingWithYou: (city, region) =>
     `We manage paid media for businesses in ${city} and across ${region} who want real results from their ad spend. Not vanity metrics, but qualified leads and measurable revenue impact.`,
-  pricingSnapshot:
-    "Paid media management typically starts from £1,500/month plus ad spend. Pricing scales with spend and complexity. We'll scope based on your situation and goals.",
+  pricingSnapshot: (currency) =>
+    `Paid media management typically starts from ${currency}1,500/month plus ad spend. Pricing scales with spend and complexity. We'll scope based on your situation and goals.`,
 };
 
 const serviceTemplates: Record<string, ServiceTemplate> = {
@@ -1046,7 +1057,7 @@ function generateServiceLocationPage(
     faqList: template.faqList(location.city, region),
     processSteps: template.processSteps,
     workingWithYou: template.workingWithYou(location.city, region),
-    pricingSnapshot: template.pricingSnapshot,
+    pricingSnapshot: template.pricingSnapshot(getCurrency(location.countryCode).symbol),
     targetKeyword: targetKeywordPatterns[service.slug],
     metaTitle: metaTitlePatterns[service.slug],
     metaDescription: metaDescPatterns[service.slug],
