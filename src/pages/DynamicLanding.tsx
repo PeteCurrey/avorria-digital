@@ -7,50 +7,38 @@ import { getIndustryBySlug } from "@/data/industries";
 import { getServiceLocationPageBySlug } from "@/data/serviceLocationLandingPages";
 
 const DynamicLanding = () => {
-  const { serviceSlug, locationSlug, industrySlug } = useParams();
+  const { locationSlug, industrySlug } = useParams();
+  
+  // Get service slug from URL path
+  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const urlServiceSlug = pathSegments[0];
 
-  // Try to find an existing landing page first
+  // Map URL service slugs to internal service slugs
+  const serviceMapping: Record<string, string> = {
+    'seo-agency': 'seo',
+    'seo': 'seo',
+    'web-design': 'web-design',
+    'digital-marketing-agency': 'digital-marketing',
+    'digital-marketing': 'digital-marketing',
+    'paid-media': 'paid-media',
+    'paid-media-agency': 'paid-media',
+  };
+
+  const internalServiceSlug = serviceMapping[urlServiceSlug] || urlServiceSlug;
+
+  // Try to find a landing page
   let landingPage = null;
 
-  // First, try to match by combined slug pattern (service-location or service-industry)
-  if (serviceSlug && locationSlug) {
-    // Try direct service-location match first
-    landingPage = getServiceLocationPageBySlug(`${serviceSlug}-${locationSlug}`);
+  if (locationSlug && internalServiceSlug) {
+    // Try service-location combo
+    const potentialSlug = `${internalServiceSlug}-${locationSlug}`;
+    landingPage = getServiceLocationPageBySlug(potentialSlug);
     
-    // If not found, try the general landing pages
     if (!landingPage) {
-      landingPage = getLandingPageBySlug(`${serviceSlug}-${locationSlug}`);
+      landingPage = getLandingPageBySlug(potentialSlug);
     }
-  } else if (serviceSlug && industrySlug) {
-    landingPage = getLandingPageBySlug(`${serviceSlug}-${industrySlug}`);
-  }
-
-  // If no match found, try to construct and match exact URL path as slug
-  // This handles custom URL patterns like /seo-agency/sheffield
-  if (!landingPage) {
-    const pathSegments = window.location.pathname.split('/').filter(Boolean);
-    if (pathSegments.length >= 2) {
-      // Handle patterns like /seo-agency/sheffield -> seo-sheffield
-      const serviceMapping: Record<string, string> = {
-        'seo-agency': 'seo',
-        'seo': 'seo',
-        'web-design': 'web-design',
-        'digital-marketing-agency': 'digital-marketing',
-        'digital-marketing': 'digital-marketing',
-        'paid-media': 'paid-media',
-        'paid-media-agency': 'paid-media',
-      };
-      
-      const mappedService = serviceMapping[pathSegments[0]];
-      if (mappedService) {
-        const potentialSlug = `${mappedService}-${pathSegments[1]}`;
-        landingPage = getServiceLocationPageBySlug(potentialSlug);
-        
-        if (!landingPage) {
-          landingPage = getLandingPageBySlug(potentialSlug);
-        }
-      }
-    }
+  } else if (industrySlug && internalServiceSlug) {
+    landingPage = getLandingPageBySlug(`${internalServiceSlug}-${industrySlug}`);
   }
 
   // If landing page exists, render it
@@ -58,8 +46,8 @@ const DynamicLanding = () => {
     return <LandingPageTemplate page={landingPage} />;
   }
 
-  // If no pre-built landing page, verify components exist
-  const service = serviceSlug ? getServiceBySlug(serviceSlug) : null;
+  // Verify components exist
+  const service = internalServiceSlug ? getServiceBySlug(internalServiceSlug) : null;
   const location = locationSlug ? getLocationBySlug(locationSlug) : null;
   const industry = industrySlug ? getIndustryBySlug(industrySlug) : null;
 
@@ -68,8 +56,7 @@ const DynamicLanding = () => {
     return <Navigate to="/404" replace />;
   }
 
-  // For now, redirect to the main service page
-  // In a full implementation, you could generate a page dynamically here
+  // Redirect to main service page
   return <Navigate to={service.pillarPageUrl} replace />;
 };
 
