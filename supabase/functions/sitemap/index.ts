@@ -191,11 +191,11 @@ Deno.serve(async (req) => {
       return new Response(newsSitemap, { headers: corsHeaders, status: 200 })
     }
 
-    // GEO SITEMAP (for location pages)
+    // GEO SITEMAP (for location pages) - uses standard format with hreflang for geo-targeting
     if (type === 'geo') {
       let geoSitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:geo="http://www.google.com/geo/schemas/sitemap/1.0">
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
 `
       for (const loc of locationPages) {
         geoSitemap += `  <url>
@@ -203,9 +203,7 @@ Deno.serve(async (req) => {
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <geo:geo>
-      <geo:format>kml</geo:format>
-    </geo:geo>
+    <xhtml:link rel="alternate" hreflang="${loc.hreflang}" href="${baseUrl}${loc.path}"/>
   </url>
 `
       }
