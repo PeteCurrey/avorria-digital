@@ -639,8 +639,13 @@ const getLocationTestimonial = (
 const getCurrency = (countryCode: string): { symbol: string; code: string } => {
   switch (countryCode) {
     case "US":
+      return { symbol: "$", code: "USD" };
     case "AU":
-      return { symbol: "$", code: countryCode === "AU" ? "AUD" : "USD" };
+      return { symbol: "A$", code: "AUD" };
+    case "NZ":
+      return { symbol: "NZ$", code: "NZD" };
+    case "CA":
+      return { symbol: "C$", code: "CAD" };
     default:
       return { symbol: "£", code: "GBP" };
   }

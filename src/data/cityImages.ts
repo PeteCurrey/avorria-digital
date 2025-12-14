@@ -32,6 +32,11 @@ import adelaideImage from "@/assets/cities/adelaide.jpg";
 import goldCoastImage from "@/assets/cities/gold-coast.jpg";
 import canberraImage from "@/assets/cities/canberra.jpg";
 import hobartImage from "@/assets/cities/hobart.jpg";
+import aucklandImage from "@/assets/cities/auckland.jpg";
+import wellingtonImage from "@/assets/cities/wellington.jpg";
+import torontoImage from "@/assets/cities/toronto.jpg";
+import vancouverImage from "@/assets/cities/vancouver.jpg";
+import montrealImage from "@/assets/cities/montreal.jpg";
 
 export const cityImages: Record<string, string> = {
   london: londonImage,
@@ -67,6 +72,11 @@ export const cityImages: Record<string, string> = {
   "gold-coast": goldCoastImage,
   canberra: canberraImage,
   hobart: hobartImage,
+  auckland: aucklandImage,
+  wellington: wellingtonImage,
+  toronto: torontoImage,
+  vancouver: vancouverImage,
+  montreal: montrealImage,
 };
 
 export const getCityImage = (locationSlug: string): string | undefined => {
