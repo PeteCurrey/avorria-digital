@@ -23,6 +23,15 @@ import austinImage from "@/assets/cities/austin.jpg";
 import denverImage from "@/assets/cities/denver.jpg";
 import seattleImage from "@/assets/cities/seattle.jpg";
 import atlantaImage from "@/assets/cities/atlanta.jpg";
+import lasVegasImage from "@/assets/cities/las-vegas.jpg";
+import sydneyImage from "@/assets/cities/sydney.jpg";
+import melbourneImage from "@/assets/cities/melbourne.jpg";
+import brisbaneImage from "@/assets/cities/brisbane.jpg";
+import perthImage from "@/assets/cities/perth.jpg";
+import adelaideImage from "@/assets/cities/adelaide.jpg";
+import goldCoastImage from "@/assets/cities/gold-coast.jpg";
+import canberraImage from "@/assets/cities/canberra.jpg";
+import hobartImage from "@/assets/cities/hobart.jpg";
 
 export const cityImages: Record<string, string> = {
   london: londonImage,
@@ -49,6 +58,15 @@ export const cityImages: Record<string, string> = {
   denver: denverImage,
   seattle: seattleImage,
   atlanta: atlantaImage,
+  "las-vegas": lasVegasImage,
+  sydney: sydneyImage,
+  melbourne: melbourneImage,
+  brisbane: brisbaneImage,
+  perth: perthImage,
+  adelaide: adelaideImage,
+  "gold-coast": goldCoastImage,
+  canberra: canberraImage,
+  hobart: hobartImage,
 };
 
 export const getCityImage = (locationSlug: string): string | undefined => {
