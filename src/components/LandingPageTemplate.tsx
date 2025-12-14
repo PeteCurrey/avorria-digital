@@ -12,6 +12,7 @@ import {
 import { ArrowRight, CheckCircle2, TrendingUp, Target } from "lucide-react";
 import { LandingPage } from "@/types/landingPage";
 import LandingPageForm from "./LandingPageForm";
+import { getCityImage } from "@/data/cityImages";
 
 interface LandingPageTemplateProps {
   page: LandingPage;
@@ -150,8 +151,17 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Hero Section */}
-        <section className="pt-32 pb-20 px-6 bg-gradient-to-b from-background to-secondary">
+        {/* Hero Section with City Background */}
+        <section 
+          className="relative pt-32 pb-20 px-6 min-h-[70vh] flex items-center"
+          style={{
+            backgroundImage: location?.slug && getCityImage(location.slug) 
+              ? `linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.85)), url(${getCityImage(location.slug)})`
+              : 'linear-gradient(to bottom, hsl(var(--background)), hsl(var(--secondary)))',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        >
           <div className="container mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div className="space-y-8 animate-fade-in">

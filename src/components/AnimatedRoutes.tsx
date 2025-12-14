@@ -13,6 +13,9 @@ import CaseStudies from "@/pages/CaseStudies";
 
 // Lazy load less critical pages
 const SEOServices = lazy(() => import("@/pages/SEOServices"));
+const SEOAgencyPillar = lazy(() => import("@/pages/SEOAgencyPillar"));
+const DigitalMarketingAgencyPillar = lazy(() => import("@/pages/DigitalMarketingAgencyPillar"));
+const PaidMediaAgencyPillar = lazy(() => import("@/pages/PaidMediaAgencyPillar"));
 const PaidMedia = lazy(() => import("@/pages/PaidMedia"));
 const WebDesign = lazy(() => import("@/pages/WebDesign"));
 const WebDesignStudio = lazy(() => import("@/pages/WebDesignStudio"));
@@ -254,13 +257,16 @@ const AnimatedRoutes = () => {
           {/* Tools */}
           <Route path="/tools" element={<PageTransition><Tools /></PageTransition>} />
           
-          {/* Landing Page Routes */}
-          <Route path="/seo-agency/sheffield" element={<PageTransition><DynamicLanding /></PageTransition>} />
-          <Route path="/seo-agency/london" element={<PageTransition><DynamicLanding /></PageTransition>} />
-          <Route path="/web-design/sheffield" element={<PageTransition><DynamicLanding /></PageTransition>} />
-          <Route path="/digital-marketing-agency/yorkshire" element={<PageTransition><DynamicLanding /></PageTransition>} />
-          <Route path="/digital-marketing-agency/uk" element={<PageTransition><DynamicLanding /></PageTransition>} />
-          <Route path="/:serviceSlug/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
+          {/* Service Pillar Pages */}
+          <Route path="/seo-agency" element={<PageTransition><SEOAgencyPillar /></PageTransition>} />
+          <Route path="/digital-marketing-agency" element={<PageTransition><DigitalMarketingAgencyPillar /></PageTransition>} />
+          <Route path="/paid-media-agency" element={<PageTransition><PaidMediaAgencyPillar /></PageTransition>} />
+          
+          {/* Dynamic Location Landing Pages */}
+          <Route path="/seo-agency/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
+          <Route path="/digital-marketing-agency/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
+          <Route path="/paid-media-agency/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
+          <Route path="/web-design/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
           <Route path="/:serviceSlug/for/:industrySlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
           
           {/* Catch-all */}
