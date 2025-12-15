@@ -12,9 +12,11 @@ const Footer = () => {
   ];
 
   const locations = [
-    { name: "SEO in London", href: "/seo/london" },
-    { name: "SEO in Manchester", href: "/seo/manchester" },
-    { name: "SEO in Birmingham", href: "/seo/birmingham" },
+    { name: "SEO London", href: "/seo-agency/london" },
+    { name: "SEO Manchester", href: "/seo-agency/manchester" },
+    { name: "SEO New York", href: "/seo-agency/new-york" },
+    { name: "SEO Sydney", href: "/seo-agency/sydney" },
+    { name: "SEO Toronto", href: "/seo-agency/toronto" },
   ];
 
   const industries = [

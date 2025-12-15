@@ -9,9 +9,17 @@ import {
 } from "@/components/ui/accordion";
 import { ArrowRight, CheckCircle2, X, TrendingUp } from "lucide-react";
 import { HeroBand, SectionBand, ContentBand } from "@/components/ContentBand";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
+import { locations } from "@/data/locations";
 
 const WebDesign = () => {
+  const ukLocations = locations.filter(l => l.countryCode === "GB");
+  const usLocations = locations.filter(l => l.countryCode === "US");
+  const auLocations = locations.filter(l => l.countryCode === "AU");
+  const nzLocations = locations.filter(l => l.countryCode === "NZ");
+  const caLocations = locations.filter(l => l.countryCode === "CA");
+
   const painPoints = [
     "You've had a redesign, but enquiries and sales barely moved.",
     "Your homepage looks like a brochure, not a clear path to 'work with us'.",
@@ -326,40 +334,91 @@ const WebDesign = () => {
           </div>
         </SectionBand>
 
-        {/* Web Design by Location - Light */}
-        <SectionBand background="light" padding="default">
-          <div className="max-w-4xl mx-auto">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl sm:text-4xl font-light mb-4 text-foreground">Web design by location</h2>
-              <p className="text-lg text-muted-foreground">
-                Looking for a local web design partner?
+        {/* Web Design by Location - Dark */}
+        <SectionBand background="dark" padding="large">
+          <div className="max-w-6xl mx-auto">
+            <ScrollReveal>
+              <h2 className="text-3xl sm:text-4xl font-light mb-6 text-center">Web design by location</h2>
+              <p className="text-center text-white/70 mb-12 max-w-2xl mx-auto">
+                Conversion-focused web design services across the UK, USA, Australia, New Zealand and Canada.
               </p>
-            </div>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="p-8 rounded-xl border border-border bg-card hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">Web Design Sheffield</h3>
-                <p className="text-muted-foreground mb-6">
-                  Conversion-focused websites for Sheffield businesses.
-                </p>
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/web-design/sheffield">
-                    Learn more
-                    <ArrowRight className="ml-2" size={16} />
-                  </Link>
-                </Button>
-              </div>
-              <div className="p-8 rounded-xl border border-border bg-card hover:shadow-lg transition-shadow">
-                <h3 className="text-xl font-semibold mb-3 text-foreground">Web Design Across the UK</h3>
-                <p className="text-muted-foreground mb-6">
-                  We work with businesses across the UK and beyond.
-                </p>
-                <Button variant="outline" size="sm" asChild>
-                  <Link to="/contact">
-                    Get in touch
-                    <ArrowRight className="ml-2" size={16} />
-                  </Link>
-                </Button>
-              </div>
+            </ScrollReveal>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+              <ScrollReveal>
+                <h3 className="text-xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">United Kingdom</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {ukLocations.map((location) => (
+                    <Link
+                      key={location.id}
+                      to={`/web-design/${location.slug}`}
+                      className="text-white/70 hover:text-accent transition-colors text-sm"
+                    >
+                      {location.city} →
+                    </Link>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal>
+                <h3 className="text-xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">United States</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {usLocations.map((location) => (
+                    <Link
+                      key={location.id}
+                      to={`/web-design/${location.slug}`}
+                      className="text-white/70 hover:text-accent transition-colors text-sm"
+                    >
+                      {location.city} →
+                    </Link>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal>
+                <h3 className="text-xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">Australia</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {auLocations.map((location) => (
+                    <Link
+                      key={location.id}
+                      to={`/web-design/${location.slug}`}
+                      className="text-white/70 hover:text-accent transition-colors text-sm"
+                    >
+                      {location.city} →
+                    </Link>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal>
+                <h3 className="text-xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">New Zealand</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {nzLocations.map((location) => (
+                    <Link
+                      key={location.id}
+                      to={`/web-design/${location.slug}`}
+                      className="text-white/70 hover:text-accent transition-colors text-sm"
+                    >
+                      {location.city} →
+                    </Link>
+                  ))}
+                </div>
+              </ScrollReveal>
+
+              <ScrollReveal>
+                <h3 className="text-xl font-semibold text-white mb-6 border-l-4 border-accent pl-4">Canada</h3>
+                <div className="grid grid-cols-2 gap-3">
+                  {caLocations.map((location) => (
+                    <Link
+                      key={location.id}
+                      to={`/web-design/${location.slug}`}
+                      className="text-white/70 hover:text-accent transition-colors text-sm"
+                    >
+                      {location.city} →
+                    </Link>
+                  ))}
+                </div>
+              </ScrollReveal>
             </div>
           </div>
         </SectionBand>
