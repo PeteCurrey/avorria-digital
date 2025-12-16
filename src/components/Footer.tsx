@@ -12,6 +12,7 @@ const Footer = () => {
   ];
 
   const locations = [
+    { name: "All Locations", href: "/locations" },
     { name: "SEO London", href: "/seo-agency/london" },
     { name: "SEO Manchester", href: "/seo-agency/manchester" },
     { name: "SEO New York", href: "/seo-agency/new-york" },
@@ -20,8 +21,10 @@ const Footer = () => {
   ];
 
   const industries = [
+    { name: "All Industries", href: "/industries" },
     { name: "Web Design for Trades", href: "/web-design/for/trades" },
-    { name: "Paid Media for Professional Services", href: "/paid-media/for/professional-services" },
+    { name: "SEO for Professional Services", href: "/seo/for/professional-services" },
+    { name: "Paid Media for SaaS", href: "/paid-media/for/saas" },
   ];
 
   const company = [

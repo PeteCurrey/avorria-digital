@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
@@ -9,10 +9,166 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2, TrendingUp, Target } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, Target, MapPin } from "lucide-react";
 import { LandingPage } from "@/types/landingPage";
 import LandingPageForm from "./LandingPageForm";
 import { getCityImage } from "@/data/cityImages";
+import { locations } from "@/data/locations";
+import { services } from "@/data/services";
+import { Location, Service } from "@/types/landingPage";
+
+// Helper to calculate distance between two coordinates (Haversine formula)
+const calculateDistance = (lat1: number, lng1: number, lat2: number, lng2: number): number => {
+  const R = 6371; // Earth's radius in km
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLng = ((lng2 - lng1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLng / 2) *
+      Math.sin(dLng / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+};
+
+// Get service URL prefix based on service slug
+const getServiceUrlPrefix = (serviceSlug: string): string => {
+  const prefixMap: Record<string, string> = {
+    seo: "/seo-agency",
+    "web-design": "/web-design",
+    "paid-media": "/paid-media-agency",
+    "digital-marketing": "/digital-marketing-agency",
+    "content-email": "/content-email-agency",
+  };
+  return prefixMap[serviceSlug] || `/${serviceSlug}`;
+};
+
+// Nearby Locations Section Component
+const NearbyLocationsSection = ({
+  currentLocation,
+  service,
+}: {
+  currentLocation: Location;
+  service: Service;
+}) => {
+  const nearbyLocations = useMemo(() => {
+    if (!currentLocation.coords) return [];
+    
+    // Filter locations in the same country and calculate distances
+    const sameCountryLocations = locations
+      .filter((loc) => 
+        loc.countryCode === currentLocation.countryCode && 
+        loc.slug !== currentLocation.slug &&
+        loc.slug !== "uk" && // Exclude generic entries
+        loc.coords
+      )
+      .map((loc) => ({
+        ...loc,
+        distance: calculateDistance(
+          currentLocation.coords!.lat,
+          currentLocation.coords!.lng,
+          loc.coords!.lat,
+          loc.coords!.lng
+        ),
+      }))
+      .sort((a, b) => a.distance - b.distance)
+      .slice(0, 6);
+
+    return sameCountryLocations;
+  }, [currentLocation]);
+
+  if (nearbyLocations.length === 0) return null;
+
+  const serviceUrlPrefix = getServiceUrlPrefix(service.slug);
+
+  return (
+    <section className="py-16 px-6 bg-background border-t border-border">
+      <div className="container mx-auto max-w-5xl">
+        <div className="flex items-center gap-3 mb-8">
+          <MapPin className="h-5 w-5 text-accent" />
+          <h2 className="text-2xl font-light text-foreground">
+            {service.name} in nearby locations
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          {nearbyLocations.map((loc) => (
+            <Link
+              key={loc.slug}
+              to={`${serviceUrlPrefix}/${loc.slug}`}
+              className="group p-4 bg-secondary rounded-lg hover:bg-accent/10 transition-colors text-center"
+            >
+              <p className="font-medium text-foreground group-hover:text-accent transition-colors">
+                {loc.city}
+              </p>
+              <p className="text-xs text-muted-foreground mt-1">
+                {Math.round(loc.distance)} km away
+              </p>
+            </Link>
+          ))}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            to="/locations"
+            className="text-accent hover:text-accent/80 text-sm font-medium inline-flex items-center"
+          >
+            View all locations
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Related Services Section Component
+const RelatedServicesSection = ({
+  currentService,
+  location,
+}: {
+  currentService: Service;
+  location: Location;
+}) => {
+  const otherServices = services.filter((s) => s.slug !== currentService.slug);
+
+  return (
+    <section className="py-16 px-6 bg-secondary border-t border-border">
+      <div className="container mx-auto max-w-5xl">
+        <h2 className="text-2xl font-light text-foreground mb-8">
+          Other services in {location.city}
+        </h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {otherServices.map((s) => {
+            const urlPrefix = getServiceUrlPrefix(s.slug);
+            return (
+              <Link
+                key={s.slug}
+                to={`${urlPrefix}/${location.slug}`}
+                className="group p-6 bg-background rounded-lg border border-border hover:border-accent transition-colors"
+              >
+                <p className="font-semibold text-foreground group-hover:text-accent transition-colors mb-2">
+                  {s.name}
+                </p>
+                <p className="text-sm text-muted-foreground line-clamp-2">
+                  {s.shortDescription}
+                </p>
+              </Link>
+            );
+          })}
+        </div>
+        <div className="mt-6 text-center">
+          <Link
+            to="/industries"
+            className="text-accent hover:text-accent/80 text-sm font-medium inline-flex items-center"
+          >
+            Browse by industry
+            <ArrowRight className="ml-1 h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 interface LandingPageTemplateProps {
   page: LandingPage;
@@ -456,6 +612,22 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
             />
           </div>
         </section>
+
+        {/* Nearby Locations Section */}
+        {location && (
+          <NearbyLocationsSection 
+            currentLocation={location} 
+            service={service} 
+          />
+        )}
+
+        {/* Related Services Section */}
+        {location && (
+          <RelatedServicesSection 
+            currentService={service} 
+            location={location} 
+          />
+        )}
 
         {/* Internal Links Footer */}
         <section className="py-16 px-6 bg-secondary border-t border-border">
