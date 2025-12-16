@@ -121,21 +121,54 @@ const locationPages = allLocations.flatMap(loc =>
   }))
 )
 
-// Landing pages (service-industry combinations)
-const landingPages = [
-  'seo-trades-home-services',
-  'seo-professional-services',
-  'seo-b2b-saas',
-  'seo-ecommerce-brands',
-  'seo-multi-location-brands',
-  'web-design-trades',
-  'paid-media-professional-services',
-]
-
 // Comparison pages
 const comparisonPages = [
   'avorria-vs-typical-agency',
   'avorria-vs-diy',
+]
+
+// Industry landing pages (service-for-industry combinations)
+const industryLandingPages = [
+  // SEO for industries
+  { path: '/seo/for/trades-home-services', priority: '0.8' },
+  { path: '/seo/for/trades', priority: '0.8' },
+  { path: '/seo/for/professional-services', priority: '0.8' },
+  { path: '/seo/for/b2b-saas', priority: '0.8' },
+  { path: '/seo/for/saas', priority: '0.8' },
+  { path: '/seo/for/ecommerce-brands', priority: '0.8' },
+  { path: '/seo/for/ecommerce', priority: '0.8' },
+  { path: '/seo/for/multi-location-brands', priority: '0.8' },
+  { path: '/seo/for/multi-location', priority: '0.8' },
+  // Web design for industries
+  { path: '/web-design/for/trades-home-services', priority: '0.8' },
+  { path: '/web-design/for/trades', priority: '0.8' },
+  { path: '/web-design/for/professional-services', priority: '0.8' },
+  { path: '/web-design/for/b2b-saas', priority: '0.8' },
+  { path: '/web-design/for/saas', priority: '0.8' },
+  { path: '/web-design/for/ecommerce-brands', priority: '0.8' },
+  { path: '/web-design/for/ecommerce', priority: '0.8' },
+  { path: '/web-design/for/multi-location-brands', priority: '0.8' },
+  { path: '/web-design/for/multi-location', priority: '0.8' },
+  // Paid media for industries
+  { path: '/paid-media/for/trades-home-services', priority: '0.8' },
+  { path: '/paid-media/for/trades', priority: '0.8' },
+  { path: '/paid-media/for/professional-services', priority: '0.8' },
+  { path: '/paid-media/for/b2b-saas', priority: '0.8' },
+  { path: '/paid-media/for/saas', priority: '0.8' },
+  { path: '/paid-media/for/ecommerce-brands', priority: '0.8' },
+  { path: '/paid-media/for/ecommerce', priority: '0.8' },
+  { path: '/paid-media/for/multi-location-brands', priority: '0.8' },
+  { path: '/paid-media/for/multi-location', priority: '0.8' },
+  // Digital marketing for industries
+  { path: '/digital-marketing/for/trades-home-services', priority: '0.8' },
+  { path: '/digital-marketing/for/trades', priority: '0.8' },
+  { path: '/digital-marketing/for/professional-services', priority: '0.8' },
+  { path: '/digital-marketing/for/b2b-saas', priority: '0.8' },
+  { path: '/digital-marketing/for/saas', priority: '0.8' },
+  { path: '/digital-marketing/for/ecommerce-brands', priority: '0.8' },
+  { path: '/digital-marketing/for/ecommerce', priority: '0.8' },
+  { path: '/digital-marketing/for/multi-location-brands', priority: '0.8' },
+  { path: '/digital-marketing/for/multi-location', priority: '0.8' },
 ]
 
 // Static pages with their priorities (excluding location pages - handled separately)
@@ -147,30 +180,42 @@ const staticPages = [
   { path: '/case-studies', priority: '0.9', changefreq: 'weekly' },
   { path: '/about', priority: '0.8', changefreq: 'monthly' },
   { path: '/why-avorria', priority: '0.8', changefreq: 'monthly' },
+  // Hub pages
+  { path: '/industries', priority: '0.9', changefreq: 'weekly' },
+  { path: '/locations', priority: '0.9', changefreq: 'weekly' },
+  // Service pillar pages
   { path: '/services/seo', priority: '0.9', changefreq: 'weekly' },
   { path: '/services/paid-media', priority: '0.9', changefreq: 'weekly' },
   { path: '/services/web-design', priority: '0.9', changefreq: 'weekly' },
   { path: '/web-design', priority: '0.9', changefreq: 'weekly' },
+  { path: '/seo-agency', priority: '0.9', changefreq: 'weekly' },
+  { path: '/digital-marketing-agency', priority: '0.9', changefreq: 'weekly' },
+  { path: '/paid-media-agency', priority: '0.9', changefreq: 'weekly' },
   { path: '/services/content-email', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/social-personal-brand', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/analytics', priority: '0.8', changefreq: 'monthly' },
+  // SEO sub-services
   { path: '/services/seo/local-seo', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/seo/technical-seo', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/seo/content-seo', priority: '0.8', changefreq: 'monthly' },
   { path: '/services/seo/analytics-tracking', priority: '0.7', changefreq: 'monthly' },
   { path: '/services/seo/website-migrations', priority: '0.7', changefreq: 'monthly' },
+  // Lead capture pages
   { path: '/free-seo-website-audit', priority: '0.9', changefreq: 'weekly' },
   { path: '/project-estimator', priority: '0.8', changefreq: 'monthly' },
   { path: '/website-health-check', priority: '0.8', changefreq: 'monthly' },
   { path: '/agency-report-teardown', priority: '0.7', changefreq: 'monthly' },
+  // Tools and resources
   { path: '/tools', priority: '0.7', changefreq: 'monthly' },
   { path: '/web-design/studio', priority: '0.7', changefreq: 'monthly' },
   { path: '/resources', priority: '0.8', changefreq: 'weekly' },
   { path: '/resources/seo-glossary', priority: '0.7', changefreq: 'monthly' },
   { path: '/resources/marketing-assets', priority: '0.6', changefreq: 'monthly' },
   { path: '/faqs', priority: '0.7', changefreq: 'monthly' },
+  // Reporting
   { path: '/reporting', priority: '0.6', changefreq: 'monthly' },
   { path: '/reporting/demo', priority: '0.5', changefreq: 'monthly' },
+  // Misc
   { path: '/websites-we-would-fire', priority: '0.6', changefreq: 'monthly' },
   { path: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { path: '/terms', priority: '0.3', changefreq: 'yearly' },
@@ -366,26 +411,15 @@ Deno.serve(async (req) => {
 `
     }
 
-    // Add landing pages
-    for (const slug of landingPages) {
-      let path = ''
-      if (slug.startsWith('seo-')) {
-        path = `/seo/for/${slug.replace('seo-', '')}`
-      } else if (slug.startsWith('web-design-')) {
-        path = `/web-design/for/${slug.replace('web-design-', '')}`
-      } else if (slug.startsWith('paid-media-')) {
-        path = `/paid-media/for/${slug.replace('paid-media-', '')}`
-      }
-      
-      if (path) {
-        sitemap += `  <url>
-    <loc>${baseUrl}${path}</loc>
+    // Add industry landing pages (service-for-industry)
+    for (const page of industryLandingPages) {
+      sitemap += `  <url>
+    <loc>${baseUrl}${page.path}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>${page.priority}</priority>
   </url>
 `
-      }
     }
 
     // Add comparison pages
@@ -401,7 +435,7 @@ Deno.serve(async (req) => {
 
     sitemap += `</urlset>`
 
-    console.log(`Generated main sitemap with ${staticPages.length} static, ${locationPages.length} location, ${caseStudies?.length || 0} case studies, ${resourceArticles.length} resources`)
+    console.log(`Generated main sitemap with ${staticPages.length} static, ${locationPages.length} location, ${industryLandingPages.length} industry, ${caseStudies?.length || 0} case studies, ${resourceArticles.length} resources`)
 
     return new Response(sitemap, { headers: corsHeaders, status: 200 })
   } catch (error: unknown) {

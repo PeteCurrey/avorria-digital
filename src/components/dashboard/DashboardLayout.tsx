@@ -45,7 +45,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
     <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 flex w-full">
       {/* Sidebar */}
       <aside
-        className={`fixed lg:static inset-y-0 left-0 z-40 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all duration-[var(--duration-normal)] ${
+        className={`fixed lg:static inset-y-0 left-0 z-30 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all duration-[var(--duration-normal)] ${
           sidebarOpen ? "w-64" : "w-0 lg:w-20"
         }`}
       >
@@ -99,9 +99,9 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
       </aside>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 lg:ml-0 ml-0">
         {/* Top Bar */}
-        <header className="h-16 bg-card/80 backdrop-blur-sm border-b border-border/50 flex items-center justify-between px-6 sticky top-0 z-30">
+        <header className="h-16 bg-card/80 backdrop-blur-sm border-b border-border/50 flex items-center justify-between px-6 sticky top-0 z-40">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -144,7 +144,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-auto p-6 bg-gradient-to-br from-background via-background to-secondary/5">
+        <main className="flex-1 overflow-auto p-6 pt-8 bg-gradient-to-br from-background via-background to-secondary/5">
           {children}
         </main>
       </div>

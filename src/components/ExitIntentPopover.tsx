@@ -46,7 +46,7 @@ export function ExitIntentPopover() {
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md sm:mr-24 sm:ml-auto">
         <DialogHeader>
           <DialogTitle className="text-2xl font-light">
             Before you bounce – want a quick, honest teardown of your marketing?
