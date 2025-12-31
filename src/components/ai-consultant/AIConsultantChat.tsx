@@ -16,19 +16,19 @@ interface AIConsultantChatProps {
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-consultant`;
 
-// Fixed opening sequence - exactly as specified
+// Warm, human opening sequence
 const OPENING_MESSAGES: Message[] = [
   {
     role: "assistant",
-    content: "Most people don't come to Avorria just browsing.\nThey usually have a sense that something isn't working as well as it should — traffic, conversions, clarity, or a mix of things."
+    content: "Hey — thanks for stopping by."
   },
   {
     role: "assistant",
-    content: "If you want, I can help you make sense of that and work out whether it's actually fixable — and whether we're the right people to help."
+    content: "I'm here to help you think through your digital marketing — no forms, no pressure. Whether it's SEO, website performance, or just getting more from your online presence, I've got time."
   },
   {
     role: "assistant",
-    content: "To get a bit of context, what does your business do?"
+    content: "What can I help with?"
   }
 ];
 
