@@ -57,6 +57,7 @@ const Onboarding = lazy(() => import("@/pages/Onboarding"));
 const Admin = lazy(() => import("@/pages/Admin"));
 const Industries = lazy(() => import("@/pages/Industries"));
 const Locations = lazy(() => import("@/pages/Locations"));
+const Sitemap = lazy(() => import("@/pages/Sitemap"));
 
 // Platform pages
 const PlatformDashboard = lazy(() => import("@/pages/platform/PlatformDashboard"));
@@ -131,6 +132,7 @@ const AnimatedRoutes = () => {
           {/* Industries & Locations Hub Pages */}
           <Route path="/industries" element={<PageTransition><Industries /></PageTransition>} />
           <Route path="/locations" element={<PageTransition><Locations /></PageTransition>} />
+          <Route path="/sitemap" element={<PageTransition><Sitemap /></PageTransition>} />
           
           {/* Why Avorria */}
           <Route path="/why-avorria" element={<PageTransition><WhyAvorria /></PageTransition>} />
