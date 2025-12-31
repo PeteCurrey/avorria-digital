@@ -38,6 +38,7 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [openingStep, setOpeningStep] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
+  const [isTypingOpening, setIsTypingOpening] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
@@ -47,7 +48,7 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages]);
+  }, [messages, isTypingOpening]);
 
   useEffect(() => {
     if (isOpen && inputRef.current && openingStep >= 3) {
@@ -55,7 +56,7 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
     }
   }, [isOpen, openingStep]);
 
-  // Display opening messages with delays
+  // Display opening messages with typing indicators
   const startOpeningSequence = useCallback(() => {
     if (hasStarted) return;
     setHasStarted(true);
@@ -64,17 +65,29 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
     setMessages([OPENING_MESSAGES[0]]);
     setOpeningStep(1);
     
-    // Message 2 - after 1.5s
+    // Show typing indicator before message 2
     setTimeout(() => {
+      setIsTypingOpening(true);
+    }, 1000);
+    
+    // Message 2 - after typing indicator
+    setTimeout(() => {
+      setIsTypingOpening(false);
       setMessages(prev => [...prev, OPENING_MESSAGES[1]]);
       setOpeningStep(2);
-    }, 1500);
+    }, 2200);
     
-    // Message 3 - after another 1.5s
+    // Show typing indicator before message 3
     setTimeout(() => {
+      setIsTypingOpening(true);
+    }, 3000);
+    
+    // Message 3 - after typing indicator
+    setTimeout(() => {
+      setIsTypingOpening(false);
       setMessages(prev => [...prev, OPENING_MESSAGES[2]]);
       setOpeningStep(3);
-    }, 3000);
+    }, 4000);
   }, [hasStarted]);
 
   useEffect(() => {
@@ -245,6 +258,25 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
                 </motion.div>
               ))}
 
+              {/* Typing indicator for opening sequence */}
+              {isTypingOpening && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="flex justify-start"
+                >
+                  <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
+                    <div className="flex items-center gap-1">
+                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse" />
+                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse [animation-delay:150ms]" />
+                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse [animation-delay:300ms]" />
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {/* Typing indicator for user messages */}
               {isLoading && messages[messages.length - 1]?.role === "user" && (
                 <motion.div
                   initial={{ opacity: 0 }}
@@ -254,8 +286,8 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
                   <div className="bg-muted rounded-2xl rounded-bl-md px-4 py-3">
                     <div className="flex items-center gap-1">
                       <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse" />
-                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse delay-75" />
-                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse delay-150" />
+                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse [animation-delay:150ms]" />
+                      <span className="w-2 h-2 bg-muted-foreground/50 rounded-full animate-pulse [animation-delay:300ms]" />
                     </div>
                   </div>
                 </motion.div>
