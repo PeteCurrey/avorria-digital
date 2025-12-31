@@ -217,6 +217,8 @@ const staticPages = [
   { path: '/reporting/demo', priority: '0.5', changefreq: 'monthly' },
   // Misc
   { path: '/websites-we-would-fire', priority: '0.6', changefreq: 'monthly' },
+  { path: '/sitemap', priority: '0.5', changefreq: 'weekly' },
+  { path: '/agency-report-teardown/thanks', priority: '0.3', changefreq: 'monthly' },
   { path: '/privacy', priority: '0.3', changefreq: 'yearly' },
   { path: '/terms', priority: '0.3', changefreq: 'yearly' },
 ]
