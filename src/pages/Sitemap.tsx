@@ -1,6 +1,7 @@
+import { useState, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import { locations } from "@/data/locations";
 import { industries } from "@/data/industries";
 
@@ -11,7 +12,19 @@ interface SitemapEntry {
   priority: string;
 }
 
+type SortColumn = 'url' | 'lastmod' | 'changefreq' | 'priority';
+type SortDirection = 'asc' | 'desc';
+
+const changefreqOrder: Record<string, number> = {
+  daily: 1,
+  weekly: 2,
+  monthly: 3,
+  yearly: 4,
+};
+
 const Sitemap = () => {
+  const [sortColumn, setSortColumn] = useState<SortColumn>('priority');
+  const [sortDirection, setSortDirection] = useState<SortDirection>('desc');
   const today = new Date().toISOString().split('T')[0];
   const baseUrl = "https://avorria.com";
 
@@ -127,6 +140,48 @@ const Sitemap = () => {
     });
   });
 
+  // Sorted entries
+  const sortedEntries = useMemo(() => {
+    return [...entries].sort((a, b) => {
+      let comparison = 0;
+      
+      switch (sortColumn) {
+        case 'url':
+          comparison = a.url.localeCompare(b.url);
+          break;
+        case 'lastmod':
+          comparison = a.lastmod.localeCompare(b.lastmod);
+          break;
+        case 'changefreq':
+          comparison = (changefreqOrder[a.changefreq] || 5) - (changefreqOrder[b.changefreq] || 5);
+          break;
+        case 'priority':
+          comparison = parseFloat(a.priority) - parseFloat(b.priority);
+          break;
+      }
+      
+      return sortDirection === 'asc' ? comparison : -comparison;
+    });
+  }, [entries, sortColumn, sortDirection]);
+
+  const handleSort = (column: SortColumn) => {
+    if (sortColumn === column) {
+      setSortDirection(sortDirection === 'asc' ? 'desc' : 'asc');
+    } else {
+      setSortColumn(column);
+      setSortDirection(column === 'priority' ? 'desc' : 'asc');
+    }
+  };
+
+  const SortIcon = ({ column }: { column: SortColumn }) => {
+    if (sortColumn !== column) {
+      return <ArrowUpDown className="w-4 h-4 opacity-40" />;
+    }
+    return sortDirection === 'asc' 
+      ? <ArrowUp className="w-4 h-4" /> 
+      : <ArrowDown className="w-4 h-4" />;
+  };
+
   // Calculate statistics
   const totalUrls = entries.length;
   const highPriority = entries.filter(e => parseFloat(e.priority) >= 0.8).length;
@@ -188,14 +243,46 @@ const Sitemap = () => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="bg-muted/50 border-b border-border">
-                  <th className="text-left py-3 px-4 font-medium text-foreground">URL</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground hidden sm:table-cell">Last Modified</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground hidden md:table-cell">Change Frequency</th>
-                  <th className="text-left py-3 px-4 font-medium text-foreground">Priority</th>
+                  <th 
+                    className="text-left py-3 px-4 font-medium text-foreground cursor-pointer hover:bg-muted/70 transition-colors"
+                    onClick={() => handleSort('url')}
+                  >
+                    <div className="flex items-center gap-2">
+                      URL
+                      <SortIcon column="url" />
+                    </div>
+                  </th>
+                  <th 
+                    className="text-left py-3 px-4 font-medium text-foreground hidden sm:table-cell cursor-pointer hover:bg-muted/70 transition-colors"
+                    onClick={() => handleSort('lastmod')}
+                  >
+                    <div className="flex items-center gap-2">
+                      Last Modified
+                      <SortIcon column="lastmod" />
+                    </div>
+                  </th>
+                  <th 
+                    className="text-left py-3 px-4 font-medium text-foreground hidden md:table-cell cursor-pointer hover:bg-muted/70 transition-colors"
+                    onClick={() => handleSort('changefreq')}
+                  >
+                    <div className="flex items-center gap-2">
+                      Change Frequency
+                      <SortIcon column="changefreq" />
+                    </div>
+                  </th>
+                  <th 
+                    className="text-left py-3 px-4 font-medium text-foreground cursor-pointer hover:bg-muted/70 transition-colors"
+                    onClick={() => handleSort('priority')}
+                  >
+                    <div className="flex items-center gap-2">
+                      Priority
+                      <SortIcon column="priority" />
+                    </div>
+                  </th>
                 </tr>
               </thead>
               <tbody>
-                {entries.map((entry, index) => (
+                {sortedEntries.map((entry, index) => (
                   <tr 
                     key={entry.url} 
                     className={`border-b border-border hover:bg-muted/30 transition-colors ${
