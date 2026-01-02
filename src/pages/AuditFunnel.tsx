@@ -5,43 +5,34 @@ import Footer from "@/components/Footer";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Check, X, Video, FileText, BarChart3, ListChecks } from "lucide-react";
-
 export default function AuditFunnel() {
   const scrollToForm = () => {
     trackCTAClick('request_audit', '#audit-form', 'hero');
-    document.getElementById("audit-form")?.scrollIntoView({ behavior: "smooth" });
+    document.getElementById("audit-form")?.scrollIntoView({
+      behavior: "smooth"
+    });
   };
-
-  return (
-    <>
+  return <>
       <Helmet>
         <title>Free SEO & Website Audit - No Fluff, Just Reality | Avorria</title>
-        <meta
-          name="description"
-          content="Get a custom video or written teardown of your site, SEO and tracking. Clear, actionable recommendations – whether you work with us or not."
-        />
+        <meta name="description" content="Get a custom video or written teardown of your site, SEO and tracking. Clear, actionable recommendations – whether you work with us or not." />
         <script type="application/ld+json">
           {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "SEO & Website Audit",
-            "provider": {
-              "@type": "Organization",
-              "name": "Avorria"
-            },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "GBP"
-            }
-          })}
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "SEO & Website Audit",
+          "provider": {
+            "@type": "Organization",
+            "name": "Avorria"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "GBP"
+          }
+        })}
         </script>
       </Helmet>
 
@@ -51,8 +42,8 @@ export default function AuditFunnel() {
         {/* Hero Section */}
         <section className="pt-32 pb-16 px-4">
           <div className="container max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-4xl md:text-6xl font-light text-foreground">
-              Free SEO & Website Audit – No Fluff, Just a Reality Check
+            <h1 className="text-4xl font-light text-foreground md:text-3xl">
+              Free SEO & Website Audit – No BS, Just a Reality Check
             </h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
               We'll review your site, SEO and tracking, then send you a short, plain-English teardown with clear next steps – whether you work with us or not.
@@ -95,14 +86,12 @@ export default function AuditFunnel() {
               <Button size="lg" onClick={scrollToForm}>
                 Request my audit
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => {
-                  trackCTAClick('see_whats_included', '#what-you-get', 'hero');
-                  document.getElementById("what-you-get")?.scrollIntoView({ behavior: "smooth" });
-                }}
-              >
+              <Button size="lg" variant="outline" onClick={() => {
+              trackCTAClick('see_whats_included', '#what-you-get', 'hero');
+              document.getElementById("what-you-get")?.scrollIntoView({
+                behavior: "smooth"
+              });
+            }}>
                 See what's included
               </Button>
             </div>
@@ -329,6 +318,5 @@ export default function AuditFunnel() {
 
         <Footer />
       </div>
-    </>
-  );
+    </>;
 }
