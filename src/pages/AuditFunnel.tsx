@@ -55,7 +55,7 @@ export default function AuditFunnel() {
                   <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
                   <div>
                     <p className="text-foreground">
-                      Custom video or written teardown – not a generic PDF
+                      We'll review your site, SEO and tracking, then send you a short, plain English teardown with clear next steps whether you work with us or not.
                     </p>
                   </div>
                 </div>
