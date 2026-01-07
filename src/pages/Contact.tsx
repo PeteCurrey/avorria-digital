@@ -6,21 +6,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 import { useCreateLead } from "@/hooks/useLeads";
 import heroContactOffice from "@/assets/hero-contact-office.jpg";
-
 const Contact = () => {
-  const { toast } = useToast();
+  const {
+    toast
+  } = useToast();
   const createLead = useCreateLead();
   const [step, setStep] = useState(1);
   const [formStarted, setFormStarted] = useState(false);
@@ -34,21 +29,21 @@ const Contact = () => {
     channels: "",
     mainGoal: "",
     timeline: "",
-    message: "",
+    message: ""
   });
-
   const handleInputChange = (field: string, value: string) => {
     if (!formStarted) {
       setFormStarted(true);
       trackFormStart('contact', window.location.pathname);
     }
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
     try {
       // Save lead to database
       await createLead.mutateAsync({
@@ -62,21 +57,19 @@ const Contact = () => {
           monthlySpend: formData.monthlySpend,
           channels: formData.channels,
           mainGoal: formData.mainGoal,
-          timeline: formData.timeline,
-        },
+          timeline: formData.timeline
+        }
       });
-      
       trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, {
         reason: formData.mainGoal || 'general',
         monthly_spend: formData.monthlySpend,
-        channels: formData.channels,
+        channels: formData.channels
       });
-      
       toast({
         title: "Thank you for reaching out!",
-        description: "We'll review your information and get back to you within 24 hours.",
+        description: "We'll review your information and get back to you within 24 hours."
       });
-      
+
       // Reset form
       setFormData({
         name: "",
@@ -87,22 +80,20 @@ const Contact = () => {
         channels: "",
         mainGoal: "",
         timeline: "",
-        message: "",
+        message: ""
       });
       setStep(1);
     } catch (error) {
       toast({
         title: "Something went wrong",
         description: "Please try again or email us directly.",
-        variant: "destructive",
+        variant: "destructive"
       });
     } finally {
       setIsSubmitting(false);
     }
   };
-
-  return (
-    <>
+  return <>
       <Helmet>
         <title>Contact Avorria – Book a Strategy Call | Avorria</title>
         <meta name="description" content="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services." />
@@ -111,15 +102,12 @@ const Contact = () => {
       
     <div className="min-h-screen">
       {/* Hero Section with Parallax - flows behind header */}
-      <section 
-        className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20"
-        style={{
-          backgroundImage: `url(${heroContactOffice})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundAttachment: "fixed",
-        }}
-      >
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20" style={{
+        backgroundImage: `url(${heroContactOffice})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundAttachment: "fixed"
+      }}>
         {/* Dark overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
@@ -144,71 +132,33 @@ const Contact = () => {
               <Card className="border-border">
                 <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {step === 1 && (
-                      <div className="space-y-6 animate-fade-in">
+                    {step === 1 && <div className="space-y-6 animate-fade-in">
                         <div>
                           <Label htmlFor="name">Full Name *</Label>
-                          <Input
-                            id="name"
-                            value={formData.name}
-                            onChange={(e) => handleInputChange("name", e.target.value)}
-                            required
-                            className="mt-2"
-                          />
+                          <Input id="name" value={formData.name} onChange={e => handleInputChange("name", e.target.value)} required className="mt-2" />
                         </div>
                         <div>
                           <Label htmlFor="email">Email Address *</Label>
-                          <Input
-                            id="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={(e) => handleInputChange("email", e.target.value)}
-                            required
-                            className="mt-2"
-                          />
+                          <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange("email", e.target.value)} required className="mt-2" />
                         </div>
                         <div>
                           <Label htmlFor="company">Company Name *</Label>
-                          <Input
-                            id="company"
-                            value={formData.company}
-                            onChange={(e) => handleInputChange("company", e.target.value)}
-                            required
-                            className="mt-2"
-                          />
+                          <Input id="company" value={formData.company} onChange={e => handleInputChange("company", e.target.value)} required className="mt-2" />
                         </div>
                         <div>
                           <Label htmlFor="website">Website URL</Label>
-                          <Input
-                            id="website"
-                            type="url"
-                            value={formData.website}
-                            onChange={(e) => handleInputChange("website", e.target.value)}
-                            placeholder="https://"
-                            className="mt-2"
-                          />
+                          <Input id="website" type="url" value={formData.website} onChange={e => handleInputChange("website", e.target.value)} placeholder="https://" className="mt-2" />
                         </div>
-                        <Button
-                          type="button"
-                          variant="accent"
-                          className="w-full"
-                          onClick={() => setStep(2)}
-                          disabled={!formData.name || !formData.email || !formData.company}
-                        >
+                        <Button type="button" variant="accent" className="w-full" onClick={() => setStep(2)} disabled={!formData.name || !formData.email || !formData.company}>
                           Continue
                           <ArrowRight className="ml-2" size={18} />
                         </Button>
-                      </div>
-                    )}
+                      </div>}
 
-                    {step === 2 && (
-                      <div className="space-y-6 animate-fade-in">
+                    {step === 2 && <div className="space-y-6 animate-fade-in">
                         <div>
                           <Label htmlFor="monthlySpend">Current Monthly Marketing Spend</Label>
-                          <Select
-                            value={formData.monthlySpend}
-                            onValueChange={(value) => handleInputChange("monthlySpend", value)}
-                          >
+                          <Select value={formData.monthlySpend} onValueChange={value => handleInputChange("monthlySpend", value)}>
                             <SelectTrigger className="mt-2">
                               <SelectValue placeholder="Select range" />
                             </SelectTrigger>
@@ -222,10 +172,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <Label htmlFor="channels">Current Marketing Channels</Label>
-                          <Select
-                            value={formData.channels}
-                            onValueChange={(value) => handleInputChange("channels", value)}
-                          >
+                          <Select value={formData.channels} onValueChange={value => handleInputChange("channels", value)}>
                             <SelectTrigger className="mt-2">
                               <SelectValue placeholder="Select primary channel" />
                             </SelectTrigger>
@@ -241,11 +188,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <Label htmlFor="mainGoal">Main Marketing Goal *</Label>
-                          <Select
-                            value={formData.mainGoal}
-                            onValueChange={(value) => handleInputChange("mainGoal", value)}
-                            required
-                          >
+                          <Select value={formData.mainGoal} onValueChange={value => handleInputChange("mainGoal", value)} required>
                             <SelectTrigger className="mt-2">
                               <SelectValue placeholder="Select your goal" />
                             </SelectTrigger>
@@ -260,10 +203,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <Label htmlFor="timeline">Timeline & Urgency</Label>
-                          <Select
-                            value={formData.timeline}
-                            onValueChange={(value) => handleInputChange("timeline", value)}
-                          >
+                          <Select value={formData.timeline} onValueChange={value => handleInputChange("timeline", value)}>
                             <SelectTrigger className="mt-2">
                               <SelectValue placeholder="When do you want to start?" />
                             </SelectTrigger>
@@ -277,30 +217,17 @@ const Contact = () => {
                         </div>
                         <div>
                           <Label htmlFor="message">Additional Details</Label>
-                          <Textarea
-                            id="message"
-                            value={formData.message}
-                            onChange={(e) => handleInputChange("message", e.target.value)}
-                            rows={4}
-                            placeholder="Tell us more about your challenges, goals, or questions..."
-                            className="mt-2"
-                          />
+                          <Textarea id="message" value={formData.message} onChange={e => handleInputChange("message", e.target.value)} rows={4} placeholder="Tell us more about your challenges, goals, or questions..." className="mt-2" />
                         </div>
                         <div className="flex gap-4">
-                          <Button
-                            type="button"
-                            variant="outline"
-                            className="flex-1"
-                            onClick={() => setStep(1)}
-                          >
+                          <Button type="button" variant="outline" className="flex-1" onClick={() => setStep(1)}>
                             Back
                           </Button>
                           <Button type="submit" variant="accent" className="flex-1" disabled={isSubmitting}>
                             {isSubmitting ? "Submitting..." : "Submit Request"}
                           </Button>
                         </div>
-                      </div>
-                    )}
+                      </div>}
                   </form>
                   <p className="text-xs text-center text-muted-foreground mt-4">
                     Need help scoping this properly?{" "}
@@ -327,10 +254,7 @@ const Contact = () => {
                         <p className="text-muted-foreground text-sm mb-2">
                           For general inquiries or partnerships
                         </p>
-                        <a
-                          href="mailto:hello@avorria.com"
-                          className="text-accent hover:text-accent/80 font-medium"
-                        >
+                        <a href="mailto:hello@avorria.com" className="text-accent hover:text-accent/80 font-medium">
                           hello@avorria.com
                         </a>
                       </div>
@@ -347,10 +271,7 @@ const Contact = () => {
                         <p className="text-muted-foreground text-sm mb-2">
                           Monday - Friday, 9am - 6pm GMT
                         </p>
-                        <a
-                          href="tel:+442012345678"
-                          className="text-accent hover:text-accent/80 font-medium"
-                        >
+                        <a href="tel:+442012345678" className="text-accent hover:text-accent/80 font-medium">
                           +44 (0) 20 1234 5678
                         </a>
                       </div>
@@ -365,7 +286,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-foreground mb-1">Visit Us</h3>
                         <p className="text-muted-foreground text-sm">
-                          123 Digital Street
+                          Unit 2 Old Brick Works Lane Chesterfield S41 7JD         
                           <br />
                           London, EC1A 1BB
                           <br />
@@ -405,8 +326,6 @@ const Contact = () => {
         </div>
       </section>
     </div>
-    </>
-  );
+    </>;
 };
-
 export default Contact;
