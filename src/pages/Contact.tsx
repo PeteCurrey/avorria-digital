@@ -286,11 +286,11 @@ const Contact = () => {
                       <div>
                         <h3 className="font-semibold text-foreground mb-1">Visit Us</h3>
                         <p className="text-muted-foreground text-sm">
-                          Unit 2 Old Brick Works Lane Chesterfield S41 7JD         
+                          ​Unit 2 Old Brick Works Lane Chesterfield S41 7JD                  
                           <br />
-                          London, EC1A 1BB
+                          37th Floor One Canada Square London E14 5AB       
                           <br />
-                          United Kingdom
+                          555 N Michigan Ave Chicago IL 60611      
                         </p>
                       </div>
                     </CardContent>
