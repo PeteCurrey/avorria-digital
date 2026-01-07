@@ -368,11 +368,8 @@ const Home = () => {
         backgroundPosition: "center",
         backgroundAttachment: "scroll"
       }}>
-          {/* Dark overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-[hsl(220,25%,8%)]" />
-          
-          {/* Animated gradient overlay */}
-          <HeroGradient />
+          {/* Dark overlay gradient - clean without color tint */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-[hsl(220,25%,8%)]" />
 
           {/* Hero Content */}
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
