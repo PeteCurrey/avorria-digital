@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Loader2, Mic, MicOff, Volume2, VolumeX, Bot } from "lucide-react";
 import { Button } from "@/components/ui/button";
