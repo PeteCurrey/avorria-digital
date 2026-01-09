@@ -16,6 +16,7 @@ export default defineConfig(({ mode }) => ({
       // Force all React imports to the same instance
       "react": path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+      "react-helmet-async": path.resolve(__dirname, "node_modules/react-helmet-async"),
     },
     dedupe: [
       "react",
@@ -37,5 +38,14 @@ export default defineConfig(({ mode }) => ({
       "react-helmet-async",
       "scheduler",
     ],
+    esbuildOptions: {
+      // Ensure consistent JSX transform
+      jsx: "automatic",
+    },
+  },
+  build: {
+    commonjsOptions: {
+      include: [/react-helmet-async/, /node_modules/],
+    },
   },
 }));
