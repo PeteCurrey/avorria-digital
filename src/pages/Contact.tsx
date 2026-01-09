@@ -103,7 +103,7 @@ const Contact = () => {
     <div className="min-h-screen">
       {/* Hero Section with Parallax - flows behind header */}
       <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20" style={{
-        backgroundImage: `url(${heroContactOffice})`,
+        backgroundImage: "url(\"/lovable-uploads/c9ffc2f2-d1f9-470d-ac01-636f9fbdba53.png\")",
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundAttachment: "fixed"
@@ -151,15 +151,7 @@ const Contact = () => {
                         </div>
                         <div>
                           <Label htmlFor="message">How can we help? *</Label>
-                          <Textarea 
-                            id="message" 
-                            value={formData.message} 
-                            onChange={e => handleInputChange("message", e.target.value)} 
-                            rows={4} 
-                            required
-                            placeholder="Tell us about your goals, challenges, or questions..."
-                            className="mt-2" 
-                          />
+                          <Textarea id="message" value={formData.message} onChange={e => handleInputChange("message", e.target.value)} rows={4} required placeholder="Tell us about your goals, challenges, or questions..." className="mt-2" />
                         </div>
                         <Button type="button" variant="accent" className="w-full" onClick={() => setStep(2)} disabled={!formData.name || !formData.email || !formData.company || !formData.message}>
                           Continue
