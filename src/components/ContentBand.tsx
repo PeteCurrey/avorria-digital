@@ -217,8 +217,8 @@ export const SectionBand = ({
   return <section className={cn("relative w-full overflow-hidden", bgClasses[background], paddingClasses[padding], className)}>
       {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60" />}
       {(background === "dark" || background === "gradient" || background === "mesh") && <div style={{
-      backgroundImage: "url(\"/lovable-uploads/3dc35053-031e-421b-ab26-94bf4703ad50.png\")"
-    }} className="absolute inset-0 opacity-[0.03] bg-primary-foreground" />}
+      backgroundImage: "url(\"/lovable-uploads/523e3b3f-e9e9-4634-8e34-f53a62c10f87.png\")"
+    }} className="absolute inset-0 bg-primary-foreground opacity-90" />}
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {children}
       </div>
