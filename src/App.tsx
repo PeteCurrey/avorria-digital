@@ -17,7 +17,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const isHomePage = location.pathname === "/";
   
   // Pages with full-screen hero images that need transparent header
-  // These pages have dark hero backgrounds (images or gradients) where white text will be visible
   const heroPages = [
     "/web-design/studio",
     "/services",
@@ -34,7 +33,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
     "/web-design",
   ];
   
-  // Check if current path is a hero page or a location page (service/location pattern)
   const isLocationPage = /^\/(seo-agency|digital-marketing-agency|paid-media-agency|web-design)\/[^/]+$/.test(location.pathname);
   
   const isHeroPage = heroPages.some(page => location.pathname === page) || 
@@ -50,8 +48,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// Create a stable HelmetProvider context
+const helmetContext = {};
+
 const App = () => (
-  <HelmetProvider>
+  <HelmetProvider context={helmetContext}>
     <TooltipProvider>
       <AuthProvider>
         <Toaster />
