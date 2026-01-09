@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";

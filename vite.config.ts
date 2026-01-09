@@ -13,23 +13,14 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force a single React instance to avoid "Invalid hook call" / useState null issues
+      react: path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
+      "react/jsx-runtime": path.resolve(__dirname, "node_modules/react/jsx-runtime"),
     },
-    dedupe: [
-      "react", 
-      "react-dom", 
-      "react-helmet-async", 
-      "react-router-dom",
-      "@tanstack/react-query"
-    ],
+    dedupe: ["react", "react-dom"],
   },
   optimizeDeps: {
-    include: [
-      "react", 
-      "react-dom", 
-      "react-helmet-async", 
-      "react-router-dom",
-      "@tanstack/react-query"
-    ],
-    force: true,
+    include: ["react", "react-dom"],
   },
 }));
