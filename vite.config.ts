@@ -22,6 +22,7 @@ export default defineConfig(({ mode }) => ({
       "react-dom/client",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
+      "react-helmet-async",
     ],
   },
   optimizeDeps: {
@@ -31,6 +32,7 @@ export default defineConfig(({ mode }) => ({
       "react-dom/client",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
+      "react-helmet-async",
     ],
     force: true,
   },
