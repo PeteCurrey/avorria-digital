@@ -13,6 +13,9 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force all React imports to the same instance
+      "react": path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
     },
     dedupe: [
       "react",
@@ -34,6 +37,5 @@ export default defineConfig(({ mode }) => ({
       "react-helmet-async",
       "scheduler",
     ],
-    force: true,
   },
 }));
