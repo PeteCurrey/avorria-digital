@@ -11,8 +11,6 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
-    // Prevent React duplication when dependencies are symlinked (pnpm/workspaces/etc.)
-    preserveSymlinks: true,
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
@@ -23,6 +21,7 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "react-helmet-async",
+      "scheduler",
     ],
   },
   optimizeDeps: {
@@ -33,6 +32,7 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "react-helmet-async",
+      "scheduler",
     ],
     force: true,
   },
