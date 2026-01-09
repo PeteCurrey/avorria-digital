@@ -1,8 +1,10 @@
-import { useState } from "react";
+import React, { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { MessageSquare } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import AIConsultantChat from "./AIConsultantChat";
+
+// Lazy load the chat component to avoid HMR issues
+const AIConsultantChat = lazy(() => import("./AIConsultantChat"));
 
 const AIConsultantTrigger = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,8 +30,12 @@ const AIConsultantTrigger = () => {
         <span className="absolute inset-0 rounded-full bg-primary/30 animate-ping pointer-events-none" />
       </motion.div>
 
-      {/* Chat Panel */}
-      <AIConsultantChat isOpen={isOpen} onClose={() => setIsOpen(false)} />
+      {/* Chat Panel - Only render when opened to avoid HMR issues */}
+      {isOpen && (
+        <Suspense fallback={null}>
+          <AIConsultantChat isOpen={isOpen} onClose={() => setIsOpen(false)} />
+        </Suspense>
+      )}
     </>
   );
 };
