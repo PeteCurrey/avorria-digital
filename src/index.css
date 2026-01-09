@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,7 +38,7 @@ All colors MUST be HSL.
     --input: 220 15% 88%;
     --ring: 210 100% 55%;
 
-    --radius: 0.625rem;
+    --radius: 0.25rem;
 
     /* Premium gradients - signature Avorria gradient */
     --gradient-primary: linear-gradient(135deg, hsl(320, 85%, 55%) 0%, hsl(260, 75%, 60%) 100%);
@@ -70,7 +71,7 @@ All colors MUST be HSL.
     --type-body: 1.125rem;
     --type-body-sm: 1rem;
     --type-small: 0.875rem;
-    
+
     /* Line heights - tighter for headlines */
     --leading-display: 1.05;
     --leading-tight: 1.1;
@@ -80,11 +81,11 @@ All colors MUST be HSL.
     /* Section spacing */
     --section-py: clamp(5rem, 12vw, 8rem);
     --section-py-lg: clamp(6rem, 15vw, 10rem);
-    
-    --shadow-sm: 0px 1px 1.5px 0px hsla(0, 0%, 0%, 0.1);
-    --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.1);
-    --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.1);
-    --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.1);
+
+    --shadow-sm: 0px 1px 1.5px 0px hsla(0, 0%, 0%, 0.15);
+    --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.15);
+    --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.15);
+    --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.15);
   }
 
   .dark {
@@ -115,12 +116,12 @@ All colors MUST be HSL.
     --border: 220 20% 18%;
     --input: 220 20% 18%;
     --ring: 210 100% 55%;
-    --radius: 0.625rem;
-    --shadow-sm: 0px 1px 1.5px 0px hsla(0, 0%, 0%, 0.1);
-    --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.1);
-    --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.1);
-    --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.1);
-    
+    --radius: 0.25rem;
+    --shadow-sm: 0px 1px 1.5px 0px hsla(0, 0%, 0%, 0.15);
+    --shadow: 0px 1px 3px 0px hsla(0, 0%, 0%, 0.15);
+    --shadow-md: 0px 1px 4.5px 0px hsla(0, 0%, 0%, 0.15);
+    --shadow-lg: 0px 1px 7.5px 0px hsla(0, 0%, 0%, 0.15);
+
     --gradient-mesh: radial-gradient(at 27% 37%, hsla(320, 85%, 55%, 0.12) 0px, transparent 50%),
                       radial-gradient(at 97% 21%, hsla(260, 75%, 60%, 0.12) 0px, transparent 50%),
                       radial-gradient(at 52% 99%, hsla(250, 75%, 60%, 0.08) 0px, transparent 50%);
