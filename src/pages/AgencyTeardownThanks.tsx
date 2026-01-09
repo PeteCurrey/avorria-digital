@@ -1,22 +1,23 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { CheckCircle2, Calendar, BarChart3 } from "lucide-react";
+import { CheckCircle2, Calendar, BarChart3, Target, TrendingUp, Shield } from "lucide-react";
+import heroContactOffice from "@/assets/hero-contact-office.jpg";
+import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 
 const AgencyTeardownThanks = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Event: teardown_thankyou_viewed
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'teardown_thankyou_viewed');
     }
   }, []);
 
   const handleBookCall = () => {
-    // Event: teardown_cta_book_call_clicked
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'teardown_cta_book_call_clicked');
     }
@@ -24,12 +25,46 @@ const AgencyTeardownThanks = () => {
   };
 
   const handleViewReporting = () => {
-    // Event: teardown_cta_view_reporting_clicked
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'teardown_cta_view_reporting_clicked');
     }
     navigate('/reporting/demo');
   };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
+  const steps = [
+    { icon: Target, text: "We skim for structure: goals, KPIs, tracking." },
+    { icon: BarChart3, text: "We assess whether reporting links to real business outcomes." },
+    { icon: Shield, text: "We list what's missing, lazy or misaligned." },
+    { icon: TrendingUp, text: "We send you a short summary with 3–5 key recommendations." }
+  ];
+
+  const reportFeatures = [
+    {
+      title: "Clear link between spend and pipeline/revenue",
+      description: "Not just impressions and clicks – real business outcomes."
+    },
+    {
+      title: "Actions taken last month, and actions planned next",
+      description: "You know exactly what was done and what's coming."
+    },
+    {
+      title: "Risks, issues and strategic decisions flagged – not hidden",
+      description: "Transparency, not theatre."
+    }
+  ];
 
   return (
     <>
@@ -41,139 +76,261 @@ const AgencyTeardownThanks = () => {
         />
       </Helmet>
 
-      <div className="min-h-screen bg-background pt-24 pb-16">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            {/* Confirmation Panel */}
-            <Card className="p-8 md:p-12 border-border bg-card mb-12 text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent/10 mb-6">
-                <CheckCircle2 className="w-8 h-8 text-accent" />
-              </div>
-              
-            <h1 className="text-3xl md:text-4xl font-light mb-4 text-foreground">
-              Got it – we'll tear this down and come back with the truth.
+      <div className="min-h-screen bg-background">
+        {/* Hero Section */}
+        <section 
+          className="relative min-h-[60vh] flex items-center justify-center overflow-hidden -mt-20 pt-20"
+          style={{
+            backgroundImage: `url(${heroContactOffice})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundAttachment: "fixed"
+          }}
+        >
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24"
+          >
+            <motion.div 
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+              className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-accent/20 backdrop-blur-sm mb-8 border border-accent/30"
+            >
+              <CheckCircle2 className="w-10 h-10 text-accent" />
+            </motion.div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white drop-shadow-lg">
+              Got it – we'll tear this down and come back with the{" "}
+              <span className="font-semibold text-accent">truth</span>.
             </h1>
             
-            <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-              We'll review your report/proposal and send a plain-English breakdown within <strong>3–5 working days</strong>. If we think your agency is doing good work, we'll say so. If not, you'll know exactly why.
+            <p className="text-lg sm:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
+              We'll review your report/proposal and send a plain-English breakdown within{" "}
+              <strong className="text-accent">3–5 working days</strong>. If we think your agency is doing good work, we'll say so. If not, you'll know exactly why.
             </p>
+          </motion.div>
+        </section>
 
-              {/* What Happens Next */}
-              <div className="bg-background/50 rounded-lg p-6 mb-8 text-left">
-                <h2 className="text-xl font-medium mb-4 text-foreground">What happens next:</h2>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">
-                      We skim for structure: goals, KPIs, tracking.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">
-                      We assess whether reporting links to real business outcomes.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">
-                      We list what's missing, lazy or misaligned.
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
-                    <span className="text-muted-foreground">
-                      We send you a short summary with 3–5 key recommendations.
-                    </span>
-                  </li>
-                </ul>
+        {/* What Happens Next */}
+        <section className="py-20 px-4">
+          <div className="container mx-auto max-w-4xl">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.h2 
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-light mb-12 text-center text-foreground"
+              >
+                What happens next
+              </motion.h2>
+              
+              <div className="grid md:grid-cols-2 gap-6">
+                {steps.map((step, index) => (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
+                    className="relative group"
+                  >
+                    <Card className="relative p-6 border-border bg-card overflow-hidden transition-all duration-300 hover:shadow-lg group-hover:border-accent/30">
+                      {/* Beam animation border */}
+                      <div className="absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <div className="absolute inset-0 rounded-lg animate-[spin_3s_linear_infinite]" style={{
+                          background: 'conic-gradient(from 0deg, transparent, hsl(320 85% 55% / 0.3), transparent)',
+                          padding: '1px',
+                          mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                          maskComposite: 'exclude',
+                        }} />
+                      </div>
+                      
+                      <div className="relative z-10 flex items-start gap-4">
+                        <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                          <step.icon className="w-6 h-6 text-accent" />
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-xs font-medium text-accent mb-1 block">Step {index + 1}</span>
+                          <p className="text-foreground">{step.text}</p>
+                        </div>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
+            </motion.div>
+          </div>
+        </section>
 
-              {/* CTAs */}
+        {/* Full Width Image Band */}
+        <section className="relative h-64 md:h-80 overflow-hidden">
+          <div 
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url(${heroServicesDigital})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundAttachment: "fixed"
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
+          <div className="relative z-10 h-full flex items-center justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              className="text-center px-4"
+            >
+              <p className="text-2xl md:text-3xl font-light text-white max-w-2xl">
+                "The best agencies make themselves <span className="text-accent font-medium">accountable</span>. The rest hide behind metrics."
+              </p>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* CTAs Section */}
+        <section className="py-20 px-4 bg-secondary/30">
+          <div className="container mx-auto max-w-3xl">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center"
+            >
+              <h2 className="text-2xl md:text-3xl font-light mb-8 text-foreground">
+                While you wait
+              </h2>
+              
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" onClick={handleBookCall}>
-                  <Calendar className="w-4 h-4 mr-2" />
-                  Book a call to walk through your report live
+                <Button 
+                  size="lg" 
+                  onClick={handleBookCall}
+                  className="group relative overflow-hidden"
+                >
+                  <span className="relative z-10 flex items-center">
+                    <Calendar className="w-4 h-4 mr-2" />
+                    Book a call to walk through your report live
+                  </span>
                 </Button>
-                <Button size="lg" variant="outline" onClick={handleViewReporting}>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  onClick={handleViewReporting}
+                  className="group"
+                >
                   <BarChart3 className="w-4 h-4 mr-2" />
                   See how our reporting works
                 </Button>
               </div>
-            </Card>
+            </motion.div>
+          </div>
+        </section>
 
-            {/* What a Good Report Looks Like */}
-            <div className="text-center mb-12">
-              <h2 className="text-2xl font-light mb-8 text-foreground">
+        {/* What a Good Report Looks Like */}
+        <section className="py-20 px-4">
+          <div className="container mx-auto max-w-5xl">
+            <motion.div
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <motion.h2 
+                variants={itemVariants}
+                className="text-3xl md:text-4xl font-light mb-4 text-center text-foreground"
+              >
                 What a Good Report Looks Like
-              </h2>
+              </motion.h2>
+              <motion.p 
+                variants={itemVariants}
+                className="text-muted-foreground text-center mb-12 max-w-2xl mx-auto"
+              >
+                Here's what separates genuine performance reporting from marketing theatre
+              </motion.p>
               
               <div className="grid md:grid-cols-3 gap-6">
-                <Card className="p-6 border-border bg-card">
-                  <CheckCircle2 className="w-8 h-8 text-accent mx-auto mb-4" />
-                  <h3 className="font-medium mb-2 text-foreground">
-                    Clear link between spend and pipeline/revenue
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Not just impressions and clicks – real business outcomes.
-                  </p>
-                  <Button 
-                    variant="link" 
-                    className="text-accent p-0 h-auto"
-                    onClick={handleViewReporting}
+                {reportFeatures.map((feature, index) => (
+                  <motion.div
+                    key={index}
+                    variants={itemVariants}
                   >
-                    See example →
-                  </Button>
-                </Card>
-
-                <Card className="p-6 border-border bg-card">
-                  <CheckCircle2 className="w-8 h-8 text-accent mx-auto mb-4" />
-                  <h3 className="font-medium mb-2 text-foreground">
-                    Actions taken last month, and actions planned next
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    You know exactly what was done and what's coming.
-                  </p>
-                  <Button 
-                    variant="link" 
-                    className="text-accent p-0 h-auto"
-                    onClick={handleViewReporting}
-                  >
-                    See example →
-                  </Button>
-                </Card>
-
-                <Card className="p-6 border-border bg-card">
-                  <CheckCircle2 className="w-8 h-8 text-accent mx-auto mb-4" />
-                  <h3 className="font-medium mb-2 text-foreground">
-                    Risks, issues and strategic decisions flagged – not hidden
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    Transparency, not theatre.
-                  </p>
-                  <Button 
-                    variant="link" 
-                    className="text-accent p-0 h-auto"
-                    onClick={handleViewReporting}
-                  >
-                    See example →
-                  </Button>
-                </Card>
+                    <Card className="relative p-6 h-full border-border bg-card group hover:shadow-lg transition-all duration-300 hover:border-accent/30">
+                      {/* Animated beam border on hover */}
+                      <div className="absolute -inset-[1px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                        <div 
+                          className="absolute inset-0"
+                          style={{
+                            background: 'linear-gradient(90deg, transparent, hsl(320 85% 55% / 0.4), transparent)',
+                            animation: 'shimmer 2s infinite',
+                          }}
+                        />
+                      </div>
+                      
+                      <div className="relative z-10">
+                        <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center mb-4 group-hover:bg-accent/20 transition-colors">
+                          <CheckCircle2 className="w-5 h-5 text-accent" />
+                        </div>
+                        <h3 className="font-medium mb-2 text-foreground">
+                          {feature.title}
+                        </h3>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          {feature.description}
+                        </p>
+                        <Button 
+                          variant="link" 
+                          className="text-accent p-0 h-auto"
+                          onClick={handleViewReporting}
+                        >
+                          See example →
+                        </Button>
+                      </div>
+                    </Card>
+                  </motion.div>
+                ))}
               </div>
-            </div>
-
-            {/* Additional CTA */}
-            <Card className="p-8 border-border bg-card text-center">
-              <p className="text-muted-foreground mb-4">
-                Want to see what transparency looks like in practice?
-              </p>
-              <Button variant="outline" size="lg" onClick={handleViewReporting}>
-                Explore our live dashboard demo
-              </Button>
-            </Card>
+            </motion.div>
           </div>
-        </div>
+        </section>
+
+        {/* Final CTA */}
+        <section className="py-20 px-4 section-dark relative overflow-hidden">
+          <div className="absolute inset-0 opacity-30" style={{ background: 'var(--gradient-mesh)' }} />
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="container mx-auto max-w-3xl text-center relative z-10"
+          >
+            <h2 className="text-2xl md:text-3xl font-light mb-4 text-white">
+              Want to see what transparency looks like in practice?
+            </h2>
+            <p className="text-white/70 mb-8">
+              Explore our live dashboard demo and see how we report to our clients
+            </p>
+            <Button 
+              variant="outline" 
+              size="lg" 
+              onClick={handleViewReporting}
+              className="bg-white/10 border-white/20 text-white hover:bg-white/20"
+            >
+              Explore our live dashboard demo
+            </Button>
+          </motion.div>
+        </section>
       </div>
+
+      <style>{`
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+      `}</style>
     </>
   );
 };

@@ -4,38 +4,167 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { CheckCircle, AlertCircle, AlertTriangle } from "lucide-react";
+import { CheckCircle, AlertCircle, AlertTriangle, Loader2 } from "lucide-react";
 import { trackEvent, EVENTS } from "@/lib/tracking";
+import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { useCreateLead } from "@/hooks/useLeads";
+
+interface AuditCategory {
+  name: string;
+  score: number;
+  good: string[];
+  needsWork: string[];
+}
+
+interface AuditResults {
+  overallScore: number;
+  categories: AuditCategory[];
+}
 
 const WebsiteHealthCheck = () => {
   const [url, setUrl] = useState("");
   const [email, setEmail] = useState("");
   const [showResults, setShowResults] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [results, setResults] = useState<AuditResults | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const { toast } = useToast();
+  const createLead = useCreateLead();
 
-  const handleCheck = (e: React.FormEvent) => {
+  const handleCheck = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+    setError(null);
     
     trackEvent(EVENTS.HEALTH_CHECK_STARTED, {
       has_email: !!email,
       source_page: window.location.pathname,
     });
-    
-    setShowResults(true);
-    
-    // Calculate mock results
-    const overallScore = mockResults.overallScore;
-    
-    trackEvent(EVENTS.HEALTH_CHECK_COMPLETED, {
-      overall_score: overallScore,
-      seo_score: mockResults.categories[0].score,
-      performance_score: mockResults.categories[1].score,
-      conversion_score: mockResults.categories[2].score,
-      tracking_score: mockResults.categories[3].score,
-    });
+
+    try {
+      // Extract website name from URL
+      let websiteName = "Website";
+      try {
+        const urlObj = new URL(url);
+        websiteName = urlObj.hostname.replace('www.', '');
+      } catch {
+        // Use default if URL parsing fails
+      }
+
+      const { data, error: fnError } = await supabase.functions.invoke('website-audit', {
+        body: { url, websiteName }
+      });
+
+      if (fnError) {
+        throw new Error(fnError.message || 'Failed to analyze website');
+      }
+
+      if (!data || data.error) {
+        throw new Error(data?.error || 'No data returned from audit');
+      }
+
+      // Transform API response to our format
+      const auditResults: AuditResults = {
+        overallScore: data.overallScore || 70,
+        categories: [
+          {
+            name: "SEO Basics",
+            score: data.seoScore || 70,
+            good: data.strengths?.filter((s: string) => s.toLowerCase().includes('seo') || s.toLowerCase().includes('meta') || s.toLowerCase().includes('title')) || [],
+            needsWork: data.seoOpportunities || []
+          },
+          {
+            name: "Performance",
+            score: data.performanceScore || 65,
+            good: data.strengths?.filter((s: string) => s.toLowerCase().includes('speed') || s.toLowerCase().includes('load') || s.toLowerCase().includes('performance')) || [],
+            needsWork: data.technicalIssues || []
+          },
+          {
+            name: "Conversion Basics",
+            score: data.conversionScore || 70,
+            good: data.strengths?.filter((s: string) => s.toLowerCase().includes('cta') || s.toLowerCase().includes('conversion') || s.toLowerCase().includes('form')) || [],
+            needsWork: data.quickWins || []
+          },
+          {
+            name: "Overall Recommendations",
+            score: data.overallScore || 70,
+            good: data.strengths?.slice(0, 3) || [],
+            needsWork: data.mediumTerm || []
+          }
+        ]
+      };
+
+      setResults(auditResults);
+      setShowResults(true);
+      
+      trackEvent(EVENTS.HEALTH_CHECK_COMPLETED, {
+        overall_score: auditResults.overallScore,
+        seo_score: auditResults.categories[0].score,
+        performance_score: auditResults.categories[1].score,
+        conversion_score: auditResults.categories[2].score,
+      });
+
+    } catch (err) {
+      console.error('Audit error:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred while analyzing the website');
+      toast({
+        title: "Analysis failed",
+        description: "We couldn't analyze this website. Please try again or try a different URL.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  // Mock data - replace with real API call
-  const mockResults = {
+  const handleSaveReport = async () => {
+    if (!email) {
+      toast({
+        title: "Email required",
+        description: "Please enter your email address to save the report.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    trackEvent(EVENTS.HEALTH_CHECK_EMAIL_OPTIN, {
+      has_url: !!url,
+      has_email: !!email,
+    });
+
+    try {
+      await createLead.mutateAsync({
+        name: email.split('@')[0] || 'Website Health Check User',
+        email,
+        source: 'website-health-check',
+        notes: `Website audit for: ${url}`,
+        metadata: {
+          url,
+          overallScore: results?.overallScore || 0
+        }
+      });
+
+      toast({
+        title: "Report saved!",
+        description: "We've saved your report and will send you a detailed breakdown."
+      });
+    } catch (err) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again or contact us directly.",
+        variant: "destructive"
+      });
+    }
+  };
+
+  const getScoreColor = (score: number) => {
+    if (score >= 80) return "text-green-500";
+    if (score >= 60) return "text-yellow-500";
+    return "text-red-500";
+  };
+
+  const displayResults = results || {
     overallScore: 72,
     categories: [
       {
@@ -63,12 +192,6 @@ const WebsiteHealthCheck = () => {
         needsWork: ["GA4 events not configured", "Conversion tracking incomplete"]
       }
     ]
-  };
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-green-500";
-    if (score >= 60) return "text-yellow-500";
-    return "text-red-500";
   };
 
   return (
@@ -109,6 +232,7 @@ const WebsiteHealthCheck = () => {
                         value={url}
                         onChange={(e) => setUrl(e.target.value)}
                         required
+                        disabled={isLoading}
                       />
                     </div>
                     <div>
@@ -120,13 +244,26 @@ const WebsiteHealthCheck = () => {
                         placeholder="your@email.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
+                        disabled={isLoading}
                       />
                       <p className="text-sm text-muted-foreground mt-1">
                         Add your email if you'd like a copy + deeper breakdown (optional).
                       </p>
                     </div>
-                    <Button type="submit" size="lg" className="w-full">
-                      Check my site
+                    {error && (
+                      <div className="p-3 rounded-lg bg-destructive/10 text-destructive text-sm">
+                        {error}
+                      </div>
+                    )}
+                    <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                      {isLoading ? (
+                        <>
+                          <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                          Analyzing website...
+                        </>
+                      ) : (
+                        'Check my site'
+                      )}
                     </Button>
                   </form>
                 </CardContent>
@@ -143,16 +280,16 @@ const WebsiteHealthCheck = () => {
               <Card>
                 <CardContent className="p-8 text-center">
                   <h2 className="text-2xl font-light mb-4 text-foreground">Site Health Score</h2>
-                  <div className={`text-6xl font-light mb-4 ${getScoreColor(mockResults.overallScore)}`}>
-                    {mockResults.overallScore}/100
+                  <div className={`text-6xl font-light mb-4 ${getScoreColor(displayResults.overallScore)}`}>
+                    {displayResults.overallScore}/100
                   </div>
-                  <Progress value={mockResults.overallScore} className="max-w-md mx-auto" />
+                  <Progress value={displayResults.overallScore} className="max-w-md mx-auto" />
                 </CardContent>
               </Card>
 
               {/* Category Breakdown */}
               <div className="grid md:grid-cols-2 gap-6">
-                {mockResults.categories.map((category, index) => (
+                {displayResults.categories.map((category, index) => (
                   <Card key={index}>
                     <CardHeader>
                       <div className="flex items-center justify-between">
@@ -204,13 +341,7 @@ const WebsiteHealthCheck = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
                     <Button size="lg" variant="default">Request a free SEO & website audit</Button>
-                    <Button size="lg" variant="outline" onClick={() => {
-                      trackEvent(EVENTS.HEALTH_CHECK_EMAIL_OPTIN, {
-                        has_url: !!url,
-                        has_email: !!email,
-                      });
-                      alert(email ? "Report sent to your email!" : "Please enter your email to save this report.");
-                    }}>
+                    <Button size="lg" variant="outline" onClick={handleSaveReport}>
                       Save this report to my email
                     </Button>
                   </div>

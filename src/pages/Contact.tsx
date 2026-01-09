@@ -149,7 +149,19 @@ const Contact = () => {
                           <Label htmlFor="website">Website URL</Label>
                           <Input id="website" type="url" value={formData.website} onChange={e => handleInputChange("website", e.target.value)} placeholder="https://" className="mt-2" />
                         </div>
-                        <Button type="button" variant="accent" className="w-full" onClick={() => setStep(2)} disabled={!formData.name || !formData.email || !formData.company}>
+                        <div>
+                          <Label htmlFor="message">How can we help? *</Label>
+                          <Textarea 
+                            id="message" 
+                            value={formData.message} 
+                            onChange={e => handleInputChange("message", e.target.value)} 
+                            rows={4} 
+                            required
+                            placeholder="Tell us about your goals, challenges, or questions..."
+                            className="mt-2" 
+                          />
+                        </div>
+                        <Button type="button" variant="accent" className="w-full" onClick={() => setStep(2)} disabled={!formData.name || !formData.email || !formData.company || !formData.message}>
                           Continue
                           <ArrowRight className="ml-2" size={18} />
                         </Button>
@@ -214,10 +226,6 @@ const Contact = () => {
                               <SelectItem value="planning">Just planning ahead</SelectItem>
                             </SelectContent>
                           </Select>
-                        </div>
-                        <div>
-                          <Label htmlFor="message">Additional Details</Label>
-                          <Textarea id="message" value={formData.message} onChange={e => handleInputChange("message", e.target.value)} rows={4} placeholder="Tell us more about your challenges, goals, or questions..." className="mt-2" />
                         </div>
                         <div className="flex gap-4">
                           <Button type="button" variant="outline" className="flex-1" onClick={() => setStep(1)}>
