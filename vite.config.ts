@@ -11,14 +11,10 @@ export default defineConfig(({ mode }) => ({
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
+    // Prevent React duplication when dependencies are symlinked (pnpm/workspaces/etc.)
+    preserveSymlinks: true,
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Force a single React instance to avoid "Invalid hook call" / useState null issues
-      "react/jsx-runtime": path.resolve(__dirname, "node_modules/react/jsx-runtime"),
-      "react/jsx-dev-runtime": path.resolve(__dirname, "node_modules/react/jsx-dev-runtime"),
-      "react-dom/client": path.resolve(__dirname, "node_modules/react-dom/client"),
-      react: path.resolve(__dirname, "node_modules/react"),
-      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
     },
     dedupe: [
       "react",
