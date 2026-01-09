@@ -11,7 +11,6 @@ import BackToTop from "./components/BackToTop";
 import CookieConsent from "./components/CookieConsent";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger";
-import ReactVersionBanner from "./components/ReactVersionBanner";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -53,7 +52,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
 const App = () => (
   <HelmetProvider>
-    <ReactVersionBanner />
     <TooltipProvider>
       <AuthProvider>
         <Toaster />
