@@ -16,19 +16,13 @@ import {
   RefreshCw,
   Trash2,
   Globe,
-  FileText,
-  Link as LinkIcon,
-  CheckCircle,
-  AlertCircle,
-  Clock,
-  ExternalLink,
-  Settings,
-  Shield,
   Gauge,
   Map
 } from "lucide-react";
 import PerformanceTab from "@/components/admin/PerformanceTab";
-import SitemapManager from "@/components/admin/SitemapManager";
+import EnhancedSitemapManager from "@/components/admin/EnhancedSitemapManager";
+import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
+import SEODashboard from "@/components/admin/SEODashboard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -50,6 +44,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
+import { StaticBeamBorder } from "@/components/BeamBorder";
 import { useLeadsAdmin, useUpdateLead, useDeleteLead, useLeadStats } from "@/hooks/useLeads";
 import { useLatestAnalyticsSnapshot } from "@/hooks/useAnalyticsSnapshots";
 
@@ -135,19 +130,26 @@ const Admin = () => {
             <p className="text-muted-foreground">Manage leads, analytics, and SEO for avorria.com</p>
           </motion.div>
 
-          {/* Quick Stats */}
+          {/* Quick Stats with Beam Borders */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-            <Card className="bg-card/50 border-border/50">
+            <StaticBeamBorder duration={4}>
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Total Leads</p>
-                    <p className="text-2xl font-bold text-foreground">{leads?.length || 0}</p>
+                    <motion.p 
+                      className="text-2xl font-bold text-foreground"
+                      initial={{ opacity: 0, scale: 0.5 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ type: "spring", stiffness: 200 }}
+                    >
+                      {leads?.length || 0}
+                    </motion.p>
                   </div>
                   <Users className="h-8 w-8 text-primary/50" />
                 </div>
               </CardContent>
-            </Card>
+            </StaticBeamBorder>
             <Card className="bg-card/50 border-border/50">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
@@ -156,7 +158,13 @@ const Admin = () => {
                     {analyticsLoading ? (
                       <Skeleton className="h-8 w-16" />
                     ) : (
-                      <p className="text-2xl font-bold text-foreground">{pageViews.toLocaleString()}</p>
+                      <motion.p 
+                        className="text-2xl font-bold text-foreground"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        {pageViews.toLocaleString()}
+                      </motion.p>
                     )}
                   </div>
                   <BarChart3 className="h-8 w-8 text-primary/50" />
@@ -171,7 +179,13 @@ const Admin = () => {
                     {analyticsLoading ? (
                       <Skeleton className="h-8 w-16" />
                     ) : (
-                      <p className="text-2xl font-bold text-foreground">{totalConversions}</p>
+                      <motion.p 
+                        className="text-2xl font-bold text-foreground"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        {totalConversions}
+                      </motion.p>
                     )}
                   </div>
                   <TrendingUp className="h-8 w-8 text-primary/50" />
@@ -183,7 +197,13 @@ const Admin = () => {
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-sm text-muted-foreground">Qualified Leads</p>
-                    <p className="text-2xl font-bold text-foreground">{stats.qualified}</p>
+                    <motion.p 
+                      className="text-2xl font-bold text-foreground"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      {stats.qualified}
+                    </motion.p>
                   </div>
                   <Globe className="h-8 w-8 text-primary/50" />
                 </div>
@@ -476,150 +496,19 @@ const Admin = () => {
 
             {/* Analytics Tab */}
             <TabsContent value="analytics" className="space-y-6">
-              {!hasAnalytics && !analyticsLoading ? (
-                <Card className="bg-card/50 border-border/50">
-                  <CardContent className="p-12 text-center">
-                    <BarChart3 className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                    <h3 className="text-xl font-medium text-foreground mb-2">No Analytics Data</h3>
-                    <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                      Connect Google Analytics or manually add analytics snapshots to see your website performance data here.
-                    </p>
-                    <Button variant="outline">
-                      <Settings className="h-4 w-4 mr-2" />
-                      Configure Analytics
-                    </Button>
-                  </CardContent>
-                </Card>
-              ) : (
-                <>
-                  {/* Key Metrics */}
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <Card className="bg-card/50 border-border/50">
-                      <CardContent className="p-4">
-                        <p className="text-sm text-muted-foreground mb-1">Page Views</p>
-                        {analyticsLoading ? (
-                          <Skeleton className="h-8 w-20" />
-                        ) : (
-                          <p className="text-2xl font-bold text-foreground">{pageViews.toLocaleString()}</p>
-                        )}
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card/50 border-border/50">
-                      <CardContent className="p-4">
-                        <p className="text-sm text-muted-foreground mb-1">Unique Visitors</p>
-                        {analyticsLoading ? (
-                          <Skeleton className="h-8 w-20" />
-                        ) : (
-                          <p className="text-2xl font-bold text-foreground">{uniqueVisitors.toLocaleString()}</p>
-                        )}
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card/50 border-border/50">
-                      <CardContent className="p-4">
-                        <p className="text-sm text-muted-foreground mb-1">Bounce Rate</p>
-                        {analyticsLoading ? (
-                          <Skeleton className="h-8 w-20" />
-                        ) : (
-                          <p className="text-2xl font-bold text-foreground">{bounceRate}%</p>
-                        )}
-                      </CardContent>
-                    </Card>
-                    <Card className="bg-card/50 border-border/50">
-                      <CardContent className="p-4">
-                        <p className="text-sm text-muted-foreground mb-1">Avg. Session</p>
-                        {analyticsLoading ? (
-                          <Skeleton className="h-8 w-20" />
-                        ) : (
-                          <p className="text-2xl font-bold text-foreground">{avgSessionDuration}</p>
-                        )}
-                      </CardContent>
-                    </Card>
-                  </div>
-
-                  {/* Top Pages */}
-                  <Card className="bg-card/50 border-border/50">
-                    <CardHeader>
-                      <CardTitle>Top Pages</CardTitle>
-                      <CardDescription>Most visited pages</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      {topPages.length === 0 ? (
-                        <p className="text-muted-foreground text-center py-8">No page data available</p>
-                      ) : (
-                        <Table>
-                          <TableHeader>
-                            <TableRow className="border-border/50">
-                              <TableHead>Page</TableHead>
-                              <TableHead className="text-right">Views</TableHead>
-                              <TableHead className="text-right">Change</TableHead>
-                            </TableRow>
-                          </TableHeader>
-                          <TableBody>
-                            {topPages.map((page, idx) => (
-                              <TableRow key={idx} className="border-border/50">
-                                <TableCell className="font-medium">{page.path}</TableCell>
-                                <TableCell className="text-right">{page.views.toLocaleString()}</TableCell>
-                                <TableCell className={`text-right ${(page.change || 0) >= 0 ? 'text-green-400' : 'text-red-400'}`}>
-                                  {page.change !== undefined ? `${page.change >= 0 ? '+' : ''}${page.change}%` : '-'}
-                                </TableCell>
-                              </TableRow>
-                            ))}
-                          </TableBody>
-                        </Table>
-                      )}
-                    </CardContent>
-                  </Card>
-
-                  {/* Conversion Sources */}
-                  <Card className="bg-card/50 border-border/50">
-                    <CardHeader>
-                      <CardTitle>Conversion Sources</CardTitle>
-                      <CardDescription>Where your leads are coming from</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      {Object.keys(conversions).length === 0 ? (
-                        <p className="text-muted-foreground text-center py-8">No conversion data available</p>
-                      ) : (
-                        <div className="space-y-4">
-                          {Object.entries(conversions).map(([source, count]) => (
-                            <div key={source} className="flex items-center gap-4">
-                              <div className="flex-1">
-                                <div className="flex justify-between mb-1">
-                                  <span className="text-sm font-medium capitalize">{source.replace(/([A-Z])/g, ' $1').trim()}</span>
-                                  <span className="text-sm text-muted-foreground">{count}</span>
-                                </div>
-                                <div className="h-2 bg-muted rounded-full overflow-hidden">
-                                  <div 
-                                    className="h-full bg-primary rounded-full"
-                                    style={{ width: `${totalConversions > 0 ? (count / totalConversions) * 100 : 0}%` }}
-                                  />
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
-                </>
-              )}
+              <AnalyticsCharts 
+                analyticsData={{
+                  pageViews,
+                  uniqueVisitors,
+                  bounceRate,
+                  avgSessionDuration,
+                }}
+              />
             </TabsContent>
 
             {/* SEO & Health Tab */}
             <TabsContent value="seo" className="space-y-6">
-              <Card className="bg-card/50 border-border/50">
-                <CardContent className="p-12 text-center">
-                  <Globe className="h-16 w-16 mx-auto text-muted-foreground mb-4" />
-                  <h3 className="text-xl font-medium text-foreground mb-2">SEO & Health Data</h3>
-                  <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-                    Connect Google Search Console to view your SEO performance, Core Web Vitals, and indexing status.
-                  </p>
-                  <Button variant="outline">
-                    <Settings className="h-4 w-4 mr-2" />
-                    Connect Search Console
-                  </Button>
-                </CardContent>
-              </Card>
+              <SEODashboard />
             </TabsContent>
 
             {/* Performance Tab */}
@@ -629,7 +518,7 @@ const Admin = () => {
 
             {/* Sitemap Tab */}
             <TabsContent value="sitemap">
-              <SitemapManager />
+              <EnhancedSitemapManager />
             </TabsContent>
           </Tabs>
         </div>
