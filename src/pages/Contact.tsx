@@ -112,7 +112,7 @@ const Contact = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white animate-fade-in">
+          <h1 className="text-4xl sm:text-5xl font-light leading-tight mb-6 text-white animate-fade-in lg:text-5xl">
             Let's talk about{" "}
             <span className="font-semibold text-accent">your growth goals</span>
           </h1>
@@ -250,11 +250,11 @@ const Contact = () => {
                         <Mail className="text-accent" size={24} />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">Email Us</h3>
+                        <h3 className="text-foreground mb-1 text-2xl font-normal">Email Us</h3>
                         <p className="text-muted-foreground text-sm mb-2">
                           For general inquiries or partnerships
                         </p>
-                        <a href="mailto:hello@avorria.com" className="text-accent hover:text-accent/80 font-medium">
+                        <a href="mailto:hello@avorria.com" className="text-accent hover:text-accent/80 text-sm font-light">
                           hello@avorria.com
                         </a>
                       </div>
@@ -267,12 +267,12 @@ const Contact = () => {
                         <Phone className="text-accent" size={24} />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">Call Us</h3>
-                        <p className="text-muted-foreground text-sm mb-2">
-                          Monday - Friday, 9am - 6pm GMT
-                        </p>
-                        <a href="tel:+442012345678" className="text-accent hover:text-accent/80 font-medium">
-                          +44 (0) 20 1234 5678
+                        <h3 className="text-foreground mb-1 text-2xl font-normal">Call Us</h3>
+                        <p className="text-muted-foreground text-sm mb-2">Monday - Friday, 9am - 5pm</p>
+                        <a href="tel:+44204586 5422" className="text-accent hover:text-accent/80 text-sm font-light">
+                          UK - (+44) 020 4586 5422 |
+ USA - (+1) 914 677 1280     
+      
                         </a>
                       </div>
                     </CardContent>
@@ -284,9 +284,9 @@ const Contact = () => {
                         <MapPin className="text-accent" size={24} />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">Visit Us</h3>
-                        <p className="text-muted-foreground text-sm">
-                          ​Unit 2 Old Brick Works Lane Chesterfield S41 7JD                  
+                        <h3 className="text-foreground mb-1 text-2xl font-normal">Visit Us</h3>
+                        <p className="text-muted-foreground text-sm font-light">
+                          2 Old Brick Works Lane Chesterfield S41 7JD                  
                           <br />
                           37th Floor One Canada Square London E14 5AB       
                           <br />
