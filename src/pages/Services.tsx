@@ -6,71 +6,59 @@ import { HeroBand, SectionBand, ContentBand } from "@/components/ContentBand";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
-
 const Services = () => {
-  const services = [
-    {
-      icon: Search,
-      title: "SEO",
-      description: "Technical SEO, site architecture and on-page optimisation for real businesses – not bloggers. We fix what's broken, build the pages and content you're missing and target the keywords that attract qualified demand, not just traffic for screenshots.",
-      href: "/services/seo",
-    },
-    {
-      icon: Target,
-      title: "Paid Media",
-      description: "Google, Meta and LinkedIn campaigns structured around your offers, not random keywords. We set clear CPL/ROAS targets, build conversion-focused journeys and cut anything that can't justify its spend in hard numbers.",
-      href: "/services/paid-media",
-    },
-    {
-      icon: Palette,
-      title: "Web Design & Development",
-      description: "Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one so every visit has a clear, frictionless path to enquiry or purchase.",
-      href: "/services/web-design",
-    },
-    {
-      icon: Mail,
-      title: "Content & Email Marketing",
-      description: "Long-form content, playbooks and email sequences designed to educate buyers, warm up demand and support your sales team. No random blogs – just assets that move people from \"never heard of you\" to \"ready to talk\".",
-      href: "/services/content-email",
-    },
-    {
-      icon: Share2,
-      title: "Social & Personal Brand",
-      description: "Consistent, credible content for founders and expert teams. We turn your expertise into LinkedIn, Instagram and short-form content that builds trust, drives inbound and makes sales conversations easier.",
-      href: "/services/social-personal-brand",
-    },
-    {
-      icon: BarChart3,
-      title: "Analytics & Conversion Optimisation",
-      description: "Tracking, dashboards and systematic CRO. We untangle GA4, tags and pixels, then continually test improvements across your site and funnels so you can reallocate budget based on truth, not guesses.",
-      href: "/services/analytics",
-    },
-  ];
-
-  const questions = [
-    {
-      label: "Strategy & positioning",
-      question: "Who are we trying to reach?",
-      answer: "Who you're for, what you're selling and how it's priced. This is where we decide which levers to pull – and which to leave alone.",
-    },
-    {
-      label: "Traffic & demand",
-      question: "How do we attract and convert them?",
-      answer: "SEO, paid media, content and social – aimed at the right problems, with the right offers, landing on pages built to convert.",
-    },
-    {
-      label: "Tracking & optimisation",
-      question: "How do we prove it's working?",
-      answer: "Analytics, dashboards and CRO so we can stop guessing, start reallocating budget and compound what works.",
-    },
-  ];
-
-  return (
-    <>
-      <BreadcrumbSchema items={[
-        { name: "Home", url: "/" },
-        { name: "Services", url: "/services" }
-      ]} />
+  const services = [{
+    icon: Search,
+    title: "SEO",
+    description: "Technical SEO, site architecture and on-page optimisation for real businesses – not bloggers. We fix what's broken, build the pages and content you're missing and target the keywords that attract qualified demand, not just traffic for screenshots.",
+    href: "/services/seo"
+  }, {
+    icon: Target,
+    title: "Paid Media",
+    description: "Google, Meta and LinkedIn campaigns structured around your offers, not random keywords. We set clear CPL/ROAS targets, build conversion-focused journeys and cut anything that can't justify its spend in hard numbers.",
+    href: "/services/paid-media"
+  }, {
+    icon: Palette,
+    title: "Web Design & Development",
+    description: "Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one so every visit has a clear, frictionless path to enquiry or purchase.",
+    href: "/services/web-design"
+  }, {
+    icon: Mail,
+    title: "Content & Email Marketing",
+    description: "Long-form content, playbooks and email sequences designed to educate buyers, warm up demand and support your sales team. No random blogs – just assets that move people from \"never heard of you\" to \"ready to talk\".",
+    href: "/services/content-email"
+  }, {
+    icon: Share2,
+    title: "Social & Personal Brand",
+    description: "Consistent, credible content for founders and expert teams. We turn your expertise into LinkedIn, Instagram and short-form content that builds trust, drives inbound and makes sales conversations easier.",
+    href: "/services/social-personal-brand"
+  }, {
+    icon: BarChart3,
+    title: "Analytics & Conversion Optimisation",
+    description: "Tracking, dashboards and systematic CRO. We untangle GA4, tags and pixels, then continually test improvements across your site and funnels so you can reallocate budget based on truth, not guesses.",
+    href: "/services/analytics"
+  }];
+  const questions = [{
+    label: "Strategy & positioning",
+    question: "Who are we trying to reach?",
+    answer: "Who you're for, what you're selling and how it's priced. This is where we decide which levers to pull – and which to leave alone."
+  }, {
+    label: "Traffic & demand",
+    question: "How do we attract and convert them?",
+    answer: "SEO, paid media, content and social – aimed at the right problems, with the right offers, landing on pages built to convert."
+  }, {
+    label: "Tracking & optimisation",
+    question: "How do we prove it's working?",
+    answer: "Analytics, dashboards and CRO so we can stop guessing, start reallocating budget and compound what works."
+  }];
+  return <>
+      <BreadcrumbSchema items={[{
+      name: "Home",
+      url: "/"
+    }, {
+      name: "Services",
+      url: "/services"
+    }]} />
       <Helmet>
         <title>Digital Marketing Services | SEO, Paid Media, Web Design | Avorria</title>
         <meta name="description" content="Full-service digital marketing: SEO, paid media, web design, content marketing and analytics. We help B2B and service businesses generate qualified leads and grow revenue." />
@@ -90,38 +78,35 @@ const Services = () => {
         
         <script type="application/ld+json">
           {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            "name": "Digital Marketing Services",
-            "description": "Avorria's full-service digital marketing offerings",
-            "numberOfItems": services.length,
-            "itemListElement": services.map((service, index) => ({
-              "@type": "ListItem",
-              "position": index + 1,
-              "item": {
-                "@type": "Service",
-                "name": service.title,
-                "description": service.description,
-                "url": `https://avorria.com${service.href}`,
-                "provider": {
-                  "@type": "Organization",
-                  "name": "Avorria"
-                }
+          "@context": "https://schema.org",
+          "@type": "ItemList",
+          "name": "Digital Marketing Services",
+          "description": "Avorria's full-service digital marketing offerings",
+          "numberOfItems": services.length,
+          "itemListElement": services.map((service, index) => ({
+            "@type": "ListItem",
+            "position": index + 1,
+            "item": {
+              "@type": "Service",
+              "name": service.title,
+              "description": service.description,
+              "url": `https://avorria.com${service.href}`,
+              "provider": {
+                "@type": "Organization",
+                "name": "Avorria"
               }
-            }))
-          })}
+            }
+          }))
+        })}
         </script>
       </Helmet>
 
       <div className="min-h-screen">
         {/* Hero Section */}
-        <HeroBand
-          headline="Growth systems, not random campaigns."
-          body="We design, build and optimise the assets that actually move your pipeline – from SEO and ads to websites, content and tracking. Every service below is delivered with the same mindset: clear strategy, precise execution and ruthless focus on commercial outcomes."
-          backgroundImage={heroServicesDigital}
-          cta={{ text: "Book Strategy Call", href: "/contact" }}
-          minHeight="75vh"
-        />
+        <HeroBand headline="Growth systems, not random campaigns." body="We design, build and optimise the assets that actually move your pipeline – from SEO and ads to websites, content and tracking. Every service below is delivered with the same mindset: clear strategy, precise execution and ruthless focus on commercial outcomes." backgroundImage={heroServicesDigital} cta={{
+        text: "Book Strategy Call",
+        href: "/contact"
+      }} minHeight="75vh" />
 
         {/* How We Grow Your Pipeline - Dark section */}
         <SectionBand background="gradient" padding="large">
@@ -136,8 +121,7 @@ const Services = () => {
             </div>
             
             <div className="grid md:grid-cols-3 gap-8 md:gap-12 mb-12">
-              {questions.map((item, index) => (
-                <div key={index} className="space-y-4">
+              {questions.map((item, index) => <div key={index} className="space-y-4 bg-muted-foreground shadow-sm border border-accent border-solid rounded opacity-70">
                   <p className="text-sm font-semibold text-accent uppercase tracking-widest">
                     {item.label}
                   </p>
@@ -147,8 +131,7 @@ const Services = () => {
                   <p className="text-white/70 leading-relaxed">
                     {item.answer}
                   </p>
-                </div>
-              ))}
+                </div>)}
             </div>
             
             <p className="text-center text-white/60 text-lg">
@@ -161,12 +144,7 @@ const Services = () => {
         <SectionBand background="light" padding="large">
           <div className="max-w-6xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 lg:gap-12">
-              {services.map((service, index) => (
-                <Link
-                  key={index}
-                  to={service.href}
-                  className="group block p-8 md:p-10 rounded-xl border border-border bg-card hover:shadow-[var(--shadow-card-hover)] hover:border-accent/30 transition-all duration-300"
-                >
+              {services.map((service, index) => <Link key={index} to={service.href} className="group block p-8 md:p-10 rounded-xl border border-border bg-card hover:shadow-[var(--shadow-card-hover)] hover:border-accent/30 transition-all duration-300">
                   <div className="flex items-start gap-6">
                     <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center flex-shrink-0 group-hover:from-accent/20 group-hover:to-accent/10 transition-colors">
                       <service.icon className="text-accent" size={28} />
@@ -184,22 +162,16 @@ const Services = () => {
                       </span>
                     </div>
                   </div>
-                </Link>
-              ))}
+                </Link>)}
             </div>
           </div>
         </SectionBand>
 
         {/* Content Band - Visual break */}
-        <ContentBand
-          subheadline="Web Design & Development"
-          headline="Websites that look sharp and sell hard."
-          body="Every section, layout and CTA is engineered for conversions, not awards. Built on a modern stack with SEO, speed and CRO wired in from day one."
-          image={serviceWebDesign}
-          imageAlt="Modern website design"
-          cta={{ text: "View Web Design", href: "/services/web-design" }}
-          background="mesh"
-        />
+        <ContentBand subheadline="Web Design & Development" headline="Websites that look sharp and sell hard." body="Every section, layout and CTA is engineered for conversions, not awards. Built on a modern stack with SEO, speed and CRO wired in from day one." image={serviceWebDesign} imageAlt="Modern website design" cta={{
+        text: "View Web Design",
+        href: "/services/web-design"
+      }} background="mesh" />
 
         {/* Where Should You Start - Dark section */}
         <SectionBand background="dark" padding="large">
@@ -282,8 +254,6 @@ const Services = () => {
           </div>
         </SectionBand>
       </div>
-    </>
-  );
+    </>;
 };
-
 export default Services;
