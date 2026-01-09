@@ -6,7 +6,11 @@ import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Check, X, Video, FileText, BarChart3, ListChecks } from "lucide-react";
+import { Check, X, Video, FileText, BarChart3, ListChecks, Zap, Clock, Shield } from "lucide-react";
+import HeroGradient from "@/components/HeroGradient";
+import { BeamBorder, StaticBeamBorder } from "@/components/BeamBorder";
+import ScrollReveal from "@/components/animations/ScrollReveal";
+
 export default function AuditFunnel() {
   const scrollToForm = () => {
     trackCTAClick('request_audit', '#audit-form', 'hero');
@@ -14,309 +18,331 @@ export default function AuditFunnel() {
       behavior: "smooth"
     });
   };
-  return <>
+
+  return (
+    <>
       <Helmet>
-        <title>Free SEO & Website Audit - No Fluff, Just Reality | Avorria</title>
-        <meta name="description" content="Get a custom video or written teardown of your site, SEO and tracking. Clear, actionable recommendations – whether you work with us or not." />
+        <title>Free SEO & Website Audit - Instant Results | Avorria</title>
+        <meta name="description" content="Get an instant, AI-powered audit of your website. Clear, actionable recommendations delivered in under 60 seconds – completely free." />
         <script type="application/ld+json">
           {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "serviceType": "SEO & Website Audit",
-          "provider": {
-            "@type": "Organization",
-            "name": "Avorria"
-          },
-          "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "GBP"
-          }
-        })}
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "SEO & Website Audit",
+            "provider": {
+              "@type": "Organization",
+              "name": "Avorria"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "GBP"
+            }
+          })}
         </script>
       </Helmet>
 
       <div className="min-h-screen bg-background">
         <Navigation />
 
-        {/* Hero Section */}
-        <section className="pt-32 pb-16 px-4">
-          <div className="container max-w-4xl mx-auto text-center space-y-8">
-            <h1 className="text-4xl font-light text-foreground md:text-3xl">
-              Free SEO & Website Audit – No BS, Just a Reality Check
-            </h1>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              We'll review your site, SEO and tracking, then send you a short, plain-English teardown with clear next steps – whether you work with us or not.
-            </p>
+        {/* Hero Section with Gradient Background */}
+        <section className="relative min-h-[80vh] flex items-center overflow-hidden">
+          <HeroGradient />
+          <div className="container max-w-5xl mx-auto px-4 py-32 relative z-10">
+            <ScrollReveal>
+              <div className="text-center space-y-8">
+                <div className="inline-flex items-center gap-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-sm font-medium">
+                  <Zap className="w-4 h-4" />
+                  Instant Results in 60 Seconds
+                </div>
+                
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight">
+                  Free SEO & Website Audit
+                  <span className="block text-gradient-accent">No BS, Just a Reality Check</span>
+                </h1>
+                
+                <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                  Our AI analyzes your site, SEO, and setup – then delivers a comprehensive report with prioritized recommendations you can act on today.
+                </p>
 
-            <div className="grid md:grid-cols-3 gap-6 pt-8">
-              <Card className="p-6 text-left">
-                <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-foreground">
-                      We'll review your site, SEO and tracking, then send you a short, plain English teardown with clear next steps whether you work with us or not.
-                    </p>
+                <div className="flex flex-wrap justify-center gap-6 pt-4">
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Clock className="w-5 h-5 text-accent" />
+                    <span>Under 60 seconds</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Shield className="w-5 h-5 text-accent" />
+                    <span>100% Free</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <FileText className="w-5 h-5 text-accent" />
+                    <span>Downloadable Report</span>
                   </div>
                 </div>
-              </Card>
-              <Card className="p-6 text-left">
-                <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-foreground">
-                      Specific recommendations prioritised by impact and effort
-                    </p>
-                  </div>
-                </div>
-              </Card>
-              <Card className="p-6 text-left">
-                <div className="flex items-start gap-3">
-                  <Check className="w-5 h-5 text-accent mt-1 flex-shrink-0" />
-                  <div>
-                    <p className="text-foreground">
-                      Delivered within 2–3 working days
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button size="lg" onClick={scrollToForm}>
-                Request my audit
-              </Button>
-              <Button size="lg" variant="outline" onClick={() => {
-              trackCTAClick('see_whats_included', '#what-you-get', 'hero');
-              document.getElementById("what-you-get")?.scrollIntoView({
-                behavior: "smooth"
-              });
-            }}>
-                See what's included
-              </Button>
-            </div>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
+                  <Button size="lg" onClick={scrollToForm} className="text-lg px-8">
+                    Get My Free Audit
+                  </Button>
+                  <Button size="lg" variant="outline" onClick={() => {
+                    trackCTAClick('see_whats_included', '#what-you-get', 'hero');
+                    document.getElementById("what-you-get")?.scrollIntoView({
+                      behavior: "smooth"
+                    });
+                  }}>
+                    See What's Included
+                  </Button>
+                </div>
+              </div>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* What You Get Section */}
-        <section id="what-you-get" className="py-16 px-4 bg-muted/20">
+        <section id="what-you-get" className="section-py px-4 bg-muted/20">
           <div className="container max-w-5xl mx-auto">
-              <h2 className="text-3xl md:text-4xl font-light text-center mb-12">
-                What's actually in the audit.
+            <ScrollReveal>
+              <h2 className="text-3xl md:text-4xl font-light text-center mb-4">
+                What's in your audit
               </h2>
-
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-8">
-                <Video className="w-12 h-12 text-accent mb-4" />
-                <h3 className="text-xl font-light mb-3 text-foreground">
-                  Technical & SEO snapshot
-                </h3>
-                <p className="text-muted-foreground">
-                  We'll flag key technical issues, structural problems and obvious SEO gaps that are holding you back.
-                </p>
-              </Card>
-
-              <Card className="p-8">
-                <FileText className="w-12 h-12 text-accent mb-4" />
-                <h3 className="text-xl font-light mb-3 text-foreground">
-                  Website & conversion review
-                </h3>
-                <p className="text-muted-foreground">
-                  We look at your homepage, key service pages and main journeys through the lens of "would this make me enquire?".
-                </p>
-              </Card>
-
-              <Card className="p-8">
-                <BarChart3 className="w-12 h-12 text-accent mb-4" />
-                <h3 className="text-xl font-light mb-3 text-foreground">
-                  Tracking sanity check
-                </h3>
-                <p className="text-muted-foreground">
-                  If you've got analytics and pixels, we'll check whether they're set up in a way that lets you make real decisions.
-                </p>
-              </Card>
-
-              <Card className="p-8">
-                <ListChecks className="w-12 h-12 text-accent mb-4" />
-                <h3 className="text-xl font-light mb-3 text-foreground">
-                  Prioritised action list
-                </h3>
-                <p className="text-muted-foreground">
-                  You'll get a simple list of what we'd do in the next 90 days – ordered by impact vs effort.
-                </p>
-              </Card>
-            </div>
-
-            <div className="mt-12 p-6 border border-accent/20 rounded-lg bg-accent/5">
-              <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-                You'll get a short, honest assessment and a prioritised fix list. If you want our help implementing it, we can talk. If not, you still know what needs doing.
+              <p className="text-center text-muted-foreground max-w-2xl mx-auto mb-12">
+                A comprehensive analysis across the areas that actually move the needle for your business.
               </p>
+            </ScrollReveal>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <ScrollReveal delay={0.1}>
+                <BeamBorder>
+                  <div className="p-8">
+                    <Video className="w-12 h-12 text-accent mb-4" />
+                    <h3 className="text-xl font-light mb-3 text-foreground">
+                      Technical & SEO Snapshot
+                    </h3>
+                    <p className="text-muted-foreground">
+                      We flag key technical issues, structural problems and SEO gaps that are holding you back from ranking higher.
+                    </p>
+                  </div>
+                </BeamBorder>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.2}>
+                <BeamBorder>
+                  <div className="p-8">
+                    <FileText className="w-12 h-12 text-accent mb-4" />
+                    <h3 className="text-xl font-light mb-3 text-foreground">
+                      Content Quality Review
+                    </h3>
+                    <p className="text-muted-foreground">
+                      We analyze your content through the lens of "would this make me enquire?" – honest feedback on what's working.
+                    </p>
+                  </div>
+                </BeamBorder>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.3}>
+                <BeamBorder>
+                  <div className="p-8">
+                    <BarChart3 className="w-12 h-12 text-accent mb-4" />
+                    <h3 className="text-xl font-light mb-3 text-foreground">
+                      Performance Analysis
+                    </h3>
+                    <p className="text-muted-foreground">
+                      Speed, mobile experience, and Core Web Vitals – the technical factors that impact both rankings and conversions.
+                    </p>
+                  </div>
+                </BeamBorder>
+              </ScrollReveal>
+
+              <ScrollReveal delay={0.4}>
+                <BeamBorder>
+                  <div className="p-8">
+                    <ListChecks className="w-12 h-12 text-accent mb-4" />
+                    <h3 className="text-xl font-light mb-3 text-foreground">
+                      Prioritised Action List
+                    </h3>
+                    <p className="text-muted-foreground">
+                      A 90-day roadmap of what to fix first – ordered by impact vs effort so you know exactly where to start.
+                    </p>
+                  </div>
+                </BeamBorder>
+              </ScrollReveal>
             </div>
           </div>
         </section>
 
+        {/* Full-width dark section */}
+        <section className="section-dark section-py px-4 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-30" style={{ background: 'var(--gradient-mesh)' }} />
+          <div className="container max-w-4xl mx-auto relative z-10">
+            <ScrollReveal>
+              <div className="text-center space-y-6">
+                <h2 className="text-3xl md:text-4xl font-light">
+                  Why we give this away for free
+                </h2>
+                <p className="text-xl text-soft max-w-2xl mx-auto">
+                  Most agencies gatekeep their audits behind sales calls. We believe you should know exactly what's wrong with your site before we ever talk about working together.
+                </p>
+                <p className="text-softer max-w-2xl mx-auto">
+                  If you want our help implementing the recommendations, we can talk. If not, you still know what needs doing. Win-win.
+                </p>
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
         {/* Who It's For Section */}
-        <section className="py-16 px-4">
+        <section className="section-py px-4">
           <div className="container max-w-5xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-light text-center mb-12">
-              Who It's For (And Who It's Not)
-            </h2>
+            <ScrollReveal>
+              <h2 className="text-3xl md:text-4xl font-light text-center mb-12">
+                Who It's For (And Who It's Not)
+              </h2>
+            </ScrollReveal>
 
             <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-8 border-accent/50">
-                <div className="flex items-center gap-3 mb-6">
-                  <Check className="w-6 h-6 text-accent" />
-                  <h3 className="text-2xl font-light text-foreground">Good Fit</h3>
-                </div>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent mt-1">•</span>
-                    <span>You're already spending something on marketing and want to know if it's working as hard as it should.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent mt-1">•</span>
-                    <span>You have a live website, some traffic and at least basic analytics set up.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-accent mt-1">•</span>
-                    <span>You're open to making changes if the audit shows clear issues.</span>
-                  </li>
-                </ul>
-              </Card>
+              <ScrollReveal delay={0.1}>
+                <Card className="p-8 border-accent/50 h-full">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-full bg-accent/10 flex items-center justify-center">
+                      <Check className="w-5 h-5 text-accent" />
+                    </div>
+                    <h3 className="text-2xl font-light text-foreground">Good Fit</h3>
+                  </div>
+                  <ul className="space-y-4 text-muted-foreground">
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                      <span>You have a live website with some existing traffic</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                      <span>You want honest, actionable feedback you can use</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <Check className="w-5 h-5 text-accent mt-0.5 flex-shrink-0" />
+                      <span>You're open to making changes based on what we find</span>
+                    </li>
+                  </ul>
+                </Card>
+              </ScrollReveal>
 
-              <Card className="p-8 border-muted">
-                <div className="flex items-center gap-3 mb-6">
-                  <X className="w-6 h-6 text-muted-foreground" />
-                  <h3 className="text-2xl font-light text-foreground">Not a Good Fit</h3>
-                </div>
-                <ul className="space-y-3 text-muted-foreground">
-                  <li className="flex items-start gap-2">
-                    <span className="text-muted-foreground mt-1">•</span>
-                    <span>You don't have a website or live product/service yet.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-muted-foreground mt-1">•</span>
-                    <span>You just want a generic template report for the file.</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-muted-foreground mt-1">•</span>
-                    <span>You have no intention of changing anything, whatever we find.</span>
-                  </li>
-                </ul>
-              </Card>
+              <ScrollReveal delay={0.2}>
+                <Card className="p-8 border-muted h-full">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                      <X className="w-5 h-5 text-muted-foreground" />
+                    </div>
+                    <h3 className="text-2xl font-light text-foreground">Not a Good Fit</h3>
+                  </div>
+                  <ul className="space-y-4 text-muted-foreground">
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                      <span>You don't have a website or product live yet</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                      <span>You just want a vanity report to file away</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <X className="w-5 h-5 text-muted-foreground mt-0.5 flex-shrink-0" />
+                      <span>You have no intention of acting on the findings</span>
+                    </li>
+                  </ul>
+                </Card>
+              </ScrollReveal>
             </div>
           </div>
         </section>
 
         {/* Audit Request Form */}
-        <section id="audit-form" className="py-16 px-4 bg-muted/20">
+        <section id="audit-form" className="section-py px-4 bg-muted/20">
           <div className="container max-w-4xl mx-auto">
-            <div className="text-center mb-8">
-              <h2 className="text-3xl font-light mb-4 text-foreground">Request your audit.</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Tell us who you are, where your site lives and what you're worried about. We'll dig in and send you a short, direct review – no scripts, no fluff.
-              </p>
-            </div>
-            <InlineLeadForm source="audit-funnel" />
-          </div>
-        </section>
-
-        {/* Social Proof Section */}
-        <section className="py-16 px-4">
-          <div className="container max-w-4xl mx-auto space-y-12">
-            <div className="grid md:grid-cols-2 gap-8">
-              <Card className="p-6">
-                <p className="text-muted-foreground italic mb-4">
-                  "The audit showed us exactly where we were haemorrhaging budget. Fixed three tracking issues in week one and saw immediate improvement in our lead quality."
+            <ScrollReveal>
+              <div className="text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-light mb-4 text-foreground">Get your instant audit</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Enter your details below and we'll generate a comprehensive audit of your website in under 60 seconds.
                 </p>
-                <p className="text-sm text-foreground">
-                  <strong>Sarah Chen</strong>, Marketing Director, Legal SaaS
-                </p>
-                <p className="text-sm text-accent">+41% qualified leads in 90 days</p>
-              </Card>
-
-              <Card className="p-6">
-                <p className="text-muted-foreground italic mb-4">
-                  "Most agencies just want to sell you a retainer. Avorria's audit was genuinely useful whether we worked with them or not. We hired them anyway."
-                </p>
-                <p className="text-sm text-foreground">
-                  <strong>James Harper</strong>, Founder, Home Services
-                </p>
-                <p className="text-sm text-accent">3.2x ROAS after website rebuild</p>
-              </Card>
-            </div>
-
-            <Card className="p-8 bg-accent/5 border-accent/20">
-              <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-                Thanks – we've got your request. We'll review your setup and send your audit within 2–3 working days. If we think you're in good shape already, we'll tell you. If not, you'll know exactly why.
-              </p>
-            </Card>
+              </div>
+            </ScrollReveal>
+            <ScrollReveal delay={0.2}>
+              <StaticBeamBorder>
+                <InlineLeadForm source="audit-funnel" />
+              </StaticBeamBorder>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* FAQ Section */}
-        <section className="py-16 px-4 bg-muted/20">
+        <section className="section-py px-4">
           <div className="container max-w-3xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-light text-center mb-12">
-              Frequently Asked Questions
-            </h2>
+            <ScrollReveal>
+              <h2 className="text-3xl md:text-4xl font-light text-center mb-12">
+                Frequently Asked Questions
+              </h2>
+            </ScrollReveal>
 
-            <Accordion type="single" collapsible className="space-y-4">
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-left">
-                  Is this really free?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  Yes. You'll get a short, honest assessment and a prioritised fix list. If you want our help implementing it, we can talk. If not, you still know what needs doing.
-                </AccordionContent>
-              </AccordionItem>
+            <ScrollReveal delay={0.1}>
+              <Accordion type="single" collapsible className="space-y-4">
+                <AccordionItem value="item-1" className="border rounded-lg px-6">
+                  <AccordionTrigger className="text-left">
+                    Is this really free?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Yes, 100% free. You'll get a complete audit with actionable recommendations. If you want help implementing them, we can talk – but there's zero obligation.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem value="item-2">
-                <AccordionTrigger className="text-left">
-                  Do I have to jump on a call?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  No. The audit is delivered first. You can then decide if you want to schedule a call to walk through it.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem value="item-2" className="border rounded-lg px-6">
+                  <AccordionTrigger className="text-left">
+                    How is this different from other SEO audits?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Most free audits are generic reports with 100+ issues designed to scare you. Ours is AI-powered to give you specific, prioritized recommendations tailored to your site – what matters most, ordered by impact.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem value="item-3">
-                <AccordionTrigger className="text-left">
-                  How detailed is the audit?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  It's detailed enough to make decisions. This isn't a 60-page technical thesis, it's a focused view on what will move the needle fastest.
-                </AccordionContent>
-              </AccordionItem>
+                <AccordionItem value="item-3" className="border rounded-lg px-6">
+                  <AccordionTrigger className="text-left">
+                    How detailed is the audit?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Detailed enough to make decisions. You'll get scores across 5 key areas, specific findings, and a 90-day roadmap of prioritized actions – typically 5-10 pages of actionable insights.
+                  </AccordionContent>
+                </AccordionItem>
 
-              <AccordionItem value="item-4">
-                <AccordionTrigger className="text-left">
-                  What access do you need?
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground">
-                  At minimum, your website URL. If you're happy to give us temporary access to analytics or ad accounts, we can go deeper.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
+                <AccordionItem value="item-4" className="border rounded-lg px-6">
+                  <AccordionTrigger className="text-left">
+                    Do I have to jump on a sales call?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground">
+                    Nope. The audit is delivered instantly – no calls required. If you want to discuss the findings, you can book a call, but it's completely optional.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </ScrollReveal>
           </div>
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-16 px-4">
-          <div className="container max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl md:text-4xl font-light text-foreground">
-              Ready for a reality check?
-            </h2>
-            <p className="text-xl text-muted-foreground">
-              No fluff, no 40-page reports. Just clear, actionable recommendations you can use – whether you work with us or not.
-            </p>
-            <Button size="lg" onClick={scrollToForm}>
-              Request my free audit
-            </Button>
+        <section className="section-dark section-py px-4 relative overflow-hidden">
+          <div className="absolute inset-0 opacity-30" style={{ background: 'var(--gradient-mesh)' }} />
+          <div className="container max-w-3xl mx-auto relative z-10 text-center space-y-6">
+            <ScrollReveal>
+              <h2 className="text-3xl md:text-4xl font-light">
+                Ready for your reality check?
+              </h2>
+              <p className="text-xl text-soft">
+                Get instant, actionable insights about your website – completely free.
+              </p>
+              <Button size="lg" onClick={scrollToForm} className="text-lg px-8">
+                Get My Free Audit Now
+              </Button>
+            </ScrollReveal>
           </div>
         </section>
 
         <Footer />
       </div>
-    </>;
+    </>
+  );
 }
