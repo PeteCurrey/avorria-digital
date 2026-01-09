@@ -9,7 +9,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Check, X, Video, FileText, BarChart3, ListChecks, Zap, Clock, Shield } from "lucide-react";
 import HeroGradient from "@/components/HeroGradient";
 import { BeamBorder, StaticBeamBorder } from "@/components/BeamBorder";
-import ScrollReveal from "@/components/animations/ScrollReveal";
+import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 export default function AuditFunnel() {
   const scrollToForm = () => {
