@@ -48,7 +48,9 @@ serve(async (req) => {
             html: html,
             headers: previewText ? { "X-Preview-Text": previewText } : undefined,
           });
-          return { email, success: true, id: emailResponse.id };
+          // Resend returns { data, error } structure
+          const responseId = emailResponse?.data?.id || "sent";
+          return { email, success: true, id: responseId };
         } catch (error: any) {
           console.error(`Failed to send to ${email}:`, error);
           return { email, success: false, error: error.message };
