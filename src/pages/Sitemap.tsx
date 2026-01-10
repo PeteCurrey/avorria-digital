@@ -116,7 +116,7 @@ const Sitemap = () => {
     { url: '/terms', lastmod: today, changefreq: 'yearly', priority: '0.3' },
   ];
 
-  // Add location pages (4 services x 38 locations = 152 pages)
+  // Add location pages (4 services x locations) - use slash pattern to match routes
   locations.forEach(loc => {
     geoServices.forEach(service => {
       entries.push({
@@ -128,15 +128,34 @@ const Sitemap = () => {
     });
   });
 
-  // Add industry landing pages (4 services x unique industries)
-  uniqueIndustries.forEach(industrySlug => {
-    industryServices.forEach(service => {
-      entries.push({
-        url: `/${service.prefix}/for/${industrySlug}`,
-        lastmod: today,
-        changefreq: 'monthly',
-        priority: '0.8',
-      });
+  // Add industry landing pages using /lp/ pattern (matches actual route)
+  const industryLandingPages = [
+    'seo-trades-home-services',
+    'seo-professional-services',
+    'seo-b2b-saas',
+    'seo-ecommerce-brands',
+    'seo-multi-location-brands',
+    'web-design-trades-home-services',
+    'web-design-professional-services',
+    'web-design-b2b-saas',
+    'web-design-ecommerce-brands',
+    'paid-media-trades-home-services',
+    'paid-media-professional-services',
+    'paid-media-b2b-saas',
+    'paid-media-ecommerce-brands',
+    'digital-marketing-trades-home-services',
+    'digital-marketing-professional-services',
+    'digital-marketing-b2b-saas',
+    'digital-marketing-ecommerce-brands',
+    'digital-marketing-multi-location-brands',
+  ];
+  
+  industryLandingPages.forEach(slug => {
+    entries.push({
+      url: `/lp/${slug}`,
+      lastmod: today,
+      changefreq: 'monthly',
+      priority: '0.8',
     });
   });
 

@@ -29,7 +29,7 @@ export const corePages: SitemapUrl[] = [
   { path: "/sitemap", name: "HTML Sitemap", priority: 0.3, changeFreq: "monthly", category: "Core", status: "indexed" },
 ];
 
-// Service Industry landing pages
+// Service Industry landing pages - use /lp/ pattern to match routes
 export const getServiceIndustryPages = (): SitemapUrl[] => {
   return landingPages
     .filter(lp => lp.type === "service-industry")
@@ -44,6 +44,7 @@ export const getServiceIndustryPages = (): SitemapUrl[] => {
 };
 
 // Location-based geo pages (service x location combinations)
+// Uses slash pattern to match actual routes: /seo-agency/london
 export const getGeoPages = (): SitemapUrl[] => {
   const services = [
     { slug: "seo-agency", name: "SEO Agency" },
@@ -54,7 +55,7 @@ export const getGeoPages = (): SitemapUrl[] => {
 
   return locations.flatMap(location => 
     services.map(service => ({
-      path: `/${service.slug}-${location.slug}`,
+      path: `/${service.slug}/${location.slug}`,
       name: `${service.name} ${location.city}`,
       priority: 0.7,
       changeFreq: "monthly" as const,
@@ -78,17 +79,19 @@ export const getResourcePages = (): SitemapUrl[] => {
 
 // Pillar pages
 export const pillarPages: SitemapUrl[] = [
-  { path: "/seo", name: "SEO Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
-  { path: "/paid-media", name: "Paid Media Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
+  { path: "/seo-agency", name: "SEO Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
+  { path: "/paid-media-agency", name: "Paid Media Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
   { path: "/digital-marketing-agency", name: "Digital Marketing Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
 ];
 
-// Tool pages
+// Tool pages - use correct route paths
 export const toolPages: SitemapUrl[] = [
   { path: "/tools", name: "Free Tools", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
   { path: "/website-health-check", name: "Website Health Check", priority: 0.8, changeFreq: "monthly", category: "Tools", status: "indexed" },
   { path: "/project-estimator", name: "Project Estimator", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
-  { path: "/audit-funnel", name: "Free Audit Funnel", priority: 0.8, changeFreq: "monthly", category: "Tools", status: "indexed" },
+  { path: "/free-seo-website-audit", name: "Free SEO Audit", priority: 0.8, changeFreq: "monthly", category: "Tools", status: "indexed" },
+  { path: "/audit-funnel", name: "Audit Funnel (Alternate)", priority: 0.8, changeFreq: "monthly", category: "Tools", status: "indexed" },
+  { path: "/web-design/studio", name: "Web Design Studio", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
 ];
 
 // Legal pages
