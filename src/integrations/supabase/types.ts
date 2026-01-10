@@ -473,6 +473,107 @@ export type Database = {
           },
         ]
       }
+      content_calendar: {
+        Row: {
+          author_id: string | null
+          author_name: string | null
+          content_type: string
+          created_at: string
+          description: string | null
+          id: string
+          metadata: Json | null
+          notes: string | null
+          priority: string | null
+          published_date: string | null
+          scheduled_date: string | null
+          slug: string | null
+          status: string
+          tags: string[] | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          author_name?: string | null
+          content_type?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          notes?: string | null
+          priority?: string | null
+          published_date?: string | null
+          scheduled_date?: string | null
+          slug?: string | null
+          status?: string
+          tags?: string[] | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          author_name?: string | null
+          content_type?: string
+          created_at?: string
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          notes?: string | null
+          priority?: string | null
+          published_date?: string | null
+          scheduled_date?: string | null
+          slug?: string | null
+          status?: string
+          tags?: string[] | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      generated_reports: {
+        Row: {
+          data: Json | null
+          file_url: string | null
+          generated_at: string
+          id: string
+          period_end: string | null
+          period_start: string | null
+          report_type: string
+          scheduled_report_id: string | null
+          sent_to: string[] | null
+        }
+        Insert: {
+          data?: Json | null
+          file_url?: string | null
+          generated_at?: string
+          id?: string
+          period_end?: string | null
+          period_start?: string | null
+          report_type: string
+          scheduled_report_id?: string | null
+          sent_to?: string[] | null
+        }
+        Update: {
+          data?: Json | null
+          file_url?: string | null
+          generated_at?: string
+          id?: string
+          period_end?: string | null
+          period_start?: string | null
+          report_type?: string
+          scheduled_report_id?: string | null
+          sent_to?: string[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "generated_reports_scheduled_report_id_fkey"
+            columns: ["scheduled_report_id"]
+            isOneToOne: false
+            referencedRelation: "scheduled_reports"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       keyword_tracking: {
         Row: {
           created_at: string
@@ -653,6 +754,48 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      scheduled_reports: {
+        Row: {
+          config: Json | null
+          created_at: string
+          id: string
+          is_active: boolean | null
+          last_sent_at: string | null
+          name: string
+          next_scheduled_at: string | null
+          recipients: string[]
+          report_type: string
+          schedule: string
+          updated_at: string
+        }
+        Insert: {
+          config?: Json | null
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          last_sent_at?: string | null
+          name: string
+          next_scheduled_at?: string | null
+          recipients: string[]
+          report_type?: string
+          schedule?: string
+          updated_at?: string
+        }
+        Update: {
+          config?: Json | null
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          last_sent_at?: string | null
+          name?: string
+          next_scheduled_at?: string | null
+          recipients?: string[]
+          report_type?: string
+          schedule?: string
+          updated_at?: string
+        }
+        Relationships: []
       }
       user_roles: {
         Row: {
