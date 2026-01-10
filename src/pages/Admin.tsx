@@ -34,6 +34,7 @@ import ReportGenerator from "@/components/admin/ReportGenerator";
 import ContentStudio from "@/components/admin/ContentStudio";
 import NewsletterBuilder from "@/components/admin/NewsletterBuilder";
 import IntegrationsPanel from "@/components/admin/IntegrationsPanel";
+import { LandingPageManager } from "@/components/admin/LandingPageManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -147,6 +148,7 @@ const Admin = () => {
       case "reports": return "Reports";
       case "integrations": return "Integrations";
       case "settings": return "Settings";
+      case "landing-pages": return "SEO Landing Pages";
       default: return "Admin Dashboard";
     }
   };
@@ -165,6 +167,7 @@ const Admin = () => {
       case "reports": return "Generate and schedule reports";
       case "integrations": return "Connect third-party services";
       case "settings": return "Configure your admin preferences";
+      case "landing-pages": return "Create and manage SEO landing pages for locations, services, and industries";
       default: return "";
     }
   };
@@ -595,6 +598,9 @@ const Admin = () => {
 
       case "settings":
         return <AdminSettings />;
+
+      case "landing-pages":
+        return <LandingPageManager />;
 
       default:
         return (

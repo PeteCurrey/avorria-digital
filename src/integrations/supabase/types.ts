@@ -1048,6 +1048,111 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_landing_pages: {
+        Row: {
+          created_at: string | null
+          created_by: string | null
+          faq_list: Json | null
+          hero_headline: string
+          hero_subheadline: string
+          id: string
+          industry_slug: string | null
+          is_featured: boolean | null
+          is_published: boolean | null
+          key_metrics: Json | null
+          location_slug: string | null
+          meta_description: string
+          meta_title: string
+          page_type: string
+          pricing_snapshot: string | null
+          primary_cta: string
+          problem_bullets: Json | null
+          process_steps: Json | null
+          related_articles: Json | null
+          related_case_studies: Json | null
+          secondary_cta: string
+          service_slug: string
+          slug: string
+          solution_bullets: Json | null
+          target_keyword: string
+          testimonial_author: string | null
+          testimonial_company: string | null
+          testimonial_quote: string | null
+          testimonial_role: string | null
+          title: string
+          updated_at: string | null
+          working_with_you: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          created_by?: string | null
+          faq_list?: Json | null
+          hero_headline: string
+          hero_subheadline: string
+          id?: string
+          industry_slug?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          key_metrics?: Json | null
+          location_slug?: string | null
+          meta_description: string
+          meta_title: string
+          page_type?: string
+          pricing_snapshot?: string | null
+          primary_cta?: string
+          problem_bullets?: Json | null
+          process_steps?: Json | null
+          related_articles?: Json | null
+          related_case_studies?: Json | null
+          secondary_cta?: string
+          service_slug: string
+          slug: string
+          solution_bullets?: Json | null
+          target_keyword: string
+          testimonial_author?: string | null
+          testimonial_company?: string | null
+          testimonial_quote?: string | null
+          testimonial_role?: string | null
+          title: string
+          updated_at?: string | null
+          working_with_you?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          created_by?: string | null
+          faq_list?: Json | null
+          hero_headline?: string
+          hero_subheadline?: string
+          id?: string
+          industry_slug?: string | null
+          is_featured?: boolean | null
+          is_published?: boolean | null
+          key_metrics?: Json | null
+          location_slug?: string | null
+          meta_description?: string
+          meta_title?: string
+          page_type?: string
+          pricing_snapshot?: string | null
+          primary_cta?: string
+          problem_bullets?: Json | null
+          process_steps?: Json | null
+          related_articles?: Json | null
+          related_case_studies?: Json | null
+          secondary_cta?: string
+          service_slug?: string
+          slug?: string
+          solution_bullets?: Json | null
+          target_keyword?: string
+          testimonial_author?: string | null
+          testimonial_company?: string | null
+          testimonial_quote?: string | null
+          testimonial_role?: string | null
+          title?: string
+          updated_at?: string | null
+          working_with_you?: string | null
+        }
+        Relationships: []
+      }
       seo_rankings: {
         Row: {
           difficulty: number | null
