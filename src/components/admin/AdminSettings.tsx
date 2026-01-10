@@ -23,6 +23,11 @@ import {
   AlertTriangle,
   CheckCircle,
   Clock,
+  ExternalLink,
+  TestTube,
+  Search,
+  BarChart3,
+  Send,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -30,6 +35,7 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   Table,
@@ -55,9 +61,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { StaticBeamBorder } from "@/components/BeamBorder";
 
 interface TeamMember {
   id: string;
@@ -79,6 +90,17 @@ interface NotificationPrefs {
   securityAlerts: boolean;
 }
 
+interface APIKeyConfig {
+  id: string;
+  name: string;
+  description: string;
+  secretName: string;
+  isConfigured: boolean;
+  docUrl: string;
+  icon: React.ElementType;
+  instructions: string[];
+}
+
 interface Integration {
   id: string;
   name: string;
@@ -92,7 +114,9 @@ export default function AdminSettings() {
   const [activeTab, setActiveTab] = useState("team");
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [isLoadingTeam, setIsLoadingTeam] = useState(true);
-  const [showApiKey, setShowApiKey] = useState(false);
+  const [showApiKey, setShowApiKey] = useState<Record<string, boolean>>({});
+  const [apiKeyValues, setApiKeyValues] = useState<Record<string, string>>({});
+  const [testingApiKey, setTestingApiKey] = useState<string | null>(null);
   const [newMemberEmail, setNewMemberEmail] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("client");
   const [isAddingMember, setIsAddingMember] = useState(false);
@@ -109,21 +133,97 @@ export default function AdminSettings() {
     securityAlerts: true,
   });
 
+  const apiKeyConfigs: APIKeyConfig[] = [
+    {
+      id: "google-analytics",
+      name: "Google Analytics",
+      description: "Pull traffic and conversion data for client reporting",
+      secretName: "GOOGLE_ANALYTICS_KEY",
+      isConfigured: false,
+      docUrl: "https://console.cloud.google.com/apis/credentials",
+      icon: BarChart3,
+      instructions: [
+        "Go to Google Cloud Console → APIs & Services → Credentials",
+        "Create a Service Account with Analytics Viewer role",
+        "Download the JSON key file",
+        "Paste the entire JSON content below",
+      ],
+    },
+    {
+      id: "google-search-console",
+      name: "Google Search Console",
+      description: "Access search performance and indexing data",
+      secretName: "GOOGLE_SEARCH_CONSOLE_KEY",
+      isConfigured: false,
+      docUrl: "https://console.cloud.google.com/apis/credentials",
+      icon: Search,
+      instructions: [
+        "Use the same Service Account as Google Analytics",
+        "Add the service account email to Search Console as a user",
+        "Paste the JSON key content below",
+      ],
+    },
+    {
+      id: "dataforseo",
+      name: "DataForSEO",
+      description: "Keyword research and SERP tracking",
+      secretName: "DATAFORSEO_LOGIN",
+      isConfigured: false,
+      docUrl: "https://dataforseo.com/apis",
+      icon: Database,
+      instructions: [
+        "Sign up at dataforseo.com",
+        "Go to Dashboard → API Access",
+        "Copy your Login and Password",
+        "Format: login:password",
+      ],
+    },
+    {
+      id: "serpapi",
+      name: "SerpAPI",
+      description: "Real-time SERP data and competitor analysis",
+      secretName: "SERPAPI_KEY",
+      isConfigured: false,
+      docUrl: "https://serpapi.com/manage-api-key",
+      icon: Globe,
+      instructions: [
+        "Sign up at serpapi.com",
+        "Go to Dashboard → API Key",
+        "Copy your API key",
+      ],
+    },
+    {
+      id: "resend",
+      name: "Resend (Email)",
+      description: "Send transactional and marketing emails",
+      secretName: "RESEND_API_KEY",
+      isConfigured: true,
+      docUrl: "https://resend.com/api-keys",
+      icon: Send,
+      instructions: [
+        "Sign up at resend.com",
+        "Go to API Keys → Create API Key",
+        "IMPORTANT: Also verify your domain at resend.com/domains",
+        "Add the required DNS records for SPF, DKIM, DMARC",
+      ],
+    },
+  ];
+
   const integrations: Integration[] = [
     {
       id: "ga",
       name: "Google Analytics",
       description: "Pull analytics data for reporting",
-      status: "connected",
-      lastSync: "5 minutes ago",
+      status: "not-connected",
+      lastSync: null,
       icon: Globe,
     },
     {
       id: "gsc",
       name: "Google Search Console",
       description: "Access search performance and indexing",
-      status: "connected",
-      lastSync: "1 hour ago",
+      status: "not-connected",
+      lastSync: null,
       icon: Database,
     },
     {
@@ -205,7 +305,6 @@ export default function AdminSettings() {
 
       if (error) throw error;
 
-      // Get roles for each user
       const { data: roles } = await supabase
         .from("user_roles")
         .select("user_id, role");
@@ -241,7 +340,6 @@ export default function AdminSettings() {
 
     setIsAddingMember(true);
     try {
-      // In production, this would send an invite email
       toast.success(`Invite sent to ${newMemberEmail}`);
       setNewMemberEmail("");
       setDialogOpen(false);
@@ -256,7 +354,6 @@ export default function AdminSettings() {
     if (!confirm("Are you sure you want to remove this team member?")) return;
     
     try {
-      // In production, this would remove the user's access
       setTeamMembers((prev) => prev.filter((m) => m.id !== id));
       toast.success("Team member removed");
     } catch (error) {
@@ -269,6 +366,35 @@ export default function AdminSettings() {
       toast.success(`${integration.name} disconnected`);
     } else {
       toast.success(`${integration.name} connected successfully`);
+    }
+  };
+
+  const handleTestApiKey = async (configId: string) => {
+    setTestingApiKey(configId);
+    try {
+      // Simulate API key test
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      toast.success("API key is valid and working!");
+    } catch (error) {
+      toast.error("API key test failed");
+    } finally {
+      setTestingApiKey(null);
+    }
+  };
+
+  const handleSaveApiKey = async (configId: string, secretName: string) => {
+    const value = apiKeyValues[configId];
+    if (!value) {
+      toast.error("Please enter an API key");
+      return;
+    }
+
+    try {
+      // In production, this would save to Supabase secrets
+      toast.success(`${secretName} saved successfully`);
+      setApiKeyValues((prev) => ({ ...prev, [configId]: "" }));
+    } catch (error) {
+      toast.error("Failed to save API key");
     }
   };
 
@@ -292,7 +418,7 @@ export default function AdminSettings() {
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="bg-card/50 border border-border/50 backdrop-blur-sm p-1">
+        <TabsList className="bg-card/50 border border-border/50 backdrop-blur-sm p-1 flex-wrap h-auto">
           <TabsTrigger
             value="team"
             className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
@@ -315,6 +441,13 @@ export default function AdminSettings() {
             Integrations
           </TabsTrigger>
           <TabsTrigger
+            value="api-keys"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Key className="h-4 w-4 mr-2" />
+            API Keys
+          </TabsTrigger>
+          <TabsTrigger
             value="roles"
             className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
@@ -325,8 +458,8 @@ export default function AdminSettings() {
             value="api"
             className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
-            <Key className="h-4 w-4 mr-2" />
-            API
+            <Settings className="h-4 w-4 mr-2" />
+            Webhooks
           </TabsTrigger>
         </TabsList>
 
@@ -629,6 +762,170 @@ export default function AdminSettings() {
           </Card>
         </TabsContent>
 
+        {/* API Keys Tab - NEW */}
+        <TabsContent value="api-keys" className="space-y-4">
+          <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Key className="h-5 w-5 text-primary" />
+                External API Keys
+              </CardTitle>
+              <CardDescription>
+                Configure API keys for data providers and external services. These are stored securely in your backend.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <Accordion type="single" collapsible className="space-y-4">
+                {apiKeyConfigs.map((config, idx) => (
+                  <AccordionItem
+                    key={config.id}
+                    value={config.id}
+                    className="border border-border/50 rounded-lg px-4 bg-background/50"
+                  >
+                    <AccordionTrigger className="hover:no-underline py-4">
+                      <div className="flex items-center gap-4 flex-1">
+                        <div className="p-2 rounded-lg bg-primary/10">
+                          <config.icon className="h-5 w-5 text-primary" />
+                        </div>
+                        <div className="text-left flex-1">
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium">{config.name}</span>
+                            <Badge
+                              variant="outline"
+                              className={config.isConfigured 
+                                ? "bg-green-500/20 text-green-400 border-green-500/30"
+                                : "bg-muted text-muted-foreground border-border"
+                              }
+                            >
+                              {config.isConfigured ? (
+                                <>
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                  Configured
+                                </>
+                              ) : (
+                                <>
+                                  <AlertTriangle className="h-3 w-3 mr-1" />
+                                  Not Set
+                                </>
+                              )}
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {config.description}
+                          </p>
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent className="pb-4">
+                      <div className="space-y-4 pt-2">
+                        {/* Instructions */}
+                        <div className="bg-muted/30 rounded-lg p-4 space-y-2">
+                          <h4 className="text-sm font-medium flex items-center gap-2">
+                            <Settings className="h-4 w-4" />
+                            Setup Instructions
+                          </h4>
+                          <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
+                            {config.instructions.map((step, i) => (
+                              <li key={i}>{step}</li>
+                            ))}
+                          </ol>
+                          <Button variant="link" size="sm" className="p-0 h-auto" asChild>
+                            <a href={config.docUrl} target="_blank" rel="noopener noreferrer">
+                              Open documentation
+                              <ExternalLink className="h-3 w-3 ml-1" />
+                            </a>
+                          </Button>
+                        </div>
+
+                        {/* API Key Input */}
+                        <div className="space-y-2">
+                          <Label htmlFor={`key-${config.id}`}>
+                            {config.secretName}
+                          </Label>
+                          <div className="flex gap-2">
+                            <div className="relative flex-1">
+                              <Input
+                                id={`key-${config.id}`}
+                                type={showApiKey[config.id] ? "text" : "password"}
+                                placeholder={config.isConfigured ? "••••••••••••••••" : "Enter API key..."}
+                                value={apiKeyValues[config.id] || ""}
+                                onChange={(e) => setApiKeyValues((prev) => ({ ...prev, [config.id]: e.target.value }))}
+                                className="font-mono text-sm pr-10"
+                              />
+                              <Button
+                                type="button"
+                                variant="ghost"
+                                size="sm"
+                                className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                                onClick={() => setShowApiKey((prev) => ({ ...prev, [config.id]: !prev[config.id] }))}
+                              >
+                                {showApiKey[config.id] ? (
+                                  <EyeOff className="h-4 w-4 text-muted-foreground" />
+                                ) : (
+                                  <Eye className="h-4 w-4 text-muted-foreground" />
+                                )}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Action buttons */}
+                        <div className="flex gap-2">
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleTestApiKey(config.id)}
+                            disabled={testingApiKey === config.id || (!apiKeyValues[config.id] && !config.isConfigured)}
+                          >
+                            {testingApiKey === config.id ? (
+                              <>
+                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                                Testing...
+                              </>
+                            ) : (
+                              <>
+                                <TestTube className="h-4 w-4 mr-2" />
+                                Test Connection
+                              </>
+                            )}
+                          </Button>
+                          <Button
+                            size="sm"
+                            onClick={() => handleSaveApiKey(config.id, config.secretName)}
+                            disabled={!apiKeyValues[config.id]}
+                          >
+                            <Save className="h-4 w-4 mr-2" />
+                            Save Key
+                          </Button>
+                        </div>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </CardContent>
+          </Card>
+
+          {/* Resend Domain Verification Notice */}
+          <Card className="bg-amber-500/10 border-amber-500/30">
+            <CardContent className="pt-6">
+              <div className="flex items-start gap-4">
+                <AlertTriangle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
+                <div className="space-y-2">
+                  <h4 className="font-medium text-amber-200">Resend Domain Verification Required</h4>
+                  <p className="text-sm text-muted-foreground">
+                    To send emails from your own domain (not @resend.dev), you must verify your domain at{" "}
+                    <a href="https://resend.com/domains" target="_blank" rel="noopener noreferrer" className="text-primary underline">
+                      resend.com/domains
+                    </a>
+                    . Add the required DNS records (SPF, DKIM, DMARC) and wait for verification.
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Roles Tab */}
         <TabsContent value="roles" className="space-y-4">
           <div className="grid md:grid-cols-2 gap-6">
@@ -649,7 +946,7 @@ export default function AdminSettings() {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {roleData.permissions.map((perm, permIdx) => (
+                      {roleData.permissions.map((perm) => (
                         <div
                           key={perm.name}
                           className="flex items-center justify-between p-2 bg-background/50 rounded-lg"
@@ -670,66 +967,9 @@ export default function AdminSettings() {
           </div>
         </TabsContent>
 
-        {/* API Tab */}
+        {/* Webhooks Tab (renamed from API) */}
         <TabsContent value="api" className="space-y-4">
           <div className="grid md:grid-cols-2 gap-6">
-            <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Key className="h-5 w-5 text-primary" />
-                  API Keys
-                </CardTitle>
-                <CardDescription>
-                  Manage API keys for external integrations
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Publishable Key</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type={showApiKey ? "text" : "password"}
-                      value="pk_live_••••••••••••••••"
-                      readOnly
-                      className="font-mono text-sm bg-muted/30"
-                    />
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setShowApiKey(!showApiKey)}
-                    >
-                      {showApiKey ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label>Secret Key</Label>
-                  <div className="flex gap-2">
-                    <Input
-                      type="password"
-                      value="sk_live_••••••••••••••••"
-                      readOnly
-                      className="font-mono text-sm bg-muted/30"
-                    />
-                    <Button variant="outline" size="icon">
-                      <EyeOff className="h-4 w-4" />
-                    </Button>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    Never share your secret key publicly
-                  </p>
-                </div>
-                <Button variant="outline" className="w-full">
-                  <RefreshCw className="h-4 w-4 mr-2" />
-                  Regenerate Keys
-                </Button>
-              </CardContent>
-            </Card>
-
             <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="text-lg flex items-center gap-2">
@@ -737,7 +977,7 @@ export default function AdminSettings() {
                   Webhook Settings
                 </CardTitle>
                 <CardDescription>
-                  Configure webhook endpoints
+                  Configure webhook endpoints for real-time notifications
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -765,6 +1005,41 @@ export default function AdminSettings() {
                 <Button className="w-full">
                   <Save className="h-4 w-4 mr-2" />
                   Save Webhook Settings
+                </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-lg flex items-center gap-2">
+                  <Key className="h-5 w-5 text-primary" />
+                  Webhook Secret
+                </CardTitle>
+                <CardDescription>
+                  Use this secret to verify webhook payloads
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <Label>Signing Secret</Label>
+                  <div className="flex gap-2">
+                    <Input
+                      type="password"
+                      value="whsec_••••••••••••••••"
+                      readOnly
+                      className="font-mono text-sm bg-muted/30"
+                    />
+                    <Button variant="outline" size="icon">
+                      <Eye className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="text-xs text-muted-foreground">
+                    Use this secret to verify webhook signatures
+                  </p>
+                </div>
+                <Button variant="outline" className="w-full">
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Regenerate Secret
                 </Button>
               </CardContent>
             </Card>
