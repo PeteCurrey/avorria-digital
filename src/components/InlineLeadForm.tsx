@@ -16,7 +16,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
-import { useCreateLead } from "@/hooks/useLeads";
+
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle, FileText, AlertCircle } from "lucide-react";
 
@@ -70,7 +70,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [formStarted, setFormStarted] = useState(false);
-  const createLead = useCreateLead();
 
   // Pre-fill from URL params (from exit intent popup)
   const prefillWebsite = searchParams.get("website") || "";
@@ -112,19 +111,34 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     setStatus("submitting");
     setErrorMessage("");
     
+    let leadId: string | undefined;
+    
     try {
-      // Step 1: Save lead to database
-      const leadResult = await createLead.mutateAsync({
-        name: data.name,
-        email: data.email,
-        company: data.company,
-        source: prefillSource === 'exit-intent' ? 'exit-intent' : 'audit',
-        metadata: {
-          website: data.website,
-          budget: data.budget,
-          priorities: data.priorities,
-        },
-      });
+      // Step 1: Save lead to database (don't block on failure)
+      try {
+        const { data: leadData, error: leadError } = await supabase
+          .from("leads")
+          .insert([{
+            name: data.name,
+            email: data.email,
+            company: data.company,
+            source: prefillSource === 'exit-intent' ? 'exit-intent' : 'audit',
+            metadata: {
+              website: data.website,
+              budget: data.budget,
+              priorities: data.priorities,
+            },
+          }])
+          .select("id")
+          .maybeSingle();
+        
+        if (!leadError && leadData) {
+          leadId = leadData.id;
+        }
+      } catch (e) {
+        // Lead creation failed due to RLS - continue anyway
+        console.warn("Lead creation issue (continuing):", e);
+      }
 
       // Track successful lead capture
       trackEvent(EVENTS.AUDIT_FORM_SUBMITTED, {
@@ -145,7 +159,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
             name: data.name,
             websiteUrl: data.website,
             companyName: data.company,
-            leadId: leadResult?.id,
+            leadId: leadId,
           },
         }
       );

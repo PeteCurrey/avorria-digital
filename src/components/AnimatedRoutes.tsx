@@ -60,20 +60,6 @@ const Industries = lazy(() => import("@/pages/Industries"));
 const Locations = lazy(() => import("@/pages/Locations"));
 const Sitemap = lazy(() => import("@/pages/Sitemap"));
 
-// Platform pages
-const PlatformDashboard = lazy(() => import("@/pages/platform/PlatformDashboard"));
-const PlatformLeads = lazy(() => import("@/pages/platform/PlatformLeads"));
-const PlatformClients = lazy(() => import("@/pages/platform/PlatformClients"));
-const PlatformClientDetail = lazy(() => import("@/pages/platform/PlatformClientDetail"));
-const PlatformCampaigns = lazy(() => import("@/pages/platform/PlatformCampaigns"));
-const PlatformCampaignDetail = lazy(() => import("@/pages/platform/PlatformCampaignDetail"));
-const PlatformSEOWeb = lazy(() => import("@/pages/platform/PlatformSEOWeb"));
-const PlatformContent = lazy(() => import("@/pages/platform/PlatformContent"));
-const PlatformReporting = lazy(() => import("@/pages/platform/PlatformReporting"));
-const PlatformPlaybooks = lazy(() => import("@/pages/platform/PlatformPlaybooks"));
-const PlatformSettings = lazy(() => import("@/pages/platform/PlatformSettings"));
-const PlatformCaseStudies = lazy(() => import("@/pages/platform/PlatformCaseStudies"));
-
 // Client pages
 const ClientOverview = lazy(() => import("@/pages/client/ClientOverview"));
 const ClientAudits = lazy(() => import("@/pages/client/ClientAudits"));
@@ -162,74 +148,16 @@ const AnimatedRoutes = () => {
           } />
           <Route path="/unauthorized" element={<PageTransition><Unauthorized /></PageTransition>} />
           
-          {/* Admin Route */}
-          <Route path="/admin" element={<PageTransition><Admin /></PageTransition>} />
+          {/* Admin Route - Protected */}
+          <Route path="/admin" element={
+            <ProtectedRoute>
+              <PageTransition><Admin /></PageTransition>
+            </ProtectedRoute>
+          } />
 
           {/* Reporting & Dashboard */}
           <Route path="/reporting" element={<PageTransition><Reporting /></PageTransition>} />
           <Route path="/reporting/demo" element={<PageTransition><DashboardDemo /></PageTransition>} />
-          
-          {/* Platform Routes */}
-          <Route path="/platform" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformDashboard /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/leads" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformLeads /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/clients" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformClients /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/clients/:id" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformClientDetail /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/campaigns" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformCampaigns /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/campaigns/:id" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformCampaignDetail /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/seo-web" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformSEOWeb /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/content" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformContent /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/reporting" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformReporting /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/playbooks" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformPlaybooks /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/settings" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformSettings /></PageTransition>
-            </ProtectedRoute>
-          } />
-          <Route path="/platform/case-studies" element={
-            <ProtectedRoute>
-              <PageTransition><PlatformCaseStudies /></PageTransition>
-            </ProtectedRoute>
-          } />
           
           {/* Client Portal Routes */}
           <Route path="/client" element={
@@ -266,7 +194,7 @@ const AnimatedRoutes = () => {
           {/* Tools */}
           <Route path="/tools" element={<PageTransition><Tools /></PageTransition>} />
           
-{/* Service Pillar Pages */}
+          {/* Service Pillar Pages */}
           <Route path="/seo-agency" element={<PageTransition><SEOAgencyPillar /></PageTransition>} />
           <Route path="/digital-marketing-agency" element={<PageTransition><DigitalMarketingAgencyPillar /></PageTransition>} />
           <Route path="/paid-media-agency" element={<PageTransition><PaidMediaAgencyPillar /></PageTransition>} />
