@@ -61,6 +61,66 @@ export type Database = {
           },
         ]
       }
+      ai_generated_content: {
+        Row: {
+          ai_prompt: string | null
+          content: string
+          content_type: string
+          created_at: string
+          created_by: string | null
+          hashtags: string[] | null
+          id: string
+          media_urls: string[] | null
+          metadata: Json | null
+          platform: string | null
+          published_at: string | null
+          scheduled_for: string | null
+          status: string
+          target_audience: string | null
+          title: string | null
+          tone: string | null
+          updated_at: string
+        }
+        Insert: {
+          ai_prompt?: string | null
+          content: string
+          content_type: string
+          created_at?: string
+          created_by?: string | null
+          hashtags?: string[] | null
+          id?: string
+          media_urls?: string[] | null
+          metadata?: Json | null
+          platform?: string | null
+          published_at?: string | null
+          scheduled_for?: string | null
+          status?: string
+          target_audience?: string | null
+          title?: string | null
+          tone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          ai_prompt?: string | null
+          content?: string
+          content_type?: string
+          created_at?: string
+          created_by?: string | null
+          hashtags?: string[] | null
+          id?: string
+          media_urls?: string[] | null
+          metadata?: Json | null
+          platform?: string | null
+          published_at?: string | null
+          scheduled_for?: string | null
+          status?: string
+          target_audience?: string | null
+          title?: string | null
+          tone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       alerts: {
         Row: {
           client_id: string | null
@@ -669,6 +729,90 @@ export type Database = {
         }
         Relationships: []
       }
+      newsletter_subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          name: string | null
+          preferences: Json | null
+          status: string
+          subscribed_at: string
+          unsubscribed_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          name?: string | null
+          preferences?: Json | null
+          status?: string
+          subscribed_at?: string
+          unsubscribed_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string | null
+          preferences?: Json | null
+          status?: string
+          subscribed_at?: string
+          unsubscribed_at?: string | null
+        }
+        Relationships: []
+      }
+      newsletters: {
+        Row: {
+          click_count: number | null
+          content_html: string | null
+          content_json: Json | null
+          created_at: string
+          created_by: string | null
+          id: string
+          open_count: number | null
+          preview_text: string | null
+          recipient_count: number | null
+          scheduled_for: string | null
+          sent_at: string | null
+          status: string
+          subject: string
+          updated_at: string
+        }
+        Insert: {
+          click_count?: number | null
+          content_html?: string | null
+          content_json?: Json | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          open_count?: number | null
+          preview_text?: string | null
+          recipient_count?: number | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          status?: string
+          subject: string
+          updated_at?: string
+        }
+        Update: {
+          click_count?: number | null
+          content_html?: string | null
+          content_json?: Json | null
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          open_count?: number | null
+          preview_text?: string | null
+          recipient_count?: number | null
+          scheduled_for?: string | null
+          sent_at?: string | null
+          status?: string
+          subject?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -794,6 +938,75 @@ export type Database = {
           report_type?: string
           schedule?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      seo_integrations: {
+        Row: {
+          config: Json | null
+          created_at: string
+          id: string
+          integration_type: string
+          is_active: boolean | null
+          last_sync_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          config?: Json | null
+          created_at?: string
+          id?: string
+          integration_type: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          config?: Json | null
+          created_at?: string
+          id?: string
+          integration_type?: string
+          is_active?: boolean | null
+          last_sync_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      seo_rankings: {
+        Row: {
+          difficulty: number | null
+          id: string
+          keyword: string
+          metadata: Json | null
+          position: number | null
+          previous_position: number | null
+          recorded_at: string
+          search_volume: number | null
+          source: string | null
+          url: string
+        }
+        Insert: {
+          difficulty?: number | null
+          id?: string
+          keyword: string
+          metadata?: Json | null
+          position?: number | null
+          previous_position?: number | null
+          recorded_at?: string
+          search_volume?: number | null
+          source?: string | null
+          url: string
+        }
+        Update: {
+          difficulty?: number | null
+          id?: string
+          keyword?: string
+          metadata?: Json | null
+          position?: number | null
+          previous_position?: number | null
+          recorded_at?: string
+          search_volume?: number | null
+          source?: string | null
+          url?: string
         }
         Relationships: []
       }

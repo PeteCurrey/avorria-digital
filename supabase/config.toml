@@ -26,3 +26,18 @@ verify_jwt = false
 
 [functions.generate-audit-pdf]
 verify_jwt = false
+
+[functions.generate-content]
+verify_jwt = false
+
+[functions.generate-image]
+verify_jwt = false
+
+[functions.send-newsletter]
+verify_jwt = false
+
+[functions.dataforseo]
+verify_jwt = false
+
+[functions.serpapi]
+verify_jwt = false
