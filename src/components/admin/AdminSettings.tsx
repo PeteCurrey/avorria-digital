@@ -105,9 +105,24 @@ interface Integration {
   id: string;
   name: string;
   description: string;
-  status: "connected" | "not-connected" | "error";
+  status: "connected" | "not-connected" | "error" | "testing";
   lastSync: string | null;
   icon: React.ElementType;
+  testEndpoint?: string;
+  dataType?: string;
+}
+
+interface IntegrationTestResult {
+  configured: boolean;
+  error?: string;
+  totals?: {
+    clicks?: number;
+    impressions?: number;
+    sessions?: number;
+    users?: number;
+    pageViews?: number;
+  };
+  mockData?: boolean;
 }
 
 export default function AdminSettings() {
@@ -209,37 +224,50 @@ export default function AdminSettings() {
     },
   ];
 
+  const [integrationStatuses, setIntegrationStatuses] = useState<Record<string, Integration["status"]>>({
+    ga: "not-connected",
+    gsc: "not-connected",
+    slack: "not-connected",
+    zapier: "not-connected",
+  });
+  const [integrationLastSync, setIntegrationLastSync] = useState<Record<string, string | null>>({});
+  const [integrationResults, setIntegrationResults] = useState<Record<string, IntegrationTestResult | null>>({});
+
   const integrations: Integration[] = [
     {
       id: "ga",
       name: "Google Analytics",
       description: "Pull analytics data for reporting",
-      status: "not-connected",
-      lastSync: null,
-      icon: Globe,
+      status: integrationStatuses.ga,
+      lastSync: integrationLastSync.ga || null,
+      icon: BarChart3,
+      testEndpoint: "google-analytics",
+      dataType: "analytics",
     },
     {
       id: "gsc",
       name: "Google Search Console",
       description: "Access search performance and indexing",
-      status: "not-connected",
-      lastSync: null,
-      icon: Database,
+      status: integrationStatuses.gsc,
+      lastSync: integrationLastSync.gsc || null,
+      icon: Search,
+      testEndpoint: "google-search-console",
+      dataType: "search",
     },
     {
       id: "slack",
       name: "Slack",
       description: "Team notifications and alerts",
-      status: "not-connected",
-      lastSync: null,
+      status: integrationStatuses.slack,
+      lastSync: integrationLastSync.slack || null,
       icon: Bell,
     },
     {
       id: "zapier",
       name: "Zapier",
       description: "Connect with 5000+ apps",
-      status: "not-connected",
-      lastSync: null,
+      status: integrationStatuses.zapier,
+      lastSync: integrationLastSync.zapier || null,
       icon: Zap,
     },
   ];
@@ -361,11 +389,60 @@ export default function AdminSettings() {
     }
   };
 
+  const handleTestIntegration = async (integration: Integration) => {
+    if (!integration.testEndpoint) {
+      toast.info(`${integration.name} does not support live testing yet`);
+      return;
+    }
+
+    setIntegrationStatuses(prev => ({ ...prev, [integration.id]: "testing" }));
+    
+    try {
+      const { data, error } = await supabase.functions.invoke(integration.testEndpoint, {
+        body: {},
+      });
+
+      if (error) throw error;
+
+      const result = data as IntegrationTestResult;
+      setIntegrationResults(prev => ({ ...prev, [integration.id]: result }));
+
+      if (result.configured && !result.mockData) {
+        setIntegrationStatuses(prev => ({ ...prev, [integration.id]: "connected" }));
+        setIntegrationLastSync(prev => ({ ...prev, [integration.id]: new Date().toLocaleString() }));
+        toast.success(`${integration.name} connected - Real data available!`, {
+          description: integration.id === "ga" 
+            ? `Sessions: ${result.totals?.sessions?.toLocaleString() || 0}`
+            : `Clicks: ${result.totals?.clicks?.toLocaleString() || 0}`,
+        });
+      } else if (result.mockData) {
+        setIntegrationStatuses(prev => ({ ...prev, [integration.id]: "not-connected" }));
+        toast.warning(`${integration.name} not configured`, {
+          description: "Using mock data. Add service account JSON to enable real data.",
+        });
+      } else {
+        setIntegrationStatuses(prev => ({ ...prev, [integration.id]: "error" }));
+        toast.error(`${integration.name} configuration error`, {
+          description: result.error || "Check your credentials",
+        });
+      }
+    } catch (error) {
+      console.error(`Error testing ${integration.name}:`, error);
+      setIntegrationStatuses(prev => ({ ...prev, [integration.id]: "error" }));
+      toast.error(`Failed to test ${integration.name}`, {
+        description: error instanceof Error ? error.message : "Unknown error",
+      });
+    }
+  };
+
   const handleConnectIntegration = (integration: Integration) => {
-    if (integration.status === "connected") {
+    if (integration.testEndpoint) {
+      handleTestIntegration(integration);
+    } else if (integration.status === "connected") {
       toast.success(`${integration.name} disconnected`);
+      setIntegrationStatuses(prev => ({ ...prev, [integration.id]: "not-connected" }));
     } else {
-      toast.success(`${integration.name} connected successfully`);
+      toast.info(`${integration.name} integration coming soon`);
     }
   };
 
@@ -410,6 +487,8 @@ export default function AdminSettings() {
         return "bg-green-500/20 text-green-400 border-green-500/30";
       case "error":
         return "bg-red-500/20 text-red-400 border-red-500/30";
+      case "testing":
+        return "bg-amber-500/20 text-amber-400 border-amber-500/30";
       default:
         return "bg-muted text-muted-foreground border-border";
     }
@@ -696,67 +775,214 @@ export default function AdminSettings() {
         <TabsContent value="integrations" className="space-y-4">
           <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
             <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <LinkIcon className="h-5 w-5 text-primary" />
-                Connected Integrations
-              </CardTitle>
-              <CardDescription>
-                Manage connections to external tools and platforms
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <LinkIcon className="h-5 w-5 text-primary" />
+                    Connected Integrations
+                  </CardTitle>
+                  <CardDescription>
+                    Manage connections to external tools and platforms
+                  </CardDescription>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    integrations.filter(i => i.testEndpoint).forEach(i => handleTestIntegration(i));
+                  }}
+                  className="border-border/50"
+                >
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Test All
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-4">
-                {integrations.map((integration, idx) => (
-                  <motion.div
-                    key={integration.id}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.05 * idx }}
-                    className="p-4 border border-border/50 rounded-lg bg-background/50 hover:bg-muted/30 transition-colors"
-                  >
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="p-2 rounded-lg bg-primary/10">
-                          <integration.icon className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <div className="flex items-center gap-2 mb-1">
-                            <h3 className="font-medium">{integration.name}</h3>
-                            <Badge
-                              variant="outline"
-                              className={getIntegrationStatusColor(integration.status)}
-                            >
-                              {integration.status === "connected" ? (
-                                <CheckCircle className="h-3 w-3 mr-1" />
-                              ) : integration.status === "error" ? (
-                                <AlertTriangle className="h-3 w-3 mr-1" />
-                              ) : null}
-                              {integration.status === "connected" ? "Connected" : integration.status === "error" ? "Error" : "Not Connected"}
-                            </Badge>
+                {integrations.map((integration, idx) => {
+                  const result = integrationResults[integration.id];
+                  return (
+                    <motion.div
+                      key={integration.id}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.05 * idx }}
+                      className={`p-4 border rounded-lg transition-colors ${
+                        integration.status === "connected"
+                          ? "border-green-500/30 bg-green-500/5"
+                          : integration.status === "error"
+                          ? "border-red-500/30 bg-red-500/5"
+                          : "border-border/50 bg-background/50 hover:bg-muted/30"
+                      }`}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex items-center gap-3">
+                          <div className={`p-2 rounded-lg ${
+                            integration.status === "connected"
+                              ? "bg-green-500/20"
+                              : integration.status === "error"
+                              ? "bg-red-500/20"
+                              : "bg-primary/10"
+                          }`}>
+                            <integration.icon className={`h-5 w-5 ${
+                              integration.status === "connected"
+                                ? "text-green-400"
+                                : integration.status === "error"
+                                ? "text-red-400"
+                                : "text-primary"
+                            }`} />
                           </div>
-                          <p className="text-sm text-muted-foreground">
-                            {integration.description}
-                          </p>
-                          {integration.lastSync && (
-                            <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
-                              <Clock className="h-3 w-3" />
-                              Last synced: {integration.lastSync}
+                          <div>
+                            <div className="flex items-center gap-2 mb-1">
+                              <h3 className="font-medium">{integration.name}</h3>
+                              <Badge
+                                variant="outline"
+                                className={getIntegrationStatusColor(integration.status)}
+                              >
+                                {integration.status === "connected" ? (
+                                  <CheckCircle className="h-3 w-3 mr-1" />
+                                ) : integration.status === "error" ? (
+                                  <AlertTriangle className="h-3 w-3 mr-1" />
+                                ) : integration.status === "testing" ? (
+                                  <RefreshCw className="h-3 w-3 mr-1 animate-spin" />
+                                ) : null}
+                                {integration.status === "connected" 
+                                  ? "Connected" 
+                                  : integration.status === "error" 
+                                  ? "Error" 
+                                  : integration.status === "testing"
+                                  ? "Testing..."
+                                  : "Not Connected"}
+                              </Badge>
+                            </div>
+                            <p className="text-sm text-muted-foreground">
+                              {integration.description}
                             </p>
-                          )}
+                            {integration.lastSync && (
+                              <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                                <Clock className="h-3 w-3" />
+                                Last synced: {integration.lastSync}
+                              </p>
+                            )}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div className="mt-3 flex justify-end">
-                      <Button
-                        variant={integration.status === "connected" ? "outline" : "default"}
-                        size="sm"
-                        onClick={() => handleConnectIntegration(integration)}
-                      >
-                        {integration.status === "connected" ? "Disconnect" : "Connect"}
-                      </Button>
-                    </div>
-                  </motion.div>
-                ))}
+                      
+                      {/* Live data preview */}
+                      {integration.status === "connected" && result?.totals && (
+                        <div className="mt-3 pt-3 border-t border-border/30 grid grid-cols-2 gap-2">
+                          {integration.id === "ga" && (
+                            <>
+                              <div className="text-center p-2 bg-background/50 rounded">
+                                <p className="text-lg font-bold text-foreground">
+                                  {result.totals.sessions?.toLocaleString() || 0}
+                                </p>
+                                <p className="text-xs text-muted-foreground">Sessions</p>
+                              </div>
+                              <div className="text-center p-2 bg-background/50 rounded">
+                                <p className="text-lg font-bold text-foreground">
+                                  {result.totals.pageViews?.toLocaleString() || 0}
+                                </p>
+                                <p className="text-xs text-muted-foreground">Page Views</p>
+                              </div>
+                            </>
+                          )}
+                          {integration.id === "gsc" && (
+                            <>
+                              <div className="text-center p-2 bg-background/50 rounded">
+                                <p className="text-lg font-bold text-foreground">
+                                  {result.totals.clicks?.toLocaleString() || 0}
+                                </p>
+                                <p className="text-xs text-muted-foreground">Clicks</p>
+                              </div>
+                              <div className="text-center p-2 bg-background/50 rounded">
+                                <p className="text-lg font-bold text-foreground">
+                                  {result.totals.impressions?.toLocaleString() || 0}
+                                </p>
+                                <p className="text-xs text-muted-foreground">Impressions</p>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className="mt-3 flex justify-end gap-2">
+                        {integration.testEndpoint && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => handleTestIntegration(integration)}
+                            disabled={integration.status === "testing"}
+                          >
+                            {integration.status === "testing" ? (
+                              <>
+                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                                Testing...
+                              </>
+                            ) : (
+                              <>
+                                <TestTube className="h-4 w-4 mr-2" />
+                                Test
+                              </>
+                            )}
+                          </Button>
+                        )}
+                        <Button
+                          variant={integration.status === "connected" ? "outline" : "default"}
+                          size="sm"
+                          onClick={() => handleConnectIntegration(integration)}
+                          disabled={integration.status === "testing"}
+                        >
+                          {integration.status === "connected" ? "Refresh" : integration.testEndpoint ? "Connect" : "Coming Soon"}
+                        </Button>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </Card>
+          
+          {/* Integration Setup Guide */}
+          <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Settings className="h-5 w-5 text-primary" />
+                Integration Setup Guide
+              </CardTitle>
+              <CardDescription>
+                How to connect Google Analytics and Search Console
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+                <h4 className="font-medium flex items-center gap-2">
+                  <BarChart3 className="h-4 w-4 text-primary" />
+                  Google Analytics & Search Console Setup
+                </h4>
+                <ol className="text-sm text-muted-foreground space-y-2 list-decimal list-inside">
+                  <li>Create a Google Cloud Project and enable Analytics Data API + Search Console API</li>
+                  <li>Create a Service Account with Viewer permissions</li>
+                  <li>Download the JSON key file</li>
+                  <li>Add the service account email to your GA4 property (Admin → Property Access Management)</li>
+                  <li>Add the service account email to Search Console (Settings → Users and permissions)</li>
+                  <li>Configure the secrets in Lovable Cloud (GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_ANALYTICS_PROPERTY_ID)</li>
+                </ol>
+                <div className="flex gap-2 pt-2">
+                  <Button variant="outline" size="sm" asChild>
+                    <a href="https://console.cloud.google.com/apis/credentials" target="_blank" rel="noopener noreferrer">
+                      Google Cloud Console
+                      <ExternalLink className="h-3 w-3 ml-1" />
+                    </a>
+                  </Button>
+                  <Button variant="outline" size="sm" asChild>
+                    <a href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer">
+                      Search Console
+                      <ExternalLink className="h-3 w-3 ml-1" />
+                    </a>
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
