@@ -1,7 +1,8 @@
 import { useState } from "react";
+import { useSearchParams, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
-import { format, formatDistanceToNow } from "date-fns";
+import { format } from "date-fns";
 import { 
   LayoutDashboard, 
   Users, 
@@ -16,15 +17,11 @@ import {
   RefreshCw,
   Trash2,
   Globe,
-  Gauge,
-  Map,
-  Settings,
   Eye,
   MousePointerClick,
   Clock,
-  ChevronRight,
-  FileText
 } from "lucide-react";
+import AdminLayout from "@/components/admin/AdminLayout";
 import PerformanceTab from "@/components/admin/PerformanceTab";
 import EnhancedSitemapManager from "@/components/admin/EnhancedSitemapManager";
 import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
@@ -34,10 +31,12 @@ import RealTimeActivityFeed from "@/components/admin/RealTimeActivityFeed";
 import SystemHealthMonitor from "@/components/admin/SystemHealthMonitor";
 import ContentCalendar from "@/components/admin/ContentCalendar";
 import ReportGenerator from "@/components/admin/ReportGenerator";
+import ContentStudio from "@/components/admin/ContentStudio";
+import NewsletterBuilder from "@/components/admin/NewsletterBuilder";
+import IntegrationsPanel from "@/components/admin/IntegrationsPanel";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { 
   Table, 
@@ -55,24 +54,15 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Progress } from "@/components/ui/progress";
 import { StaticBeamBorder, BeamBorder } from "@/components/BeamBorder";
 import { useLeadsAdmin, useUpdateLead, useDeleteLead, useLeadStats } from "@/hooks/useLeads";
 import { useLatestAnalyticsSnapshot } from "@/hooks/useAnalyticsSnapshots";
 import { useClients } from "@/hooks/useClients";
 import { useAlerts } from "@/hooks/useAlerts";
-import heroPenthouse from "@/assets/hero-penthouse.png";
-
-// Quick actions data
-const quickActions = [
-  { label: "Export Leads", icon: Download, action: "export-leads" },
-  { label: "Run SEO Audit", icon: Search, action: "seo-audit" },
-  { label: "View Reports", icon: BarChart3, action: "view-reports" },
-  { label: "Settings", icon: Settings, action: "settings" },
-];
 
 const Admin = () => {
-  const [activeTab, setActiveTab] = useState("overview");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const activeTab = searchParams.get("tab") || "overview";
   const [leadsSearchQuery, setLeadsSearchQuery] = useState("");
 
   // Real data hooks
@@ -98,7 +88,6 @@ const Admin = () => {
   };
 
   // Analytics data from database or show empty state
-  const hasAnalytics = !!analyticsSnapshot;
   const pageViews = analyticsSnapshot?.page_views || 0;
   const uniqueVisitors = analyticsSnapshot?.unique_visitors || 0;
   const bounceRate = analyticsSnapshot?.bounce_rate || 0;
@@ -107,8 +96,9 @@ const Admin = () => {
   const conversions = (analyticsSnapshot?.conversions as Record<string, number>) || {};
   const totalConversions = Object.values(conversions).reduce((sum, val) => sum + (val || 0), 0);
 
-  // Real alert count
-  const unresolvedAlerts = alerts?.length || 0;
+  const navigateToTab = (tab: string) => {
+    setSearchParams({ tab });
+  };
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -127,625 +117,504 @@ const Admin = () => {
     }
   };
 
-  const handleQuickAction = (action: string) => {
-    switch (action) {
+  const handleExportLeads = () => {
+    if (leads && leads.length > 0) {
+      const csv = [
+        ["Name", "Email", "Company", "Phone", "Source", "Status", "Created At"],
+        ...leads.map(l => [l.name, l.email, l.company || "", l.phone || "", l.source, l.status, l.created_at])
+      ].map(row => row.join(",")).join("\n");
+      
+      const blob = new Blob([csv], { type: "text/csv" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `leads-${format(new Date(), "yyyy-MM-dd")}.csv`;
+      a.click();
+    }
+  };
+
+  const getPageTitle = () => {
+    switch (activeTab) {
+      case "overview": return "Dashboard Overview";
+      case "leads": return "Lead Management";
+      case "analytics": return "Analytics";
+      case "performance": return "Performance";
+      case "seo": return "SEO Dashboard";
+      case "sitemap": return "Sitemap Manager";
+      case "content": return "Content Calendar";
+      case "content-studio": return "AI Content Studio";
+      case "newsletter": return "Newsletter Builder";
+      case "reports": return "Reports";
+      case "integrations": return "Integrations";
+      case "settings": return "Settings";
+      default: return "Admin Dashboard";
+    }
+  };
+
+  const getPageSubtitle = () => {
+    switch (activeTab) {
+      case "overview": return "Monitor your key metrics and recent activity";
+      case "leads": return "Track and manage your sales leads";
+      case "analytics": return "Deep dive into your website analytics";
+      case "performance": return "Monitor site speed and Core Web Vitals";
+      case "seo": return "Track SEO performance and rankings";
+      case "sitemap": return "Manage your sitemap and indexing";
+      case "content": return "Plan and schedule your content";
+      case "content-studio": return "Generate AI-powered content at scale";
+      case "newsletter": return "Design and send beautiful newsletters";
+      case "reports": return "Generate and schedule reports";
+      case "integrations": return "Connect third-party services";
+      case "settings": return "Configure your admin preferences";
+      default: return "";
+    }
+  };
+
+  const renderContent = () => {
+    switch (activeTab) {
+      case "overview":
+        return (
+          <div className="space-y-6">
+            {/* System Status & Activity Row */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <SystemHealthMonitor />
+              <div className="md:col-span-2">
+                <RealTimeActivityFeed />
+              </div>
+            </div>
+
+            {/* KPI Cards with Beam Borders */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <StaticBeamBorder duration={4}>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <Users className="h-5 w-5 text-primary/70" />
+                    <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">
+                      +{stats.new} new
+                    </Badge>
+                  </div>
+                  <motion.p 
+                    className="text-2xl font-bold text-foreground"
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 200 }}
+                  >
+                    {leads?.length || 0}
+                  </motion.p>
+                  <p className="text-sm text-muted-foreground">Total Leads</p>
+                </CardContent>
+              </StaticBeamBorder>
+
+              <BeamBorder>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <Eye className="h-5 w-5 text-primary/70" />
+                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      +15%
+                    </Badge>
+                  </div>
+                  {analyticsLoading ? (
+                    <Skeleton className="h-8 w-16" />
+                  ) : (
+                    <motion.p 
+                      className="text-2xl font-bold text-foreground"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      {pageViews.toLocaleString()}
+                    </motion.p>
+                  )}
+                  <p className="text-sm text-muted-foreground">Page Views</p>
+                </CardContent>
+              </BeamBorder>
+
+              <BeamBorder>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <MousePointerClick className="h-5 w-5 text-primary/70" />
+                    <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs">
+                      2.4% rate
+                    </Badge>
+                  </div>
+                  {analyticsLoading ? (
+                    <Skeleton className="h-8 w-16" />
+                  ) : (
+                    <motion.p 
+                      className="text-2xl font-bold text-foreground"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                    >
+                      {totalConversions || stats.converted}
+                    </motion.p>
+                  )}
+                  <p className="text-sm text-muted-foreground">Conversions</p>
+                </CardContent>
+              </BeamBorder>
+
+              <BeamBorder>
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <Clock className="h-5 w-5 text-primary/70" />
+                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                      <TrendingUp className="h-3 w-3 mr-1" />
+                      +8%
+                    </Badge>
+                  </div>
+                  <motion.p 
+                    className="text-2xl font-bold text-foreground"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                  >
+                    {avgSessionDuration || '3m 24s'}
+                  </motion.p>
+                  <p className="text-sm text-muted-foreground">Avg. Session</p>
+                </CardContent>
+              </BeamBorder>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              {/* Recent Leads */}
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm cursor-pointer hover:border-accent/50 transition-colors" onClick={() => navigateToTab("leads")}>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span>Recent Leads</span>
+                    <Button variant="ghost" size="sm">
+                      View All <ArrowUpRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {leadsLoading ? (
+                      <div className="space-y-3">
+                        {[...Array(3)].map((_, i) => (
+                          <Skeleton key={i} className="h-16 w-full" />
+                        ))}
+                      </div>
+                    ) : leads?.length === 0 ? (
+                      <p className="text-muted-foreground text-center py-4">No leads yet</p>
+                    ) : (
+                      leads?.slice(0, 4).map((lead, idx) => (
+                        <motion.div 
+                          key={lead.id} 
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.05 * idx }}
+                          className="flex items-center justify-between p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
+                        >
+                          <div>
+                            <p className="font-medium text-foreground">{lead.name}</p>
+                            <p className="text-sm text-muted-foreground">{lead.source}</p>
+                          </div>
+                          {getStatusBadge(lead.status)}
+                        </motion.div>
+                      ))
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Top Pages */}
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm cursor-pointer hover:border-accent/50 transition-colors" onClick={() => navigateToTab("analytics")}>
+                <CardHeader>
+                  <CardTitle className="flex items-center justify-between">
+                    <span>Top Pages</span>
+                    <Button variant="ghost" size="sm">
+                      View All <ArrowUpRight className="h-4 w-4 ml-1" />
+                    </Button>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {analyticsLoading ? (
+                      <div className="space-y-3">
+                        {[...Array(4)].map((_, i) => (
+                          <Skeleton key={i} className="h-12 w-full" />
+                        ))}
+                      </div>
+                    ) : topPages.length === 0 ? (
+                      <div className="text-center py-8">
+                        <BarChart3 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                        <p className="text-muted-foreground mb-2">No analytics data yet</p>
+                        <p className="text-sm text-muted-foreground">Connect Google Analytics or add data manually</p>
+                      </div>
+                    ) : (
+                      topPages.slice(0, 4).map((page, idx) => (
+                        <motion.div 
+                          key={idx} 
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: 0.05 * idx }}
+                          className="flex items-center justify-between p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
+                        >
+                          <div>
+                            <p className="font-medium text-foreground">{page.path}</p>
+                            <p className="text-sm text-muted-foreground">{page.views.toLocaleString()} views</p>
+                          </div>
+                          {page.change !== undefined && (
+                            <Badge className={`${page.change >= 0 ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30'}`}>
+                              {page.change >= 0 ? '+' : ''}{page.change}%
+                            </Badge>
+                          )}
+                        </motion.div>
+                      ))
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Lead Funnel Visualization */}
+            <Card className="bg-card/50 border-border/50 backdrop-blur-sm cursor-pointer hover:border-accent/50 transition-colors" onClick={() => navigateToTab("leads")}>
+              <CardHeader>
+                <CardTitle>Lead Pipeline</CardTitle>
+                <CardDescription>Current lead distribution by status</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {[
+                    { label: "New", value: stats.new, color: "bg-blue-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
+                    { label: "Contacted", value: stats.contacted, color: "bg-yellow-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
+                    { label: "Qualified", value: stats.qualified, color: "bg-purple-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
+                    { label: "Converted", value: stats.converted, color: "bg-green-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
+                  ].map((stage, idx) => (
+                    <motion.div
+                      key={stage.label}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 * idx }}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="text-sm font-medium">{stage.label}</span>
+                        <span className="text-sm text-muted-foreground">{stage.value}</span>
+                      </div>
+                      <div className="h-8 bg-muted/30 rounded-lg overflow-hidden">
+                        <motion.div
+                          className={`h-full ${stage.color} rounded-lg flex items-center justify-end pr-3`}
+                          initial={{ width: 0 }}
+                          animate={{ width: `${(stage.value / stage.maxWidth) * 100}%` }}
+                          transition={{ duration: 0.8, delay: 0.1 * idx }}
+                        >
+                          {stage.value > 0 && (
+                            <span className="text-xs font-bold text-white">{stage.value}</span>
+                          )}
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        );
+
+      case "leads":
+        return (
+          <div className="space-y-6">
+            <div className="flex flex-col sm:flex-row gap-4 justify-between">
+              <div className="relative flex-1 max-w-md">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  placeholder="Search leads..."
+                  value={leadsSearchQuery}
+                  onChange={(e) => setLeadsSearchQuery(e.target.value)}
+                  className="pl-10 bg-card/50 border-border/50"
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button 
+                  variant="outline" 
+                  className="border-border/50"
+                  onClick={handleExportLeads}
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  Export CSV
+                </Button>
+                <Button variant="outline" className="border-border/50" onClick={() => refetchLeads()}>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
+            </div>
+
+            {/* Lead Stats */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              <Card className="bg-card/50 border-border/50">
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold text-blue-400">{stats.new}</p>
+                  <p className="text-sm text-muted-foreground">New</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/50 border-border/50">
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold text-yellow-400">{stats.contacted}</p>
+                  <p className="text-sm text-muted-foreground">Contacted</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/50 border-border/50">
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold text-purple-400">{stats.qualified}</p>
+                  <p className="text-sm text-muted-foreground">Qualified</p>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/50 border-border/50">
+                <CardContent className="p-4 text-center">
+                  <p className="text-2xl font-bold text-green-400">{stats.converted}</p>
+                  <p className="text-sm text-muted-foreground">Converted</p>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Leads Table */}
+            <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+              <CardContent className="p-0">
+                {leadsLoading ? (
+                  <div className="p-8 text-center text-muted-foreground">Loading leads...</div>
+                ) : filteredLeads?.length === 0 ? (
+                  <div className="p-8 text-center text-muted-foreground">No leads found</div>
+                ) : (
+                  <Table>
+                    <TableHeader>
+                      <TableRow className="border-border/50">
+                        <TableHead>Name</TableHead>
+                        <TableHead>Contact</TableHead>
+                        <TableHead>Source</TableHead>
+                        <TableHead>Status</TableHead>
+                        <TableHead>Date</TableHead>
+                        <TableHead className="text-right">Actions</TableHead>
+                      </TableRow>
+                    </TableHeader>
+                    <TableBody>
+                      {filteredLeads?.map((lead) => (
+                        <TableRow key={lead.id} className="border-border/50">
+                          <TableCell>
+                            <div>
+                              <p className="font-medium">{lead.name}</p>
+                              {lead.company && <p className="text-sm text-muted-foreground">{lead.company}</p>}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <div className="space-y-1">
+                              <div className="flex items-center gap-2 text-sm">
+                                <Mail className="h-3 w-3 text-muted-foreground" />
+                                {lead.email}
+                              </div>
+                              {lead.phone && (
+                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                                  <Phone className="h-3 w-3" />
+                                  {lead.phone}
+                                </div>
+                              )}
+                            </div>
+                          </TableCell>
+                          <TableCell>
+                            <Badge variant="outline" className="capitalize">{lead.source}</Badge>
+                          </TableCell>
+                          <TableCell>
+                            <Select
+                              value={lead.status}
+                              onValueChange={(value) => updateLead.mutate({ id: lead.id, updates: { status: value } })}
+                            >
+                              <SelectTrigger className="w-32 h-8">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectItem value="new">New</SelectItem>
+                                <SelectItem value="contacted">Contacted</SelectItem>
+                                <SelectItem value="qualified">Qualified</SelectItem>
+                                <SelectItem value="converted">Converted</SelectItem>
+                                <SelectItem value="lost">Lost</SelectItem>
+                              </SelectContent>
+                            </Select>
+                          </TableCell>
+                          <TableCell>
+                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                              <Calendar className="h-3 w-3" />
+                              {format(new Date(lead.created_at), 'MMM d, yyyy')}
+                            </div>
+                          </TableCell>
+                          <TableCell className="text-right">
+                            <Button 
+                              variant="ghost" 
+                              size="icon"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => {
+                                if (confirm("Delete this lead?")) {
+                                  deleteLead.mutate(lead.id);
+                                }
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                )}
+              </CardContent>
+            </Card>
+          </div>
+        );
+
+      case "analytics":
+        return (
+          <AnalyticsCharts 
+            analyticsData={{
+              pageViews,
+              uniqueVisitors,
+              bounceRate,
+              avgSessionDuration,
+            }}
+          />
+        );
+
+      case "performance":
+        return <PerformanceTab />;
+
+      case "seo":
+        return <SEODashboard />;
+
+      case "sitemap":
+        return <EnhancedSitemapManager />;
+
+      case "content":
+        return <ContentCalendar />;
+
+      case "content-studio":
+        return <ContentStudio />;
+
+      case "newsletter":
+        return <NewsletterBuilder />;
+
+      case "reports":
+        return <ReportGenerator />;
+
+      case "integrations":
+        return <IntegrationsPanel />;
+
       case "settings":
-        setActiveTab("settings");
-        break;
-      case "seo-audit":
-        setActiveTab("seo");
-        break;
-      case "view-reports":
-        setActiveTab("analytics");
-        break;
-      case "export-leads":
-        // Export leads as CSV
-        if (leads && leads.length > 0) {
-          const csv = [
-            ["Name", "Email", "Company", "Phone", "Source", "Status", "Created At"],
-            ...leads.map(l => [l.name, l.email, l.company || "", l.phone || "", l.source, l.status, l.created_at])
-          ].map(row => row.join(",")).join("\n");
-          
-          const blob = new Blob([csv], { type: "text/csv" });
-          const url = URL.createObjectURL(blob);
-          const a = document.createElement("a");
-          a.href = url;
-          a.download = `leads-${format(new Date(), "yyyy-MM-dd")}.csv`;
-          a.click();
-        }
-        break;
+        return <AdminSettings />;
+
+      default:
+        return (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Select a section from the sidebar</p>
+          </div>
+        );
     }
   };
 
   return (
     <>
       <Helmet>
-        <title>Admin Dashboard | Avorria</title>
+        <title>{getPageTitle()} | Avorria Admin</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
-      <main className="min-h-screen bg-background">
-        {/* Hero Header with Background Image */}
-        <section 
-          className="relative pt-24 pb-12 overflow-hidden"
-          style={{
-            backgroundImage: `url(${heroPenthouse})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center top",
-          }}
-        >
-          {/* Dark overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background" />
-          
-          {/* Animated grid overlay */}
-          <div className="absolute inset-0 opacity-10">
-            <div 
-              className="absolute inset-0" 
-              style={{
-                backgroundImage: `linear-gradient(hsl(var(--primary)/0.3) 1px, transparent 1px), 
-                                  linear-gradient(90deg, hsl(var(--primary)/0.3) 1px, transparent 1px)`,
-                backgroundSize: '40px 40px',
-              }}
-            />
-          </div>
-
-          {/* Gradient orbs */}
-          <div className="absolute top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
-          <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
-          
-          <div className="container mx-auto px-4 relative z-10">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="flex flex-col md:flex-row md:items-center md:justify-between gap-6"
-            >
-              <div>
-                <div className="flex items-center gap-3 mb-2">
-                  <div className="p-2 bg-primary/20 rounded-lg backdrop-blur-sm border border-primary/30">
-                    <LayoutDashboard className="h-6 w-6 text-primary" />
-                  </div>
-                  <Badge className="bg-green-500/20 text-green-400 border-green-500/30 backdrop-blur-sm">
-                    <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse" />
-                    System Online
-                  </Badge>
-                  {unresolvedAlerts > 0 && (
-                    <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 backdrop-blur-sm">
-                      {unresolvedAlerts} Alert{unresolvedAlerts > 1 ? 's' : ''}
-                    </Badge>
-                  )}
-                </div>
-                <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">
-                  Admin Dashboard
-                </h1>
-                <p className="text-white/70 max-w-lg">
-                  Manage leads, analytics, SEO performance, and site health for avorria.com
-                </p>
-              </div>
-              
-              {/* Quick Actions */}
-              <div className="flex flex-wrap gap-2">
-                {quickActions.map((action, idx) => (
-                  <motion.div
-                    key={action.action}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.1 * idx }}
-                  >
-                    <Button 
-                      variant="outline" 
-                      className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:border-white/40 transition-all"
-                      onClick={() => handleQuickAction(action.action)}
-                    >
-                      <action.icon className="h-4 w-4 mr-2" />
-                      {action.label}
-                    </Button>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Hero Stats Row */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-              {[
-                { label: "Total Leads", value: leads?.length || 0, icon: Users, color: "text-primary", change: `+${stats.new} new` },
-                { label: "Active Clients", value: clients?.length || 0, icon: Globe, color: "text-blue-400", change: "+2 this month" },
-                { label: "Conversions", value: totalConversions || stats.converted, icon: MousePointerClick, color: "text-green-400", change: "2.4% rate" },
-                { label: "Page Views", value: pageViews.toLocaleString(), icon: Eye, color: "text-purple-400", change: "+15%" },
-              ].map((stat, idx) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.15 * idx }}
-                >
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 hover:bg-white/15 transition-colors">
-                    <div className="flex items-center justify-between mb-2">
-                      <stat.icon className={`h-5 w-5 ${stat.color}`} />
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                        {stat.change}
-                      </Badge>
-                    </div>
-                    <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
-                    <p className="text-sm text-white/60">{stat.label}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Main Content */}
-        <div className="container mx-auto px-4 py-8">
-          {/* System Status & Activity Row */}
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {/* System Health Monitor */}
-            <SystemHealthMonitor />
-
-            {/* Real-time Activity Feed */}
-            <div className="md:col-span-2">
-              <RealTimeActivityFeed />
-            </div>
-          </div>
-
-          {/* Tabs */}
-          <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="bg-card/50 border border-border/50 p-1 backdrop-blur-sm flex-wrap h-auto">
-              <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <LayoutDashboard className="h-4 w-4 mr-2" />
-                Overview
-              </TabsTrigger>
-              <TabsTrigger value="leads" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Users className="h-4 w-4 mr-2" />
-                Leads
-              </TabsTrigger>
-              <TabsTrigger value="analytics" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <BarChart3 className="h-4 w-4 mr-2" />
-                Analytics
-              </TabsTrigger>
-              <TabsTrigger value="performance" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Gauge className="h-4 w-4 mr-2" />
-                Performance
-              </TabsTrigger>
-              <TabsTrigger value="seo" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Globe className="h-4 w-4 mr-2" />
-                SEO & Health
-              </TabsTrigger>
-              <TabsTrigger value="sitemap" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Map className="h-4 w-4 mr-2" />
-                Sitemap
-              </TabsTrigger>
-              <TabsTrigger value="content" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Calendar className="h-4 w-4 mr-2" />
-                Content
-              </TabsTrigger>
-              <TabsTrigger value="reports" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <FileText className="h-4 w-4 mr-2" />
-                Reports
-              </TabsTrigger>
-              <TabsTrigger value="settings" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
-                <Settings className="h-4 w-4 mr-2" />
-                Settings
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Overview Tab */}
-            <TabsContent value="overview" className="space-y-6">
-              {/* KPI Cards with Beam Borders */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <StaticBeamBorder duration={4}>
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <Users className="h-5 w-5 text-primary/70" />
-                      <Badge className="bg-blue-500/20 text-blue-400 border-blue-500/30 text-xs">
-                        +{stats.new} new
-                      </Badge>
-                    </div>
-                    <motion.p 
-                      className="text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ type: "spring", stiffness: 200 }}
-                    >
-                      {leads?.length || 0}
-                    </motion.p>
-                    <p className="text-sm text-muted-foreground">Total Leads</p>
-                  </CardContent>
-                </StaticBeamBorder>
-
-                <BeamBorder>
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <Eye className="h-5 w-5 text-primary/70" />
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                        <TrendingUp className="h-3 w-3 mr-1" />
-                        +15%
-                      </Badge>
-                    </div>
-                    {analyticsLoading ? (
-                      <Skeleton className="h-8 w-16" />
-                    ) : (
-                      <motion.p 
-                        className="text-2xl font-bold text-foreground"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        {pageViews.toLocaleString()}
-                      </motion.p>
-                    )}
-                    <p className="text-sm text-muted-foreground">Page Views</p>
-                  </CardContent>
-                </BeamBorder>
-
-                <BeamBorder>
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <MousePointerClick className="h-5 w-5 text-primary/70" />
-                      <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs">
-                        2.4% rate
-                      </Badge>
-                    </div>
-                    {analyticsLoading ? (
-                      <Skeleton className="h-8 w-16" />
-                    ) : (
-                      <motion.p 
-                        className="text-2xl font-bold text-foreground"
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                      >
-                        {totalConversions || stats.converted}
-                      </motion.p>
-                    )}
-                    <p className="text-sm text-muted-foreground">Conversions</p>
-                  </CardContent>
-                </BeamBorder>
-
-                <BeamBorder>
-                  <CardContent className="p-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <Clock className="h-5 w-5 text-primary/70" />
-                      <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                        <TrendingUp className="h-3 w-3 mr-1" />
-                        +8%
-                      </Badge>
-                    </div>
-                    <motion.p 
-                      className="text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                    >
-                      {avgSessionDuration || '3m 24s'}
-                    </motion.p>
-                    <p className="text-sm text-muted-foreground">Avg. Session</p>
-                  </CardContent>
-                </BeamBorder>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Recent Leads */}
-                <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span>Recent Leads</span>
-                      <Button variant="ghost" size="sm" onClick={() => setActiveTab("leads")}>
-                        View All <ArrowUpRight className="h-4 w-4 ml-1" />
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {leadsLoading ? (
-                        <div className="space-y-3">
-                          {[...Array(3)].map((_, i) => (
-                            <Skeleton key={i} className="h-16 w-full" />
-                          ))}
-                        </div>
-                      ) : leads?.length === 0 ? (
-                        <p className="text-muted-foreground text-center py-4">No leads yet</p>
-                      ) : (
-                        leads?.slice(0, 4).map((lead, idx) => (
-                          <motion.div 
-                            key={lead.id} 
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.05 * idx }}
-                            className="flex items-center justify-between p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
-                          >
-                            <div>
-                              <p className="font-medium text-foreground">{lead.name}</p>
-                              <p className="text-sm text-muted-foreground">{lead.source}</p>
-                            </div>
-                            {getStatusBadge(lead.status)}
-                          </motion.div>
-                        ))
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-
-                {/* Top Pages */}
-                <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-                  <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                      <span>Top Pages</span>
-                      <Button variant="ghost" size="sm" onClick={() => setActiveTab("analytics")}>
-                        View All <ArrowUpRight className="h-4 w-4 ml-1" />
-                      </Button>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {analyticsLoading ? (
-                        <div className="space-y-3">
-                          {[...Array(4)].map((_, i) => (
-                            <Skeleton key={i} className="h-12 w-full" />
-                          ))}
-                        </div>
-                      ) : topPages.length === 0 ? (
-                        <div className="text-center py-8">
-                          <BarChart3 className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                          <p className="text-muted-foreground mb-2">No analytics data yet</p>
-                          <p className="text-sm text-muted-foreground">Connect Google Analytics or add data manually</p>
-                        </div>
-                      ) : (
-                        topPages.slice(0, 4).map((page, idx) => (
-                          <motion.div 
-                            key={idx} 
-                            initial={{ opacity: 0, x: -10 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: 0.05 * idx }}
-                            className="flex items-center justify-between p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
-                          >
-                            <div>
-                              <p className="font-medium text-foreground">{page.path}</p>
-                              <p className="text-sm text-muted-foreground">{page.views.toLocaleString()} views</p>
-                            </div>
-                            {page.change !== undefined && (
-                              <Badge className={`${page.change >= 0 ? 'bg-green-500/20 text-green-400 border-green-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30'}`}>
-                                {page.change >= 0 ? '+' : ''}{page.change}%
-                              </Badge>
-                            )}
-                          </motion.div>
-                        ))
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Lead Funnel Visualization */}
-              <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle>Lead Pipeline</CardTitle>
-                  <CardDescription>Current lead distribution by status</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-4">
-                    {[
-                      { label: "New", value: stats.new, color: "bg-blue-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
-                      { label: "Contacted", value: stats.contacted, color: "bg-yellow-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
-                      { label: "Qualified", value: stats.qualified, color: "bg-purple-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
-                      { label: "Converted", value: stats.converted, color: "bg-green-500", maxWidth: Math.max(stats.new, stats.contacted, stats.qualified, stats.converted) || 10 },
-                    ].map((stage, idx) => (
-                      <motion.div
-                        key={stage.label}
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.1 * idx }}
-                      >
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="text-sm font-medium">{stage.label}</span>
-                          <span className="text-sm text-muted-foreground">{stage.value}</span>
-                        </div>
-                        <div className="h-8 bg-muted/30 rounded-lg overflow-hidden">
-                          <motion.div
-                            className={`h-full ${stage.color} rounded-lg flex items-center justify-end pr-3`}
-                            initial={{ width: 0 }}
-                            animate={{ width: `${(stage.value / stage.maxWidth) * 100}%` }}
-                            transition={{ duration: 0.8, delay: 0.1 * idx }}
-                          >
-                            {stage.value > 0 && (
-                              <span className="text-xs font-bold text-white">{stage.value}</span>
-                            )}
-                          </motion.div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Leads Tab */}
-            <TabsContent value="leads" className="space-y-6">
-              <div className="flex flex-col sm:flex-row gap-4 justify-between">
-                <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    placeholder="Search leads..."
-                    value={leadsSearchQuery}
-                    onChange={(e) => setLeadsSearchQuery(e.target.value)}
-                    className="pl-10 bg-card/50 border-border/50"
-                  />
-                </div>
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    className="border-border/50"
-                    onClick={() => handleQuickAction("export-leads")}
-                  >
-                    <Download className="h-4 w-4 mr-2" />
-                    Export CSV
-                  </Button>
-                  <Button variant="outline" className="border-border/50" onClick={() => refetchLeads()}>
-                    <RefreshCw className="h-4 w-4 mr-2" />
-                    Refresh
-                  </Button>
-                </div>
-              </div>
-
-              {/* Lead Stats */}
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Card className="bg-card/50 border-border/50">
-                  <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-blue-400">{stats.new}</p>
-                    <p className="text-sm text-muted-foreground">New</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-card/50 border-border/50">
-                  <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-yellow-400">{stats.contacted}</p>
-                    <p className="text-sm text-muted-foreground">Contacted</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-card/50 border-border/50">
-                  <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-purple-400">{stats.qualified}</p>
-                    <p className="text-sm text-muted-foreground">Qualified</p>
-                  </CardContent>
-                </Card>
-                <Card className="bg-card/50 border-border/50">
-                  <CardContent className="p-4 text-center">
-                    <p className="text-2xl font-bold text-green-400">{stats.converted}</p>
-                    <p className="text-sm text-muted-foreground">Converted</p>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Leads Table */}
-              <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-                <CardContent className="p-0">
-                  {leadsLoading ? (
-                    <div className="p-8 text-center text-muted-foreground">Loading leads...</div>
-                  ) : filteredLeads?.length === 0 ? (
-                    <div className="p-8 text-center text-muted-foreground">No leads found</div>
-                  ) : (
-                    <Table>
-                      <TableHeader>
-                        <TableRow className="border-border/50">
-                          <TableHead>Name</TableHead>
-                          <TableHead>Contact</TableHead>
-                          <TableHead>Source</TableHead>
-                          <TableHead>Status</TableHead>
-                          <TableHead>Date</TableHead>
-                          <TableHead className="text-right">Actions</TableHead>
-                        </TableRow>
-                      </TableHeader>
-                      <TableBody>
-                        {filteredLeads?.map((lead) => (
-                          <TableRow key={lead.id} className="border-border/50">
-                            <TableCell>
-                              <div>
-                                <p className="font-medium">{lead.name}</p>
-                                {lead.company && <p className="text-sm text-muted-foreground">{lead.company}</p>}
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <div className="space-y-1">
-                                <div className="flex items-center gap-2 text-sm">
-                                  <Mail className="h-3 w-3 text-muted-foreground" />
-                                  {lead.email}
-                                </div>
-                                {lead.phone && (
-                                  <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                    <Phone className="h-3 w-3" />
-                                    {lead.phone}
-                                  </div>
-                                )}
-                              </div>
-                            </TableCell>
-                            <TableCell>
-                              <Badge variant="outline" className="capitalize">{lead.source}</Badge>
-                            </TableCell>
-                            <TableCell>
-                              <Select
-                                value={lead.status}
-                                onValueChange={(value) => updateLead.mutate({ id: lead.id, updates: { status: value } })}
-                              >
-                                <SelectTrigger className="w-32 h-8">
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="new">New</SelectItem>
-                                  <SelectItem value="contacted">Contacted</SelectItem>
-                                  <SelectItem value="qualified">Qualified</SelectItem>
-                                  <SelectItem value="converted">Converted</SelectItem>
-                                  <SelectItem value="lost">Lost</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </TableCell>
-                            <TableCell>
-                              <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                <Calendar className="h-3 w-3" />
-                                {format(new Date(lead.created_at), 'MMM d, yyyy')}
-                              </div>
-                            </TableCell>
-                            <TableCell className="text-right">
-                              <Button 
-                                variant="ghost" 
-                                size="icon"
-                                className="text-destructive hover:text-destructive"
-                                onClick={() => {
-                                  if (confirm("Delete this lead?")) {
-                                    deleteLead.mutate(lead.id);
-                                  }
-                                }}
-                              >
-                                <Trash2 className="h-4 w-4" />
-                              </Button>
-                            </TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  )}
-                </CardContent>
-              </Card>
-            </TabsContent>
-
-            {/* Analytics Tab */}
-            <TabsContent value="analytics" className="space-y-6">
-              <AnalyticsCharts 
-                analyticsData={{
-                  pageViews,
-                  uniqueVisitors,
-                  bounceRate,
-                  avgSessionDuration,
-                }}
-              />
-            </TabsContent>
-
-            {/* Performance Tab */}
-            <TabsContent value="performance" className="space-y-6">
-              <PerformanceTab />
-            </TabsContent>
-
-            {/* SEO & Health Tab */}
-            <TabsContent value="seo" className="space-y-6">
-              <SEODashboard />
-            </TabsContent>
-
-            {/* Sitemap Tab */}
-            <TabsContent value="sitemap" className="space-y-6">
-              <EnhancedSitemapManager />
-            </TabsContent>
-
-            {/* Content Calendar Tab */}
-            <TabsContent value="content" className="space-y-6">
-              <ContentCalendar />
-            </TabsContent>
-
-            {/* Reports Tab */}
-            <TabsContent value="reports" className="space-y-6">
-              <ReportGenerator />
-            </TabsContent>
-
-            {/* Settings Tab */}
-            <TabsContent value="settings" className="space-y-6">
-              <AdminSettings />
-            </TabsContent>
-          </Tabs>
-        </div>
-      </main>
+      <AdminLayout title={getPageTitle()} subtitle={getPageSubtitle()}>
+        {renderContent()}
+      </AdminLayout>
     </>
   );
 };
