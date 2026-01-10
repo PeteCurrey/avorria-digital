@@ -13,6 +13,16 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { ContentRecipeManager } from "./ContentRecipeManager";
+import {
+  usePendingReviewContent,
+  useScheduledContent,
+  useApproveContent,
+  useRejectContent,
+  useUpdateContent,
+  useDeleteContent,
+  useSaveGeneratedContent,
+} from "@/hooks/useAIGeneratedContent";
 import {
   Sparkles,
   Wand2,
@@ -37,7 +47,12 @@ import {
   Hash,
   Target,
   Palette,
+  Settings2,
+  X,
+  ThumbsDown,
+  Zap,
 } from "lucide-react";
+import { formatDistanceToNow, format } from "date-fns";
 
 interface GeneratedContent {
   id: string;
@@ -67,6 +82,15 @@ const ContentStudio = () => {
   const [editedText, setEditedText] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [bulkCount, setBulkCount] = useState(3);
+
+  // Database hooks
+  const { data: pendingContent, isLoading: loadingPending, refetch: refetchPending } = usePendingReviewContent();
+  const { data: scheduledContent, isLoading: loadingScheduled, refetch: refetchScheduled } = useScheduledContent();
+  const approveContent = useApproveContent();
+  const rejectContent = useRejectContent();
+  const updateContent = useUpdateContent();
+  const deleteContent = useDeleteContent();
+  const saveContent = useSaveGeneratedContent();
 
   const platformIcons: Record<string, React.ElementType> = {
     twitter: Twitter,
@@ -208,7 +232,7 @@ const ContentStudio = () => {
     return prompt;
   };
 
-  const handleCopy = async (content: GeneratedContent) => {
+  const handleCopy = async (content: GeneratedContent | { content: string; id: string }) => {
     await navigator.clipboard.writeText(content.content);
     setCopiedId(content.id);
     toast.success("Copied to clipboard");
@@ -235,41 +259,36 @@ const ContentStudio = () => {
     toast.success("Content deleted");
   };
 
-  const handleSchedule = async (content: GeneratedContent) => {
-    try {
-      const { error } = await supabase.from("ai_generated_content").insert({
-        content_type: content.type,
-        platform: content.platform,
-        title: content.title,
-        content: content.content,
-        hashtags: content.hashtags,
-        status: "scheduled",
-        tone,
-        target_audience: targetAudience,
-        ai_prompt: topic,
-      });
-
-      if (error) throw error;
-
-      setGeneratedContent((prev) =>
-        prev.map((c) =>
-          c.id === content.id ? { ...c, status: "scheduled" } : c
-        )
-      );
-      toast.success("Content scheduled successfully");
-    } catch (error: any) {
-      console.error("Error scheduling content:", error);
-      toast.error("Failed to schedule content");
-    }
+  const handleSaveToQueue = async (content: GeneratedContent) => {
+    await saveContent.mutateAsync({
+      content_type: content.type,
+      platform: content.platform,
+      title: content.title,
+      content: content.content,
+      hashtags: content.hashtags,
+      tone,
+      ai_prompt: topic,
+      status: "review",
+    });
+    setGeneratedContent((prev) => prev.filter((c) => c.id !== content.id));
+    refetchPending();
   };
 
-  const handleApprove = (contentId: string) => {
-    setGeneratedContent((prev) =>
-      prev.map((c) =>
-        c.id === contentId ? { ...c, status: "approved" } : c
-      )
-    );
-    toast.success("Content approved");
+  const handleApproveDB = async (id: string) => {
+    await approveContent.mutateAsync({ id });
+    refetchPending();
+    refetchScheduled();
+  };
+
+  const handleRejectDB = async (id: string) => {
+    await rejectContent.mutateAsync({ id, reason: "Rejected by admin" });
+    refetchPending();
+  };
+
+  const handleDeleteDB = async (id: string) => {
+    await deleteContent.mutateAsync(id);
+    refetchPending();
+    refetchScheduled();
   };
 
   const PlatformIcon = platformIcons[platform] || FileText;
@@ -281,7 +300,7 @@ const ContentStudio = () => {
         <div>
           <h2 className="text-2xl font-bold tracking-tight">AI Content Studio</h2>
           <p className="text-muted-foreground">
-            Generate, edit, and schedule content across all your channels
+            Generate, automate, and schedule content across all your channels
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -289,22 +308,37 @@ const ContentStudio = () => {
             <Sparkles className="h-3 w-3" />
             Powered by AI
           </Badge>
+          {pendingContent && pendingContent.length > 0 && (
+            <Badge variant="secondary" className="gap-1">
+              <Clock className="h-3 w-3" />
+              {pendingContent.length} pending review
+            </Badge>
+          )}
         </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:grid-cols-4">
           <TabsTrigger value="generate" className="gap-2">
             <Wand2 className="h-4 w-4" />
-            Generate
+            <span className="hidden sm:inline">Generate</span>
           </TabsTrigger>
-          <TabsTrigger value="queue" className="gap-2">
+          <TabsTrigger value="queue" className="gap-2 relative">
             <Eye className="h-4 w-4" />
-            Review Queue
+            <span className="hidden sm:inline">Review</span>
+            {pendingContent && pendingContent.length > 0 && (
+              <span className="absolute -top-1 -right-1 h-4 w-4 text-xs bg-accent text-accent-foreground rounded-full flex items-center justify-center">
+                {pendingContent.length}
+              </span>
+            )}
           </TabsTrigger>
           <TabsTrigger value="scheduled" className="gap-2">
             <Calendar className="h-4 w-4" />
-            Scheduled
+            <span className="hidden sm:inline">Scheduled</span>
+          </TabsTrigger>
+          <TabsTrigger value="automation" className="gap-2">
+            <Settings2 className="h-4 w-4" />
+            <span className="hidden sm:inline">Automation</span>
           </TabsTrigger>
         </TabsList>
 
@@ -502,7 +536,7 @@ const ContentStudio = () => {
                   )}
                 </CardTitle>
                 <CardDescription>
-                  Review, edit, and schedule your AI-generated content
+                  Review, edit, and save your AI-generated content
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -536,16 +570,7 @@ const ContentStudio = () => {
                                     <span className="text-sm font-medium capitalize">
                                       {content.platform}
                                     </span>
-                                    <Badge
-                                      variant={
-                                        content.status === "approved"
-                                          ? "default"
-                                          : content.status === "scheduled"
-                                          ? "secondary"
-                                          : "outline"
-                                      }
-                                      className="text-xs"
-                                    >
+                                    <Badge variant="outline" className="text-xs">
                                       {content.status}
                                     </Badge>
                                   </div>
@@ -599,16 +624,6 @@ const ContentStudio = () => {
                                   </div>
                                 )}
 
-                                {content.imageUrl && (
-                                  <div className="mt-3">
-                                    <img
-                                      src={content.imageUrl}
-                                      alt="Generated"
-                                      className="rounded-lg max-h-48 object-cover"
-                                    />
-                                  </div>
-                                )}
-
                                 <Separator className="my-3" />
 
                                 <div className="flex flex-wrap gap-2">
@@ -632,35 +647,17 @@ const ContentStudio = () => {
                                     <Edit3 className="h-3 w-3 mr-1" />
                                     Edit
                                   </Button>
-                                  {!content.imageUrl && (
-                                    <Button
-                                      size="sm"
-                                      variant="outline"
-                                      onClick={() => handleGenerateImage(content)}
-                                      disabled={isGeneratingImage}
-                                    >
-                                      {isGeneratingImage ? (
-                                        <Loader2 className="h-3 w-3 mr-1 animate-spin" />
-                                      ) : (
-                                        <ImageIcon className="h-3 w-3 mr-1" />
-                                      )}
-                                      Add Image
-                                    </Button>
-                                  )}
                                   <Button
                                     size="sm"
-                                    variant="outline"
-                                    onClick={() => handleApprove(content.id)}
+                                    onClick={() => handleSaveToQueue(content)}
+                                    disabled={saveContent.isPending}
                                   >
-                                    <Check className="h-3 w-3 mr-1" />
-                                    Approve
-                                  </Button>
-                                  <Button
-                                    size="sm"
-                                    onClick={() => handleSchedule(content)}
-                                  >
-                                    <Calendar className="h-3 w-3 mr-1" />
-                                    Schedule
+                                    {saveContent.isPending ? (
+                                      <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                                    ) : (
+                                      <Send className="h-3 w-3 mr-1" />
+                                    )}
+                                    Save to Queue
                                   </Button>
                                   <Button
                                     size="sm"
@@ -684,44 +681,239 @@ const ContentStudio = () => {
           </div>
         </TabsContent>
 
+        {/* Review Queue Tab */}
         <TabsContent value="queue" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Review Queue</CardTitle>
-              <CardDescription>
-                Content awaiting your review and approval
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Eye className="h-5 w-5 text-accent" />
+                    Review Queue
+                  </CardTitle>
+                  <CardDescription>
+                    Content awaiting your review and approval
+                  </CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => refetchPending()}>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <Clock className="h-12 w-12 text-muted-foreground/50 mb-4" />
-                <p className="text-muted-foreground">No content pending review</p>
-                <p className="text-sm text-muted-foreground/70 mt-1">
-                  Generated content that needs approval will appear here
-                </p>
-              </div>
+              {loadingPending ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : !pendingContent || pendingContent.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <Check className="h-12 w-12 text-green-500/50 mb-4" />
+                  <p className="text-muted-foreground">All caught up!</p>
+                  <p className="text-sm text-muted-foreground/70 mt-1">
+                    No content pending review. Auto-generated content will appear here.
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {pendingContent.map((item) => {
+                    const Icon = platformIcons[item.platform || ""] || FileText;
+                    return (
+                      <Card key={item.id} className="border-border/50">
+                        <CardContent className="p-4">
+                          <div className="flex items-start justify-between gap-2 mb-3">
+                            <div className="flex items-center gap-2">
+                              <Icon className="h-4 w-4 text-muted-foreground" />
+                              <span className="text-sm font-medium capitalize">
+                                {item.platform || item.content_type}
+                              </span>
+                              {item.auto_generated && (
+                                <Badge variant="secondary" className="text-xs gap-1">
+                                  <Zap className="h-3 w-3" />
+                                  Auto
+                                </Badge>
+                              )}
+                              <span className="text-xs text-muted-foreground">
+                                {formatDistanceToNow(new Date(item.created_at), { addSuffix: true })}
+                              </span>
+                            </div>
+                          </div>
+
+                          {item.title && (
+                            <h4 className="font-semibold mb-2">{item.title}</h4>
+                          )}
+
+                          <p className="text-sm text-muted-foreground whitespace-pre-wrap mb-3">
+                            {item.content}
+                          </p>
+
+                          {item.hashtags && item.hashtags.length > 0 && (
+                            <div className="flex flex-wrap gap-1 mb-3">
+                              {item.hashtags.map((tag) => (
+                                <Badge key={tag} variant="outline" className="text-xs">
+                                  #{tag}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+
+                          <Separator className="my-3" />
+
+                          <div className="flex flex-wrap gap-2">
+                            <Button
+                              size="sm"
+                              onClick={() => handleApproveDB(item.id)}
+                              disabled={approveContent.isPending}
+                            >
+                              {approveContent.isPending ? (
+                                <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                              ) : (
+                                <Check className="h-3 w-3 mr-1" />
+                              )}
+                              Approve
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleCopy({ id: item.id, content: item.content })}
+                            >
+                              {copiedId === item.id ? (
+                                <Check className="h-3 w-3 mr-1" />
+                              ) : (
+                                <Copy className="h-3 w-3 mr-1" />
+                              )}
+                              Copy
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleRejectDB(item.id)}
+                              disabled={rejectContent.isPending}
+                            >
+                              <ThumbsDown className="h-3 w-3 mr-1" />
+                              Reject
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleDeleteDB(item.id)}
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
             </CardContent>
           </Card>
         </TabsContent>
 
+        {/* Scheduled Content Tab */}
         <TabsContent value="scheduled" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Scheduled Content</CardTitle>
-              <CardDescription>
-                Content scheduled for publishing
-              </CardDescription>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Calendar className="h-5 w-5 text-accent" />
+                    Scheduled Content
+                  </CardTitle>
+                  <CardDescription>
+                    Content approved and ready for publishing
+                  </CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => refetchScheduled()}>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="flex flex-col items-center justify-center py-12 text-center">
-                <Calendar className="h-12 w-12 text-muted-foreground/50 mb-4" />
-                <p className="text-muted-foreground">No scheduled content</p>
-                <p className="text-sm text-muted-foreground/70 mt-1">
-                  Approved content with scheduled dates will appear here
-                </p>
-              </div>
+              {loadingScheduled ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : !scheduledContent || scheduledContent.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <Calendar className="h-12 w-12 text-muted-foreground/50 mb-4" />
+                  <p className="text-muted-foreground">No scheduled content</p>
+                  <p className="text-sm text-muted-foreground/70 mt-1">
+                    Approved content with scheduled dates will appear here
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {scheduledContent.map((item) => {
+                    const Icon = platformIcons[item.platform || ""] || FileText;
+                    return (
+                      <Card key={item.id} className="border-border/50">
+                        <CardContent className="p-4">
+                          <div className="flex items-start justify-between gap-2 mb-3">
+                            <div className="flex items-center gap-2">
+                              <Icon className="h-4 w-4 text-muted-foreground" />
+                              <span className="text-sm font-medium capitalize">
+                                {item.platform || item.content_type}
+                              </span>
+                              <Badge variant="secondary" className="text-xs">
+                                {item.scheduled_for 
+                                  ? format(new Date(item.scheduled_for), "MMM d, h:mm a")
+                                  : "Approved"
+                                }
+                              </Badge>
+                            </div>
+                          </div>
+
+                          {item.title && (
+                            <h4 className="font-semibold mb-2">{item.title}</h4>
+                          )}
+
+                          <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                            {item.content}
+                          </p>
+
+                          <Separator className="my-3" />
+
+                          <div className="flex flex-wrap gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleCopy({ id: item.id, content: item.content })}
+                            >
+                              {copiedId === item.id ? (
+                                <Check className="h-3 w-3 mr-1" />
+                              ) : (
+                                <Copy className="h-3 w-3 mr-1" />
+                              )}
+                              Copy
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleDeleteDB(item.id)}
+                            >
+                              <Trash2 className="h-3 w-3 mr-1" />
+                              Remove
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* Automation Tab */}
+        <TabsContent value="automation" className="space-y-6">
+          <ContentRecipeManager />
         </TabsContent>
       </Tabs>
     </div>

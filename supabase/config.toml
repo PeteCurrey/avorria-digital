@@ -41,3 +41,6 @@ verify_jwt = false
 
 [functions.serpapi]
 verify_jwt = false
+
+[functions.auto-generate-content]
+verify_jwt = false

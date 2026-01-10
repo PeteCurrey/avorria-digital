@@ -64,6 +64,7 @@ export type Database = {
       ai_generated_content: {
         Row: {
           ai_prompt: string | null
+          auto_generated: boolean | null
           content: string
           content_type: string
           created_at: string
@@ -74,6 +75,10 @@ export type Database = {
           metadata: Json | null
           platform: string | null
           published_at: string | null
+          recipe_id: string | null
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
           scheduled_for: string | null
           status: string
           target_audience: string | null
@@ -83,6 +88,7 @@ export type Database = {
         }
         Insert: {
           ai_prompt?: string | null
+          auto_generated?: boolean | null
           content: string
           content_type: string
           created_at?: string
@@ -93,6 +99,10 @@ export type Database = {
           metadata?: Json | null
           platform?: string | null
           published_at?: string | null
+          recipe_id?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           scheduled_for?: string | null
           status?: string
           target_audience?: string | null
@@ -102,6 +112,7 @@ export type Database = {
         }
         Update: {
           ai_prompt?: string | null
+          auto_generated?: boolean | null
           content?: string
           content_type?: string
           created_at?: string
@@ -112,6 +123,10 @@ export type Database = {
           metadata?: Json | null
           platform?: string | null
           published_at?: string | null
+          recipe_id?: string | null
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
           scheduled_for?: string | null
           status?: string
           target_audience?: string | null
@@ -119,7 +134,15 @@ export type Database = {
           tone?: string | null
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "ai_generated_content_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "content_recipes"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       alerts: {
         Row: {
@@ -587,6 +610,60 @@ export type Database = {
           tags?: string[] | null
           title?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      content_recipes: {
+        Row: {
+          content_type: string
+          created_at: string | null
+          created_by: string | null
+          description: string | null
+          frequency: string | null
+          id: string
+          is_active: boolean | null
+          last_run_at: string | null
+          name: string
+          next_run_at: string | null
+          platform: string | null
+          posts_per_run: number | null
+          tone: string | null
+          topics: Json | null
+          updated_at: string | null
+        }
+        Insert: {
+          content_type?: string
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          frequency?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_run_at?: string | null
+          name: string
+          next_run_at?: string | null
+          platform?: string | null
+          posts_per_run?: number | null
+          tone?: string | null
+          topics?: Json | null
+          updated_at?: string | null
+        }
+        Update: {
+          content_type?: string
+          created_at?: string | null
+          created_by?: string | null
+          description?: string | null
+          frequency?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_run_at?: string | null
+          name?: string
+          next_run_at?: string | null
+          platform?: string | null
+          posts_per_run?: number | null
+          tone?: string | null
+          topics?: Json | null
+          updated_at?: string | null
         }
         Relationships: []
       }
