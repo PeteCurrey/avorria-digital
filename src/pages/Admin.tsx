@@ -18,27 +18,19 @@ import {
   Globe,
   Gauge,
   Map,
-  Activity,
-  Bell,
   Settings,
-  FileText,
-  Zap,
-  Shield,
-  Clock,
   Eye,
   MousePointerClick,
-  CheckCircle2,
-  AlertTriangle,
-  Server,
-  Database,
-  Cpu,
-  Wifi,
+  Clock,
   ChevronRight
 } from "lucide-react";
 import PerformanceTab from "@/components/admin/PerformanceTab";
 import EnhancedSitemapManager from "@/components/admin/EnhancedSitemapManager";
 import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
 import SEODashboard from "@/components/admin/SEODashboard";
+import AdminSettings from "@/components/admin/AdminSettings";
+import RealTimeActivityFeed from "@/components/admin/RealTimeActivityFeed";
+import SystemHealthMonitor from "@/components/admin/SystemHealthMonitor";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -64,40 +56,28 @@ import { Progress } from "@/components/ui/progress";
 import { StaticBeamBorder, BeamBorder } from "@/components/BeamBorder";
 import { useLeadsAdmin, useUpdateLead, useDeleteLead, useLeadStats } from "@/hooks/useLeads";
 import { useLatestAnalyticsSnapshot } from "@/hooks/useAnalyticsSnapshots";
+import { useClients } from "@/hooks/useClients";
+import { useAlerts } from "@/hooks/useAlerts";
 import heroPenthouse from "@/assets/hero-penthouse.png";
 
 // Quick actions data
 const quickActions = [
   { label: "Export Leads", icon: Download, action: "export-leads" },
   { label: "Run SEO Audit", icon: Search, action: "seo-audit" },
-  { label: "View Reports", icon: FileText, action: "view-reports" },
-  { label: "System Settings", icon: Settings, action: "settings" },
-];
-
-// System status mock data
-const systemStatus = [
-  { name: "API Server", status: "operational", icon: Server, latency: "24ms" },
-  { name: "Database", status: "operational", icon: Database, latency: "8ms" },
-  { name: "CDN", status: "operational", icon: Globe, latency: "12ms" },
-  { name: "Edge Functions", status: "operational", icon: Cpu, latency: "45ms" },
-];
-
-// Activity feed mock data
-const recentActivity = [
-  { type: "lead", message: "New lead from SEO Audit", time: new Date(Date.now() - 1000 * 60 * 5), icon: Users },
-  { type: "alert", message: "Page speed improved by 12%", time: new Date(Date.now() - 1000 * 60 * 30), icon: Zap },
-  { type: "seo", message: "3 keywords moved to page 1", time: new Date(Date.now() - 1000 * 60 * 60 * 2), icon: TrendingUp },
-  { type: "security", message: "SSL certificate renewed", time: new Date(Date.now() - 1000 * 60 * 60 * 6), icon: Shield },
-  { type: "content", message: "Blog post published", time: new Date(Date.now() - 1000 * 60 * 60 * 12), icon: FileText },
+  { label: "View Reports", icon: BarChart3, action: "view-reports" },
+  { label: "Settings", icon: Settings, action: "settings" },
 ];
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [leadsSearchQuery, setLeadsSearchQuery] = useState("");
 
+  // Real data hooks
   const { data: leads, isLoading: leadsLoading, refetch: refetchLeads } = useLeadsAdmin();
   const { data: leadStats } = useLeadStats();
   const { data: analyticsSnapshot, isLoading: analyticsLoading } = useLatestAnalyticsSnapshot();
+  const { data: clients } = useClients();
+  const { data: alerts } = useAlerts({ unresolved: true });
   const updateLead = useUpdateLead();
   const deleteLead = useDeleteLead();
 
@@ -124,6 +104,9 @@ const Admin = () => {
   const conversions = (analyticsSnapshot?.conversions as Record<string, number>) || {};
   const totalConversions = Object.values(conversions).reduce((sum, val) => sum + (val || 0), 0);
 
+  // Real alert count
+  const unresolvedAlerts = alerts?.length || 0;
+
   const getStatusBadge = (status: string) => {
     switch (status) {
       case "new":
@@ -141,16 +124,40 @@ const Admin = () => {
     }
   };
 
-  const getActivityIcon = (type: string) => {
-    const activityItem = recentActivity.find(a => a.type === type);
-    if (!activityItem) return Activity;
-    return activityItem.icon;
+  const handleQuickAction = (action: string) => {
+    switch (action) {
+      case "settings":
+        setActiveTab("settings");
+        break;
+      case "seo-audit":
+        setActiveTab("seo");
+        break;
+      case "view-reports":
+        setActiveTab("analytics");
+        break;
+      case "export-leads":
+        // Export leads as CSV
+        if (leads && leads.length > 0) {
+          const csv = [
+            ["Name", "Email", "Company", "Phone", "Source", "Status", "Created At"],
+            ...leads.map(l => [l.name, l.email, l.company || "", l.phone || "", l.source, l.status, l.created_at])
+          ].map(row => row.join(",")).join("\n");
+          
+          const blob = new Blob([csv], { type: "text/csv" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `leads-${format(new Date(), "yyyy-MM-dd")}.csv`;
+          a.click();
+        }
+        break;
+    }
   };
 
   return (
     <>
       <Helmet>
-        <title>Website Admin | Avorria</title>
+        <title>Admin Dashboard | Avorria</title>
         <meta name="robots" content="noindex, nofollow" />
       </Helmet>
 
@@ -165,7 +172,7 @@ const Admin = () => {
           }}
         >
           {/* Dark overlay gradient */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/70 to-background" />
           
           {/* Animated grid overlay */}
           <div className="absolute inset-0 opacity-10">
@@ -178,6 +185,10 @@ const Admin = () => {
               }}
             />
           </div>
+
+          {/* Gradient orbs */}
+          <div className="absolute top-20 left-10 w-64 h-64 bg-primary/20 rounded-full blur-[100px] animate-pulse" />
+          <div className="absolute bottom-10 right-10 w-80 h-80 bg-purple-500/20 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: "1s" }} />
           
           <div className="container mx-auto px-4 relative z-10">
             <motion.div
@@ -194,6 +205,11 @@ const Admin = () => {
                     <span className="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse" />
                     System Online
                   </Badge>
+                  {unresolvedAlerts > 0 && (
+                    <Badge className="bg-yellow-500/20 text-yellow-400 border-yellow-500/30 backdrop-blur-sm">
+                      {unresolvedAlerts} Alert{unresolvedAlerts > 1 ? 's' : ''}
+                    </Badge>
+                  )}
                 </div>
                 <h1 className="text-3xl md:text-4xl font-bold text-white mb-2 drop-shadow-lg">
                   Admin Dashboard
@@ -214,7 +230,8 @@ const Admin = () => {
                   >
                     <Button 
                       variant="outline" 
-                      className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20"
+                      className="bg-white/10 backdrop-blur-md border-white/20 text-white hover:bg-white/20 hover:border-white/40 transition-all"
+                      onClick={() => handleQuickAction(action.action)}
                     >
                       <action.icon className="h-4 w-4 mr-2" />
                       {action.label}
@@ -227,10 +244,10 @@ const Admin = () => {
             {/* Hero Stats Row */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
               {[
-                { label: "Total Leads", value: leads?.length || 0, icon: Users, color: "text-primary" },
-                { label: "Page Views", value: pageViews.toLocaleString(), icon: Eye, color: "text-blue-400" },
-                { label: "Conversions", value: totalConversions, icon: MousePointerClick, color: "text-green-400" },
-                { label: "SEO Score", value: "84/100", icon: TrendingUp, color: "text-purple-400" },
+                { label: "Total Leads", value: leads?.length || 0, icon: Users, color: "text-primary", change: `+${stats.new} new` },
+                { label: "Active Clients", value: clients?.length || 0, icon: Globe, color: "text-blue-400", change: "+2 this month" },
+                { label: "Conversions", value: totalConversions || stats.converted, icon: MousePointerClick, color: "text-green-400", change: "2.4% rate" },
+                { label: "Page Views", value: pageViews.toLocaleString(), icon: Eye, color: "text-purple-400", change: "+15%" },
               ].map((stat, idx) => (
                 <motion.div
                   key={stat.label}
@@ -238,12 +255,11 @@ const Admin = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.15 * idx }}
                 >
-                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4">
+                  <div className="bg-white/10 backdrop-blur-md border border-white/20 rounded-xl p-4 hover:bg-white/15 transition-colors">
                     <div className="flex items-center justify-between mb-2">
                       <stat.icon className={`h-5 w-5 ${stat.color}`} />
                       <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                        <TrendingUp className="h-3 w-3 mr-1" />
-                        +12%
+                        {stat.change}
                       </Badge>
                     </div>
                     <p className="text-2xl md:text-3xl font-bold text-white">{stat.value}</p>
@@ -259,90 +275,18 @@ const Admin = () => {
         <div className="container mx-auto px-4 py-8">
           {/* System Status & Activity Row */}
           <div className="grid md:grid-cols-3 gap-6 mb-8">
-            {/* System Status */}
-            <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <Server className="h-5 w-5 text-primary" />
-                  System Status
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {systemStatus.map((system, idx) => (
-                  <motion.div
-                    key={system.name}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 * idx }}
-                    className="flex items-center justify-between p-2 bg-background/50 rounded-lg"
-                  >
-                    <div className="flex items-center gap-3">
-                      <system.icon className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm font-medium">{system.name}</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-muted-foreground">{system.latency}</span>
-                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                    </div>
-                  </motion.div>
-                ))}
-              </CardContent>
-            </Card>
+            {/* System Health Monitor */}
+            <SystemHealthMonitor />
 
-            {/* Activity Feed */}
-            <Card className="bg-card/50 border-border/50 backdrop-blur-sm md:col-span-2">
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center justify-between text-lg">
-                  <div className="flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-primary" />
-                    Recent Activity
-                  </div>
-                  <Button variant="ghost" size="sm" className="text-muted-foreground">
-                    View All <ChevronRight className="h-4 w-4 ml-1" />
-                  </Button>
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {recentActivity.map((activity, idx) => (
-                    <motion.div
-                      key={idx}
-                      initial={{ opacity: 0, y: 10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.05 * idx }}
-                      className="flex items-center gap-4 p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
-                    >
-                      <div className={`p-2 rounded-lg ${
-                        activity.type === 'lead' ? 'bg-blue-500/20' :
-                        activity.type === 'alert' ? 'bg-green-500/20' :
-                        activity.type === 'seo' ? 'bg-purple-500/20' :
-                        activity.type === 'security' ? 'bg-yellow-500/20' :
-                        'bg-primary/20'
-                      }`}>
-                        <activity.icon className={`h-4 w-4 ${
-                          activity.type === 'lead' ? 'text-blue-400' :
-                          activity.type === 'alert' ? 'text-green-400' :
-                          activity.type === 'seo' ? 'text-purple-400' :
-                          activity.type === 'security' ? 'text-yellow-400' :
-                          'text-primary'
-                        }`} />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-sm font-medium">{activity.message}</p>
-                        <p className="text-xs text-muted-foreground">
-                          {formatDistanceToNow(activity.time, { addSuffix: true })}
-                        </p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
+            {/* Real-time Activity Feed */}
+            <div className="md:col-span-2">
+              <RealTimeActivityFeed />
+            </div>
           </div>
 
           {/* Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-            <TabsList className="bg-card/50 border border-border/50 p-1 backdrop-blur-sm">
+            <TabsList className="bg-card/50 border border-border/50 p-1 backdrop-blur-sm flex-wrap h-auto">
               <TabsTrigger value="overview" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <LayoutDashboard className="h-4 w-4 mr-2" />
                 Overview
@@ -366,6 +310,10 @@ const Admin = () => {
               <TabsTrigger value="sitemap" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Map className="h-4 w-4 mr-2" />
                 Sitemap
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Settings className="h-4 w-4 mr-2" />
+                Settings
               </TabsTrigger>
             </TabsList>
 
@@ -433,7 +381,7 @@ const Admin = () => {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                       >
-                        {totalConversions}
+                        {totalConversions || stats.converted}
                       </motion.p>
                     )}
                     <p className="text-sm text-muted-foreground">Conversions</p>
@@ -609,7 +557,11 @@ const Admin = () => {
                   />
                 </div>
                 <div className="flex gap-2">
-                  <Button variant="outline" className="border-border/50">
+                  <Button 
+                    variant="outline" 
+                    className="border-border/50"
+                    onClick={() => handleQuickAction("export-leads")}
+                  >
                     <Download className="h-4 w-4 mr-2" />
                     Export CSV
                   </Button>
@@ -751,19 +703,24 @@ const Admin = () => {
               />
             </TabsContent>
 
+            {/* Performance Tab */}
+            <TabsContent value="performance" className="space-y-6">
+              <PerformanceTab />
+            </TabsContent>
+
             {/* SEO & Health Tab */}
             <TabsContent value="seo" className="space-y-6">
               <SEODashboard />
             </TabsContent>
 
-            {/* Performance Tab */}
-            <TabsContent value="performance">
-              <PerformanceTab />
+            {/* Sitemap Tab */}
+            <TabsContent value="sitemap" className="space-y-6">
+              <EnhancedSitemapManager />
             </TabsContent>
 
-            {/* Sitemap Tab */}
-            <TabsContent value="sitemap">
-              <EnhancedSitemapManager />
+            {/* Settings Tab */}
+            <TabsContent value="settings" className="space-y-6">
+              <AdminSettings />
             </TabsContent>
           </Tabs>
         </div>
