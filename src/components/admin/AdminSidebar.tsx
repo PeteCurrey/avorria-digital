@@ -66,6 +66,7 @@ const navSections: NavSection[] = [
   {
     title: "SEO & Performance",
     items: [
+      { name: "Landing Pages", icon: FileText, tab: "landing-pages" },
       { name: "Performance", icon: Gauge, tab: "performance" },
       { name: "SEO Dashboard", icon: Search, tab: "seo" },
       { name: "Sitemap Manager", icon: Map, tab: "sitemap" },
