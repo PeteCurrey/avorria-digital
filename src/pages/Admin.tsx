@@ -34,6 +34,7 @@ import ReportGenerator from "@/components/admin/ReportGenerator";
 import ContentStudio from "@/components/admin/ContentStudio";
 import NewsletterBuilder from "@/components/admin/NewsletterBuilder";
 import IntegrationsPanel from "@/components/admin/IntegrationsPanel";
+import LiveGoogleAnalyticsWidget from "@/components/admin/LiveGoogleAnalyticsWidget";
 import { LandingPageManager } from "@/components/admin/LandingPageManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -177,6 +178,9 @@ const Admin = () => {
       case "overview":
         return (
           <div className="space-y-6">
+            {/* Live Google Analytics Widget */}
+            <LiveGoogleAnalyticsWidget />
+
             {/* System Status & Activity Row */}
             <div className="grid md:grid-cols-3 gap-6">
               <SystemHealthMonitor />
