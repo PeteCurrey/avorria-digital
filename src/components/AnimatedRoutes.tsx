@@ -28,6 +28,7 @@ const Terms = lazy(() => import("@/pages/Terms"));
 const About = lazy(() => import("@/pages/About"));
 const Pricing = lazy(() => import("@/pages/Pricing"));
 const DynamicLanding = lazy(() => import("@/pages/DynamicLanding"));
+const LandingPageDetail = lazy(() => import("@/pages/LandingPageDetail"));
 const Resources = lazy(() => import("@/pages/Resources"));
 const ResourceDetail = lazy(() => import("@/pages/ResourceDetail"));
 const Comparison = lazy(() => import("@/pages/Comparison"));
@@ -265,17 +266,25 @@ const AnimatedRoutes = () => {
           {/* Tools */}
           <Route path="/tools" element={<PageTransition><Tools /></PageTransition>} />
           
-          {/* Service Pillar Pages */}
+{/* Service Pillar Pages */}
           <Route path="/seo-agency" element={<PageTransition><SEOAgencyPillar /></PageTransition>} />
           <Route path="/digital-marketing-agency" element={<PageTransition><DigitalMarketingAgencyPillar /></PageTransition>} />
           <Route path="/paid-media-agency" element={<PageTransition><PaidMediaAgencyPillar /></PageTransition>} />
           
-          {/* Dynamic Location Landing Pages */}
+          {/* Service-Industry Landing Pages (/lp/slug) */}
+          <Route path="/lp/:slug" element={<PageTransition><LandingPageDetail /></PageTransition>} />
+          
+          {/* Dynamic Location Landing Pages - Support both slash and hyphen patterns */}
           <Route path="/seo-agency/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
           <Route path="/digital-marketing-agency/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
           <Route path="/paid-media-agency/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
           <Route path="/web-design/:locationSlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
+          
+          {/* Industry-specific routes */}
           <Route path="/:serviceSlug/for/:industrySlug" element={<PageTransition><DynamicLanding /></PageTransition>} />
+          
+          {/* Audit Funnel - alternate URL */}
+          <Route path="/audit-funnel" element={<PageTransition><AuditFunnel /></PageTransition>} />
           
           {/* Catch-all */}
           <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
