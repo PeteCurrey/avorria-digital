@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { motion, AnimatePresence, Reorder } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, parseISO, isToday } from "date-fns";
 import {
   Calendar as CalendarIcon,
@@ -81,6 +81,8 @@ const ContentCalendar = () => {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<ContentItem | null>(null);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [draggedItem, setDraggedItem] = useState<ContentItem | null>(null);
+  const [dragOverColumn, setDragOverColumn] = useState<string | null>(null);
 
   const { data: contentItems, isLoading } = useContentCalendar();
   const createItem = useCreateContentItem();
@@ -99,6 +101,17 @@ const ContentCalendar = () => {
     notes: "",
   });
 
+  // Local state for optimistic reordering
+  const [localItems, setLocalItems] = useState<ContentItem[] | null>(null);
+  const itemsToUse = localItems ?? contentItems;
+
+  // Reset local state when server data changes
+  useMemo(() => {
+    if (contentItems) {
+      setLocalItems(null);
+    }
+  }, [contentItems]);
+
   const days = useMemo(() => {
     const start = startOfMonth(currentMonth);
     const end = endOfMonth(currentMonth);
@@ -106,9 +119,39 @@ const ContentCalendar = () => {
   }, [currentMonth]);
 
   const getItemsForDate = (date: Date) => {
-    return contentItems?.filter((item) =>
+    return itemsToUse?.filter((item) =>
       item.scheduled_date && isSameDay(parseISO(item.scheduled_date), date)
     ) || [];
+  };
+
+  // Handle drag start
+  const handleDragStart = (item: ContentItem) => {
+    setDraggedItem(item);
+  };
+
+  // Handle drag end - update status when dropped on new column
+  const handleDragEnd = () => {
+    if (draggedItem && dragOverColumn && draggedItem.status !== dragOverColumn) {
+      // Optimistic update
+      if (itemsToUse) {
+        setLocalItems(
+          itemsToUse.map((item) =>
+            item.id === draggedItem.id ? { ...item, status: dragOverColumn } : item
+          )
+        );
+      }
+      // Server update
+      updateItem.mutate({ id: draggedItem.id, status: dragOverColumn });
+    }
+    setDraggedItem(null);
+    setDragOverColumn(null);
+  };
+
+  // Handle column hover during drag
+  const handleDragOverColumn = (status: string) => {
+    if (draggedItem && draggedItem.status !== status) {
+      setDragOverColumn(status);
+    }
   };
 
   const handleCreate = () => {
@@ -164,13 +207,13 @@ const ContentCalendar = () => {
     statusOptions.forEach((s) => {
       groups[s.value] = [];
     });
-    contentItems?.forEach((item) => {
+    itemsToUse?.forEach((item) => {
       if (groups[item.status]) {
         groups[item.status].push(item);
       }
     });
     return groups;
-  }, [contentItems]);
+  }, [itemsToUse]);
 
   if (isLoading) {
     return (
@@ -473,35 +516,74 @@ const ContentCalendar = () => {
             >
               {/* Kanban Board */}
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-                {statusOptions.map((status) => (
-                  <div
-                    key={status.value}
-                    className="bg-muted/30 rounded-lg p-3 min-h-[400px]"
-                  >
-                    <div className="flex items-center justify-between mb-3">
-                      <Badge className={status.color}>
-                        {status.label}
-                      </Badge>
-                      <span className="text-xs text-muted-foreground">
-                        {groupedByStatus[status.value]?.length || 0}
-                      </span>
-                    </div>
-
-                    <Reorder.Group
-                      axis="y"
-                      values={groupedByStatus[status.value] || []}
-                      onReorder={() => {}}
-                      className="space-y-2"
+                {statusOptions.map((status) => {
+                  const isDropTarget = dragOverColumn === status.value && draggedItem?.status !== status.value;
+                  
+                  return (
+                    <motion.div
+                      key={status.value}
+                      className={`rounded-lg p-3 min-h-[400px] transition-all duration-200 ${
+                        isDropTarget
+                          ? "bg-primary/20 ring-2 ring-primary ring-offset-2 ring-offset-background"
+                          : "bg-muted/30"
+                      }`}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        handleDragOverColumn(status.value);
+                      }}
+                      onDragLeave={() => {
+                        if (dragOverColumn === status.value) {
+                          setDragOverColumn(null);
+                        }
+                      }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        handleDragEnd();
+                      }}
+                      animate={{
+                        scale: isDropTarget ? 1.02 : 1,
+                      }}
                     >
-                      {(groupedByStatus[status.value] || []).map((item) => (
-                        <Reorder.Item
-                          key={item.id}
-                          value={item}
-                          className="cursor-grab active:cursor-grabbing"
+                      <div className="flex items-center justify-between mb-3">
+                        <Badge className={status.color}>
+                          {status.label}
+                        </Badge>
+                        <span className="text-xs text-muted-foreground">
+                          {groupedByStatus[status.value]?.length || 0}
+                        </span>
+                      </div>
+
+                      {isDropTarget && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 40 }}
+                          exit={{ opacity: 0, height: 0 }}
+                          className="mb-2 border-2 border-dashed border-primary rounded-lg flex items-center justify-center text-xs text-primary"
                         >
+                          Drop here to move to {status.label}
+                        </motion.div>
+                      )}
+
+                      <div className="space-y-2">
+                        {(groupedByStatus[status.value] || []).map((item) => (
                           <motion.div
+                            key={item.id}
                             layout
-                            className="bg-card border border-border/50 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow"
+                            draggable
+                            onDragStart={() => handleDragStart(item)}
+                            onDragEnd={handleDragEnd}
+                            whileDrag={{ 
+                              scale: 1.05, 
+                              boxShadow: "0 10px 30px rgba(0,0,0,0.3)",
+                              zIndex: 50,
+                              cursor: "grabbing"
+                            }}
+                            whileHover={{ scale: 1.02 }}
+                            className={`bg-card border rounded-lg p-3 shadow-sm hover:shadow-md transition-all cursor-grab active:cursor-grabbing ${
+                              draggedItem?.id === item.id
+                                ? "opacity-50 border-primary"
+                                : "border-border/50"
+                            }`}
                           >
                             <div className="flex items-start justify-between gap-2 mb-2">
                               <div className="flex items-center gap-2">
@@ -510,7 +592,7 @@ const ContentCalendar = () => {
                               </div>
                               <DropdownMenu>
                                 <DropdownMenuTrigger asChild>
-                                  <Button variant="ghost" size="icon" className="h-6 w-6">
+                                  <Button variant="ghost" size="icon" className="h-6 w-6" onClick={(e) => e.stopPropagation()}>
                                     <MoreHorizontal className="h-4 w-4" />
                                   </Button>
                                 </DropdownMenuTrigger>
@@ -578,24 +660,24 @@ const ContentCalendar = () => {
                               )}
                             </div>
                           </motion.div>
-                        </Reorder.Item>
-                      ))}
-                    </Reorder.Group>
+                        ))}
+                      </div>
 
-                    <Button
-                      variant="ghost"
-                      size="sm"
-                      className="w-full mt-2 border-dashed border"
-                      onClick={() => {
-                        setNewItem({ ...newItem, status: status.value });
-                        setIsCreateOpen(true);
-                      }}
-                    >
-                      <Plus className="h-4 w-4 mr-1" />
-                      Add
-                    </Button>
-                  </div>
-                ))}
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="w-full mt-2 border-dashed border"
+                        onClick={() => {
+                          setNewItem({ ...newItem, status: status.value });
+                          setIsCreateOpen(true);
+                        }}
+                      >
+                        <Plus className="h-4 w-4 mr-1" />
+                        Add
+                      </Button>
+                    </motion.div>
+                  );
+                })}
               </div>
             </motion.div>
           )}
