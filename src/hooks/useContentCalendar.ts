@@ -40,10 +40,10 @@ export function useCreateContentItem() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (item: Omit<Partial<ContentItem>, 'id' | 'created_at' | 'updated_at' | 'metadata'>) => {
+    mutationFn: async (item: { title: string } & Omit<Partial<ContentItem>, 'id' | 'created_at' | 'updated_at' | 'metadata'>) => {
       const { data, error } = await supabase
         .from("content_calendar")
-        .insert(item as Record<string, unknown>)
+        .insert([item])
         .select()
         .single();
       

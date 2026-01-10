@@ -66,7 +66,7 @@ export function useCreateScheduledReport() {
     mutationFn: async (report: { name: string; report_type: string; schedule: string; recipients: string[]; is_active?: boolean }) => {
       const { data, error } = await supabase
         .from("scheduled_reports")
-        .insert(report as Record<string, unknown>)
+        .insert([report])
         .select()
         .single();
       
