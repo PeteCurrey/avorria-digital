@@ -224,7 +224,7 @@ const NewsletterBuilder = () => {
       const { error } = await supabase.from("newsletters").insert([{
         subject: newsletter.subject,
         preview_text: newsletter.previewText,
-        content_json: { sections: newsletter.sections },
+        content_json: JSON.parse(JSON.stringify({ sections: newsletter.sections })),
         status: "draft",
       }]);
 
