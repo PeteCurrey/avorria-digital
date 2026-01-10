@@ -34,7 +34,8 @@ interface ReportData {
   };
 }
 
-async function generateReportData(supabase: ReturnType<typeof createClient>): Promise<ReportData> {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+async function generateReportData(supabase: any): Promise<ReportData> {
   // Fetch leads data
   const { data: leads } = await supabase.from("leads").select("*") as { data: Array<{ status: string; created_at: string }> | null };
   const leadsByStatus = {

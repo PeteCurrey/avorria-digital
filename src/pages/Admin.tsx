@@ -22,7 +22,8 @@ import {
   Eye,
   MousePointerClick,
   Clock,
-  ChevronRight
+  ChevronRight,
+  FileText
 } from "lucide-react";
 import PerformanceTab from "@/components/admin/PerformanceTab";
 import EnhancedSitemapManager from "@/components/admin/EnhancedSitemapManager";
@@ -31,6 +32,8 @@ import SEODashboard from "@/components/admin/SEODashboard";
 import AdminSettings from "@/components/admin/AdminSettings";
 import RealTimeActivityFeed from "@/components/admin/RealTimeActivityFeed";
 import SystemHealthMonitor from "@/components/admin/SystemHealthMonitor";
+import ContentCalendar from "@/components/admin/ContentCalendar";
+import ReportGenerator from "@/components/admin/ReportGenerator";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -310,6 +313,14 @@ const Admin = () => {
               <TabsTrigger value="sitemap" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Map className="h-4 w-4 mr-2" />
                 Sitemap
+              </TabsTrigger>
+              <TabsTrigger value="content" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <Calendar className="h-4 w-4 mr-2" />
+                Content
+              </TabsTrigger>
+              <TabsTrigger value="reports" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
+                <FileText className="h-4 w-4 mr-2" />
+                Reports
               </TabsTrigger>
               <TabsTrigger value="settings" className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground">
                 <Settings className="h-4 w-4 mr-2" />
@@ -716,6 +727,16 @@ const Admin = () => {
             {/* Sitemap Tab */}
             <TabsContent value="sitemap" className="space-y-6">
               <EnhancedSitemapManager />
+            </TabsContent>
+
+            {/* Content Calendar Tab */}
+            <TabsContent value="content" className="space-y-6">
+              <ContentCalendar />
+            </TabsContent>
+
+            {/* Reports Tab */}
+            <TabsContent value="reports" className="space-y-6">
+              <ReportGenerator />
             </TabsContent>
 
             {/* Settings Tab */}
