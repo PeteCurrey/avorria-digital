@@ -206,7 +206,7 @@ export const SectionBand = ({
   children: React.ReactNode;
   background?: "dark" | "gradient" | "subtle" | "mesh" | "light" | "image";
   backgroundImage?: string;
-  backgroundOverlay?: "dark" | "gradient" | "blur" | "heavy";
+  backgroundOverlay?: "dark" | "gradient" | "heavy" | "clean";
   className?: string;
   padding?: "default" | "large" | "hero";
 }) => {
@@ -215,11 +215,11 @@ export const SectionBand = ({
     target: ref,
     offset: ["start end", "end start"]
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+  const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
 
   const bgClasses = {
     dark: "bg-[hsl(220,25%,8%)] text-white",
-    gradient: "bg-gradient-to-br from-[hsl(220,25%,8%)] via-[hsl(220,25%,12%)] to-[hsl(250,30%,15%)] text-white",
+    gradient: "bg-gradient-to-br from-[hsl(220,25%,8%)] via-[hsl(220,25%,12%)] to-[hsl(250,30%,12%)] text-white",
     subtle: "bg-gradient-to-b from-secondary/30 to-background text-foreground",
     mesh: "bg-[hsl(220,25%,8%)] text-white relative",
     light: "bg-background text-foreground",
@@ -227,10 +227,10 @@ export const SectionBand = ({
   };
 
   const overlayClasses = {
-    dark: "bg-gradient-to-b from-black/70 via-black/60 to-black/70",
-    gradient: "bg-gradient-to-r from-black/80 via-black/50 to-black/70",
-    blur: "bg-black/40 backdrop-blur-sm",
-    heavy: "bg-black/80"
+    dark: "bg-gradient-to-b from-black/60 via-black/50 to-black/60",
+    gradient: "bg-gradient-to-r from-black/70 via-black/40 to-black/60",
+    heavy: "bg-black/75",
+    clean: "bg-gradient-to-b from-black/40 to-[hsl(220,25%,8%)]"
   };
 
   const paddingClasses = {
@@ -247,12 +247,11 @@ export const SectionBand = ({
       {/* Image background with parallax */}
       {background === "image" && backgroundImage && (
         <>
-          <motion.div style={{ y }} className="absolute inset-0 scale-110">
+          <motion.div style={{ y }} className="absolute inset-0 scale-105">
             <img 
               src={backgroundImage} 
               alt="" 
               className="w-full h-full object-cover"
-              loading="lazy"
             />
           </motion.div>
           <div className={cn("absolute inset-0", overlayClasses[backgroundOverlay])} />
@@ -260,16 +259,6 @@ export const SectionBand = ({
       )}
 
       {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60" />}
-      
-      {/* Subtle noise texture overlay for dark backgrounds */}
-      {(background === "dark" || background === "gradient" || background === "mesh" || background === "image") && (
-        <div 
-          className="absolute inset-0 opacity-[0.03] z-[1]" 
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`
-          }} 
-        />
-      )}
       
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {children}
@@ -288,7 +277,7 @@ export const ImageSectionBand = ({
 }: {
   children: React.ReactNode;
   variant?: "racecar" | "cityscape";
-  overlay?: "dark" | "gradient" | "blur" | "heavy";
+  overlay?: "dark" | "gradient" | "heavy" | "clean";
   padding?: "default" | "large" | "hero";
   className?: string;
 }) => {

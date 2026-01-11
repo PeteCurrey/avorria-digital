@@ -6,7 +6,7 @@ interface StickyImageSectionProps {
   backgroundImage: string;
   children: ReactNode;
   className?: string;
-  overlay?: "dark" | "gradient" | "heavy" | "light";
+  overlay?: "dark" | "gradient" | "heavy" | "light" | "clean";
   minHeight?: string;
 }
 
@@ -23,14 +23,15 @@ export const StickyImageSection = ({
     offset: ["start start", "end start"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const backgroundScale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   const overlayClasses = {
     dark: "bg-black/70",
-    gradient: "bg-gradient-to-b from-black/60 via-black/70 to-[hsl(220,25%,8%)]",
-    heavy: "bg-black/85",
+    gradient: "bg-gradient-to-b from-black/50 via-black/60 to-[hsl(220,25%,8%)]",
+    heavy: "bg-black/80",
     light: "bg-black/40",
+    clean: "bg-gradient-to-b from-black/40 to-[hsl(220,25%,8%)]",
   };
 
   return (
@@ -51,20 +52,11 @@ export const StickyImageSection = ({
           src={backgroundImage}
           alt=""
           className="w-full h-full object-cover"
-          loading="lazy"
         />
       </motion.div>
 
-      {/* Overlay */}
+      {/* Overlay - no blur, clean gradient */}
       <div className={cn("absolute inset-0", overlayClasses[overlay])} />
-
-      {/* Noise texture */}
-      <div
-        className="absolute inset-0 opacity-[0.03] z-[1]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-        }}
-      />
 
       {/* Scrolling Content */}
       <div className="relative z-10">{children}</div>
@@ -77,7 +69,7 @@ interface MultiSectionStickyProps {
   backgroundImage: string;
   sections: ReactNode[];
   className?: string;
-  overlay?: "dark" | "gradient" | "heavy" | "light";
+  overlay?: "dark" | "gradient" | "heavy" | "light" | "clean";
 }
 
 export const MultiSectionSticky = ({
@@ -92,13 +84,14 @@ export const MultiSectionSticky = ({
     offset: ["start start", "end end"],
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const overlayClasses = {
     dark: "bg-black/70",
-    gradient: "bg-gradient-to-b from-black/50 via-black/60 to-black/80",
-    heavy: "bg-black/85",
+    gradient: "bg-gradient-to-b from-black/40 via-black/50 to-black/70",
+    heavy: "bg-black/80",
     light: "bg-black/40",
+    clean: "bg-gradient-to-b from-black/30 to-black/60",
   };
 
   return (
@@ -109,8 +102,7 @@ export const MultiSectionSticky = ({
           <img
             src={backgroundImage}
             alt=""
-            className="w-full h-full object-cover scale-110"
-            loading="lazy"
+            className="w-full h-full object-cover scale-105"
           />
         </motion.div>
         <div className={cn("absolute inset-0", overlayClasses[overlay])} />

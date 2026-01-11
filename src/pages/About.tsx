@@ -215,7 +215,7 @@ const About = () => {
         <SectionBand 
           background="image" 
           backgroundImage={heroCityscape}
-          backgroundOverlay="blur"
+          backgroundOverlay="heavy"
           padding="large"
         >
           <div className="max-w-5xl mx-auto">
