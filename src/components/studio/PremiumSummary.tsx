@@ -9,7 +9,7 @@ import { trackEvent } from "@/lib/tracking";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { z } from "zod";
-import { CheckCircle, FileText, Sparkles, ArrowRight, Building2, Mail, Phone, User } from "lucide-react";
+import { CheckCircle, FileText, Sparkles, ArrowRight, Building2, Mail, Phone, User, Download, Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().trim().min(1, "Name is required").max(100),
@@ -50,12 +50,77 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const purposeLabels: Record<string, string> = {
     lead_gen: "Lead Generation",
     authority: "Authority Hub",
     saas: "Product Marketing",
     platform: "Service Platform",
+  };
+
+  const handleDownloadPDF = async () => {
+    setIsGeneratingPDF(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-blueprint-pdf", {
+        body: {
+          projectCode,
+          name: formData.name,
+          company: formData.company,
+          email: formData.email,
+          phone: formData.phone,
+          purpose: state.purpose,
+          palette: state.palette,
+          density: state.density,
+          energy: state.energy,
+          structureSize: state.structureSize,
+          features: state.features,
+          straightTalking: state.straightTalking,
+          analytical: state.analytical,
+          understated: state.understated,
+          budget: formData.budget,
+          timeline: formData.timeline,
+          notes: state.notes,
+        },
+      });
+
+      if (error) throw error;
+
+      if (data?.html) {
+        // Dynamic import for html2pdf
+        const html2pdf = (await import("html2pdf.js")).default;
+        
+        // Create a temporary container
+        const container = document.createElement("div");
+        container.innerHTML = data.html;
+        container.style.position = "absolute";
+        container.style.left = "-9999px";
+        document.body.appendChild(container);
+
+        // Generate PDF
+        await html2pdf()
+          .set({
+            margin: 0,
+            filename: `${projectCode}-blueprint.pdf`,
+            image: { type: "jpeg", quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+          })
+          .from(container)
+          .save();
+
+        // Clean up
+        document.body.removeChild(container);
+        
+        trackEvent("studio_blueprint_pdf_downloaded", { projectCode });
+        toast.success("Blueprint PDF downloaded!");
+      }
+    } catch (error) {
+      console.error("PDF generation failed:", error);
+      toast.error("Failed to generate PDF. Please try again.");
+    } finally {
+      setIsGeneratingPDF(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -174,6 +239,24 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
             transition={{ delay: 0.5 }}
             className="flex flex-col sm:flex-row gap-4 justify-center"
           >
+            <Button
+              size="lg"
+              onClick={handleDownloadPDF}
+              disabled={isGeneratingPDF}
+              className="gap-2 bg-gradient-to-r from-sky-500 to-indigo-500 text-white hover:from-sky-600 hover:to-indigo-600"
+            >
+              {isGeneratingPDF ? (
+                <>
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                  Generating...
+                </>
+              ) : (
+                <>
+                  <Download className="h-4 w-4" />
+                  Download Blueprint PDF
+                </>
+              )}
+            </Button>
             <Link to="/contact">
               <Button size="lg" className="gap-2 bg-white text-slate-900 hover:bg-slate-100">
                 <Sparkles className="h-4 w-4" />

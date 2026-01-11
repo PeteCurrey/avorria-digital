@@ -1,7 +1,20 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useStudioPreview } from "@/hooks/useStudioPreview";
 import { Loader2 } from "lucide-react";
+
+// Fallback concept images for each purpose type
+import leadGenFallback from "@/assets/studio-previews/lead-gen.jpg";
+import authorityFallback from "@/assets/studio-previews/authority.jpg";
+import saasFallback from "@/assets/studio-previews/saas.jpg";
+import platformFallback from "@/assets/studio-previews/platform.jpg";
+
+const fallbackImages: Record<string, string> = {
+  lead_gen: leadGenFallback,
+  authority: authorityFallback,
+  saas: saasFallback,
+  platform: platformFallback,
+};
 
 interface StudioState {
   purpose: string | null;
@@ -20,6 +33,7 @@ interface AIPreviewCanvasProps {
 
 export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanvasProps) => {
   const { previewUrl, isLoading, generatePreview } = useStudioPreview();
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   // Mouse tracking for 3D effect
   const mouseX = useMotionValue(0);
@@ -41,9 +55,15 @@ export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanv
     mouseY.set(0);
   };
 
+  // Get fallback image based on purpose
+  const fallbackImage = useMemo(() => {
+    return state.purpose ? fallbackImages[state.purpose] : null;
+  }, [state.purpose]);
+
   // Generate preview when key config changes
   useEffect(() => {
     if (state.purpose) {
+      setImageLoaded(false);
       generatePreview({
         purpose: state.purpose,
         palette: state.palette,
@@ -159,15 +179,28 @@ export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanv
 
             {/* Content area */}
             <div className="relative h-[calc(100%-52px)] overflow-hidden">
+              {/* Fallback image (shows while loading) */}
+              {fallbackImage && (
+                <motion.img
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isLoading || !previewUrl ? 0.5 : 0 }}
+                  transition={{ duration: 0.5 }}
+                  src={fallbackImage}
+                  alt="Website concept preview"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              )}
+
               {/* AI-generated preview image */}
               {previewUrl && !isLoading && (
                 <motion.img
                   initial={{ opacity: 0, scale: 1.05 }}
-                  animate={{ opacity: 0.7, scale: 1 }}
+                  animate={{ opacity: imageLoaded ? 0.7 : 0, scale: 1 }}
                   transition={{ duration: 0.8 }}
                   src={previewUrl}
                   alt="AI-generated website concept"
                   className="absolute inset-0 h-full w-full object-cover"
+                  onLoad={() => setImageLoaded(true)}
                 />
               )}
 
@@ -176,7 +209,7 @@ export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanv
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/80 backdrop-blur-sm"
+                  className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950/60 backdrop-blur-sm"
                 >
                   <Loader2 className="h-8 w-8 animate-spin text-sky-400" />
                   <p className="mt-4 text-xs text-slate-400">Generating AI concept...</p>
