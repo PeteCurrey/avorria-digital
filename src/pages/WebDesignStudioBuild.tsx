@@ -72,30 +72,31 @@ import studioBackground from "@/assets/studio-mockup-dark.jpg";
 import type { StudioConfig } from "@/types/studio";
 
 // 3D Preview matrix: purpose -> palette -> size -> image
+// Size keys match StudioConfig: lean, standard, expanded
 const previewMatrix: Record<string, Record<string, Record<string, string>>> = {
   "lead-generation": {
-    dark: { compact: leadGenDarkCompact, standard: leadGenDark, expansive: leadGenDarkExpansive },
-    light: { compact: leadGenLightCompact, standard: leadGenLight, expansive: leadGenLightExpansive },
-    monochrome: { compact: leadGenMonoCompact, standard: leadGenMono, expansive: leadGenMonoExpansive },
-    gradient: { compact: leadGenGradientCompact, standard: leadGenGradient, expansive: leadGenGradientExpansive },
+    dark: { lean: leadGenDarkCompact, standard: leadGenDark, expanded: leadGenDarkExpansive },
+    light: { lean: leadGenLightCompact, standard: leadGenLight, expanded: leadGenLightExpansive },
+    monochrome: { lean: leadGenMonoCompact, standard: leadGenMono, expanded: leadGenMonoExpansive },
+    gradient: { lean: leadGenGradientCompact, standard: leadGenGradient, expanded: leadGenGradientExpansive },
   },
   "content-hub": {
-    dark: { compact: contentHubDarkCompact, standard: contentHubDark, expansive: contentHubDarkExpansive },
-    light: { compact: contentHubLightCompact, standard: contentHubLight, expansive: contentHubLightExpansive },
-    monochrome: { compact: contentHubMonoCompact, standard: contentHubMono, expansive: contentHubMonoExpansive },
-    gradient: { compact: contentHubGradientCompact, standard: contentHubGradient, expansive: contentHubGradientExpansive },
+    dark: { lean: contentHubDarkCompact, standard: contentHubDark, expanded: contentHubDarkExpansive },
+    light: { lean: contentHubLightCompact, standard: contentHubLight, expanded: contentHubLightExpansive },
+    monochrome: { lean: contentHubMonoCompact, standard: contentHubMono, expanded: contentHubMonoExpansive },
+    gradient: { lean: contentHubGradientCompact, standard: contentHubGradient, expanded: contentHubGradientExpansive },
   },
   "product-saas": {
-    dark: { compact: saasDarkCompact, standard: saasDark, expansive: saasDarkExpansive },
-    light: { compact: saasLightCompact, standard: saasLight, expansive: saasLightExpansive },
-    monochrome: { compact: saasMonoCompact, standard: saasMono, expansive: saasMonoExpansive },
-    gradient: { compact: saasGradientCompact, standard: saasGradient, expansive: saasGradientExpansive },
+    dark: { lean: saasDarkCompact, standard: saasDark, expanded: saasDarkExpansive },
+    light: { lean: saasLightCompact, standard: saasLight, expanded: saasLightExpansive },
+    monochrome: { lean: saasMonoCompact, standard: saasMono, expanded: saasMonoExpansive },
+    gradient: { lean: saasGradientCompact, standard: saasGradient, expanded: saasGradientExpansive },
   },
   "service-portal": {
-    dark: { compact: serviceDarkCompact, standard: serviceDark, expansive: serviceDarkExpansive },
-    light: { compact: serviceLightCompact, standard: serviceLight, expansive: serviceLightExpansive },
-    monochrome: { compact: serviceMonoCompact, standard: serviceMono, expansive: serviceMonoExpansive },
-    gradient: { compact: serviceGradientCompact, standard: serviceGradient, expansive: serviceGradientExpansive },
+    dark: { lean: serviceDarkCompact, standard: serviceDark, expanded: serviceDarkExpansive },
+    light: { lean: serviceLightCompact, standard: serviceLight, expanded: serviceLightExpansive },
+    monochrome: { lean: serviceMonoCompact, standard: serviceMono, expanded: serviceMonoExpansive },
+    gradient: { lean: serviceGradientCompact, standard: serviceGradient, expanded: serviceGradientExpansive },
   },
 };
 
