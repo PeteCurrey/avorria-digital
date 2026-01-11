@@ -381,7 +381,7 @@ const Home = () => {
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
               <div className="space-y-6 md:space-y-8 mb-10 md:mb-16 animate-fade-in">
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] leading-[1.1] tracking-tight text-white font-extralight drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] whitespace-nowrap">
+                <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-[2.5rem] leading-[1.1] tracking-tight text-white font-extralight drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)] whitespace-nowrap">
                   Digital Marketing, SEO &amp; Web Experiences that Actually Convert.
                 </h1>
                 <p className="text-base md:text-lg lg:text-xl text-white/90 leading-relaxed max-w-3xl font-extralight drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
