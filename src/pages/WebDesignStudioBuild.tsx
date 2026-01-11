@@ -1,29 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Volume2, VolumeX } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
-import DeviceMockup from "@/components/studio/DeviceMockup";
+import Preview3DCanvas from "@/components/studio/Preview3DCanvas";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
 import AestheticStep from "@/components/studio/steps/AestheticStep";
 import StructureStep from "@/components/studio/steps/StructureStep";
 import FeaturesStep from "@/components/studio/steps/FeaturesStep";
 import PersonalityStep from "@/components/studio/steps/PersonalityStep";
 import SummaryStep from "@/components/studio/steps/SummaryStep";
+import { useClickSound } from "@/hooks/useClickSound";
 import type { StudioConfig } from "@/types/studio";
-
-// Import fallback images
-import leadGenPreview from "@/assets/studio-previews/lead-gen.jpg";
-import authorityPreview from "@/assets/studio-previews/authority.jpg";
-import saasPreview from "@/assets/studio-previews/saas.jpg";
-import platformPreview from "@/assets/studio-previews/platform.jpg";
-
-const previewImages: Record<string, string> = {
-  "lead-generation": leadGenPreview,
-  "content-hub": authorityPreview,
-  "product-saas": saasPreview,
-  "service-portal": platformPreview,
-};
 
 const steps = [
   { id: "purpose", label: "Purpose" },
@@ -37,6 +25,8 @@ const steps = [
 const WebDesignStudioBuild = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
+  const [soundEnabled, setSoundEnabled] = useState(true);
+  const { playClick } = useClickSound();
   const [config, setConfig] = useState<StudioConfig>({
     purpose: "lead-generation",
     minimal: 50,
@@ -51,8 +41,19 @@ const WebDesignStudioBuild = () => {
     notes: "",
   });
 
+  // Wrap setConfig to play sound on changes
+  const handleConfigChange = (newConfig: StudioConfig) => {
+    if (soundEnabled) {
+      playClick("select");
+    }
+    setConfig(newConfig);
+  };
+
   const goToStep = (step: number) => {
     if (step < 0 || step >= steps.length) return;
+    if (soundEnabled) {
+      playClick("navigate");
+    }
     setDirection(step > currentStep ? "forward" : "backward");
     setCurrentStep(step);
   };
@@ -68,7 +69,7 @@ const WebDesignStudioBuild = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [currentStep]);
+  }, [currentStep, soundEnabled]);
 
   const slideVariants = {
     enter: (dir: "forward" | "backward") => ({
@@ -85,15 +86,15 @@ const WebDesignStudioBuild = () => {
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return <PurposeStep config={config} setConfig={setConfig} />;
+        return <PurposeStep config={config} setConfig={handleConfigChange} />;
       case 1:
-        return <AestheticStep config={config} setConfig={setConfig} />;
+        return <AestheticStep config={config} setConfig={handleConfigChange} />;
       case 2:
-        return <StructureStep config={config} setConfig={setConfig} />;
+        return <StructureStep config={config} setConfig={handleConfigChange} />;
       case 3:
-        return <FeaturesStep config={config} setConfig={setConfig} />;
+        return <FeaturesStep config={config} setConfig={handleConfigChange} />;
       case 4:
-        return <PersonalityStep config={config} setConfig={setConfig} />;
+        return <PersonalityStep config={config} setConfig={handleConfigChange} />;
       case 5:
         return <SummaryStep config={config} />;
       default:
@@ -112,6 +113,27 @@ const WebDesignStudioBuild = () => {
       <div className="min-h-screen bg-black">
         {/* Navigation */}
         <StudioNav currentStep={currentStep} totalSteps={steps.length} />
+
+        {/* Sound Toggle */}
+        <motion.button
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.5 }}
+          onClick={() => {
+            setSoundEnabled(!soundEnabled);
+            if (!soundEnabled) playClick("select");
+          }}
+          className="fixed right-6 top-6 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
+        >
+          {soundEnabled ? (
+            <Volume2 className="h-4 w-4 text-accent" />
+          ) : (
+            <VolumeX className="h-4 w-4 text-white/40" />
+          )}
+          <span className="text-xs text-white/60">
+            {soundEnabled ? "Sound On" : "Sound Off"}
+          </span>
+        </motion.button>
 
         {/* Main Content */}
         <div className="flex min-h-screen pt-24 pb-24">
@@ -133,32 +155,37 @@ const WebDesignStudioBuild = () => {
             </AnimatePresence>
           </div>
 
-          {/* Right: Preview Canvas (hidden on mobile, visible on lg+) */}
-          <div className="hidden lg:flex lg:w-[500px] lg:flex-col lg:items-center lg:justify-center lg:border-l lg:border-white/5 lg:bg-zinc-950/50 lg:px-8">
+          {/* Right: 3D Preview Canvas (hidden on mobile, visible on lg+) */}
+          <div className="hidden lg:flex lg:w-[500px] lg:flex-col lg:items-center lg:justify-center lg:border-l lg:border-white/5 lg:bg-zinc-950/50">
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.5 }}
-              className="sticky top-32"
+              className="h-[500px] w-full"
             >
-              <DeviceMockup>
-                <motion.img
-                  key={config.purpose}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.5 }}
-                  src={previewImages[config.purpose]}
-                  alt="Website Preview"
-                  className="h-full w-full object-cover"
-                />
-              </DeviceMockup>
-              
-              <div className="mt-6 text-center">
-                <p className="text-sm text-white/40">
-                  {config.palette} • {config.siteSize} • {config.features.length} features
-                </p>
-              </div>
+              <Suspense
+                fallback={
+                  <div className="flex h-full w-full items-center justify-center">
+                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
+                  </div>
+                }
+              >
+                <Preview3DCanvas config={config} />
+              </Suspense>
             </motion.div>
+
+            <div className="px-8 text-center">
+              <motion.p
+                key={`${config.palette}-${config.siteSize}-${config.features.length}`}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-sm text-white/40"
+              >
+                <span className="capitalize">{config.palette}</span> theme •{" "}
+                <span className="capitalize">{config.siteSize}</span> •{" "}
+                {config.features.length} features
+              </motion.p>
+            </div>
           </div>
         </div>
 
