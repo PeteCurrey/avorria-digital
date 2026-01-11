@@ -377,10 +377,10 @@ const Home = () => {
             <div className="max-w-4xl">
               {/* Hero Copy - Center-left aligned */}
               <div className="space-y-6 md:space-y-8 mb-10 md:mb-16 animate-fade-in">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl leading-[1.05] tracking-tight text-white font-medium lg:text-3xl drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white font-medium drop-shadow-[0_2px_4px_rgba(0,0,0,0.5)]">
                   Digital Marketing, SEO &amp; Web Experiences that Actually Convert.
                 </h1>
-                <p className="text-lg md:text-xl text-white leading-relaxed max-w-3xl font-light lg:text-base drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
+                <p className="text-lg md:text-xl lg:text-2xl text-white leading-relaxed max-w-3xl font-light drop-shadow-[0_1px_2px_rgba(0,0,0,0.4)]">
                   Avorria is your performance-first digital partner. We combine high end design, technical SEO &amp; paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 

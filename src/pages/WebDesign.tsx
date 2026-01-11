@@ -181,6 +181,7 @@ const WebDesign = () => {
           body="We design and build web experiences that feel like top-tier agency work – but every section, layout and CTA is engineered for conversions, not awards."
           cta={{ text: "Talk about a rebuild", href: "/contact" }}
           secondaryCta={{ text: "Request a website teardown", href: "/free-seo-website-audit?focus=web" }}
+          backgroundImage={serviceWebDesign}
           minHeight="70vh"
         />
 

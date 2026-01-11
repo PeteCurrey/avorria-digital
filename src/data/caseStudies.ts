@@ -4,6 +4,15 @@
  * Complete data structure for premium case study presentation
  */
 
+// Import case study images
+import ognCraneHero from "@/assets/case-studies/ogn-crane-hero.jpg";
+import ognGallery1 from "@/assets/case-studies/ogn-gallery-1.jpg";
+import ognGallery2 from "@/assets/case-studies/ogn-gallery-2.jpg";
+import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
+import entirefmGallery1 from "@/assets/case-studies/entirefm-gallery-1.jpg";
+import entirefmGallery2 from "@/assets/case-studies/entirefm-gallery-2.jpg";
+import classicCarsHero from "@/assets/hero-race-car.jpg";
+
 export interface CaseMetric {
   label: string;
   value: string;
@@ -88,7 +97,7 @@ export const caseStudies: CaseStudy[] = [
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/placeholder.svg",
+      src: ognCraneHero,
     },
     headline: "Technical precision meets digital excellence",
     subheadline: "How we transformed a specialist lifting company's outdated website into a lead-generating powerhouse — with clarity that matches their operational expertise.",
@@ -149,13 +158,13 @@ The brief was clear: build a digital experience that matches the technical excel
       { label: "Conversion Rate", value: "4.8%", baseline: "up from 0.9%" },
     ],
     galleryMedia: [
-      { type: "image", src: "/placeholder.svg", alt: "OGN homepage with hero crane imagery" },
-      { type: "image", src: "/placeholder.svg", alt: "Specialist lifting services page" },
-      { type: "image", src: "/placeholder.svg", alt: "Mobile responsive quote request" },
-      { type: "image", src: "/placeholder.svg", alt: "Hot tub relocation service page" },
+      { type: "image", src: ognCraneHero, alt: "OGN homepage with hero crane imagery" },
+      { type: "image", src: ognGallery1, alt: "Hot tub relocation service" },
+      { type: "image", src: ognGallery2, alt: "Steel frame erection project" },
+      { type: "image", src: ognGallery1, alt: "Specialist lifting in residential setting" },
     ],
-    beforeMedia: "/placeholder.svg",
-    afterMedia: "/placeholder.svg",
+    beforeMedia: ognGallery2,
+    afterMedia: ognCraneHero,
     quote: {
       text: "Avorria got it. They understood that our website needed to speak to contractors who know their stuff — not just look pretty. The new site actually represents who we are. Enquiries are up, and more importantly, they're the right kind of enquiries from people who understand what we do.",
       name: "Paul Richardson",
@@ -187,7 +196,7 @@ The brief was clear: build a digital experience that matches the technical excel
     outcome: "revenue",
     heroMedia: {
       type: "image",
-      src: "/placeholder.svg",
+      src: entirefmHero,
     },
     headline: "From outdated to industry-leading",
     subheadline: "A complete digital transformation for facilities management — AI-driven workflows, crystal-clear messaging, and a website that actually converts.",
@@ -244,13 +253,13 @@ The challenge was clear: modernise the entire digital experience, sharpen the va
       { label: "Lead Quality Score", value: "+71%", baseline: "sales team rating" },
     ],
     galleryMedia: [
-      { type: "image", src: "/placeholder.svg", alt: "EntireFM homepage redesign" },
-      { type: "image", src: "/placeholder.svg", alt: "Services page with clear value proposition" },
-      { type: "image", src: "/placeholder.svg", alt: "Mobile responsive design" },
-      { type: "image", src: "/placeholder.svg", alt: "AI chatbot integration" },
+      { type: "image", src: entirefmHero, alt: "EntireFM homepage redesign" },
+      { type: "image", src: entirefmGallery1, alt: "HVAC maintenance services" },
+      { type: "image", src: entirefmGallery2, alt: "Modern office reception" },
+      { type: "image", src: entirefmGallery1, alt: "Facilities management technician" },
     ],
-    beforeMedia: "/placeholder.svg",
-    afterMedia: "/placeholder.svg",
+    beforeMedia: entirefmGallery1,
+    afterMedia: entirefmHero,
     quote: {
       text: "Avorria didn't just build us a website — they transformed how we present ourselves to the market. The AI automations alone have saved our team hours every week. Enquiries are up, the right prospects are finding us, and for the first time, our digital presence matches the quality of our service delivery.",
       name: "David Mitchell",
