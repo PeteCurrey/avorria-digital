@@ -18,6 +18,7 @@ import {
   Zap,
   Calendar,
   PenTool,
+  FileCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -52,6 +53,7 @@ const navSections: NavSection[] = [
     items: [
       { name: "Overview", icon: LayoutDashboard, tab: "overview" },
       { name: "Leads", icon: Users, tab: "leads", badge: "New" },
+      { name: "Audits", icon: FileCheck, tab: "audits" },
       { name: "Analytics", icon: BarChart3, tab: "analytics" },
     ],
   },
