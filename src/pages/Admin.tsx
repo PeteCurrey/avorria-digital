@@ -39,6 +39,7 @@ import LiveSearchConsoleWidget from "@/components/admin/LiveSearchConsoleWidget"
 import { LandingPageManager } from "@/components/admin/LandingPageManager";
 import AuditReportsTab from "@/components/admin/AuditReportsTab";
 import { ProjectsTab } from "@/components/admin/ProjectsTab";
+import CaseStudiesTab from "@/components/admin/CaseStudiesTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -143,6 +144,7 @@ const Admin = () => {
       case "overview": return "Dashboard Overview";
       case "projects": return "Projects";
       case "leads": return "Lead Management";
+      case "case-studies": return "Case Studies";
       case "audits": return "Audit Reports";
       case "analytics": return "Analytics";
       case "performance": return "Performance";
@@ -164,6 +166,7 @@ const Admin = () => {
       case "overview": return "Monitor your key metrics and recent activity";
       case "projects": return "Manage website design projects from the studio";
       case "leads": return "Track and manage your sales leads";
+      case "case-studies": return "Manage and publish your client success stories";
       case "audits": return "View all generated website audit reports";
       case "analytics": return "Deep dive into your website analytics";
       case "performance": return "Monitor site speed and Core Web Vitals";
@@ -587,6 +590,9 @@ const Admin = () => {
 
       case "audits":
         return <AuditReportsTab />;
+
+      case "case-studies":
+        return <CaseStudiesTab />;
 
       case "projects":
         return <ProjectsTab />;
