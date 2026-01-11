@@ -20,6 +20,21 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
   const isHomePage = location.pathname === "/";
   
+  // Pages that have their own complete layout (no global nav/footer)
+  const selfContainedPages = [
+    "/web-design/studio/build",
+    "/admin",
+  ];
+  
+  const isSelfContainedPage = selfContainedPages.some(page => 
+    location.pathname === page
+  ) || location.pathname.startsWith("/client");
+  
+  // Skip global navigation and footer for self-contained pages
+  if (isSelfContainedPage) {
+    return <>{children}</>;
+  }
+  
   // Pages with full-screen hero images that need transparent header
   const heroPages = [
     "/web-design/studio",
