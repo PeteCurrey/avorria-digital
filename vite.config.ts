@@ -13,11 +13,12 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Force all React imports to the same instance
+      // Force all imports to the same instance to prevent duplicate React errors
       "react": path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
       "react-helmet-async": path.resolve(__dirname, "node_modules/react-helmet-async"),
       "react-router-dom": path.resolve(__dirname, "node_modules/react-router-dom"),
+      "@tanstack/react-query": path.resolve(__dirname, "node_modules/@tanstack/react-query"),
     },
     dedupe: [
       "react",
@@ -27,6 +28,7 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-dev-runtime",
       "react-helmet-async",
       "react-router-dom",
+      "@tanstack/react-query",
       "scheduler",
     ],
   },
@@ -39,16 +41,17 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-dev-runtime",
       "react-helmet-async",
       "react-router-dom",
+      "@tanstack/react-query",
       "scheduler",
     ],
     esbuildOptions: {
-      // Ensure consistent JSX transform
       jsx: "automatic",
     },
+    force: true, // Force re-optimization to clear cached duplicates
   },
   build: {
     commonjsOptions: {
-      include: [/react-helmet-async/, /node_modules/],
+      include: [/node_modules/],
     },
   },
 }));
