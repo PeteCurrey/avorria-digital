@@ -19,6 +19,7 @@ const PaidMediaAgencyPillar = lazy(() => import("@/pages/PaidMediaAgencyPillar")
 const PaidMedia = lazy(() => import("@/pages/PaidMedia"));
 const WebDesign = lazy(() => import("@/pages/WebDesign"));
 const WebDesignStudio = lazy(() => import("@/pages/WebDesignStudio"));
+const WebDesignStudioBuild = lazy(() => import("@/pages/WebDesignStudioBuild"));
 const CaseStudyDetail = lazy(() => import("@/pages/CaseStudyDetail"));
 const ContentEmail = lazy(() => import("@/pages/ContentEmail"));
 const SocialPersonalBrand = lazy(() => import("@/pages/SocialPersonalBrand"));
@@ -88,6 +89,7 @@ const AnimatedRoutes = () => {
           <Route path="/services/web-design" element={<PageTransition><WebDesign /></PageTransition>} />
           <Route path="/web-design" element={<PageTransition><WebDesign /></PageTransition>} />
           <Route path="/web-design/studio" element={<PageTransition><WebDesignStudio /></PageTransition>} />
+          <Route path="/web-design/studio/build" element={<PageTransition><WebDesignStudioBuild /></PageTransition>} />
           <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
           <Route path="/case-studies/:slug" element={<PageTransition><CaseStudyDetail /></PageTransition>} />
           <Route path="/services/content-email" element={<PageTransition><ContentEmail /></PageTransition>} />
