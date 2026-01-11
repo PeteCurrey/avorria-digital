@@ -2,8 +2,9 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle } from "lucide-react";
-import { HeroBand, SectionBand } from "@/components/ContentBand";
+import { HeroBand, SectionBand, ImageSectionBand } from "@/components/ContentBand";
 import heroAboutTeam from "@/assets/hero-about-team.jpg";
+import heroCityscape from "@/assets/hero-cityscape.jpg";
 
 const About = () => {
   const principles = [
@@ -210,51 +211,56 @@ const About = () => {
           </div>
         </SectionBand>
 
-        {/* How We Work Together - Mesh */}
-        <SectionBand background="mesh" padding="large">
+        {/* How We Work Together - Image background with cityscape */}
+        <SectionBand 
+          background="image" 
+          backgroundImage={heroCityscape}
+          backgroundOverlay="blur"
+          padding="large"
+        >
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light drop-shadow-lg">
                 How we work together.
               </h2>
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
               {howWeWork.map((item, index) => (
-                <div key={index} className="p-8 rounded-xl border border-white/10 bg-white/5">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent to-[hsl(260,75%,60%)] flex items-center justify-center text-white text-xl font-semibold mb-5">
+                <div key={index} className="p-8 rounded-xl border border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-colors">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent to-[hsl(260,75%,60%)] flex items-center justify-center text-white text-xl font-semibold mb-5 shadow-lg">
                     {item.step}
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
-                  <p className="text-white/70 leading-relaxed">{item.description}</p>
+                  <h3 className="text-xl font-semibold text-white mb-3 drop-shadow-md">{item.title}</h3>
+                  <p className="text-white/85 leading-relaxed">{item.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </SectionBand>
 
-        {/* CTA Section - Gradient */}
-        <SectionBand background="gradient" padding="large">
+        {/* CTA Section - Race car background */}
+        <ImageSectionBand variant="racecar" overlay="gradient" padding="large">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-6 drop-shadow-lg">
               Ready to work with a team that treats your budget like their own?
             </h2>
-            <p className="text-xl text-white/75 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-white/85 mb-10 max-w-2xl mx-auto">
               Book a strategy call to discuss your goals, challenges, and how we can help.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
+              <Button variant="accent" size="lg" asChild className="w-full sm:w-auto shadow-lg">
                 <Link to="/contact">
                   Get a free audit
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/30 text-white hover:bg-white/20 shadow-lg">
                 <Link to="/contact">Book a strategy call</Link>
               </Button>
             </div>
           </div>
-        </SectionBand>
+        </ImageSectionBand>
       </div>
     </>
   );

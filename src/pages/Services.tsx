@@ -2,10 +2,11 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Search, Target, Palette, Mail, Share2, BarChart3 } from "lucide-react";
-import { HeroBand, SectionBand, ContentBand } from "@/components/ContentBand";
+import { HeroBand, SectionBand, ContentBand, ImageSectionBand } from "@/components/ContentBand";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
+import heroCityscape from "@/assets/hero-cityscape.jpg";
 const Services = () => {
   const services = [{
     icon: Search,
@@ -173,27 +174,32 @@ const Services = () => {
         href: "/services/web-design"
       }} background="mesh" />
 
-        {/* Where Should You Start - Dark section */}
-        <SectionBand background="dark" padding="large">
+        {/* Where Should You Start - Image background with cityscape */}
+        <SectionBand 
+          background="image" 
+          backgroundImage={heroCityscape}
+          backgroundOverlay="heavy"
+          padding="large"
+        >
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 drop-shadow-lg">
                 Where should you start?
               </h2>
-              <p className="text-lg md:text-xl text-white/75 max-w-2xl mx-auto">
+              <p className="text-lg md:text-xl text-white/85 max-w-2xl mx-auto">
                 You don't have to buy everything at once. Pick the entry point that matches your reality right now.
               </p>
             </div>
             
             <div className="grid md:grid-cols-3 gap-6 lg:gap-8 mb-16">
-              <div className="p-8 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4">
+              <div className="p-8 rounded-xl border border-white/20 bg-black/40 backdrop-blur-md space-y-4 hover:bg-black/50 transition-colors">
                 <h3 className="text-xl font-semibold text-white">
                   "Our data is a mess."
                 </h3>
-                <p className="text-white/70 leading-relaxed">
+                <p className="text-white/80 leading-relaxed">
                   Start with Analytics & Conversion Optimisation. We'll fix tracking, build a clean dashboard and give you a blunt read on what's working and what isn't.
                 </p>
-                <Button variant="outline" size="sm" asChild className="w-full border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" size="sm" asChild className="w-full border-white/30 text-white hover:bg-white/20">
                   <Link to="/services/analytics">
                     Fix the tracking first
                     <ArrowRight className="ml-2" size={16} />
@@ -201,14 +207,14 @@ const Services = () => {
                 </Button>
               </div>
               
-              <div className="p-8 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4">
+              <div className="p-8 rounded-xl border border-white/20 bg-black/40 backdrop-blur-md space-y-4 hover:bg-black/50 transition-colors">
                 <h3 className="text-xl font-semibold text-white">
                   "We need more (and better) leads."
                 </h3>
-                <p className="text-white/70 leading-relaxed">
+                <p className="text-white/80 leading-relaxed">
                   Start with SEO + Paid Media. We'll build a 90-day plan to increase qualified demand, then plug it into landing pages that actually convert.
                 </p>
-                <Button variant="outline" size="sm" asChild className="w-full border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" size="sm" asChild className="w-full border-white/30 text-white hover:bg-white/20">
                   <Link to="/services/seo">
                     Talk traffic & pipeline
                     <ArrowRight className="ml-2" size={16} />
@@ -216,14 +222,14 @@ const Services = () => {
                 </Button>
               </div>
               
-              <div className="p-8 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm space-y-4">
+              <div className="p-8 rounded-xl border border-white/20 bg-black/40 backdrop-blur-md space-y-4 hover:bg-black/50 transition-colors">
                 <h3 className="text-xl font-semibold text-white">
                   "Our website isn't pulling its weight."
                 </h3>
-                <p className="text-white/70 leading-relaxed">
+                <p className="text-white/80 leading-relaxed">
                   Start with Web Design & Development. We'll audit your site, map the journeys properly and rebuild the key pages so everything else you do isn't wasted.
                 </p>
-                <Button variant="outline" size="sm" asChild className="w-full border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" size="sm" asChild className="w-full border-white/30 text-white hover:bg-white/20">
                   <Link to="/free-seo-website-audit">
                     Request a website teardown
                     <ArrowRight className="ml-2" size={16} />
@@ -232,11 +238,11 @@ const Services = () => {
               </div>
             </div>
             
-            <div className="text-center">
-              <h3 className="text-2xl md:text-3xl font-light mb-4 text-white">
+            <div className="text-center p-8 rounded-2xl bg-black/30 backdrop-blur-sm border border-white/10">
+              <h3 className="text-2xl md:text-3xl font-light mb-4 text-white drop-shadow-md">
                 Still not sure?
               </h3>
-              <p className="text-lg text-white/70 mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
                 Book a strategy call or request a free audit and we'll tell you – bluntly – where your next 90 days of effort should go.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -246,7 +252,7 @@ const Services = () => {
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/30 text-white hover:bg-white/20">
                   <Link to="/contact">Book a strategy call</Link>
                 </Button>
               </div>
