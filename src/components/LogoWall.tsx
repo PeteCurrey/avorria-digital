@@ -35,7 +35,7 @@ export const LogoWall = ({ title, type = "clients" }: LogoWallProps) => {
         {logos.map((logo, index) => (
           <div
             key={index}
-            className="text-base lg:text-lg font-semibold text-foreground opacity-40 hover:opacity-60 transition-opacity grayscale"
+            className="text-base lg:text-lg font-semibold text-white opacity-60 hover:opacity-100 transition-opacity duration-300"
           >
             {logo}
           </div>

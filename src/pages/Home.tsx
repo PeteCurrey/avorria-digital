@@ -15,9 +15,13 @@ import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollRe
 import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand, ImageSectionBand } from "@/components/ContentBand";
+import { StickyImageSection } from "@/components/StickyImageSection";
 import HeroGradient from "@/components/HeroGradient";
 import heroPenthouse from "@/assets/hero-penthouse.png";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
+import bgOfficeWorkspace from "@/assets/bg-office-workspace.jpg";
+import bgDataAnalytics from "@/assets/bg-data-analytics.jpg";
+import bgCityNight from "@/assets/bg-city-night.jpg";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -427,76 +431,85 @@ const Home = () => {
           </ScrollReveal>
         </SectionBand>
 
-        {/* Value Props */}
-        <SectionBand background="gradient" padding="large">
-          <ScrollReveal>
-            <div className="text-center mb-16">
-              <h2 className="text-section-headline font-light mb-4 max-w-3xl mx-auto">
-                Why teams work with Avorria
-              </h2>
+        {/* Value Props - With Immersive Office Background */}
+        <StickyImageSection 
+          backgroundImage={bgOfficeWorkspace} 
+          overlay="gradient"
+          minHeight="auto"
+          className="py-24 md:py-32 lg:py-40"
+        >
+          <div className="container mx-auto px-4 sm:px-6">
+            <ScrollReveal>
+              <div className="text-center mb-16">
+                <h2 className="text-section-headline font-light mb-4 max-w-3xl mx-auto text-white drop-shadow-lg">
+                  Why teams work with Avorria
+                </h2>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto" stagger={100}>
+              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
+                <CardContent className="p-6 sm:p-8 space-y-4">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Target className="text-accent w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                    Pipeline-first, not buzzword-first
+                  </h3>
+                  <p className="text-white/80 leading-relaxed">
+                    Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
+                <CardContent className="p-6 sm:p-8 space-y-4">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Zap className="text-accent w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                    Technical firepower baked in
+                  </h3>
+                  <p className="text-white/80 leading-relaxed">
+                    Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
+                <CardContent className="p-6 sm:p-8 space-y-4">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <TrendingUp className="text-accent w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                    Design that earns its keep
+                  </h3>
+                  <p className="text-white/80 leading-relaxed">
+                    We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
+                  </p>
+                </CardContent>
+              </Card>
+
+              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
+                <CardContent className="p-6 sm:p-8 space-y-4">
+                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <BarChart3 className="text-accent w-7 h-7" />
+                  </div>
+                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                    Plain-English reporting
+                  </h3>
+                  <p className="text-white/80 leading-relaxed">
+                    You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
+                  </p>
+                </CardContent>
+              </Card>
+            </ScrollRevealGrid>
+
+            <div className="mt-12">
+              <OpinionatedQuote quote="If your SEO report doesn't mention revenue, it's a vanity exercise." />
             </div>
-          </ScrollReveal>
-          
-          <ScrollRevealGrid className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto" stagger={100}>
-            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 group">
-              <CardContent className="p-6 sm:p-8 space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Target className="text-accent w-7 h-7" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                  Pipeline-first, not buzzword-first
-                </h3>
-                <p className="text-white/70 leading-relaxed">
-                  Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 group">
-              <CardContent className="p-6 sm:p-8 space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <Zap className="text-accent w-7 h-7" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                  Technical firepower baked in
-                </h3>
-                <p className="text-white/70 leading-relaxed">
-                  Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 group">
-              <CardContent className="p-6 sm:p-8 space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <TrendingUp className="text-accent w-7 h-7" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                  Design that earns its keep
-                </h3>
-                <p className="text-white/70 leading-relaxed">
-                  We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300 group">
-              <CardContent className="p-6 sm:p-8 space-y-4">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <BarChart3 className="text-accent w-7 h-7" />
-                </div>
-                <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                  Plain-English reporting
-                </h3>
-                <p className="text-white/70 leading-relaxed">
-                  You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
-                </p>
-              </CardContent>
-            </Card>
-          </ScrollRevealGrid>
-
-          <OpinionatedQuote quote="If your SEO report doesn't mention revenue, it's a vanity exercise." />
-        </SectionBand>
+          </div>
+        </StickyImageSection>
 
         {/* Services Overview - Premium Grid */}
         <SectionBand background="dark" padding="large">
@@ -569,40 +582,47 @@ const Home = () => {
           </div>
         </ImageSectionBand>
 
-        {/* Case Studies Highlights - Premium */}
-        <SectionBand background="gradient" padding="large">
-          <ScrollReveal>
-            <div className="text-center mb-16 md:mb-20">
-              <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">Results</span>
-              <h2 className="text-section-headline font-light mb-6">Proof over promises.</h2>
-              <p className="text-lg text-white/70 max-w-2xl mx-auto">
-                Here's the flavour of what happens when you stop treating marketing as an experiment.
-              </p>
+        {/* Case Studies Highlights - With Data Analytics Background */}
+        <StickyImageSection 
+          backgroundImage={bgDataAnalytics} 
+          overlay="gradient"
+          minHeight="auto"
+          className="py-24 md:py-32 lg:py-40"
+        >
+          <div className="container mx-auto px-4 sm:px-6">
+            <ScrollReveal>
+              <div className="text-center mb-16 md:mb-20">
+                <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">Results</span>
+                <h2 className="text-section-headline font-light mb-6 text-white drop-shadow-lg">Proof over promises.</h2>
+                <p className="text-lg text-white/80 max-w-2xl mx-auto">
+                  Here's the flavour of what happens when you stop treating marketing as an experiment.
+                </p>
+              </div>
+            </ScrollReveal>
+            
+            <ScrollRevealGrid className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto" stagger={100}>
+              {caseStudies.map((study, index) => <Card key={index} className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-500 group overflow-hidden shadow-2xl">
+                  <CardContent className="p-8 sm:p-10 relative">
+                    {/* Decorative accent line */}
+                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    
+                    <div className="text-5xl sm:text-6xl font-extralight text-accent mb-3 drop-shadow-lg">{study.metric}</div>
+                    <div className="text-sm font-medium text-white mb-2">{study.metricLabel}</div>
+                    <p className="text-sm text-white/70 leading-relaxed">{study.description}</p>
+                  </CardContent>
+                </Card>)}
+            </ScrollRevealGrid>
+            
+            <div className="text-center mt-12 sm:mt-16">
+              <Button variant="accent" size="lg" className="shadow-lg" asChild>
+                <Link to="/case-studies">
+                  View case studies
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </Link>
+              </Button>
             </div>
-          </ScrollReveal>
-          
-          <ScrollRevealGrid className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto" stagger={100}>
-            {caseStudies.map((study, index) => <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-500 group overflow-hidden">
-                <CardContent className="p-8 sm:p-10 relative">
-                  {/* Decorative accent line */}
-                  <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <div className="text-5xl sm:text-6xl font-extralight text-accent mb-3">{study.metric}</div>
-                  <div className="text-sm font-medium text-white mb-2">{study.metricLabel}</div>
-                  <p className="text-sm text-white/60 leading-relaxed">{study.description}</p>
-                </CardContent>
-              </Card>)}
-          </ScrollRevealGrid>
-          
-          <div className="text-center mt-12 sm:mt-16">
-            <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10" asChild>
-              <Link to="/case-studies" className="bg-accent">
-                View case studies
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
           </div>
-        </SectionBand>
+        </StickyImageSection>
 
         {/* Comparison Table */}
         <SectionBand background="dark" padding="large">
@@ -711,30 +731,37 @@ const Home = () => {
           </div>
         </SectionBand>
 
-        {/* Final CTA */}
-        <SectionBand background="dark" padding="hero">
-          <div className="max-w-4xl mx-auto text-center">
-            <ScrollReveal>
-              <h2 className="text-section-headline lg:text-6xl font-light mb-6">
-                Ready to treat marketing like an operating function, not a gamble?
-              </h2>
-              <p className="text-xl text-white/80 mb-10 max-w-2xl mx-auto">
-                If you're tired of noise, guesswork and vague reports, let's talk. We'll review your current setup and show you what a disciplined, revenue-focused marketing engine could look like.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button variant="accent" size="lg" className="w-full sm:w-auto" asChild>
-                  <Link to="/contact">
-                    Book a strategy call
-                    <ArrowRight className="ml-2 w-5 h-5" />
-                  </Link>
-                </Button>
-                <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10" asChild>
-                  <Link to="/free-seo-website-audit" className="bg-muted-foreground">Request a free SEO & website audit</Link>
-                </Button>
-              </div>
-            </ScrollReveal>
+        {/* Final CTA - With Dramatic City Night Background */}
+        <StickyImageSection 
+          backgroundImage={bgCityNight} 
+          overlay="heavy"
+          minHeight="auto"
+          className="py-32 md:py-40 lg:py-48"
+        >
+          <div className="container mx-auto px-4 sm:px-6">
+            <div className="max-w-4xl mx-auto text-center">
+              <ScrollReveal>
+                <h2 className="text-section-headline lg:text-6xl font-light mb-6 text-white drop-shadow-lg">
+                  Ready to treat marketing like an operating function, not a gamble?
+                </h2>
+                <p className="text-xl text-white/85 mb-10 max-w-2xl mx-auto drop-shadow-md">
+                  If you're tired of noise, guesswork and vague reports, let's talk. We'll review your current setup and show you what a disciplined, revenue-focused marketing engine could look like.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Button variant="accent" size="lg" className="w-full sm:w-auto text-lg px-8 py-6 shadow-lg" asChild>
+                    <Link to="/contact">
+                      Book a strategy call
+                      <ArrowRight className="ml-2 w-5 h-5" />
+                    </Link>
+                  </Button>
+                  <Button size="lg" className="w-full sm:w-auto text-lg px-8 py-6 bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 shadow-lg" asChild>
+                    <Link to="/free-seo-website-audit">Request a free SEO & website audit</Link>
+                  </Button>
+                </div>
+              </ScrollReveal>
+            </div>
           </div>
-        </SectionBand>
+        </StickyImageSection>
 
         {/* Slide-in Panel and Exit Intent */}
         <SlideInPanel />
