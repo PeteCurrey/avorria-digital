@@ -93,10 +93,29 @@ export const DeviceMockup = ({ children, className = "" }: DeviceMockupProps) =>
           <div className="absolute left-1/2 top-0 h-1 w-20 -translate-x-1/2 rounded-b-lg bg-zinc-600" />
         </div>
 
-        {/* Base Shadow */}
-        <div className="absolute -bottom-4 left-1/2 h-8 w-[90%] -translate-x-1/2 rounded-full bg-black/40 blur-xl" />
+        {/* Reflection Effect - Premium desk aesthetic */}
+        <div className="relative mt-2">
+          {/* Main reflection */}
+          <div 
+            className="absolute left-1/2 -translate-x-1/2 w-[95%] h-24 overflow-hidden rounded-b-3xl"
+            style={{
+              transform: 'translateX(-50%) scaleY(-1) perspective(500px) rotateX(30deg)',
+              transformOrigin: 'top center',
+            }}
+          >
+            {/* Blurred gradient reflection of the screen */}
+            <div className="absolute inset-0 bg-gradient-to-b from-zinc-800/40 via-zinc-900/20 to-transparent blur-sm" />
+            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-white/[0.02] to-white/[0.05]" />
+          </div>
+          
+          {/* Soft glow on desk surface */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-4 w-[80%] h-16 bg-accent/5 rounded-full blur-2xl" />
+          
+          {/* Base shadow */}
+          <div className="absolute left-1/2 -translate-x-1/2 top-0 h-8 w-[90%] rounded-full bg-black/50 blur-xl" />
+        </div>
 
-        {/* Reflection/Glow Effect */}
+        {/* Reflection/Glow Effect on hover */}
         <motion.div
           animate={{
             opacity: isHovered ? 0.15 : 0.05,
