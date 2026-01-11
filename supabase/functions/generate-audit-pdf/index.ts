@@ -106,7 +106,32 @@ serve(async (req) => {
       }
     }
 
-    // Step 5: Send email via Resend (if API key is available)
+    // Step 5: Save audit report to database for admin panel visibility
+    const { error: insertError } = await supabase
+      .from("audit_reports")
+      .insert({
+        lead_id: leadId || null,
+        email,
+        name,
+        company_name: companyName,
+        website_url: websiteUrl,
+        overall_score: auditResult.overallScore,
+        report_url: reportUrl,
+        report_file_name: fileName,
+        sections: auditResult.sections,
+        quick_wins: auditResult.quickWins,
+        roadmap: auditResult.roadmap90Days,
+        email_sent: false, // Will be updated after email is sent
+        status: 'completed'
+      });
+
+    if (insertError) {
+      console.warn("Failed to save audit record:", insertError);
+    } else {
+      console.log("Audit record saved to database");
+    }
+
+    // Step 6: Send email via Resend (if API key is available)
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     let emailSent = false;
 
@@ -131,6 +156,12 @@ serve(async (req) => {
         if (emailResponse.ok) {
           emailSent = true;
           console.log("Email sent successfully");
+          
+          // Update audit record with email_sent status
+          await supabase
+            .from("audit_reports")
+            .update({ email_sent: true })
+            .eq("report_url", reportUrl);
         } else {
           const emailError = await emailResponse.text();
           console.warn("Email sending failed:", emailError);

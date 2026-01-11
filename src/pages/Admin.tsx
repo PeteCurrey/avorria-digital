@@ -37,6 +37,7 @@ import IntegrationsPanel from "@/components/admin/IntegrationsPanel";
 import LiveGoogleAnalyticsWidget from "@/components/admin/LiveGoogleAnalyticsWidget";
 import LiveSearchConsoleWidget from "@/components/admin/LiveSearchConsoleWidget";
 import { LandingPageManager } from "@/components/admin/LandingPageManager";
+import AuditReportsTab from "@/components/admin/AuditReportsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -140,6 +141,7 @@ const Admin = () => {
     switch (activeTab) {
       case "overview": return "Dashboard Overview";
       case "leads": return "Lead Management";
+      case "audits": return "Audit Reports";
       case "analytics": return "Analytics";
       case "performance": return "Performance";
       case "seo": return "SEO Dashboard";
@@ -159,6 +161,7 @@ const Admin = () => {
     switch (activeTab) {
       case "overview": return "Monitor your key metrics and recent activity";
       case "leads": return "Track and manage your sales leads";
+      case "audits": return "View all generated website audit reports";
       case "analytics": return "Deep dive into your website analytics";
       case "performance": return "Monitor site speed and Core Web Vitals";
       case "seo": return "Track SEO performance and rankings";
@@ -578,6 +581,9 @@ const Admin = () => {
             }}
           />
         );
+
+      case "audits":
+        return <AuditReportsTab />;
 
       case "performance":
         return <PerformanceTab />;
