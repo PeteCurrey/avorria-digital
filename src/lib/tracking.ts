@@ -26,8 +26,13 @@ export const EVENTS = {
   CTA_CLICK: 'cta_click',
   
   // Audit Funnel
+  AUDIT_FUNNEL_VIEWED: 'audit_funnel_viewed',
   AUDIT_FORM_STARTED: 'audit_form_started',
   AUDIT_FORM_SUBMITTED: 'audit_form_submitted',
+  AUDIT_REPORT_GENERATED: 'audit_report_generated',
+  AUDIT_REPORT_VIEWED: 'audit_report_viewed',
+  AUDIT_REPORT_DOWNLOADED: 'audit_report_downloaded',
+  AUDIT_CTA_CLICKED: 'audit_cta_clicked',
   AUDIT_FORM_ERROR: 'audit_form_error',
   
   // Project Estimator
@@ -198,5 +203,46 @@ export function trackPageView(pageTitle?: string) {
   trackEvent('page_view', {
     page_title: pageTitle || document.title,
     user_type: getUserType(),
+  });
+}
+
+// ============= Audit Funnel Tracking =============
+
+/**
+ * Track audit funnel page view
+ */
+export function trackAuditFunnelView(source?: string) {
+  trackEvent(EVENTS.AUDIT_FUNNEL_VIEWED, {
+    source: source || 'direct',
+    referrer: document.referrer || 'none',
+  });
+}
+
+/**
+ * Track audit report generation success
+ */
+export function trackAuditReportGenerated(score: number, websiteUrl: string) {
+  trackEvent(EVENTS.AUDIT_REPORT_GENERATED, {
+    overall_score: score,
+    website_domain: new URL(websiteUrl).hostname,
+  });
+}
+
+/**
+ * Track audit report view/download
+ */
+export function trackAuditReportView(reportUrl: string, action: 'view' | 'download' = 'view') {
+  trackEvent(action === 'view' ? EVENTS.AUDIT_REPORT_VIEWED : EVENTS.AUDIT_REPORT_DOWNLOADED, {
+    report_url: reportUrl,
+  });
+}
+
+/**
+ * Track audit CTA click (e.g., "Book a Strategy Call" after audit)
+ */
+export function trackAuditCTAClick(ctaLabel: string, destination: string) {
+  trackEvent(EVENTS.AUDIT_CTA_CLICKED, {
+    cta_label: ctaLabel,
+    cta_destination: destination,
   });
 }
