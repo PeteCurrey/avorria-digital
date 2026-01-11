@@ -1278,23 +1278,35 @@ export type Database = {
       website_blueprints: {
         Row: {
           analytical: number
+          assigned_to: string | null
           bold: number
           budget: string | null
           company: string | null
+          contract_signed: boolean | null
           created_at: string
           email: string
+          estimated_hours: number | null
+          estimated_value: number | null
           features: Json | null
           id: string
+          internal_notes: string | null
+          kickoff_date: string | null
           minimal: number
           modules: Json | null
           name: string
           notes: string | null
           palette: string
+          pdf_url: string | null
           phone: string | null
+          priority: string | null
+          project_code: string | null
+          proposal_url: string | null
           purpose: string
           site_size: string
+          stage: string | null
           status: string
           straight_talking: number
+          target_launch: string | null
           timeline: string | null
           understated: number
           updated_at: string
@@ -1302,23 +1314,35 @@ export type Database = {
         }
         Insert: {
           analytical?: number
+          assigned_to?: string | null
           bold?: number
           budget?: string | null
           company?: string | null
+          contract_signed?: boolean | null
           created_at?: string
           email: string
+          estimated_hours?: number | null
+          estimated_value?: number | null
           features?: Json | null
           id?: string
+          internal_notes?: string | null
+          kickoff_date?: string | null
           minimal?: number
           modules?: Json | null
           name: string
           notes?: string | null
           palette: string
+          pdf_url?: string | null
           phone?: string | null
+          priority?: string | null
+          project_code?: string | null
+          proposal_url?: string | null
           purpose: string
           site_size: string
+          stage?: string | null
           status?: string
           straight_talking?: number
+          target_launch?: string | null
           timeline?: string | null
           understated?: number
           updated_at?: string
@@ -1326,23 +1350,35 @@ export type Database = {
         }
         Update: {
           analytical?: number
+          assigned_to?: string | null
           bold?: number
           budget?: string | null
           company?: string | null
+          contract_signed?: boolean | null
           created_at?: string
           email?: string
+          estimated_hours?: number | null
+          estimated_value?: number | null
           features?: Json | null
           id?: string
+          internal_notes?: string | null
+          kickoff_date?: string | null
           minimal?: number
           modules?: Json | null
           name?: string
           notes?: string | null
           palette?: string
+          pdf_url?: string | null
           phone?: string | null
+          priority?: string | null
+          project_code?: string | null
+          proposal_url?: string | null
           purpose?: string
           site_size?: string
+          stage?: string | null
           status?: string
           straight_talking?: number
+          target_launch?: string | null
           timeline?: string | null
           understated?: number
           updated_at?: string
