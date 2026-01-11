@@ -22,6 +22,7 @@ import bgDataAnalytics from "@/assets/bg-data-analytics.jpg";
 import ognCraneHero from "@/assets/case-studies/ogn-crane-hero.jpg";
 import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
 import heroRaceCar from "@/assets/hero-race-car.jpg";
+import heroPenthouse from "@/assets/hero-penthouse.png";
 
 const Home = () => {
   // Organization schema for brand visibility in search results
@@ -391,19 +392,25 @@ const Home = () => {
       </Helmet>
 
 
-      {/* Override default navigation */}
+      {/* Override default navigation with transparent version */}
       <div className="relative z-50">
-        <Navigation transparent={false} />
+        <Navigation transparent={true} />
       </div>
 
       <div className="min-h-screen bg-white">
-        {/* Hero Section - Light Theme */}
-        <section className="relative pt-32 pb-20 md:pt-40 md:pb-28 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
-          {/* Subtle decorative elements */}
-          <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-l from-accent/5 to-transparent" />
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-accent/5 rounded-full blur-3xl -translate-x-1/2 translate-y-1/2" />
+        {/* Full-Screen Hero Section with Penthouse Image */}
+        <section 
+          className="relative min-h-screen flex items-center justify-center overflow-hidden"
+          style={{
+            backgroundImage: `url(${heroPenthouse})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
+          {/* Light overlay for readability while maintaining the sophisticated feel */}
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white" />
           
-          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-24">
             <div className="max-w-4xl">
               <div className="space-y-6 md:space-y-8 animate-fade-in">
                 <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em]">
@@ -413,19 +420,19 @@ const Home = () => {
                   Digital Marketing, SEO & Web Experiences that{" "}
                   <span className="text-accent font-normal">Actually Convert.</span>
                 </h1>
-                <p className="text-lg md:text-xl text-gray-600 leading-relaxed max-w-3xl">
+                <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl">
                   We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button variant="accent" size="lg" className="text-base sm:text-lg px-8 py-6" asChild>
+                  <Button variant="accent" size="lg" className="text-base sm:text-lg px-8 py-6 shadow-lg" asChild>
                     <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')}>
                       Book a strategy call
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg" className="text-base sm:text-lg px-8 py-6 border-gray-300 text-gray-700 hover:bg-gray-50" asChild>
+                  <Button size="lg" className="text-base sm:text-lg px-8 py-6 bg-gray-900 text-white hover:bg-gray-800 shadow-lg" asChild>
                     <Link to="/free-seo-website-audit" onClick={() => trackCTAClick('get_free_seo_website_audit', '/free-seo-website-audit', 'hero')}>
                       Get a free audit
                     </Link>
@@ -434,27 +441,32 @@ const Home = () => {
               </div>
 
               {/* Stats Row */}
-              <div className="mt-16 pt-8 border-t border-gray-200">
+              <div className="mt-16 pt-8 border-t border-gray-300/50">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div>
                     <div className="text-3xl font-light text-gray-900">50+</div>
-                    <div className="text-sm text-gray-500">Active clients</div>
+                    <div className="text-sm text-gray-600">Active clients</div>
                   </div>
                   <div>
                     <div className="text-3xl font-light text-gray-900">£2.4M+</div>
-                    <div className="text-sm text-gray-500">Pipeline generated</div>
+                    <div className="text-sm text-gray-600">Pipeline generated</div>
                   </div>
                   <div>
                     <div className="text-3xl font-light text-gray-900">92%</div>
-                    <div className="text-sm text-gray-500">Client retention</div>
+                    <div className="text-sm text-gray-600">Client retention</div>
                   </div>
                   <div>
                     <div className="text-3xl font-light text-gray-900">10+ yrs</div>
-                    <div className="text-sm text-gray-500">Avg. experience</div>
+                    <div className="text-sm text-gray-600">Avg. experience</div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:block">
+            <ScrollIndicator />
           </div>
         </section>
 
