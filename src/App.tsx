@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -54,38 +55,43 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 // Create a stable HelmetProvider context
 const helmetContext = {};
 
-// Create QueryClient instance for React Query
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000,
-      retry: 1,
-    },
-  },
-});
+const App = () => {
+  // Create QueryClient inside the component to avoid HMR issues
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            staleTime: 5 * 60 * 1000,
+            retry: 1,
+          },
+        },
+      })
+  );
 
-const App = () => (
-  <HelmetProvider context={helmetContext}>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <AuthProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <CustomCursor />
-            <ScrollToTop />
-            <BackToTop />
-            <NavigationProgress />
-            <CookieConsent />
-            <AIConsultantTrigger />
-            <Layout>
-              <AnimatedRoutes />
-            </Layout>
-          </BrowserRouter>
-        </AuthProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
-);
+  return (
+    <HelmetProvider context={helmetContext}>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <AuthProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <CustomCursor />
+              <ScrollToTop />
+              <BackToTop />
+              <NavigationProgress />
+              <CookieConsent />
+              <AIConsultantTrigger />
+              <Layout>
+                <AnimatedRoutes />
+              </Layout>
+            </BrowserRouter>
+          </AuthProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
+  );
+};
 
 export default App;
