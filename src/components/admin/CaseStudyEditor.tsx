@@ -40,7 +40,7 @@ const defaultCaseStudy: CaseStudyInsert = {
   year: new Date().getFullYear(),
   outcome: "leads",
   hero_media_type: "image",
-  hero_media_src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+  hero_media_src: "",
   headline: "",
   subheadline: "",
   kpi_badges: [{ label: "", value: "", highlight: false }],

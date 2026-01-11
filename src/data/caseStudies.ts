@@ -88,7 +88,7 @@ export const caseStudies: CaseStudy[] = [
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "Technical precision meets digital excellence",
     subheadline: "How we transformed a specialist lifting company's outdated website into a lead-generating powerhouse — with clarity that matches their operational expertise.",
@@ -149,13 +149,13 @@ The brief was clear: build a digital experience that matches the technical excel
       { label: "Conversion Rate", value: "4.8%", baseline: "up from 0.9%" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "OGN homepage with hero crane imagery" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Specialist lifting services page" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile responsive quote request" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Hot tub relocation service page" },
+      { type: "image", src: "/placeholder.svg", alt: "OGN homepage with hero crane imagery" },
+      { type: "image", src: "/placeholder.svg", alt: "Specialist lifting services page" },
+      { type: "image", src: "/placeholder.svg", alt: "Mobile responsive quote request" },
+      { type: "image", src: "/placeholder.svg", alt: "Hot tub relocation service page" },
     ],
-    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
-    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    beforeMedia: "/placeholder.svg",
+    afterMedia: "/placeholder.svg",
     quote: {
       text: "Avorria got it. They understood that our website needed to speak to contractors who know their stuff — not just look pretty. The new site actually represents who we are. Enquiries are up, and more importantly, they're the right kind of enquiries from people who understand what we do.",
       name: "Paul Richardson",
@@ -187,7 +187,7 @@ The brief was clear: build a digital experience that matches the technical excel
     outcome: "revenue",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "From outdated to industry-leading",
     subheadline: "A complete digital transformation for facilities management — AI-driven workflows, crystal-clear messaging, and a website that actually converts.",
@@ -244,13 +244,13 @@ The challenge was clear: modernise the entire digital experience, sharpen the va
       { label: "Lead Quality Score", value: "+71%", baseline: "sales team rating" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "EntireFM homepage redesign" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Services page with clear value proposition" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile responsive design" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "AI chatbot integration" },
+      { type: "image", src: "/placeholder.svg", alt: "EntireFM homepage redesign" },
+      { type: "image", src: "/placeholder.svg", alt: "Services page with clear value proposition" },
+      { type: "image", src: "/placeholder.svg", alt: "Mobile responsive design" },
+      { type: "image", src: "/placeholder.svg", alt: "AI chatbot integration" },
     ],
-    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
-    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    beforeMedia: "/placeholder.svg",
+    afterMedia: "/placeholder.svg",
     quote: {
       text: "Avorria didn't just build us a website — they transformed how we present ourselves to the market. The AI automations alone have saved our team hours every week. Enquiries are up, the right prospects are finding us, and for the first time, our digital presence matches the quality of our service delivery.",
       name: "David Mitchell",
@@ -282,7 +282,7 @@ The challenge was clear: modernise the entire digital experience, sharpen the va
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", // Keep race car for automotive case study
     },
     headline: "Where heritage meets digital excellence",
     subheadline: "Transforming a premium classic car dealership into a digital showroom that matches the calibre of its inventory.",
@@ -348,7 +348,7 @@ The brief was clear: create a digital showroom experience that honours the herit
       { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile gallery experience" },
       { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Viewing request form" },
     ],
-    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", // Keep for automotive case study
     afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
     quote: {
       text: "Avorria understood something crucial: our clients aren't buying cars, they're acquiring pieces of automotive history. The new website finally tells that story. Enquiry quality has transformed — we're now speaking to serious collectors from the first conversation, not tyre-kickers who stumbled in from Google.",
@@ -381,7 +381,7 @@ The brief was clear: create a digital showroom experience that honours the herit
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "Precision diagnostics. Crystal-clear digital presence.",
     subheadline: "Transforming a cluttered website into a streamlined booking machine — because customers shouldn't need a diagnostic tool to navigate your services.",
@@ -442,13 +442,13 @@ The brief: declutter, clarify, and convert. Make it obvious what AES does, make 
       { label: "Page Load Speed", value: "1.3s", baseline: "down from 4.7s" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "AES homepage with clear service categories" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Key programming service page" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile booking experience" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Vehicle diagnostics landing page" },
+      { type: "image", src: "/placeholder.svg", alt: "AES homepage with clear service categories" },
+      { type: "image", src: "/placeholder.svg", alt: "Key programming service page" },
+      { type: "image", src: "/placeholder.svg", alt: "Mobile booking experience" },
+      { type: "image", src: "/placeholder.svg", alt: "Vehicle diagnostics landing page" },
     ],
-    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
-    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    beforeMedia: "/placeholder.svg",
+    afterMedia: "/placeholder.svg",
     quote: {
       text: "The phone used to ring with people asking what we actually do. Now it rings with people ready to book. Avorria sorted out our services so customers understand them, made booking dead simple, and got us showing up on Google Maps. Bookings are through the roof.",
       name: "Steve Andrews",
@@ -480,7 +480,7 @@ The brief: declutter, clarify, and convert. Make it obvious what AES does, make 
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "Professional service deserves professional presentation",
     subheadline: "Modernising a trusted local garage's digital identity — because quality workmanship shouldn't be hidden behind an outdated website.",
@@ -541,13 +541,13 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "Direct Calls", value: "+91%", baseline: "click-to-call conversions" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "DP Automotive refreshed homepage" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Mobile responsive service pages" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Trust signals and reviews integration" },
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Booking enquiry form" },
+      { type: "image", src: "/placeholder.svg", alt: "DP Automotive refreshed homepage" },
+      { type: "image", src: "/placeholder.svg", alt: "Mobile responsive service pages" },
+      { type: "image", src: "/placeholder.svg", alt: "Trust signals and reviews integration" },
+      { type: "image", src: "/placeholder.svg", alt: "Booking enquiry form" },
     ],
-    beforeMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
-    afterMedia: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+    beforeMedia: "/placeholder.svg",
+    afterMedia: "/placeholder.svg",
     quote: {
       text: "Our old website was embarrassing. Customers would mention they almost went elsewhere because it looked so dated. Now people comment on how professional it is. The phone rings more, the enquiries are better, and we finally look like the garage we actually are.",
       name: "Daniel Peters",
@@ -579,7 +579,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "184% more qualified leads",
     subheadline: "Full technical SEO overhaul and strategic content program for a B2B consulting firm",
@@ -615,7 +615,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "Pipeline Value", value: "£240k", baseline: "attributed to organic" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Performance dashboard" },
+      { type: "image", src: "/placeholder.svg", alt: "Performance dashboard" },
     ],
     quote: {
       text: "Avorria transformed our online presence. We went from relying entirely on referrals to having a steady stream of qualified inbound leads.",
@@ -636,7 +636,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
     outcome: "traffic",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "Dominating local search across 15 locations",
     subheadline: "Scalable local SEO system delivering consistent visibility gains",
@@ -678,7 +678,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "Local Pack Rankings", value: "15/15", baseline: "locations ranking" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Local rankings dashboard" },
+      { type: "image", src: "/placeholder.svg", alt: "Local rankings dashboard" },
     ],
     relatedSlugs: ["ogn-facility-management", "trades-web-redesign"],
   },
@@ -693,7 +693,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "2.4x pipeline growth",
     subheadline: "Transforming traffic into demos with buyer-intent content strategy",
@@ -735,7 +735,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "Customer Acquisition Cost", value: "-38%", baseline: "reduction" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Analytics dashboard" },
+      { type: "image", src: "/placeholder.svg", alt: "Analytics dashboard" },
     ],
     relatedSlugs: ["professional-services-seo", "ecommerce-paid-media"],
   },
@@ -750,7 +750,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
     outcome: "revenue",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "From cost centre to growth driver",
     subheadline: "Complete paid media restructure delivering £1.2M attributed revenue",
@@ -792,7 +792,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "CPA Reduction", value: "-42%", baseline: "cost per acquisition" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Campaign performance" },
+      { type: "image", src: "/placeholder.svg", alt: "Campaign performance" },
     ],
     quote: {
       text: "They took our paid media from a cost centre to our primary growth driver. The difference is night and day.",
@@ -812,7 +812,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
     outcome: "leads",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "215% more quote requests",
     subheadline: "Mobile-first redesign transforming online lead generation",
@@ -848,7 +848,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "Mobile Conversion", value: "+78%", baseline: "rate increase" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Website design" },
+      { type: "image", src: "/placeholder.svg", alt: "Website design" },
     ],
     relatedSlugs: ["ogn-facility-management", "multi-location-local-seo"],
   },
@@ -863,7 +863,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
     outcome: "traffic",
     heroMedia: {
       type: "image",
-      src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+      src: "/placeholder.svg",
     },
     headline: "340% organic traffic growth",
     subheadline: "Comprehensive content strategy building authority and trust",
@@ -899,7 +899,7 @@ The brief: modernise the brand, rebuild trust signals, and create a digital expe
       { label: "Patient Enquiries", value: "+92%", baseline: "from organic" },
     ],
     galleryMedia: [
-      { type: "image", src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg", alt: "Content performance" },
+      { type: "image", src: "/placeholder.svg", alt: "Content performance" },
     ],
     relatedSlugs: ["professional-services-seo", "b2b-saas-demand-gen"],
   },
