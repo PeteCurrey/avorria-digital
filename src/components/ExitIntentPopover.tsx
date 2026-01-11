@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { X } from "lucide-react";
 
 export function ExitIntentPopover() {
@@ -7,26 +7,30 @@ export function ExitIntentPopover() {
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [email, setEmail] = useState("");
 
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    // Only show on desktop (768px+)
+    if (window.innerWidth < 768) return;
+    if (hasShown) return;
+    
+    // Trigger when mouse moves to top 10px of viewport (exit intent detection)
+    if (e.clientY <= 10) {
+      console.log("Event: lead_popover_opened");
+      setIsOpen(true);
+      setHasShown(true);
+    }
+  }, [hasShown]);
+
   useEffect(() => {
-    // Only show on desktop
+    // Only add listener on desktop
     if (window.innerWidth < 768) return;
     if (hasShown) return;
 
-    const handleMouseLeave = (e: MouseEvent) => {
-      // Detect mouse leaving from top of viewport
-      if (e.clientY <= 0 && !hasShown) {
-        console.log("Event: lead_popover_opened");
-        setIsOpen(true);
-        setHasShown(true);
-      }
-    };
-
-    document.addEventListener("mouseleave", handleMouseLeave);
+    document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [hasShown]);
+  }, [hasShown, handleMouseMove]);
 
   const handlePrimaryClick = () => {
     console.log("Event: cta_exit_intent_audit_clicked", { websiteUrl, email });
