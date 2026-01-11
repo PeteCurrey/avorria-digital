@@ -11,7 +11,7 @@ import ScrollIndicator from "@/components/ScrollIndicator";
 import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
-import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
+import { ScrollReveal, ScrollRevealGrid, Parallax, TextReveal, CountUp, Magnetic } from "@/components/animations/ScrollReveal";
 import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand, ImageSectionBand } from "@/components/ContentBand";
@@ -439,70 +439,80 @@ const Home = () => {
           className="py-24 md:py-32 lg:py-40"
         >
           <div className="container mx-auto px-4 sm:px-6">
-            <ScrollReveal>
+            <ScrollReveal variant="blur" duration={800}>
               <div className="text-center mb-16">
-                <h2 className="text-section-headline font-light mb-4 max-w-3xl mx-auto text-white drop-shadow-lg">
-                  Why teams work with Avorria
-                </h2>
+                <Parallax speed={0.2}>
+                  <h2 className="text-section-headline font-light mb-4 max-w-3xl mx-auto text-white drop-shadow-lg">
+                    <TextReveal text="Why teams work with Avorria" stagger={40} />
+                  </h2>
+                </Parallax>
               </div>
             </ScrollReveal>
             
-            <ScrollRevealGrid className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto" stagger={100}>
-              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
-                <CardContent className="p-6 sm:p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <Target className="text-accent w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                    Pipeline-first, not buzzword-first
-                  </h3>
-                  <p className="text-white/80 leading-relaxed">
-                    Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
-                  </p>
-                </CardContent>
-              </Card>
+            <ScrollRevealGrid className="grid md:grid-cols-2 gap-6 lg:gap-8 max-w-6xl mx-auto" stagger={120} variant="scale">
+              <Magnetic strength={0.15}>
+                <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-500 group shadow-2xl hover:shadow-accent/10 hover:border-accent/30">
+                  <CardContent className="p-6 sm:p-8 space-y-4">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                      <Target className="text-accent w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                      Pipeline-first, not buzzword-first
+                    </h3>
+                    <p className="text-white/80 leading-relaxed">
+                      Most marketing talks about impressions, CTR and "brand lift". We start with pipeline targets and work backwards. Every channel, campaign and asset is judged on one thing: does it move revenue in the right direction?
+                    </p>
+                  </CardContent>
+                </Card>
+              </Magnetic>
 
-              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
-                <CardContent className="p-6 sm:p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <Zap className="text-accent w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                    Technical firepower baked in
-                  </h3>
-                  <p className="text-white/80 leading-relaxed">
-                    Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
-                  </p>
-                </CardContent>
-              </Card>
+              <Magnetic strength={0.15}>
+                <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-500 group shadow-2xl hover:shadow-accent/10 hover:border-accent/30">
+                  <CardContent className="p-6 sm:p-8 space-y-4">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                      <Zap className="text-accent w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                      Technical firepower baked in
+                    </h3>
+                    <p className="text-white/80 leading-relaxed">
+                      Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first. Then we scale.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Magnetic>
 
-              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
-                <CardContent className="p-6 sm:p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <TrendingUp className="text-accent w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                    Design that earns its keep
-                  </h3>
-                  <p className="text-white/80 leading-relaxed">
-                    We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
-                  </p>
-                </CardContent>
-              </Card>
+              <Magnetic strength={0.15}>
+                <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-500 group shadow-2xl hover:shadow-accent/10 hover:border-accent/30">
+                  <CardContent className="p-6 sm:p-8 space-y-4">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                      <TrendingUp className="text-accent w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                      Design that earns its keep
+                    </h3>
+                    <p className="text-white/80 leading-relaxed">
+                      We build sites and funnels that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff. Just clean, modern UX that makes it easy for people to buy.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Magnetic>
 
-              <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300 group shadow-2xl">
-                <CardContent className="p-6 sm:p-8 space-y-4">
-                  <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <BarChart3 className="text-accent w-7 h-7" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
-                    Plain-English reporting
-                  </h3>
-                  <p className="text-white/80 leading-relaxed">
-                    You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
-                  </p>
-                </CardContent>
-              </Card>
+              <Magnetic strength={0.15}>
+                <Card className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-500 group shadow-2xl hover:shadow-accent/10 hover:border-accent/30">
+                  <CardContent className="p-6 sm:p-8 space-y-4">
+                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent/40 to-accent/20 flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg">
+                      <BarChart3 className="text-accent w-7 h-7" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-white group-hover:text-accent transition-colors duration-300">
+                      Plain-English reporting
+                    </h3>
+                    <p className="text-white/80 leading-relaxed">
+                      You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative on what we did, what changed and what's next.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Magnetic>
             </ScrollRevealGrid>
 
             <div className="mt-12">
@@ -513,10 +523,12 @@ const Home = () => {
 
         {/* Services Overview - Premium Grid */}
         <SectionBand background="dark" padding="large">
-          <ScrollReveal>
+          <ScrollReveal variant="blur" duration={700}>
             <div className="text-center mb-16 md:mb-20">
-              <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">Our Services</span>
-              <h2 className="text-section-headline font-light mb-6">What we actually do</h2>
+              <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4 animate-fade-in">Our Services</span>
+              <h2 className="text-section-headline font-light mb-6">
+                <TextReveal text="What we actually do" stagger={50} />
+              </h2>
               <p className="text-lg text-white/70 max-w-2xl mx-auto">
                 One team that connects the dots – from strategy through to execution and optimisation.
               </p>
@@ -524,61 +536,82 @@ const Home = () => {
           </ScrollReveal>
           
           {/* Featured Services Grid */}
-          <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto" stagger={100}>
-            {services.map((service, index) => <Link key={index} to={service.href} className="group relative overflow-hidden rounded-2xl">
+          <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto" stagger={120} variant="scale">
+            {services.map((service, index) => (
+              <Link key={index} to={service.href} className="group relative overflow-hidden rounded-2xl">
                 <Card className="h-full border-0 bg-transparent overflow-hidden">
                   <div className="relative h-72 sm:h-80 overflow-hidden">
-                    {/* Image */}
-                    <img src={service.image} alt={service.title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                    {/* Gradient overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+                    {/* Image with enhanced zoom effect */}
+                    <img 
+                      src={service.image} 
+                      alt={service.title} 
+                      className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-110" 
+                    />
+                    {/* Gradient overlay with enhanced hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent group-hover:from-black/95 group-hover:via-black/40 transition-all duration-500" />
+                    
+                    {/* Accent glow on hover */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-accent/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                     
                     {/* Content */}
                     <CardContent className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
-                      <h3 className="text-2xl font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+                      <h3 className="text-2xl font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300 group-hover:translate-x-1 transform">
                         {service.title}
                       </h3>
                       <p className="text-base text-white/80 mb-4 leading-relaxed line-clamp-2">{service.description}</p>
                       <span className="inline-flex items-center text-sm text-accent font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
                         Explore service
-                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                        <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-2 transition-transform duration-300" />
                       </span>
                     </CardContent>
                   </div>
                 </Card>
-              </Link>)}
+              </Link>
+            ))}
           </ScrollRevealGrid>
           
-          <div className="text-center mt-12 sm:mt-16">
-            <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10" asChild>
-              <Link to="/services" className="bg-accent">
-                View All Services
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Link>
-            </Button>
-          </div>
+          <ScrollReveal delay={400}>
+            <div className="text-center mt-12 sm:mt-16">
+              <Magnetic strength={0.2}>
+                <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10 hover:border-accent/50 transition-all duration-300" asChild>
+                  <Link to="/services" className="bg-accent">
+                    View All Services
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Link>
+                </Button>
+              </Magnetic>
+            </div>
+          </ScrollReveal>
         </SectionBand>
 
         {/* Process Section - Premium with Race Car Background */}
         <ImageSectionBand variant="racecar" overlay="gradient" padding="large">
-          <ScrollReveal>
+          <ScrollReveal variant="blur" duration={700}>
             <div className="text-center mb-16 md:mb-20">
               <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">How We Work</span>
-              <h2 className="text-section-headline font-light mb-4 drop-shadow-lg">Simple process. Serious output.</h2>
+              <h2 className="text-section-headline font-light mb-4 drop-shadow-lg">
+                <TextReveal text="Simple process. Serious output." stagger={60} />
+              </h2>
             </div>
           </ScrollReveal>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
-            {process.map((step, index) => <ScrollReveal key={index}>
-                <div className="relative group backdrop-blur-sm bg-black/20 p-6 rounded-xl border border-white/10">
+            {process.map((step, index) => (
+              <ScrollReveal key={index} delay={index * 100} variant="fade-up">
+                <div className="relative group backdrop-blur-sm bg-black/30 p-6 rounded-xl border border-white/10 hover:border-accent/30 hover:bg-black/40 transition-all duration-500">
                   <div className="space-y-4 sm:space-y-6">
-                    <div className="text-6xl sm:text-7xl font-extralight text-accent/50 group-hover:text-accent/70 transition-colors duration-500">{step.number}</div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white drop-shadow-md">{step.title}</h3>
+                    <div className="text-6xl sm:text-7xl font-extralight text-accent/50 group-hover:text-accent transition-colors duration-500 group-hover:scale-110 transform origin-left">
+                      <CountUp end={parseInt(step.number)} suffix="" className="" />
+                    </div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-white drop-shadow-md group-hover:text-accent/90 transition-colors duration-300">{step.title}</h3>
                     <p className="text-sm sm:text-base text-white/80 leading-relaxed">{step.description}</p>
                   </div>
-                  {index < process.length - 1 && <div className="hidden lg:block absolute top-14 -right-5 w-10 h-px bg-gradient-to-r from-accent/50 to-transparent" />}
+                  {index < process.length - 1 && (
+                    <div className="hidden lg:block absolute top-14 -right-5 w-10 h-px bg-gradient-to-r from-accent/50 to-transparent group-hover:from-accent group-hover:w-12 transition-all duration-500" />
+                  )}
                 </div>
-              </ScrollReveal>)}
+              </ScrollReveal>
+            ))}
           </div>
         </ImageSectionBand>
 
@@ -715,18 +748,27 @@ const Home = () => {
         {/* FAQ */}
         <SectionBand background="gradient" padding="large">
           <div className="max-w-3xl mx-auto">
-            <ScrollReveal>
+            <ScrollReveal variant="blur" duration={700}>
               <div className="text-center mb-16">
-                <h2 className="text-section-headline font-light mb-4">Questions we get a lot.</h2>
+                <h2 className="text-section-headline font-light mb-4">
+                  <TextReveal text="Questions we get a lot." stagger={60} />
+                </h2>
               </div>
             </ScrollReveal>
             <Accordion type="single" collapsible className="space-y-4">
-              {faqs.map((faq, index) => <AccordionItem key={index} value={`item-${index}`} className="border border-white/10 bg-black/20 backdrop-blur-sm px-6 rounded-lg">
-                  <AccordionTrigger className="text-left text-base font-semibold text-white hover:text-accent py-5">
-                    {faq.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-base text-white/70 leading-relaxed pb-4">{faq.answer}</AccordionContent>
-                </AccordionItem>)}
+              {faqs.map((faq, index) => (
+                <ScrollReveal key={index} delay={index * 80} variant="fade-up">
+                  <AccordionItem 
+                    value={`item-${index}`} 
+                    className="border border-white/10 bg-black/20 backdrop-blur-sm px-6 rounded-lg hover:border-accent/30 hover:bg-black/30 transition-all duration-300"
+                  >
+                    <AccordionTrigger className="text-left text-base font-semibold text-white hover:text-accent py-5">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-base text-white/70 leading-relaxed pb-4">{faq.answer}</AccordionContent>
+                  </AccordionItem>
+                </ScrollReveal>
+              ))}
             </Accordion>
           </div>
         </SectionBand>
@@ -740,23 +782,29 @@ const Home = () => {
         >
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-4xl mx-auto text-center">
-              <ScrollReveal>
-                <h2 className="text-section-headline lg:text-6xl font-light mb-6 text-white drop-shadow-lg">
-                  Ready to treat marketing like an operating function, not a gamble?
-                </h2>
+              <ScrollReveal variant="blur" duration={800}>
+                <Parallax speed={0.15}>
+                  <h2 className="text-section-headline lg:text-6xl font-light mb-6 text-white drop-shadow-lg">
+                    <TextReveal text="Ready to treat marketing like an operating function, not a gamble?" stagger={30} />
+                  </h2>
+                </Parallax>
                 <p className="text-xl text-white/85 mb-10 max-w-2xl mx-auto drop-shadow-md">
                   If you're tired of noise, guesswork and vague reports, let's talk. We'll review your current setup and show you what a disciplined, revenue-focused marketing engine could look like.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button variant="accent" size="lg" className="w-full sm:w-auto text-lg px-8 py-6 shadow-lg" asChild>
-                    <Link to="/contact">
-                      Book a strategy call
-                      <ArrowRight className="ml-2 w-5 h-5" />
-                    </Link>
-                  </Button>
-                  <Button size="lg" className="w-full sm:w-auto text-lg px-8 py-6 bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 shadow-lg" asChild>
-                    <Link to="/free-seo-website-audit">Request a free SEO & website audit</Link>
-                  </Button>
+                  <Magnetic strength={0.2}>
+                    <Button variant="accent" size="lg" className="w-full sm:w-auto text-lg px-8 py-6 shadow-lg hover:shadow-accent/30 transition-shadow duration-300" asChild>
+                      <Link to="/contact">
+                        Book a strategy call
+                        <ArrowRight className="ml-2 w-5 h-5" />
+                      </Link>
+                    </Button>
+                  </Magnetic>
+                  <Magnetic strength={0.2}>
+                    <Button size="lg" className="w-full sm:w-auto text-lg px-8 py-6 bg-white/15 backdrop-blur-md text-white border border-white/30 hover:bg-white/25 hover:border-accent/40 shadow-lg transition-all duration-300" asChild>
+                      <Link to="/free-seo-website-audit">Request a free SEO & website audit</Link>
+                    </Button>
+                  </Magnetic>
                 </div>
               </ScrollReveal>
             </div>
