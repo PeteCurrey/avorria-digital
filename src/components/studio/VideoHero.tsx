@@ -33,8 +33,8 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
           body: JSON.stringify({
-            prompt: "Cinematic ambient electronic music, dark atmospheric, futuristic city vibes, subtle tension, corporate technology feel, slow build, dreamy pads, 80bpm",
-            duration: 30,
+            prompt: "Ambient atmospheric sound, wind through city at night, subtle electronic hum, futuristic cityscape ambience, soft and calming, urban night atmosphere",
+            duration: 22,
           }),
         }
       );
