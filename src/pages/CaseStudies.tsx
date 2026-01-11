@@ -160,7 +160,7 @@ const CaseStudies = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[hsl(220,25%,8%)]">
-        {/* Hero */}
+        {/* Hero - Using penthouse image since race car is now on Home page */}
         <CaseHero
           isLobby
           headline="Our Work"
@@ -169,7 +169,7 @@ const CaseStudies = () => {
           ctaHref="/contact"
           backgroundMedia={{
             type: "image",
-            src: "/lovable-uploads/70db8621-9460-4970-9e76-0d752b57fa5c.jpg",
+            src: "/lovable-uploads/c9ffc2f2-d1f9-470d-ac01-636f9fbdba53.png",
           }}
         />
 

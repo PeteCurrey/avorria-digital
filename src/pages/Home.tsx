@@ -14,9 +14,10 @@ import Navigation from "@/components/Navigation";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { LogoWall } from "@/components/LogoWall";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
-import { SectionBand } from "@/components/ContentBand";
+import { SectionBand, ImageSectionBand } from "@/components/ContentBand";
 import HeroGradient from "@/components/HeroGradient";
 import heroPenthouse from "@/assets/hero-penthouse.png";
+import heroCityscape from "@/assets/hero-cityscape.jpg";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -545,28 +546,28 @@ const Home = () => {
           </div>
         </SectionBand>
 
-        {/* Process Section - Premium */}
-        <SectionBand background="mesh" padding="large">
+        {/* Process Section - Premium with Race Car Background */}
+        <ImageSectionBand variant="racecar" overlay="gradient" padding="large">
           <ScrollReveal>
             <div className="text-center mb-16 md:mb-20">
               <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">How We Work</span>
-              <h2 className="text-section-headline font-light mb-4">Simple process. Serious output.</h2>
+              <h2 className="text-section-headline font-light mb-4 drop-shadow-lg">Simple process. Serious output.</h2>
             </div>
           </ScrollReveal>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-10">
             {process.map((step, index) => <ScrollReveal key={index}>
-                <div className="relative group">
+                <div className="relative group backdrop-blur-sm bg-black/20 p-6 rounded-xl border border-white/10">
                   <div className="space-y-4 sm:space-y-6">
-                    <div className="text-6xl sm:text-7xl font-extralight text-accent/30 group-hover:text-accent/50 transition-colors duration-500">{step.number}</div>
-                    <h3 className="text-lg sm:text-xl font-semibold text-white">{step.title}</h3>
-                    <p className="text-sm sm:text-base text-white/60 leading-relaxed">{step.description}</p>
+                    <div className="text-6xl sm:text-7xl font-extralight text-accent/50 group-hover:text-accent/70 transition-colors duration-500">{step.number}</div>
+                    <h3 className="text-lg sm:text-xl font-semibold text-white drop-shadow-md">{step.title}</h3>
+                    <p className="text-sm sm:text-base text-white/80 leading-relaxed">{step.description}</p>
                   </div>
                   {index < process.length - 1 && <div className="hidden lg:block absolute top-14 -right-5 w-10 h-px bg-gradient-to-r from-accent/50 to-transparent" />}
                 </div>
               </ScrollReveal>)}
           </div>
-        </SectionBand>
+        </ImageSectionBand>
 
         {/* Case Studies Highlights - Premium */}
         <SectionBand background="gradient" padding="large">
@@ -666,17 +667,26 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <SectionBand background="mesh" padding="large">
+        {/* Testimonials with Cityscape Background */}
+        <SectionBand 
+          background="image" 
+          backgroundImage={heroCityscape}
+          backgroundOverlay="blur"
+          padding="large"
+        >
           <ScrollReveal>
             <div className="text-center mb-16">
-              <h2 className="text-section-headline font-light mb-4">What clients say when the noise stops.</h2>
+              <h2 className="text-section-headline font-light mb-4 drop-shadow-lg">What clients say when the noise stops.</h2>
             </div>
           </ScrollReveal>
           <ScrollRevealGrid className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto" stagger={100}>
-            {testimonials.map((testimonial, index) => <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
+            {testimonials.map((testimonial, index) => <Card key={index} className="border-white/20 bg-black/40 backdrop-blur-md hover:bg-black/50 transition-all duration-300">
                 <CardContent className="p-6 sm:p-8">
-                  <p className="text-base text-white/70 leading-relaxed italic">"{testimonial.quote}"</p>
+                  <p className="text-base text-white/90 leading-relaxed italic">"{testimonial.quote}"</p>
+                  <div className="mt-4 pt-4 border-t border-white/10">
+                    <p className="text-sm font-medium text-white">{testimonial.author}</p>
+                    <p className="text-xs text-white/60">{testimonial.role}, {testimonial.company}</p>
+                  </div>
                 </CardContent>
               </Card>)}
           </ScrollRevealGrid>
