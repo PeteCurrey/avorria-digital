@@ -106,6 +106,7 @@ const WebDesignStudioBuild = () => {
       <SEOHead
         title="Build Your Website | Web Design Studio | Avorria"
         description="Configure your perfect website with our AI-powered studio."
+        canonical="/web-design/studio/build"
       />
 
       <div className="min-h-screen bg-black">
