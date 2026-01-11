@@ -12,6 +12,7 @@ import BackToTop from "./components/BackToTop";
 import CookieConsent from "./components/CookieConsent";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger";
+import NavigationProgress from "./components/NavigationProgress";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -72,6 +73,7 @@ const App = () => (
           <BrowserRouter>
             <ScrollToTop />
             <BackToTop />
+            <NavigationProgress />
             <CookieConsent />
             <AIConsultantTrigger />
             <Layout>
