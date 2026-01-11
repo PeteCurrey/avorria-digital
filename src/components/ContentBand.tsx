@@ -4,6 +4,10 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Image backgrounds for visual variety
+import heroRaceCar from "@/assets/hero-race-car.jpg";
+import heroCityscape from "@/assets/hero-cityscape.jpg";
 interface ContentBandProps {
   headline: string;
   subheadline?: string;
@@ -194,40 +198,116 @@ export const HeroBand = ({
 export const SectionBand = ({
   children,
   background = "dark",
+  backgroundImage,
+  backgroundOverlay = "dark",
   className,
   padding = "default"
 }: {
   children: React.ReactNode;
-  background?: "dark" | "gradient" | "subtle" | "mesh" | "light";
+  background?: "dark" | "gradient" | "subtle" | "mesh" | "light" | "image";
+  backgroundImage?: string;
+  backgroundOverlay?: "dark" | "gradient" | "blur" | "heavy";
   className?: string;
   padding?: "default" | "large" | "hero";
 }) => {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"]
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
+
   const bgClasses = {
     dark: "bg-[hsl(220,25%,8%)] text-white",
     gradient: "bg-gradient-to-br from-[hsl(220,25%,8%)] via-[hsl(220,25%,12%)] to-[hsl(250,30%,15%)] text-white",
     subtle: "bg-gradient-to-b from-secondary/30 to-background text-foreground",
     mesh: "bg-[hsl(220,25%,8%)] text-white relative",
-    light: "bg-background text-foreground"
+    light: "bg-background text-foreground",
+    image: "text-white relative"
   };
+
+  const overlayClasses = {
+    dark: "bg-gradient-to-b from-black/70 via-black/60 to-black/70",
+    gradient: "bg-gradient-to-r from-black/80 via-black/50 to-black/70",
+    blur: "bg-black/40 backdrop-blur-sm",
+    heavy: "bg-black/80"
+  };
+
   const paddingClasses = {
     default: "py-24 md:py-32",
     large: "py-32 md:py-40 lg:py-48",
     hero: "py-40 md:py-48 lg:py-56"
   };
-  return <section className={cn("relative w-full overflow-hidden", bgClasses[background], paddingClasses[padding], className)}>
+
+  return (
+    <section 
+      ref={ref}
+      className={cn("relative w-full overflow-hidden", bgClasses[background], paddingClasses[padding], className)}
+    >
+      {/* Image background with parallax */}
+      {background === "image" && backgroundImage && (
+        <>
+          <motion.div style={{ y }} className="absolute inset-0 scale-110">
+            <img 
+              src={backgroundImage} 
+              alt="" 
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </motion.div>
+          <div className={cn("absolute inset-0", overlayClasses[backgroundOverlay])} />
+        </>
+      )}
+
       {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60" />}
+      
       {/* Subtle noise texture overlay for dark backgrounds */}
-      {(background === "dark" || background === "gradient" || background === "mesh") && (
+      {(background === "dark" || background === "gradient" || background === "mesh" || background === "image") && (
         <div 
-          className="absolute inset-0 opacity-[0.03]" 
+          className="absolute inset-0 opacity-[0.03] z-[1]" 
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`
           }} 
         />
       )}
+      
       <div className="container mx-auto px-4 sm:px-6 relative z-10">
         {children}
       </div>
-    </section>;
+    </section>
+  );
 };
+
+// Pre-configured image section variants for common use cases
+export const ImageSectionBand = ({
+  children,
+  variant = "racecar",
+  overlay = "dark",
+  padding = "large",
+  className
+}: {
+  children: React.ReactNode;
+  variant?: "racecar" | "cityscape";
+  overlay?: "dark" | "gradient" | "blur" | "heavy";
+  padding?: "default" | "large" | "hero";
+  className?: string;
+}) => {
+  const images = {
+    racecar: heroRaceCar,
+    cityscape: heroCityscape
+  };
+
+  return (
+    <SectionBand 
+      background="image" 
+      backgroundImage={images[variant]}
+      backgroundOverlay={overlay}
+      padding={padding}
+      className={className}
+    >
+      {children}
+    </SectionBand>
+  );
+};
+
 export default ContentBand;
