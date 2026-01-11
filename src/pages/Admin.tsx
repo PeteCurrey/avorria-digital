@@ -35,6 +35,7 @@ import ContentStudio from "@/components/admin/ContentStudio";
 import NewsletterBuilder from "@/components/admin/NewsletterBuilder";
 import IntegrationsPanel from "@/components/admin/IntegrationsPanel";
 import LiveGoogleAnalyticsWidget from "@/components/admin/LiveGoogleAnalyticsWidget";
+import LiveSearchConsoleWidget from "@/components/admin/LiveSearchConsoleWidget";
 import { LandingPageManager } from "@/components/admin/LandingPageManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -181,6 +182,8 @@ const Admin = () => {
             {/* Live Google Analytics Widget */}
             <LiveGoogleAnalyticsWidget />
 
+            {/* Live Search Console Widget */}
+            <LiveSearchConsoleWidget />
             {/* System Status & Activity Row */}
             <div className="grid md:grid-cols-3 gap-6">
               <SystemHealthMonitor />
