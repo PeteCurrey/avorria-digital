@@ -13,6 +13,7 @@ import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import { LogoWall } from "@/components/LogoWall";
+import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -25,6 +26,9 @@ import heroRaceCar from "@/assets/hero-race-car.jpg";
 import heroPenthouse from "@/assets/hero-penthouse.png";
 
 const Home = () => {
+  // Fetch case studies from database
+  const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
+  
   // Organization schema for brand visibility in search results
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -214,7 +218,8 @@ const Home = () => {
     description: "Every month you get a clear dashboard and a straight answer: what we did, what moved, what's next."
   }];
 
-  const featuredCaseStudies = [{
+  // Static fallback case studies
+  const staticCaseStudies = [{
     slug: "ogn-facility-management",
     client: "One Great Northern",
     sector: "Crane Hire & Specialist Lifting",
@@ -251,6 +256,22 @@ const Home = () => {
     ],
     services: ["Brand Identity", "Web Design", "SEO"],
   }];
+
+  // Use database case studies if available, fallback to static
+  const featuredCaseStudies = dbCaseStudies && dbCaseStudies.filter(cs => cs.is_featured).length > 0
+    ? dbCaseStudies.filter(cs => cs.is_featured).slice(0, 3).map((cs: CaseStudyDB) => ({
+        slug: cs.slug,
+        client: cs.client,
+        sector: cs.sector,
+        headline: cs.headline,
+        image: cs.hero_media_src,
+        metrics: cs.kpi_badges.slice(0, 3).map(badge => ({
+          label: badge.label,
+          value: badge.value,
+        })),
+        services: cs.services.slice(0, 3),
+      }))
+    : staticCaseStudies;
 
   const comparison = [{
     feature: "Reporting",
