@@ -308,18 +308,18 @@ const WebDesignStudioBuild = () => {
               style={{ perspective: "1000px" }}
             >
               {/* iMac mockup using DeviceMockup component */}
-              <DeviceMockup className="w-full max-w-md">
+              <DeviceMockup className="w-full max-w-lg">
                 <motion.div
                   key={`${config.purpose}-${config.palette}-${config.siteSize}`}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.4 }}
-                  className="h-full w-full"
+                  initial={{ opacity: 0, scale: 1.02 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.5, ease: "easeOut" }}
+                  className="absolute inset-0"
                 >
                   <img
                     src={currentPreview}
                     alt="Website preview"
-                    className="w-full h-full object-cover object-top"
+                    className="absolute inset-0 w-full h-full object-cover object-top"
                   />
                 </motion.div>
               </DeviceMockup>

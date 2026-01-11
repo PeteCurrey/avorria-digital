@@ -80,9 +80,11 @@ export const DeviceMockup = ({ children, className = "" }: DeviceMockupProps) =>
               </div>
             </div>
 
-            {/* Content Area */}
-            <div className="aspect-[16/10] overflow-hidden bg-zinc-950">
-              {children}
+            {/* Content Area - Screen where preview displays */}
+            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
+              <div className="absolute inset-0">
+                {children}
+              </div>
             </div>
           </div>
         </div>
