@@ -242,7 +242,7 @@ const WebDesignStudioBuild = () => {
             setSoundEnabled(!soundEnabled);
             if (!soundEnabled) playClick("select");
           }}
-          className="fixed right-6 top-6 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
+          className="fixed right-6 top-20 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
         >
           {soundEnabled ? (
             <Volume2 className="h-4 w-4 text-accent" />

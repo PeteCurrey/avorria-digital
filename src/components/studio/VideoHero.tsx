@@ -174,7 +174,7 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
         transition={{ delay: 1.5, duration: 0.5 }}
         onClick={toggleAudio}
         disabled={isLoadingAudio}
-        className="absolute right-6 top-6 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-black/50 disabled:opacity-50"
+        className="absolute right-6 top-24 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-black/50 disabled:opacity-50"
       >
         {isLoadingAudio ? (
           <Loader2 className="h-4 w-4 text-accent animate-spin" />
