@@ -14,6 +14,7 @@ import Navigation from "@/components/Navigation";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import { LogoWall } from "@/components/LogoWall";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
+import { useTestimonialsPublic } from "@/hooks/useTestimonials";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -28,6 +29,8 @@ import heroPenthouse from "@/assets/hero-penthouse.png";
 const Home = () => {
   // Fetch case studies from database
   const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
+  // Fetch testimonials from database
+  const { data: dbTestimonials } = useTestimonialsPublic();
   
   // Organization schema for brand visibility in search results
   const organizationSchema = {
@@ -295,7 +298,8 @@ const Home = () => {
     avorria: "Regular updates, proactive ideas and straight answers."
   }];
 
-  const testimonials = [{
+  // Static fallback testimonials
+  const staticTestimonials = [{
     quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
     author: "James Harrison",
     role: "Managing Director",
@@ -314,6 +318,17 @@ const Home = () => {
     company: "Velocity SaaS",
     avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
   }];
+
+  // Use database testimonials if available, fallback to static
+  const testimonials = dbTestimonials && dbTestimonials.length > 0
+    ? dbTestimonials.map(t => ({
+        quote: t.quote,
+        author: t.author,
+        role: t.role,
+        company: t.company,
+        avatar: t.avatar_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+      }))
+    : staticTestimonials;
 
   const faqs = [{
     question: "What size businesses do you work with?",

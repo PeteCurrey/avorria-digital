@@ -21,6 +21,7 @@ import {
   FileCheck,
   FolderKanban,
   Image,
+  MessageSquareQuote,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -57,6 +58,7 @@ const navSections: NavSection[] = [
       { name: "Projects", icon: FolderKanban, tab: "projects" },
       { name: "Leads", icon: Users, tab: "leads" },
       { name: "Case Studies", icon: Image, tab: "case-studies" },
+      { name: "Testimonials", icon: MessageSquareQuote, tab: "testimonials" },
       { name: "Audits", icon: FileCheck, tab: "audits" },
       { name: "Analytics", icon: BarChart3, tab: "analytics" },
     ],
