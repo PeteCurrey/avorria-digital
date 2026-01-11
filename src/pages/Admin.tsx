@@ -41,6 +41,7 @@ import AuditReportsTab from "@/components/admin/AuditReportsTab";
 import { ProjectsTab } from "@/components/admin/ProjectsTab";
 import CaseStudiesTab from "@/components/admin/CaseStudiesTab";
 import { TestimonialsTab } from "@/components/admin/TestimonialsTab";
+import { ClientLogosTab } from "@/components/admin/ClientLogosTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -147,6 +148,7 @@ const Admin = () => {
       case "leads": return "Lead Management";
       case "case-studies": return "Case Studies";
       case "testimonials": return "Testimonials";
+      case "client-logos": return "Client Logos";
       case "audits": return "Audit Reports";
       case "analytics": return "Analytics";
       case "performance": return "Performance";
@@ -170,6 +172,7 @@ const Admin = () => {
       case "leads": return "Track and manage your sales leads";
       case "case-studies": return "Manage and publish your client success stories";
       case "testimonials": return "Manage client testimonials displayed on the website";
+      case "client-logos": return "Manage client logos displayed on the home page";
       case "audits": return "View all generated website audit reports";
       case "analytics": return "Deep dive into your website analytics";
       case "performance": return "Monitor site speed and Core Web Vitals";
@@ -599,6 +602,9 @@ const Admin = () => {
 
       case "testimonials":
         return <TestimonialsTab />;
+
+      case "client-logos":
+        return <ClientLogosTab />;
 
       case "projects":
         return <ProjectsTab />;
