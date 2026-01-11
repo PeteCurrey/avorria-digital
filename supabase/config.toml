@@ -47,3 +47,18 @@ verify_jwt = false
 
 [functions.generate-landing-page]
 verify_jwt = false
+
+[functions.studio-ambient-music]
+verify_jwt = false
+
+[functions.generate-studio-preview]
+verify_jwt = false
+
+[functions.generate-blueprint-pdf]
+verify_jwt = false
+
+[functions.generate-weekly-report]
+verify_jwt = false
+
+[functions.elevenlabs-tts]
+verify_jwt = false
