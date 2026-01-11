@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
-import { Badge } from "@/components/ui/badge";
+import { ImageUploader } from "@/components/admin/ImageUploader";
 import {
   Table,
   TableBody,
@@ -337,15 +337,13 @@ export const TestimonialsTab = () => {
               </div>
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="avatar_url">Avatar URL</Label>
-              <Input
-                id="avatar_url"
-                value={formData.avatar_url}
-                onChange={(e) => setFormData({ ...formData, avatar_url: e.target.value })}
-                placeholder="https://example.com/avatar.jpg"
-              />
-            </div>
+            <ImageUploader
+              label="Avatar Image"
+              value={formData.avatar_url}
+              onChange={(url) => setFormData({ ...formData, avatar_url: url })}
+              folder="testimonials"
+              placeholder="Upload a client photo"
+            />
 
             <div className="flex items-center gap-6">
               <div className="flex items-center gap-2">
