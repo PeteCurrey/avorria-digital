@@ -1,9 +1,8 @@
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, ArrowRight, Volume2, VolumeX } from "lucide-react";
+import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
-import Preview3DCanvas from "@/components/studio/Preview3DCanvas";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
 import AestheticStep from "@/components/studio/steps/AestheticStep";
 import StructureStep from "@/components/studio/steps/StructureStep";
@@ -11,7 +10,19 @@ import FeaturesStep from "@/components/studio/steps/FeaturesStep";
 import PersonalityStep from "@/components/studio/steps/PersonalityStep";
 import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
+import studioMockup from "@/assets/studio-mockup-dark.jpg";
+import leadGenPreview from "@/assets/studio-previews/lead-gen.jpg";
+import authorityPreview from "@/assets/studio-previews/authority.jpg";
+import saasPreview from "@/assets/studio-previews/saas.jpg";
+import platformPreview from "@/assets/studio-previews/platform.jpg";
 import type { StudioConfig } from "@/types/studio";
+
+const previewImages: Record<string, string> = {
+  "lead-generation": leadGenPreview,
+  "content-hub": authorityPreview,
+  "product-saas": saasPreview,
+  "service-portal": platformPreview,
+};
 
 const steps = [
   { id: "purpose", label: "Purpose" },
@@ -102,6 +113,8 @@ const WebDesignStudioBuild = () => {
     }
   };
 
+  const currentPreview = previewImages[config.purpose] || leadGenPreview;
+
   return (
     <>
       <SEOHead
@@ -155,37 +168,148 @@ const WebDesignStudioBuild = () => {
             </AnimatePresence>
           </div>
 
-          {/* Right: 3D Preview Canvas (hidden on mobile, visible on lg+) */}
-          <div className="hidden lg:flex lg:w-[500px] lg:flex-col lg:items-center lg:justify-center lg:border-l lg:border-white/5 lg:bg-zinc-950/50">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.5 }}
-              className="h-[500px] w-full"
-            >
-              <Suspense
-                fallback={
-                  <div className="flex h-full w-full items-center justify-center">
-                    <div className="h-8 w-8 animate-spin rounded-full border-2 border-accent border-t-transparent" />
-                  </div>
-                }
-              >
-                <Preview3DCanvas config={config} />
-              </Suspense>
-            </motion.div>
+          {/* Right: Enhanced Visual Preview Panel */}
+          <div className="hidden lg:flex lg:w-[550px] lg:flex-col lg:border-l lg:border-white/5 lg:bg-gradient-to-b lg:from-zinc-950 lg:to-black relative overflow-hidden">
+            {/* Ambient glow effects */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/20 rounded-full blur-[100px]" />
+              <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px]" />
+            </div>
 
-            <div className="px-8 text-center">
-              <motion.p
-                key={`${config.palette}-${config.siteSize}-${config.features.length}`}
+            {/* Subtle grid overlay */}
+            <div className="absolute inset-0 opacity-[0.02]">
+              <div 
+                className="h-full w-full"
+                style={{
+                  backgroundImage: `linear-gradient(hsl(var(--accent) / 0.5) 1px, transparent 1px),
+                                   linear-gradient(90deg, hsl(var(--accent) / 0.5) 1px, transparent 1px)`,
+                  backgroundSize: '40px 40px',
+                }}
+              />
+            </div>
+
+            {/* Main mockup container */}
+            <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-8">
+              {/* iMac mockup with screen preview */}
+              <motion.div
+                initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="relative w-full max-w-md"
+              >
+                {/* Background mockup image */}
+                <img 
+                  src={studioMockup} 
+                  alt="Studio workspace" 
+                  className="w-full h-auto rounded-lg"
+                />
+                
+                {/* Screen overlay with preview */}
+                <motion.div 
+                  key={config.purpose}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.4 }}
+                  className="absolute inset-0 flex items-center justify-center"
+                  style={{
+                    // Position the preview on the iMac screen
+                    top: '8%',
+                    left: '22%',
+                    right: '22%',
+                    bottom: '35%',
+                  }}
+                >
+                  <div className="relative w-full h-full overflow-hidden rounded-sm">
+                    <img 
+                      src={currentPreview}
+                      alt="Website preview"
+                      className="w-full h-full object-cover object-top"
+                    />
+                    {/* Screen reflection effect */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent" />
+                  </div>
+                </motion.div>
+
+                {/* Floating accent glow behind mockup */}
+                <div className="absolute -inset-8 -z-10">
+                  <motion.div 
+                    animate={{ 
+                      opacity: [0.3, 0.5, 0.3],
+                      scale: [1, 1.02, 1],
+                    }}
+                    transition={{ 
+                      duration: 4, 
+                      repeat: Infinity,
+                      ease: "easeInOut"
+                    }}
+                    className="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent rounded-3xl blur-2xl"
+                  />
+                </div>
+              </motion.div>
+
+              {/* Configuration summary */}
+              <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="text-sm text-white/40"
+                transition={{ delay: 0.6 }}
+                className="mt-8 text-center space-y-4"
               >
-                <span className="capitalize">{config.palette}</span> theme •{" "}
-                <span className="capitalize">{config.siteSize}</span> •{" "}
-                {config.features.length} features
-              </motion.p>
+                {/* Live config badge */}
+                <div className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 backdrop-blur-sm">
+                  <Sparkles className="h-3 w-3 text-accent" />
+                  <span className="text-xs font-light tracking-widest text-accent uppercase">
+                    Live Preview
+                  </span>
+                </div>
+
+                {/* Config stats */}
+                <motion.div
+                  key={`${config.palette}-${config.siteSize}-${config.features.length}`}
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="space-y-2"
+                >
+                  <p className="text-sm text-white/60">
+                    <span className="capitalize font-medium text-white/80">{config.palette}</span>
+                    {" "}theme • {" "}
+                    <span className="capitalize font-medium text-white/80">{config.siteSize}</span>
+                    {" "}site
+                  </p>
+                  {config.features.length > 0 && (
+                    <p className="text-xs text-white/40">
+                      {config.features.length} feature{config.features.length !== 1 ? 's' : ''} selected
+                    </p>
+                  )}
+                </motion.div>
+
+                {/* Step indicator */}
+                <div className="flex items-center justify-center gap-2 pt-4">
+                  {steps.map((step, index) => (
+                    <motion.div
+                      key={step.id}
+                      className={`h-1 rounded-full transition-all duration-300 ${
+                        index === currentStep
+                          ? "w-8 bg-accent"
+                          : index < currentStep
+                          ? "w-2 bg-accent/50"
+                          : "w-2 bg-white/10"
+                      }`}
+                      animate={{
+                        scale: index === currentStep ? [1, 1.1, 1] : 1,
+                      }}
+                      transition={{
+                        duration: 1,
+                        repeat: index === currentStep ? Infinity : 0,
+                        repeatDelay: 1,
+                      }}
+                    />
+                  ))}
+                </div>
+              </motion.div>
             </div>
+
+            {/* Bottom gradient fade */}
+            <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-black to-transparent" />
           </div>
         </div>
 
