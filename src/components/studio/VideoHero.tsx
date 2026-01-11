@@ -3,9 +3,7 @@ import { ArrowRight, Sparkles, Volume2, VolumeX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-
-// Use a reliable external video source - cinematic cityscape timelapse
-const FALLBACK_VIDEO_URL = "https://videos.pexels.com/video-files/3129671/3129671-uhd_2560_1440_30fps.mp4";
+import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
 
 interface VideoHeroProps {
   onEnterStudio?: () => void;
@@ -168,7 +166,7 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
           className="absolute inset-0 h-full w-full object-cover"
           poster={heroCityscape}
         >
-          <source src={FALLBACK_VIDEO_URL} type="video/mp4" />
+          <source src={studioCityscapeVideo} type="video/mp4" />
         </video>
 
         {/* Dark Gradient Overlay */}
