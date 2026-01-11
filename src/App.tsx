@@ -13,6 +13,7 @@ import CookieConsent from "./components/CookieConsent";
 import AnimatedRoutes from "./components/AnimatedRoutes";
 import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger";
 import NavigationProgress from "./components/NavigationProgress";
+import CustomCursor from "./components/CustomCursor";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -71,6 +72,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <BrowserRouter>
+            <CustomCursor />
             <ScrollToTop />
             <BackToTop />
             <NavigationProgress />
