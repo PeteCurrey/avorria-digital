@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Volume2, VolumeX } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 
 // Use a reliable external video source - cinematic cityscape timelapse
@@ -15,105 +15,121 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
-  const [audioLoading, setAudioLoading] = useState(false);
-  const [audioLoaded, setAudioLoaded] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const oscillatorsRef = useRef<OscillatorNode[]>([]);
+  const gainNodeRef = useRef<GainNode | null>(null);
 
-  // Load and cache audio
-  const loadAudio = async () => {
-    if (audioLoaded || audioLoading) return;
-    
-    setAudioLoading(true);
-    
+  // Create ambient drone using Web Audio API - no external dependencies
+  const startAmbientAudio = useCallback(() => {
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/studio-ambient-music`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-          },
-          body: JSON.stringify({
-            prompt: "Cinematic ambient electronic music, dark atmospheric, futuristic city night skyline vibes, subtle tension building, corporate technology feel, slow ethereal pads, 70bpm, no vocals",
-            duration: 30,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error("Failed to generate audio");
-      }
-
-      const data = await response.json();
+      // Create audio context
+      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioContextClass) return;
       
-      if (data.audioContent) {
-        const audioUrl = `data:audio/mpeg;base64,${data.audioContent}`;
-        audioRef.current = new Audio(audioUrl);
-        audioRef.current.loop = true;
-        audioRef.current.volume = 0.3;
-        setAudioLoaded(true);
-      }
+      const ctx = new AudioContextClass();
+      audioContextRef.current = ctx;
+      
+      // Master gain node
+      const masterGain = ctx.createGain();
+      masterGain.gain.value = 0;
+      masterGain.connect(ctx.destination);
+      gainNodeRef.current = masterGain;
+      
+      // Create multiple oscillators for rich ambient sound
+      const frequencies = [55, 82.5, 110, 165, 220]; // A1, E2, A2, E3, A3 - ambient chord
+      const oscillators: OscillatorNode[] = [];
+      
+      frequencies.forEach((freq, index) => {
+        const osc = ctx.createOscillator();
+        const oscGain = ctx.createGain();
+        
+        // Use sine waves for smooth ambient sound
+        osc.type = "sine";
+        osc.frequency.value = freq;
+        
+        // Subtle detuning for richness
+        osc.detune.value = Math.random() * 10 - 5;
+        
+        // Lower volume for higher frequencies
+        oscGain.gain.value = 0.15 / (index + 1);
+        
+        osc.connect(oscGain);
+        oscGain.connect(masterGain);
+        osc.start();
+        oscillators.push(osc);
+      });
+      
+      // Add subtle LFO modulation for movement
+      const lfo = ctx.createOscillator();
+      const lfoGain = ctx.createGain();
+      lfo.type = "sine";
+      lfo.frequency.value = 0.1; // Very slow modulation
+      lfoGain.gain.value = 3; // Subtle pitch variation
+      lfo.connect(lfoGain);
+      oscillators.forEach(osc => {
+        lfoGain.connect(osc.frequency);
+      });
+      lfo.start();
+      oscillators.push(lfo);
+      
+      oscillatorsRef.current = oscillators;
+      
+      // Fade in
+      masterGain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 2);
+      
     } catch (error) {
-      console.error("Audio loading error:", error);
-    } finally {
-      setAudioLoading(false);
+      console.error("Audio context error:", error);
     }
-  };
+  }, []);
+
+  const stopAmbientAudio = useCallback(() => {
+    if (gainNodeRef.current && audioContextRef.current) {
+      // Fade out
+      gainNodeRef.current.gain.linearRampToValueAtTime(0, audioContextRef.current.currentTime + 0.5);
+      
+      // Stop oscillators after fade
+      setTimeout(() => {
+        oscillatorsRef.current.forEach(osc => {
+          try {
+            osc.stop();
+          } catch (e) {
+            // Already stopped
+          }
+        });
+        oscillatorsRef.current = [];
+        
+        if (audioContextRef.current) {
+          audioContextRef.current.close();
+          audioContextRef.current = null;
+        }
+      }, 600);
+    }
+  }, []);
 
   // Handle audio toggle
-  const toggleAudio = async () => {
-    if (!audioLoaded && !audioLoading) {
-      await loadAudio();
+  const toggleAudio = () => {
+    if (audioEnabled) {
+      stopAmbientAudio();
+    } else {
+      startAmbientAudio();
     }
-
-    if (audioRef.current) {
-      if (audioEnabled) {
-        audioRef.current.pause();
-      } else {
-        await audioRef.current.play();
-      }
-      setAudioEnabled(!audioEnabled);
-    } else if (!audioLoading) {
-      // If loading just finished, try to play
-      setAudioEnabled(true);
-    }
+    setAudioEnabled(!audioEnabled);
   };
-
-  // Play audio once loaded if toggle was clicked during loading
-  useEffect(() => {
-    if (audioLoaded && audioEnabled && audioRef.current) {
-      audioRef.current.play();
-    }
-  }, [audioLoaded, audioEnabled]);
 
   // Cleanup audio on unmount
   useEffect(() => {
     return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
+      stopAmbientAudio();
     };
-  }, []);
+  }, [stopAmbientAudio]);
 
   const handleEnterStudio = () => {
     setIsTransitioning(true);
     
-    // Fade out audio
-    if (audioRef.current && audioEnabled) {
-      const fadeOut = setInterval(() => {
-        if (audioRef.current && audioRef.current.volume > 0.05) {
-          audioRef.current.volume -= 0.05;
-        } else {
-          clearInterval(fadeOut);
-          if (audioRef.current) {
-            audioRef.current.pause();
-          }
-        }
-      }, 50);
+    // Fade out audio using Web Audio API
+    if (audioEnabled) {
+      stopAmbientAudio();
     }
     
     // Trigger the transition animation, then navigate
@@ -183,22 +199,15 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
         animate={{ opacity: isTransitioning ? 0 : 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
         onClick={toggleAudio}
-        disabled={audioLoading}
         className="absolute right-6 top-6 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-black/50"
       >
-        {audioLoading ? (
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-            className="h-4 w-4 rounded-full border-2 border-white/20 border-t-white"
-          />
-        ) : audioEnabled ? (
+        {audioEnabled ? (
           <Volume2 className="h-4 w-4 text-accent" />
         ) : (
           <VolumeX className="h-4 w-4 text-white/60" />
         )}
         <span className="text-xs text-white/60">
-          {audioLoading ? "Loading..." : audioEnabled ? "Sound On" : "Sound Off"}
+          {audioEnabled ? "Sound On" : "Sound Off"}
         </span>
       </motion.button>
 
