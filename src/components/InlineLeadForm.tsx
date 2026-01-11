@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
-import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
+import { trackEvent, EVENTS, trackFormStart, trackAuditReportGenerated, trackAuditReportView, trackAuditCTAClick } from "@/lib/tracking";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Loader2, CheckCircle, FileText, AlertCircle } from "lucide-react";
@@ -181,6 +181,9 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
       });
       setStatus("success");
       
+      // Track successful audit generation
+      trackAuditReportGenerated(auditData.overallScore, data.website);
+      
     } catch (error) {
       console.error("Form submission error:", error);
       setErrorMessage(
@@ -231,13 +234,18 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button asChild size="lg">
+            <Button asChild size="lg" onClick={() => trackAuditReportView(auditResult.reportUrl, 'view')}>
               <a href={auditResult.reportUrl} target="_blank" rel="noopener noreferrer">
                 <FileText className="w-4 h-4 mr-2" />
                 View Full Report
               </a>
             </Button>
-            <Button variant="outline" asChild size="lg">
+            <Button 
+              variant="outline" 
+              asChild 
+              size="lg"
+              onClick={() => trackAuditCTAClick('Book a Strategy Call', '/contact')}
+            >
               <a href="/contact">Book a Strategy Call</a>
             </Button>
           </div>

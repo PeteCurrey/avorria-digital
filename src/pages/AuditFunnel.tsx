@@ -1,6 +1,7 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Navigation from "@/components/Navigation";
-import { trackCTAClick } from "@/lib/tracking";
+import { trackCTAClick, trackAuditFunnelView } from "@/lib/tracking";
 import Footer from "@/components/Footer";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
@@ -12,6 +13,13 @@ import { BeamBorder, StaticBeamBorder } from "@/components/BeamBorder";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 
 export default function AuditFunnel() {
+  // Track funnel page view on mount
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const source = urlParams.get('utm_source') || urlParams.get('source') || 'direct';
+    trackAuditFunnelView(source);
+  }, []);
+
   const scrollToForm = () => {
     trackCTAClick('request_audit', '#audit-form', 'hero');
     document.getElementById("audit-form")?.scrollIntoView({
