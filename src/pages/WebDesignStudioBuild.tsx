@@ -10,7 +10,7 @@ import FeaturesStep from "@/components/studio/steps/FeaturesStep";
 import PersonalityStep from "@/components/studio/steps/PersonalityStep";
 import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
-import studioMockup from "@/assets/studio-mockup-dark.jpg";
+import { DeviceMockup } from "@/components/studio/DeviceMockup";
 
 // Lead Generation previews by palette and size
 import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
@@ -267,7 +267,7 @@ const WebDesignStudioBuild = () => {
                 animate="center"
                 exit="exit"
                 transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="mx-auto max-w-4xl py-8"
+                className="mx-auto max-w-4xl py-8 px-6 lg:px-8 bg-white/[0.02] border border-white/5 rounded-lg backdrop-blur-sm"
               >
                 {renderStep()}
               </motion.div>
@@ -304,76 +304,22 @@ const WebDesignStudioBuild = () => {
               className="relative z-10 flex flex-1 flex-col items-center justify-center px-8"
               style={{ perspective: "1000px" }}
             >
-              {/* iMac mockup with parallax tilt effect */}
-              <motion.div
-                initial={{ opacity: 0, y: 20, scale: 0.95 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                style={{
-                  rotateX,
-                  rotateY,
-                  transformStyle: "preserve-3d",
-                }}
-                className="relative w-full max-w-md"
-              >
-                {/* Background mockup image */}
-                <img 
-                  src={studioMockup} 
-                  alt="Studio workspace" 
-                  className="w-full h-auto rounded-lg"
-                  style={{ transform: "translateZ(0)" }}
-                />
-                
-                {/* Screen overlay with preview - lifted forward in 3D space */}
-                <motion.div 
-                  key={`${config.purpose}-${config.palette}`}
+              {/* iMac mockup using DeviceMockup component */}
+              <DeviceMockup className="w-full max-w-md">
+                <motion.div
+                  key={`${config.purpose}-${config.palette}-${config.siteSize}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
-                  className="absolute inset-0 flex items-center justify-center"
-                  style={{
-                    top: '8%',
-                    left: '22%',
-                    right: '22%',
-                    bottom: '35%',
-                    transform: "translateZ(20px)",
-                  }}
+                  className="h-full w-full"
                 >
-                  <div className="relative w-full h-full overflow-hidden rounded-sm">
-                    <img 
-                      src={currentPreview}
-                      alt="Website preview"
-                      className="w-full h-full object-cover object-top transition-all duration-500"
-                    />
-                    {/* Screen reflection effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent" />
-                    {/* Subtle screen glow */}
-                    <div className="absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.3)]" />
-                  </div>
-                </motion.div>
-
-                {/* Floating accent glow behind mockup */}
-                <div className="absolute -inset-8 -z-10" style={{ transform: "translateZ(-30px)" }}>
-                  <motion.div 
-                    animate={{ 
-                      opacity: [0.3, 0.5, 0.3],
-                      scale: [1, 1.02, 1],
-                    }}
-                    transition={{ 
-                      duration: 4, 
-                      repeat: Infinity,
-                      ease: "easeInOut"
-                    }}
-                    className="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent rounded-3xl blur-2xl"
+                  <img
+                    src={currentPreview}
+                    alt="Website preview"
+                    className="w-full h-full object-cover object-top"
                   />
-                </div>
-                
-                {/* Additional depth layers for enhanced 3D effect */}
-                <motion.div 
-                  className="absolute -inset-4 -z-20 rounded-2xl bg-gradient-to-b from-white/5 to-transparent"
-                  style={{ transform: "translateZ(-50px)" }}
-                />
-              </motion.div>
+                </motion.div>
+              </DeviceMockup>
 
               {/* Configuration summary */}
               <motion.div
