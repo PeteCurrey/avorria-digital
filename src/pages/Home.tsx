@@ -299,17 +299,20 @@ const Home = () => {
     quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
     author: "James Harrison",
     role: "Managing Director",
-    company: "Apex Professional Services"
+    company: "Apex Professional Services",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
   }, {
     quote: "They rebuilt our site and landing pages without drama. Same traffic, better structure, calls and enquiries went up. No hype, just a very competent team.",
     author: "Sarah Mitchell",
     role: "Marketing Manager",
-    company: "Northfield Construction Group"
+    company: "Northfield Construction Group",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
   }, {
     quote: "We didn't want another 'creative agency'. We wanted someone to help us hit numbers. Avorria behaves like an in-house growth function, not a vendor.",
     author: "David Chen",
     role: "Founder & CEO",
-    company: "Velocity SaaS"
+    company: "Velocity SaaS",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face"
   }];
 
   const faqs = [{
@@ -878,9 +881,16 @@ const Home = () => {
                   <CardContent className="p-6 sm:p-8">
                     <Quote className="w-8 h-8 text-accent/40 mb-4" />
                     <p className="text-base text-white/90 leading-relaxed">"{testimonial.quote}"</p>
-                    <div className="mt-6 pt-4 border-t border-white/10">
-                      <p className="text-sm font-medium text-white">{testimonial.author}</p>
-                      <p className="text-xs text-white/60">{testimonial.role}, {testimonial.company}</p>
+                    <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-4">
+                      <img 
+                        src={testimonial.avatar} 
+                        alt={testimonial.author}
+                        className="w-12 h-12 rounded-full object-cover border-2 border-accent/30"
+                      />
+                      <div>
+                        <p className="text-sm font-medium text-white">{testimonial.author}</p>
+                        <p className="text-xs text-white/60">{testimonial.role}, {testimonial.company}</p>
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
