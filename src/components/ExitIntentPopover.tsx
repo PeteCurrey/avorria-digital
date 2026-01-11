@@ -1,14 +1,5 @@
 import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { X } from "lucide-react";
 
 export function ExitIntentPopover() {
   const [isOpen, setIsOpen] = useState(false);
@@ -56,63 +47,86 @@ export function ExitIntentPopover() {
 
   const isFormValid = websiteUrl.trim().length > 0;
 
+  if (!isOpen) return null;
+
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-md">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-light">
-            Before you go – want a free website audit?
-          </DialogTitle>
-          <DialogDescription className="text-base pt-2">
-            We'll analyze your site and send you a clear breakdown of what's working and what's holding you back.
-          </DialogDescription>
-        </DialogHeader>
-        
-        <div className="space-y-4 pt-4">
-          <div className="space-y-2">
-            <Label htmlFor="exit-website">Your website URL *</Label>
-            <Input
-              id="exit-website"
-              type="url"
-              placeholder="https://yourwebsite.com"
-              value={websiteUrl}
-              onChange={(e) => setWebsiteUrl(e.target.value)}
-              className="w-full"
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <Label htmlFor="exit-email">Your email (optional)</Label>
-            <Input
-              id="exit-email"
-              type="email"
-              placeholder="you@company.com"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full"
-            />
+    <>
+      {/* Backdrop */}
+      <div 
+        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+        onClick={() => setIsOpen(false)}
+      />
+      
+      {/* Modal */}
+      <div className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
+        <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/90 p-6 shadow-2xl backdrop-blur-xl">
+          {/* Close button */}
+          <button
+            onClick={() => setIsOpen(false)}
+            className="absolute right-4 top-4 rounded-full p-1 text-white/40 transition-colors hover:bg-white/10 hover:text-white/60"
+          >
+            <X className="h-4 w-4" />
+          </button>
+
+          {/* Content */}
+          <div className="space-y-4">
+            <div className="space-y-2 pr-6">
+              <h2 className="text-lg font-medium text-white">
+                Before you go – want a free website audit?
+              </h2>
+              <p className="text-sm text-white/60">
+                We'll analyze your site and send you a clear breakdown of what's working and what's holding you back.
+              </p>
+            </div>
+            
+            <div className="space-y-3 pt-2">
+              <div className="space-y-1.5">
+                <label htmlFor="exit-website" className="text-sm text-white/70">
+                  Your website URL *
+                </label>
+                <input
+                  id="exit-website"
+                  type="url"
+                  placeholder="https://yourwebsite.com"
+                  value={websiteUrl}
+                  onChange={(e) => setWebsiteUrl(e.target.value)}
+                  className="w-full rounded-lg border border-white/10 bg-slate-800/50 px-3 py-2.5 text-sm text-white placeholder:text-white/40 focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/50"
+                />
+              </div>
+              
+              <div className="space-y-1.5">
+                <label htmlFor="exit-email" className="text-sm text-white/70">
+                  Your email (optional)
+                </label>
+                <input
+                  id="exit-email"
+                  type="email"
+                  placeholder="you@company.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="w-full rounded-lg border border-white/10 bg-slate-800/50 px-3 py-2.5 text-sm text-white placeholder:text-white/40 focus:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent/50"
+                />
+              </div>
+            </div>
+            
+            <div className="flex flex-col gap-2 pt-2">
+              <button 
+                onClick={handlePrimaryClick} 
+                disabled={!isFormValid}
+                className="w-full rounded-xl bg-gradient-to-r from-pink-500 to-pink-600 px-4 py-3 text-sm font-medium text-white shadow-lg shadow-pink-500/25 transition-all hover:from-pink-600 hover:to-pink-700 hover:shadow-pink-500/40 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Get my free audit
+              </button>
+              <button
+                onClick={handleSecondaryClick}
+                className="w-full px-4 py-2 text-sm text-white/50 transition-colors hover:text-white/70"
+              >
+                No thanks, I'm good
+              </button>
+            </div>
           </div>
         </div>
-        
-        <div className="flex flex-col gap-3 pt-4">
-          <Button 
-            onClick={handlePrimaryClick} 
-            size="lg" 
-            className="w-full"
-            disabled={!isFormValid}
-          >
-            Get my free audit
-          </Button>
-          <Button
-            onClick={handleSecondaryClick}
-            variant="ghost"
-            size="lg"
-            className="w-full"
-          >
-            No thanks, I'm good
-          </Button>
-        </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </>
   );
 }
