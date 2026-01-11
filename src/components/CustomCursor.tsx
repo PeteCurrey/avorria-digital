@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import { motion, useSpring, useMotionValue } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 type CursorVariant = "default" | "hover" | "click" | "text" | "hidden";
 
@@ -7,6 +8,10 @@ export const CustomCursor = () => {
   const [variant, setVariant] = useState<CursorVariant>("default");
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const location = useLocation();
+  
+  // Hide cursor on admin pages
+  const isAdminPage = location.pathname.startsWith("/admin");
 
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
@@ -85,8 +90,8 @@ export const CustomCursor = () => {
     };
   }, [isMobile]);
 
-  // Don't render on mobile
-  if (isMobile) return null;
+  // Don't render on mobile or admin pages
+  if (isMobile || isAdminPage) return null;
 
   const variants = {
     default: {
