@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles, Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, Sparkles, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
 
@@ -13,119 +14,94 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [audioEnabled, setAudioEnabled] = useState(false);
+  const [isLoadingAudio, setIsLoadingAudio] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
-  const oscillatorsRef = useRef<OscillatorNode[]>([]);
-  const gainNodeRef = useRef<GainNode | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioUrlRef = useRef<string | null>(null);
 
-  // Create ambient drone using Web Audio API - no external dependencies
-  const startAmbientAudio = useCallback(() => {
+  // Fetch and play ElevenLabs ambient music
+  const startAmbientAudio = useCallback(async () => {
+    setIsLoadingAudio(true);
     try {
-      // Create audio context
-      const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
-      if (!AudioContextClass) return;
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/studio-ambient-music`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          },
+          body: JSON.stringify({
+            prompt: "Cinematic ambient electronic music, dark atmospheric, futuristic city vibes, subtle tension, corporate technology feel, slow build, dreamy pads, 80bpm",
+            duration: 30,
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`Audio generation failed: ${response.status}`);
+      }
+
+      const data = await response.json();
       
-      const ctx = new AudioContextClass();
-      audioContextRef.current = ctx;
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
+      // Use data URI for base64 audio
+      const audioUrl = `data:audio/mpeg;base64,${data.audioContent}`;
+      audioUrlRef.current = audioUrl;
+
+      const audio = new Audio(audioUrl);
+      audio.loop = true;
+      audio.volume = 0.4;
+      audioRef.current = audio;
       
-      // Master gain node
-      const masterGain = ctx.createGain();
-      masterGain.gain.value = 0;
-      masterGain.connect(ctx.destination);
-      gainNodeRef.current = masterGain;
-      
-      // Create multiple oscillators for rich ambient sound
-      const frequencies = [55, 82.5, 110, 165, 220]; // A1, E2, A2, E3, A3 - ambient chord
-      const oscillators: OscillatorNode[] = [];
-      
-      frequencies.forEach((freq, index) => {
-        const osc = ctx.createOscillator();
-        const oscGain = ctx.createGain();
-        
-        // Use sine waves for smooth ambient sound
-        osc.type = "sine";
-        osc.frequency.value = freq;
-        
-        // Subtle detuning for richness
-        osc.detune.value = Math.random() * 10 - 5;
-        
-        // Lower volume for higher frequencies
-        oscGain.gain.value = 0.15 / (index + 1);
-        
-        osc.connect(oscGain);
-        oscGain.connect(masterGain);
-        osc.start();
-        oscillators.push(osc);
-      });
-      
-      // Add subtle LFO modulation for movement
-      const lfo = ctx.createOscillator();
-      const lfoGain = ctx.createGain();
-      lfo.type = "sine";
-      lfo.frequency.value = 0.1; // Very slow modulation
-      lfoGain.gain.value = 3; // Subtle pitch variation
-      lfo.connect(lfoGain);
-      oscillators.forEach(osc => {
-        lfoGain.connect(osc.frequency);
-      });
-      lfo.start();
-      oscillators.push(lfo);
-      
-      oscillatorsRef.current = oscillators;
-      
-      // Fade in
-      masterGain.gain.linearRampToValueAtTime(0.15, ctx.currentTime + 2);
-      
+      await audio.play();
+      setAudioEnabled(true);
     } catch (error) {
-      console.error("Audio context error:", error);
+      console.error("Audio generation error:", error);
+      toast.error("Failed to load ambient music");
+      setAudioEnabled(false);
+    } finally {
+      setIsLoadingAudio(false);
     }
   }, []);
 
   const stopAmbientAudio = useCallback(() => {
-    if (gainNodeRef.current && audioContextRef.current) {
-      // Fade out
-      gainNodeRef.current.gain.linearRampToValueAtTime(0, audioContextRef.current.currentTime + 0.5);
-      
-      // Stop oscillators after fade
-      setTimeout(() => {
-        oscillatorsRef.current.forEach(osc => {
-          try {
-            osc.stop();
-          } catch (e) {
-            // Already stopped
-          }
-        });
-        oscillatorsRef.current = [];
-        
-        if (audioContextRef.current) {
-          audioContextRef.current.close();
-          audioContextRef.current = null;
-        }
-      }, 600);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current = null;
     }
+    setAudioEnabled(false);
   }, []);
 
   // Handle audio toggle
   const toggleAudio = () => {
+    if (isLoadingAudio) return;
+    
     if (audioEnabled) {
       stopAmbientAudio();
     } else {
       startAmbientAudio();
     }
-    setAudioEnabled(!audioEnabled);
   };
 
   // Cleanup audio on unmount
   useEffect(() => {
     return () => {
-      stopAmbientAudio();
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
     };
-  }, [stopAmbientAudio]);
+  }, []);
 
   const handleEnterStudio = () => {
     setIsTransitioning(true);
     
-    // Fade out audio using Web Audio API
+    // Stop audio
     if (audioEnabled) {
       stopAmbientAudio();
     }
@@ -197,15 +173,18 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
         animate={{ opacity: isTransitioning ? 0 : 1 }}
         transition={{ delay: 1.5, duration: 0.5 }}
         onClick={toggleAudio}
-        className="absolute right-6 top-6 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-black/50"
+        disabled={isLoadingAudio}
+        className="absolute right-6 top-6 z-20 flex items-center gap-2 rounded-full border border-white/10 bg-black/30 px-4 py-2 backdrop-blur-sm transition-all hover:border-white/20 hover:bg-black/50 disabled:opacity-50"
       >
-        {audioEnabled ? (
+        {isLoadingAudio ? (
+          <Loader2 className="h-4 w-4 text-accent animate-spin" />
+        ) : audioEnabled ? (
           <Volume2 className="h-4 w-4 text-accent" />
         ) : (
           <VolumeX className="h-4 w-4 text-white/60" />
         )}
         <span className="text-xs text-white/60">
-          {audioEnabled ? "Sound On" : "Sound Off"}
+          {isLoadingAudio ? "Loading..." : audioEnabled ? "Sound On" : "Sound Off"}
         </span>
       </motion.button>
 
