@@ -38,6 +38,7 @@ import LiveGoogleAnalyticsWidget from "@/components/admin/LiveGoogleAnalyticsWid
 import LiveSearchConsoleWidget from "@/components/admin/LiveSearchConsoleWidget";
 import { LandingPageManager } from "@/components/admin/LandingPageManager";
 import AuditReportsTab from "@/components/admin/AuditReportsTab";
+import { ProjectsTab } from "@/components/admin/ProjectsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -140,6 +141,7 @@ const Admin = () => {
   const getPageTitle = () => {
     switch (activeTab) {
       case "overview": return "Dashboard Overview";
+      case "projects": return "Projects";
       case "leads": return "Lead Management";
       case "audits": return "Audit Reports";
       case "analytics": return "Analytics";
@@ -160,6 +162,7 @@ const Admin = () => {
   const getPageSubtitle = () => {
     switch (activeTab) {
       case "overview": return "Monitor your key metrics and recent activity";
+      case "projects": return "Manage website design projects from the studio";
       case "leads": return "Track and manage your sales leads";
       case "audits": return "View all generated website audit reports";
       case "analytics": return "Deep dive into your website analytics";
@@ -584,6 +587,9 @@ const Admin = () => {
 
       case "audits":
         return <AuditReportsTab />;
+
+      case "projects":
+        return <ProjectsTab />;
 
       case "performance":
         return <PerformanceTab />;

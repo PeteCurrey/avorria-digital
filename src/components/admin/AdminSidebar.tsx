@@ -19,6 +19,7 @@ import {
   Calendar,
   PenTool,
   FileCheck,
+  FolderKanban,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -52,7 +53,8 @@ const navSections: NavSection[] = [
     title: "Dashboard",
     items: [
       { name: "Overview", icon: LayoutDashboard, tab: "overview" },
-      { name: "Leads", icon: Users, tab: "leads", badge: "New" },
+      { name: "Projects", icon: FolderKanban, tab: "projects" },
+      { name: "Leads", icon: Users, tab: "leads" },
       { name: "Audits", icon: FileCheck, tab: "audits" },
       { name: "Analytics", icon: BarChart3, tab: "analytics" },
     ],

@@ -4,13 +4,17 @@ import { Link } from "react-router-dom";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { trackEvent } from "@/lib/tracking";
 import { HeroCanvas } from "@/components/studio/HeroCanvas";
-import { StudioSummary } from "@/components/studio/StudioSummary";
+import { StudioStepper } from "@/components/studio/StudioStepper";
+import { PremiumSummary } from "@/components/studio/PremiumSummary";
 import type { StudioConfig } from "@/types/studio";
+import { ArrowDown, Sparkles } from "lucide-react";
+
 type Purpose = "lead_gen" | "authority" | "saas" | "platform";
 type MoodDensity = "minimal" | "content_rich";
 type MoodEnergy = "calm" | "bold";
 type Palette = "light" | "dark" | "mono" | "gradient";
 type StructureSize = "lean" | "standard" | "expanded";
+
 type StudioState = {
   purpose: Purpose | null;
   density: MoodDensity;
@@ -23,6 +27,7 @@ type StudioState = {
   understated: number;
   notes: string;
 };
+
 const defaultState: StudioState = {
   purpose: null,
   density: "minimal",
@@ -185,57 +190,101 @@ const WebStudioPage: React.FC = () => {
         <section className="relative h-screen w-full overflow-hidden">
           <HeroCanvas className="absolute inset-0 h-full w-full" />
 
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/30 via-transparent to-slate-950/30" />
+          {/* Premium gradient overlays */}
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-slate-950/40" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_rgba(2,6,23,0.6)_70%)]" />
 
           <div className="relative z-10 flex h-full w-full flex-col items-center justify-center px-6">
-            <motion.div initial={{
-            opacity: 0,
-            y: 30
-          }} animate={{
-            opacity: 1,
-            y: 0
-          }} transition={{
-            duration: 1,
-            ease: [0.16, 1, 0.3, 1]
-          }} className="max-w-2xl text-center">
-              <p className="text-[11px] font-medium uppercase tracking-[0.4em] text-sky-300/60">
-                Avorria Web Studio
-              </p>
+            <motion.div 
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-3xl text-center"
+            >
+              {/* Premium badge */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.6 }}
+                className="mb-8 inline-flex items-center gap-2 rounded-full border border-sky-500/20 bg-sky-500/5 px-4 py-2 backdrop-blur-sm"
+              >
+                <Sparkles className="h-3.5 w-3.5 text-sky-400" />
+                <span className="text-[11px] font-medium uppercase tracking-[0.3em] text-sky-300/80">
+                  Web Design Studio
+                </span>
+              </motion.div>
               
-              <h1 className="mt-8 text-5xl tracking-tight text-white md:text-5xl font-extralight">Spec Your New Website.  <span className="block mt-2 text-slate-300/90">
-              </span>
+              {/* Animated headline */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl tracking-tight text-white font-extralight leading-[1.1]">
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="block"
+                >
+                  Spec Your Next
+                </motion.span>
+                <motion.span
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.8 }}
+                  className="block bg-gradient-to-r from-white via-sky-200 to-white bg-clip-text text-transparent"
+                >
+                  Website.
+                </motion.span>
               </h1>
               
-              <p className="mt-8 text-base text-slate-400/80 font-light tracking-wide">
-                A guided studio for serious builds – no templates, no drag-and-drop.
-              </p>
+              <motion.p 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.9, duration: 0.8 }}
+                className="mt-8 text-lg text-slate-400/90 font-light tracking-wide max-w-xl mx-auto"
+              >
+                A guided configurator for serious builds. No templates. 
+                <span className="text-slate-300"> Just precision.</span>
+              </motion.p>
 
-              <div className="mt-12 flex flex-col items-center gap-6">
-                <motion.button onClick={scrollToConfig} whileHover={{
-                scale: 1.02
-              }} whileTap={{
-                scale: 0.98
-              }} className="rounded-full bg-white px-10 py-4 text-sm font-medium text-slate-900 shadow-2xl shadow-white/10 transition-all duration-300 hover:shadow-white/20">
-                  Enter the Studio
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 1.1, duration: 0.8 }}
+                className="mt-12 flex flex-col items-center gap-6"
+              >
+                <motion.button 
+                  onClick={scrollToConfig} 
+                  whileHover={{ scale: 1.03, boxShadow: "0 0 60px rgba(255,255,255,0.2)" }}
+                  whileTap={{ scale: 0.98 }}
+                  className="group relative rounded-full bg-white px-12 py-5 text-sm font-medium text-slate-900 shadow-2xl shadow-white/10 transition-all duration-500"
+                >
+                  <span className="relative z-10">Enter the Studio</span>
+                  <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-100 to-white opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 </motion.button>
                 
-                <Link to="/services/web-design" className="text-sm text-slate-500 transition-colors hover:text-slate-300">
-                  Back to Web Design
+                <Link 
+                  to="/services/web-design" 
+                  className="text-sm text-slate-500 transition-colors hover:text-slate-300 flex items-center gap-2"
+                >
+                  ← Back to Web Design
                 </Link>
-              </div>
+              </motion.div>
             </motion.div>
           </div>
 
-          <motion.div initial={{
-          opacity: 0
-        }} animate={{
-          opacity: 1
-        }} transition={{
-          delay: 1.5,
-          duration: 1
-        }} className="absolute bottom-12 left-1/2 -translate-x-1/2">
-            <div className="h-12 w-px bg-gradient-to-b from-transparent via-slate-500/50 to-transparent" />
+          {/* Scroll indicator */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2, duration: 1 }}
+            className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+          >
+            <span className="text-[10px] uppercase tracking-[0.3em] text-slate-500">Scroll to configure</span>
+            <motion.div
+              animate={{ y: [0, 8, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            >
+              <ArrowDown className="h-4 w-4 text-slate-500" />
+            </motion.div>
           </motion.div>
         </section>
 
@@ -268,51 +317,18 @@ const WebStudioPage: React.FC = () => {
                 </h2>
               </motion.header>
 
-              {/* Step Indicator */}
-              <motion.div 
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ 
-                  opacity: showIndicator ? 1 : 0,
-                  y: showIndicator ? 0 : 10,
-                  pointerEvents: showIndicator ? "auto" : "none"
-                }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="sticky top-24 z-20 -mx-2 px-2 py-4 backdrop-blur-xl bg-slate-950/80 rounded-2xl border border-slate-800/30"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  {STEPS.map((step, index) => <button key={step.id} onClick={() => {
+              {/* Premium Step Indicator */}
+              <StudioStepper
+                steps={STEPS}
+                activeStep={activeStep}
+                onStepClick={(index) => {
                   const ref = stepRefs.current[index];
                   if (ref) {
-                    ref.scrollIntoView({
-                      behavior: "smooth",
-                      block: "start"
-                    });
+                    ref.scrollIntoView({ behavior: "smooth", block: "start" });
                   }
-                }} className="group flex-1 flex flex-col items-center gap-2">
-                      <div className="relative flex items-center w-full">
-                        {/* Connector line */}
-                        {index > 0 && <div className={`absolute right-1/2 h-px w-full transition-colors duration-500 ${index <= activeStep ? "bg-sky-500/50" : "bg-slate-700/50"}`} />}
-                        {/* Step dot */}
-                        <div className={`relative z-10 mx-auto h-2 w-2 rounded-full transition-all duration-500 ${index === activeStep ? "bg-sky-400 shadow-[0_0_12px_rgba(56,189,248,0.6)] scale-125" : index < activeStep ? "bg-sky-500/60" : "bg-slate-600 group-hover:bg-slate-500"}`} />
-                      </div>
-                      <span className={`text-[9px] uppercase tracking-[0.2em] transition-colors duration-300 ${index === activeStep ? "text-sky-300" : index < activeStep ? "text-slate-500" : "text-slate-600 group-hover:text-slate-500"}`}>
-                        {step.label}
-                      </span>
-                    </button>)}
-                </div>
-                
-                {/* Progress bar */}
-                <div className="mt-3 h-px w-full bg-slate-800/50 rounded-full overflow-hidden">
-                  <motion.div className="h-full bg-gradient-to-r from-sky-500/80 to-emerald-500/60" initial={{
-                  width: "0%"
-                }} animate={{
-                  width: `${(activeStep + 1) / STEPS.length * 100}%`
-                }} transition={{
-                  duration: 0.5,
-                  ease: "easeOut"
-                }} />
-                </div>
-              </motion.div>
+                }}
+                isVisible={showIndicator}
+              />
 
               {/* Step 1 – Purpose */}
               <motion.div ref={el => {
@@ -651,26 +667,7 @@ const WebStudioPage: React.FC = () => {
               duration: 0.8,
               delay: 0.1
             }} className="scroll-mt-48 rounded-2xl border border-slate-800/40 bg-slate-900/20 p-8">
-                <StudioSummary
-                  config={{
-                    purpose: state.purpose === "lead_gen" ? "lead-generation" 
-                      : state.purpose === "authority" ? "content-hub"
-                      : state.purpose === "saas" ? "product-saas"
-                      : state.purpose === "platform" ? "service-portal"
-                      : "lead-generation",
-                    minimal: state.density === "minimal" ? 20 : 80,
-                    bold: state.energy === "bold" ? 80 : 20,
-                    palette: state.palette === "mono" ? "monochrome" : state.palette,
-                    siteSize: state.structureSize,
-                    modules: [],
-                    features: state.features,
-                    straightTalking: state.straightTalking,
-                    analytical: state.analytical,
-                    understated: state.understated,
-                    notes: state.notes,
-                  }}
-                  setConfig={() => {}}
-                />
+                <PremiumSummary state={state} />
               </motion.div>
             </div>
 
