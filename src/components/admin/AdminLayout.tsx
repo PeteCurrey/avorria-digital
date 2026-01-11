@@ -147,7 +147,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
         </header>
 
         {/* Page Content */}
-        <main className="p-4 pt-6 lg:p-6 lg:pt-8">
+        <main className="p-4 pt-20 lg:p-6 lg:pt-24">
           {(title || subtitle) && (
             <div className="mb-6">
               {title && (
