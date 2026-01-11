@@ -1,6 +1,4 @@
 import { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -182,15 +180,7 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
   const isLoading = createMutation.isPending || updateMutation.isPending;
 
   return (
-    <>
-      <Helmet>
-        <title>
-          {caseStudy ? "Edit" : "Create"} Case Study - Avorria Growth Platform
-        </title>
-      </Helmet>
-
-      <AppShell type="platform" userName="Alex Morgan" userRole="Account Lead">
-        <div className="space-y-6">
+    <div className="space-y-6">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
@@ -897,8 +887,6 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
             </TabsContent>
           </Tabs>
         </div>
-      </AppShell>
-    </>
   );
 };
 
