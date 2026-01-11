@@ -97,6 +97,13 @@ export default function LiveGoogleAnalyticsWidget() {
     fetchAnalytics();
   }, []);
 
+  const formatDuration = (seconds: number): string => {
+    if (!seconds || seconds === 0) return "0m 0s";
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}m ${secs}s`;
+  };
+
   const getDeviceIcon = (device: string) => {
     switch (device.toLowerCase()) {
       case "mobile":
@@ -134,13 +141,38 @@ export default function LiveGoogleAnalyticsWidget() {
     );
   }
 
-  const totals = data?.totals || {
-    sessions: 0,
-    users: 0,
-    pageViews: 0,
-    bounceRate: 0,
-    avgSessionDuration: "0m 0s",
+  // Handle different response formats from the edge function
+  const rawTotals = (data?.totals || {}) as Record<string, number>;
+  const totals = {
+    sessions: rawTotals.sessions || 0,
+    users: rawTotals.totalUsers || rawTotals.users || 0,
+    pageViews: rawTotals.screenPageViews || rawTotals.pageViews || 0,
+    bounceRate: rawTotals.bounceRate || 0,
+    avgSessionDuration: formatDuration(rawTotals.averageSessionDuration || 0),
   };
+
+  // Format top pages for widget
+  const topPages = (data?.topPages || []).map((page: any) => ({
+    page: page.page,
+    views: page.pageViews || page.views || 0,
+    change: page.change,
+  }));
+
+  // Format traffic sources for widget
+  const totalSessions = (data?.trafficSources || []).reduce((sum: number, s: any) => sum + (s.sessions || 0), 0);
+  const trafficSources = (data?.trafficSources || []).map((source: any) => ({
+    source: source.source,
+    sessions: source.sessions || 0,
+    percentage: totalSessions > 0 ? ((source.sessions || 0) / totalSessions) * 100 : 0,
+  }));
+
+  // Format devices for widget
+  const totalDeviceSessions = (data?.devices || []).reduce((sum: number, d: any) => sum + (d.sessions || 0), 0);
+  const devices = (data?.devices || []).map((device: any) => ({
+    device: device.device,
+    sessions: device.sessions || 0,
+    percentage: totalDeviceSessions > 0 ? ((device.sessions || 0) / totalDeviceSessions) * 100 : 0,
+  }));
 
   return (
     <Card className={`border-border/50 backdrop-blur-sm ${isLiveData ? "bg-card/50" : "bg-amber-500/5 border-amber-500/20"}`}>
@@ -257,8 +289,8 @@ export default function LiveGoogleAnalyticsWidget() {
 
         {/* Top Pages & Traffic Sources */}
         <div className="grid md:grid-cols-2 gap-6">
-          {/* Top Pages */}
-          {data?.topPages && data.topPages.length > 0 && (
+        {/* Top Pages */}
+          {topPages.length > 0 && (
             <motion.div
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -270,7 +302,7 @@ export default function LiveGoogleAnalyticsWidget() {
                 Top Pages
               </h4>
               <div className="space-y-2">
-                {data.topPages.slice(0, 5).map((page, idx) => (
+                {topPages.slice(0, 5).map((page: any, idx: number) => (
                   <div
                     key={idx}
                     className="flex items-center justify-between p-2 bg-background/30 rounded border border-border/20"
@@ -305,7 +337,7 @@ export default function LiveGoogleAnalyticsWidget() {
           )}
 
           {/* Traffic Sources */}
-          {data?.trafficSources && data.trafficSources.length > 0 && (
+          {trafficSources.length > 0 && (
             <motion.div
               initial={{ opacity: 0, x: 10 }}
               animate={{ opacity: 1, x: 0 }}
@@ -317,7 +349,7 @@ export default function LiveGoogleAnalyticsWidget() {
                 Traffic Sources
               </h4>
               <div className="space-y-3">
-                {data.trafficSources.slice(0, 5).map((source, idx) => (
+                {trafficSources.slice(0, 5).map((source: any, idx: number) => (
                   <div key={idx} className="space-y-1">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-muted-foreground capitalize">{source.source}</span>
@@ -332,7 +364,7 @@ export default function LiveGoogleAnalyticsWidget() {
         </div>
 
         {/* Device Breakdown */}
-        {data?.devices && data.devices.length > 0 && (
+        {devices.length > 0 && (
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
@@ -344,7 +376,7 @@ export default function LiveGoogleAnalyticsWidget() {
               Device Breakdown
             </h4>
             <div className="grid grid-cols-3 gap-3">
-              {data.devices.map((device, idx) => {
+              {devices.map((device: any, idx: number) => {
                 const DeviceIcon = getDeviceIcon(device.device);
                 return (
                   <div
