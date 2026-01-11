@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => ({
       "react": path.resolve(__dirname, "node_modules/react"),
       "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
       "react-helmet-async": path.resolve(__dirname, "node_modules/react-helmet-async"),
+      "react-router-dom": path.resolve(__dirname, "node_modules/react-router-dom"),
     },
     dedupe: [
       "react",
@@ -25,6 +26,7 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "react-helmet-async",
+      "react-router-dom",
       "scheduler",
     ],
   },
@@ -36,6 +38,7 @@ export default defineConfig(({ mode }) => ({
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
       "react-helmet-async",
+      "react-router-dom",
       "scheduler",
     ],
     esbuildOptions: {
