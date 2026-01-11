@@ -446,20 +446,20 @@ const Home = () => {
             backgroundPosition: "center",
           }}
         >
-          {/* Light overlay for readability while maintaining the sophisticated feel */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/60 to-white" />
+          {/* Subtle dark gradient overlay for readability while showing image detail */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
           
           <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-24">
             <div className="max-w-4xl">
               <div className="space-y-6 md:space-y-8 animate-fade-in">
-                <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em]">
+                <span className="inline-block text-sm font-semibold text-white/60 uppercase tracking-[0.2em]">
                   Performance-First Digital Agency
                 </span>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-gray-900 font-light">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-white font-light">
                   Digital Marketing, SEO & Web Experiences that{" "}
                   <span className="text-accent font-normal">Actually Convert.</span>
                 </h1>
-                <p className="text-lg md:text-xl text-gray-700 leading-relaxed max-w-3xl">
+                <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl">
                   We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </p>
 
@@ -480,23 +480,23 @@ const Home = () => {
               </div>
 
               {/* Stats Row */}
-              <div className="mt-16 pt-8 border-t border-gray-300/50">
+              <div className="mt-16 pt-8 border-t border-white/20">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
                   <div>
-                    <div className="text-3xl font-light text-gray-900">50+</div>
-                    <div className="text-sm text-gray-600">Active clients</div>
+                    <div className="text-3xl font-light text-white">50+</div>
+                    <div className="text-sm text-white/60">Active clients</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-light text-gray-900">£2.4M+</div>
-                    <div className="text-sm text-gray-600">Pipeline generated</div>
+                    <div className="text-3xl font-light text-white">£2.4M+</div>
+                    <div className="text-sm text-white/60">Pipeline generated</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-light text-gray-900">92%</div>
-                    <div className="text-sm text-gray-600">Client retention</div>
+                    <div className="text-3xl font-light text-white">92%</div>
+                    <div className="text-sm text-white/60">Client retention</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-light text-gray-900">10+ yrs</div>
-                    <div className="text-sm text-gray-600">Avg. experience</div>
+                    <div className="text-3xl font-light text-white">10+ yrs</div>
+                    <div className="text-sm text-white/60">Avg. experience</div>
                   </div>
                 </div>
               </div>
