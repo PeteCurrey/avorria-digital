@@ -12,50 +12,89 @@ import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import studioMockup from "@/assets/studio-mockup-dark.jpg";
 
-// Combined purpose + palette previews (16 total)
+// Lead Generation previews by palette and size
 import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
 import leadGenLight from "@/assets/studio-previews/lead-gen-light.jpg";
 import leadGenMono from "@/assets/studio-previews/lead-gen-mono.jpg";
 import leadGenGradient from "@/assets/studio-previews/lead-gen-gradient.jpg";
+import leadGenDarkCompact from "@/assets/studio-previews/lead-gen-dark-compact.jpg";
+import leadGenDarkExpansive from "@/assets/studio-previews/lead-gen-dark-expansive.jpg";
+import leadGenLightCompact from "@/assets/studio-previews/lead-gen-light-compact.jpg";
+import leadGenLightExpansive from "@/assets/studio-previews/lead-gen-light-expansive.jpg";
+import leadGenMonoCompact from "@/assets/studio-previews/lead-gen-mono-compact.jpg";
+import leadGenMonoExpansive from "@/assets/studio-previews/lead-gen-mono-expansive.jpg";
+import leadGenGradientCompact from "@/assets/studio-previews/lead-gen-gradient-compact.jpg";
+import leadGenGradientExpansive from "@/assets/studio-previews/lead-gen-gradient-expansive.jpg";
+
+// Content Hub previews by palette and size
 import contentHubDark from "@/assets/studio-previews/content-hub-dark.jpg";
 import contentHubLight from "@/assets/studio-previews/content-hub-light.jpg";
 import contentHubMono from "@/assets/studio-previews/content-hub-mono.jpg";
 import contentHubGradient from "@/assets/studio-previews/content-hub-gradient.jpg";
+import contentHubDarkCompact from "@/assets/studio-previews/content-hub-dark-compact.jpg";
+import contentHubDarkExpansive from "@/assets/studio-previews/content-hub-dark-expansive.jpg";
+import contentHubLightCompact from "@/assets/studio-previews/content-hub-light-compact.jpg";
+import contentHubLightExpansive from "@/assets/studio-previews/content-hub-light-expansive.jpg";
+import contentHubMonoCompact from "@/assets/studio-previews/content-hub-mono-compact.jpg";
+import contentHubMonoExpansive from "@/assets/studio-previews/content-hub-mono-expansive.jpg";
+import contentHubGradientCompact from "@/assets/studio-previews/content-hub-gradient-compact.jpg";
+import contentHubGradientExpansive from "@/assets/studio-previews/content-hub-gradient-expansive.jpg";
+
+// SaaS previews by palette and size
 import saasDark from "@/assets/studio-previews/saas-dark.jpg";
 import saasLight from "@/assets/studio-previews/saas-light.jpg";
 import saasMono from "@/assets/studio-previews/saas-mono.jpg";
 import saasGradient from "@/assets/studio-previews/saas-gradient.jpg";
+import saasDarkCompact from "@/assets/studio-previews/saas-dark-compact.jpg";
+import saasDarkExpansive from "@/assets/studio-previews/saas-dark-expansive.jpg";
+import saasLightCompact from "@/assets/studio-previews/saas-light-compact.jpg";
+import saasLightExpansive from "@/assets/studio-previews/saas-light-expansive.jpg";
+import saasMonoCompact from "@/assets/studio-previews/saas-mono-compact.jpg";
+import saasMonoExpansive from "@/assets/studio-previews/saas-mono-expansive.jpg";
+import saasGradientCompact from "@/assets/studio-previews/saas-gradient-compact.jpg";
+import saasGradientExpansive from "@/assets/studio-previews/saas-gradient-expansive.jpg";
+
+// Service Portal previews by palette and size
 import serviceDark from "@/assets/studio-previews/service-dark.jpg";
 import serviceLight from "@/assets/studio-previews/service-light.jpg";
 import serviceMono from "@/assets/studio-previews/service-mono.jpg";
 import serviceGradient from "@/assets/studio-previews/service-gradient.jpg";
+import serviceDarkCompact from "@/assets/studio-previews/service-dark-compact.jpg";
+import serviceDarkExpansive from "@/assets/studio-previews/service-dark-expansive.jpg";
+import serviceLightCompact from "@/assets/studio-previews/service-light-compact.jpg";
+import serviceLightExpansive from "@/assets/studio-previews/service-light-expansive.jpg";
+import serviceMonoCompact from "@/assets/studio-previews/service-mono-compact.jpg";
+import serviceMonoExpansive from "@/assets/studio-previews/service-mono-expansive.jpg";
+import serviceGradientCompact from "@/assets/studio-previews/service-gradient-compact.jpg";
+import serviceGradientExpansive from "@/assets/studio-previews/service-gradient-expansive.jpg";
+
 import type { StudioConfig } from "@/types/studio";
 
-// Combined preview matrix: purpose -> palette -> image
-const previewMatrix: Record<string, Record<string, string>> = {
+// 3D Preview matrix: purpose -> palette -> size -> image
+const previewMatrix: Record<string, Record<string, Record<string, string>>> = {
   "lead-generation": {
-    dark: leadGenDark,
-    light: leadGenLight,
-    monochrome: leadGenMono,
-    gradient: leadGenGradient,
+    dark: { compact: leadGenDarkCompact, standard: leadGenDark, expansive: leadGenDarkExpansive },
+    light: { compact: leadGenLightCompact, standard: leadGenLight, expansive: leadGenLightExpansive },
+    monochrome: { compact: leadGenMonoCompact, standard: leadGenMono, expansive: leadGenMonoExpansive },
+    gradient: { compact: leadGenGradientCompact, standard: leadGenGradient, expansive: leadGenGradientExpansive },
   },
   "content-hub": {
-    dark: contentHubDark,
-    light: contentHubLight,
-    monochrome: contentHubMono,
-    gradient: contentHubGradient,
+    dark: { compact: contentHubDarkCompact, standard: contentHubDark, expansive: contentHubDarkExpansive },
+    light: { compact: contentHubLightCompact, standard: contentHubLight, expansive: contentHubLightExpansive },
+    monochrome: { compact: contentHubMonoCompact, standard: contentHubMono, expansive: contentHubMonoExpansive },
+    gradient: { compact: contentHubGradientCompact, standard: contentHubGradient, expansive: contentHubGradientExpansive },
   },
   "product-saas": {
-    dark: saasDark,
-    light: saasLight,
-    monochrome: saasMono,
-    gradient: saasGradient,
+    dark: { compact: saasDarkCompact, standard: saasDark, expansive: saasDarkExpansive },
+    light: { compact: saasLightCompact, standard: saasLight, expansive: saasLightExpansive },
+    monochrome: { compact: saasMonoCompact, standard: saasMono, expansive: saasMonoExpansive },
+    gradient: { compact: saasGradientCompact, standard: saasGradient, expansive: saasGradientExpansive },
   },
   "service-portal": {
-    dark: serviceDark,
-    light: serviceLight,
-    monochrome: serviceMono,
-    gradient: serviceGradient,
+    dark: { compact: serviceDarkCompact, standard: serviceDark, expansive: serviceDarkExpansive },
+    light: { compact: serviceLightCompact, standard: serviceLight, expansive: serviceLightExpansive },
+    monochrome: { compact: serviceMonoCompact, standard: serviceMono, expansive: serviceMonoExpansive },
+    gradient: { compact: serviceGradientCompact, standard: serviceGradient, expansive: serviceGradientExpansive },
   },
 };
 
@@ -179,8 +218,8 @@ const WebDesignStudioBuild = () => {
     }
   };
 
-  // Get preview based on both purpose AND palette combination
-  const currentPreview = previewMatrix[config.purpose]?.[config.palette] || leadGenDark;
+  // Get preview based on purpose, palette AND site size combination
+  const currentPreview = previewMatrix[config.purpose]?.[config.palette]?.[config.siteSize] || leadGenDark;
 
   return (
     <>
