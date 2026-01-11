@@ -11,30 +11,52 @@ import PersonalityStep from "@/components/studio/steps/PersonalityStep";
 import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import studioMockup from "@/assets/studio-mockup-dark.jpg";
-// Purpose-based previews
-import leadGenPreview from "@/assets/studio-previews/lead-gen.jpg";
-import authorityPreview from "@/assets/studio-previews/authority.jpg";
-import saasPreview from "@/assets/studio-previews/saas.jpg";
-import platformPreview from "@/assets/studio-previews/platform.jpg";
-// Palette-based previews
-import darkThemePreview from "@/assets/studio-previews/dark-theme.jpg";
-import lightThemePreview from "@/assets/studio-previews/light-theme.jpg";
-import monoThemePreview from "@/assets/studio-previews/mono-theme.jpg";
-import gradientThemePreview from "@/assets/studio-previews/gradient-theme.jpg";
+
+// Combined purpose + palette previews (16 total)
+import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
+import leadGenLight from "@/assets/studio-previews/lead-gen-light.jpg";
+import leadGenMono from "@/assets/studio-previews/lead-gen-mono.jpg";
+import leadGenGradient from "@/assets/studio-previews/lead-gen-gradient.jpg";
+import contentHubDark from "@/assets/studio-previews/content-hub-dark.jpg";
+import contentHubLight from "@/assets/studio-previews/content-hub-light.jpg";
+import contentHubMono from "@/assets/studio-previews/content-hub-mono.jpg";
+import contentHubGradient from "@/assets/studio-previews/content-hub-gradient.jpg";
+import saasDark from "@/assets/studio-previews/saas-dark.jpg";
+import saasLight from "@/assets/studio-previews/saas-light.jpg";
+import saasMono from "@/assets/studio-previews/saas-mono.jpg";
+import saasGradient from "@/assets/studio-previews/saas-gradient.jpg";
+import serviceDark from "@/assets/studio-previews/service-dark.jpg";
+import serviceLight from "@/assets/studio-previews/service-light.jpg";
+import serviceMono from "@/assets/studio-previews/service-mono.jpg";
+import serviceGradient from "@/assets/studio-previews/service-gradient.jpg";
 import type { StudioConfig } from "@/types/studio";
 
-const purposePreviewImages: Record<string, string> = {
-  "lead-generation": leadGenPreview,
-  "content-hub": authorityPreview,
-  "product-saas": saasPreview,
-  "service-portal": platformPreview,
-};
-
-const palettePreviewImages: Record<string, string> = {
-  "dark": darkThemePreview,
-  "light": lightThemePreview,
-  "monochrome": monoThemePreview,
-  "gradient": gradientThemePreview,
+// Combined preview matrix: purpose -> palette -> image
+const previewMatrix: Record<string, Record<string, string>> = {
+  "lead-generation": {
+    dark: leadGenDark,
+    light: leadGenLight,
+    monochrome: leadGenMono,
+    gradient: leadGenGradient,
+  },
+  "content-hub": {
+    dark: contentHubDark,
+    light: contentHubLight,
+    monochrome: contentHubMono,
+    gradient: contentHubGradient,
+  },
+  "product-saas": {
+    dark: saasDark,
+    light: saasLight,
+    monochrome: saasMono,
+    gradient: saasGradient,
+  },
+  "service-portal": {
+    dark: serviceDark,
+    light: serviceLight,
+    monochrome: serviceMono,
+    gradient: serviceGradient,
+  },
 };
 
 const steps = [
@@ -157,10 +179,8 @@ const WebDesignStudioBuild = () => {
     }
   };
 
-  // Determine which preview to show - palette takes priority when on aesthetic step
-  const currentPreview = currentStep === 1 
-    ? (palettePreviewImages[config.palette] || darkThemePreview)
-    : (purposePreviewImages[config.purpose] || leadGenPreview);
+  // Get preview based on both purpose AND palette combination
+  const currentPreview = previewMatrix[config.purpose]?.[config.palette] || leadGenDark;
 
   return (
     <>
