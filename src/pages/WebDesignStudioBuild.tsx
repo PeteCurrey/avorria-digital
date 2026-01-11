@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
@@ -11,17 +11,30 @@ import PersonalityStep from "@/components/studio/steps/PersonalityStep";
 import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import studioMockup from "@/assets/studio-mockup-dark.jpg";
+// Purpose-based previews
 import leadGenPreview from "@/assets/studio-previews/lead-gen.jpg";
 import authorityPreview from "@/assets/studio-previews/authority.jpg";
 import saasPreview from "@/assets/studio-previews/saas.jpg";
 import platformPreview from "@/assets/studio-previews/platform.jpg";
+// Palette-based previews
+import darkThemePreview from "@/assets/studio-previews/dark-theme.jpg";
+import lightThemePreview from "@/assets/studio-previews/light-theme.jpg";
+import monoThemePreview from "@/assets/studio-previews/mono-theme.jpg";
+import gradientThemePreview from "@/assets/studio-previews/gradient-theme.jpg";
 import type { StudioConfig } from "@/types/studio";
 
-const previewImages: Record<string, string> = {
+const purposePreviewImages: Record<string, string> = {
   "lead-generation": leadGenPreview,
   "content-hub": authorityPreview,
   "product-saas": saasPreview,
   "service-portal": platformPreview,
+};
+
+const palettePreviewImages: Record<string, string> = {
+  "dark": darkThemePreview,
+  "light": lightThemePreview,
+  "monochrome": monoThemePreview,
+  "gradient": gradientThemePreview,
 };
 
 const steps = [
@@ -38,6 +51,17 @@ const WebDesignStudioBuild = () => {
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const { playClick } = useClickSound();
+  const mockupRef = useRef<HTMLDivElement>(null);
+  
+  // Mouse position for parallax effect
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Smooth spring physics for natural movement
+  const springConfig = { damping: 25, stiffness: 150 };
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), springConfig);
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), springConfig);
+  
   const [config, setConfig] = useState<StudioConfig>({
     purpose: "lead-generation",
     minimal: 50,
@@ -52,12 +76,24 @@ const WebDesignStudioBuild = () => {
     notes: "",
   });
 
-  // Wrap setConfig to play sound on changes
-  const handleConfigChange = (newConfig: StudioConfig) => {
-    if (soundEnabled) {
-      playClick("select");
-    }
-    setConfig(newConfig);
+  // Handle mouse move for parallax
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!mockupRef.current) return;
+    const rect = mockupRef.current.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Normalize to -0.5 to 0.5
+    const normalizedX = (e.clientX - centerX) / rect.width;
+    const normalizedY = (e.clientY - centerY) / rect.height;
+    
+    mouseX.set(normalizedX);
+    mouseY.set(normalizedY);
+  };
+
+  const handleMouseLeave = () => {
+    mouseX.set(0);
+    mouseY.set(0);
   };
 
   const goToStep = (step: number) => {
@@ -94,6 +130,14 @@ const WebDesignStudioBuild = () => {
     }),
   };
 
+  // Wrap setConfig to play sound on changes
+  const handleConfigChange = (newConfig: StudioConfig) => {
+    if (soundEnabled) {
+      playClick("select");
+    }
+    setConfig(newConfig);
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 0:
@@ -113,7 +157,10 @@ const WebDesignStudioBuild = () => {
     }
   };
 
-  const currentPreview = previewImages[config.purpose] || leadGenPreview;
+  // Determine which preview to show - palette takes priority when on aesthetic step
+  const currentPreview = currentStep === 1 
+    ? (palettePreviewImages[config.palette] || darkThemePreview)
+    : (purposePreviewImages[config.purpose] || leadGenPreview);
 
   return (
     <>
@@ -168,8 +215,12 @@ const WebDesignStudioBuild = () => {
             </AnimatePresence>
           </div>
 
-          {/* Right: Enhanced Visual Preview Panel */}
-          <div className="hidden lg:flex lg:w-[550px] lg:flex-col lg:border-l lg:border-white/5 lg:bg-gradient-to-b lg:from-zinc-950 lg:to-black relative overflow-hidden">
+          {/* Right: Enhanced Visual Preview Panel with Parallax */}
+          <div 
+            className="hidden lg:flex lg:w-[550px] lg:flex-col lg:border-l lg:border-white/5 lg:bg-gradient-to-b lg:from-zinc-950 lg:to-black relative overflow-hidden"
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+          >
             {/* Ambient glow effects */}
             <div className="absolute inset-0 opacity-30">
               <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/20 rounded-full blur-[100px]" />
@@ -188,13 +239,22 @@ const WebDesignStudioBuild = () => {
               />
             </div>
 
-            {/* Main mockup container */}
-            <div className="relative z-10 flex flex-1 flex-col items-center justify-center px-8">
-              {/* iMac mockup with screen preview */}
+            {/* Main mockup container with 3D perspective */}
+            <div 
+              ref={mockupRef}
+              className="relative z-10 flex flex-1 flex-col items-center justify-center px-8"
+              style={{ perspective: "1000px" }}
+            >
+              {/* iMac mockup with parallax tilt effect */}
               <motion.div
                 initial={{ opacity: 0, y: 20, scale: 0.95 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
+                style={{
+                  rotateX,
+                  rotateY,
+                  transformStyle: "preserve-3d",
+                }}
                 className="relative w-full max-w-md"
               >
                 {/* Background mockup image */}
@@ -202,36 +262,39 @@ const WebDesignStudioBuild = () => {
                   src={studioMockup} 
                   alt="Studio workspace" 
                   className="w-full h-auto rounded-lg"
+                  style={{ transform: "translateZ(0)" }}
                 />
                 
-                {/* Screen overlay with preview */}
+                {/* Screen overlay with preview - lifted forward in 3D space */}
                 <motion.div 
-                  key={config.purpose}
+                  key={`${config.purpose}-${config.palette}`}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ duration: 0.4 }}
                   className="absolute inset-0 flex items-center justify-center"
                   style={{
-                    // Position the preview on the iMac screen
                     top: '8%',
                     left: '22%',
                     right: '22%',
                     bottom: '35%',
+                    transform: "translateZ(20px)",
                   }}
                 >
                   <div className="relative w-full h-full overflow-hidden rounded-sm">
                     <img 
                       src={currentPreview}
                       alt="Website preview"
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover object-top transition-all duration-500"
                     />
                     {/* Screen reflection effect */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/5 via-transparent to-transparent" />
+                    {/* Subtle screen glow */}
+                    <div className="absolute inset-0 shadow-[inset_0_0_30px_rgba(0,0,0,0.3)]" />
                   </div>
                 </motion.div>
 
                 {/* Floating accent glow behind mockup */}
-                <div className="absolute -inset-8 -z-10">
+                <div className="absolute -inset-8 -z-10" style={{ transform: "translateZ(-30px)" }}>
                   <motion.div 
                     animate={{ 
                       opacity: [0.3, 0.5, 0.3],
@@ -245,6 +308,12 @@ const WebDesignStudioBuild = () => {
                     className="absolute inset-0 bg-gradient-to-t from-accent/20 via-transparent to-transparent rounded-3xl blur-2xl"
                   />
                 </div>
+                
+                {/* Additional depth layers for enhanced 3D effect */}
+                <motion.div 
+                  className="absolute -inset-4 -z-20 rounded-2xl bg-gradient-to-b from-white/5 to-transparent"
+                  style={{ transform: "translateZ(-50px)" }}
+                />
               </motion.div>
 
               {/* Configuration summary */}
