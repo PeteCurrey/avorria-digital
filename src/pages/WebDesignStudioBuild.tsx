@@ -68,6 +68,7 @@ import serviceMonoExpansive from "@/assets/studio-previews/service-mono-expansiv
 import serviceGradientCompact from "@/assets/studio-previews/service-gradient-compact.jpg";
 import serviceGradientExpansive from "@/assets/studio-previews/service-gradient-expansive.jpg";
 
+import studioBackground from "@/assets/studio-mockup-dark.jpg";
 import type { StudioConfig } from "@/types/studio";
 
 // 3D Preview matrix: purpose -> palette -> size -> image
@@ -255,7 +256,7 @@ const WebDesignStudioBuild = () => {
         </motion.button>
 
         {/* Main Content */}
-        <div className="flex min-h-screen pt-24 pb-24">
+        <div className="flex min-h-screen pt-28 pb-24">
           {/* Left: Configuration Panel */}
           <div className="flex-1 overflow-y-auto px-6 lg:px-12">
             <AnimatePresence mode="wait" custom={direction}>
@@ -274,28 +275,29 @@ const WebDesignStudioBuild = () => {
             </AnimatePresence>
           </div>
 
-          {/* Right: Enhanced Visual Preview Panel with Parallax */}
+          {/* Right: Enhanced Visual Preview Panel with Dark Office Theme */}
           <div 
-            className="hidden lg:flex lg:w-[550px] lg:flex-col lg:border-l lg:border-white/5 lg:bg-gradient-to-b lg:from-zinc-950 lg:to-black relative overflow-hidden"
+            className="hidden lg:flex lg:w-[550px] lg:flex-col lg:border-l lg:border-white/5 relative overflow-hidden"
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
-            {/* Ambient glow effects */}
-            <div className="absolute inset-0 opacity-30">
-              <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/20 rounded-full blur-[100px]" />
-              <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-primary/10 rounded-full blur-[80px]" />
-            </div>
+            {/* Dark office background image */}
+            <div 
+              className="absolute inset-0"
+              style={{
+                backgroundImage: `url(${studioBackground})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+              }}
+            />
+            
+            {/* Subtle dark overlay for depth */}
+            <div className="absolute inset-0 bg-black/40" />
 
-            {/* Subtle grid overlay */}
-            <div className="absolute inset-0 opacity-[0.02]">
-              <div 
-                className="h-full w-full"
-                style={{
-                  backgroundImage: `linear-gradient(hsl(var(--accent) / 0.5) 1px, transparent 1px),
-                                   linear-gradient(90deg, hsl(var(--accent) / 0.5) 1px, transparent 1px)`,
-                  backgroundSize: '40px 40px',
-                }}
-              />
+            {/* Ambient glow effects */}
+            <div className="absolute inset-0 opacity-20">
+              <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-accent/30 rounded-full blur-[100px]" />
+              <div className="absolute bottom-1/4 right-0 w-64 h-64 bg-primary/20 rounded-full blur-[80px]" />
             </div>
 
             {/* Main mockup container with 3D perspective */}
