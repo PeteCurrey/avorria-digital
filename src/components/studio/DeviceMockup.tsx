@@ -81,10 +81,17 @@ export const DeviceMockup = ({ children, className = "" }: DeviceMockupProps) =>
             </div>
 
             {/* Content Area - Screen where preview displays */}
-            <div className="relative aspect-[16/10] overflow-hidden bg-zinc-950">
-              <div className="absolute inset-0">
+            <div className="relative aspect-[16/10] bg-zinc-950">
+              {/* Clipping container - this is the actual screen boundary */}
+              <div className="absolute inset-0 overflow-hidden">
                 {children}
               </div>
+              
+              {/* Screen glass overlay effect */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/[0.03] via-transparent to-black/10" />
+              <div className="pointer-events-none absolute inset-0 opacity-30" style={{
+                background: "linear-gradient(135deg, rgba(255,255,255,0.05) 0%, transparent 50%)"
+              }} />
             </div>
           </div>
         </div>

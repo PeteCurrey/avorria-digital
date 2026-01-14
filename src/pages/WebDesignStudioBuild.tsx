@@ -309,19 +309,22 @@ const WebDesignStudioBuild = () => {
             >
               {/* iMac mockup using DeviceMockup component */}
               <DeviceMockup className="w-full max-w-lg">
-                <motion.div
-                  key={`${config.purpose}-${config.palette}-${config.siteSize}`}
-                  initial={{ opacity: 0, scale: 1.02 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, ease: "easeOut" }}
-                  className="absolute inset-0"
-                >
-                  <img
-                    src={currentPreview}
-                    alt="Website preview"
-                    className="absolute inset-0 w-full h-full object-cover object-top"
-                  />
-                </motion.div>
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={`${config.purpose}-${config.palette}-${config.siteSize}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.35, ease: "easeInOut" }}
+                    className="absolute inset-0"
+                  >
+                    <img
+                      src={currentPreview}
+                      alt="Website preview"
+                      className="w-full h-full object-cover object-top"
+                    />
+                  </motion.div>
+                </AnimatePresence>
               </DeviceMockup>
 
               {/* Configuration summary */}
