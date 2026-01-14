@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles } from "lucide-react";
+import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
@@ -11,6 +11,8 @@ import PersonalityStep from "@/components/studio/steps/PersonalityStep";
 import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import { DeviceMockup } from "@/components/studio/DeviceMockup";
+import { DesignBriefChat } from "@/components/studio/DesignBriefChat";
+import { useAmbientAudio } from "@/hooks/useAmbientAudio";
 
 // Lead Generation previews by palette and size
 import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
@@ -109,12 +111,23 @@ const steps = [
   { id: "summary", label: "Summary" },
 ];
 
+// Static ambient music file path
+const AMBIENT_MUSIC_PATH = "/audio/studio-ambient.mp3";
+
 const WebDesignStudioBuild = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   const { playClick } = useClickSound();
   const mockupRef = useRef<HTMLDivElement>(null);
+  
+  // Ambient audio using static file
+  const { isPlaying: musicPlaying, toggle: toggleMusic } = useAmbientAudio({
+    src: AMBIENT_MUSIC_PATH,
+    volume: 0.3,
+    loop: true,
+  });
   
   // Mouse position for parallax effect
   const mouseX = useMotionValue(0);
@@ -235,26 +248,46 @@ const WebDesignStudioBuild = () => {
         {/* Navigation */}
         <StudioNav currentStep={currentStep} totalSteps={steps.length} />
 
-        {/* Sound Toggle */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.5 }}
-          onClick={() => {
-            setSoundEnabled(!soundEnabled);
-            if (!soundEnabled) playClick("select");
-          }}
-          className="fixed right-6 top-20 z-50 flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
-        >
-          {soundEnabled ? (
-            <Volume2 className="h-4 w-4 text-accent" />
-          ) : (
-            <VolumeX className="h-4 w-4 text-white/40" />
-          )}
-          <span className="text-xs text-white/60">
-            {soundEnabled ? "Sound On" : "Sound Off"}
-          </span>
-        </motion.button>
+        {/* Sound Toggle - now controls both click sounds and ambient music */}
+        <div className="fixed right-6 top-20 z-50 flex flex-col gap-2">
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            onClick={() => {
+              setSoundEnabled(!soundEnabled);
+              if (!soundEnabled) playClick("select");
+            }}
+            className="flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
+          >
+            {soundEnabled ? (
+              <Volume2 className="h-4 w-4 text-accent" />
+            ) : (
+              <VolumeX className="h-4 w-4 text-white/40" />
+            )}
+            <span className="text-xs text-white/60">
+              {soundEnabled ? "Effects On" : "Effects Off"}
+            </span>
+          </motion.button>
+          
+          {/* Music Toggle */}
+          <motion.button
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            onClick={toggleMusic}
+            className="flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
+          >
+            {musicPlaying ? (
+              <Volume2 className="h-4 w-4 text-accent" />
+            ) : (
+              <VolumeX className="h-4 w-4 text-white/40" />
+            )}
+            <span className="text-xs text-white/60">
+              {musicPlaying ? "Music On" : "Music Off"}
+            </span>
+          </motion.button>
+        </div>
 
         {/* Main Content */}
         <div className="flex min-h-screen pt-28 pb-24">
@@ -440,6 +473,28 @@ const WebDesignStudioBuild = () => {
             </div>
           </motion.div>
         )}
+        
+        {/* AI Design Brief Floating Trigger */}
+        {!isChatOpen && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsChatOpen(true)}
+            className="fixed bottom-24 right-6 z-40 flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
+          >
+            <MessageSquare className="h-5 w-5" />
+            <span className="font-medium">AI Design Brief</span>
+          </motion.button>
+        )}
+
+        {/* AI Design Brief Chat Panel */}
+        <DesignBriefChat
+          config={config}
+          isOpen={isChatOpen}
+          onClose={() => setIsChatOpen(false)}
+        />
       </div>
     </>
   );

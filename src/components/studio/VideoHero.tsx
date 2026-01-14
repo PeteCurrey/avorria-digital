@@ -1,109 +1,36 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useEffect, useCallback } from "react";
-import { toast } from "sonner";
+import { useState, useRef } from "react";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
+import { useAmbientAudio } from "@/hooks/useAmbientAudio";
 
 interface VideoHeroProps {
   onEnterStudio?: () => void;
 }
 
+// Static ambient music file path
+const AMBIENT_MUSIC_PATH = "/audio/studio-ambient.mp3";
+
 export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
-  const [audioEnabled, setAudioEnabled] = useState(false);
-  const [isLoadingAudio, setIsLoadingAudio] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const audioUrlRef = useRef<string | null>(null);
-
-  // Fetch and play ElevenLabs ambient music
-  const startAmbientAudio = useCallback(async () => {
-    setIsLoadingAudio(true);
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/studio-ambient-music`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-          },
-          body: JSON.stringify({
-            prompt: "Ambient atmospheric sound, wind through city at night, subtle electronic hum, futuristic cityscape ambience, soft and calming, urban night atmosphere",
-            duration: 22,
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error(`Audio generation failed: ${response.status}`);
-      }
-
-      const data = await response.json();
-      
-      if (data.error) {
-        throw new Error(data.error);
-      }
-
-      // Use data URI for base64 audio
-      const audioUrl = `data:audio/mpeg;base64,${data.audioContent}`;
-      audioUrlRef.current = audioUrl;
-
-      const audio = new Audio(audioUrl);
-      audio.loop = true;
-      audio.volume = 0.4;
-      audioRef.current = audio;
-      
-      await audio.play();
-      setAudioEnabled(true);
-    } catch (error) {
-      console.error("Audio generation error:", error);
-      toast.error("Failed to load ambient music");
-      setAudioEnabled(false);
-    } finally {
-      setIsLoadingAudio(false);
-    }
-  }, []);
-
-  const stopAmbientAudio = useCallback(() => {
-    if (audioRef.current) {
-      audioRef.current.pause();
-      audioRef.current = null;
-    }
-    setAudioEnabled(false);
-  }, []);
-
-  // Handle audio toggle
-  const toggleAudio = () => {
-    if (isLoadingAudio) return;
-    
-    if (audioEnabled) {
-      stopAmbientAudio();
-    } else {
-      startAmbientAudio();
-    }
-  };
-
-  // Cleanup audio on unmount
-  useEffect(() => {
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        audioRef.current = null;
-      }
-    };
-  }, []);
+  
+  // Use static audio file instead of API-generated audio
+  const { isPlaying: audioEnabled, isLoading: isLoadingAudio, toggle: toggleAudio, pause: pauseAudio } = useAmbientAudio({
+    src: AMBIENT_MUSIC_PATH,
+    volume: 0.4,
+    loop: true,
+  });
 
   const handleEnterStudio = () => {
     setIsTransitioning(true);
     
     // Stop audio
     if (audioEnabled) {
-      stopAmbientAudio();
+      pauseAudio();
     }
     
     // Trigger the transition animation, then navigate
