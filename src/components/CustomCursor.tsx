@@ -16,10 +16,10 @@ export const CustomCursor = () => {
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // Smooth spring animation for cursor movement
-  const springConfig = { damping: 25, stiffness: 400 };
-  const cursorXSpring = useSpring(cursorX, springConfig);
-  const cursorYSpring = useSpring(cursorY, springConfig);
+  // High stiffness for near-instant cursor tracking (feels like real cursor)
+  const mainSpringConfig = { damping: 30, stiffness: 1000, mass: 0.1 };
+  const cursorXSpring = useSpring(cursorX, mainSpringConfig);
+  const cursorYSpring = useSpring(cursorY, mainSpringConfig);
 
   // Check if mobile device
   useEffect(() => {
@@ -160,12 +160,12 @@ export const CustomCursor = () => {
         )}
       </motion.div>
 
-      {/* Trailing cursor ring */}
+      {/* Trailing cursor ring - slightly lagging for visual effect */}
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-white/20"
         style={{
-          x: useSpring(cursorX, { damping: 20, stiffness: 200 }),
-          y: useSpring(cursorY, { damping: 20, stiffness: 200 }),
+          x: useSpring(cursorX, { damping: 25, stiffness: 400, mass: 0.2 }),
+          y: useSpring(cursorY, { damping: 25, stiffness: 400, mass: 0.2 }),
           translateX: "-50%",
           translateY: "-50%",
         }}
@@ -174,7 +174,7 @@ export const CustomCursor = () => {
           height: variant === "hover" ? 64 : variant === "text" ? 0 : 32,
           opacity: isVisible ? (variant === "text" ? 0 : 0.5) : 0,
         }}
-        transition={{ duration: 0.2, ease: "easeOut" }}
+        transition={{ duration: 0.15, ease: "easeOut" }}
       />
 
       {/* Global style to hide default cursor */}
