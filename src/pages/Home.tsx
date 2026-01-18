@@ -25,6 +25,7 @@ import ognCraneHero from "@/assets/case-studies/ogn-crane-hero.jpg";
 import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
 import heroRaceCar from "@/assets/hero-race-car.jpg";
 import heroPenthouse from "@/assets/hero-penthouse.png";
+import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
 
 const Home = () => {
   // Fetch case studies from database
@@ -525,24 +526,37 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Who We Are Section */}
-        <section className="py-24 md:py-32 bg-white">
-          <div className="container mx-auto px-4 sm:px-6">
+        {/* Who We Are Section with Video Background */}
+        <section className="relative py-24 md:py-32 overflow-hidden">
+          {/* Video Background */}
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          >
+            <source src={cityTimelapseVideo} type="video/mp4" />
+          </video>
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60" />
+          
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                 <ScrollReveal variant="fade-up" duration={500}>
                   <div className="space-y-6">
                     <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em]">Who We Are</span>
-                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.1] text-gray-900">
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.1] text-white">
                       An established agency that behaves like your in-house team.
                     </h2>
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                    <p className="text-lg text-white/80 leading-relaxed">
                       Avorria was founded to be the opposite of the agencies we'd all worked at – the ones with pretty decks, vague reports and no connection to actual business results.
                     </p>
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                    <p className="text-lg text-white/80 leading-relaxed">
                       We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
                     </p>
-                    <Button variant="outline" size="lg" className="border-gray-300 text-gray-700 hover:bg-gray-50 mt-4" asChild>
+                    <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 mt-4" asChild>
                       <Link to="/about">
                         Learn more about us
                         <ArrowRight className="ml-2 w-4 h-4" />
