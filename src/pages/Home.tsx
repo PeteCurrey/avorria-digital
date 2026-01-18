@@ -621,10 +621,12 @@ const Home = () => {
               </div>
             </div>
           </div>
+          {/* Bottom gradient transition to next section */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-50 pointer-events-none" />
         </section>
 
         {/* Value Props */}
-        <section className="py-24 md:py-32 bg-gray-50">
+        <section className="py-24 md:py-32 bg-gray-50 -mt-8">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-6xl mx-auto">
               <ScrollReveal variant="fade-up" duration={500}>
