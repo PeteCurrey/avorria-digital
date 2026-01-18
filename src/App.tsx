@@ -92,12 +92,12 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <CustomCursor />
               <ScrollToTop />
               <BackToTop />
               <NavigationProgress />
               <CookieConsent />
               <AIConsultantTrigger />
+              <CustomCursor />
               <Layout>
                 <AnimatedRoutes />
               </Layout>
