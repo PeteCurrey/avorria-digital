@@ -16,6 +16,10 @@ import { ScrollReveal, ScrollRevealGrid, CountUp, useParallax } from "@/componen
 import { LogoWall } from "@/components/LogoWall";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
+import CharacterReveal from "@/components/animations/CharacterReveal";
+import FloatingElements from "@/components/FloatingElements";
+import TiltCard from "@/components/TiltCard";
+import GradientMesh from "@/components/GradientMesh";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -460,22 +464,39 @@ const Home = () => {
               willChange: "transform",
             }}
           />
+          {/* Living Gradient Mesh Background */}
+          <GradientMesh className="opacity-40" />
+          {/* Floating Elements */}
+          <FloatingElements />
           {/* Subtle dark gradient overlay for readability while showing image detail */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
           
           <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-24">
             <div className="max-w-4xl">
-              <div className="space-y-6 md:space-y-8 animate-fade-in">
-                <span className="inline-block text-sm font-semibold text-white/60 uppercase tracking-[0.2em]">
+              <div className="space-y-6 md:space-y-8">
+                <motion.span 
+                  className="inline-block text-sm font-semibold text-white/60 uppercase tracking-[0.2em]"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
                   Performance-First Digital Agency
-                </span>
+                </motion.span>
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-white font-light">
-                  Digital Marketing, SEO & Web Experiences that{" "}
-                  <span className="text-accent font-normal">Actually Convert.</span>
+                  <CharacterReveal text="Digital Marketing, SEO & Web Experiences that" delay={0.4} />
+                  {" "}
+                  <span className="text-accent font-normal animate-glow-pulse-accent">
+                    <CharacterReveal text="Actually Convert." delay={0.8} emphasis />
+                  </span>
                 </h1>
-                <p className="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl">
+                <motion.p 
+                  className="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 1.2 }}
+                >
                   We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline – not just prettier dashboards.
-                </p>
+                </motion.p>
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-4 pt-4">
