@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
+import { motion } from "framer-motion";
 import { trackCTAClick } from "@/lib/tracking";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -26,6 +27,7 @@ import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
 import heroRaceCar from "@/assets/hero-race-car.jpg";
 import heroPenthouse from "@/assets/hero-penthouse.png";
 import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
+import bgRaceCar from "@/assets/bg-race-car.png";
 
 const Home = () => {
   // Parallax hooks for hero and video backgrounds
@@ -707,15 +709,35 @@ const Home = () => {
         </section>
 
         {/* Services Overview */}
-        <section className="py-24 md:py-32 bg-white">
-          <div className="container mx-auto px-4 sm:px-6">
+        <section className="relative py-24 md:py-32 overflow-hidden">
+          {/* Background Image */}
+          <div 
+            className="absolute inset-0 w-full h-full"
+            style={{
+              backgroundImage: `url(${bgRaceCar})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center top",
+            }}
+          />
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/70" />
+          
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <ScrollReveal variant="fade-up" duration={500}>
               <div className="text-center mb-16 md:mb-20">
-                <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4">Our Services</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 text-gray-900">
+                <motion.span 
+                  className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6 }}
+                  viewport={{ once: true }}
+                >
+                  Our Services
+                </motion.span>
+                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 text-white">
                   What we actually do
                 </h2>
-                <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                <p className="text-lg text-white/80 max-w-2xl mx-auto">
                   One team that connects the dots – from strategy through to execution and optimisation.
                 </p>
               </div>
@@ -724,27 +746,37 @@ const Home = () => {
             <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto" stagger={80} variant="fade-up">
               {services.map((service, index) => (
                 <Link key={index} to={service.href} className="group relative overflow-hidden rounded-xl">
-                  <Card className="h-full border-0 bg-transparent overflow-hidden">
-                    <div className="relative h-64 sm:h-72 overflow-hidden rounded-xl">
-                      <img 
-                        src={service.image} 
-                        alt={service.title} 
-                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
-                      
-                      <CardContent className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
-                        <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
-                          {service.title}
-                        </h3>
-                        <p className="text-sm text-white/80 mb-4 leading-relaxed line-clamp-2">{service.description}</p>
-                        <span className="inline-flex items-center text-sm text-accent font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                          Explore service
-                          <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
-                        </span>
-                      </CardContent>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ duration: 0.3 }}
+                    className="relative"
+                  >
+                    <Card className="h-full border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:border-accent/40 transition-all duration-300">
+                      <div className="relative h-64 sm:h-72 overflow-hidden rounded-xl">
+                        <img 
+                          src={service.image} 
+                          alt={service.title} 
+                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                        
+                        <CardContent className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
+                          <h3 className="text-xl sm:text-2xl font-semibold text-white mb-2 group-hover:text-accent transition-colors duration-300">
+                            {service.title}
+                          </h3>
+                          <p className="text-sm text-white/80 mb-4 leading-relaxed line-clamp-2">{service.description}</p>
+                          <span className="inline-flex items-center text-sm text-accent font-medium opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+                            Explore service
+                            <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                          </span>
+                        </CardContent>
+                      </div>
+                    </Card>
+                    {/* Border beam effect on hover */}
+                    <div className="absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none overflow-hidden">
+                      <div className="absolute inset-0 rounded-xl border-beam-animation" />
                     </div>
-                  </Card>
+                  </motion.div>
                 </Link>
               ))}
             </ScrollRevealGrid>
@@ -760,6 +792,9 @@ const Home = () => {
               </div>
             </ScrollReveal>
           </div>
+          
+          {/* Bottom gradient transition to next section */}
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900 pointer-events-none" />
         </section>
 
         {/* Process Section */}
