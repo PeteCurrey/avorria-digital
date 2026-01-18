@@ -91,7 +91,7 @@ export function ExitIntentPopover() {
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
             className="fixed left-1/2 top-1/2 z-[70] w-[calc(100%-2rem)] max-w-sm"
           >
-            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/90 p-6 shadow-2xl backdrop-blur-xl">
+            <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-black/20 backdrop-blur-2xl">
               {/* Close button */}
               <button
                 onClick={() => setIsOpen(false)}
@@ -145,7 +145,7 @@ export function ExitIntentPopover() {
                   <button 
                     onClick={handlePrimaryClick} 
                     disabled={!isFormValid}
-                    className="w-full rounded-xl bg-gradient-to-r from-[hsl(320,85%,55%)] to-[hsl(280,75%,60%)] bg-[length:200%_200%] px-4 py-3 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] animate-gradient-shift disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="w-full rounded-xl bg-gradient-to-r from-[hsl(320,90%,65%)] to-[hsl(280,85%,70%)] bg-[length:200%_200%] px-4 py-3 text-sm font-medium text-white shadow-lg shadow-pink-500/25 hover:shadow-xl hover:shadow-pink-500/30 transition-all hover:scale-[1.02] animate-gradient-shift disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                   >
                     Get my free audit
                   </button>
