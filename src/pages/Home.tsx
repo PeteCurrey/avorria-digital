@@ -28,7 +28,8 @@ import heroPenthouse from "@/assets/hero-penthouse.png";
 import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
 
 const Home = () => {
-  // Parallax hook for video background
+  // Parallax hooks for hero and video backgrounds
+  const { ref: heroParallaxRef, offset: heroOffset } = useParallax({ speed: 0.4, direction: "down" });
   const { ref: parallaxRef, offset } = useParallax({ speed: 0.3, direction: "down" });
   
   // Fetch case studies from database
@@ -443,13 +444,20 @@ const Home = () => {
       <div className="min-h-screen bg-white">
         {/* Full-Screen Hero Section with Penthouse Image */}
         <section 
+          ref={heroParallaxRef}
           className="relative min-h-screen flex items-center justify-center overflow-hidden"
-          style={{
-            backgroundImage: `url(${heroPenthouse})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
         >
+          {/* Parallax Background Image */}
+          <div 
+            className="absolute inset-0 w-full h-[120%] -top-[10%]"
+            style={{
+              backgroundImage: `url(${heroPenthouse})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              transform: `translateY(${heroOffset}px)`,
+              willChange: "transform",
+            }}
+          />
           {/* Subtle dark gradient overlay for readability while showing image detail */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
           
