@@ -134,7 +134,7 @@ export function ExitIntentPopover() {
               <button 
                 onClick={handlePrimaryClick} 
                 disabled={!isFormValid}
-                className="w-full rounded-xl bg-gradient-to-r from-[hsl(320,85%,55%)] to-[hsl(280,75%,60%)] px-4 py-3 text-sm font-medium text-white shadow-lg shadow-[hsl(320,85%,55%)]/25 transition-all hover:from-[hsl(320,85%,60%)] hover:to-[hsl(280,75%,65%)] hover:shadow-[hsl(320,85%,55%)]/40 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full rounded-xl bg-gradient-to-r from-[hsl(var(--accent))] to-[hsl(280,75%,60%)] px-4 py-3 text-sm font-medium text-white shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Get my free audit
               </button>
