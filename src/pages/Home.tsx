@@ -556,7 +556,7 @@ const Home = () => {
                     <p className="text-lg text-white/80 leading-relaxed">
                       We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
                     </p>
-                    <Button variant="outline" size="lg" className="border-white/30 text-white hover:bg-white/10 mt-4" asChild>
+                    <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:border-white/50 mt-4" asChild>
                       <Link to="/about">
                         Learn more about us
                         <ArrowRight className="ml-2 w-4 h-4" />
@@ -567,25 +567,37 @@ const Home = () => {
                 
                 <ScrollReveal variant="fade-up" delay={150} duration={500}>
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-accent/30 transition-colors duration-300">
-                      <Users className="w-8 h-8 text-accent mb-4" />
-                      <div className="text-3xl font-light text-gray-900 mb-1">50+</div>
-                      <div className="text-sm text-gray-500">Active clients</div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <Users className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">50+</div>
+                        <div className="text-sm text-white/60">Active clients</div>
+                      </div>
                     </div>
-                    <div className="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-accent/30 transition-colors duration-300">
-                      <Globe className="w-8 h-8 text-accent mb-4" />
-                      <div className="text-3xl font-light text-gray-900 mb-1">UK & US</div>
-                      <div className="text-sm text-gray-500">International reach</div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <Globe className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">UK & US</div>
+                        <div className="text-sm text-white/60">International reach</div>
+                      </div>
                     </div>
-                    <div className="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-accent/30 transition-colors duration-300">
-                      <Award className="w-8 h-8 text-accent mb-4" />
-                      <div className="text-3xl font-light text-gray-900 mb-1">10+ yrs</div>
-                      <div className="text-sm text-gray-500">Avg. team experience</div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <Award className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">10+ yrs</div>
+                        <div className="text-sm text-white/60">Avg. team experience</div>
+                      </div>
                     </div>
-                    <div className="p-6 bg-gray-50 rounded-xl border border-gray-100 hover:border-accent/30 transition-colors duration-300">
-                      <TrendingUp className="w-8 h-8 text-accent mb-4" />
-                      <div className="text-3xl font-light text-gray-900 mb-1">92%</div>
-                      <div className="text-sm text-gray-500">Client retention</div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <TrendingUp className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">92%</div>
+                        <div className="text-sm text-white/60">Client retention</div>
+                      </div>
                     </div>
                   </div>
                 </ScrollReveal>
