@@ -21,6 +21,11 @@ export const CustomCursor = () => {
   const cursorXSpring = useSpring(cursorX, mainSpringConfig);
   const cursorYSpring = useSpring(cursorY, mainSpringConfig);
 
+  // Trailing cursor springs (slightly lagging for visual effect)
+  const trailSpringConfig = { damping: 25, stiffness: 400, mass: 0.2 };
+  const trailXSpring = useSpring(cursorX, trailSpringConfig);
+  const trailYSpring = useSpring(cursorY, trailSpringConfig);
+
   // Check if mobile device
   useEffect(() => {
     const checkMobile = () => {
@@ -208,8 +213,8 @@ export const CustomCursor = () => {
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-white/20"
         style={{
-          x: useSpring(cursorX, { damping: 25, stiffness: 400, mass: 0.2 }),
-          y: useSpring(cursorY, { damping: 25, stiffness: 400, mass: 0.2 }),
+          x: trailXSpring,
+          y: trailYSpring,
           translateX: "-50%",
           translateY: "-50%",
         }}
