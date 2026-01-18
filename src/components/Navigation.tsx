@@ -155,9 +155,9 @@ const Navigation = ({
                     Explore
                   </NavigationMenuTrigger>
                   <NavigationMenuContent>
-                    <div className="w-[calc(100vw-3rem)] max-w-[880px] bg-slate-900/95 backdrop-blur-xl border border-white/10 shadow-2xl rounded-xl overflow-hidden">
+                    <div className="w-[calc(100vw-3rem)] max-w-[880px] bg-slate-900/80 backdrop-blur-2xl border border-white/10 shadow-2xl shadow-black/20 rounded-xl overflow-hidden">
                       {/* Header */}
-                      <div className="px-4 md:px-8 py-4 md:py-5 border-b border-white/10 bg-slate-950/50">
+                      <div className="px-4 md:px-8 py-4 md:py-5 border-b border-white/10 bg-slate-950/40">
                         <p className="text-sm text-white/60">
                           Explore our services, resources, and learn why businesses choose Avorria.
                         </p>
@@ -214,7 +214,7 @@ const Navigation = ({
                       </div>
                       
                       {/* Avorria Ecosystem Section */}
-                      <div className="px-4 md:px-8 py-4 md:py-5 border-t border-white/10 bg-slate-950/60">
+                      <div className="px-4 md:px-8 py-4 md:py-5 border-t border-white/10 bg-slate-950/50">
                         <div className="flex flex-col gap-4">
                           <div className="flex items-center justify-between">
                             <div>
