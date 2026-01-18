@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
+import { X, Clock } from "lucide-react";
 
 export function ExitIntentPopover() {
   const [isOpen, setIsOpen] = useState(false);
@@ -9,6 +9,7 @@ export function ExitIntentPopover() {
   const [isActive, setIsActive] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [email, setEmail] = useState("");
+  const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
   const lastMouseY = useRef(0);
 
   // Don't activate exit intent for first 5 seconds
@@ -62,6 +63,23 @@ export function ExitIntentPopover() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [isOpen]);
 
+  // Countdown timer
+  useEffect(() => {
+    if (!isOpen || timeLeft <= 0) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => Math.max(0, prev - 1));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [isOpen, timeLeft]);
+
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
+  };
+
   const handlePrimaryClick = () => {
     console.log("Event: cta_exit_intent_audit_clicked", { websiteUrl, email });
     
@@ -114,6 +132,17 @@ export function ExitIntentPopover() {
 
               {/* Content */}
               <div className="space-y-4">
+                {/* Urgency Timer */}
+                <div className="flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-pink-500/10 to-purple-500/10 border border-pink-500/20 px-3 py-2">
+                  <Clock className="h-4 w-4 text-pink-400 animate-pulse" />
+                  <span className="text-sm text-white/80">
+                    Offer expires in{" "}
+                    <span className="font-mono font-semibold text-pink-400">
+                      {formatTime(timeLeft)}
+                    </span>
+                  </span>
+                </div>
+
                 <div className="space-y-2 pr-6">
                   <h2 className="text-lg font-medium text-white">
                     Before you go – want a free website audit?
