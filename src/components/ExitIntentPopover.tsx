@@ -50,6 +50,18 @@ export function ExitIntentPopover() {
     };
   }, [hasShown, handleMouseMove]);
 
+  // Escape key to close
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && isOpen) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [isOpen]);
+
   const handlePrimaryClick = () => {
     console.log("Event: cta_exit_intent_audit_clicked", { websiteUrl, email });
     
@@ -145,7 +157,7 @@ export function ExitIntentPopover() {
                   <button 
                     onClick={handlePrimaryClick} 
                     disabled={!isFormValid}
-                    className="w-full rounded-xl bg-gradient-to-r from-[hsl(320,90%,65%)] to-[hsl(280,85%,70%)] bg-[length:200%_200%] px-4 py-3 text-sm font-medium text-white shadow-lg shadow-pink-500/25 hover:shadow-xl hover:shadow-pink-500/30 transition-all hover:scale-[1.02] animate-gradient-shift disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                    className="relative w-full rounded-xl bg-gradient-to-r from-[hsl(320,90%,65%)] to-[hsl(280,85%,70%)] bg-[length:200%_200%] px-4 py-3 text-sm font-medium text-white shadow-lg shadow-pink-500/25 hover:shadow-xl hover:shadow-pink-500/30 transition-all hover:scale-[1.02] animate-gradient-shift disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-[hsl(320,90%,65%)] before:to-[hsl(280,85%,70%)] before:blur-lg before:opacity-50 before:animate-pulse before:-z-10"
                   >
                     Get my free audit
                   </button>
