@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
 interface HorizontalScrollProps {
@@ -15,16 +15,37 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   
+  // State for dimensions and mobile detection
+  const [scrollWidth, setScrollWidth] = useState(0);
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // ALL hooks must be called unconditionally at top level
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
   });
 
-  // Calculate the horizontal scroll distance
-  const [scrollWidth, setScrollWidth] = React.useState(0);
-  const [containerWidth, setContainerWidth] = React.useState(0);
+  // Calculate max scroll (guard against division by zero)
+  const maxScroll = Math.max(0, scrollWidth - containerWidth);
+  
+  // Create the transform and spring unconditionally
+  const rawX = useTransform(scrollYProgress, [0, 1], [0, -maxScroll * speed]);
+  const x = useSpring(rawX, { stiffness: 100, damping: 30 });
 
-  React.useEffect(() => {
+  // Progress indicator width
+  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
+
+  // Check for mobile
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
+
+  // Update dimensions
+  useEffect(() => {
     const updateDimensions = () => {
       if (scrollRef.current && containerRef.current) {
         setScrollWidth(scrollRef.current.scrollWidth);
@@ -44,26 +65,12 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
     };
   }, [children]);
 
-  const maxScroll = Math.max(0, scrollWidth - containerWidth);
-  
-  const x = useSpring(
-    useTransform(scrollYProgress, [0, 1], [0, -maxScroll * speed]),
-    { stiffness: 100, damping: 30 }
-  );
+  // Calculate container height safely (avoid Infinity/NaN)
+  const calculatedHeight = containerWidth > 0 
+    ? Math.max(100, (scrollWidth / containerWidth) * 100) 
+    : 100;
 
-  // Progress indicator
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%']);
-
-  // Check for mobile
-  const [isMobile, setIsMobile] = React.useState(false);
-  React.useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 1024);
-    check();
-    window.addEventListener('resize', check);
-    return () => window.removeEventListener('resize', check);
-  }, []);
-
-  // On mobile, render as regular scrollable content
+  // Conditional rendering (no early return before hooks)
   if (isMobile) {
     return (
       <div className={`overflow-x-auto ${className}`}>
@@ -79,7 +86,7 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
       ref={containerRef}
       className={`relative ${className}`}
       style={{ 
-        height: `${Math.max(100, (scrollWidth / containerWidth) * 100)}vh`,
+        height: `${calculatedHeight}vh`,
       }}
     >
       <div className="sticky top-0 h-screen overflow-hidden">

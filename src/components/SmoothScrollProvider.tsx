@@ -38,6 +38,10 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
     restDelta: 0.001,
   });
 
+  // IMPORTANT: All hooks must be called unconditionally at top level
+  // This transform is used for the smooth scroll effect on desktop
+  const contentY = useTransform(smoothScrollY, (value) => -value);
+
   useEffect(() => {
     // Check for mobile and reduced motion preference
     const checkMobile = () => {
@@ -90,40 +94,44 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
     return unsubscribe;
   }, [scrollY]);
 
-  // For mobile or reduced motion, render normally
-  if (isMobile || prefersReducedMotion) {
-    return (
-      <SmoothScrollContext.Provider value={{ scrollY, scrollYProgress, scrollVelocity }}>
-        {children}
-      </SmoothScrollContext.Provider>
-    );
-  }
+  // Conditional rendering instead of early return (hooks already called above)
+  const shouldUseSmoothScroll = !isMobile && !prefersReducedMotion;
 
   return (
-    <SmoothScrollContext.Provider value={{ scrollY: smoothScrollY, scrollYProgress, scrollVelocity }}>
-      <div 
-        ref={containerRef}
-        style={{ 
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          overflow: 'hidden',
-        }}
-      >
-        <motion.div
-          ref={scrollRef}
-          style={{ 
-            y: useTransform(smoothScrollY, (value) => -value),
-            willChange: 'transform',
-          }}
-        >
-          {children}
-        </motion.div>
-      </div>
-      {/* Spacer to maintain scroll height */}
-      <div style={{ height: pageHeight }} />
+    <SmoothScrollContext.Provider value={{ 
+      scrollY: shouldUseSmoothScroll ? smoothScrollY : scrollY, 
+      scrollYProgress, 
+      scrollVelocity 
+    }}>
+      {shouldUseSmoothScroll ? (
+        <>
+          <div 
+            ref={containerRef}
+            style={{ 
+              position: 'fixed',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              overflow: 'hidden',
+            }}
+          >
+            <motion.div
+              ref={scrollRef}
+              style={{ 
+                y: contentY,
+                willChange: 'transform',
+              }}
+            >
+              {children}
+            </motion.div>
+          </div>
+          {/* Spacer to maintain scroll height */}
+          <div style={{ height: pageHeight }} />
+        </>
+      ) : (
+        children
+      )}
     </SmoothScrollContext.Provider>
   );
 };
