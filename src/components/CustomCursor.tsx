@@ -1,8 +1,8 @@
 import { useEffect, useState, useCallback } from "react";
-import { motion, useSpring, useMotionValue } from "framer-motion";
+import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
-type CursorVariant = "default" | "hover" | "click" | "text" | "hidden";
+type CursorVariant = "default" | "hover" | "click" | "text" | "hidden" | "view" | "cta";
 
 export const CustomCursor = () => {
   const [variant, setVariant] = useState<CursorVariant>("default");
@@ -60,14 +60,20 @@ export const CustomCursor = () => {
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Check for interactive elements
+      // Check for interactive elements - order matters (more specific first)
+      const isViewCard = target.closest("[data-cursor='view']");
+      const isCTA = target.closest("[data-cursor='cta']");
+      const isInput = target.closest("input, textarea, select");
+      const isText = target.closest("[data-cursor='text']");
       const isLink = target.closest("a");
       const isButton = target.closest("button");
       const isCard = target.closest("[data-cursor='hover']");
-      const isInput = target.closest("input, textarea, select");
-      const isText = target.closest("[data-cursor='text']");
       
-      if (isInput || isText) {
+      if (isViewCard) {
+        setVariant("view");
+      } else if (isCTA) {
+        setVariant("cta");
+      } else if (isInput || isText) {
         setVariant("text");
       } else if (isLink || isButton || isCard) {
         setVariant("hover");
@@ -76,7 +82,7 @@ export const CustomCursor = () => {
       }
     };
 
-    const handleMouseDown = () => setVariant(prev => prev === "hover" ? "click" : prev);
+    const handleMouseDown = () => setVariant(prev => prev === "hover" || prev === "view" || prev === "cta" ? "click" : prev);
     const handleMouseUp = () => setVariant(prev => prev === "click" ? "hover" : prev);
 
     document.addEventListener("mouseover", handleMouseOver);
@@ -129,13 +135,27 @@ export const CustomCursor = () => {
       backgroundColor: "transparent",
       border: "none",
     },
+    view: {
+      width: 80,
+      height: 80,
+      backgroundColor: "hsl(320, 85%, 55%)",
+      border: "none",
+      mixBlendMode: "normal" as const,
+    },
+    cta: {
+      width: 64,
+      height: 64,
+      backgroundColor: "hsla(320, 85%, 55%, 0.2)",
+      border: "3px solid hsl(320, 85%, 55%)",
+      mixBlendMode: "normal" as const,
+    },
   };
 
   return (
     <>
       {/* Main cursor dot */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full"
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center"
         style={{
           x: cursorXSpring,
           y: cursorYSpring,
@@ -158,6 +178,30 @@ export const CustomCursor = () => {
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           />
         )}
+        
+        {/* "View" text for case study cards */}
+        <AnimatePresence>
+          {variant === "view" && (
+            <motion.span
+              className="text-white text-xs font-semibold uppercase tracking-wider"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.15 }}
+            >
+              View
+            </motion.span>
+          )}
+        </AnimatePresence>
+
+        {/* Pulsing ring for CTA variant */}
+        {variant === "cta" && (
+          <motion.div
+            className="absolute inset-0 rounded-full border-2 border-accent"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.8, 0, 0.8] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: "easeOut" }}
+          />
+        )}
       </motion.div>
 
       {/* Trailing cursor ring - slightly lagging for visual effect */}
@@ -170,8 +214,8 @@ export const CustomCursor = () => {
           translateY: "-50%",
         }}
         animate={{
-          width: variant === "hover" ? 64 : variant === "text" ? 0 : 32,
-          height: variant === "hover" ? 64 : variant === "text" ? 0 : 32,
+          width: variant === "view" ? 96 : variant === "cta" ? 80 : variant === "hover" ? 64 : variant === "text" ? 0 : 32,
+          height: variant === "view" ? 96 : variant === "cta" ? 80 : variant === "hover" ? 64 : variant === "text" ? 0 : 32,
           opacity: isVisible ? (variant === "text" ? 0 : 0.5) : 0,
         }}
         transition={{ duration: 0.15, ease: "easeOut" }}

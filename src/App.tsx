@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +15,7 @@ import AnimatedRoutes from "./components/AnimatedRoutes";
 import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger";
 import NavigationProgress from "./components/NavigationProgress";
 import CustomCursor from "./components/CustomCursor";
+import PageLoader from "./components/PageLoader";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -71,6 +72,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 const helmetContext = {};
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  
   // Create QueryClient inside the component to avoid HMR issues
   const [queryClient] = useState(
     () =>
@@ -84,6 +87,10 @@ const App = () => {
       })
   );
 
+  const handleLoaderComplete = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
   return (
     <HelmetProvider context={helmetContext}>
       <QueryClientProvider client={queryClient}>
@@ -92,15 +99,20 @@ const App = () => {
             <Toaster />
             <Sonner />
             <BrowserRouter>
-              <ScrollToTop />
-              <BackToTop />
-              <NavigationProgress />
-              <CookieConsent />
-              <AIConsultantTrigger />
-              <CustomCursor />
-              <Layout>
-                <AnimatedRoutes />
-              </Layout>
+              <PageLoader onComplete={handleLoaderComplete} />
+              {!isLoading && (
+                <>
+                  <ScrollToTop />
+                  <BackToTop />
+                  <NavigationProgress />
+                  <CookieConsent />
+                  <AIConsultantTrigger />
+                  <CustomCursor />
+                  <Layout>
+                    <AnimatedRoutes />
+                  </Layout>
+                </>
+              )}
             </BrowserRouter>
           </AuthProvider>
         </TooltipProvider>
