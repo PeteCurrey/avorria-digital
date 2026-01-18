@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from "react";
+import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
 export function ExitIntentPopover() {
@@ -69,16 +70,16 @@ export function ExitIntentPopover() {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <>
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm"
+        className="fixed inset-0 z-[60] bg-black/60 backdrop-blur-sm"
         onClick={() => setIsOpen(false)}
       />
       
       {/* Modal */}
-      <div className="fixed left-1/2 top-1/2 z-50 w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
+      <div className="fixed left-1/2 top-1/2 z-[60] w-[calc(100%-2rem)] max-w-sm -translate-x-1/2 -translate-y-1/2">
         <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/90 p-6 shadow-2xl backdrop-blur-xl">
           {/* Close button */}
           <button
@@ -147,6 +148,7 @@ export function ExitIntentPopover() {
           </div>
         </div>
       </div>
-    </>
+    </>,
+    document.body
   );
 }
