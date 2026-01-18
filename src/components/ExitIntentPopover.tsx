@@ -89,7 +89,7 @@ export function ExitIntentPopover() {
             animate={{ opacity: 1, scale: 1, y: "-50%", x: "-50%" }}
             exit={{ opacity: 0, scale: 0.95, y: "-48%", x: "-50%" }}
             transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-            className="fixed left-1/2 top-1/2 z-[60] w-[calc(100%-2rem)] max-w-sm"
+            className="fixed left-1/2 top-1/2 z-[70] w-[calc(100%-2rem)] max-w-sm"
           >
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-slate-900/90 p-6 shadow-2xl backdrop-blur-xl">
               {/* Close button */}
