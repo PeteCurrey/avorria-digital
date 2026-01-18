@@ -27,107 +27,10 @@ import heroRaceCar from "@/assets/hero-race-car.jpg";
 import heroPenthouse from "@/assets/hero-penthouse.png";
 import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
 
-// Who We Are Section Component with Parallax Video and CountUp Stats
-const WhoWeAreSection = () => {
-  const { ref: parallaxRef, offset } = useParallax({ speed: 0.3, direction: "down" });
-
-  return (
-    <section ref={parallaxRef} className="relative py-24 md:py-32 overflow-hidden">
-      {/* Video Background with Parallax */}
-      <div 
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
-        style={{ 
-          transform: `translateY(${offset}px)`,
-          willChange: "transform",
-        }}
-      >
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          className="w-full h-full object-cover"
-        >
-          <source src={cityTimelapseVideo} type="video/mp4" />
-        </video>
-      </div>
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/60" />
-      
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <ScrollReveal variant="fade-up" duration={500}>
-              <div className="space-y-6">
-                <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em]">Who We Are</span>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.1] text-white">
-                  An established agency that behaves like your in-house team.
-                </h2>
-                <p className="text-lg text-white/80 leading-relaxed">
-                  Avorria was founded to be the opposite of the agencies we'd all worked at – the ones with pretty decks, vague reports and no connection to actual business results.
-                </p>
-                <p className="text-lg text-white/80 leading-relaxed">
-                  We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
-                </p>
-                <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:border-white/50 mt-4" asChild>
-                  <Link to="/about">
-                    Learn more about us
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </Link>
-                </Button>
-              </div>
-            </ScrollReveal>
-            
-            <ScrollReveal variant="fade-up" delay={150} duration={500}>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
-                  <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
-                  <div className="relative z-10">
-                    <Users className="w-8 h-8 text-accent mb-4" />
-                    <div className="text-3xl font-light text-white mb-1">
-                      <CountUp end={50} suffix="+" />
-                    </div>
-                    <div className="text-sm text-white/60">Active clients</div>
-                  </div>
-                </div>
-                <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
-                  <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
-                  <div className="relative z-10">
-                    <Globe className="w-8 h-8 text-accent mb-4" />
-                    <div className="text-3xl font-light text-white mb-1">UK & US</div>
-                    <div className="text-sm text-white/60">International reach</div>
-                  </div>
-                </div>
-                <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
-                  <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
-                  <div className="relative z-10">
-                    <Award className="w-8 h-8 text-accent mb-4" />
-                    <div className="text-3xl font-light text-white mb-1">
-                      <CountUp end={10} suffix="+ yrs" />
-                    </div>
-                    <div className="text-sm text-white/60">Avg. team experience</div>
-                  </div>
-                </div>
-                <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
-                  <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
-                  <div className="relative z-10">
-                    <TrendingUp className="w-8 h-8 text-accent mb-4" />
-                    <div className="text-3xl font-light text-white mb-1">
-                      <CountUp end={92} suffix="%" />
-                    </div>
-                    <div className="text-sm text-white/60">Client retention</div>
-                  </div>
-                </div>
-              </div>
-            </ScrollReveal>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
 const Home = () => {
+  // Parallax hook for video background
+  const { ref: parallaxRef, offset } = useParallax({ speed: 0.3, direction: "down" });
+  
   // Fetch case studies from database
   const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
   // Fetch testimonials from database
@@ -627,7 +530,98 @@ const Home = () => {
         </section>
 
         {/* Who We Are Section with Video Background */}
-        <WhoWeAreSection />
+        <section ref={parallaxRef} className="relative py-24 md:py-32 overflow-hidden">
+          {/* Video Background with Parallax */}
+          <div 
+            className="absolute inset-0 w-full h-[120%] -top-[10%]"
+            style={{ 
+              transform: `translateY(${offset}px)`,
+              willChange: "transform",
+            }}
+          >
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="w-full h-full object-cover"
+            >
+              <source src={cityTimelapseVideo} type="video/mp4" />
+            </video>
+          </div>
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/60" />
+          
+          <div className="container mx-auto px-4 sm:px-6 relative z-10">
+            <div className="max-w-6xl mx-auto">
+              <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <ScrollReveal variant="fade-up" duration={500}>
+                  <div className="space-y-6">
+                    <span className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em]">Who We Are</span>
+                    <h2 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.1] text-white">
+                      An established agency that behaves like your in-house team.
+                    </h2>
+                    <p className="text-lg text-white/80 leading-relaxed">
+                      Avorria was founded to be the opposite of the agencies we'd all worked at – the ones with pretty decks, vague reports and no connection to actual business results.
+                    </p>
+                    <p className="text-lg text-white/80 leading-relaxed">
+                      We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
+                    </p>
+                    <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:border-white/50 mt-4" asChild>
+                      <Link to="/about">
+                        Learn more about us
+                        <ArrowRight className="ml-2 w-4 h-4" />
+                      </Link>
+                    </Button>
+                  </div>
+                </ScrollReveal>
+                
+                <ScrollReveal variant="fade-up" delay={150} duration={500}>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <Users className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">
+                          <CountUp end={50} suffix="+" />
+                        </div>
+                        <div className="text-sm text-white/60">Active clients</div>
+                      </div>
+                    </div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <Globe className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">UK & US</div>
+                        <div className="text-sm text-white/60">International reach</div>
+                      </div>
+                    </div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <Award className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">
+                          <CountUp end={10} suffix="+ yrs" />
+                        </div>
+                        <div className="text-sm text-white/60">Avg. team experience</div>
+                      </div>
+                    </div>
+                    <div className="relative group p-6 bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 transition-all duration-300 overflow-hidden">
+                      <div className="absolute -inset-[1px] rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%" }} />
+                      <div className="relative z-10">
+                        <TrendingUp className="w-8 h-8 text-accent mb-4" />
+                        <div className="text-3xl font-light text-white mb-1">
+                          <CountUp end={92} suffix="%" />
+                        </div>
+                        <div className="text-sm text-white/60">Client retention</div>
+                      </div>
+                    </div>
+                  </div>
+                </ScrollReveal>
+              </div>
+            </div>
+          </div>
+        </section>
 
         {/* Value Props */}
         <section className="py-24 md:py-32 bg-gray-50">
