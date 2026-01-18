@@ -1,24 +1,40 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { X } from "lucide-react";
 
 export function ExitIntentPopover() {
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
+  const [isActive, setIsActive] = useState(false);
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [email, setEmail] = useState("");
+  const lastMouseY = useRef(0);
+
+  // Don't activate exit intent for first 5 seconds
+  useEffect(() => {
+    const activationTimer = setTimeout(() => {
+      setIsActive(true);
+    }, 5000);
+    
+    return () => clearTimeout(activationTimer);
+  }, []);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     // Only show on desktop (768px+)
     if (window.innerWidth < 768) return;
     if (hasShown) return;
+    if (!isActive) return; // Wait for activation delay
     
-    // Trigger when mouse moves to top 10px of viewport (exit intent detection)
-    if (e.clientY <= 10) {
+    // Only trigger if mouse is moving UPWARD (exiting)
+    const isMovingUp = e.clientY < lastMouseY.current;
+    lastMouseY.current = e.clientY;
+    
+    // Trigger when mouse moves to top 10px AND is moving upward
+    if (e.clientY <= 10 && isMovingUp) {
       console.log("Event: lead_popover_opened");
       setIsOpen(true);
       setHasShown(true);
     }
-  }, [hasShown]);
+  }, [hasShown, isActive]);
 
   useEffect(() => {
     // Only add listener on desktop
