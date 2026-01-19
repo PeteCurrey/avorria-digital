@@ -25,7 +25,9 @@ export default defineConfig(({ mode }) => ({
       "react",
       "react-dom",
       "framer-motion",
+      "@tanstack/react-query",
     ],
+    force: true,
   },
   build: {
     commonjsOptions: {
