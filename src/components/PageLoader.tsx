@@ -63,7 +63,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
     <AnimatePresence>
       {!isComplete && (
         <motion.div
-          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-background"
+          className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a0a]"
           initial={{ opacity: 1 }}
           exit={{ 
             clipPath: 'circle(0% at 50% 50%)',
@@ -72,13 +72,13 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
         >
           {/* Animated background gradient */}
           <motion.div 
-            className="absolute inset-0 opacity-30"
+            className="absolute inset-0 opacity-20"
             style={{
-              background: 'radial-gradient(circle at 50% 50%, hsl(var(--primary)) 0%, transparent 70%)',
+              background: 'radial-gradient(circle at 50% 50%, hsl(330, 80%, 50%) 0%, transparent 60%)',
             }}
             animate={{
               scale: [1, 1.2, 1],
-              opacity: [0.2, 0.4, 0.2],
+              opacity: [0.15, 0.25, 0.15],
             }}
             transition={{
               duration: 3,
@@ -87,30 +87,46 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
             }}
           />
 
-          {/* Logo text */}
-          <div className="relative flex items-center justify-center mb-12">
-            {letters.map((letter, i) => (
-              <motion.span
-                key={i}
-                custom={i}
-                initial="hidden"
-                animate="visible"
-                variants={letterVariants}
-                className="text-5xl md:text-7xl font-serif font-bold text-foreground"
-                style={{ 
-                  display: 'inline-block',
-                  textShadow: '0 0 40px hsl(var(--primary) / 0.3)',
-                }}
-              >
-                {letter}
-              </motion.span>
-            ))}
+          {/* Logo text - matching AnimatedLogo style */}
+          <div className="relative flex items-baseline justify-center mb-12">
+            <motion.span
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              className="text-4xl md:text-5xl font-extralight tracking-wider text-white"
+            >
+              A
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
+              animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+              transition={{ 
+                delay: 0.3,
+                duration: 0.6,
+                ease: [0.25, 0.1, 0.25, 1]
+              }}
+              className="text-4xl md:text-5xl font-extralight tracking-wider text-white"
+            >
+              vorria
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, scale: 0 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ 
+                delay: 0.6,
+                duration: 0.4,
+                ease: [0.22, 1, 0.36, 1]
+              }}
+              className="text-4xl md:text-5xl font-bold text-pink-500"
+            >
+              .
+            </motion.span>
           </div>
 
-          {/* Progress bar */}
-          <div className="relative w-48 h-[2px] bg-muted/30 overflow-hidden rounded-full">
+          {/* Progress bar - pink themed */}
+          <div className="relative w-48 h-[2px] bg-white/10 overflow-hidden rounded-full">
             <motion.div
-              className="absolute left-0 top-0 h-full bg-gradient-to-r from-primary to-primary/60"
+              className="absolute left-0 top-0 h-full bg-gradient-to-r from-pink-500 to-pink-400"
               initial={{ width: 0 }}
               animate={{ width: `${progress}%` }}
               transition={{ duration: 0.1, ease: 'linear' }}
@@ -119,7 +135,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
 
           {/* Progress percentage */}
           <motion.span
-            className="mt-4 text-sm font-mono text-muted-foreground"
+            className="mt-4 text-sm font-mono text-white/40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -129,7 +145,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
 
           {/* Tagline */}
           <motion.p
-            className="absolute bottom-12 text-sm text-muted-foreground tracking-widest uppercase"
+            className="absolute bottom-12 text-sm text-white/30 tracking-widest uppercase"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1, duration: 0.8 }}
