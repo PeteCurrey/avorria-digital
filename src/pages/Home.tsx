@@ -12,7 +12,8 @@ import ScrollIndicator from "@/components/ScrollIndicator";
 import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
-import { ScrollReveal, ScrollRevealGrid, CountUp, useParallax } from "@/components/animations/ScrollReveal";
+import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
+import ParallaxBackground from "@/components/ParallaxBackground";
 import { LogoWall } from "@/components/LogoWall";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
@@ -34,9 +35,6 @@ import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
 import bgRaceCar from "@/assets/bg-race-car.png";
 
 const Home = () => {
-  // Parallax hooks for hero and video backgrounds
-  const { ref: heroParallaxRef, offset: heroOffset } = useParallax({ speed: 0.4, direction: "down" });
-  const { ref: parallaxRef, offset } = useParallax({ speed: 0.3, direction: "down" });
   
   // Fetch case studies from database
   const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
@@ -449,27 +447,17 @@ const Home = () => {
 
       <div className="min-h-screen bg-white">
         {/* Full-Screen Hero Section with Penthouse Image */}
-        <section 
-          ref={heroParallaxRef}
-          className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        <ParallaxBackground
+          backgroundImage={heroPenthouse}
+          speed={0.4}
+          overlay="gradient-left"
+          minHeight="100vh"
+          className="flex items-center justify-center"
         >
-          {/* Parallax Background Image */}
-          <div 
-            className="absolute inset-0 w-full h-[120%] -top-[10%]"
-            style={{
-              backgroundImage: `url(${heroPenthouse})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-              transform: `translateY(${heroOffset}px)`,
-              willChange: "transform",
-            }}
-          />
           {/* Living Gradient Mesh Background */}
           <GradientMesh className="opacity-40" />
           {/* Floating Elements */}
           <FloatingElements />
-          {/* Subtle dark gradient overlay for readability while showing image detail */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/30 to-transparent" />
           
           <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-24">
             <div className="max-w-4xl">
@@ -542,7 +530,7 @@ const Home = () => {
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:block">
             <ScrollIndicator />
           </div>
-        </section>
+        </ParallaxBackground>
 
 
         {/* Trust Bar - Light */}
@@ -561,28 +549,13 @@ const Home = () => {
         </section>
 
         {/* Who We Are Section with Video Background */}
-        <section ref={parallaxRef} className="relative py-24 md:py-32 overflow-hidden">
-          {/* Video Background with Parallax */}
-          <div 
-            className="absolute inset-0 w-full h-[120%] -top-[10%]"
-            style={{ 
-              transform: `translateY(${offset}px)`,
-              willChange: "transform",
-            }}
-          >
-            <video
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="w-full h-full object-cover"
-            >
-              <source src={cityTimelapseVideo} type="video/mp4" />
-            </video>
-          </div>
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/60" />
-          
+        <ParallaxBackground
+          backgroundVideo={cityTimelapseVideo}
+          speed={0.3}
+          overlay="dark"
+          minHeight="auto"
+          className="py-24 md:py-32"
+        >
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -653,8 +626,8 @@ const Home = () => {
             </div>
           </div>
           {/* Bottom gradient transition to next section */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-50 pointer-events-none" />
-        </section>
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-50/50 to-gray-50 pointer-events-none z-20" />
+        </ParallaxBackground>
 
         {/* Value Props */}
         <section className="py-24 md:py-32 bg-gray-50 -mt-8">
@@ -730,19 +703,13 @@ const Home = () => {
         </section>
 
         {/* Services Overview */}
-        <section className="relative py-24 md:py-32 overflow-hidden">
-          {/* Background Image */}
-          <div 
-            className="absolute inset-0 w-full h-full"
-            style={{
-              backgroundImage: `url(${bgRaceCar})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center top",
-            }}
-          />
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/70" />
-          
+        <ParallaxBackground
+          backgroundImage={bgRaceCar}
+          speed={0.2}
+          overlay="dark"
+          minHeight="auto"
+          className="py-24 md:py-32"
+        >
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <ScrollReveal variant="fade-up" duration={500}>
               <div className="text-center mb-16 md:mb-20">
@@ -815,8 +782,8 @@ const Home = () => {
           </div>
           
           {/* Bottom gradient transition to next section */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900 pointer-events-none" />
-        </section>
+          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900 pointer-events-none z-20" />
+        </ParallaxBackground>
 
         {/* Process Section */}
         <section className="py-24 md:py-32 bg-gray-900 text-white">
