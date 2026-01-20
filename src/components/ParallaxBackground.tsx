@@ -1,3 +1,4 @@
+// Module version: v3 - GPU-accelerated parallax
 import { useRef, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -33,13 +34,13 @@ export const ParallaxBackground = ({
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end start"],
+    offset: ["start end", "end start"],
   });
 
-  // Transform scroll progress to Y position for parallax
-  // Speed controls how much the background moves relative to scroll
-  const y = useTransform(scrollYProgress, [0, 1], ["0%", `${speed * 100}%`]);
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1 + speed * 0.2]);
+  // Use pixel-based transform for smoother parallax
+  // Moves background from -100px to +100px based on speed
+  const yRange = 200 * speed;
+  const y = useTransform(scrollYProgress, [0, 1], [-yRange, yRange]);
 
   const overlayClasses = {
     none: "",
@@ -47,7 +48,7 @@ export const ParallaxBackground = ({
     medium: "bg-black/50",
     dark: "bg-black/70",
     gradient: "bg-gradient-to-b from-black/40 via-black/50 to-black/70",
-    "gradient-left": "bg-gradient-to-r from-black/50 via-black/30 to-transparent",
+    "gradient-left": "bg-gradient-to-r from-black/70 via-black/40 to-black/20",
   };
 
   return (
@@ -56,10 +57,15 @@ export const ParallaxBackground = ({
       className={cn("relative overflow-hidden", className)}
       style={{ minHeight }}
     >
-      {/* Parallax Background */}
+      {/* Parallax Background - GPU accelerated */}
       <motion.div
-        className="absolute inset-0 w-full h-[120%] -top-[10%]"
-        style={{ y, scale }}
+        className="absolute inset-0 will-change-transform"
+        style={{ 
+          y,
+          // Extend beyond container to prevent gaps during parallax
+          top: -yRange,
+          bottom: -yRange,
+        }}
       >
         {backgroundVideo ? (
           <video
@@ -69,6 +75,7 @@ export const ParallaxBackground = ({
             playsInline
             poster={videoPoster}
             className="w-full h-full object-cover"
+            style={{ height: `calc(100% + ${yRange * 2}px)` }}
           >
             <source src={backgroundVideo} type="video/mp4" />
           </video>
@@ -77,13 +84,14 @@ export const ParallaxBackground = ({
             src={backgroundImage}
             alt=""
             className="w-full h-full object-cover"
+            style={{ height: `calc(100% + ${yRange * 2}px)` }}
           />
         ) : null}
       </motion.div>
 
       {/* Overlay */}
       {overlay !== "none" && (
-        <div className={cn("absolute inset-0", overlayClasses[overlay])} />
+        <div className={cn("absolute inset-0 z-[1]", overlayClasses[overlay])} />
       )}
 
       {/* Content */}
