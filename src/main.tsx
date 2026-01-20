@@ -1,3 +1,4 @@
+// Module version: v3 - forces fresh HMR reload
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";
