@@ -626,8 +626,6 @@ const Home = () => {
               </div>
             </div>
           </div>
-          {/* Bottom gradient transition to next section */}
-          <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-b from-transparent via-black/60 to-gray-50 pointer-events-none z-20" />
         </ParallaxBackground>
 
         {/* Value Props */}
