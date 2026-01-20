@@ -779,9 +779,6 @@ const Home = () => {
               </div>
             </ScrollReveal>
           </div>
-          
-          {/* Bottom gradient transition to next section */}
-          <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900 pointer-events-none z-20" />
         </ParallaxBackground>
 
         {/* Process Section */}
