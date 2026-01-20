@@ -1,4 +1,4 @@
-// Module version: v3 - GPU-accelerated parallax
+// Module version: v4 - Fixed positioning for visible parallax
 import { useRef, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -37,10 +37,9 @@ export const ParallaxBackground = ({
     offset: ["start end", "end start"],
   });
 
-  // Use pixel-based transform for smoother parallax
-  // Moves background from -100px to +100px based on speed
-  const yRange = 200 * speed;
-  const y = useTransform(scrollYProgress, [0, 1], [-yRange, yRange]);
+  // Pixel-based offset for smooth parallax
+  const yOffset = 150 * speed;
+  const y = useTransform(scrollYProgress, [0, 1], [-yOffset, yOffset]);
 
   const overlayClasses = {
     none: "",
@@ -51,20 +50,22 @@ export const ParallaxBackground = ({
     "gradient-left": "bg-gradient-to-r from-black/70 via-black/40 to-black/20",
   };
 
+  // Calculate extended height for parallax buffer
+  const extendedHeight = `calc(100% + ${yOffset * 2}px)`;
+
   return (
     <div
       ref={containerRef}
       className={cn("relative overflow-hidden", className)}
-      style={{ minHeight }}
+      style={{ minHeight, position: "relative" }}
     >
-      {/* Parallax Background - GPU accelerated */}
+      {/* Parallax Background - Properly positioned */}
       <motion.div
-        className="absolute inset-0 will-change-transform"
+        className="absolute left-0 right-0 will-change-transform"
         style={{ 
           y,
-          // Extend beyond container to prevent gaps during parallax
-          top: -yRange,
-          bottom: -yRange,
+          top: -yOffset,
+          height: extendedHeight,
         }}
       >
         {backgroundVideo ? (
@@ -75,7 +76,6 @@ export const ParallaxBackground = ({
             playsInline
             poster={videoPoster}
             className="w-full h-full object-cover"
-            style={{ height: `calc(100% + ${yRange * 2}px)` }}
           >
             <source src={backgroundVideo} type="video/mp4" />
           </video>
@@ -84,7 +84,7 @@ export const ParallaxBackground = ({
             src={backgroundImage}
             alt=""
             className="w-full h-full object-cover"
-            style={{ height: `calc(100% + ${yRange * 2}px)` }}
+            loading="eager"
           />
         ) : null}
       </motion.div>
