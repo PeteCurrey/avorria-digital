@@ -134,9 +134,17 @@ const Navigation = ({
   const shouldBeTransparent = transparent && !isScrolled;
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled || !transparent ? "bg-background/95 backdrop-blur-md shadow-sm border-b border-border/40" : "bg-transparent"}`}>
-      <div className="container mx-auto px-6">
-        <div className="flex items-center justify-between gap-6 h-20">
+    <nav 
+      className={`fixed z-50 transition-all duration-500 ease-out ${
+        isScrolled 
+          ? "top-4 left-4 right-4 bg-slate-900/70 backdrop-blur-2xl shadow-2xl shadow-black/20 border border-white/10 rounded-2xl" 
+          : transparent 
+            ? "top-0 left-0 right-0 bg-transparent" 
+            : "top-0 left-0 right-0 bg-background/95 backdrop-blur-md shadow-sm border-b border-border/40"
+      }`}
+    >
+      <div className={`mx-auto transition-all duration-500 ${isScrolled ? "px-4" : "container px-6"}`}>
+        <div className={`flex items-center justify-between gap-6 transition-all duration-500 ${isScrolled ? "h-16" : "h-20"}`}>
           <AnimatedLogo isTransparent={shouldBeTransparent} />
 
           <div className="hidden lg:flex flex-1"></div>
