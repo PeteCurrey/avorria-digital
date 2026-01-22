@@ -15,6 +15,7 @@ import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import ParallaxBackground from "@/components/ParallaxBackground";
+import ScrollTimelapse from "@/components/ScrollTimelapse";
 import { LogoWall } from "@/components/LogoWall";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
@@ -447,16 +448,16 @@ const Home = () => {
       </div>
 
       <div className="min-h-screen bg-white">
-        {/* Full-Screen Hero Section with Penthouse Image */}
-        <ParallaxBackground
-          backgroundImage={heroPenthouse}
-          speed={0.4}
-          overlay="gradient-left"
-          minHeight="100vh"
-          className="flex items-center"
-        >
+        {/* Full-Screen Hero Section with Day-to-Night Timelapse */}
+        <section className="relative min-h-screen flex items-center overflow-hidden">
+          {/* Scroll-controlled timelapse background */}
+          <ScrollTimelapse speed={0.4} />
+          
+          {/* Gradient overlay for text legibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 z-[1]" />
+          
           {/* Living Gradient Mesh Background */}
-          <GradientMesh className="opacity-40" />
+          <GradientMesh className="opacity-40 z-[2]" />
           {/* Floating Elements */}
           <FloatingElements />
           
@@ -531,7 +532,7 @@ const Home = () => {
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 hidden sm:block">
             <ScrollIndicator />
           </div>
-        </ParallaxBackground>
+        </section>
 
 
         {/* Trust Bar - Light */}
