@@ -1,4 +1,4 @@
-// Cache rebuild trigger v12 - fixed all non-standard React imports
+// Cache rebuild trigger v13 - complete import standardization
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";

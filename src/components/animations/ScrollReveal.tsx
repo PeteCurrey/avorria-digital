@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, ReactNode, CSSProperties } from "react";
+import React, { useEffect, useRef, useState, ReactNode, CSSProperties } from "react";
 
 type AnimationVariant = "fade-up" | "fade-left" | "fade-right" | "scale" | "blur" | "slide-up";
 
