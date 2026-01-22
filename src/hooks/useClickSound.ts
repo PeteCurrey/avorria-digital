@@ -1,4 +1,4 @@
-import { useRef, useCallback } from "react";
+import React, { useRef, useCallback } from "react";
 
 // Simple click sound using Web Audio API
 export function useClickSound() {

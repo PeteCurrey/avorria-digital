@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useStudioPreview } from "@/hooks/useStudioPreview";
 import { Loader2 } from "lucide-react";
