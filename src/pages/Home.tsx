@@ -460,8 +460,8 @@ const Home = () => {
           {/* Floating Elements */}
           <FloatingElements />
           
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24">
-            <div className="max-w-2xl lg:max-w-xl xl:max-w-2xl ml-0">
+          <div className="w-full px-4 sm:px-6 lg:px-8 relative z-10 pt-24">
+            <div className="max-w-2xl lg:max-w-xl xl:max-w-2xl">
               <div className="space-y-5 md:space-y-6">
                 <motion.span 
                   className="inline-block text-xs sm:text-sm font-medium text-white/60 uppercase tracking-[0.2em]"
