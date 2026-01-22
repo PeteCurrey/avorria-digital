@@ -1,4 +1,4 @@
-// Module version: v7 - forces fresh HMR reload
+// Module version: v8 - forces fresh HMR reload
 import React, { useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
