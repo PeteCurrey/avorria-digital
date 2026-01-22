@@ -1,4 +1,4 @@
-// Module version: v13 - complete import standardization
+// Module version: v14 - all React imports standardized
 import React, { useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";

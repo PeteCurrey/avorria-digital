@@ -1,5 +1,5 @@
-// Module version: v4 - Fixed positioning for visible parallax
-import { useRef, ReactNode } from "react";
+// Module version: v14 - standardized React imports
+import React, { useRef, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 

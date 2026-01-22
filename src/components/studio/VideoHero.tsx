@@ -1,7 +1,7 @@
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
 import { useAmbientAudio } from "@/hooks/useAmbientAudio";

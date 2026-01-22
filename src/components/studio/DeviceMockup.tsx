@@ -1,5 +1,5 @@
+import React, { useRef, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { useRef, useState } from "react";
 
 interface DeviceMockupProps {
   children: React.ReactNode;
