@@ -460,18 +460,18 @@ const Home = () => {
           {/* Floating Elements */}
           <FloatingElements />
           
-          <div className="container mx-auto px-4 sm:px-6 relative z-10 pt-24">
-            <div className="max-w-4xl">
-              <div className="space-y-6 md:space-y-8">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24">
+            <div className="max-w-2xl lg:max-w-xl xl:max-w-2xl ml-0">
+              <div className="space-y-5 md:space-y-6">
                 <motion.span 
-                  className="inline-block text-sm font-semibold text-white/60 uppercase tracking-[0.2em]"
+                  className="inline-block text-xs sm:text-sm font-medium text-white/60 uppercase tracking-[0.2em]"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.2 }}
                 >
                   Performance-First Digital Agency
                 </motion.span>
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.1] tracking-tight text-white font-light">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-white font-light">
                   <CharacterReveal text="Digital Marketing, SEO & Web Experiences that" delay={0.4} />
                   {" "}
                   <span className="text-accent font-normal animate-glow-pulse-accent">
@@ -479,7 +479,7 @@ const Home = () => {
                   </span>
                 </h1>
                 <motion.p 
-                  className="text-lg md:text-xl text-white/80 leading-relaxed max-w-3xl"
+                  className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 1.2 }}
@@ -488,14 +488,14 @@ const Home = () => {
                 </motion.p>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                  <Button variant="accent" size="lg" className="text-base sm:text-lg px-8 py-6 shadow-lg" asChild>
+                <div className="flex flex-col sm:flex-row gap-3 pt-3">
+                  <Button variant="accent" size="default" className="text-sm sm:text-base px-6 py-5 shadow-lg" asChild>
                     <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')}>
                       Book a strategy call
-                      <ArrowRight className="ml-2" size={20} />
+                      <ArrowRight className="ml-2" size={18} />
                     </Link>
                   </Button>
-                  <Button size="lg" className="text-base sm:text-lg px-8 py-6 bg-gray-900 text-white hover:bg-gray-800 shadow-lg" asChild>
+                  <Button size="default" className="text-sm sm:text-base px-6 py-5 bg-gray-900 text-white hover:bg-gray-800 shadow-lg" asChild>
                     <Link to="/free-seo-website-audit" onClick={() => trackCTAClick('get_free_seo_website_audit', '/free-seo-website-audit', 'hero')}>
                       Get a free audit
                     </Link>
@@ -504,23 +504,23 @@ const Home = () => {
               </div>
 
               {/* Stats Row */}
-              <div className="mt-16 pt-8 border-t border-white/20">
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div className="mt-12 pt-6 border-t border-white/20">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-xl">
                   <div>
-                    <div className="text-3xl font-light text-white">50+</div>
-                    <div className="text-sm text-white/60">Active clients</div>
+                    <div className="text-2xl font-light text-white">50+</div>
+                    <div className="text-xs text-white/60">Active clients</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-light text-white">£2.4M+</div>
-                    <div className="text-sm text-white/60">Pipeline generated</div>
+                    <div className="text-2xl font-light text-white">£2.4M+</div>
+                    <div className="text-xs text-white/60">Pipeline generated</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-light text-white">92%</div>
-                    <div className="text-sm text-white/60">Client retention</div>
+                    <div className="text-2xl font-light text-white">92%</div>
+                    <div className="text-xs text-white/60">Client retention</div>
                   </div>
                   <div>
-                    <div className="text-3xl font-light text-white">10+ yrs</div>
-                    <div className="text-sm text-white/60">Avg. experience</div>
+                    <div className="text-2xl font-light text-white">10+ yrs</div>
+                    <div className="text-xs text-white/60">Avg. experience</div>
                   </div>
                 </div>
               </div>
