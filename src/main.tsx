@@ -1,4 +1,4 @@
-// Module version: v7 - forces fresh HMR reload
+// Module version: v8 - forces fresh HMR reload
 import React from "react";
 import ReactDOM from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";
