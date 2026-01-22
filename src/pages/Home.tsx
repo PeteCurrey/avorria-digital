@@ -457,10 +457,8 @@ const Home = () => {
       </Helmet>
 
 
-      {/* Override default navigation with transparent version */}
-      <div className="relative z-50">
-        <Navigation transparent={true} />
-      </div>
+      {/* Navigation with transparent mode for hero */}
+      <Navigation transparent={true} />
 
       {/* Section Navigation */}
       <SectionNav sections={homeSections} activeId={activeSection} variant="dots" />
