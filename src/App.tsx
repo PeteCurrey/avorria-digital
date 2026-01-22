@@ -1,4 +1,4 @@
-// Module version: v11 - force clean rebuild to resolve stale cache
+// Module version: v12 - fixed all non-standard React imports
 import React, { useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
