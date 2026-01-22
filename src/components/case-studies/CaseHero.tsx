@@ -2,7 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
+import React, { useRef } from "react";
 import type { CaseMetric } from "@/data/caseStudies";
 
 interface CaseHeroProps {

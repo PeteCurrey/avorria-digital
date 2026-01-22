@@ -1,4 +1,4 @@
-// Module version: v11 - force clean rebuild to resolve stale cache
+// Module version: v12 - fixed all non-standard React imports
 import React from "react";
 import ReactDOM from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";

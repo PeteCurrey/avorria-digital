@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Progress } from "@/components/ui/progress";
 import { CheckCircle, AlertTriangle } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";

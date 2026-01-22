@@ -8,7 +8,7 @@ import ContentTab from "@/components/dashboard/ContentTab";
 import NotesTab from "@/components/dashboard/NotesTab";
 import AuditsTab from "@/components/dashboard/AuditsTab";
 import HealthHistoryTab from "@/components/dashboard/HealthHistoryTab";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { trackEvent, EVENTS } from "@/lib/tracking";
 
 // Future: Add auth checks and client-specific data loading
