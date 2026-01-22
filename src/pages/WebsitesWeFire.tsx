@@ -345,7 +345,7 @@ const WebsitesWeFire = () => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="border-white/30 text-white hover:bg-white/10"
+                    className="bg-white/10 border-white/30 text-white hover:bg-transparent"
                     onClick={() => {
                       console.log("Event: websites_fire_cta_audit_clicked", { cta: "hero_secondary" });
                       window.location.href = "/contact";
