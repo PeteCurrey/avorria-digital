@@ -61,11 +61,12 @@ export const ParallaxBackground = ({
     >
       {/* Parallax Background - Properly positioned */}
       <motion.div
-        className="absolute left-0 right-0 will-change-transform"
+        className="absolute inset-x-0 will-change-transform"
         style={{ 
           y,
           top: -yOffset,
           height: extendedHeight,
+          width: '100%',
         }}
       >
         {backgroundVideo ? (
