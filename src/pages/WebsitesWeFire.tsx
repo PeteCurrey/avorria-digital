@@ -1,5 +1,5 @@
-// Enhanced Websites We'd Fire page v1
-import React, { useState } from "react";
+// Enhanced Websites We'd Fire page v2 - All 10 UX Enhancements
+import React, { useState, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -33,7 +33,22 @@ import { useToast } from "@/hooks/use-toast";
 import ParallaxBackground from "@/components/ParallaxBackground";
 import SectionReveal from "@/components/SectionReveal";
 import { ScrollReveal, CountUp } from "@/components/animations/ScrollReveal";
-import { BeforeAfterSlider } from "@/components/case-studies/BeforeAfterSlider";
+import TypewriterText from "@/components/animations/TypewriterText";
+import confetti from "canvas-confetti";
+
+// Import new enhancement components
+import {
+  FireRiskQuiz,
+  RevenueLossCalculator,
+  SectionProgressNav,
+  LiveAnalyzerPreview,
+  ThemeToggle,
+  TestimonialVideoCard,
+  testimonials,
+  ArchetypeGuiltyToggle,
+  FireRiskMeter,
+  BeforeAfterSliderWithHotspots,
+} from "@/components/websites-we-fire";
 
 // Import images
 import bgOfficeWorkspace from "@/assets/bg-office-workspace.jpg";
@@ -53,6 +68,14 @@ const WebsitesWeFire = () => {
     concern: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [guiltyArchetypes, setGuiltyArchetypes] = useState<Record<number, boolean>>({});
+  const [showTypewriter, setShowTypewriter] = useState(false);
+
+  // Delay typewriter start for hero animation
+  useEffect(() => {
+    const timer = setTimeout(() => setShowTypewriter(true), 800);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -68,6 +91,14 @@ const WebsitesWeFire = () => {
       formData,
     });
 
+    // Confetti on form submit
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.8 },
+      colors: ["hsl(320, 85%, 55%)", "hsl(280, 75%, 60%)", "#ffffff"],
+    });
+
     setTimeout(() => {
       toast({
         title: "Got it – we'll take a look",
@@ -77,6 +108,19 @@ const WebsitesWeFire = () => {
       setIsSubmitting(false);
     }, 1000);
   };
+
+  const handleGuiltyToggle = (archetypeNumber: number) => {
+    setGuiltyArchetypes(prev => ({
+      ...prev,
+      [archetypeNumber]: !prev[archetypeNumber]
+    }));
+    console.log("Event: archetype_guilty_toggled", { 
+      archetype_number: archetypeNumber, 
+      is_guilty: !guiltyArchetypes[archetypeNumber] 
+    });
+  };
+
+  const guiltyCount = Object.values(guiltyArchetypes).filter(Boolean).length;
 
   console.log("Event: websites_fire_page_viewed");
 
@@ -276,132 +320,150 @@ const WebsitesWeFire = () => {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        {/* Hero Section with Parallax */}
-        <ParallaxBackground
-          backgroundImage={bgOfficeWorkspace}
-          overlay="gradient-left"
-          minHeight="100vh"
-          speed={0.4}
-        >
-          <div className="container mx-auto px-4 py-32 lg:py-40">
-            <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
-              <motion.div
-                initial={{ opacity: 0, x: -50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-                className="space-y-6"
-              >
+        {/* Section Progress Nav - Enhancement #7 */}
+        <SectionProgressNav />
+        
+        {/* Theme Toggle - Enhancement #9 */}
+        <ThemeToggle />
+        
+        {/* Fire Risk Meter - Enhancement #5 */}
+        <FireRiskMeter guiltyCount={guiltyCount} totalCount={5} />
+
+        {/* Hero Section with Parallax - Enhancement #10: Typewriter */}
+        <section id="hero">
+          <ParallaxBackground
+            backgroundImage={bgOfficeWorkspace}
+            overlay="gradient-left"
+            minHeight="100vh"
+            speed={0.4}
+          >
+            <div className="container mx-auto px-4 py-32 lg:py-40">
+              <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2, duration: 0.6 }}
-                  className="flex items-center gap-3"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="space-y-6"
                 >
-                  <Flame className="h-8 w-8 text-destructive animate-pulse" />
-                  <span className="text-destructive font-medium uppercase tracking-wider text-sm">
-                    Website Teardown
-                  </span>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="flex items-center gap-3"
+                  >
+                    <Flame className="h-8 w-8 text-destructive animate-pulse" />
+                    <span className="text-destructive font-medium uppercase tracking-wider text-sm">
+                      Website Teardown
+                    </span>
+                  </motion.div>
+
+                  <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3, duration: 0.7 }}
+                    className="text-4xl lg:text-6xl xl:text-7xl font-light text-white leading-tight"
+                  >
+                    Websites We'd{" "}
+                    <span className="text-destructive font-normal">Fire</span>
+                    <br />
+                    <span className="text-white/80">(And How We'd Fix Them)</span>
+                  </motion.h1>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.6 }}
+                    className="text-lg lg:text-xl text-white/70 max-w-xl"
+                  >
+                    {showTypewriter ? (
+                      <TypewriterText
+                        text="If your homepage is a vanity brochure instead of a sales asset, it's quietly taxing your pipeline. Here's what we'd sack on sight."
+                        speed={25}
+                        cursor={true}
+                      />
+                    ) : (
+                      <span className="opacity-0">Loading...</span>
+                    )}
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.7, duration: 0.6 }}
+                    className="flex flex-col sm:flex-row gap-4 pt-4"
+                  >
+                    <Button
+                      size="lg"
+                      className="bg-accent hover:bg-accent/90 text-accent-foreground group"
+                      onClick={() => {
+                        console.log("Event: websites_fire_cta_audit_clicked", { cta: "hero_primary" });
+                        window.location.href = "/free-seo-website-audit?focus=web&source=websites-we-would-fire";
+                      }}
+                    >
+                      <Zap className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
+                      Get a Free Website Teardown
+                    </Button>
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="bg-white/10 border-white/30 text-white hover:bg-transparent hover:scale-[1.02] transition-all"
+                      onClick={() => {
+                        console.log("Event: websites_fire_cta_audit_clicked", { cta: "hero_secondary" });
+                        window.location.href = "/contact";
+                      }}
+                    >
+                      Talk About a Rebuild
+                    </Button>
+                  </motion.div>
                 </motion.div>
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.3, duration: 0.7 }}
-                  className="text-4xl lg:text-6xl xl:text-7xl font-light text-white leading-tight"
-                >
-                  Websites We'd{" "}
-                  <span className="text-destructive font-normal">Fire</span>
-                  <br />
-                  <span className="text-white/80">(And How We'd Fix Them)</span>
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.5, duration: 0.6 }}
-                  className="text-lg lg:text-xl text-white/70 max-w-xl"
-                >
-                  If your homepage is a vanity brochure instead of a sales asset, 
-                  it's quietly taxing your pipeline. Here's what we'd sack on sight.
-                </motion.p>
-
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.7, duration: 0.6 }}
-                  className="flex flex-col sm:flex-row gap-4 pt-4"
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.4, duration: 0.8 }}
+                  className="relative hidden lg:block"
                 >
-                  <Button
-                    size="lg"
-                    className="bg-accent hover:bg-accent/90 text-accent-foreground"
-                    onClick={() => {
-                      console.log("Event: websites_fire_cta_audit_clicked", { cta: "hero_primary" });
-                      window.location.href = "/free-seo-website-audit?focus=web&source=websites-we-would-fire";
-                    }}
-                  >
-                    <Zap className="mr-2 h-5 w-5" />
-                    Get a Free Website Teardown
-                  </Button>
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="bg-white/10 border-white/30 text-white hover:bg-transparent"
-                    onClick={() => {
-                      console.log("Event: websites_fire_cta_audit_clicked", { cta: "hero_secondary" });
-                      window.location.href = "/contact";
-                    }}
-                  >
-                    Talk About a Rebuild
-                  </Button>
-                </motion.div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4, duration: 0.8 }}
-                className="relative hidden lg:block"
-              >
-                <Card className="p-8 bg-black/40 backdrop-blur-md border-destructive/30 shadow-2xl">
-                  <div className="space-y-6">
-                    <div className="flex items-center gap-3 text-destructive">
-                      <motion.div
-                        animate={{ rotate: [0, -10, 10, -10, 0] }}
-                        transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
-                      >
-                        <XCircle className="h-10 w-10" />
-                      </motion.div>
-                      <span className="font-medium text-xl text-white">Sites That Cost You Money</span>
-                    </div>
-                    <div className="space-y-3 text-white/70">
-                      {[
-                        "Hero sliders from 2012",
-                        "No clear CTA or value prop",
-                        "Beautiful but commercially useless",
-                        "Zero proof, all promise",
-                        "Contact form buried in footer"
-                      ].map((item, idx) => (
-                        <motion.p
-                          key={idx}
-                          initial={{ opacity: 0, x: 20 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ delay: 0.6 + idx * 0.1, duration: 0.4 }}
-                          className="flex items-center gap-3"
+                  <Card className="p-8 bg-black/40 backdrop-blur-md border-destructive/30 shadow-2xl">
+                    <div className="space-y-6">
+                      <div className="flex items-center gap-3 text-destructive">
+                        <motion.div
+                          animate={{ rotate: [0, -10, 10, -10, 0] }}
+                          transition={{ duration: 0.5, repeat: Infinity, repeatDelay: 3 }}
                         >
-                          <span className="text-destructive text-lg">✗</span>
-                          {item}
-                        </motion.p>
-                      ))}
+                          <XCircle className="h-10 w-10" />
+                        </motion.div>
+                        <span className="font-medium text-xl text-white">Sites That Cost You Money</span>
+                      </div>
+                      <div className="space-y-3 text-white/70">
+                        {[
+                          "Hero sliders from 2012",
+                          "No clear CTA or value prop",
+                          "Beautiful but commercially useless",
+                          "Zero proof, all promise",
+                          "Contact form buried in footer"
+                        ].map((item, idx) => (
+                          <motion.p
+                            key={idx}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.6 + idx * 0.1, duration: 0.4 }}
+                            className="flex items-center gap-3"
+                          >
+                            <span className="text-destructive text-lg">✗</span>
+                            {item}
+                          </motion.p>
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                </Card>
-              </motion.div>
+                  </Card>
+                </motion.div>
+              </div>
             </div>
-          </div>
-        </ParallaxBackground>
+          </ParallaxBackground>
+        </section>
 
-        {/* Interactive Before/After Hero Comparison */}
-        <section className="py-20 bg-secondary/30">
+        {/* Interactive Before/After with Hotspots - Enhancement #2 */}
+        <section id="before-after" className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-12">
@@ -409,14 +471,14 @@ const WebsitesWeFire = () => {
                   See the Difference: <span className="text-destructive">Fired</span> vs <span className="text-accent">Fixed</span>
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Drag the slider to compare a typical cluttered homepage with a conversion-focused redesign.
+                  Drag the slider to compare. Click the red hotspots to see exactly what's wrong.
                 </p>
               </div>
             </ScrollReveal>
 
             <ScrollReveal variant="fade-up" delay={200}>
               <div className="max-w-4xl mx-auto rounded-xl overflow-hidden shadow-2xl">
-                <BeforeAfterSlider
+                <BeforeAfterSliderWithHotspots
                   beforeImage={badHeroSlider}
                   afterImage={goodHeroFocused}
                   beforeLabel="🔥 Before: Cluttered & Confusing"
@@ -427,8 +489,39 @@ const WebsitesWeFire = () => {
           </div>
         </section>
 
-        {/* Archetype Teardowns with Animations */}
-        <section className="py-20 bg-background">
+        {/* Fire Risk Quiz - Enhancement #1 */}
+        <section id="quiz" className="py-20 bg-background">
+          <div className="container mx-auto px-4">
+            <ScrollReveal variant="fade-up">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl lg:text-4xl font-light text-foreground mb-4">
+                  Is Your Website at Risk of Being <span className="text-destructive">Fired</span>?
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Take our 7-question diagnostic quiz to find out your Fire Risk Score.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <ScrollReveal variant="scale" delay={200}>
+              <div className="max-w-2xl mx-auto">
+                <FireRiskQuiz />
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Video Testimonial #1 - Enhancement #8 */}
+        <section className="py-12 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <TestimonialVideoCard {...testimonials[0]} />
+            </div>
+          </div>
+        </section>
+
+        {/* Archetype Teardowns with "Am I Guilty?" Toggles - Enhancement #5 */}
+        <section id="archetypes" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-16">
@@ -436,7 +529,7 @@ const WebsitesWeFire = () => {
                   The 5 Website Archetypes We'd Fire
                 </h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Recognize any of these? Each one is quietly killing your conversions.
+                  Recognize any of these? Tap "I'm Guilty" to add to your risk meter.
                 </p>
               </div>
             </ScrollReveal>
@@ -445,6 +538,7 @@ const WebsitesWeFire = () => {
               {archetypes.map((archetype, index) => {
                 const Icon = archetype.icon;
                 const isEven = index % 2 === 0;
+                const isGuilty = guiltyArchetypes[archetype.number] || false;
                 
                 return (
                   <SectionReveal key={archetype.number} type="fade-blur">
@@ -454,7 +548,9 @@ const WebsitesWeFire = () => {
                       viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 0.6, delay: 0.1 }}
                     >
-                      <Card className="overflow-hidden border-border/50 hover:border-accent/30 transition-colors duration-500">
+                      <Card className={`overflow-hidden border-border/50 transition-all duration-500 ${
+                        isGuilty ? "border-destructive/50 shadow-lg shadow-destructive/10" : "hover:border-accent/30"
+                      }`}>
                         <div className={`grid lg:grid-cols-2 ${isEven ? '' : 'lg:flex-row-reverse'}`}>
                           {/* Image Side */}
                           <div className={`relative h-64 lg:h-auto lg:min-h-[400px] ${isEven ? '' : 'lg:order-2'}`}>
@@ -473,21 +569,30 @@ const WebsitesWeFire = () => {
 
                           {/* Content Side */}
                           <div className={`p-8 lg:p-12 ${isEven ? '' : 'lg:order-1'}`}>
-                            <div className="flex items-start gap-4 mb-6">
-                              <motion.div
-                                whileHover={{ scale: 1.1, rotate: 5 }}
-                                className="p-3 rounded-xl bg-accent/10 border border-accent/20"
-                              >
-                                <Icon className="h-8 w-8 text-accent" />
-                              </motion.div>
-                              <div>
-                                <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
-                                  Archetype #{archetype.number}
-                                </span>
-                                <h3 className="text-2xl lg:text-3xl font-light text-foreground">
-                                  {archetype.title}
-                                </h3>
+                            <div className="flex items-start justify-between gap-4 mb-6">
+                              <div className="flex items-start gap-4">
+                                <motion.div
+                                  whileHover={{ scale: 1.1, rotate: 5 }}
+                                  className="p-3 rounded-xl bg-accent/10 border border-accent/20"
+                                >
+                                  <Icon className="h-8 w-8 text-accent" />
+                                </motion.div>
+                                <div>
+                                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                                    Archetype #{archetype.number}
+                                  </span>
+                                  <h3 className="text-2xl lg:text-3xl font-light text-foreground">
+                                    {archetype.title}
+                                  </h3>
+                                </div>
                               </div>
+                              
+                              {/* "Am I Guilty?" Toggle */}
+                              <ArchetypeGuiltyToggle
+                                archetypeNumber={archetype.number}
+                                isGuilty={isGuilty}
+                                onToggle={handleGuiltyToggle}
+                              />
                             </div>
 
                             <p className="text-lg text-muted-foreground italic mb-8 border-l-2 border-accent/30 pl-4">
@@ -554,42 +659,53 @@ const WebsitesWeFire = () => {
           </div>
         </section>
 
-        {/* Video Stats Section */}
-        <ParallaxBackground
-          backgroundVideo={cityTimelapseVideo}
-          overlay="dark"
-          minHeight="60vh"
-          speed={0.2}
-        >
-          <div className="container mx-auto px-4 py-20">
-            <div className="text-center">
-              <ScrollReveal variant="fade-up">
-                <h2 className="text-3xl lg:text-4xl font-light text-white mb-4">
-                  Your Website Is Being Judged
-                </h2>
-                <p className="text-white/70 text-lg mb-12 max-w-xl mx-auto">
-                  Every second counts. Here's what the data says about first impressions.
-                </p>
-              </ScrollReveal>
-
-              <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-                {statsData.map((stat, idx) => (
-                  <ScrollReveal key={idx} variant="scale" delay={idx * 150}>
-                    <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                      <div className="text-5xl lg:text-6xl font-light text-accent mb-2">
-                        <CountUp end={stat.value} suffix={stat.suffix} />
-                      </div>
-                      <p className="text-white/70 text-sm">{stat.label}</p>
-                    </div>
-                  </ScrollReveal>
-                ))}
-              </div>
+        {/* Video Testimonial #2 - Enhancement #8 */}
+        <section className="py-12 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <TestimonialVideoCard {...testimonials[1]} />
             </div>
           </div>
-        </ParallaxBackground>
+        </section>
+
+        {/* Video Stats Section */}
+        <section id="stats">
+          <ParallaxBackground
+            backgroundVideo={cityTimelapseVideo}
+            overlay="dark"
+            minHeight="60vh"
+            speed={0.2}
+          >
+            <div className="container mx-auto px-4 py-20">
+              <div className="text-center">
+                <ScrollReveal variant="fade-up">
+                  <h2 className="text-3xl lg:text-4xl font-light text-white mb-4">
+                    Your Website Is Being Judged
+                  </h2>
+                  <p className="text-white/70 text-lg mb-12 max-w-xl mx-auto">
+                    Every second counts. Here's what the data says about first impressions.
+                  </p>
+                </ScrollReveal>
+
+                <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                  {statsData.map((stat, idx) => (
+                    <ScrollReveal key={idx} variant="scale" delay={idx * 150}>
+                      <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
+                        <div className="text-5xl lg:text-6xl font-light text-accent mb-2">
+                          <CountUp end={stat.value} suffix={stat.suffix} />
+                        </div>
+                        <p className="text-white/70 text-sm">{stat.label}</p>
+                      </div>
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </ParallaxBackground>
+        </section>
 
         {/* Conversion Checklist */}
-        <section className="py-20 bg-background">
+        <section id="checklist" className="py-20 bg-background">
           <div className="container mx-auto px-4">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-12">
@@ -668,101 +784,146 @@ const WebsitesWeFire = () => {
               <div className="text-center mt-12">
                 <Button
                   size="lg"
+                  className="group"
                   onClick={() => {
                     console.log("Event: websites_fire_cta_audit_clicked", { cta: "checklist_section" });
                     window.location.href = "/free-seo-website-audit?source=websites-we-would-fire";
                   }}
                 >
                   Not Sure Where Your Site Lands? Request a Teardown
-                  <ArrowRight className="ml-2 h-4 w-4" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </div>
             </ScrollReveal>
           </div>
         </section>
 
-        {/* Inline Teardown Form */}
-        <section className="py-20 bg-secondary/20">
+        {/* Revenue Loss Calculator - Enhancement #4 */}
+        <section id="calculator" className="py-20 bg-secondary/30">
           <div className="container mx-auto px-4">
-            <ScrollReveal variant="scale">
-              <Card className="max-w-2xl mx-auto p-8 lg:p-12 border-accent/20 shadow-xl">
-                <div className="text-center mb-8">
-                  <motion.div
-                    animate={{ y: [0, -5, 0] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                  >
-                    <Flame className="h-12 w-12 text-accent mx-auto mb-4" />
-                  </motion.div>
-                  <h2 className="text-3xl font-light text-foreground mb-4">
-                    Send Us Your Site. We'll Tell You What to Fix First.
-                  </h2>
-                  <p className="text-muted-foreground">
-                    Plain-English teardown delivered within 3 working days.
-                  </p>
-                </div>
-
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name">Your Name</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="bg-background"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <Label htmlFor="email">Work Email</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="bg-background"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="website">Website URL</Label>
-                    <Input
-                      id="website"
-                      name="website"
-                      type="url"
-                      placeholder="https://yoursite.com"
-                      value={formData.website}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-background"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label htmlFor="concern">What worries you most about your current site?</Label>
-                    <Textarea
-                      id="concern"
-                      name="concern"
-                      rows={4}
-                      placeholder="e.g. Lots of traffic but few enquiries, unclear messaging, looks dated..."
-                      value={formData.concern}
-                      onChange={handleInputChange}
-                      required
-                      className="bg-background"
-                    />
-                  </div>
-
-                  <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
-                    {isSubmitting ? "Submitting..." : "Request My Website Teardown"}
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </form>
-              </Card>
+            <ScrollReveal variant="fade-up">
+              <div className="text-center mb-12">
+                <h2 className="text-3xl lg:text-4xl font-light text-foreground mb-4">
+                  What's a Bad Website <span className="text-destructive">Really</span> Costing You?
+                </h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Use our calculator to see the annual revenue you're leaving on the table.
+                </p>
+              </div>
             </ScrollReveal>
+
+            <ScrollReveal variant="scale" delay={200}>
+              <div className="max-w-2xl mx-auto">
+                <RevenueLossCalculator />
+              </div>
+            </ScrollReveal>
+          </div>
+        </section>
+
+        {/* Video Testimonial #3 - Enhancement #8 */}
+        <section className="py-12 bg-background">
+          <div className="container mx-auto px-4">
+            <div className="max-w-3xl mx-auto">
+              <TestimonialVideoCard {...testimonials[2]} />
+            </div>
+          </div>
+        </section>
+
+        {/* Live Analyzer Preview & Teardown Form - Enhancement #6 */}
+        <section id="teardown-form" className="py-20 bg-secondary/20">
+          <div className="container mx-auto px-4">
+            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+              {/* Live Analyzer */}
+              <ScrollReveal variant="fade-left">
+                <LiveAnalyzerPreview />
+              </ScrollReveal>
+
+              {/* Teardown Form */}
+              <ScrollReveal variant="fade-right">
+                <Card className="p-8 lg:p-12 border-accent/20 shadow-xl h-full">
+                  <div className="text-center mb-8">
+                    <motion.div
+                      animate={{ y: [0, -5, 0] }}
+                      transition={{ duration: 2, repeat: Infinity }}
+                    >
+                      <Flame className="h-12 w-12 text-accent mx-auto mb-4" />
+                    </motion.div>
+                    <h2 className="text-2xl lg:text-3xl font-light text-foreground mb-4">
+                      Want a Human Teardown?
+                    </h2>
+                    <p className="text-muted-foreground">
+                      Plain-English analysis delivered within 3 working days.
+                    </p>
+                  </div>
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
+                    <div className="grid sm:grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="name">Your Name</Label>
+                        <Input
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="bg-background"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email">Work Email</Label>
+                        <Input
+                          id="email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="bg-background"
+                        />
+                      </div>
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="website">Website URL</Label>
+                      <Input
+                        id="website"
+                        name="website"
+                        type="url"
+                        placeholder="https://yoursite.com"
+                        value={formData.website}
+                        onChange={handleInputChange}
+                        required
+                        className="bg-background"
+                      />
+                    </div>
+
+                    <div className="space-y-2">
+                      <Label htmlFor="concern">What worries you most about your current site?</Label>
+                      <Textarea
+                        id="concern"
+                        name="concern"
+                        rows={3}
+                        placeholder="e.g. Lots of traffic but few enquiries..."
+                        value={formData.concern}
+                        onChange={handleInputChange}
+                        required
+                        className="bg-background"
+                      />
+                    </div>
+
+                    <Button 
+                      type="submit" 
+                      size="lg" 
+                      className="w-full group" 
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Submitting..." : "Request My Website Teardown"}
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </Button>
+                  </form>
+                </Card>
+              </ScrollReveal>
+            </div>
           </div>
         </section>
 
@@ -814,7 +975,7 @@ const WebsitesWeFire = () => {
         </section>
 
         {/* FAQ with Accordion */}
-        <section className="py-20 bg-secondary/20">
+        <section id="faq" className="py-20 bg-secondary/20">
           <div className="container mx-auto px-4">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-12">
@@ -858,24 +1019,27 @@ const WebsitesWeFire = () => {
                   Ready to Stop Wasting Money on a Site That Doesn't Convert?
                 </h2>
                 <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-                  Request a teardown and we'll show you exactly what's broken and how we'd fix it.
+                  {guiltyCount >= 3 
+                    ? `You identified ${guiltyCount} archetypes that match your site. It's definitely time for a teardown.`
+                    : "Request a teardown and we'll show you exactly what's broken and how we'd fix it."
+                  }
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button
                     size="lg"
-                    className="text-lg px-8"
+                    className="text-lg px-8 group"
                     onClick={() => {
-                      console.log("Event: websites_fire_cta_audit_clicked", { cta: "final_primary" });
+                      console.log("Event: websites_fire_cta_audit_clicked", { cta: "final_primary", guilty_count: guiltyCount });
                       window.location.href = "/free-seo-website-audit?source=websites-we-would-fire";
                     }}
                   >
-                    <Zap className="mr-2 h-5 w-5" />
+                    <Zap className="mr-2 h-5 w-5 transition-transform group-hover:scale-110" />
                     Get Your Free Teardown
                   </Button>
                   <Button
                     size="lg"
                     variant="outline"
-                    className="text-lg px-8"
+                    className="text-lg px-8 hover:scale-[1.02] transition-transform"
                     onClick={() => {
                       console.log("Event: websites_fire_cta_audit_clicked", { cta: "final_secondary" });
                       window.location.href = "/contact";
