@@ -453,7 +453,7 @@ const Home = () => {
           speed={0.4}
           overlay="gradient-left"
           minHeight="100vh"
-          className="flex items-center justify-center"
+          className="flex items-center"
         >
           {/* Living Gradient Mesh Background */}
           <GradientMesh className="opacity-40" />
