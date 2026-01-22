@@ -1,4 +1,4 @@
-// Module version: v12 - fixed all non-standard React imports
+// Module version: v13 - complete import standardization
 import React from "react";
 import ReactDOM from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";

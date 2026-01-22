@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";

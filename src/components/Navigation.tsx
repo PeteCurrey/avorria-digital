@@ -1,5 +1,5 @@
-// Module version: v3 - forces fresh HMR reload
-import { useState, useEffect } from "react";
+// Module version: v12 - standardized imports
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { 
