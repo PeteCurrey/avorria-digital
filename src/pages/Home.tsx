@@ -1,4 +1,4 @@
-// Cache buster v3 - forces Vite HMR to serve fresh module
+// Cache buster v4 - forces Vite HMR to serve fresh module
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
@@ -23,6 +23,8 @@ import CharacterReveal from "@/components/animations/CharacterReveal";
 import FloatingElements from "@/components/FloatingElements";
 import TiltCard from "@/components/TiltCard";
 import GradientMesh from "@/components/GradientMesh";
+import SectionNav from "@/components/SectionNav";
+import { useScrollSpy } from "@/hooks/useScrollSpy";
 import serviceSeo from "@/assets/service-seo.jpg";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
@@ -36,7 +38,20 @@ import heroPenthouse from "@/assets/hero-penthouse.png";
 import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
 import bgRaceCar from "@/assets/bg-race-car.png";
 
+// Section definitions for scroll spy navigation
+const homeSections = [
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "services", label: "Services" },
+  { id: "process", label: "Process" },
+  { id: "case-studies", label: "Results" },
+  { id: "testimonials", label: "Testimonials" },
+  { id: "faq", label: "FAQ" },
+];
+
 const Home = () => {
+  // Scroll spy for section navigation
+  const activeSection = useScrollSpy(homeSections, 120);
   
   // Fetch case studies from database
   const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
@@ -447,9 +462,12 @@ const Home = () => {
         <Navigation transparent={true} />
       </div>
 
+      {/* Section Navigation */}
+      <SectionNav sections={homeSections} activeId={activeSection} variant="dots" />
+
       <div className="min-h-screen bg-white">
         {/* Full-Screen Hero Section with Static Penthouse Image */}
-        <section className="relative min-h-screen flex items-center overflow-hidden">
+        <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
           {/* Static penthouse cityscape background */}
           <div className="absolute inset-0">
             <img 
@@ -557,6 +575,7 @@ const Home = () => {
         </section>
 
         {/* Who We Are Section with Video Background */}
+        <div id="about">
         <ParallaxBackground
           backgroundVideo={cityTimelapseVideo}
           speed={0.3}
@@ -634,6 +653,7 @@ const Home = () => {
             </div>
           </div>
         </ParallaxBackground>
+        </div>
 
         {/* Value Props */}
         <section className="py-24 md:py-32 bg-gray-50">
@@ -709,6 +729,7 @@ const Home = () => {
         </section>
 
         {/* Services Overview */}
+        <div id="services">
         <ParallaxBackground
           backgroundImage={bgRaceCar}
           speed={0.2}
@@ -787,9 +808,10 @@ const Home = () => {
             </ScrollReveal>
           </div>
         </ParallaxBackground>
+        </div>
 
         {/* Process Section */}
-        <section className="py-24 md:py-32 bg-gray-900 text-white">
+        <section id="process" className="py-24 md:py-32 bg-gray-900 text-white">
           <div className="container mx-auto px-4 sm:px-6">
             <ScrollReveal variant="fade-up" duration={500}>
               <div className="text-center mb-16 md:mb-20">
@@ -822,7 +844,7 @@ const Home = () => {
         </section>
 
         {/* Case Studies Section */}
-        <section className="py-24 md:py-32 bg-white">
+        <section id="case-studies" className="py-24 md:py-32 bg-white">
           <div className="container mx-auto px-4 sm:px-6">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-16 md:mb-20">
@@ -962,7 +984,7 @@ const Home = () => {
         </section>
 
         {/* Testimonials */}
-        <section className="py-24 md:py-32 bg-gray-900 text-white">
+        <section id="testimonials" className="py-24 md:py-32 bg-gray-900 text-white">
           <div className="container mx-auto px-4 sm:px-6">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-16">
@@ -994,7 +1016,7 @@ const Home = () => {
         </section>
 
         {/* FAQ */}
-        <section className="py-24 md:py-32 bg-white">
+        <section id="faq" className="py-24 md:py-32 bg-white">
           <div className="container mx-auto px-4 sm:px-6">
             <div className="max-w-3xl mx-auto">
               <ScrollReveal variant="fade-up" duration={500}>
