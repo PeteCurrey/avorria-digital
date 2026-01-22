@@ -13,6 +13,16 @@ import {
   AlertTriangle
 } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 const RevenueLossCalculator: React.FC = () => {
   const [monthlyTraffic, setMonthlyTraffic] = useState(10000);
@@ -42,6 +52,22 @@ const RevenueLossCalculator: React.FC = () => {
     };
   }, [monthlyTraffic, conversionRate, avgDealValue]);
 
+  // Generate 12-month chart data with cumulative loss
+  const chartData = useMemo(() => {
+    return MONTHS.map((month, index) => {
+      const cumulativeCurrent = calculations.currentMonthlyRevenue * (index + 1);
+      const cumulativeImproved = calculations.improvedMonthlyRevenue * (index + 1);
+      const cumulativeLoss = cumulativeImproved - cumulativeCurrent;
+      
+      return {
+        month,
+        current: Math.round(cumulativeCurrent),
+        potential: Math.round(cumulativeImproved),
+        gap: Math.round(cumulativeLoss),
+      };
+    });
+  }, [calculations]);
+
   const handleCalculate = () => {
     setShowResult(true);
     trackEvent("calculator_completed", {
@@ -63,6 +89,38 @@ const RevenueLossCalculator: React.FC = () => {
 
   const formatNumber = (value: number) => {
     return new Intl.NumberFormat("en-GB").format(value);
+  };
+
+  const formatAxisValue = (value: number) => {
+    if (value >= 1000000) {
+      return `£${(value / 1000000).toFixed(1)}M`;
+    }
+    if (value >= 1000) {
+      return `£${(value / 1000).toFixed(0)}k`;
+    }
+    return `£${value}`;
+  };
+
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="bg-background/95 backdrop-blur-sm border border-border rounded-lg p-3 shadow-lg">
+          <p className="text-sm font-medium text-foreground mb-2">{label}</p>
+          <div className="space-y-1">
+            <p className="text-xs text-accent">
+              Potential: {formatCurrency(payload[0]?.value || 0)}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Current: {formatCurrency(payload[1]?.value || 0)}
+            </p>
+            <p className="text-xs text-destructive font-medium">
+              Gap: {formatCurrency(payload[2]?.value || 0)}
+            </p>
+          </div>
+        </div>
+      );
+    }
+    return null;
   };
 
   return (
@@ -198,11 +256,106 @@ const RevenueLossCalculator: React.FC = () => {
                 </div>
               </div>
 
+              {/* 12-Month Revenue Gap Chart */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="p-4 rounded-xl bg-muted/30 border border-border"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-sm font-medium text-foreground">
+                    12-Month Cumulative Revenue Gap
+                  </h4>
+                  <div className="flex items-center gap-4 text-xs">
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-accent" />
+                      <span className="text-muted-foreground">Potential</span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <div className="w-3 h-3 rounded-full bg-muted-foreground/50" />
+                      <span className="text-muted-foreground">Current</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="h-[200px] sm:h-[250px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <AreaChart
+                      data={chartData}
+                      margin={{ top: 10, right: 10, left: 0, bottom: 0 }}
+                    >
+                      <defs>
+                        <linearGradient id="potentialGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="hsl(var(--accent))" stopOpacity={0.4} />
+                          <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity={0.05} />
+                        </linearGradient>
+                        <linearGradient id="currentGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="hsl(var(--muted-foreground))" stopOpacity={0.3} />
+                          <stop offset="100%" stopColor="hsl(var(--muted-foreground))" stopOpacity={0.05} />
+                        </linearGradient>
+                        <linearGradient id="gapGradient" x1="0" y1="0" x2="0" y2="1">
+                          <stop offset="0%" stopColor="hsl(var(--destructive))" stopOpacity={0.3} />
+                          <stop offset="100%" stopColor="hsl(var(--destructive))" stopOpacity={0.05} />
+                        </linearGradient>
+                      </defs>
+                      <XAxis 
+                        dataKey="month" 
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
+                        dy={8}
+                      />
+                      <YAxis 
+                        axisLine={false}
+                        tickLine={false}
+                        tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
+                        tickFormatter={formatAxisValue}
+                        width={50}
+                      />
+                      <Tooltip content={<CustomTooltip />} />
+                      <Area
+                        type="monotone"
+                        dataKey="potential"
+                        stroke="hsl(var(--accent))"
+                        strokeWidth={2}
+                        fill="url(#potentialGradient)"
+                        animationDuration={1500}
+                        animationEasing="ease-out"
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="current"
+                        stroke="hsl(var(--muted-foreground))"
+                        strokeWidth={2}
+                        fill="url(#currentGradient)"
+                        animationDuration={1500}
+                        animationEasing="ease-out"
+                        animationBegin={300}
+                      />
+                      <Area
+                        type="monotone"
+                        dataKey="gap"
+                        stroke="hsl(var(--destructive))"
+                        strokeWidth={0}
+                        fill="url(#gapGradient)"
+                        animationDuration={1500}
+                        animationEasing="ease-out"
+                        animationBegin={600}
+                        style={{ display: 'none' }}
+                      />
+                    </AreaChart>
+                  </ResponsiveContainer>
+                </div>
+                <p className="text-xs text-muted-foreground text-center mt-3">
+                  The gap between the lines represents your missed revenue opportunity
+                </p>
+              </motion.div>
+
               {/* Annual Loss Reveal */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
-                transition={{ delay: 0.2, type: "spring" }}
+                transition={{ delay: 0.4, type: "spring" }}
                 className="p-6 rounded-xl bg-destructive/10 border border-destructive/30 text-center"
               >
                 <div className="flex items-center justify-center gap-2 text-destructive mb-2">
@@ -214,7 +367,7 @@ const RevenueLossCalculator: React.FC = () => {
                 <motion.p
                   initial={{ scale: 0.5 }}
                   animate={{ scale: 1 }}
-                  transition={{ delay: 0.4, type: "spring", damping: 10 }}
+                  transition={{ delay: 0.6, type: "spring", damping: 10 }}
                   className="text-4xl lg:text-5xl font-bold text-destructive"
                 >
                   {formatCurrency(calculations.annualLoss)}
@@ -228,7 +381,7 @@ const RevenueLossCalculator: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.5 }}
+                transition={{ delay: 0.7 }}
                 className="flex items-start gap-3 p-4 rounded-lg bg-yellow-500/10 border border-yellow-500/30"
               >
                 <AlertTriangle className="h-5 w-5 text-yellow-500 shrink-0 mt-0.5" />
@@ -244,7 +397,7 @@ const RevenueLossCalculator: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
+                transition={{ delay: 0.8 }}
               >
                 <Button
                   size="lg"
