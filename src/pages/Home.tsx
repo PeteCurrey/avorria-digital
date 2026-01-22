@@ -15,7 +15,7 @@ import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import Navigation from "@/components/Navigation";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import ParallaxBackground from "@/components/ParallaxBackground";
-import ScrollTimelapse from "@/components/ScrollTimelapse";
+
 import { LogoWall } from "@/components/LogoWall";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
@@ -448,10 +448,16 @@ const Home = () => {
       </div>
 
       <div className="min-h-screen bg-white">
-        {/* Full-Screen Hero Section with Day-to-Night Timelapse */}
+        {/* Full-Screen Hero Section with Static Penthouse Image */}
         <section className="relative min-h-screen flex items-center overflow-hidden">
-          {/* Scroll-controlled timelapse background */}
-          <ScrollTimelapse speed={0.4} />
+          {/* Static penthouse cityscape background */}
+          <div className="absolute inset-0">
+            <img 
+              src={heroPenthouse} 
+              alt="Luxury penthouse cityscape" 
+              className="w-full h-full object-cover"
+            />
+          </div>
           
           {/* Gradient overlay for text legibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 z-[1]" />
