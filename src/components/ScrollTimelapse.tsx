@@ -1,5 +1,5 @@
-// Scroll-controlled day-to-night timelapse effect
-import { useRef } from "react";
+// Scroll-controlled day-to-night timelapse effect v7
+import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
