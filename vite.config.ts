@@ -1,4 +1,4 @@
-// Cache rebuild trigger v10 - standardized React imports - force fresh module resolution
+// Cache rebuild trigger v11 - force clean HMR after stale cache error
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";

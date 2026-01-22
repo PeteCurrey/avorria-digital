@@ -1,4 +1,4 @@
-// Module version: v10 - standardized React imports - forces fresh HMR reload
+// Module version: v11 - force clean rebuild to resolve stale cache
 import React from "react";
 import ReactDOM from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";
