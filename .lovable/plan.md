@@ -1,211 +1,296 @@
 
-# Enhancement Plan: "Websites We'd Fire" Page - Phase 2 Improvements
+
+# Phase 2 Implementation Plan: "Websites We'd Fire" Page Enhancements
 
 ## Overview
 
-This plan addresses two key areas:
-1. **Mock-up Image Improvements** - Regenerating the before/after images with proper English text
-2. **Additional UX Enhancements** - 8 new features to further elevate the page
+This plan implements the Phase 2 enhancements outlined in the approved plan, focusing on:
+1. **AI-Generated Mock-Up Images** with proper English text
+2. **8 New UX Features** to maximize engagement and conversions
 
 ---
 
-## Part 1: Mock-Up Image Improvements
+## Part 1: AI-Generated Mock-Up Images
 
-### Current Issue
-The example images (`bad-hero-slider.jpg`, `bad-generalist-site.jpg`, `bad-no-cta.jpg`, `bad-wall-of-text.jpg`, `good-hero-focused.jpg`) likely contain placeholder or lorem ipsum text that needs to be replaced with realistic English content.
+### Current State
+The page currently uses 5 static example images:
+- `bad-hero-slider.jpg`
+- `bad-generalist-site.jpg`
+- `bad-no-cta.jpg`
+- `bad-wall-of-text.jpg`
+- `good-hero-focused.jpg`
 
-### Solution: AI-Generated Mock-Up Images
+These images may contain placeholder or lorem ipsum text that needs replacing with realistic English content.
 
-Create new high-fidelity website mock-up images using the Lovable AI image generation API with specific prompts for each archetype:
+### Solution: Edge Function for Image Generation
 
-**Images to Generate:**
+Create a new edge function that generates high-fidelity website mock-ups using the Lovable AI gateway with specific prompts for each archetype.
 
-1. **bad-hero-slider-v2.jpg** - "Fired" website with rotating carousel
-   - Prompt elements: Multiple overlapping hero banners, "WELCOME TO OUR COMPANY", "Learn More" buttons, generic stock photo of handshake, cluttered navigation with 10+ menu items
+**New Edge Function**: `supabase/functions/generate-mockup-images/index.ts`
 
-2. **bad-generalist-site-v2.jpg** - "We Do Everything" agency site
-   - Prompt elements: Long list of services (SEO, Web Design, Social Media, Branding, Print, Video, Apps, Consulting, etc.), no clear positioning, generic taglines like "Your Success is Our Priority"
+This function will:
+1. Accept an archetype ID parameter
+2. Generate a professional website screenshot mock-up using detailed prompts
+3. Upload the result to Supabase storage (`case-study-images` bucket)
+4. Return the public URL for use in the frontend
 
-3. **bad-no-cta-v2.jpg** - No clear call-to-action
-   - Prompt elements: Beautiful hero imagery, inspirational quote like "Inspiring Tomorrow's Leaders", no visible buttons, contact info barely visible in footer
+**Image Prompts:**
 
-4. **bad-wall-of-text-v2.jpg** - Dense text, no proof
-   - Prompt elements: Long paragraphs about "Our Methodology", "Our Values", "Our Approach", no testimonials, no case studies, no pricing
+| Archetype | Prompt Description |
+|-----------|-------------------|
+| Hero Slider | Browser window showing a website with rotating carousel, multiple "WELCOME TO OUR COMPANY" banners, "Learn More" buttons, generic handshake stock photo, cluttered navigation with 10+ menu items |
+| Generalist Site | Browser window showing agency website listing 15+ services: SEO, Web Design, Social Media, Branding, Print, Video, Apps, Consulting. Tagline "Your Success is Our Priority". No clear positioning |
+| No CTA | Browser window showing beautiful hero imagery with inspirational quote "Inspiring Tomorrow's Leaders", no visible buttons, contact info barely visible in footer |
+| Wall of Text | Browser window showing dense paragraphs about "Our Methodology", "Our Values", "Our Approach", no testimonials or case studies, no pricing |
+| Fixed (Avorria) | Browser window showing clean homepage with headline "We Help B2B Companies Double Qualified Leads", prominent purple CTA "Get Your Free Audit", client logos below, clean 5-item navigation |
 
-5. **good-hero-focused-v2.jpg** - Avorria-style "Fixed" website
-   - Prompt elements: Clear headline "We Help B2B Companies Double Qualified Leads", prominent CTA "Get Your Free Audit", client logos, clean navigation with 5 items
-
-### Implementation Approach
-
-Create a utility function that generates these images using the Lovable AI gateway, then save them to the project assets. Each image will be a professional website mockup with:
-- Realistic browser chrome
-- Proper English text matching the archetype
-- Clear visual hierarchy (good or bad depending on the archetype)
-- Mobile-responsive design hints
+**Admin Integration**: Add an image generation panel to the admin area or create a utility hook that allows regenerating images on demand.
 
 ---
 
-## Part 2: Additional UX Enhancements
+## Part 2: New UX Enhancement Components
 
-### Enhancement A: Animated Archetype Comparison Modal
-**Impact: High | Effort: Medium**
+### Enhancement A: Social Proof Ticker
+**File**: `src/components/websites-we-fire/SocialProofTicker.tsx`
 
-Add a full-screen comparison modal that appears when users click "See the Fix" on each archetype card:
+A horizontal scrolling ticker below the hero showing real-time social proof:
+- Auto-scrolling messages with pause on hover
+- Messages like "Sarah from London just requested a teardown" and "TechCorp saw +47% conversions after rebuild"
+- Subtle fade edges on left and right
+- CSS animation for smooth infinite scroll
 
-- Split-screen animation showing before and after
-- Annotated callouts explaining each change
-- Smooth transition between states
-- "Apply This Fix" CTA linking to contact
+**Integration**: Add after the hero section in `WebsitesWeFire.tsx`
 
-### Enhancement B: Social Proof Ticker
-**Impact: Medium | Effort: Low**
+---
 
-Add a horizontal scrolling ticker below the hero showing real-time social proof:
+### Enhancement B: Quiz Results Sharing
+**File**: `src/components/websites-we-fire/QuizShareCard.tsx`
 
-- "Sarah from London just requested a teardown"
-- "TechCorp saw +47% conversions after rebuild"
-- Subtle animations, auto-scrolling with pause on hover
-
-### Enhancement C: Quiz Results Sharing
-**Impact: High | Effort: Medium**
-
-Add social sharing to the Fire Risk Quiz results:
-
-- Generate shareable image with score
+Add social sharing functionality to the Fire Risk Quiz results:
+- Generate a shareable card with the user's score and risk level
 - Pre-written social copy: "My website scored [X] on Avorria's Fire Risk Quiz! 🔥"
-- LinkedIn and Twitter share buttons
-- Copy-to-clipboard option
+- Share buttons for LinkedIn, Twitter, and copy-to-clipboard
+- Uses Web Share API where available, fallback to direct URLs
 
-### Enhancement D: Interactive "Cost of Inaction" Timeline
-**Impact: High | Effort: Medium**
+**Integration**: Add to `FireRiskQuiz.tsx` result screen
 
-Add a visual timeline below the Revenue Calculator showing:
+---
 
+### Enhancement C: Live Activity Indicator
+**File**: `src/components/websites-we-fire/LiveActivityIndicator.tsx`
+
+A playful social proof indicator near the teardown form:
+- Shows "X people are viewing this page right now"
+- Typing animation dots
+- Randomized but realistic numbers (3-12 range)
+- Subtle pulsing animation
+
+**Integration**: Add above the teardown form in `WebsitesWeFire.tsx`
+
+---
+
+### Enhancement D: Cost of Inaction Timeline
+**File**: `src/components/websites-we-fire/CostOfInactionTimeline.tsx`
+
+A visual timeline below the Revenue Calculator showing cumulative impact:
 - Month 1: Current state - £X lost
 - Month 3: Competitors pull ahead
 - Month 6: SEO rankings drop
 - Month 12: Total annual loss £XXX,XXX
 
-Animated line graph with scrolling reveal.
+Features:
+- Animated timeline with scroll-triggered reveal
+- Each milestone animates in sequence
+- Connects to Revenue Calculator values for personalization
+- Dramatic visual treatment with red gradient
 
-### Enhancement E: Real-Time Typing Indicator on Form
-**Impact: Low | Effort: Low**
-
-Add a playful "someone is currently filling this out" indicator near the teardown form:
-
-- Shows "5 people currently reviewing this page"
-- Typing animation dots
-- Creates urgency and social proof
-
-### Enhancement F: Archetype Audio Narration (Optional)
-**Impact: Medium | Effort: High**
-
-Add optional audio narration using ElevenLabs:
-
-- "Click to hear why this archetype gets fired"
-- 15-30 second audio clips per archetype
-- Play/pause controls
-- Accessibility enhancement
-
-### Enhancement G: Personalized Results Email
-**Impact: High | Effort: Medium**
-
-After quiz completion, offer to email results:
-
-- Email input field on results screen
-- Send personalized PDF with score
-- Include specific fixes for their score range
-- Follow-up sequence trigger
-
-### Enhancement H: Scroll-Triggered "Aha Moment" Animations
-**Impact: Medium | Effort: Low**
-
-Add dramatic reveal animations at key moments:
-
-- Stats section: Numbers "explode" into view
-- Checklist: Items strike through dramatically
-- Revenue calculator: Money "burns" away animation
-- Final CTA: Pulsing glow effect
+**Integration**: Add after the Revenue Calculator section
 
 ---
 
-## Technical Implementation Details
+### Enhancement E: Archetype Comparison Modal
+**File**: `src/components/websites-we-fire/ArchetypeComparisonModal.tsx`
+
+A full-screen comparison modal when users click "See the Fix":
+- Split-screen animation showing before and after
+- Annotated callouts explaining each change (using existing archetype data)
+- Smooth transition between states
+- "Apply This Fix" CTA linking to contact
+
+**Integration**: Add "See the Fix" button to each archetype card, wire up modal
+
+---
+
+### Enhancement F: Scroll-Triggered Explosion Animations
+**File**: `src/components/websites-we-fire/ScrollExplosion.tsx`
+
+Wrapper component for dramatic reveal animations:
+- Numbers "explode" into view with particle burst
+- Slight overshoot and settle (spring physics)
+- Optional confetti/particle burst on completion
+- Uses Framer Motion variants
+
+**Integration**: Wrap stats and revenue calculator sections
+
+---
+
+### Enhancement G: Quiz Results Email Capture
+**File**: `src/components/websites-we-fire/QuizResultsEmailCapture.tsx`
+
+After quiz completion, offer to email results:
+- Email input field on results screen
+- "Send me a detailed breakdown" CTA
+- Triggers backend function to send personalized email with score
+- Follow-up sequence trigger via Supabase
+
+**Dependencies**: Uses existing `send-newsletter` edge function pattern or creates new `send-quiz-results` function
+
+---
+
+### Enhancement H: Archetype Audio Narration (Optional)
+**File**: `src/components/websites-we-fire/ArchetypeNarration.tsx`
+
+Optional audio narration for each archetype:
+- "Click to hear why this archetype gets fired"
+- 15-30 second audio clips per archetype
+- Play/pause controls with visual feedback
+- Uses ElevenLabs API via existing edge function
+
+**Integration**: Add to archetype cards (optional enhancement)
+
+---
+
+## File Changes Summary
 
 ### New Files to Create
 
 ```text
-src/components/websites-we-fire/
-├── ArchetypeComparisonModal.tsx    # Enhancement A
-├── SocialProofTicker.tsx           # Enhancement B
-├── QuizShareCard.tsx               # Enhancement C
-├── CostOfInactionTimeline.tsx      # Enhancement D
-├── LiveActivityIndicator.tsx       # Enhancement E
-├── ArchetypeNarration.tsx          # Enhancement F
-├── QuizResultsEmailCapture.tsx     # Enhancement G
-└── ScrollExplosion.tsx             # Enhancement H
+supabase/functions/generate-mockup-images/index.ts
+src/components/websites-we-fire/SocialProofTicker.tsx
+src/components/websites-we-fire/QuizShareCard.tsx
+src/components/websites-we-fire/LiveActivityIndicator.tsx
+src/components/websites-we-fire/CostOfInactionTimeline.tsx
+src/components/websites-we-fire/ArchetypeComparisonModal.tsx
+src/components/websites-we-fire/ScrollExplosion.tsx
+src/components/websites-we-fire/QuizResultsEmailCapture.tsx
+supabase/functions/send-quiz-results/index.ts (optional)
 ```
 
 ### Files to Modify
 
 ```text
+src/components/websites-we-fire/index.tsx
+├── Export new components
+
 src/pages/WebsitesWeFire.tsx
 ├── Add SocialProofTicker after hero
-├── Integrate ArchetypeComparisonModal
 ├── Add LiveActivityIndicator near form
+├── Add CostOfInactionTimeline after calculator
+├── Integrate ArchetypeComparisonModal with archetype cards
 ├── Wrap stats with ScrollExplosion
-└── Update quiz with sharing/email options
 
 src/components/websites-we-fire/FireRiskQuiz.tsx
 ├── Add QuizShareCard on results
-└── Add QuizResultsEmailCapture option
-```
-
-### Image Generation Implementation
-
-```text
-supabase/functions/generate-mockup-images/index.ts
-├── Uses Lovable AI gateway
-├── Generates 5 archetype images
-├── Saves to Supabase storage
-└── Returns public URLs for use in frontend
+├── Add QuizResultsEmailCapture option
 ```
 
 ---
 
-## Recommended Implementation Order
+## Implementation Order
 
-**Phase 2A - Quick Wins (1-2 hours):**
-1. Social Proof Ticker
-2. Live Activity Indicator
-3. Scroll-Triggered Animations
+**Phase 2A - Quick Wins (Immediate Impact):**
+1. SocialProofTicker - adds credibility immediately
+2. LiveActivityIndicator - creates urgency
+3. ScrollExplosion - polish layer for existing elements
 
-**Phase 2B - Core Features (2-4 hours):**
-4. Quiz Results Sharing
-5. Archetype Comparison Modal
-6. Cost of Inaction Timeline
+**Phase 2B - Core Features:**
+4. QuizShareCard - viral potential
+5. CostOfInactionTimeline - strengthens revenue calculator
+6. ArchetypeComparisonModal - deeper engagement
 
-**Phase 2C - Image Improvements (1-2 hours):**
-7. Generate new mock-up images with English text
-8. Update image imports and hotspot positions
+**Phase 2C - Image Generation:**
+7. Create `generate-mockup-images` edge function
+8. Generate 5 archetype images with English text
+9. Update image imports in WebsitesWeFire.tsx
+10. Adjust hotspot positions if needed
 
-**Phase 2D - Advanced Features (2-4 hours):**
-9. Personalized Results Email
-10. Audio Narration (if desired)
+**Phase 2D - Advanced Features:**
+11. QuizResultsEmailCapture with email function
+12. ArchetypeNarration (if desired)
+
+---
+
+## Technical Details
+
+### Social Proof Ticker Animation
+Uses CSS keyframes for infinite horizontal scroll:
+```css
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+```
+Content is duplicated to create seamless loop.
+
+### Quiz Share Card
+Uses Web Share API with fallback:
+```typescript
+if (navigator.share) {
+  await navigator.share({ title, text, url });
+} else {
+  // Fallback to social media URLs
+  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`);
+}
+```
+
+### Mock-Up Image Generation
+Edge function uses Lovable AI gateway:
+```typescript
+const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Authorization": `Bearer ${lovableApiKey}`,
+    "Content-Type": "application/json",
+  },
+  body: JSON.stringify({
+    model: "google/gemini-2.5-flash-image-preview",
+    messages: [{ role: "user", content: detailedPrompt }],
+    modalities: ["image", "text"],
+  }),
+});
+```
+
+### Email Capture Integration
+Uses existing Resend setup (RESEND_API_KEY already configured):
+```typescript
+await resend.emails.send({
+  from: "Avorria <noreply@avorria.com>",
+  to: [userEmail],
+  subject: "Your Website Fire Risk Score: [X]%",
+  html: personalizedTemplate,
+});
+```
+
+---
+
+## Tracking Events to Add
+
+| Event | Trigger | Data |
+|-------|---------|------|
+| `ticker_interaction` | Hover on ticker | `{action: 'pause'}` |
+| `quiz_share_clicked` | Share button click | `{platform, score}` |
+| `quiz_email_submitted` | Email capture submit | `{score, email_provided: true}` |
+| `timeline_viewed` | Timeline scroll into view | `{annual_loss}` |
+| `comparison_modal_opened` | "See the Fix" click | `{archetype_number}` |
+| `image_generated` | Admin generates new image | `{archetype}` |
 
 ---
 
 ## Expected Outcomes
 
 - **Engagement**: +25-40% time on page
-- **Conversion**: +15-25% form submissions
+- **Conversion**: +15-25% form submissions  
 - **Sharing**: New viral coefficient from quiz sharing
 - **Credibility**: Professional mock-ups with realistic English text
+- **Urgency**: Live activity and timeline create FOMO
 
----
-
-## Dependencies
-
-- Existing canvas-confetti package (already installed)
-- Lovable AI gateway for image generation
-- Optional: Supabase storage for generated images
-- Optional: Email service for results delivery
