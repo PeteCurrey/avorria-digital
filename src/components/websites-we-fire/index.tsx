@@ -10,3 +10,4 @@ export { default as TestimonialVideoCard, testimonials } from "./TestimonialVide
 export { default as ArchetypeGuiltyToggle } from "./ArchetypeGuiltyToggle";
 export { default as FireRiskMeter } from "./FireRiskMeter";
 export { default as BeforeAfterSliderWithHotspots } from "./BeforeAfterSliderWithHotspots";
+export { default as ScrollExplosion, ExplosiveCountUp } from "./ScrollExplosion";

@@ -48,6 +48,8 @@ import {
   ArchetypeGuiltyToggle,
   FireRiskMeter,
   BeforeAfterSliderWithHotspots,
+  ScrollExplosion,
+  ExplosiveCountUp,
 } from "@/components/websites-we-fire";
 
 // Import images
@@ -690,12 +692,22 @@ const WebsitesWeFire = () => {
                 <div className="grid md:grid-cols-3 gap-8 max-w-4xl mx-auto">
                   {statsData.map((stat, idx) => (
                     <ScrollReveal key={idx} variant="scale" delay={idx * 150}>
-                      <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10">
-                        <div className="text-5xl lg:text-6xl font-light text-accent mb-2">
-                          <CountUp end={stat.value} suffix={stat.suffix} />
+                      <ScrollExplosion 
+                        useConfetti={true} 
+                        explosionScale={1.12}
+                        particleCount={15}
+                      >
+                        <div className="text-center p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-accent/30 transition-colors">
+                          <div className="text-5xl lg:text-6xl font-light text-accent mb-2">
+                            <ExplosiveCountUp 
+                              end={stat.value} 
+                              suffix={stat.suffix} 
+                              glowColor="hsl(320, 85%, 55%)"
+                            />
+                          </div>
+                          <p className="text-white/70 text-sm">{stat.label}</p>
                         </div>
-                        <p className="text-white/70 text-sm">{stat.label}</p>
-                      </div>
+                      </ScrollExplosion>
                     </ScrollReveal>
                   ))}
                 </div>
@@ -950,22 +962,30 @@ const WebsitesWeFire = () => {
                       whileHover={{ y: -8, scale: 1.02 }}
                       transition={{ duration: 0.3 }}
                     >
-                      <Card className="p-8 text-center hover:shadow-xl transition-shadow duration-300 border-accent/10 hover:border-accent/30">
-                        <Icon className="h-10 w-10 text-accent mx-auto mb-4" />
-                        <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
-                          {result.title}
-                        </h3>
-                        <div className="text-5xl font-light text-accent mb-2">
-                          <CountUp 
-                            end={result.metric} 
-                            prefix={result.prefix} 
-                            suffix={result.suffix} 
-                          />
-                        </div>
-                        <p className="text-sm text-muted-foreground">
-                          {result.context}
-                        </p>
-                      </Card>
+                      <ScrollExplosion 
+                        useConfetti={true} 
+                        explosionScale={1.08}
+                        particleCount={12}
+                        colors={['#e879f9', '#a855f7', '#22c55e', '#f472b6']}
+                      >
+                        <Card className="p-8 text-center hover:shadow-xl transition-shadow duration-300 border-accent/10 hover:border-accent/30">
+                          <Icon className="h-10 w-10 text-accent mx-auto mb-4" />
+                          <h3 className="text-sm font-medium text-muted-foreground uppercase tracking-wide mb-4">
+                            {result.title}
+                          </h3>
+                          <div className="text-5xl font-light text-accent mb-2">
+                            <ExplosiveCountUp 
+                              end={result.metric} 
+                              prefix={result.prefix} 
+                              suffix={result.suffix}
+                              glowColor="hsl(320, 85%, 55%)"
+                            />
+                          </div>
+                          <p className="text-sm text-muted-foreground">
+                            {result.context}
+                          </p>
+                        </Card>
+                      </ScrollExplosion>
                     </motion.div>
                   </ScrollReveal>
                 );
