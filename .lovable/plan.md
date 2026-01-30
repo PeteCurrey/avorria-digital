@@ -1,296 +1,360 @@
 
-
-# Phase 2 Implementation Plan: "Websites We'd Fire" Page Enhancements
+# Services Page Enhancement Plan: Award-Winning Visual Masterpiece
 
 ## Overview
 
-This plan implements the Phase 2 enhancements outlined in the approved plan, focusing on:
-1. **AI-Generated Mock-Up Images** with proper English text
-2. **8 New UX Features** to maximize engagement and conversions
+The current `/services` page is functional but lacks the immersive, interactive experience that makes the Home page and "Websites We'd Fire" page stand out. This plan transforms it into a showcase-worthy experience that demonstrates Avorria's design and UX capabilities.
 
 ---
 
-## Part 1: AI-Generated Mock-Up Images
+## Current State Analysis
 
-### Current State
-The page currently uses 5 static example images:
-- `bad-hero-slider.jpg`
-- `bad-generalist-site.jpg`
-- `bad-no-cta.jpg`
-- `bad-wall-of-text.jpg`
-- `good-hero-focused.jpg`
+The existing Services page has:
+- Basic HeroBand with static background
+- Simple 3-column questions grid
+- Standard service cards on light background
+- Basic ContentBand for Web Design feature
+- "Where Should You Start" section with cityscape background
 
-These images may contain placeholder or lorem ipsum text that needs replacing with realistic English content.
-
-### Solution: Edge Function for Image Generation
-
-Create a new edge function that generates high-fidelity website mock-ups using the Lovable AI gateway with specific prompts for each archetype.
-
-**New Edge Function**: `supabase/functions/generate-mockup-images/index.ts`
-
-This function will:
-1. Accept an archetype ID parameter
-2. Generate a professional website screenshot mock-up using detailed prompts
-3. Upload the result to Supabase storage (`case-study-images` bucket)
-4. Return the public URL for use in the frontend
-
-**Image Prompts:**
-
-| Archetype | Prompt Description |
-|-----------|-------------------|
-| Hero Slider | Browser window showing a website with rotating carousel, multiple "WELCOME TO OUR COMPANY" banners, "Learn More" buttons, generic handshake stock photo, cluttered navigation with 10+ menu items |
-| Generalist Site | Browser window showing agency website listing 15+ services: SEO, Web Design, Social Media, Branding, Print, Video, Apps, Consulting. Tagline "Your Success is Our Priority". No clear positioning |
-| No CTA | Browser window showing beautiful hero imagery with inspirational quote "Inspiring Tomorrow's Leaders", no visible buttons, contact info barely visible in footer |
-| Wall of Text | Browser window showing dense paragraphs about "Our Methodology", "Our Values", "Our Approach", no testimonials or case studies, no pricing |
-| Fixed (Avorria) | Browser window showing clean homepage with headline "We Help B2B Companies Double Qualified Leads", prominent purple CTA "Get Your Free Audit", client logos below, clean 5-item navigation |
-
-**Admin Integration**: Add an image generation panel to the admin area or create a utility hook that allows regenerating images on demand.
+**What's Missing:**
+- No interactive elements that engage visitors
+- No scroll-triggered animations or reveals
+- No 3D effects or tilt cards
+- No character reveal or typewriter animations
+- No floating elements or gradient mesh
+- No section navigation dots
+- No horizontal scroll showcases
+- No explosive stats or confetti triggers
 
 ---
 
-## Part 2: New UX Enhancement Components
+## Part 1: Hero Section Overhaul
 
-### Enhancement A: Social Proof Ticker
-**File**: `src/components/websites-we-fire/SocialProofTicker.tsx`
+### Enhancement: Cinematic Service Hero
 
-A horizontal scrolling ticker below the hero showing real-time social proof:
-- Auto-scrolling messages with pause on hover
-- Messages like "Sarah from London just requested a teardown" and "TechCorp saw +47% conversions after rebuild"
-- Subtle fade edges on left and right
-- CSS animation for smooth infinite scroll
+Replace the basic HeroBand with a full-screen immersive hero featuring:
 
-**Integration**: Add after the hero section in `WebsitesWeFire.tsx`
+1. **Video Background with Parallax**
+   - Use the `city-timelapse.mp4` video with 0.3 parallax speed
+   - Gradient overlay from left for text legibility
 
----
+2. **GradientMesh Overlay**
+   - Living gradient mesh animation behind content
+   - Creates premium depth and movement
 
-### Enhancement B: Quiz Results Sharing
-**File**: `src/components/websites-we-fire/QuizShareCard.tsx`
+3. **CharacterReveal Headlines**
+   - Main headline animates character-by-character
+   - "Actually Deliver" keyword gets accent glow emphasis
 
-Add social sharing functionality to the Fire Risk Quiz results:
-- Generate a shareable card with the user's score and risk level
-- Pre-written social copy: "My website scored [X] on Avorria's Fire Risk Quiz! 🔥"
-- Share buttons for LinkedIn, Twitter, and copy-to-clipboard
-- Uses Web Share API where available, fallback to direct URLs
+4. **FloatingElements**
+   - Mouse-responsive geometric shapes
+   - Creates interactive depth perception
 
-**Integration**: Add to `FireRiskQuiz.tsx` result screen
-
----
-
-### Enhancement C: Live Activity Indicator
-**File**: `src/components/websites-we-fire/LiveActivityIndicator.tsx`
-
-A playful social proof indicator near the teardown form:
-- Shows "X people are viewing this page right now"
-- Typing animation dots
-- Randomized but realistic numbers (3-12 range)
-- Subtle pulsing animation
-
-**Integration**: Add above the teardown form in `WebsitesWeFire.tsx`
+5. **ScrollIndicator**
+   - Animated scroll prompt at bottom
+   - Encourages exploration
 
 ---
 
-### Enhancement D: Cost of Inaction Timeline
-**File**: `src/components/websites-we-fire/CostOfInactionTimeline.tsx`
+## Part 2: Interactive Service Selector
 
-A visual timeline below the Revenue Calculator showing cumulative impact:
-- Month 1: Current state - £X lost
-- Month 3: Competitors pull ahead
-- Month 6: SEO rankings drop
-- Month 12: Total annual loss £XXX,XXX
+### Enhancement: "Choose Your Challenge" Interactive Grid
 
-Features:
-- Animated timeline with scroll-triggered reveal
-- Each milestone animates in sequence
-- Connects to Revenue Calculator values for personalization
-- Dramatic visual treatment with red gradient
+Replace the static questions section with an interactive problem-solution matcher:
 
-**Integration**: Add after the Revenue Calculator section
+1. **Problem Cards with TiltCard Effect**
+   - 3D tilt on hover with dynamic glare
+   - Each card represents a business challenge:
+     - "Our data is a mess"
+     - "We need more qualified leads"
+     - "Our website isn't converting"
+     - "We're invisible on Google"
+     - "Our campaigns aren't profitable"
+     - "Our content isn't driving results"
 
----
+2. **Click-to-Reveal Solutions**
+   - Clicking a problem card expands it
+   - Reveals the recommended service(s)
+   - Animated beam border on active card
 
-### Enhancement E: Archetype Comparison Modal
-**File**: `src/components/websites-we-fire/ArchetypeComparisonModal.tsx`
-
-A full-screen comparison modal when users click "See the Fix":
-- Split-screen animation showing before and after
-- Annotated callouts explaining each change (using existing archetype data)
-- Smooth transition between states
-- "Apply This Fix" CTA linking to contact
-
-**Integration**: Add "See the Fix" button to each archetype card, wire up modal
+3. **Dynamic Service Recommendation**
+   - Based on problems clicked, highlights relevant services below
+   - Creates personalized journey through the page
 
 ---
 
-### Enhancement F: Scroll-Triggered Explosion Animations
-**File**: `src/components/websites-we-fire/ScrollExplosion.tsx`
+## Part 3: Service Showcase with HorizontalScroll
 
-Wrapper component for dramatic reveal animations:
-- Numbers "explode" into view with particle burst
-- Slight overshoot and settle (spring physics)
-- Optional confetti/particle burst on completion
-- Uses Framer Motion variants
+### Enhancement: Immersive Service Gallery
 
-**Integration**: Wrap stats and revenue calculator sections
+Transform the service grid into a horizontal scroll showcase:
 
----
+1. **HorizontalScroll Component**
+   - Converts vertical scroll to horizontal
+   - Each service gets a full-width "slide"
 
-### Enhancement G: Quiz Results Email Capture
-**File**: `src/components/websites-we-fire/QuizResultsEmailCapture.tsx`
+2. **TiltCard Service Panels**
+   - Large format cards with parallax background images
+   - 3D tilt effect on mouse movement
 
-After quiz completion, offer to email results:
-- Email input field on results screen
-- "Send me a detailed breakdown" CTA
-- Triggers backend function to send personalized email with score
-- Follow-up sequence trigger via Supabase
+3. **BeamBorder Animation**
+   - Animated border beam travels around each card
+   - Triggers on hover for premium feel
 
-**Dependencies**: Uses existing `send-newsletter` edge function pattern or creates new `send-quiz-results` function
+4. **Service Deep-Dive Preview**
+   - Quick stats/metrics preview on each card
+   - "Our SEO: +132% traffic" type proof points
 
----
-
-### Enhancement H: Archetype Audio Narration (Optional)
-**File**: `src/components/websites-we-fire/ArchetypeNarration.tsx`
-
-Optional audio narration for each archetype:
-- "Click to hear why this archetype gets fired"
-- 15-30 second audio clips per archetype
-- Play/pause controls with visual feedback
-- Uses ElevenLabs API via existing edge function
-
-**Integration**: Add to archetype cards (optional enhancement)
+5. **Sticky Section Navigation**
+   - Vertical dots on right side
+   - Shows progress through services
 
 ---
 
-## File Changes Summary
+## Part 4: "Results That Matter" Stats Section
 
-### New Files to Create
+### Enhancement: Explosive Statistics Reveal
+
+Create a dramatic stats section with ScrollExplosion effects:
+
+1. **ExplosiveCountUp Numbers**
+   - Numbers animate with glow and confetti
+   - Stats like:
+     - "50+ Active Clients"
+     - "£2.4M Pipeline Generated"
+     - "92% Client Retention"
+     - "+147% Avg Traffic Increase"
+
+2. **Parallax Background**
+   - Race car or cityscape image
+   - Creates depth behind stats
+
+3. **ScrollExplosion Wrappers**
+   - Each stat triggers particle burst on scroll
+   - Creates memorable "wow" moment
+
+---
+
+## Part 5: Interactive Service Comparison
+
+### Enhancement: "Why Avorria vs Others" Interactive Table
+
+Add an interactive comparison section:
+
+1. **Animated Comparison Grid**
+   - Compare Avorria vs "Typical Agency"
+   - Categories: Strategy, Execution, Reporting, Results, Communication
+
+2. **Reveal Animation**
+   - Each row animates in sequence
+   - Checkmarks/X marks animate on reveal
+
+3. **Hover Tooltips**
+   - Additional context on hover
+   - Real examples and proof points
+
+---
+
+## Part 6: Live Service Calculator/Estimator
+
+### Enhancement: Interactive Investment Estimator
+
+Add an interactive element showing service investment ranges:
+
+1. **Service Selection Toggle**
+   - Select which services interest you
+   - SEO, Paid Media, Web Design, Content, Analytics
+
+2. **Dynamic Investment Range**
+   - Shows typical investment range based on selection
+   - Updates in real-time with smooth animations
+
+3. **Lead Capture Integration**
+   - "Get a Custom Quote" CTA
+   - Captures service interest for follow-up
+
+---
+
+## Part 7: Section Navigation & Progress
+
+### Enhancement: Sticky Section Navigator
+
+Add premium navigation features:
+
+1. **SectionNav Component**
+   - Vertical dots on right side (similar to Home page)
+   - Sections: Hero, Challenges, Services, Results, Comparison, Next Steps
+
+2. **Progress Indicator**
+   - Shows scroll progress through page
+   - Subtle but helpful for long page
+
+---
+
+## Part 8: "Your Next Step" Final CTA Section
+
+### Enhancement: Dramatic Final Conversion Section
+
+Create a memorable final call-to-action:
+
+1. **Video Background**
+   - City timelapse with heavy overlay
+   - Creates urgency and premium feel
+
+2. **TypewriterText Quote**
+   - Animated quote: "Ready to stop wasting budget on campaigns that don't convert?"
+
+3. **Dual CTAs with Hover Effects**
+   - "Book a Strategy Call" (Primary)
+   - "Get a Free Audit" (Secondary)
+   - Scale and glow effects on hover
+
+4. **Social Proof Ticker**
+   - Scrolling testimonial snippets
+   - "TechCorp saw +47% conversions after rebuild"
+
+---
+
+## New Components to Create
 
 ```text
-supabase/functions/generate-mockup-images/index.ts
-src/components/websites-we-fire/SocialProofTicker.tsx
-src/components/websites-we-fire/QuizShareCard.tsx
-src/components/websites-we-fire/LiveActivityIndicator.tsx
-src/components/websites-we-fire/CostOfInactionTimeline.tsx
-src/components/websites-we-fire/ArchetypeComparisonModal.tsx
-src/components/websites-we-fire/ScrollExplosion.tsx
-src/components/websites-we-fire/QuizResultsEmailCapture.tsx
-supabase/functions/send-quiz-results/index.ts (optional)
+src/components/services/
+├── ServiceChallengePicker.tsx      # Interactive problem-solution matcher
+├── ServiceHorizontalShowcase.tsx   # HorizontalScroll service gallery
+├── ServiceComparisonGrid.tsx       # Interactive comparison table
+├── ServiceInvestmentEstimator.tsx  # Dynamic pricing calculator
+├── ServiceStatsExplosion.tsx       # Explosive stats section wrapper
+└── index.tsx                       # Barrel export file
 ```
 
-### Files to Modify
+---
+
+## Files to Modify
 
 ```text
-src/components/websites-we-fire/index.tsx
-├── Export new components
-
-src/pages/WebsitesWeFire.tsx
-├── Add SocialProofTicker after hero
-├── Add LiveActivityIndicator near form
-├── Add CostOfInactionTimeline after calculator
-├── Integrate ArchetypeComparisonModal with archetype cards
-├── Wrap stats with ScrollExplosion
-
-src/components/websites-we-fire/FireRiskQuiz.tsx
-├── Add QuizShareCard on results
-├── Add QuizResultsEmailCapture option
+src/pages/Services.tsx
+├── Replace HeroBand with custom cinematic hero
+├── Add ServiceChallengePicker section
+├── Replace service grid with HorizontalScroll showcase
+├── Add ServiceStatsExplosion section
+├── Add ServiceComparisonGrid section
+├── Add ServiceInvestmentEstimator (optional)
+├── Add SectionNav component
+├── Enhance final CTA section with video background
+└── Add scroll-triggered animations throughout
 ```
 
 ---
 
-## Implementation Order
+## Technical Implementation Details
 
-**Phase 2A - Quick Wins (Immediate Impact):**
-1. SocialProofTicker - adds credibility immediately
-2. LiveActivityIndicator - creates urgency
-3. ScrollExplosion - polish layer for existing elements
+### Hero Section Architecture
 
-**Phase 2B - Core Features:**
-4. QuizShareCard - viral potential
-5. CostOfInactionTimeline - strengthens revenue calculator
-6. ArchetypeComparisonModal - deeper engagement
-
-**Phase 2C - Image Generation:**
-7. Create `generate-mockup-images` edge function
-8. Generate 5 archetype images with English text
-9. Update image imports in WebsitesWeFire.tsx
-10. Adjust hotspot positions if needed
-
-**Phase 2D - Advanced Features:**
-11. QuizResultsEmailCapture with email function
-12. ArchetypeNarration (if desired)
-
----
-
-## Technical Details
-
-### Social Proof Ticker Animation
-Uses CSS keyframes for infinite horizontal scroll:
-```css
-@keyframes scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-```
-Content is duplicated to create seamless loop.
-
-### Quiz Share Card
-Uses Web Share API with fallback:
-```typescript
-if (navigator.share) {
-  await navigator.share({ title, text, url });
-} else {
-  // Fallback to social media URLs
-  window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`);
-}
+```text
+<ParallaxBackground video={cityTimelapse} overlay="gradient-left">
+  <GradientMesh className="opacity-40" />
+  <FloatingElements />
+  <Container>
+    <CharacterReveal text="Growth systems that" />
+    <span className="text-accent animate-glow-pulse">
+      <CharacterReveal text="Actually Deliver." emphasis />
+    </span>
+    <TypewriterText text="We design, build and optimise..." />
+    <CTAs />
+  </Container>
+  <ScrollIndicator />
+</ParallaxBackground>
 ```
 
-### Mock-Up Image Generation
-Edge function uses Lovable AI gateway:
-```typescript
-const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${lovableApiKey}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    model: "google/gemini-2.5-flash-image-preview",
-    messages: [{ role: "user", content: detailedPrompt }],
-    modalities: ["image", "text"],
-  }),
-});
+### Service Card Structure
+
+```text
+<TiltCard tiltAmount={8} glareOpacity={0.2}>
+  <BeamBorder>
+    <Card>
+      <ParallaxImage />
+      <ServiceIcon />
+      <ServiceTitle />
+      <ServiceDescription />
+      <ProofPoint />
+      <CTA />
+    </Card>
+  </BeamBorder>
+</TiltCard>
 ```
 
-### Email Capture Integration
-Uses existing Resend setup (RESEND_API_KEY already configured):
-```typescript
-await resend.emails.send({
-  from: "Avorria <noreply@avorria.com>",
-  to: [userEmail],
-  subject: "Your Website Fire Risk Score: [X]%",
-  html: personalizedTemplate,
-});
+### Stats Explosion Pattern
+
+```text
+<ScrollExplosion particleCount={30} confetti={true}>
+  <motion.div>
+    <ExplosiveCountUp 
+      end={147} 
+      suffix="%" 
+      prefix="+" 
+      glowColor="hsl(320, 85%, 55%)" 
+    />
+    <StatLabel>Avg Traffic Increase</StatLabel>
+  </motion.div>
+</ScrollExplosion>
 ```
 
 ---
 
-## Tracking Events to Add
+## Animation Specifications
 
-| Event | Trigger | Data |
-|-------|---------|------|
-| `ticker_interaction` | Hover on ticker | `{action: 'pause'}` |
-| `quiz_share_clicked` | Share button click | `{platform, score}` |
-| `quiz_email_submitted` | Email capture submit | `{score, email_provided: true}` |
-| `timeline_viewed` | Timeline scroll into view | `{annual_loss}` |
-| `comparison_modal_opened` | "See the Fix" click | `{archetype_number}` |
-| `image_generated` | Admin generates new image | `{archetype}` |
+| Element | Animation Type | Duration | Trigger |
+|---------|---------------|----------|---------|
+| Hero headline | CharacterReveal | 0.5s per char | Page load |
+| Hero subtitle | TypewriterText | 25ms per char | 800ms delay |
+| Challenge cards | TiltCard 3D | Real-time | Mouse move |
+| Service panels | HorizontalScroll | Scroll-linked | Scroll |
+| Stats numbers | ExplosiveCountUp | 2s | InView |
+| Comparison rows | Staggered fade | 100ms stagger | InView |
+| Final CTA | Scale + glow | 300ms | Hover |
 
 ---
 
 ## Expected Outcomes
 
-- **Engagement**: +25-40% time on page
-- **Conversion**: +15-25% form submissions  
-- **Sharing**: New viral coefficient from quiz sharing
-- **Credibility**: Professional mock-ups with realistic English text
-- **Urgency**: Live activity and timeline create FOMO
+- **Engagement**: +40-60% time on page
+- **Scroll Depth**: +30% more users reaching bottom CTA
+- **Conversion**: +20-35% more service page clicks
+- **Perception**: Premium agency positioning reinforced
 
+---
+
+## Implementation Order
+
+**Phase 1: Foundation (High Impact)**
+1. Cinematic hero with CharacterReveal + FloatingElements
+2. SectionNav sticky navigation
+3. Service cards with TiltCard + BeamBorder
+
+**Phase 2: Interactive Elements**
+4. ServiceChallengePicker interactive grid
+5. ServiceStatsExplosion section
+6. ServiceComparisonGrid
+
+**Phase 3: Polish**
+7. HorizontalScroll service showcase (optional, high complexity)
+8. ServiceInvestmentEstimator
+9. Final CTA with TypewriterText and video background
+
+---
+
+## Dependencies
+
+All required components already exist in the codebase:
+- `ParallaxBackground` - Video/image parallax
+- `GradientMesh` - Living gradient background
+- `FloatingElements` - Mouse-responsive 3D elements
+- `CharacterReveal` - Character-by-character text animation
+- `TypewriterText` - Typewriter text effect
+- `TiltCard` - 3D tilt with glare
+- `BeamBorder` - Animated border beam
+- `HorizontalScroll` - Scroll direction conversion
+- `ScrollExplosion` / `ExplosiveCountUp` - Particle effects
+- `SectionNav` - Sticky section navigation
+- `ScrollReveal` / `ScrollRevealGrid` - Scroll-triggered reveals
+- `CountUp` - Animated number counting
