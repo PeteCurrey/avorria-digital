@@ -70,22 +70,6 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
             transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
           }}
         >
-          {/* Animated background gradient */}
-          <motion.div 
-            className="absolute inset-0 opacity-20"
-            style={{
-              background: 'radial-gradient(circle at 50% 50%, hsl(330, 80%, 50%) 0%, transparent 60%)',
-            }}
-            animate={{
-              scale: [1, 1.2, 1],
-              opacity: [0.15, 0.25, 0.15],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-          />
 
           {/* Logo text - matching AnimatedLogo style */}
           <div className="relative flex items-baseline justify-center mb-12">
