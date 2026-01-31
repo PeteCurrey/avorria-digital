@@ -19,23 +19,30 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
       return;
     }
 
-    // Simulate loading progress
-    const duration = 2500; // 2.5 seconds
+    // Simulate loading progress - slower for premium feel
+    const duration = 3500; // 3.5 seconds for premium pacing
     const startTime = Date.now();
     
     const updateProgress = () => {
       const elapsed = Date.now() - startTime;
-      const newProgress = Math.min((elapsed / duration) * 100, 100);
+      // Ease-out progress curve for premium feel
+      const linearProgress = Math.min(elapsed / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - linearProgress, 2);
+      const newProgress = easedProgress * 100;
       setProgress(newProgress);
       
-      if (newProgress < 100) {
+      if (linearProgress < 1) {
         requestAnimationFrame(updateProgress);
       } else {
-        setIsComplete(true);
-        sessionStorage.setItem('avorria-loader-shown', 'true');
+        // Hold at 100% briefly before fade out
         setTimeout(() => {
-          onComplete();
-        }, 600);
+          setIsComplete(true);
+          sessionStorage.setItem('avorria-loader-shown', 'true');
+          // Longer fade out duration
+          setTimeout(() => {
+            onComplete();
+          }, 1000);
+        }, 400);
       }
     };
     
@@ -66,8 +73,8 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
           className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-[#0a0a0a]"
           initial={{ opacity: 1 }}
           exit={{ 
-            clipPath: 'circle(0% at 50% 50%)',
-            transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
+            opacity: 0,
+            transition: { duration: 1, ease: [0.22, 1, 0.36, 1] }
           }}
         >
 
@@ -76,7 +83,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
             <motion.span
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
               className="text-4xl md:text-5xl font-extralight tracking-wider text-white"
             >
               A
@@ -85,8 +92,8 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
               initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
               animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
               transition={{ 
-                delay: 0.3,
-                duration: 0.6,
+                delay: 0.5,
+                duration: 0.8,
                 ease: [0.25, 0.1, 0.25, 1]
               }}
               className="text-4xl md:text-5xl font-extralight tracking-wider text-white"
@@ -97,8 +104,8 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
               initial={{ opacity: 0, scale: 0 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ 
-                delay: 0.6,
-                duration: 0.4,
+                delay: 1,
+                duration: 0.5,
                 ease: [0.22, 1, 0.36, 1]
               }}
               className="text-4xl md:text-5xl font-bold text-pink-500"
@@ -132,7 +139,7 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
             className="absolute bottom-12 text-sm text-white/30 tracking-widest uppercase"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.8 }}
+            transition={{ delay: 1.5, duration: 1 }}
           >
             Digital Excellence
           </motion.p>
