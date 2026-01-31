@@ -78,40 +78,40 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
           }}
         >
 
-          {/* Logo text - matching AnimatedLogo style */}
+          {/* Logo text - matching AnimatedLogo style with sliding dot */}
           <div className="relative flex items-baseline justify-center mb-12">
-            <motion.span
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="text-4xl md:text-5xl font-extralight tracking-wider text-white"
-            >
-              A
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
-              animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-              transition={{ 
-                delay: 0.5,
-                duration: 0.8,
-                ease: [0.25, 0.1, 0.25, 1]
-              }}
-              className="text-4xl md:text-5xl font-extralight tracking-wider text-white"
-            >
-              vorria
-            </motion.span>
-            <motion.span
-              initial={{ opacity: 0, scale: 0 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ 
-                delay: 1,
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1]
-              }}
-              className="text-4xl md:text-5xl font-bold text-pink-500"
-            >
-              .
-            </motion.span>
+            <span className="text-4xl md:text-5xl font-extralight tracking-wider text-white">
+              {/* Initial "A" - always visible */}
+              <span className="inline-block align-baseline">A</span>
+              
+              {/* Rest of the letters fade in with clip-path for clean reveal */}
+              <motion.span
+                initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
+                animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+                transition={{ 
+                  delay: 0.5,
+                  duration: 0.8,
+                  ease: [0.25, 0.1, 0.25, 1]
+                }}
+                className="inline-block align-baseline"
+              >
+                vorria
+              </motion.span>
+              
+              {/* Animated pink dot - slides from left position to final position */}
+              <motion.span
+                initial={{ marginLeft: "-4.2ch", opacity: 1 }}
+                animate={{ marginLeft: "0ch", opacity: 1 }}
+                transition={{ 
+                  delay: 0.4,
+                  duration: 0.9,
+                  ease: [0.25, 0.1, 0.25, 1]
+                }}
+                className="text-pink-500 font-bold inline-block align-baseline"
+              >
+                .
+              </motion.span>
+            </span>
           </div>
 
           {/* Progress bar - pink themed */}
