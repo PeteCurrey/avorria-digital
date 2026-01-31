@@ -79,35 +79,38 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
         >
 
           {/* Logo text - matching AnimatedLogo style with sliding dot */}
-          <div className="relative flex items-baseline justify-center mb-12">
-            <span className="text-4xl md:text-5xl font-extralight tracking-wider text-white">
+          <div className="relative mb-12 overflow-visible">
+            <span 
+              className="text-4xl md:text-5xl font-extralight tracking-wider text-white flex items-baseline"
+              style={{ whiteSpace: 'nowrap' }}
+            >
               {/* Initial "A" - always visible */}
-              <span className="inline-block align-baseline">A</span>
+              <span className="inline-block">A</span>
               
-              {/* Rest of the letters fade in with clip-path for clean reveal */}
+              {/* Rest of the letters reveal with clip-path */}
               <motion.span
-                initial={{ opacity: 0, clipPath: "inset(0 100% 0 0)" }}
-                animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+                initial={{ clipPath: "inset(0 100% 0 0)" }}
+                animate={{ clipPath: "inset(0 0% 0 0)" }}
                 transition={{ 
-                  delay: 0.5,
+                  delay: 0.4,
                   duration: 0.8,
                   ease: [0.25, 0.1, 0.25, 1]
                 }}
-                className="inline-block align-baseline"
+                className="inline-block"
               >
                 vorria
               </motion.span>
               
-              {/* Animated pink dot - slides from left position to final position */}
+              {/* Animated pink dot - slides from behind A to final position */}
               <motion.span
-                initial={{ marginLeft: "-4.2ch", opacity: 1 }}
-                animate={{ marginLeft: "0ch", opacity: 1 }}
+                initial={{ marginLeft: "-4.5ch" }}
+                animate={{ marginLeft: "0ch" }}
                 transition={{ 
-                  delay: 0.4,
+                  delay: 0.3,
                   duration: 0.9,
                   ease: [0.25, 0.1, 0.25, 1]
                 }}
-                className="text-pink-500 font-bold inline-block align-baseline"
+                className="text-pink-500 font-bold inline-block"
               >
                 .
               </motion.span>
