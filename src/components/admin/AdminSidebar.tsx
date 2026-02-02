@@ -57,6 +57,9 @@ const navSections: NavSection[] = [
     items: [
       { name: "Overview", icon: LayoutDashboard, tab: "overview" },
       { name: "Projects", icon: FolderKanban, tab: "projects" },
+      { name: "Client Projects", icon: Building2, tab: "client-projects" },
+      { name: "Assets", icon: Image, tab: "assets" },
+      { name: "Invoicing", icon: ClipboardList, tab: "invoicing" },
       { name: "Leads", icon: Users, tab: "leads" },
       { name: "Case Studies", icon: Image, tab: "case-studies" },
       { name: "Testimonials", icon: MessageSquareQuote, tab: "testimonials" },

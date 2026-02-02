@@ -68,6 +68,12 @@ const ClientWebsiteHealth = lazy(() => import("@/pages/client/ClientWebsiteHealt
 const ClientReporting = lazy(() => import("@/pages/client/ClientReporting"));
 const ClientResources = lazy(() => import("@/pages/client/ClientResources"));
 const ClientSEOIntelligence = lazy(() => import("@/pages/client/ClientSEOIntelligence"));
+const ClientProjects = lazy(() => import("@/pages/client/ClientProjects"));
+const ClientProjectDetail = lazy(() => import("@/pages/client/ClientProjectDetail"));
+const ClientBilling = lazy(() => import("@/pages/client/ClientBilling"));
+const ClientProposals = lazy(() => import("@/pages/client/ClientProposals"));
+const ClientDocuments = lazy(() => import("@/pages/client/ClientDocuments"));
+const ClientAnalytics = lazy(() => import("@/pages/client/ClientAnalytics"));
 
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-background">
@@ -190,6 +196,36 @@ const AnimatedRoutes = () => {
           <Route path="/client/seo-intelligence" element={
             <ProtectedRoute requiredRole="client">
               <PageTransition><ClientSEOIntelligence /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/projects" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientProjects /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/projects/:id" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientProjectDetail /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/billing" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientBilling /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/proposals" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientProposals /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/documents" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientDocuments /></PageTransition>
+            </ProtectedRoute>
+          } />
+          <Route path="/client/analytics" element={
+            <ProtectedRoute requiredRole="client">
+              <PageTransition><ClientAnalytics /></PageTransition>
             </ProtectedRoute>
           } />
           

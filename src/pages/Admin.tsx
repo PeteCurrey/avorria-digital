@@ -42,6 +42,9 @@ import { ProjectsTab } from "@/components/admin/ProjectsTab";
 import CaseStudiesTab from "@/components/admin/CaseStudiesTab";
 import { TestimonialsTab } from "@/components/admin/TestimonialsTab";
 import { ClientLogosTab } from "@/components/admin/ClientLogosTab";
+import ClientProjectsManager from "@/components/admin/ClientProjectsManager";
+import InvoiceManager from "@/components/admin/InvoiceManager";
+import AssetManager from "@/components/admin/AssetManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -145,6 +148,9 @@ const Admin = () => {
     switch (activeTab) {
       case "overview": return "Dashboard Overview";
       case "projects": return "Projects";
+      case "client-projects": return "Client Projects";
+      case "assets": return "Asset Manager";
+      case "invoicing": return "Invoicing";
       case "leads": return "Lead Management";
       case "case-studies": return "Case Studies";
       case "testimonials": return "Testimonials";
@@ -169,6 +175,9 @@ const Admin = () => {
     switch (activeTab) {
       case "overview": return "Monitor your key metrics and recent activity";
       case "projects": return "Manage website design projects from the studio";
+      case "client-projects": return "Manage client projects, URLs, and status";
+      case "assets": return "Upload screenshots, wireframes, and documents";
+      case "invoicing": return "Create and manage client invoices";
       case "leads": return "Track and manage your sales leads";
       case "case-studies": return "Manage and publish your client success stories";
       case "testimonials": return "Manage client testimonials displayed on the website";
@@ -184,7 +193,7 @@ const Admin = () => {
       case "reports": return "Generate and schedule reports";
       case "integrations": return "Connect third-party services";
       case "settings": return "Configure your admin preferences";
-      case "landing-pages": return "Create and manage SEO landing pages for locations, services, and industries";
+      case "landing-pages": return "Create and manage SEO landing pages";
       default: return "";
     }
   };
@@ -609,6 +618,14 @@ const Admin = () => {
       case "projects":
         return <ProjectsTab />;
 
+      case "client-projects":
+        return <ClientProjectsManager />;
+
+      case "assets":
+        return <AssetManager />;
+
+      case "invoicing":
+        return <InvoiceManager />;
       case "performance":
         return <PerformanceTab />;
 
