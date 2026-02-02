@@ -4,6 +4,9 @@ import { getIndustryBySlug } from "./industries";
 import { getLocationBySlug } from "./locations";
 import { serviceLocationLandingPages, getServiceLocationPageBySlug } from "./serviceLocationLandingPages";
 
+// Hero images for industry pages
+import dpAutoRepairHero from "@/assets/case-studies/dp-auto-repair-hero.png";
+
 export const landingPages: LandingPage[] = [
   // SEO for Trades & Home Services
   {
@@ -1168,6 +1171,7 @@ export const landingPages: LandingPage[] = [
     targetKeyword: "garage website design",
     metaTitle: "Web Design for Garages & Auto Repair | Avorria",
     metaDescription: "Professional website design for garages, MOT centres and auto repair shops. Online booking, mobile-first design, and local SEO built in. See our automotive portfolio.",
+    heroImage: dpAutoRepairHero,
     relatedCaseStudies: ["dp-auto-repair", "aes-uk"],
     relatedArticles: ["local-seo-guide", "website-conversion-tips-trades"],
   },
@@ -1270,6 +1274,7 @@ export const landingPages: LandingPage[] = [
     targetKeyword: "web design for garages",
     metaTitle: "Web Design for Garages | MOT Centre & Auto Repair Websites | Avorria",
     metaDescription: "Professional websites for garages and MOT centres. Online booking, mobile-first design, local SEO. Trusted by DP Auto Repair, AES and garages across Derbyshire.",
+    heroImage: dpAutoRepairHero,
     relatedCaseStudies: ["dp-auto-repair", "aes-uk"],
     relatedArticles: ["local-seo-guide", "website-conversion-tips-trades"],
   },

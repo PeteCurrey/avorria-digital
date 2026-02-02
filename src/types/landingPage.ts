@@ -67,6 +67,7 @@ export interface LandingPage {
   targetKeyword: string;
   metaTitle: string;
   metaDescription: string;
+  heroImage?: string;
   relatedCaseStudies?: string[];
   relatedArticles?: string[];
 }
