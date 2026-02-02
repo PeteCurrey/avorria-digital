@@ -190,6 +190,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
     faqList,
     metaTitle,
     metaDescription,
+    heroImage,
     service,
     industry,
     location,
@@ -307,15 +308,17 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
       </Helmet>
 
       <div className="min-h-screen">
-        {/* Hero Section with City Background */}
+        {/* Hero Section with City/Industry Background */}
         <section 
           className="relative min-h-[85vh] flex items-center -mt-20 pt-20 overflow-hidden"
           style={{
-            backgroundImage: location?.slug && getCityImage(location.slug) 
-              ? `url(${getCityImage(location.slug)})`
-              : 'linear-gradient(to bottom, hsl(var(--background)), hsl(var(--secondary)))',
+            backgroundImage: heroImage 
+              ? `url(${heroImage})`
+              : location?.slug && getCityImage(location.slug) 
+                ? `url(${getCityImage(location.slug)})`
+                : 'linear-gradient(to bottom, hsl(var(--background)), hsl(var(--secondary)))',
             backgroundSize: 'cover',
-            backgroundPosition: 'center',
+            backgroundPosition: 'center top',
           }}
         >
           {/* Dark gradient overlay */}
