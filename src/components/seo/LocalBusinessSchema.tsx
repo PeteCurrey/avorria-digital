@@ -25,23 +25,23 @@ interface LocalBusinessSchemaProps {
 
 const defaultData: LocalBusinessSchemaProps = {
   name: "Avorria",
-  description: "Performance-first digital marketing agency specialising in SEO, paid media, web design, and analytics for B2B and service businesses.",
+  description: "Performance-first digital marketing agency specialising in SEO, paid media, web design, and analytics for B2B and service businesses. Headquartered in Chesterfield, Derbyshire with clients across the UK and internationally.",
   url: "https://avorria.com",
-  telephone: "+44 20 1234 5678",
+  telephone: "+44 1onal 234 5678",
   email: "hello@avorria.com",
   address: {
-    streetAddress: "123 Digital Street",
-    addressLocality: "London",
-    addressRegion: "Greater London",
-    postalCode: "EC1A 1BB",
+    streetAddress: "Innovation Centre",
+    addressLocality: "Chesterfield",
+    addressRegion: "Derbyshire",
+    postalCode: "S41 7QJ",
     addressCountry: "GB",
   },
   geo: {
-    latitude: 51.5074,
-    longitude: -0.1278,
+    latitude: 53.2350,
+    longitude: -1.4210,
   },
   openingHours: [
-    "Mo-Fr 09:00-18:00",
+    "Mo-Fr 09:00-17:30",
   ],
   priceRange: "££££",
   image: "https://avorria.com/og-image.jpg",
@@ -104,12 +104,20 @@ export const LocalBusinessSchema = (props: LocalBusinessSchemaProps = {}) => {
     // Additional service-specific fields
     areaServed: [
       {
-        "@type": "Country",
-        name: "United Kingdom",
+        "@type": "AdministrativeArea",
+        name: "Derbyshire",
       },
       {
         "@type": "City",
-        name: "London",
+        name: "Chesterfield",
+      },
+      {
+        "@type": "City",
+        name: "Derby",
+      },
+      {
+        "@type": "City",
+        name: "Nottingham",
       },
       {
         "@type": "City",
@@ -118,6 +126,18 @@ export const LocalBusinessSchema = (props: LocalBusinessSchemaProps = {}) => {
       {
         "@type": "City",
         name: "Manchester",
+      },
+      {
+        "@type": "City",
+        name: "Birmingham",
+      },
+      {
+        "@type": "City",
+        name: "London",
+      },
+      {
+        "@type": "Country",
+        name: "United Kingdom",
       },
     ],
     hasOfferCatalog: {

@@ -324,6 +324,137 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Green HR Consulting Sheffield",
     },
   },
+  // East Midlands - Derbyshire (HQ Region)
+  chesterfield: {
+    seo: {
+      quote: "As a Chesterfield business, having a local SEO partner who understands the East Midlands market made all the difference. Leads from organic search have tripled.",
+      author: "David Thornton",
+      role: "Managing Director",
+      company: "Thornton Engineering Ltd",
+    },
+    "web-design": {
+      quote: "Our new site positions us perfectly for the Derbyshire market. Enquiries from local businesses have increased dramatically since launch.",
+      author: "Sarah Booth",
+      role: "Director",
+      company: "Peak District Hospitality Group",
+    },
+    "digital-marketing": {
+      quote: "Finally have a marketing partner on our doorstep who gets what businesses in Chesterfield need. Results have been excellent.",
+      author: "James Marsden",
+      role: "CEO",
+      company: "Marsden Manufacturing",
+    },
+    "paid-media": {
+      quote: "Our Google Ads were wasting budget before Avorria took over. Now we target the right local customers and cost per lead is down 45%.",
+      author: "Emma Richardson",
+      role: "Marketing Manager",
+      company: "Richardson Property Services",
+    },
+  },
+  derby: {
+    seo: {
+      quote: "We serve clients across Derby and the East Midlands. Avorria built local SEO that actually reflects our service areas and brings in the right enquiries.",
+      author: "Mark Stevens",
+      role: "Senior Partner",
+      company: "Stevens Legal Derby",
+    },
+    "web-design": {
+      quote: "The site they built us looks premium and converts visitors into clients. Best marketing investment we've made for our Derby practice.",
+      author: "Lucy Armstrong",
+      role: "Practice Manager",
+      company: "Derby Dental Care",
+    },
+    "digital-marketing": {
+      quote: "Having one team handle everything from SEO to ads has simplified our marketing completely. And results are up across the board.",
+      author: "Chris Wakefield",
+      role: "Commercial Director",
+      company: "Wakefield Construction Derby",
+    },
+    "paid-media": {
+      quote: "Avorria rebuilt our campaigns from scratch and suddenly our ads started bringing in qualified leads instead of tyre kickers.",
+      author: "Amanda Foster",
+      role: "Owner",
+      company: "Foster Interiors Derby",
+    },
+  },
+  derbyshire: {
+    seo: {
+      quote: "We needed to rank across the whole county. Avorria built a strategy covering Chesterfield, Derby and the Peak District that actually works.",
+      author: "Robert Hayward",
+      role: "Managing Director",
+      company: "Derbyshire Building Supplies",
+    },
+    "web-design": {
+      quote: "Our new site reflects the quality of our work and brings in enquiries from across Derbyshire. Conversion rate has tripled.",
+      author: "Claire Needham",
+      role: "Director",
+      company: "Needham Accountants",
+    },
+    "digital-marketing": {
+      quote: "We compete with bigger firms in Manchester and Birmingham. Avorria helped us dominate the Derbyshire searches that matter.",
+      author: "Tom Bradbury",
+      role: "CEO",
+      company: "Bradbury Tech Solutions",
+    },
+    "paid-media": {
+      quote: "Running ads across Derbyshire without wasting budget on Birmingham or Sheffield was crucial. Avorria got the targeting right.",
+      author: "Helen Whitworth",
+      role: "Head of Marketing",
+      company: "Whitworth Healthcare Derbyshire",
+    },
+  },
+  mansfield: {
+    seo: {
+      quote: "Mansfield businesses often get overlooked. Avorria helped us rank locally while building authority for the wider Nottinghamshire area.",
+      author: "Gary Burton",
+      role: "Owner",
+      company: "Burton Plumbing & Heating",
+    },
+    "web-design": {
+      quote: "Our old site was embarrassing. The new one looks professional and actually converts. Enquiries are up 180% since launch.",
+      author: "Sarah Jenkins",
+      role: "Managing Director",
+      company: "Mansfield Business Services",
+    },
+    "digital-marketing": {
+      quote: "Having a local-focused marketing strategy has been game-changing. We now dominate the searches that bring in actual work.",
+      author: "Mike Pearson",
+      role: "Director",
+      company: "Pearson Electrical Contractors",
+    },
+    "paid-media": {
+      quote: "Cost per lead dropped by half when Avorria took over our Google Ads. Same budget, twice the qualified enquiries.",
+      author: "Karen Holmes",
+      role: "Operations Manager",
+      company: "Holmes Care Services",
+    },
+  },
+  leicester: {
+    seo: {
+      quote: "Leicester is competitive for our sector. Avorria built SEO that targets the specific services and areas where we win work.",
+      author: "Raj Patel",
+      role: "Managing Director",
+      company: "Patel & Associates Accountants",
+    },
+    "web-design": {
+      quote: "Our new site positions us as the premium choice in Leicester. The quality of enquiries has improved dramatically.",
+      author: "Emily Shaw",
+      role: "Director",
+      company: "Leicester Architecture Studio",
+    },
+    "digital-marketing": {
+      quote: "Finally have marketing that's properly joined up. SEO and ads work together instead of competing, and results show it.",
+      author: "Daniel Cooper",
+      role: "CEO",
+      company: "Cooper Engineering Leicester",
+    },
+    "paid-media": {
+      quote: "Our LinkedIn campaigns were expensive and ineffective. Avorria fixed targeting and creative, now we get quality B2B leads.",
+      author: "Priya Sharma",
+      role: "Head of Business Development",
+      company: "Leicester Tech Ventures",
+    },
+  },
   // USA Cities
   "new-york": {
     seo: {

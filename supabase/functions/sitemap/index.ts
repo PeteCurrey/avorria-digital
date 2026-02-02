@@ -44,6 +44,12 @@ const ukLocations = [
   { slug: 'sheffield', city: 'Sheffield', region: 'South Yorkshire', country: 'GB', coords: { lat: 53.3811, lng: -1.4701 } },
   { slug: 'yorkshire', city: 'Yorkshire', region: 'Yorkshire and the Humber', country: 'GB', coords: { lat: 53.9591, lng: -1.0815 } },
   { slug: 'uk', city: 'United Kingdom', region: 'UK', country: 'GB', coords: { lat: 55.3781, lng: -3.4360 } },
+  // East Midlands - Derbyshire (HQ Region)
+  { slug: 'chesterfield', city: 'Chesterfield', region: 'Derbyshire', country: 'GB', coords: { lat: 53.2350, lng: -1.4210 } },
+  { slug: 'derby', city: 'Derby', region: 'Derbyshire', country: 'GB', coords: { lat: 52.9225, lng: -1.4746 } },
+  { slug: 'derbyshire', city: 'Derbyshire', region: 'East Midlands', country: 'GB', coords: { lat: 53.1000, lng: -1.5000 } },
+  { slug: 'mansfield', city: 'Mansfield', region: 'Nottinghamshire', country: 'GB', coords: { lat: 53.1472, lng: -1.1973 } },
+  { slug: 'leicester', city: 'Leicester', region: 'Leicestershire', country: 'GB', coords: { lat: 52.6369, lng: -1.1398 } },
 ]
 
 // USA Locations with geo-targeting data
@@ -139,6 +145,10 @@ const industryLandingPages = [
   { path: '/seo/for/ecommerce', priority: '0.8' },
   { path: '/seo/for/multi-location-brands', priority: '0.8' },
   { path: '/seo/for/multi-location', priority: '0.8' },
+  { path: '/seo/for/manufacturing', priority: '0.8' },
+  { path: '/seo/for/hospitality', priority: '0.8' },
+  { path: '/seo/for/healthcare', priority: '0.8' },
+  { path: '/seo/for/construction', priority: '0.8' },
   // Web design for industries
   { path: '/web-design/for/trades-home-services', priority: '0.8' },
   { path: '/web-design/for/trades', priority: '0.8' },
@@ -149,6 +159,10 @@ const industryLandingPages = [
   { path: '/web-design/for/ecommerce', priority: '0.8' },
   { path: '/web-design/for/multi-location-brands', priority: '0.8' },
   { path: '/web-design/for/multi-location', priority: '0.8' },
+  { path: '/web-design/for/manufacturing', priority: '0.8' },
+  { path: '/web-design/for/hospitality', priority: '0.8' },
+  { path: '/web-design/for/healthcare', priority: '0.8' },
+  { path: '/web-design/for/construction', priority: '0.8' },
   // Paid media for industries
   { path: '/paid-media/for/trades-home-services', priority: '0.8' },
   { path: '/paid-media/for/trades', priority: '0.8' },
@@ -159,6 +173,10 @@ const industryLandingPages = [
   { path: '/paid-media/for/ecommerce', priority: '0.8' },
   { path: '/paid-media/for/multi-location-brands', priority: '0.8' },
   { path: '/paid-media/for/multi-location', priority: '0.8' },
+  { path: '/paid-media/for/manufacturing', priority: '0.8' },
+  { path: '/paid-media/for/hospitality', priority: '0.8' },
+  { path: '/paid-media/for/healthcare', priority: '0.8' },
+  { path: '/paid-media/for/construction', priority: '0.8' },
   // Digital marketing for industries
   { path: '/digital-marketing/for/trades-home-services', priority: '0.8' },
   { path: '/digital-marketing/for/trades', priority: '0.8' },
@@ -169,6 +187,10 @@ const industryLandingPages = [
   { path: '/digital-marketing/for/ecommerce', priority: '0.8' },
   { path: '/digital-marketing/for/multi-location-brands', priority: '0.8' },
   { path: '/digital-marketing/for/multi-location', priority: '0.8' },
+  { path: '/digital-marketing/for/manufacturing', priority: '0.8' },
+  { path: '/digital-marketing/for/hospitality', priority: '0.8' },
+  { path: '/digital-marketing/for/healthcare', priority: '0.8' },
+  { path: '/digital-marketing/for/construction', priority: '0.8' },
 ]
 
 // Static pages with their priorities (excluding location pages - handled separately)
