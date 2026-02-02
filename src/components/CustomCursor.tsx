@@ -1,3 +1,4 @@
+// Module version: v15 - cursor optimization with instant tracking
 import React, { useEffect, useState, useCallback } from "react";
 import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
