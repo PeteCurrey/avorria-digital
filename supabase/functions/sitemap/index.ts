@@ -163,6 +163,8 @@ const industryLandingPages = [
   { path: '/web-design/for/hospitality', priority: '0.8' },
   { path: '/web-design/for/healthcare', priority: '0.8' },
   { path: '/web-design/for/construction', priority: '0.8' },
+  { path: '/web-design/for/automotive', priority: '0.8' },
+  { path: '/web-design/for/garages', priority: '0.8' },
   // Paid media for industries
   { path: '/paid-media/for/trades-home-services', priority: '0.8' },
   { path: '/paid-media/for/trades', priority: '0.8' },

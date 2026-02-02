@@ -184,6 +184,34 @@ export const industries: Industry[] = [
     typicalDealSize: "AOV varies widely",
     idealChannels: ["SEO", "Google Shopping", "Paid Social", "Email & Automation"],
   },
+  {
+    id: "automotive",
+    name: "Automotive & Garages",
+    slug: "automotive",
+    painPoints: [
+      "Your website looks outdated and doesn't reflect the quality of your work",
+      "Customers can't book services online or check availability easily",
+      "You're losing jobs to franchises with slicker digital presence",
+      "Mobile users can't navigate your site or find your phone number quickly",
+      "No way to showcase your MOT pass rates, certifications or customer reviews",
+    ],
+    typicalDealSize: "£200 - £2,000 per job",
+    idealChannels: ["Local SEO", "Google Ads", "Web Design", "Review Management"],
+  },
+  {
+    id: "garages",
+    name: "Garages & Auto Repair",
+    slug: "garages",
+    painPoints: [
+      "Your website looks outdated and doesn't reflect the quality of your work",
+      "Customers can't book services online or check availability easily",
+      "You're losing jobs to franchises with slicker digital presence",
+      "Mobile users can't navigate your site or find your phone number quickly",
+      "No way to showcase your MOT pass rates, certifications or customer reviews",
+    ],
+    typicalDealSize: "£200 - £2,000 per job",
+    idealChannels: ["Local SEO", "Google Ads", "Web Design", "Review Management"],
+  },
 ];
 
 export const getIndustryBySlug = (slug: string): Industry | undefined => {

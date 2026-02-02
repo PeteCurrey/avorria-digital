@@ -1069,6 +1069,210 @@ export const landingPages: LandingPage[] = [
     relatedCaseStudies: [],
     relatedArticles: [],
   },
+
+  // Web Design for Automotive & Garages
+  {
+    id: "web-design-automotive",
+    title: "Web Design for Garages & Auto Repair",
+    slug: "web-design-automotive",
+    type: "service-industry",
+    service: getServiceBySlug("web-design")!,
+    industry: getIndustryBySlug("automotive")!,
+    heroHeadline: "Websites for garages that book jobs, not just look good",
+    heroSubheadline:
+      "Built for MOT centres, auto repair shops, and specialist mechanics who need a professional online presence that converts visitors into booked appointments—not another template that looks like every other garage.",
+    primaryCTA: "Book Design Consultation",
+    secondaryCTA: "View Our Automotive Portfolio",
+    problemBullets: [
+      "Your website looks like it was built in 2010 and doesn't reflect the quality of your work",
+      "Customers can't see your MOT availability, book services, or request quotes online",
+      "You're losing jobs to Kwik Fit and Halfords who have slicker digital presence",
+      "Mobile users struggle to find your phone number or opening hours",
+      "No way to showcase your certifications, specialisms or genuine customer reviews",
+      "Your Google Business Profile does all the heavy lifting because your website lets you down",
+    ],
+    solutionBullets: [
+      "Modern, fast-loading sites designed specifically for automotive businesses",
+      "Online booking integration for MOTs, services and repairs",
+      "Mobile-first design with click-to-call and instant quote requests",
+      "Showcase pages for specialisms (classic cars, performance tuning, fleet services)",
+      "Review integration and trust signals that build confidence before they call",
+      "Local SEO foundations built in from day one",
+    ],
+    keyMetrics: [
+      {
+        value: "+156%",
+        label: "Online Bookings",
+        description: "Increase in online MOT and service bookings after website rebuild",
+      },
+      {
+        value: "3.2s → 1.1s",
+        label: "Load Time",
+        description: "Faster sites mean lower bounce rates and more enquiries",
+      },
+      {
+        value: "+89%",
+        label: "Mobile Conversions",
+        description: "More calls and form fills from mobile after responsive redesign",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "Our old site was embarrassing. Now when customers Google us, they see a business that looks as professional as the work we do. Bookings went through the roof.",
+      author: "Dave Price",
+      role: "Owner",
+      company: "DP Auto Repair",
+    },
+    processSteps: [
+      {
+        title: "Discovery & Strategy",
+        description:
+          "We learn your business: MOT capacity, specialisms, service areas, what makes you different from the chains. Then we plan a site structure that turns visitors into bookings.",
+      },
+      {
+        title: "Design & Build",
+        description:
+          "Custom design that showcases your work, integrates with your booking system, and loads fast on any device. Real photos of your garage, not stock images.",
+      },
+      {
+        title: "Launch & Optimise",
+        description:
+          "Go live with tracking in place, Google Business Profile optimised, and a plan to keep driving more local traffic to your new site.",
+      },
+    ],
+    workingWithYou:
+      "We've built websites for garages across Derbyshire and the East Midlands, from independent MOT centres to specialist performance shops. We know the automotive trade—your customers want to see trust signals, easy booking, and proof you know what you're doing. No jargon, no fluff, just a website that works as hard as you do.",
+    pricingSnapshot:
+      "Typical investment for a garage website: £2,500–£6,000 depending on features (booking integration, multiple locations, e-commerce for parts). Includes design, build, basic SEO setup, and training so you can update it yourself.",
+    faqList: [
+      {
+        question: "Can you integrate with our existing booking system?",
+        answer: "Yes. We work with common automotive booking systems and can also set up simple booking solutions if you don't have one yet. The goal is making it easy for customers to book MOTs, services and repairs without calling.",
+      },
+      {
+        question: "Will I be able to update the website myself?",
+        answer: "Absolutely. We build on platforms that are easy to manage. You'll be able to update prices, add offers, post news and manage your gallery without needing us for every change.",
+      },
+      {
+        question: "Do you work with multi-branch garages?",
+        answer: "Yes. We can build sites that serve multiple locations with proper local SEO for each branch, while maintaining a consistent brand across all your sites.",
+      },
+      {
+        question: "What about MOT reminder emails and marketing?",
+        answer: "We can integrate email collection and recommend tools for MOT reminders and service follow-ups. Happy to advise on what works best for your setup.",
+      },
+      {
+        question: "How long does it take to build a garage website?",
+        answer: "Typically 4-6 weeks from kickoff to launch. More complex projects with multiple locations or custom integrations may take 8-10 weeks.",
+      },
+    ],
+    targetKeyword: "garage website design",
+    metaTitle: "Web Design for Garages & Auto Repair | Avorria",
+    metaDescription: "Professional website design for garages, MOT centres and auto repair shops. Online booking, mobile-first design, and local SEO built in. See our automotive portfolio.",
+    relatedCaseStudies: ["dp-auto-repair", "aes-uk"],
+    relatedArticles: ["local-seo-guide", "website-conversion-tips-trades"],
+  },
+
+  // Web Design for Garages (alias)
+  {
+    id: "web-design-garages",
+    title: "Web Design for Garages",
+    slug: "web-design-garages",
+    type: "service-industry",
+    service: getServiceBySlug("web-design")!,
+    industry: getIndustryBySlug("garages")!,
+    heroHeadline: "Garage websites that fill your bays, not just your inbox",
+    heroSubheadline:
+      "From MOT centres to specialist repair shops—we build websites that look professional, book jobs online, and help you compete with the big chains without their marketing budgets.",
+    primaryCTA: "Get a Free Website Review",
+    secondaryCTA: "See Garage Websites We've Built",
+    problemBullets: [
+      "Your current site is slow, outdated, and doesn't show up on Google",
+      "Customers phone other garages because they can book online instantly",
+      "You can't update prices, offers or availability without calling a developer",
+      "Mobile visitors bounce because the site is impossible to navigate on a phone",
+      "No clear calls-to-action—just a contact form buried at the bottom",
+      "You're competing with franchises who spend thousands on marketing",
+    ],
+    solutionBullets: [
+      "Clean, professional design that builds trust before they even call",
+      "Online booking for MOTs, servicing and repairs—no more phone tag",
+      "Lightning-fast mobile experience with prominent call buttons",
+      "Easy-to-manage CMS so you can update offers and news yourself",
+      "Reviews and certifications displayed prominently to build credibility",
+      "Local SEO setup so you rank for '[service] near me' searches",
+    ],
+    keyMetrics: [
+      {
+        value: "2.4x",
+        label: "More Enquiries",
+        description: "Average increase in contact form submissions after website rebuild",
+      },
+      {
+        value: "+73%",
+        label: "Mobile Traffic",
+        description: "Increase in mobile visitors who actually convert to enquiries",
+      },
+      {
+        value: "Top 3",
+        label: "Local Rankings",
+        description: "Typical position improvement for 'garage near me' searches within 6 months",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "The new site pays for itself every month. We went from maybe one online enquiry a week to several a day. Best investment we've made in the business.",
+      author: "Andy",
+      role: "Director",
+      company: "AES UK",
+    },
+    processSteps: [
+      {
+        title: "Free Website Audit",
+        description:
+          "We review your current site (if you have one), your competitors, and your local search visibility. You'll get a clear picture of what's working and what's costing you jobs.",
+      },
+      {
+        title: "Custom Design & Build",
+        description:
+          "A site built around your garage: your services, your specialisms, your team. Not a template with your logo slapped on. Mobile-first, fast-loading, easy to manage.",
+      },
+      {
+        title: "Launch & Grow",
+        description:
+          "We don't disappear after launch. Training, support, and optional ongoing SEO to keep driving local traffic and bookings.",
+      },
+    ],
+    workingWithYou:
+      "We've worked with garages like DP Auto Repair in Chesterfield and AES across the Midlands. We understand that you're experts at fixing cars, not building websites. That's our job. We handle the tech, the design, and the SEO—you focus on keeping customers happy.",
+    pricingSnapshot:
+      "Garage websites typically run £2,000–£5,000 for a professional site with booking integration. Ongoing support and SEO packages available from £250/month. No long contracts—just results.",
+    faqList: [
+      {
+        question: "We're a small independent garage—is this overkill for us?",
+        answer: "Not at all. A professional website is often the difference between a customer choosing you or the garage down the road. We scale the project to fit your size and budget.",
+      },
+      {
+        question: "Do you take photos of our garage?",
+        answer: "We can arrange professional photography if needed. Real photos of your team, your workshop, and your work always perform better than stock images.",
+      },
+      {
+        question: "Can the website handle online payments for MOTs?",
+        answer: "Yes. We can integrate payment processing so customers can pay deposits or full amounts when booking. Reduces no-shows and improves cash flow.",
+      },
+      {
+        question: "What if we want to sell parts online too?",
+        answer: "We can build e-commerce functionality for parts sales alongside your service booking. Many garages find this a useful additional revenue stream.",
+      },
+      {
+        question: "Do you offer payment plans?",
+        answer: "Yes. We can split the cost over 3-6 months to make it easier to manage alongside running your business.",
+      },
+    ],
+    targetKeyword: "web design for garages",
+    metaTitle: "Web Design for Garages | MOT Centre & Auto Repair Websites | Avorria",
+    metaDescription: "Professional websites for garages and MOT centres. Online booking, mobile-first design, local SEO. Trusted by DP Auto Repair, AES and garages across Derbyshire.",
+    relatedCaseStudies: ["dp-auto-repair", "aes-uk"],
+    relatedArticles: ["local-seo-guide", "website-conversion-tips-trades"],
+  },
 ];
 
 // Combined list of all landing pages (industry + location)
