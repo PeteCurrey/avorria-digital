@@ -89,6 +89,7 @@ const navSections: NavSection[] = [
     title: "Reports & Settings",
     items: [
       { name: "Reports", icon: ClipboardList, tab: "reports" },
+      { name: "Analytics Connections", icon: TrendingUp, tab: "analytics-connections" },
       { name: "Integrations", icon: Zap, tab: "integrations" },
       { name: "Settings", icon: Settings, tab: "settings" },
     ],

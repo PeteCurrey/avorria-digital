@@ -45,6 +45,7 @@ import { ClientLogosTab } from "@/components/admin/ClientLogosTab";
 import ClientProjectsManager from "@/components/admin/ClientProjectsManager";
 import InvoiceManager from "@/components/admin/InvoiceManager";
 import AssetManager from "@/components/admin/AssetManager";
+import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -164,6 +165,7 @@ const Admin = () => {
       case "content-studio": return "AI Content Studio";
       case "newsletter": return "Newsletter Builder";
       case "reports": return "Reports";
+      case "analytics-connections": return "Analytics Connections";
       case "integrations": return "Integrations";
       case "settings": return "Settings";
       case "landing-pages": return "SEO Landing Pages";
@@ -191,6 +193,7 @@ const Admin = () => {
       case "content-studio": return "Generate AI-powered content at scale";
       case "newsletter": return "Design and send beautiful newsletters";
       case "reports": return "Generate and schedule reports";
+      case "analytics-connections": return "Connect per-client analytics integrations";
       case "integrations": return "Connect third-party services";
       case "settings": return "Configure your admin preferences";
       case "landing-pages": return "Create and manage SEO landing pages";
@@ -649,6 +652,9 @@ const Admin = () => {
 
       case "integrations":
         return <IntegrationsPanel />;
+
+      case "analytics-connections":
+        return <AnalyticsConnectionsTab />;
 
       case "settings":
         return <AdminSettings />;
