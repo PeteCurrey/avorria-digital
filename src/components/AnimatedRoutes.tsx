@@ -156,9 +156,9 @@ const AnimatedRoutes = () => {
           } />
           <Route path="/unauthorized" element={<PageTransition><Unauthorized /></PageTransition>} />
           
-          {/* Admin Route - Protected */}
+          {/* Admin Route - Protected for staff only */}
           <Route path="/admin" element={
-            <ProtectedRoute>
+            <ProtectedRoute allowStaff>
               <PageTransition><Admin /></PageTransition>
             </ProtectedRoute>
           } />
