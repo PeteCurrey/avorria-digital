@@ -6,6 +6,7 @@ import { serviceLocationLandingPages, getServiceLocationPageBySlug } from "./ser
 
 // Hero images for industry pages
 import dpAutoRepairHero from "@/assets/case-studies/dp-auto-repair-hero.png";
+import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
 
 export const landingPages: LandingPage[] = [
   // SEO for Trades & Home Services
@@ -1277,6 +1278,132 @@ export const landingPages: LandingPage[] = [
     heroImage: dpAutoRepairHero,
     relatedCaseStudies: ["dp-auto-repair", "aes-uk"],
     relatedArticles: ["local-seo-guide", "website-conversion-tips-trades"],
+  },
+
+  // Web Design for Facilities Management
+  {
+    id: "web-design-facilities-management",
+    title: "Web Design for Facilities Management Companies",
+    slug: "web-design-facilities-management",
+    type: "service-industry",
+    service: getServiceBySlug("web-design")!,
+    industry: getIndustryBySlug("facilities-management")!,
+    heroHeadline: "Websites for facilities management that convert enquiries, not just look professional",
+    heroSubheadline: "We helped EntireFM increase enquiries by 156% and reduce bounce rate by 47%. We'll do the same for your FM company—with sector-specific architecture, CAFM integration, and AI-driven workflows.",
+    primaryCTA: "Request an FM website consultation",
+    secondaryCTA: "See the EntireFM case study",
+    problemBullets: [
+      "Your website doesn't communicate what you actually do — services are buried under generic FM jargon",
+      "Competitors with worse service records outrank you because their websites convert better",
+      "No clear pathway from visitor to RFP — just a lonely contact form in the footer",
+      "Your digital presence doesn't reflect the operational excellence you deliver on-site",
+      "Complex service offerings (hard, soft, compliance, projects) aren't structured for different buyer journeys",
+      "Property managers researching FM providers can't quickly assess your capabilities",
+    ],
+    solutionBullets: [
+      "Clear service architecture separating hard services, soft services, compliance, and project work",
+      "Sector-specific landing pages for offices, industrial, retail, aviation, residential, and construction",
+      "AI-driven enquiry workflows and 24/7 chatbot integration for initial qualification",
+      "Trust signals that matter: SLA metrics, response times, compliance certifications, client logos",
+      "CAFM/helpdesk portal integration and live job tracking showcases",
+      "Case study presentation that demonstrates real outcomes, not generic testimonials",
+    ],
+    keyMetrics: [
+      {
+        value: "+156%",
+        label: "More Enquiries",
+        description: "EntireFM saw enquiry volume increase within 6 months of website launch",
+      },
+      {
+        value: "-47%",
+        label: "Bounce Rate",
+        description: "Visitors staying longer, exploring services, and converting",
+      },
+      {
+        value: "-62%",
+        label: "Time to Convert",
+        description: "Faster journey from first visit to enquiry submission",
+      },
+      {
+        value: "+89%",
+        label: "Organic Visibility",
+        description: "Target keyword rankings improved across FM service terms",
+      },
+    ],
+    testimonialSnippet: {
+      quote: "Avorria didn't just build us a website — they transformed how we present ourselves to the market. The AI automations alone have saved our team hours every week. Enquiries are up, the right prospects are finding us, and for the first time, our digital presence matches the quality of our service delivery.",
+      author: "David Mitchell",
+      role: "Operations Director",
+      company: "EntireFM",
+    },
+    processSteps: [
+      {
+        title: "FM Sector Audit",
+        description: "We analyse your current site, competitor positioning, and service communication gaps across hard services, soft services, and compliance offerings.",
+      },
+      {
+        title: "Service Architecture",
+        description: "Map your hard/soft services, compliance offerings, and project capabilities into clear navigation paths for different buyer personas.",
+      },
+      {
+        title: "Build & Integrate",
+        description: "Premium website with CAFM showcases, helpdesk demos, AI-driven enquiry workflows, and integration with your existing systems.",
+      },
+      {
+        title: "Launch & Optimise",
+        description: "Ongoing SEO, CRO sprints, and performance monitoring to continuously improve enquiry quality and conversion rates.",
+      },
+    ],
+    workingWithYou: "We understand the FM sector inside and out—not just generic B2B templates. We know the difference between hard and soft services, understand PPM scheduling, CAFM systems, and compliance requirements. Our team has built websites for FM companies across commercial, industrial, retail, and residential sectors. We integrate with your existing helpdesk platforms, showcase your certifications properly, and build AI-driven workflows that qualify enquiries before they reach your team. When you work with Avorria, you're getting an agency that speaks FM fluently.",
+    pricingSnapshot: "FM website projects typically range from £8,000–£25,000 depending on scope, integrations, and sector coverage requirements. Ongoing SEO and optimisation packages available from £800/month. We'll scope your specific requirements during the initial consultation.",
+    faqList: [
+      {
+        question: "Do you understand the FM sector's complex service structure?",
+        answer: "Yes. We know the difference between hard services (M&E, HVAC, fire systems) and soft services (cleaning, security, catering). We understand PPM schedules, reactive maintenance, and compliance frameworks. Our FM websites are structured to communicate this complexity clearly to different buyer personas—from property managers to procurement teams.",
+      },
+      {
+        question: "Can you integrate with our CAFM/helpdesk platform?",
+        answer: "Absolutely. We've integrated with major CAFM platforms including Concept Evolution, Planon, and bespoke helpdesk systems. We can showcase live job tracking, SLA compliance dashboards, and response time metrics on your website to demonstrate operational excellence.",
+      },
+      {
+        question: "How do you handle multi-sector targeting (offices vs industrial vs retail)?",
+        answer: "We build dedicated sector landing pages for each market you serve. Each page speaks the language of that sector—hospital compliance for healthcare, clean room requirements for manufacturing, footfall management for retail. This improves SEO targeting and conversion rates simultaneously.",
+      },
+      {
+        question: "What about compliance documentation and certification showcases?",
+        answer: "We prominently feature your certifications (ISO, SafeContractor, CHAS, etc.) and can build dedicated compliance sections. For regulated sectors like healthcare or education, we ensure these trust signals are visible at every stage of the buyer journey.",
+      },
+      {
+        question: "Can you build client portals for live job tracking?",
+        answer: "Yes. We can build or integrate secure client portal areas showing live job status, SLA performance, and documentation access. This demonstrates transparency and professionalism while reducing inbound 'status check' calls.",
+      },
+      {
+        question: "How do you differentiate us from generic FM competitors?",
+        answer: "Through strategic positioning, sector specialisation, and outcome-focused content. We showcase your actual performance metrics (response times, fix rates, client retention), highlight genuine case studies, and craft messaging that speaks to specific sector pain points rather than generic FM promises.",
+      },
+      {
+        question: "What's the typical investment for an FM website project?",
+        answer: "Projects range from £8,000 for focused single-sector FM companies to £25,000+ for multi-sector, multi-location operations requiring CAFM integration and comprehensive content. We scope precisely based on your requirements—no padding, no surprises.",
+      },
+      {
+        question: "Do you handle ongoing SEO and content after launch?",
+        answer: "Yes. Many FM clients engage us for ongoing SEO, content creation, and CRO work. We produce sector-specific content (case studies, thought leadership, compliance updates) and continuously optimise conversion pathways based on real performance data.",
+      },
+      {
+        question: "What features did you build for EntireFM?",
+        answer: "For EntireFM, we built time-based dynamic greetings, live KPI dashboard sections (4-hour response, 89% fix rate, 24/7 support), CAFM integration showcases, sector-specific landing pages, AI chatbot for enquiry qualification, and a clean service architecture separating their hard/soft service offerings. The result: 156% more enquiries.",
+      },
+      {
+        question: "How long does an FM website project take?",
+        answer: "Typically 8-12 weeks from kickoff to launch, depending on complexity and integrations. We work in structured phases with clear milestones. Content gathering and stakeholder input are usually the biggest variables—we'll help streamline this process.",
+      },
+    ],
+    targetKeyword: "facilities management website design",
+    metaTitle: "Web Design for Facilities Management Companies | Avorria",
+    metaDescription: "Specialist website design for facilities management companies. See how we helped EntireFM increase enquiries by 156%. CAFM integration, AI workflows, sector-specific architecture.",
+    heroImage: entirefmHero,
+    relatedCaseStudies: ["entirefm-rebrand", "commercial-fm-website"],
+    relatedArticles: ["fm-digital-transformation", "cafm-integration-guide"],
   },
 ];
 

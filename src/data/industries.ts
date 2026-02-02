@@ -212,6 +212,20 @@ export const industries: Industry[] = [
     typicalDealSize: "£200 - £2,000 per job",
     idealChannels: ["Local SEO", "Google Ads", "Web Design", "Review Management"],
   },
+  {
+    id: "facilities-management",
+    name: "Facilities Management",
+    slug: "facilities-management",
+    painPoints: [
+      "Your website doesn't communicate what you actually do — services are buried under generic FM jargon",
+      "Competitors with worse service records outrank you because their websites convert better",
+      "No clear pathway from visitor to RFP — just a lonely contact form in the footer",
+      "Your digital presence doesn't reflect the operational excellence you deliver on-site",
+      "Complex service offerings (hard, soft, compliance, projects) aren't structured for different buyer journeys",
+    ],
+    typicalDealSize: "£10,000 - £50,000 per website project",
+    idealChannels: ["SEO", "Web Design", "Content Marketing", "LinkedIn"],
+  },
 ];
 
 export const getIndustryBySlug = (slug: string): Industry | undefined => {
