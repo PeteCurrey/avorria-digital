@@ -80,6 +80,11 @@ const platformNavItems: NavItem[] = [
 
 const clientNavItems: NavItem[] = [
   { name: "Overview", path: "/client", icon: LayoutDashboard },
+  { name: "Projects", path: "/client/projects", icon: Briefcase },
+  { name: "Proposals", path: "/client/proposals", icon: FileText },
+  { name: "Documents", path: "/client/documents", icon: Library },
+  { name: "Billing", path: "/client/billing", icon: Target },
+  { name: "Analytics", path: "/client/analytics", icon: BarChart3 },
   { name: "SEO Intelligence", path: "/client/seo-intelligence", icon: TrendingUp },
   { name: "Audits", path: "/client/audits", icon: FileCheck },
   { name: "Website Health", path: "/client/website-health", icon: Activity },
