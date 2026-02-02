@@ -13,16 +13,12 @@ export const CustomCursor = () => {
   // Hide cursor on admin pages
   const isAdminPage = location.pathname.startsWith("/admin");
 
+  // Direct motion values for instant cursor tracking (no delay)
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
 
-  // High stiffness for near-instant cursor tracking (feels like real cursor)
-  const mainSpringConfig = { damping: 30, stiffness: 1000, mass: 0.1 };
-  const cursorXSpring = useSpring(cursorX, mainSpringConfig);
-  const cursorYSpring = useSpring(cursorY, mainSpringConfig);
-
-  // Trailing cursor springs (slightly lagging for visual effect)
-  const trailSpringConfig = { damping: 25, stiffness: 400, mass: 0.2 };
+  // Trailing cursor springs (slightly lagging for visual effect only)
+  const trailSpringConfig = { damping: 28, stiffness: 300, mass: 0.15 };
   const trailXSpring = useSpring(cursorX, trailSpringConfig);
   const trailYSpring = useSpring(cursorY, trailSpringConfig);
 
@@ -162,8 +158,8 @@ export const CustomCursor = () => {
       <motion.div
         className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center"
         style={{
-          x: cursorXSpring,
-          y: cursorYSpring,
+          x: cursorX,
+          y: cursorY,
           translateX: "-50%",
           translateY: "-50%",
         }}
