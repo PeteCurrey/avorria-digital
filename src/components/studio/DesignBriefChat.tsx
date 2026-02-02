@@ -770,30 +770,19 @@ export const DesignBriefChat = ({
     setIsExportingPDF(true);
     try {
       const html = generateBriefPDFHTML(generatedBrief);
-      const { default: html2pdf } = await import("html2pdf.js");
+      const { generatePDFFromHTML } = await import("@/lib/pdf-generator");
       
-      const container = document.createElement("div");
-      container.innerHTML = html;
-      container.style.position = "absolute";
-      container.style.left = "-9999px";
-      document.body.appendChild(container);
-
       const businessName = generatedBrief.projectOverview.businessName || "Website";
       const filename = `${businessName.replace(/[^a-z0-9]/gi, '-')}-Design-Brief.pdf`;
 
-      await html2pdf()
-        .set({
-          margin: 0,
-          filename,
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2, useCORS: true },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-          pagebreak: { mode: ['avoid-all', 'css', 'legacy'] }
-        })
-        .from(container)
-        .save();
+      await generatePDFFromHTML(html, {
+        filename,
+        imageQuality: 0.98,
+        scale: 2,
+        format: "a4",
+        orientation: "portrait",
+      });
 
-      document.body.removeChild(container);
       toast.success("PDF downloaded successfully!");
     } catch (error) {
       console.error("PDF export error:", error);

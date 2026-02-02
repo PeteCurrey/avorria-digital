@@ -136,17 +136,15 @@ export const SummaryStep = ({ config }: SummaryStepProps) => {
       if (error) throw error;
 
       if (data?.html) {
-        const { default: html2pdf } = await import("html2pdf.js");
-        const element = document.createElement("div");
-        element.innerHTML = data.html;
+        const { generatePDFFromHTML } = await import("@/lib/pdf-generator");
         
-        await html2pdf().set({
-          margin: 0,
+        await generatePDFFromHTML(data.html, {
           filename: `Avorria-Blueprint-${projectCode}.pdf`,
-          image: { type: "jpeg", quality: 0.98 },
-          html2canvas: { scale: 2 },
-          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-        }).from(element).save();
+          imageQuality: 0.98,
+          scale: 2,
+          format: "a4",
+          orientation: "portrait",
+        });
       }
     } catch (error) {
       console.error("PDF generation error:", error);
