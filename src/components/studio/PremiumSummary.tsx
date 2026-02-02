@@ -87,30 +87,15 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
       if (error) throw error;
 
       if (data?.html) {
-        // Dynamic import for html2pdf
-        const html2pdf = (await import("html2pdf.js")).default;
+        const { generatePDFFromHTML } = await import("@/lib/pdf-generator");
         
-        // Create a temporary container
-        const container = document.createElement("div");
-        container.innerHTML = data.html;
-        container.style.position = "absolute";
-        container.style.left = "-9999px";
-        document.body.appendChild(container);
-
-        // Generate PDF
-        await html2pdf()
-          .set({
-            margin: 0,
-            filename: `${projectCode}-blueprint.pdf`,
-            image: { type: "jpeg", quality: 0.98 },
-            html2canvas: { scale: 2 },
-            jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-          })
-          .from(container)
-          .save();
-
-        // Clean up
-        document.body.removeChild(container);
+        await generatePDFFromHTML(data.html, {
+          filename: `${projectCode}-blueprint.pdf`,
+          imageQuality: 0.98,
+          scale: 2,
+          format: "a4",
+          orientation: "portrait",
+        });
         
         trackEvent("studio_blueprint_pdf_downloaded", { projectCode });
         toast.success("Blueprint PDF downloaded!");
