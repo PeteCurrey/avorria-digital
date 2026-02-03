@@ -27,6 +27,7 @@ export interface ProjectAsset {
   position: number;
   is_featured: boolean;
   metadata: Json;
+  pair_id: string | null;
   created_at: string;
   updated_at: string;
 }
@@ -42,6 +43,7 @@ export interface CreateAssetData {
   position?: number;
   is_featured?: boolean;
   metadata?: Json;
+  pair_id?: string;
 }
 
 // Fetch assets for a project
