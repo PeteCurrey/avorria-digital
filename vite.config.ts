@@ -1,4 +1,4 @@
-// Cache rebuild trigger v15 - force clean rebuild for React dedupe
+// Cache rebuild trigger v17 - force clean rebuild for React dedupe
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
