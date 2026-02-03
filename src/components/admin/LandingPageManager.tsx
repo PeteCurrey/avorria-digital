@@ -79,6 +79,8 @@ export function LandingPageManager() {
   const [searchQuery, setSearchQuery] = useState("");
   const [filterService, setFilterService] = useState<string>("all");
   const [filterStatus, setFilterStatus] = useState<string>("all");
+  const [filterType, setFilterType] = useState<string>("all");
+  const [filterCountry, setFilterCountry] = useState<string>("all");
 
   // Temp state for array fields
   const [problemBulletsText, setProblemBulletsText] = useState("");
@@ -92,6 +94,13 @@ export function LandingPageManager() {
   const togglePublish = useToggleLandingPagePublish();
   const generateContent = useGenerateLandingPageContent();
 
+  // Get country from location_slug
+  const getCountryFromLocation = (locationSlug: string | null) => {
+    if (!locationSlug) return null;
+    const location = locations.find(l => l.slug === locationSlug);
+    return location?.countryCode || null;
+  };
+
   const filteredPages = pages?.filter((page) => {
     const matchesSearch = page.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       page.slug.toLowerCase().includes(searchQuery.toLowerCase());
@@ -99,8 +108,16 @@ export function LandingPageManager() {
     const matchesStatus = filterStatus === "all" || 
       (filterStatus === "published" && page.is_published) ||
       (filterStatus === "draft" && !page.is_published);
-    return matchesSearch && matchesService && matchesStatus;
+    const matchesType = filterType === "all" || 
+      (filterType === "location" && page.location_slug) ||
+      (filterType === "industry" && page.industry_slug && !page.location_slug);
+    const matchesCountry = filterCountry === "all" || getCountryFromLocation(page.location_slug) === filterCountry;
+    return matchesSearch && matchesService && matchesStatus && matchesType && matchesCountry;
   });
+
+  // Count pages by type
+  const locationPageCount = pages?.filter(p => p.location_slug).length || 0;
+  const industryPageCount = pages?.filter(p => p.industry_slug && !p.location_slug).length || 0;
 
   const handleOpenDialog = (page?: SEOLandingPage) => {
     if (page) {
@@ -300,8 +317,8 @@ export function LandingPageManager() {
       </div>
 
       {/* Filters */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-        <div className="relative flex-1">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center flex-wrap">
+        <div className="relative flex-1 min-w-[200px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
             placeholder="Search pages..."
@@ -310,9 +327,32 @@ export function LandingPageManager() {
             className="pl-10"
           />
         </div>
+        <Select value={filterType} onValueChange={setFilterType}>
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Page type" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Types ({pages?.length || 0})</SelectItem>
+            <SelectItem value="location">Location ({locationPageCount})</SelectItem>
+            <SelectItem value="industry">Industry ({industryPageCount})</SelectItem>
+          </SelectContent>
+        </Select>
+        <Select value={filterCountry} onValueChange={setFilterCountry}>
+          <SelectTrigger className="w-[140px]">
+            <SelectValue placeholder="Country" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="all">All Countries</SelectItem>
+            <SelectItem value="GB">🇬🇧 UK</SelectItem>
+            <SelectItem value="US">🇺🇸 USA</SelectItem>
+            <SelectItem value="AU">🇦🇺 Australia</SelectItem>
+            <SelectItem value="NZ">🇳🇿 New Zealand</SelectItem>
+            <SelectItem value="CA">🇨🇦 Canada</SelectItem>
+          </SelectContent>
+        </Select>
         <Select value={filterService} onValueChange={setFilterService}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Filter by service" />
+          <SelectTrigger className="w-[150px]">
+            <SelectValue placeholder="Service" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Services</SelectItem>
@@ -322,7 +362,7 @@ export function LandingPageManager() {
           </SelectContent>
         </Select>
         <Select value={filterStatus} onValueChange={setFilterStatus}>
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-[120px]">
             <SelectValue placeholder="Status" />
           </SelectTrigger>
           <SelectContent>
