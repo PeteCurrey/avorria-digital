@@ -1,4 +1,4 @@
-// Module version: v16 - force clean rebuild for React dedupe
+// Module version: v17 - force clean rebuild for React dedupe
 import React from "react";
 import ReactDOM from "react-dom/client";
 import ErrorBoundary from "./components/ErrorBoundary";
