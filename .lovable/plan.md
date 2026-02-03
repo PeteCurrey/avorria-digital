@@ -1,187 +1,222 @@
 
-# Web Design for Facilities Management Landing Page
+# Admin Panel & Client Portal Enhancement Plan
 
-## Overview
+## Executive Summary
 
-Create a comprehensive, content-rich landing page targeting facilities management companies seeking professional website design and digital transformation services. The page will use EntireFM as the flagship case study, demonstrating Avorria's deep understanding of the FM sector.
-
----
-
-## Target Audience
-
-- **Primary**: Operations Directors, Managing Directors, and Marketing leads at FM companies
-- **Secondary**: Property managers seeking FM provider recommendations with professional digital presence
-- **Pain points**: Outdated websites, poor lead generation, complex service communication, lack of trust signals, no digital differentiation from competitors
+This plan addresses the gaps in the admin panel for client management and ensures a complete workflow from creating clients to testing their client portal experience. The key enhancements include a new Clients management tab, better sidebar organization, URL-based screenshot capture preparation, and impersonation capability for testing.
 
 ---
 
-## URL Structure
+## Current State Issues
 
-- Primary: `/lp/web-design-facilities-management`
-- Alternative route: `/web-design/for/facilities-management`
-
----
-
-## Content Strategy
-
-### Hero Section
-- **Headline**: "Websites for facilities management that convert enquiries, not just look professional"
-- **Subheadline**: Reference EntireFM results (+156% enquiries, -47% bounce rate)
-- **Hero Image**: EntireFM website screenshot (`entirefm-hero.jpg`)
-- **Context line**: "For Facilities Management Companies"
-
-### Pain Points (Problem Bullets)
-Based on FM sector research:
-1. Your website doesn't communicate what you actually do — services are buried under generic FM jargon
-2. Competitors with worse service records outrank you because their websites convert better
-3. No clear pathway from visitor to RFP — just a lonely contact form in the footer
-4. Your digital presence doesn't reflect the operational excellence you deliver on-site
-5. Complex service offerings (hard, soft, compliance, projects) aren't structured for different buyer journeys
-
-### Solutions (What Avorria Delivers)
-FM-specific web design capabilities:
-1. Clear service architecture separating hard services, soft services, compliance, and project work
-2. Sector-specific landing pages (offices, industrial, retail, aviation, residential, construction)
-3. AI-driven enquiry workflows and 24/7 chatbot integration for initial qualification
-4. Trust signals that matter: SLA metrics, response times, compliance certifications, client logos
-5. CAFM/helpdesk portal integration and live job tracking showcases
-6. Case study presentation that demonstrates real outcomes, not generic testimonials
-
-### Key Metrics (Based on EntireFM Results)
-| Value | Label | Description |
-|-------|-------|-------------|
-| +156% | More Enquiries | EntireFM saw enquiry volume increase within 6 months of launch |
-| -47% | Bounce Rate | Visitors staying longer, exploring services, and converting |
-| -62% | Time to Convert | Faster journey from first visit to enquiry submission |
-| +89% | Organic Visibility | Target keyword rankings improved across FM service terms |
-
-### Process Steps
-FM-specific web design process:
-1. **FM Sector Audit** — We analyse your current site, competitor positioning, and service communication gaps
-2. **Service Architecture** — Map hard/soft services, compliance offerings, and project capabilities into clear navigation
-3. **Build & Integrate** — Premium website with CAFM showcases, helpdesk demos, and AI-driven workflows
-4. **Launch & Optimise** — Ongoing SEO, CRO sprints, and performance monitoring
-
-### Testimonial
-From EntireFM case study:
-> "Avorria didn't just build us a website — they transformed how we present ourselves to the market. The AI automations alone have saved our team hours every week. Enquiries are up, the right prospects are finding us, and for the first time, our digital presence matches the quality of our service delivery."
-> — **David Mitchell**, Operations Director, EntireFM
-
-### FAQ Section (FM-Specific)
-8-10 questions addressing:
-1. Do you understand the FM sector's complex service structure?
-2. Can you integrate with our CAFM/helpdesk platform?
-3. How do you handle multi-sector targeting (offices vs industrial vs retail)?
-4. What about compliance documentation and certification showcases?
-5. Can you build client portals for live job tracking?
-6. How do you differentiate us from generic FM competitors?
-7. What's the typical investment for an FM website project?
-8. Do you handle ongoing SEO and content after launch?
-
-### Working With You Section
-Emphasize:
-- Deep FM sector understanding (not just generic B2B templates)
-- Experience with hard/soft service categorization
-- Integration capabilities (CAFM, helpdesk, compliance tracking)
-- AI-driven workflow automation for enquiry handling
-
-### Related Content
-- Link to EntireFM case study: `/case-studies/entirefm-rebrand`
-- Related industries: Manufacturing, Construction, Multi-location brands
+1. **No way to create clients** - The admin has `ClientProjectsManager` but no `ClientsManager` to actually create client accounts
+2. **Projects require clients** - Cannot create projects without first having clients in the dropdown
+3. **Asset upload requires projects** - Cannot upload before/after screenshots without first having projects
+4. **No impersonation from admin** - Cannot easily test what a specific client sees
+5. **Sidebar is crowded** - 11 items in the Dashboard section alone
 
 ---
 
-## Technical Implementation
+## Implementation Plan
 
-### Files to Modify
+### Phase 1: Create Clients Manager Component
 
-**1. `src/data/industries.ts`**
-Add new industry: "Facilities Management"
+**File: `src/components/admin/ClientsManager.tsx`** (New)
+
+A comprehensive client management component with:
+- CRUD operations for clients
+- Fields: Name, Industry, Services (multi-select), Status (onboarding/live/at-risk/paused), Monthly Value, Notes
+- **Link to User Account** - Dropdown to associate client with an existing auth user (via `owner_id`)
+- Quick stats showing client counts by status
+- Search and filter capabilities
+- Edit/Delete actions on each row
+
+**Technical Details:**
+- Uses existing `useClients`, `useCreateClient`, `useUpdateClient`, `useDeleteClient` hooks
+- Adds lookup to `profiles` table to populate user dropdown
+- Links `owner_id` to enable portal access
+
+---
+
+### Phase 2: Add Clients Tab to Admin
+
+**File: `src/pages/Admin.tsx`**
+
+- Add new case `"clients"` in `renderContent()` switch
+- Import and render `<ClientsManager />`
+- Update `getPageTitle()` and `getPageSubtitle()` for the clients tab
+
+**File: `src/components/admin/AdminSidebar.tsx`**
+
+Reorganize sidebar into logical groups:
+```text
+CLIENTS & PROJECTS
+  - Clients (NEW - primary entry point)
+  - Projects (Studio blueprints)
+  - Client Projects (active work)
+  - Assets
+  - Invoicing
+
+LEADS & SALES
+  - Leads
+  - Audits
+
+CONTENT & MARKETING
+  - Case Studies
+  - Testimonials
+  - Client Logos
+  - Content Studio
+  - Content Calendar
+  - Newsletter Builder
+
+SEO & PERFORMANCE
+  - Landing Pages
+  - Performance
+  - SEO Dashboard
+  - Sitemap Manager
+
+ANALYTICS & REPORTS
+  - Analytics
+  - Reports
+  - Analytics Connections
+
+SYSTEM
+  - Integrations
+  - Settings
+```
+
+This reordering puts client management first (where workflows start) and groups related functions together.
+
+---
+
+### Phase 3: Add User Profile Lookup Hook
+
+**File: `src/hooks/useProfiles.ts`** (New)
+
 ```typescript
-{
-  id: "facilities-management",
-  name: "Facilities Management",
-  slug: "facilities-management",
-  painPoints: [...],
-  typicalDealSize: "£10,000 - £50,000 per website project",
-  idealChannels: ["SEO", "Web Design", "Content Marketing", "LinkedIn"]
+export function useProfiles() {
+  return useQuery({
+    queryKey: ['profiles'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, email, full_name')
+        .order('email');
+      if (error) throw error;
+      return data;
+    },
+  });
 }
 ```
 
-**2. `src/data/landingPages.ts`**
-Add comprehensive landing page entry with:
-- Full problem/solution bullets
-- EntireFM metrics and testimonial
-- 8+ FAQs specific to FM sector
-- Process steps
-- Hero image reference (`entirefm-hero.jpg`)
-
-**3. `supabase/functions/sitemap/index.ts`**
-Add new landing page URL to industry sitemap
-
-### New Assets Required
-- Use existing `entirefm-hero.jpg` for hero background
-- Option to capture additional EntireFM screenshots for gallery section
+This enables the ClientsManager to show a dropdown of registered users that can be assigned as client owners.
 
 ---
 
-## Content Richness Strategy
+### Phase 4: Add Admin-to-Client Impersonation Link
 
-This landing page will be among the most content-rich in the site because:
+**File: `src/components/admin/ClientsManager.tsx`**
 
-1. **Sector-Specific Language**: Uses FM terminology (PPM, CAFM, M&E, hard/soft services, compliance)
-2. **Real Case Study Integration**: EntireFM metrics and quote prominently featured
-3. **Feature Showcase**: Detailed breakdown of what a modern FM website includes:
-   - Time-based dynamic greetings
-   - KPI dashboard hero sections
-   - Service category architecture
-   - Sector landing pages
-   - AI chatbot integration
-   - Client portal previews
-   - Compliance certification displays
-4. **Extended FAQ**: 8+ questions covering FM-specific concerns
-5. **Process Visualization**: Clear phases from audit to ongoing optimization
+Add a "View as Client" button on each client row that:
+1. Sets the `impersonatedClient` in auth context
+2. Navigates to `/client`
+
+**File: `src/hooks/useAuth.tsx`**
+
+Ensure `setImpersonatedClient` supports setting by client name and that the client portal uses this for display and demo purposes.
 
 ---
 
-## SEO Strategy
+### Phase 5: Screenshot URL Input Field
 
-**Target Keywords:**
-- Primary: "facilities management website design"
-- Secondary: "FM company website", "facilities management web design agency", "commercial FM website"
-- Long-tail: "website for facilities management company UK", "FM digital transformation"
+**File: `src/components/admin/AssetManager.tsx`**
 
-**Meta Tags:**
-- Title: "Web Design for Facilities Management Companies | Avorria"
-- Description: "Specialist website design for facilities management companies. See how we helped EntireFM increase enquiries by 156%. CAFM integration, AI workflows, sector-specific architecture."
-
----
-
-## Expected Outcomes
-
-- Target ranking for "facilities management website design" within 3-6 months
-- Attract FM sector leads specifically (higher intent, better fit)
-- Demonstrate sector expertise beyond generic service offerings
-- Cross-link opportunity with EntireFM case study for authority building
+Add alternative input method for screenshots:
+- "Capture from URL" button that opens a dialog
+- Input fields for:
+  - Before URL (e.g., web.archive.org or current staging)
+  - After URL (live site)
+  - Screenshot service integration (future: screenshotmonster API)
+- For now, manual file upload remains primary method
+- Add "Tip" text explaining users can use ScreenshotMonster or similar to capture and download, then upload here
 
 ---
 
-## Files to Create/Modify Summary
+### Phase 6: Enhance Asset Manager with Better UX
+
+**File: `src/components/admin/AssetManager.tsx`**
+
+Improvements:
+- Auto-select project when only one exists for a client
+- Show client name in project dropdown for clarity
+- Add "Bulk Upload" option for multiple screenshots
+- Group assets by type (Screenshots, Wireframes, Documents) with collapsible sections
+- Add drag-and-drop support for file uploads
+
+---
+
+## Database Considerations
+
+No schema changes required - all necessary tables exist:
+- `clients` table has `owner_id` to link to users
+- `profiles` table exists for user lookup
+- `client_projects` table links projects to clients
+- `project_assets` table has all required asset types
+
+---
+
+## Workflow After Implementation
+
+1. **Create Client** (Admin > Clients tab)
+   - Add client name, industry, services
+   - Optionally link to an existing user account (owner_id)
+
+2. **Create Client Project** (Admin > Client Projects tab)
+   - Select client from dropdown
+   - Add project name, type, URLs
+
+3. **Upload Assets** (Admin > Assets tab)
+   - Select project
+   - Upload before/after screenshots, proposals, wireframes
+
+4. **Create Invoices** (Admin > Invoicing tab)
+   - Select client and optionally project
+   - Add amount, due date
+
+5. **Test Client View** (From Clients tab)
+   - Click "View as Client" on any client row
+   - See exactly what they see in the portal
+
+---
+
+## File Changes Summary
 
 | File | Action | Purpose |
 |------|--------|---------|
-| `src/data/industries.ts` | Add entry | Facilities Management industry definition |
-| `src/data/landingPages.ts` | Add entry | Full landing page content |
-| `supabase/functions/sitemap/index.ts` | Modify | Add new URL to sitemap |
-| `src/types/landingPage.ts` | No change | Already supports heroImage |
+| `src/components/admin/ClientsManager.tsx` | Create | New component for managing clients |
+| `src/hooks/useProfiles.ts` | Create | Fetch user profiles for owner dropdown |
+| `src/pages/Admin.tsx` | Modify | Add clients case, import ClientsManager |
+| `src/components/admin/AdminSidebar.tsx` | Modify | Reorganize navigation with better grouping |
+| `src/components/admin/AssetManager.tsx` | Modify | Add URL input field, improve UX |
 
 ---
 
-## Implementation Priority
+## Technical Notes
 
-This is a high-value landing page because:
-1. EntireFM is a live, verifiable case study
-2. FM sector has high project values (£10k-50k+)
-3. Limited competition for FM-specific web design content
-4. Natural internal linking to existing case study
-5. Supports broader B2B services positioning
+- The `clients.owner_id` field links to `profiles.id` which is the same as `auth.users.id`
+- When a user logs in with the `client` role, their user ID is matched to `client_projects.user_id` and `invoices.user_id`
+- The current flow requires the client to have a user account to see their data
+- The `impersonatedClient` in useAuth is for demo/testing purposes only
+
+---
+
+## Testing Checklist
+
+After implementation:
+1. Create a new client in Admin > Clients
+2. Link the client to a user account (or create a mock user)
+3. Create a project for that client
+4. Upload before/after screenshots to the project
+5. Create an invoice for the client
+6. Click "View as Client" to verify portal shows all data
+7. Log in as the actual client user to verify RLS policies work
