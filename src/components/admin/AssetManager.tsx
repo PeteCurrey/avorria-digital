@@ -106,6 +106,7 @@ const AssetManager = () => {
     title: "",
     description: "",
     file: null as File | null,
+    pair_id: "",
   });
 
   // Filter projects by selected client
@@ -127,6 +128,7 @@ const AssetManager = () => {
       title: "",
       description: "",
       file: null,
+      pair_id: "",
     });
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -182,6 +184,7 @@ const AssetManager = () => {
         file_url: fileUrl,
         file_size: formData.file.size,
         mime_type: formData.file.type,
+        pair_id: formData.pair_id || undefined,
       });
 
       resetForm();
@@ -483,6 +486,21 @@ const AssetManager = () => {
                       placeholder="e.g., Homepage Before Redesign"
                     />
                   </div>
+                  
+                  {/* Show pair_id field for screenshots */}
+                  {(formData.asset_type === "screenshot_before" || formData.asset_type === "screenshot_after") && (
+                    <div className="space-y-2">
+                      <Label>Page/Section Name</Label>
+                      <Input
+                        value={formData.pair_id}
+                        onChange={(e) => setFormData({ ...formData, pair_id: e.target.value })}
+                        placeholder="e.g., Homepage, About Page, Contact"
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        This links before/after screenshots together. Use the same name for matching pairs.
+                      </p>
+                    </div>
+                  )}
                   <div className="space-y-2">
                     <Label>Description (Optional)</Label>
                     <Textarea

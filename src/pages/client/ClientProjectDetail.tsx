@@ -6,6 +6,8 @@ import { useProject } from "@/hooks/useClientProjects";
 import { useProjectAssets } from "@/hooks/useProjectAssets";
 import AppShell from "@/components/app/AppShell";
 import { BeforeAfterSliderMulti } from "@/components/case-studies/BeforeAfterSliderMulti";
+import { ProjectTimeline } from "@/components/client/ProjectTimeline";
+import { AssetCommentForm } from "@/components/client/AssetCommentForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,7 +25,8 @@ import {
   Rocket,
   CheckCircle2,
   Search,
-  Palette
+  Palette,
+  MessageSquare
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -55,18 +58,51 @@ const ClientProjectDetail = () => {
     a.asset_type === "contract"
   ) || [];
 
-  // Create before/after pairs
-  const beforeAfterPairs = [];
-  const beforeShots = assets?.filter(a => a.asset_type === "screenshot_before") || [];
-  const afterShots = assets?.filter(a => a.asset_type === "screenshot_after") || [];
-  
-  for (let i = 0; i < Math.min(beforeShots.length, afterShots.length); i++) {
-    beforeAfterPairs.push({
-      before: beforeShots[i].file_url,
-      after: afterShots[i].file_url,
-      label: beforeShots[i].title || `Screenshot ${i + 1}`,
+  // Create before/after pairs using pair_id or fallback to position-based
+  const beforeAfterPairs = React.useMemo(() => {
+    if (!assets) return [];
+    
+    const beforeShots = assets.filter(a => a.asset_type === "screenshot_before");
+    const afterShots = assets.filter(a => a.asset_type === "screenshot_after");
+    const pairs: Array<{ id: string; label: string; beforeImage: string; afterImage: string }> = [];
+    
+    // First, try to match by pair_id
+    const pairedBefore = new Set<string>();
+    const pairedAfter = new Set<string>();
+    
+    beforeShots.forEach(before => {
+      if (before.pair_id) {
+        const matchingAfter = afterShots.find(after => 
+          after.pair_id === before.pair_id && !pairedAfter.has(after.id)
+        );
+        if (matchingAfter) {
+          pairs.push({
+            id: before.id,
+            label: before.pair_id || before.title,
+            beforeImage: before.file_url,
+            afterImage: matchingAfter.file_url,
+          });
+          pairedBefore.add(before.id);
+          pairedAfter.add(matchingAfter.id);
+        }
+      }
     });
-  }
+    
+    // Fall back to position-based pairing for unpaired screenshots
+    const unpairedBefore = beforeShots.filter(b => !pairedBefore.has(b.id));
+    const unpairedAfter = afterShots.filter(a => !pairedAfter.has(a.id));
+    
+    for (let i = 0; i < Math.min(unpairedBefore.length, unpairedAfter.length); i++) {
+      pairs.push({
+        id: unpairedBefore[i].id,
+        label: unpairedBefore[i].title || `Screenshot ${pairs.length + 1}`,
+        beforeImage: unpairedBefore[i].file_url,
+        afterImage: unpairedAfter[i].file_url,
+      });
+    }
+    
+    return pairs;
+  }, [assets]);
 
   if (projectLoading) {
     return (
@@ -198,6 +234,21 @@ const ClientProjectDetail = () => {
               </Card>
             )}
           </div>
+
+          {/* Project Timeline */}
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Project Progress</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ProjectTimeline 
+                status={project.status}
+                startDate={project.start_date || undefined}
+                targetLaunchDate={project.target_launch_date || undefined}
+                launchedAt={project.launched_at || undefined}
+              />
+            </CardContent>
+          </Card>
 
           {/* Content Tabs */}
           <Tabs defaultValue="screenshots" className="w-full">

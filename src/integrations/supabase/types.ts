@@ -1256,6 +1256,44 @@ export type Database = {
         }
         Relationships: []
       }
+      project_asset_comments: {
+        Row: {
+          asset_id: string
+          comment: string
+          created_at: string | null
+          id: string
+          is_resolved: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          asset_id: string
+          comment: string
+          created_at?: string | null
+          id?: string
+          is_resolved?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          asset_id?: string
+          comment?: string
+          created_at?: string | null
+          id?: string
+          is_resolved?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "project_asset_comments_asset_id_fkey"
+            columns: ["asset_id"]
+            isOneToOne: false
+            referencedRelation: "project_assets"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       project_assets: {
         Row: {
           asset_type: Database["public"]["Enums"]["asset_type"]
@@ -1267,6 +1305,7 @@ export type Database = {
           is_featured: boolean
           metadata: Json | null
           mime_type: string | null
+          pair_id: string | null
           position: number
           project_id: string
           title: string
@@ -1282,6 +1321,7 @@ export type Database = {
           is_featured?: boolean
           metadata?: Json | null
           mime_type?: string | null
+          pair_id?: string | null
           position?: number
           project_id: string
           title: string
@@ -1297,6 +1337,7 @@ export type Database = {
           is_featured?: boolean
           metadata?: Json | null
           mime_type?: string | null
+          pair_id?: string | null
           position?: number
           project_id?: string
           title?: string

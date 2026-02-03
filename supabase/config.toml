@@ -65,3 +65,6 @@ verify_jwt = false
 
 [functions.generate-design-brief]
 verify_jwt = false
+
+[functions.invite-client]
+verify_jwt = false

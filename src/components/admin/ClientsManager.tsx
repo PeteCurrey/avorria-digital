@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useClients, useCreateClient, useUpdateClient, useDeleteClient, useClientStats, type Client, type ClientInsert, type ClientUpdate } from "@/hooks/useClients";
 import { useProfiles } from "@/hooks/useProfiles";
 import { useAuth } from "@/hooks/useAuth";
+import { ClientInviteDialog } from "./ClientInviteDialog";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -54,6 +55,8 @@ import {
   Pause,
   Rocket,
   Building2,
+  UserPlus,
+  Mail,
 } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
@@ -103,6 +106,7 @@ const ClientsManager = () => {
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingClient, setEditingClient] = useState<Client | null>(null);
+  const [inviteClient, setInviteClient] = useState<Client | null>(null);
 
   // Form state
   const [formData, setFormData] = useState<{
@@ -544,6 +548,18 @@ const ClientsManager = () => {
                               <Eye className="h-4 w-4 mr-2" />
                               View as Client
                             </DropdownMenuItem>
+                            {!client.owner_id && (
+                              <DropdownMenuItem onClick={() => setInviteClient(client)}>
+                                <UserPlus className="h-4 w-4 mr-2" />
+                                Invite Client
+                              </DropdownMenuItem>
+                            )}
+                            {client.owner_id && (
+                              <DropdownMenuItem onClick={() => setInviteClient(client)}>
+                                <Mail className="h-4 w-4 mr-2" />
+                                Manage Access
+                              </DropdownMenuItem>
+                            )}
                             <DropdownMenuItem onClick={() => openEditDialog(client)}>
                               <Pencil className="h-4 w-4 mr-2" />
                               Edit
@@ -567,6 +583,19 @@ const ClientsManager = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Client Invite Dialog */}
+      {inviteClient && (
+        <ClientInviteDialog
+          open={!!inviteClient}
+          onOpenChange={(open) => !open && setInviteClient(null)}
+          clientId={inviteClient.id}
+          clientName={inviteClient.name}
+          onSuccess={() => {
+            // Refresh clients list
+          }}
+        />
+      )}
     </div>
   );
 };
