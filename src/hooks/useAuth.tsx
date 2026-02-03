@@ -26,59 +26,80 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUserRole = async (userId: string): Promise<string | null> => {
     try {
-      // Use security definer function to bypass RLS issues
       const { data, error } = await supabase
-        .rpc("get_user_role", { _user_id: userId });
-
+        .from("user_roles")
+        .select("role")
+        .eq("user_id", userId);
+      
       if (error) {
-        console.error("Error fetching user role via RPC:", error);
+        console.error("Error fetching user role:", error);
         return null;
       }
       
-      return data as string | null;
+      // Prioritize roles: admin > strategist > specialist > client
+      const roles = data?.map(r => r.role as string) || [];
+      const rolePriority = ["admin", "strategist", "specialist", "client"];
+      return rolePriority.find(role => roles.includes(role)) || null;
     } catch (error: any) {
-      console.error("Error fetching user role:", error);
+      console.error("Exception fetching user role:", error);
       return null;
     }
   };
 
   useEffect(() => {
     let isMounted = true;
+    let hasInitialized = false;
 
-    // Set up auth state listener for ONGOING changes (does NOT control loading)
+    // Set up auth state listener for ONGOING changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (event, currentSession) => {
         if (!isMounted) return;
         
-        setSession(session);
-        setUser(session?.user ?? null);
+        setSession(currentSession);
+        setUser(currentSession?.user ?? null);
         
-        // Fire and forget for ongoing changes - don't await, don't set loading
-        if (session?.user) {
-          const role = await fetchUserRole(session.user.id);
-          if (isMounted) setUserRole(role);
-        } else {
+        // Only fetch role for ongoing changes (not initial)
+        if (hasInitialized && currentSession?.user) {
+          // Use setTimeout to avoid blocking
+          setTimeout(async () => {
+            const role = await fetchUserRole(currentSession.user.id);
+            if (isMounted) setUserRole(role);
+          }, 0);
+        } else if (!currentSession) {
           setUserRole(null);
         }
       }
     );
 
-    // INITIAL load - controls loading state
+    // INITIAL load - controls loading state with failsafe timeout
     const initializeAuth = async () => {
+      // Failsafe: ensure loading is set to false after 5 seconds max
+      const failsafeTimeout = setTimeout(() => {
+        if (isMounted) setLoading(false);
+      }, 5000);
+      
       try {
-        const { data: { session } } = await supabase.auth.getSession();
+        const { data: { session: currentSession } } = await supabase.auth.getSession();
         if (!isMounted) return;
 
-        setSession(session);
-        setUser(session?.user ?? null);
+        setSession(currentSession);
+        setUser(currentSession?.user ?? null);
 
         // Fetch role BEFORE setting loading to false
-        if (session?.user) {
-          const role = await fetchUserRole(session.user.id);
-          if (isMounted) setUserRole(role);
+        if (currentSession?.user) {
+          try {
+            const role = await fetchUserRole(currentSession.user.id);
+            if (isMounted) setUserRole(role);
+          } catch (roleError) {
+            console.error("Role fetch failed:", roleError);
+          }
         }
+      } catch (err) {
+        console.error("Error in initializeAuth:", err);
       } finally {
+        clearTimeout(failsafeTimeout);
         if (isMounted) setLoading(false);
+        hasInitialized = true;
       }
     };
 
