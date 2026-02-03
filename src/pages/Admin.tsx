@@ -46,6 +46,7 @@ import ClientProjectsManager from "@/components/admin/ClientProjectsManager";
 import InvoiceManager from "@/components/admin/InvoiceManager";
 import AssetManager from "@/components/admin/AssetManager";
 import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab";
+import ClientsManager from "@/components/admin/ClientsManager";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -148,6 +149,7 @@ const Admin = () => {
   const getPageTitle = () => {
     switch (activeTab) {
       case "overview": return "Dashboard Overview";
+      case "clients": return "Client Management";
       case "projects": return "Projects";
       case "client-projects": return "Client Projects";
       case "assets": return "Asset Manager";
@@ -176,6 +178,7 @@ const Admin = () => {
   const getPageSubtitle = () => {
     switch (activeTab) {
       case "overview": return "Monitor your key metrics and recent activity";
+      case "clients": return "Create and manage clients, link user accounts, and test client portal";
       case "projects": return "Manage website design projects from the studio";
       case "client-projects": return "Manage client projects, URLs, and status";
       case "assets": return "Upload screenshots, wireframes, and documents";
@@ -617,6 +620,9 @@ const Admin = () => {
 
       case "client-logos":
         return <ClientLogosTab />;
+
+      case "clients":
+        return <ClientsManager />;
 
       case "projects":
         return <ProjectsTab />;

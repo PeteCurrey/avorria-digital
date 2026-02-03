@@ -1,4 +1,4 @@
-import { Link, useLocation, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import {
   LayoutDashboard,
@@ -23,6 +23,8 @@ import {
   Image,
   MessageSquareQuote,
   Building2,
+  UserPlus,
+  Receipt,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -53,24 +55,28 @@ interface NavSection {
 
 const navSections: NavSection[] = [
   {
-    title: "Dashboard",
+    title: "Clients & Projects",
     items: [
-      { name: "Overview", icon: LayoutDashboard, tab: "overview" },
+      { name: "Clients", icon: UserPlus, tab: "clients" },
       { name: "Projects", icon: FolderKanban, tab: "projects" },
       { name: "Client Projects", icon: Building2, tab: "client-projects" },
       { name: "Assets", icon: Image, tab: "assets" },
-      { name: "Invoicing", icon: ClipboardList, tab: "invoicing" },
-      { name: "Leads", icon: Users, tab: "leads" },
-      { name: "Case Studies", icon: Image, tab: "case-studies" },
-      { name: "Testimonials", icon: MessageSquareQuote, tab: "testimonials" },
-      { name: "Client Logos", icon: Building2, tab: "client-logos" },
-      { name: "Audits", icon: FileCheck, tab: "audits" },
-      { name: "Analytics", icon: BarChart3, tab: "analytics" },
+      { name: "Invoicing", icon: Receipt, tab: "invoicing" },
     ],
   },
   {
-    title: "Content & AI",
+    title: "Leads & Sales",
     items: [
+      { name: "Leads", icon: Users, tab: "leads" },
+      { name: "Audits", icon: FileCheck, tab: "audits" },
+    ],
+  },
+  {
+    title: "Content & Marketing",
+    items: [
+      { name: "Case Studies", icon: Image, tab: "case-studies" },
+      { name: "Testimonials", icon: MessageSquareQuote, tab: "testimonials" },
+      { name: "Client Logos", icon: Building2, tab: "client-logos" },
       { name: "Content Studio", icon: Sparkles, tab: "content-studio" },
       { name: "Content Calendar", icon: Calendar, tab: "content" },
       { name: "Newsletter Builder", icon: Mail, tab: "newsletter" },
@@ -86,10 +92,16 @@ const navSections: NavSection[] = [
     ],
   },
   {
-    title: "Reports & Settings",
+    title: "Analytics & Reports",
     items: [
+      { name: "Analytics", icon: BarChart3, tab: "analytics" },
       { name: "Reports", icon: ClipboardList, tab: "reports" },
       { name: "Analytics Connections", icon: TrendingUp, tab: "analytics-connections" },
+    ],
+  },
+  {
+    title: "System",
+    items: [
       { name: "Integrations", icon: Zap, tab: "integrations" },
       { name: "Settings", icon: Settings, tab: "settings" },
     ],
@@ -97,7 +109,6 @@ const navSections: NavSection[] = [
 ];
 
 const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
-  const location = useLocation();
   const [searchParams] = useSearchParams();
   const currentTab = searchParams.get("tab") || "overview";
 
@@ -139,10 +150,51 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
             </Button>
           </div>
 
+          {/* Overview Link */}
+          <div className="px-3 pt-4">
+            {collapsed ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Link
+                    to="/admin?tab=overview"
+                    className={cn(
+                      "group flex items-center justify-center rounded-lg p-2.5 text-sm font-medium transition-all",
+                      currentTab === "overview"
+                        ? "bg-gradient-to-r from-accent/15 to-primary/10 text-accent shadow-sm"
+                        : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                    )}
+                  >
+                    <LayoutDashboard className={cn(
+                      "h-5 w-5 shrink-0 transition-colors",
+                      currentTab === "overview" ? "text-accent" : "text-muted-foreground group-hover:text-foreground"
+                    )} />
+                  </Link>
+                </TooltipTrigger>
+                <TooltipContent side="right">Overview</TooltipContent>
+              </Tooltip>
+            ) : (
+              <Link
+                to="/admin?tab=overview"
+                className={cn(
+                  "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
+                  currentTab === "overview"
+                    ? "bg-gradient-to-r from-accent/15 to-primary/10 text-accent shadow-sm"
+                    : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"
+                )}
+              >
+                <LayoutDashboard className={cn(
+                  "h-5 w-5 shrink-0 transition-colors",
+                  currentTab === "overview" ? "text-accent" : "text-muted-foreground group-hover:text-foreground"
+                )} />
+                <span>Overview</span>
+              </Link>
+            )}
+          </div>
+
           {/* Navigation */}
           <ScrollArea className="flex-1 px-3 py-4">
             <nav className="space-y-6">
-              {navSections.map((section) => (
+              {navSections.map((section, sectionIdx) => (
                 <div key={section.title}>
                   {!collapsed && (
                     <h3 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
@@ -204,7 +256,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                       return NavContent;
                     })}
                   </div>
-                  {!collapsed && section.title !== "Reports & Settings" && (
+                  {!collapsed && sectionIdx < navSections.length - 1 && (
                     <Separator className="mt-4" />
                   )}
                 </div>
