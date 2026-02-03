@@ -982,6 +982,50 @@ export type Database = {
           },
         ]
       }
+      landing_page_analytics: {
+        Row: {
+          avg_time_on_page: number | null
+          bounce_rate: number | null
+          conversions: number | null
+          created_at: string | null
+          date: string
+          id: string
+          landing_page_id: string | null
+          page_views: number | null
+          unique_visitors: number | null
+        }
+        Insert: {
+          avg_time_on_page?: number | null
+          bounce_rate?: number | null
+          conversions?: number | null
+          created_at?: string | null
+          date: string
+          id?: string
+          landing_page_id?: string | null
+          page_views?: number | null
+          unique_visitors?: number | null
+        }
+        Update: {
+          avg_time_on_page?: number | null
+          bounce_rate?: number | null
+          conversions?: number | null
+          created_at?: string | null
+          date?: string
+          id?: string
+          landing_page_id?: string | null
+          page_views?: number | null
+          unique_visitors?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "landing_page_analytics_landing_page_id_fkey"
+            columns: ["landing_page_id"]
+            isOneToOne: false
+            referencedRelation: "seo_landing_pages"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       leads: {
         Row: {
           company: string | null
@@ -1105,6 +1149,39 @@ export type Database = {
           status?: string
           subject?: string
           updated_at?: string
+        }
+        Relationships: []
+      }
+      notifications: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_read: boolean | null
+          link: string | null
+          message: string | null
+          title: string
+          type: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          link?: string | null
+          message?: string | null
+          title: string
+          type?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_read?: boolean | null
+          link?: string | null
+          message?: string | null
+          title?: string
+          type?: string
+          user_id?: string | null
         }
         Relationships: []
       }

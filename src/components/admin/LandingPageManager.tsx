@@ -28,6 +28,8 @@ import {
   Check,
   X,
   Wand2,
+  TrendingUp,
+  BarChart3,
 } from "lucide-react";
 import { 
   useSEOLandingPages, 
@@ -39,6 +41,7 @@ import {
   SEOLandingPage,
   CreateLandingPageInput,
 } from "@/hooks/useSEOLandingPages";
+import { useLandingPageAnalyticsSummary } from "@/hooks/useLandingPageAnalytics";
 import { services } from "@/data/services";
 import { locations } from "@/data/locations";
 import { industries } from "@/data/industries";
@@ -82,6 +85,7 @@ export function LandingPageManager() {
   const [solutionBulletsText, setSolutionBulletsText] = useState("");
 
   const { data: pages, isLoading } = useSEOLandingPages();
+  const { data: analyticsSummary } = useLandingPageAnalyticsSummary();
   const createPage = useCreateLandingPage();
   const updatePage = useUpdateLandingPage();
   const deletePage = useDeleteLandingPage();
@@ -649,7 +653,9 @@ export function LandingPageManager() {
         </Card>
       ) : (
         <div className="space-y-4">
-          {filteredPages?.map((page) => (
+          {filteredPages?.map((page) => {
+            const analytics = analyticsSummary?.[page.id];
+            return (
             <Card key={page.id}>
               <CardContent className="p-4">
                 <div className="flex items-start justify-between gap-4">
@@ -668,7 +674,7 @@ export function LandingPageManager() {
                     <p className="text-sm text-muted-foreground truncate mb-2">
                       {getPageUrl(page)}
                     </p>
-                    <div className="flex flex-wrap gap-2">
+                    <div className="flex flex-wrap gap-2 mb-3">
                       <Badge variant="outline" className="gap-1">
                         <FileText className="h-3 w-3" />
                         {services.find(s => s.slug === page.service_slug)?.name || page.service_slug}
@@ -686,6 +692,25 @@ export function LandingPageManager() {
                         </Badge>
                       )}
                     </div>
+                    {/* Analytics summary */}
+                    {analytics && (
+                      <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                        <span className="flex items-center gap-1">
+                          <BarChart3 className="h-3 w-3" />
+                          {analytics.total_views.toLocaleString()} views
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <TrendingUp className="h-3 w-3" />
+                          {analytics.total_conversions} conversions
+                        </span>
+                        <span>
+                          {analytics.conversion_rate.toFixed(1)}% CVR
+                        </span>
+                        <span>
+                          {analytics.avg_bounce_rate.toFixed(0)}% bounce
+                        </span>
+                      </div>
+                    )}
                     <p className="text-xs text-muted-foreground mt-2">
                       Updated {formatDistanceToNow(new Date(page.updated_at), { addSuffix: true })}
                     </p>
@@ -736,7 +761,7 @@ export function LandingPageManager() {
                 </div>
               </CardContent>
             </Card>
-          ))}
+          )})}
         </div>
       )}
     </div>
