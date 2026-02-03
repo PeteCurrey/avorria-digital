@@ -1,222 +1,250 @@
 
-# Admin Panel & Client Portal Enhancement Plan
 
-## Executive Summary
+# Admin Panel Enhancement: Complete Fix and Feature Plan
 
-This plan addresses the gaps in the admin panel for client management and ensures a complete workflow from creating clients to testing their client portal experience. The key enhancements include a new Clients management tab, better sidebar organization, URL-based screenshot capture preparation, and impersonation capability for testing.
+## Summary of Issues Identified
 
----
+After thorough investigation, I found several interconnected problems that need to be resolved:
 
-## Current State Issues
+### Issue 1: "Add Client" Error
+**Root Cause**: The RLS policy on the `profiles` table only allows users to view their own profile (`auth.uid() = id`). However, the ClientsManager component tries to fetch ALL profiles to populate a dropdown for linking clients to user accounts. This query fails silently, causing an error.
 
-1. **No way to create clients** - The admin has `ClientProjectsManager` but no `ClientsManager` to actually create client accounts
-2. **Projects require clients** - Cannot create projects without first having clients in the dropdown
-3. **Asset upload requires projects** - Cannot upload before/after screenshots without first having projects
-4. **No impersonation from admin** - Cannot easily test what a specific client sees
-5. **Sidebar is crowded** - 11 items in the Dashboard section alone
+### Issue 2: Landing Pages Not Showing in Admin
+**Root Cause**: The `seo_landing_pages` database table is **empty** (query returned []). The LandingPageManager component queries this database table, but all landing pages are currently stored in static TypeScript files (`src/data/landingPages.ts` and `src/data/serviceLocationLandingPages.ts`). There's a disconnect between static data and the database-driven admin interface.
+
+### Issue 3: Notifications Are Hardcoded
+**Root Cause**: The AdminLayout notification dropdown (lines 101-118) contains static, hardcoded mock notifications. There's no real notifications table or system in place.
+
+### Issue 4: Client Portal Not Connected to Real Data
+**Root Cause**: The ClientOverview component uses hardcoded mock data for stats, welcome messages, and current focus items. While the `client_projects` table exists and works, the portal doesn't pull real client-specific data.
 
 ---
 
 ## Implementation Plan
 
-### Phase 1: Create Clients Manager Component
+### Phase 1: Fix "Add Client" Error (RLS Policy Update)
 
-**File: `src/components/admin/ClientsManager.tsx`** (New)
+Update the RLS policy on `profiles` to allow admin/strategist users to view all profiles while still protecting individual user data from other clients.
 
-A comprehensive client management component with:
-- CRUD operations for clients
-- Fields: Name, Industry, Services (multi-select), Status (onboarding/live/at-risk/paused), Monthly Value, Notes
-- **Link to User Account** - Dropdown to associate client with an existing auth user (via `owner_id`)
-- Quick stats showing client counts by status
-- Search and filter capabilities
-- Edit/Delete actions on each row
+**Database Migration**:
+```sql
+-- Allow staff (admin/strategist) to view all profiles for the client linking dropdown
+CREATE POLICY "Staff can view all profiles"
+ON public.profiles
+FOR SELECT
+TO authenticated
+USING (
+  has_role(auth.uid(), 'admin'::app_role) OR 
+  has_role(auth.uid(), 'strategist'::app_role) OR
+  auth.uid() = id
+);
 
-**Technical Details:**
-- Uses existing `useClients`, `useCreateClient`, `useUpdateClient`, `useDeleteClient` hooks
-- Adds lookup to `profiles` table to populate user dropdown
-- Links `owner_id` to enable portal access
-
----
-
-### Phase 2: Add Clients Tab to Admin
-
-**File: `src/pages/Admin.tsx`**
-
-- Add new case `"clients"` in `renderContent()` switch
-- Import and render `<ClientsManager />`
-- Update `getPageTitle()` and `getPageSubtitle()` for the clients tab
-
-**File: `src/components/admin/AdminSidebar.tsx`**
-
-Reorganize sidebar into logical groups:
-```text
-CLIENTS & PROJECTS
-  - Clients (NEW - primary entry point)
-  - Projects (Studio blueprints)
-  - Client Projects (active work)
-  - Assets
-  - Invoicing
-
-LEADS & SALES
-  - Leads
-  - Audits
-
-CONTENT & MARKETING
-  - Case Studies
-  - Testimonials
-  - Client Logos
-  - Content Studio
-  - Content Calendar
-  - Newsletter Builder
-
-SEO & PERFORMANCE
-  - Landing Pages
-  - Performance
-  - SEO Dashboard
-  - Sitemap Manager
-
-ANALYTICS & REPORTS
-  - Analytics
-  - Reports
-  - Analytics Connections
-
-SYSTEM
-  - Integrations
-  - Settings
+-- Drop the old restrictive policy
+DROP POLICY IF EXISTS "Users can view their own profile" ON public.profiles;
 ```
 
-This reordering puts client management first (where workflows start) and groups related functions together.
+**Result**: Admin users will be able to see the dropdown of registered users when adding a client.
 
 ---
 
-### Phase 3: Add User Profile Lookup Hook
+### Phase 2: Populate Landing Pages in Database
 
-**File: `src/hooks/useProfiles.ts`** (New)
+Seed the `seo_landing_pages` table with the existing static landing pages from TypeScript files. This enables the Landing Pages tab to work with real data.
 
-```typescript
-export function useProfiles() {
-  return useQuery({
-    queryKey: ['profiles'],
-    queryFn: async () => {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id, email, full_name')
-        .order('email');
-      if (error) throw error;
-      return data;
-    },
-  });
-}
+**Approach**:
+1. Create a database migration that inserts all existing landing pages into `seo_landing_pages`
+2. The LandingPageManager will then display them correctly
+3. Future pages created through the admin will be stored in the database
+
+**Files to Migrate**:
+- 16 industry-specific pages from `landingPages.ts`
+- Service-location pages from `serviceLocationLandingPages.ts`
+
+---
+
+### Phase 3: Real Notifications System
+
+Create a proper notifications table and connect it to real events.
+
+**Database Schema**:
+```sql
+CREATE TABLE public.notifications (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users(id) ON DELETE CASCADE,
+  title TEXT NOT NULL,
+  message TEXT,
+  type TEXT NOT NULL, -- 'lead', 'content', 'report', 'alert', 'system'
+  link TEXT, -- URL to navigate to when clicked
+  is_read BOOLEAN DEFAULT FALSE,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- Enable RLS
+ALTER TABLE public.notifications ENABLE ROW LEVEL SECURITY;
+
+-- Staff can see all notifications; clients see only their own
+CREATE POLICY "Staff see all notifications" ON public.notifications
+FOR SELECT TO authenticated
+USING (
+  has_role(auth.uid(), 'admin'::app_role) OR 
+  has_role(auth.uid(), 'strategist'::app_role) OR
+  user_id = auth.uid()
+);
 ```
 
-This enables the ClientsManager to show a dropdown of registered users that can be assigned as client owners.
+**Hook**: Create `useNotifications.ts` to fetch and manage notifications
+
+**Component Updates**:
+- Update AdminLayout to fetch real notifications
+- Add "Mark as read" functionality
+- Link notifications to actual content (leads, reports, etc.)
+
+**Trigger Sources** (create database triggers):
+- When a new lead is inserted → Create notification
+- When a report is generated → Create notification
+- When client health score changes significantly → Create notification
 
 ---
 
-### Phase 4: Add Admin-to-Client Impersonation Link
+### Phase 4: Landing Page Analytics
 
-**File: `src/components/admin/ClientsManager.tsx`**
+Add analytics tracking per landing page to measure performance.
 
-Add a "View as Client" button on each client row that:
-1. Sets the `impersonatedClient` in auth context
-2. Navigates to `/client`
+**Database Schema**:
+```sql
+CREATE TABLE public.landing_page_analytics (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  landing_page_id UUID REFERENCES seo_landing_pages(id) ON DELETE CASCADE,
+  date DATE NOT NULL,
+  page_views INTEGER DEFAULT 0,
+  unique_visitors INTEGER DEFAULT 0,
+  conversions INTEGER DEFAULT 0,
+  bounce_rate NUMERIC(5,2),
+  avg_time_on_page INTERVAL,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(landing_page_id, date)
+);
+```
 
-**File: `src/hooks/useAuth.tsx`**
-
-Ensure `setImpersonatedClient` supports setting by client name and that the client portal uses this for display and demo purposes.
-
----
-
-### Phase 5: Screenshot URL Input Field
-
-**File: `src/components/admin/AssetManager.tsx`**
-
-Add alternative input method for screenshots:
-- "Capture from URL" button that opens a dialog
-- Input fields for:
-  - Before URL (e.g., web.archive.org or current staging)
-  - After URL (live site)
-  - Screenshot service integration (future: screenshotmonster API)
-- For now, manual file upload remains primary method
-- Add "Tip" text explaining users can use ScreenshotMonster or similar to capture and download, then upload here
+**UI Enhancements**:
+- Add analytics columns to LandingPageManager table (views, conversions, CTR)
+- Create expandable detail panel showing performance over time
+- Add ability to sort/filter pages by performance
 
 ---
 
-### Phase 6: Enhance Asset Manager with Better UX
+### Phase 5: Connect Client Portal to Real Data
 
-**File: `src/components/admin/AssetManager.tsx`**
+Ensure the client portal displays actual data from the database.
 
-Improvements:
-- Auto-select project when only one exists for a client
-- Show client name in project dropdown for clarity
-- Add "Bulk Upload" option for multiple screenshots
-- Group assets by type (Screenshots, Wireframes, Documents) with collapsible sections
-- Add drag-and-drop support for file uploads
+**Components to Update**:
+1. `ClientOverview.tsx` - Fetch real stats from client's analytics
+2. `ClientProjects.tsx` - Already connected ✓
+3. `ClientBilling.tsx` - Connect to invoices table
+4. `ClientAnalytics.tsx` - Connect to client_analytics_connections
 
----
-
-## Database Considerations
-
-No schema changes required - all necessary tables exist:
-- `clients` table has `owner_id` to link to users
-- `profiles` table exists for user lookup
-- `client_projects` table links projects to clients
-- `project_assets` table has all required asset types
+**Key Changes**:
+- Use `impersonatedClient` to fetch the correct client's data
+- Create hooks to aggregate client-specific KPIs
+- Replace hardcoded welcome messages with dynamic content
 
 ---
 
-## Workflow After Implementation
+### Phase 6: Replace All Mock Data with Real Sources
 
-1. **Create Client** (Admin > Clients tab)
-   - Add client name, industry, services
-   - Optionally link to an existing user account (owner_id)
+**Admin Overview Tab**:
+- Already connected to real leads ✓
+- Already connected to analytics_snapshots ✓
+- Connect activity feed to real events (leads, client activities, content updates)
 
-2. **Create Client Project** (Admin > Client Projects tab)
-   - Select client from dropdown
-   - Add project name, type, URLs
-
-3. **Upload Assets** (Admin > Assets tab)
-   - Select project
-   - Upload before/after screenshots, proposals, wireframes
-
-4. **Create Invoices** (Admin > Invoicing tab)
-   - Select client and optionally project
-   - Add amount, due date
-
-5. **Test Client View** (From Clients tab)
-   - Click "View as Client" on any client row
-   - See exactly what they see in the portal
+**System Health Monitor**:
+- Connect to actual API health checks
+- Show real uptime and response times
 
 ---
 
-## File Changes Summary
+## Files to Create
 
-| File | Action | Purpose |
-|------|--------|---------|
-| `src/components/admin/ClientsManager.tsx` | Create | New component for managing clients |
-| `src/hooks/useProfiles.ts` | Create | Fetch user profiles for owner dropdown |
-| `src/pages/Admin.tsx` | Modify | Add clients case, import ClientsManager |
-| `src/components/admin/AdminSidebar.tsx` | Modify | Reorganize navigation with better grouping |
-| `src/components/admin/AssetManager.tsx` | Modify | Add URL input field, improve UX |
+| File | Purpose |
+|------|---------|
+| `src/hooks/useNotifications.ts` | Fetch and manage real notifications |
+| `supabase/migrations/[timestamp]_fix_profiles_rls.sql` | Fix profiles RLS for admin access |
+| `supabase/migrations/[timestamp]_create_notifications.sql` | Create notifications table |
+| `supabase/migrations/[timestamp]_create_notification_triggers.sql` | Auto-create notifications on events |
+| `supabase/migrations/[timestamp]_seed_landing_pages.sql` | Populate landing pages in database |
+| `supabase/migrations/[timestamp]_landing_page_analytics.sql` | Analytics tracking per page |
+
+## Files to Modify
+
+| File | Changes |
+|------|---------|
+| `src/components/admin/AdminLayout.tsx` | Integrate real notifications with useNotifications hook |
+| `src/components/admin/LandingPageManager.tsx` | Add analytics columns and per-page stats |
+| `src/pages/client/ClientOverview.tsx` | Connect to real client data |
+| `src/components/admin/RealTimeActivityFeed.tsx` | Connect to real activity events |
 
 ---
 
-## Technical Notes
+## Technical Details
 
-- The `clients.owner_id` field links to `profiles.id` which is the same as `auth.users.id`
-- When a user logs in with the `client` role, their user ID is matched to `client_projects.user_id` and `invoices.user_id`
-- The current flow requires the client to have a user account to see their data
-- The `impersonatedClient` in useAuth is for demo/testing purposes only
+### RLS Policy Fix Explanation
+The current policy only allows `auth.uid() = id`, which means users can only see their own profile. For admin functionality, staff need to see all profiles to link clients to user accounts. The new policy adds:
+```sql
+has_role(auth.uid(), 'admin'::app_role) OR has_role(auth.uid(), 'strategist'::app_role)
+```
+
+### Notification Triggers Example
+When a lead is created:
+```sql
+CREATE OR REPLACE FUNCTION notify_on_new_lead()
+RETURNS TRIGGER AS $$
+BEGIN
+  -- Notify all staff users
+  INSERT INTO notifications (user_id, title, message, type, link)
+  SELECT ur.user_id, 
+    'New lead received', 
+    NEW.name || ' submitted a contact form',
+    'lead',
+    '/admin?tab=leads'
+  FROM user_roles ur
+  WHERE ur.role IN ('admin', 'strategist');
+  
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER lead_notification_trigger
+AFTER INSERT ON leads
+FOR EACH ROW EXECUTE FUNCTION notify_on_new_lead();
+```
+
+### Landing Page Seeding
+The migration will convert each entry from `landingPages` array into an INSERT statement for `seo_landing_pages`, mapping:
+- `slug` → `slug`
+- `heroHeadline` → `hero_headline`
+- `keyMetrics` → `key_metrics` (JSON)
+- etc.
 
 ---
 
 ## Testing Checklist
 
 After implementation:
-1. Create a new client in Admin > Clients
-2. Link the client to a user account (or create a mock user)
-3. Create a project for that client
-4. Upload before/after screenshots to the project
-5. Create an invoice for the client
-6. Click "View as Client" to verify portal shows all data
-7. Log in as the actual client user to verify RLS policies work
+1. Navigate to `/admin?tab=clients`
+2. Click "Add Client" - dialog should open without error
+3. Verify dropdown shows all registered users
+4. Create a test client
+5. Navigate to `/admin?tab=landing-pages` - should show all SEO landing pages
+6. Check notification bell - should show real notifications when new leads come in
+7. Test "View as Client" - portal should show real data for that client
+
+---
+
+## Priority Order
+
+1. **Fix Add Client Error** (Phase 1) - Blocking admin workflow
+2. **Populate Landing Pages** (Phase 2) - Empty tab is confusing
+3. **Real Notifications** (Phase 3) - Makes admin panel actionable
+4. **Landing Page Analytics** (Phase 4) - Enables data-driven SEO decisions
+5. **Client Portal Data** (Phase 5) - Completes the client experience
+
