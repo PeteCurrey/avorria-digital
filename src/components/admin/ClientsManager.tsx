@@ -130,7 +130,7 @@ const ClientsManager = () => {
       services: [],
       status: "onboarding",
       monthly_value: "",
-      owner_id: "",
+    owner_id: "none",
       notes: "",
     });
     setEditingClient(null);
@@ -144,7 +144,7 @@ const ClientsManager = () => {
       services: client.services || [],
       status: client.status,
       monthly_value: client.monthly_value || "",
-      owner_id: client.owner_id || "",
+      owner_id: client.owner_id || "none",
       notes: client.notes || "",
     });
     setIsDialogOpen(true);
@@ -165,7 +165,7 @@ const ClientsManager = () => {
         services: formData.services.length > 0 ? formData.services : undefined,
         status: formData.status,
         monthly_value: formData.monthly_value || undefined,
-        owner_id: formData.owner_id || undefined,
+        owner_id: formData.owner_id && formData.owner_id !== "none" ? formData.owner_id : undefined,
         owner_name: ownerProfile?.full_name || ownerProfile?.email || undefined,
         notes: formData.notes || undefined,
       };
@@ -410,7 +410,7 @@ const ClientsManager = () => {
                     <SelectValue placeholder="Select a user (optional)" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">No linked user</SelectItem>
+                    <SelectItem value="none">No linked user</SelectItem>
                     {profiles?.map(profile => (
                       <SelectItem key={profile.id} value={profile.id}>
                         {profile.full_name || profile.email} ({profile.email})
