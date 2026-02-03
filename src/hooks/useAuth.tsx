@@ -26,20 +26,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const fetchUserRole = async (userId: string): Promise<string | null> => {
     try {
-      // Fetch all roles for the user (they may have multiple)
+      // Use security definer function to bypass RLS issues
       const { data, error } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", userId);
+        .rpc("get_user_role", { _user_id: userId });
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching user role via RPC:", error);
+        return null;
+      }
       
-      // Prioritize roles: admin > strategist > specialist > client
-      const roles = data?.map(r => r.role as string) || [];
-      const rolePriority = ["admin", "strategist", "specialist", "client"];
-      const highestRole = rolePriority.find(role => roles.includes(role)) || null;
-      
-      return highestRole;
+      return data as string | null;
     } catch (error: any) {
       console.error("Error fetching user role:", error);
       return null;
