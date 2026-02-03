@@ -24,39 +24,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [impersonatedClient, setImpersonatedClient] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    // Set up auth state listener FIRST
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        setSession(session);
-        setUser(session?.user ?? null);
-        
-        // Fetch user role when session changes
-        if (session?.user) {
-          setTimeout(() => {
-            fetchUserRole(session.user.id);
-          }, 0);
-        } else {
-          setUserRole(null);
-        }
-      }
-    );
-
-    // THEN check for existing session
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setUser(session?.user ?? null);
-      
-      if (session?.user) {
-        fetchUserRole(session.user.id);
-      }
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  const fetchUserRole = async (userId: string) => {
+  const fetchUserRole = async (userId: string): Promise<string | null> => {
     try {
       // Fetch all roles for the user (they may have multiple)
       const { data, error } = await supabase
@@ -71,12 +39,60 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const rolePriority = ["admin", "strategist", "specialist", "client"];
       const highestRole = rolePriority.find(role => roles.includes(role)) || null;
       
-      setUserRole(highestRole);
+      return highestRole;
     } catch (error: any) {
       console.error("Error fetching user role:", error);
-      setUserRole(null);
+      return null;
     }
   };
+
+  useEffect(() => {
+    let isMounted = true;
+
+    // Set up auth state listener for ONGOING changes (does NOT control loading)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (!isMounted) return;
+        
+        setSession(session);
+        setUser(session?.user ?? null);
+        
+        // Fire and forget for ongoing changes - don't await, don't set loading
+        if (session?.user) {
+          const role = await fetchUserRole(session.user.id);
+          if (isMounted) setUserRole(role);
+        } else {
+          setUserRole(null);
+        }
+      }
+    );
+
+    // INITIAL load - controls loading state
+    const initializeAuth = async () => {
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        if (!isMounted) return;
+
+        setSession(session);
+        setUser(session?.user ?? null);
+
+        // Fetch role BEFORE setting loading to false
+        if (session?.user) {
+          const role = await fetchUserRole(session.user.id);
+          if (isMounted) setUserRole(role);
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    initializeAuth();
+
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
+  }, []);
 
   const signUp = useCallback(async (email: string, password: string, fullName: string, userType: string = "client") => {
     try {
