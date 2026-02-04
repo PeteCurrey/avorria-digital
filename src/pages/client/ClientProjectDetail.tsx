@@ -502,7 +502,7 @@ const ClientProjectDetail = () => {
                 <p className="text-sm text-muted-foreground mb-4">
                   Have thoughts on the design? Leave a comment and we'll review it promptly.
                 </p>
-                <AssetCommentForm assetId={beforeAfterPairs[0].id} />
+                <AssetCommentForm assetId={beforeAfterPairs[0].id} assetTitle={beforeAfterPairs[0].label} />
               </CardContent>
             </Card>
           )}
