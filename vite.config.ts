@@ -1,4 +1,4 @@
-// Cache rebuild trigger v20 - force clean rebuild for React dedupe
+// Cache rebuild trigger v21 - force clean rebuild with React aliases
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -13,6 +13,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      "react": path.resolve(__dirname, "node_modules/react"),
+      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
     },
     dedupe: [
       "react",
