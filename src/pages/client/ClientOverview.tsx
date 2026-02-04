@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { useClientStats, useClientFocus } from "@/hooks/useClientStats";
 import { useMyProjects } from "@/hooks/useClientProjects";
-import { useInvoices } from "@/hooks/useInvoices";
+import { useMyInvoices } from "@/hooks/useInvoices";
 import AppShell from "@/components/app/AppShell";
 import { WelcomeHero } from "@/components/client/WelcomeHero";
 import { ClientOnboarding } from "@/components/client/ClientOnboarding";
