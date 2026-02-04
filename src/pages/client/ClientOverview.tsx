@@ -35,7 +35,7 @@ const ClientOverview = () => {
   const { data: stats, isLoading: statsLoading } = useClientStats(null);
   const { data: currentFocus, isLoading: focusLoading } = useClientFocus(null);
   const { data: projects, isLoading: projectsLoading } = useMyProjects();
-  const { data: invoices } = useInvoices();
+  const { data: invoices } = useMyInvoices();
 
   const [showOnboarding, setShowOnboarding] = useState(false);
 
