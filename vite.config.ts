@@ -1,4 +1,3 @@
-// Cache rebuild trigger v21 - force clean rebuild with React aliases
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -13,60 +12,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      "react": path.resolve(__dirname, "node_modules/react"),
-      "react-dom": path.resolve(__dirname, "node_modules/react-dom"),
-      "react/jsx-runtime": path.resolve(__dirname, "node_modules/react/jsx-runtime"),
-      "react/jsx-dev-runtime": path.resolve(
-        __dirname,
-        "node_modules/react/jsx-dev-runtime",
-      ),
-      "react-dom/client": path.resolve(__dirname, "node_modules/react-dom/client"),
     },
-    dedupe: [
-      "react",
-      "react-dom",
-      "react-dom/client",
-      "react/jsx-runtime",
-      "react/jsx-dev-runtime",
-      "scheduler",
-      "use-sync-external-store",
-      "framer-motion",
-      "@tanstack/react-query",
-      "@radix-ui/react-navigation-menu",
-      "@radix-ui/react-tooltip",
-      "@radix-ui/react-dialog",
-      "@radix-ui/react-dropdown-menu",
-      "@radix-ui/react-popover",
-      "@radix-ui/react-accordion",
-      "@radix-ui/react-tabs",
-      "@radix-ui/react-toast",
-      "react-router-dom",
-      "react-helmet-async",
-    ],
-  },
-  optimizeDeps: {
-    include: [
-      "react",
-      "react-dom",
-      "react-dom/client",
-      "react/jsx-runtime",
-      "react/jsx-dev-runtime",
-      "scheduler",
-      "use-sync-external-store",
-      "framer-motion",
-      "@tanstack/react-query",
-      "@radix-ui/react-navigation-menu",
-      "@radix-ui/react-tooltip",
-      "@radix-ui/react-dialog",
-      "react-router-dom",
-      "react-helmet-async",
-    ],
-    force: true,
-    esbuildOptions: {
-      define: {
-        global: 'globalThis',
-      },
-    },
+    dedupe: ["react", "react-dom"],
   },
   build: {
     commonjsOptions: {
