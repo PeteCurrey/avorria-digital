@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
@@ -7,6 +7,9 @@ import { useProjectAssets } from "@/hooks/useProjectAssets";
 import AppShell from "@/components/app/AppShell";
 import { BeforeAfterSliderMulti } from "@/components/case-studies/BeforeAfterSliderMulti";
 import { ProjectTimeline } from "@/components/client/ProjectTimeline";
+import { ProjectShowcase } from "@/components/client/ProjectShowcase";
+import { DevicePreview } from "@/components/client/DevicePreview";
+import { LiveSitePreview } from "@/components/client/LiveSitePreview";
 import { AssetCommentForm } from "@/components/client/AssetCommentForm";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -26,7 +29,10 @@ import {
   CheckCircle2,
   Search,
   Palette,
-  MessageSquare
+  MessageSquare,
+  Monitor,
+  Maximize2,
+  Sparkles
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -40,11 +46,16 @@ const statusConfig = {
 
 const ClientProjectDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const { impersonatedClient } = useAuth();
+  const { impersonatedClient, user } = useAuth();
   const clientName = impersonatedClient || "Your Company";
+  const userName = user?.user_metadata?.full_name?.split(' ')[0] || "there";
   
   const { data: project, isLoading: projectLoading } = useProject(id);
   const { data: assets, isLoading: assetsLoading } = useProjectAssets(id);
+  
+  const [showGallery, setShowGallery] = useState(false);
+  const [galleryIndex, setGalleryIndex] = useState(0);
+  const [showLivePreview, setShowLivePreview] = useState(false);
 
   // Filter assets by type
   const screenshots = assets?.filter(a => 
@@ -104,9 +115,24 @@ const ClientProjectDetail = () => {
     return pairs;
   }, [assets]);
 
+  // Gallery images for fullscreen view
+  const galleryImages = React.useMemo(() => {
+    return screenshots.map(s => ({
+      id: s.id,
+      url: s.file_url,
+      title: s.title,
+      description: s.description || undefined,
+    }));
+  }, [screenshots]);
+
+  const openGallery = (index: number) => {
+    setGalleryIndex(index);
+    setShowGallery(true);
+  };
+
   if (projectLoading) {
     return (
-      <AppShell type="client" userName="Sarah Mitchell" userRole="Marketing Director" clientName={clientName}>
+      <AppShell type="client" userName={userName} userRole="Marketing Director" clientName={clientName}>
         <div className="space-y-6">
           <Skeleton className="h-8 w-48" />
           <Skeleton className="h-64 w-full" />
@@ -118,7 +144,7 @@ const ClientProjectDetail = () => {
 
   if (!project) {
     return (
-      <AppShell type="client" userName="Sarah Mitchell" userRole="Marketing Director" clientName={clientName}>
+      <AppShell type="client" userName={userName} userRole="Marketing Director" clientName={clientName}>
         <div className="text-center py-12">
           <p className="text-muted-foreground">Project not found</p>
           <Link to="/client/projects">
@@ -138,9 +164,37 @@ const ClientProjectDetail = () => {
         <title>{project.name} - Client Portal</title>
       </Helmet>
 
+      {/* Fullscreen Gallery */}
+      {showGallery && galleryImages.length > 0 && (
+        <ProjectShowcase
+          images={galleryImages}
+          initialIndex={galleryIndex}
+          onClose={() => setShowGallery(false)}
+        />
+      )}
+
+      {/* Live Site Preview Modal */}
+      {showLivePreview && project.live_url && (
+        <div className="fixed inset-0 z-50">
+          <LiveSitePreview 
+            url={project.live_url} 
+            title={project.name}
+            className="h-full"
+          />
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowLivePreview(false)}
+            className="absolute top-4 right-4 z-50 bg-background/80 hover:bg-background"
+          >
+            ×
+          </Button>
+        </div>
+      )}
+
       <AppShell
         type="client"
-        userName="Sarah Mitchell"
+        userName={userName}
         userRole="Marketing Director"
         clientName={clientName}
       >
@@ -161,10 +215,22 @@ const ClientProjectDetail = () => {
                 <p className="text-muted-foreground max-w-2xl">{project.description}</p>
               )}
             </div>
-            <Badge className={`${status.color} shrink-0`}>
-              <StatusIcon className="h-3 w-3 mr-1" />
-              {status.label}
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge className={`${status.color} shrink-0`}>
+                <StatusIcon className="h-3 w-3 mr-1" />
+                {status.label}
+              </Badge>
+              {project.live_url && (
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setShowLivePreview(true)}
+                >
+                  <Monitor className="h-4 w-4 mr-2" />
+                  Preview Live Site
+                </Button>
+              )}
+            </div>
           </div>
 
           {/* Quick Info Cards */}
@@ -255,7 +321,7 @@ const ClientProjectDetail = () => {
             <TabsList className="bg-card border border-border">
               <TabsTrigger value="screenshots" className="gap-2">
                 <Image className="h-4 w-4" />
-                Screenshots
+                Design Showcase
               </TabsTrigger>
               <TabsTrigger value="wireframes" className="gap-2">
                 <Palette className="h-4 w-4" />
@@ -267,28 +333,61 @@ const ClientProjectDetail = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="screenshots" className="mt-6">
+            <TabsContent value="screenshots" className="mt-6 space-y-6">
               {assetsLoading ? (
                 <Skeleton className="h-96 w-full" />
               ) : beforeAfterPairs.length > 0 ? (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Before & After</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <BeforeAfterSliderMulti pairs={beforeAfterPairs} />
-                  </CardContent>
-                </Card>
+                <>
+                  {/* Before/After Slider */}
+                  <Card className="overflow-hidden">
+                    <CardHeader className="flex flex-row items-center justify-between">
+                      <CardTitle>Before & After</CardTitle>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => openGallery(0)}
+                      >
+                        <Maximize2 className="h-4 w-4 mr-2" />
+                        Fullscreen Gallery
+                      </Button>
+                    </CardHeader>
+                    <CardContent>
+                      <BeforeAfterSliderMulti pairs={beforeAfterPairs} />
+                    </CardContent>
+                  </Card>
+
+                  {/* Device Preview (show latest after screenshot) */}
+                  {beforeAfterPairs.length > 0 && (
+                    <Card>
+                      <CardHeader>
+                        <CardTitle>Device Preview</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <DevicePreview 
+                          imageUrl={beforeAfterPairs[0].afterImage}
+                          alt={`${project.name} - ${beforeAfterPairs[0].label}`}
+                        />
+                      </CardContent>
+                    </Card>
+                  )}
+                </>
               ) : screenshots.length > 0 ? (
                 <div className="grid md:grid-cols-2 gap-4">
-                  {screenshots.map((asset) => (
-                    <Card key={asset.id}>
-                      <CardContent className="p-4">
+                  {screenshots.map((asset, index) => (
+                    <Card 
+                      key={asset.id} 
+                      className="cursor-pointer hover:shadow-lg transition-shadow group"
+                      onClick={() => openGallery(index)}
+                    >
+                      <CardContent className="p-4 relative">
                         <img 
                           src={asset.file_url} 
                           alt={asset.title}
                           className="w-full rounded-lg mb-2"
                         />
+                        <div className="absolute inset-4 bg-black/0 group-hover:bg-black/20 rounded-lg transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100">
+                          <Maximize2 className="h-8 w-8 text-white" />
+                        </div>
                         <p className="text-sm font-medium">{asset.title}</p>
                         {asset.description && (
                           <p className="text-xs text-muted-foreground">{asset.description}</p>
@@ -298,10 +397,19 @@ const ClientProjectDetail = () => {
                   ))}
                 </div>
               ) : (
-                <Card>
+                <Card className="border-dashed">
                   <CardContent className="p-12 text-center">
-                    <Image className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-muted-foreground">No screenshots uploaded yet</p>
+                    <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-4">
+                      <Sparkles className="h-8 w-8 text-primary" />
+                    </div>
+                    <h3 className="text-lg font-medium text-foreground mb-2">
+                      Design concepts coming soon
+                    </h3>
+                    <p className="text-muted-foreground max-w-md mx-auto">
+                      We're working on your website design. Once the first concepts are ready, 
+                      you'll be able to view before & after comparisons, explore in fullscreen, 
+                      and leave feedback directly.
+                    </p>
                   </CardContent>
                 </Card>
               )}
@@ -329,10 +437,10 @@ const ClientProjectDetail = () => {
                   ))}
                 </div>
               ) : (
-                <Card>
+                <Card className="border-dashed">
                   <CardContent className="p-12 text-center">
                     <Palette className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-muted-foreground">No wireframes or technical drawings yet</p>
+                    <p className="text-muted-foreground">Wireframes will appear here once created</p>
                   </CardContent>
                 </Card>
               )}
@@ -371,15 +479,33 @@ const ClientProjectDetail = () => {
                   ))}
                 </div>
               ) : (
-                <Card>
+                <Card className="border-dashed">
                   <CardContent className="p-12 text-center">
                     <FileText className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
-                    <p className="text-muted-foreground">No documents uploaded yet</p>
+                    <p className="text-muted-foreground">Documents will appear here as they're added</p>
                   </CardContent>
                 </Card>
               )}
             </TabsContent>
           </Tabs>
+
+          {/* Feedback Section */}
+          {beforeAfterPairs.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <MessageSquare className="h-5 w-5" />
+                  Leave Feedback
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-muted-foreground mb-4">
+                  Have thoughts on the design? Leave a comment and we'll review it promptly.
+                </p>
+                <AssetCommentForm assetId={beforeAfterPairs[0].id} assetTitle={beforeAfterPairs[0].label} />
+              </CardContent>
+            </Card>
+          )}
         </div>
       </AppShell>
     </>
