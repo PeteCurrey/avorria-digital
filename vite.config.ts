@@ -1,4 +1,4 @@
-// Cache rebuild trigger v19 - force clean rebuild for React dedupe
+// Cache rebuild trigger v20 - force clean rebuild for React dedupe
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -17,8 +17,11 @@ export default defineConfig(({ mode }) => ({
     dedupe: [
       "react",
       "react-dom",
+      "react-dom/client",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
+      "scheduler",
+      "use-sync-external-store",
       "framer-motion",
       "@tanstack/react-query",
       "@radix-ui/react-navigation-menu",
@@ -37,8 +40,11 @@ export default defineConfig(({ mode }) => ({
     include: [
       "react",
       "react-dom",
+      "react-dom/client",
       "react/jsx-runtime",
       "react/jsx-dev-runtime",
+      "scheduler",
+      "use-sync-external-store",
       "framer-motion",
       "@tanstack/react-query",
       "@radix-ui/react-navigation-menu",
