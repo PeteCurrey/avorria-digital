@@ -106,14 +106,27 @@ const ClientProjectsManager = () => {
     const client = clients?.find(c => c.id === formData.client_id);
     const user_id = client?.owner_id || "";
 
+    // Sanitize data: convert empty strings to undefined for optional fields
+    const sanitizedData = {
+      client_id: formData.client_id,
+      name: formData.name,
+      project_type: formData.project_type,
+      status: formData.status,
+      description: formData.description || undefined,
+      live_url: formData.live_url || undefined,
+      staging_url: formData.staging_url || undefined,
+      start_date: formData.start_date || undefined,
+      target_launch_date: formData.target_launch_date || undefined,
+    };
+
     if (editingProject) {
       await updateProject.mutateAsync({
         id: editingProject,
-        updates: formData,
+        updates: sanitizedData,
       });
     } else {
       await createProject.mutateAsync({
-        ...formData,
+        ...sanitizedData,
         user_id,
       });
     }
