@@ -1,4 +1,3 @@
-// Module version: v21 - force clean rebuild for React dedupe
 import React, { useState, useCallback } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
