@@ -142,9 +142,13 @@ export const ClientOnboarding = ({
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{ delay: 0.2, type: "spring" }}
-                  className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary to-primary/60 flex items-center justify-center mx-auto mb-4"
+                  className="mx-auto mb-4"
                 >
-                  <Sparkles className="h-8 w-8 text-primary-foreground" />
+                  <img 
+                    src="/logo.png" 
+                    alt="Avorria" 
+                    className="h-12 w-auto mx-auto"
+                  />
                 </motion.div>
                 <h2 className="text-2xl font-semibold text-foreground mb-2">
                   Welcome, {userName}!
