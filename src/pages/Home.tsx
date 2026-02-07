@@ -467,8 +467,6 @@ const Home = () => {
       </Helmet>
 
 
-      {/* Navigation with transparent mode for hero */}
-      <Navigation transparent={true} />
 
       {/* Section Navigation */}
       <SectionNav sections={homeSections} activeId={activeSection} variant="dots" />
