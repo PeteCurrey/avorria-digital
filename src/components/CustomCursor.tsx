@@ -1,6 +1,6 @@
-// Module version: v15 - cursor optimization with instant tracking
-import React, { useEffect, useState, useCallback } from "react";
-import { motion, useSpring, useMotionValue, AnimatePresence } from "framer-motion";
+// Module version: v16 - zero-lag cursor via direct DOM manipulation
+import React, { useEffect, useState, useCallback, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLocation } from "react-router-dom";
 
 type CursorVariant = "default" | "hover" | "click" | "text" | "hidden" | "view" | "cta";
@@ -10,18 +10,18 @@ export const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const location = useLocation();
-  
-  // Hide cursor on admin pages
+
   const isAdminPage = location.pathname.startsWith("/admin");
 
-  // Direct motion values for instant cursor tracking (no delay)
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  // Refs for direct DOM manipulation (bypasses framer-motion for position)
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const trailRef = useRef<HTMLDivElement>(null);
 
-  // Trailing cursor springs (slightly lagging for visual effect only)
-  const trailSpringConfig = { damping: 28, stiffness: 300, mass: 0.15 };
-  const trailXSpring = useSpring(cursorX, trailSpringConfig);
-  const trailYSpring = useSpring(cursorY, trailSpringConfig);
+  // Track raw mouse position
+  const mousePos = useRef({ x: -100, y: -100 });
+  // Trail position lerps toward mouse position
+  const trailPos = useRef({ x: -100, y: -100 });
+  const rafId = useRef<number>(0);
 
   // Check if mobile device
   useEffect(() => {
@@ -33,27 +33,54 @@ export const CustomCursor = () => {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  const moveCursor = useCallback((e: MouseEvent) => {
-    cursorX.set(e.clientX);
-    cursorY.set(e.clientY);
-  }, [cursorX, cursorY]);
-
-  const handleMouseEnter = useCallback(() => setIsVisible(true), []);
-  const handleMouseLeave = useCallback(() => setIsVisible(false), []);
-
+  // Mouse move: update position immediately via DOM, no React/framer overhead
   useEffect(() => {
     if (isMobile) return;
 
-    window.addEventListener("mousemove", moveCursor);
-    document.addEventListener("mouseenter", handleMouseEnter);
-    document.addEventListener("mouseleave", handleMouseLeave);
+    const onMouseMove = (e: MouseEvent) => {
+      mousePos.current.x = e.clientX;
+      mousePos.current.y = e.clientY;
+
+      // Instant cursor update — write directly to the DOM element's transform
+      if (cursorRef.current) {
+        cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
+      }
+    };
+
+    const onMouseEnter = () => setIsVisible(true);
+    const onMouseLeave = () => setIsVisible(false);
+
+    window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("mouseenter", onMouseEnter);
+    document.addEventListener("mouseleave", onMouseLeave);
 
     return () => {
-      window.removeEventListener("mousemove", moveCursor);
-      document.removeEventListener("mouseenter", handleMouseEnter);
-      document.removeEventListener("mouseleave", handleMouseLeave);
+      window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("mouseenter", onMouseEnter);
+      document.removeEventListener("mouseleave", onMouseLeave);
     };
-  }, [isMobile, moveCursor, handleMouseEnter, handleMouseLeave]);
+  }, [isMobile]);
+
+  // Trail ring: animate with rAF + lerp for a smooth, intentional lag
+  useEffect(() => {
+    if (isMobile) return;
+
+    const lerpFactor = 0.15; // lower = more lag, higher = tighter follow
+
+    const tick = () => {
+      trailPos.current.x += (mousePos.current.x - trailPos.current.x) * lerpFactor;
+      trailPos.current.y += (mousePos.current.y - trailPos.current.y) * lerpFactor;
+
+      if (trailRef.current) {
+        trailRef.current.style.transform = `translate3d(${trailPos.current.x}px, ${trailPos.current.y}px, 0) translate(-50%, -50%)`;
+      }
+
+      rafId.current = requestAnimationFrame(tick);
+    };
+
+    rafId.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId.current);
+  }, [isMobile]);
 
   // Handle hover detection on interactive elements
   useEffect(() => {
@@ -61,8 +88,7 @@ export const CustomCursor = () => {
 
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
-      // Check for interactive elements - order matters (more specific first)
+
       const isViewCard = target.closest("[data-cursor='view']");
       const isCTA = target.closest("[data-cursor='cta']");
       const isInput = target.closest("input, textarea, select");
@@ -70,7 +96,7 @@ export const CustomCursor = () => {
       const isLink = target.closest("a");
       const isButton = target.closest("button");
       const isCard = target.closest("[data-cursor='hover']");
-      
+
       if (isViewCard) {
         setVariant("view");
       } else if (isCTA) {
@@ -101,75 +127,84 @@ export const CustomCursor = () => {
   // Don't render on mobile or admin pages
   if (isMobile || isAdminPage) return null;
 
-  const variants = {
+  const sizeMap = {
+    default: { width: 12, height: 12 },
+    hover: { width: 48, height: 48 },
+    click: { width: 40, height: 40 },
+    text: { width: 4, height: 32 },
+    hidden: { width: 0, height: 0 },
+    view: { width: 80, height: 80 },
+    cta: { width: 64, height: 64 },
+  };
+
+  const styleMap: Record<CursorVariant, React.CSSProperties> = {
     default: {
-      width: 12,
-      height: 12,
       backgroundColor: "transparent",
       border: "2px solid hsl(320, 85%, 55%)",
-      mixBlendMode: "difference" as const,
+      mixBlendMode: "difference",
     },
     hover: {
-      width: 48,
-      height: 48,
       backgroundColor: "hsla(320, 85%, 55%, 0.15)",
       border: "2px solid hsl(320, 85%, 55%)",
-      mixBlendMode: "normal" as const,
+      mixBlendMode: "normal",
     },
     click: {
-      width: 40,
-      height: 40,
       backgroundColor: "hsla(320, 85%, 55%, 0.3)",
       border: "2px solid hsl(320, 85%, 55%)",
-      mixBlendMode: "normal" as const,
+      mixBlendMode: "normal",
     },
     text: {
-      width: 4,
-      height: 32,
       backgroundColor: "hsl(320, 85%, 55%)",
       border: "none",
       borderRadius: 2,
-      mixBlendMode: "normal" as const,
+      mixBlendMode: "normal",
     },
     hidden: {
-      width: 0,
-      height: 0,
       backgroundColor: "transparent",
       border: "none",
     },
     view: {
-      width: 80,
-      height: 80,
       backgroundColor: "hsl(320, 85%, 55%)",
       border: "none",
-      mixBlendMode: "normal" as const,
+      mixBlendMode: "normal",
     },
     cta: {
-      width: 64,
-      height: 64,
       backgroundColor: "hsla(320, 85%, 55%, 0.2)",
       border: "3px solid hsl(320, 85%, 55%)",
-      mixBlendMode: "normal" as const,
+      mixBlendMode: "normal",
     },
   };
 
+  const trailSizeMap = {
+    default: 32,
+    hover: 64,
+    click: 64,
+    text: 0,
+    hidden: 0,
+    view: 96,
+    cta: 80,
+  };
+
+  const currentSize = sizeMap[variant];
+  const currentStyle = styleMap[variant];
+  const trailSize = trailSizeMap[variant];
+
   return (
     <>
-      {/* Main cursor dot */}
+      {/* Main cursor — positioned via ref, size/style animated by framer-motion */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center"
+        ref={cursorRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center will-change-transform"
         style={{
-          x: cursorX,
-          y: cursorY,
-          translateX: "-50%",
-          translateY: "-50%",
+          // Initial off-screen; overridden by mousemove handler
+          transform: "translate3d(-100px, -100px, 0) translate(-50%, -50%)",
+          ...currentStyle,
         }}
-        animate={variant}
-        variants={variants}
+        animate={currentSize}
         transition={{ duration: 0.15, ease: "easeOut" }}
         initial={false}
       >
-        {/* Inner glow effect for hover state */}
+        {/* Inner glow for hover */}
         {variant === "hover" && (
           <motion.div
             className="absolute inset-0 rounded-full"
@@ -180,8 +215,8 @@ export const CustomCursor = () => {
             transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
           />
         )}
-        
-        {/* "View" text for case study cards */}
+
+        {/* "View" label */}
         <AnimatePresence>
           {variant === "view" && (
             <motion.span
@@ -196,7 +231,7 @@ export const CustomCursor = () => {
           )}
         </AnimatePresence>
 
-        {/* Pulsing ring for CTA variant */}
+        {/* CTA pulse ring */}
         {variant === "cta" && (
           <motion.div
             className="absolute inset-0 rounded-full border-2 border-accent"
@@ -206,33 +241,29 @@ export const CustomCursor = () => {
         )}
       </motion.div>
 
-      {/* Trailing cursor ring - slightly lagging for visual effect */}
+      {/* Trailing ring — positioned via ref + rAF lerp */}
       <motion.div
-        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-white/20"
+        ref={trailRef}
+        className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-white/20 will-change-transform"
         style={{
-          x: trailXSpring,
-          y: trailYSpring,
-          translateX: "-50%",
-          translateY: "-50%",
+          transform: "translate3d(-100px, -100px, 0) translate(-50%, -50%)",
         }}
         animate={{
-          width: variant === "view" ? 96 : variant === "cta" ? 80 : variant === "hover" ? 64 : variant === "text" ? 0 : 32,
-          height: variant === "view" ? 96 : variant === "cta" ? 80 : variant === "hover" ? 64 : variant === "text" ? 0 : 32,
+          width: trailSize,
+          height: trailSize,
           opacity: isVisible ? (variant === "text" ? 0 : 0.5) : 0,
         }}
         transition={{ duration: 0.15, ease: "easeOut" }}
       />
 
-      {/* Global style to hide default cursor */}
+      {/* Hide default cursor */}
       <style>{`
         html, body, * {
           cursor: none !important;
         }
-        
         a, button, input, textarea, select, [role="button"], [data-cursor] {
           cursor: none !important;
         }
-        
         @media (pointer: coarse), (max-width: 767px) {
           html, body, * {
             cursor: auto !important;
