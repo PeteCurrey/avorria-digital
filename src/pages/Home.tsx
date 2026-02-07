@@ -12,7 +12,7 @@ import ScrollIndicator from "@/components/ScrollIndicator";
 
 import { SlideInPanel } from "@/components/SlideInPanel";
 import { ExitIntentPopover } from "@/components/ExitIntentPopover";
-import Navigation from "@/components/Navigation";
+
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import ParallaxBackground from "@/components/ParallaxBackground";
 
@@ -467,8 +467,6 @@ const Home = () => {
       </Helmet>
 
 
-      {/* Navigation with transparent mode for hero */}
-      <Navigation transparent={true} />
 
       {/* Section Navigation */}
       <SectionNav sections={homeSections} activeId={activeSection} variant="dots" />

@@ -61,7 +61,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <>
-      {!isHomePage && <Navigation transparent={isHeroPage} />}
+      <Navigation transparent={isHomePage || isHeroPage} />
       {children}
       <Footer />
     </>
