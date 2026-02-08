@@ -5,6 +5,7 @@ import type { StudioConfig } from "@/types/studio";
 interface AestheticStepProps {
   config: StudioConfig;
   setConfig: (config: StudioConfig) => void;
+  onSliderCommit?: () => void;
 }
 
 const palettes = [
@@ -14,7 +15,7 @@ const palettes = [
   { value: "gradient" as const, label: "Gradient", colors: ["#6366f1", "#8b5cf6", "#d946ef", "#f43f5e"] },
 ];
 
-export const AestheticStep = ({ config, setConfig }: AestheticStepProps) => {
+export const AestheticStep = ({ config, setConfig, onSliderCommit }: AestheticStepProps) => {
   return (
     <div className="flex min-h-full flex-col">
       {/* Header */}
@@ -50,6 +51,7 @@ export const AestheticStep = ({ config, setConfig }: AestheticStepProps) => {
             <Slider
               value={[config.minimal]}
               onValueChange={(value) => setConfig({ ...config, minimal: value[0] })}
+              onValueCommit={onSliderCommit}
               max={100}
               step={1}
               className="w-full"
@@ -107,6 +109,7 @@ export const AestheticStep = ({ config, setConfig }: AestheticStepProps) => {
           <Slider
             value={[config.bold]}
             onValueChange={(value) => setConfig({ ...config, bold: value[0] })}
+            onValueCommit={onSliderCommit}
             max={100}
             step={1}
             className="w-full"
