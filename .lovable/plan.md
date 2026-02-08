@@ -1,69 +1,133 @@
 
 
-## Fix: Studio Ambient Music Feature
+## Step-Based Ambient Audio for the Studio Wizard
 
-### Problem
-The music toggle button on `/web-design/studio` shows errors because it's trying to load a static audio file (`/audio/studio-ambient.mp3`) that doesn't exist. The console shows:
+### Overview
+Transform the studio experience by dynamically changing the ambient soundscape as users progress through the wizard. Each step will have its own unique audio mood, with smooth crossfade transitions between them.
 
+### Soundscape Design
+
+| Step | Name | Audio Prompt | Mood |
+|------|------|--------------|------|
+| 0 | Purpose | "Expansive electronic atmosphere, rising synthesizer pads, hopeful and inspiring ambient music, gentle energy building" | **Energetic & Inspiring** - Setting the vision |
+| 1 | Aesthetic | "Creative studio ambience, soft brush strokes, artistic electronic textures, contemplative and beautiful" | **Artistic & Contemplative** - Visual decisions |
+| 2 | Structure | "Architectural electronic soundscape, precise rhythmic elements, building blocks, organised and clear" | **Structured & Methodical** - Site architecture |
+| 3 | Features | "Dynamic digital interface sounds, subtle technological pulses, forward motion, innovative atmosphere" | **Technical & Progressive** - Feature selection |
+| 4 | Personality | "Warm human connection, organic textures with electronics, conversational ambient tones, friendly and approachable" | **Warm & Personal** - Brand voice |
+| 5 | Summary | "Calm completion sounds, gentle celebration, peaceful resolution, satisfied and accomplished feeling" | **Calm & Accomplished** - Review |
+
+### Technical Implementation
+
+**1. New Hook: `src/hooks/useStepBasedAudio.ts`**
+
+A new hook specifically designed for step-aware audio:
+- Accepts `currentStep` as a parameter
+- Manages a cache of generated audio (one per step) to avoid re-generation
+- Pre-generates the next step's audio while user is on current step
+- Implements volume crossfade transitions between steps (fade out old, fade in new)
+- Graceful fallback if audio generation fails (continues silently)
+
+```text
+Key API:
+- useStepBasedAudio(currentStep: number, options)
+  Returns: { isPlaying, isLoading, toggle, currentMood }
 ```
-"The element has no supported sources."
+
+**2. Audio Crossfade Logic**
+
+When step changes:
+1. Start generating new audio (if not cached)
+2. Fade out current audio over 1 second
+3. Fade in new audio over 1 second
+4. Dispose of previous audio element to save memory
+
+```text
+Step 0 ─────────────────────┐
+                     fade   │
+                      out   ├── crossfade zone (~1s)
+                            │
+Step 1 ─────────────────────┘
+        fade in
 ```
 
-The `public/audio/` folder only contains a `.gitkeep` placeholder — no actual MP3 file.
+**3. Pre-generation Strategy**
 
-### Solution
-Since ElevenLabs is now configured (I can see both `ELEVENLABS_API_KEY` and `ELEVENLABS_API_KEY_1` in secrets), we should use the existing `studio-ambient-music` edge function to generate ambient audio dynamically using the ElevenLabs Sound Effects API.
+While user is on step N, pre-fetch audio for step N+1 in the background:
+- Reduces perceived loading time
+- Audio is cached so instant playback on step change
+- Non-blocking - doesn't affect current audio
 
-### Implementation
+**4. Update: `src/pages/WebDesignStudioBuild.tsx`**
 
-**1. Create a new hook: `src/hooks/useGeneratedAmbientAudio.ts`**
+- Replace `useAmbientAudio` with the new `useStepBasedAudio` hook
+- Pass `currentStep` to the hook
+- Update UI to show current mood/soundscape name
+- Add loading indicator during initial generation
 
-A new hook specifically for fetching AI-generated audio from the edge function:
-- Calls the `studio-ambient-music` edge function on demand
-- Converts the base64 response to a playable audio URL using a data URI
-- Manages loading, playing, and error states
-- Caches the generated audio in memory so it doesn't re-generate on every toggle
+**5. Edge Function: No Changes Required**
 
-**2. Update `src/components/studio/VideoHero.tsx`**
+The existing `studio-ambient-music` edge function already accepts a `prompt` parameter, so we can reuse it for all step-based audio generation.
 
-- Replace `useAmbientAudio` import with `useGeneratedAmbientAudio`
-- Remove the static file path constant
-- The new hook handles everything — no other changes needed to the UI
+### User Experience
 
-**3. Keep existing `useAmbientAudio.ts` hook**
+1. User clicks "Music On" toggle
+2. Audio for current step loads (~3-5 seconds on first play)
+3. Soundscape plays, looped
+4. User navigates to next step
+5. Current audio fades out smoothly (1 second)
+6. New step's audio fades in (already pre-loaded, instant)
+7. Continues until user toggles off or exits
 
-This hook is still useful for static audio files elsewhere in the app, so we'll keep it as-is.
+### UI Updates
+
+The music toggle button will show the current mood:
+```
+[🔊 Music On] 
+   ↳ "Purpose — Inspiring"
+```
+
+When loading:
+```
+[⏳ Loading...]
+   ↳ "Generating soundscape..."
+```
+
+### Files Changed
+
+| File | Action |
+|------|--------|
+| `src/hooks/useStepBasedAudio.ts` | Create (new hook for step-aware audio) |
+| `src/pages/WebDesignStudioBuild.tsx` | Edit (integrate new hook, update UI) |
 
 ### Technical Details
 
-The edge function returns:
-```json
-{ "audioContent": "base64-encoded-mp3-data..." }
+**Audio Cache Structure:**
+```typescript
+type AudioCache = Map<number, {
+  audioUrl: string;
+  audioElement: HTMLAudioElement;
+}>;
 ```
 
-The new hook will:
-1. Call the edge function when user clicks "Sound On"
-2. Convert base64 to a data URI: `data:audio/mpeg;base64,{audioContent}`
-3. Create an `Audio` element with that source
-4. Play/pause on toggle
+**Step Prompts Configuration:**
+```typescript
+const STEP_SOUNDSCAPES = [
+  { step: 0, name: "Inspiring", prompt: "..." },
+  { step: 1, name: "Artistic", prompt: "..." },
+  // ...
+];
+```
 
-### Why this approach?
-- Uses the existing, working edge function (no backend changes needed)
-- ElevenLabs Sound Effects API generates 22 seconds of ambient audio per request
-- Audio is cached after first generation — subsequent toggles are instant
-- Graceful error handling if the API fails
+**Crossfade Implementation:**
+- Use `requestAnimationFrame` for smooth volume transitions
+- Linear fade over 1000ms
+- Volume range: 0 → target volume (e.g., 0.3)
 
-### Files Changed
-| File | Action |
-|------|--------|
-| `src/hooks/useGeneratedAmbientAudio.ts` | Create (new hook for API-generated audio) |
-| `src/components/studio/VideoHero.tsx` | Edit (use new hook) |
+### Edge Cases Handled
 
-### Testing
-After implementation:
-1. Navigate to `/web-design/studio`
-2. Click the "Sound Off" button in the top-right
-3. Should show "Loading..." briefly while generating
-4. Should then show "Sound On" with ambient audio playing
-5. Toggle should pause/resume without re-generating
+- **Audio generation fails**: Log error, continue silently (no audio)
+- **User toggles off during transition**: Immediately stop all audio
+- **User skips steps**: Cancel pending pre-generation, load new step's audio
+- **Browser autoplay restrictions**: Audio starts on first user interaction (toggle click)
+- **Memory management**: Dispose of audio elements when no longer needed
 
