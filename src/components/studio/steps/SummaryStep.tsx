@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { 
   Target, 
@@ -20,6 +20,7 @@ import type { StudioConfig } from "@/types/studio";
 
 interface SummaryStepProps {
   config: StudioConfig;
+  onSuccess?: () => void;
 }
 
 const purposeLabels = {
@@ -42,7 +43,7 @@ const sizeLabels = {
   expanded: "Expanded (20+ pages)",
 };
 
-export const SummaryStep = ({ config }: SummaryStepProps) => {
+export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -62,6 +63,13 @@ export const SummaryStep = ({ config }: SummaryStepProps) => {
     const random = Math.random().toString(36).substring(2, 6).toUpperCase();
     return `${prefix}-${year}-${random}`;
   };
+
+  // Play celebration sound when submission succeeds
+  useEffect(() => {
+    if (isSubmitted && onSuccess) {
+      onSuccess();
+    }
+  }, [isSubmitted, onSuccess]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare, Loader2 } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
@@ -173,7 +173,7 @@ const WebDesignStudioBuild = () => {
   const goToStep = (step: number) => {
     if (step < 0 || step >= steps.length) return;
     if (soundEnabled) {
-      playClick("navigate");
+      playClick("whoosh");
     }
     setDirection(step > currentStep ? "forward" : "backward");
     setCurrentStep(step);
@@ -204,28 +204,42 @@ const WebDesignStudioBuild = () => {
     }),
   };
 
-  // Wrap setConfig to play sound on changes
+  // Wrap setConfig to play sound on changes - use chime for selections
   const handleConfigChange = (newConfig: StudioConfig) => {
     if (soundEnabled) {
-      playClick("select");
+      playClick("chime");
     }
     setConfig(newConfig);
   };
+
+  // Handler for slider tick sounds
+  const handleSliderTick = useCallback(() => {
+    if (soundEnabled) {
+      playClick("tick", 0.6);
+    }
+  }, [soundEnabled, playClick]);
+
+  // Handler for celebration sound on submit
+  const handleCelebration = useCallback(() => {
+    if (soundEnabled) {
+      playClick("celebration");
+    }
+  }, [soundEnabled, playClick]);
 
   const renderStep = () => {
     switch (currentStep) {
       case 0:
         return <PurposeStep config={config} setConfig={handleConfigChange} />;
       case 1:
-        return <AestheticStep config={config} setConfig={handleConfigChange} />;
+        return <AestheticStep config={config} setConfig={handleConfigChange} onSliderCommit={handleSliderTick} />;
       case 2:
         return <StructureStep config={config} setConfig={handleConfigChange} />;
       case 3:
         return <FeaturesStep config={config} setConfig={handleConfigChange} />;
       case 4:
-        return <PersonalityStep config={config} setConfig={handleConfigChange} />;
+        return <PersonalityStep config={config} setConfig={handleConfigChange} onSliderCommit={handleSliderTick} />;
       case 5:
-        return <SummaryStep config={config} />;
+        return <SummaryStep config={config} onSuccess={handleCelebration} />;
       default:
         return null;
     }

@@ -6,9 +6,10 @@ import type { StudioConfig } from "@/types/studio";
 interface PersonalityStepProps {
   config: StudioConfig;
   setConfig: (config: StudioConfig) => void;
+  onSliderCommit?: () => void;
 }
 
-export const PersonalityStep = ({ config, setConfig }: PersonalityStepProps) => {
+export const PersonalityStep = ({ config, setConfig, onSliderCommit }: PersonalityStepProps) => {
   // Generate sample headline based on personality settings
   const getSampleHeadline = () => {
     if (config.straightTalking > 70) {
@@ -98,6 +99,7 @@ export const PersonalityStep = ({ config, setConfig }: PersonalityStepProps) => 
             <Slider
               value={[config.straightTalking]}
               onValueChange={(value) => setConfig({ ...config, straightTalking: value[0] })}
+              onValueCommit={onSliderCommit}
               max={100}
               step={1}
               className="w-full"
@@ -124,6 +126,7 @@ export const PersonalityStep = ({ config, setConfig }: PersonalityStepProps) => 
             <Slider
               value={[config.analytical]}
               onValueChange={(value) => setConfig({ ...config, analytical: value[0] })}
+              onValueCommit={onSliderCommit}
               max={100}
               step={1}
               className="w-full"
@@ -150,6 +153,7 @@ export const PersonalityStep = ({ config, setConfig }: PersonalityStepProps) => 
             <Slider
               value={[config.understated]}
               onValueChange={(value) => setConfig({ ...config, understated: value[0] })}
+              onValueCommit={onSliderCommit}
               max={100}
               step={1}
               className="w-full"
