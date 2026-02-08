@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare } from "lucide-react";
+import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare, Loader2 } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
@@ -12,7 +12,7 @@ import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import { DeviceMockup } from "@/components/studio/DeviceMockup";
 import { DesignBriefChat } from "@/components/studio/DesignBriefChat";
-import { useAmbientAudio } from "@/hooks/useAmbientAudio";
+import { useStepBasedAudio } from "@/hooks/useStepBasedAudio";
 
 // Lead Generation previews by palette and size
 import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
@@ -111,9 +111,6 @@ const steps = [
   { id: "summary", label: "Summary" },
 ];
 
-// Static ambient music file path
-const AMBIENT_MUSIC_PATH = "/audio/studio-ambient.mp3";
-
 const WebDesignStudioBuild = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
@@ -122,12 +119,13 @@ const WebDesignStudioBuild = () => {
   const { playClick } = useClickSound();
   const mockupRef = useRef<HTMLDivElement>(null);
   
-  // Ambient audio using static file
-  const { isPlaying: musicPlaying, toggle: toggleMusic } = useAmbientAudio({
-    src: AMBIENT_MUSIC_PATH,
-    volume: 0.3,
-    loop: true,
-  });
+  // Step-based ambient audio that changes with each wizard step
+  const { 
+    isPlaying: musicPlaying, 
+    isLoading: musicLoading, 
+    toggle: toggleMusic,
+    currentMood 
+  } = useStepBasedAudio(currentStep, { volume: 0.3 });
   
   // Mouse position for parallax effect
   const mouseX = useMotionValue(0);
@@ -270,22 +268,32 @@ const WebDesignStudioBuild = () => {
             </span>
           </motion.button>
           
-          {/* Music Toggle */}
+          {/* Music Toggle with Mood Display */}
           <motion.button
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
             onClick={toggleMusic}
-            className="flex items-center gap-2 rounded-full border border-white/10 bg-black/50 px-3 py-2 backdrop-blur-sm transition-all hover:border-white/20"
+            disabled={musicLoading}
+            className="flex flex-col items-start gap-1 rounded-xl border border-white/10 bg-black/50 px-4 py-2.5 backdrop-blur-sm transition-all hover:border-white/20 disabled:opacity-50"
           >
-            {musicPlaying ? (
-              <Volume2 className="h-4 w-4 text-accent" />
-            ) : (
-              <VolumeX className="h-4 w-4 text-white/40" />
+            <div className="flex items-center gap-2">
+              {musicLoading ? (
+                <Loader2 className="h-4 w-4 text-accent animate-spin" />
+              ) : musicPlaying ? (
+                <Volume2 className="h-4 w-4 text-accent" />
+              ) : (
+                <VolumeX className="h-4 w-4 text-white/40" />
+              )}
+              <span className="text-xs text-white/60">
+                {musicLoading ? "Loading..." : musicPlaying ? "Music On" : "Music Off"}
+              </span>
+            </div>
+            {(musicPlaying || musicLoading) && (
+              <span className="text-[10px] text-accent/70 font-light">
+                {musicLoading ? "Generating soundscape..." : `${steps[currentStep]?.label} — ${currentMood}`}
+              </span>
             )}
-            <span className="text-xs text-white/60">
-              {musicPlaying ? "Music On" : "Music Off"}
-            </span>
           </motion.button>
         </div>
 
