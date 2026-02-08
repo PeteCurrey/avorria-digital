@@ -1,43 +1,69 @@
 
-## Fix: Sticky Header on All Pages (Especially Home)
+
+## Fix: Studio Ambient Music Feature
 
 ### Problem
-The navigation header disappears when scrolling on the home page. It should remain pinned to the top of the viewport at all times, transitioning from transparent to a compact frosted-glass bar on scroll, and staying visible as long as you keep scrolling.
+The music toggle button on `/web-design/studio` shows errors because it's trying to load a static audio file (`/audio/studio-ambient.mp3`) that doesn't exist. The console shows:
 
-### Root Cause
-The home page renders its own `<Navigation transparent={true} />` component **inside** `Home.tsx` (line 471). This component is wrapped by `PageTransition`, which uses a Framer Motion `motion.div` with transform-based animations (`y: 30 -> 0`).
-
-**CSS rule**: `position: fixed` does not work relative to the viewport when the element is inside an ancestor with a `transform` property. Instead, it becomes positioned relative to the transformed parent -- so the nav scrolls away with the page content.
-
-On all other pages, the `Layout` component in `App.tsx` renders `Navigation` **outside** the `PageTransition` wrapper, which is why it works correctly there.
-
-### Fix (2 files, minimal changes)
-
-**1. `src/pages/Home.tsx`**
-- Remove the `<Navigation transparent={true} />` line (line 471) and its import.
-- The home page should no longer render its own Navigation.
-
-**2. `src/App.tsx` -- Layout component**
-- Change `{!isHomePage && <Navigation transparent={isHeroPage} />}` to always render Navigation.
-- For the home page, pass `transparent={true}` since it has a full-bleed hero.
-- Updated logic:
 ```
-const showTransparent = isHomePage || isHeroPage;
-<Navigation transparent={showTransparent} />
+"The element has no supported sources."
 ```
 
-This ensures Navigation is always rendered **outside** the PageTransition wrapper, so `position: fixed` works correctly on every page.
+The `public/audio/` folder only contains a `.gitkeep` placeholder — no actual MP3 file.
 
-### Additional Cleanup (optional, low-risk)
-- **`src/App.css`**: This file contains leftover Vite boilerplate (`#root { max-width: 1280px; padding: 2rem }`) that is not imported anywhere. It can be safely deleted to keep the project tidy. (Not causing the bug, but worth removing.)
+### Solution
+Since ElevenLabs is now configured (I can see both `ELEVENLABS_API_KEY` and `ELEVENLABS_API_KEY_1` in secrets), we should use the existing `studio-ambient-music` edge function to generate ambient audio dynamically using the ElevenLabs Sound Effects API.
 
-### What changes for the user
-- The header will remain pinned to the top on every page, including the home page.
-- On scroll: it shrinks, gains rounded corners, and shows the frosted-glass background.
-- On scroll back to top: it reverses the animation and returns to its full transparent state.
-- No visual or behavioural change on any other page (they already work correctly).
+### Implementation
+
+**1. Create a new hook: `src/hooks/useGeneratedAmbientAudio.ts`**
+
+A new hook specifically for fetching AI-generated audio from the edge function:
+- Calls the `studio-ambient-music` edge function on demand
+- Converts the base64 response to a playable audio URL using a data URI
+- Manages loading, playing, and error states
+- Caches the generated audio in memory so it doesn't re-generate on every toggle
+
+**2. Update `src/components/studio/VideoHero.tsx`**
+
+- Replace `useAmbientAudio` import with `useGeneratedAmbientAudio`
+- Remove the static file path constant
+- The new hook handles everything — no other changes needed to the UI
+
+**3. Keep existing `useAmbientAudio.ts` hook**
+
+This hook is still useful for static audio files elsewhere in the app, so we'll keep it as-is.
+
+### Technical Details
+
+The edge function returns:
+```json
+{ "audioContent": "base64-encoded-mp3-data..." }
+```
+
+The new hook will:
+1. Call the edge function when user clicks "Sound On"
+2. Convert base64 to a data URI: `data:audio/mpeg;base64,{audioContent}`
+3. Create an `Audio` element with that source
+4. Play/pause on toggle
+
+### Why this approach?
+- Uses the existing, working edge function (no backend changes needed)
+- ElevenLabs Sound Effects API generates 22 seconds of ambient audio per request
+- Audio is cached after first generation — subsequent toggles are instant
+- Graceful error handling if the API fails
+
+### Files Changed
+| File | Action |
+|------|--------|
+| `src/hooks/useGeneratedAmbientAudio.ts` | Create (new hook for API-generated audio) |
+| `src/components/studio/VideoHero.tsx` | Edit (use new hook) |
 
 ### Testing
-- Scroll the home page top to bottom and back -- header should always be visible.
-- Check `/services`, `/about`, `/case-studies` for consistent behaviour.
-- Check mobile viewport for the same sticky behaviour.
+After implementation:
+1. Navigate to `/web-design/studio`
+2. Click the "Sound Off" button in the top-right
+3. Should show "Loading..." briefly while generating
+4. Should then show "Sound On" with ambient audio playing
+5. Toggle should pause/resume without re-generating
+
