@@ -4,26 +4,19 @@ import { ArrowRight, Sparkles, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
-import { useAmbientAudio } from "@/hooks/useAmbientAudio";
+import { useGeneratedAmbientAudio } from "@/hooks/useGeneratedAmbientAudio";
 
 interface VideoHeroProps {
   onEnterStudio?: () => void;
 }
-
-// Static ambient music file path
-const AMBIENT_MUSIC_PATH = "/audio/studio-ambient.mp3";
 
 export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
   const navigate = useNavigate();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   
-  // Use static audio file instead of API-generated audio
-  const { isPlaying: audioEnabled, isLoading: isLoadingAudio, toggle: toggleAudio, pause: pauseAudio } = useAmbientAudio({
-    src: AMBIENT_MUSIC_PATH,
-    volume: 0.4,
-    loop: true,
-  });
+  // Use AI-generated audio from ElevenLabs via edge function
+  const { isPlaying: audioEnabled, isLoading: isLoadingAudio, toggle: toggleAudio, pause: pauseAudio } = useGeneratedAmbientAudio(0.4);
 
   const handleEnterStudio = () => {
     setIsTransitioning(true);
