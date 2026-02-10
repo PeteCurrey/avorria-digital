@@ -552,20 +552,25 @@ const WebDesignStudioBuild = () => {
                 {currentStep > 0 && steps[currentStep - 1].label}
               </button>
 
-              <div className="flex items-center gap-2">
-                {steps.map((step, index) => (
-                  <button
-                    key={step.id}
-                    onClick={() => goToStep(index)}
-                    className={`h-2 w-2 rounded-full transition-all ${
-                      index === currentStep
-                        ? "w-6 bg-accent"
-                        : index < currentStep
-                        ? "bg-accent/50"
-                        : "bg-white/20"
-                    }`}
-                  />
-                ))}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  {steps.map((step, index) => (
+                    <button
+                      key={step.id}
+                      onClick={() => goToStep(index)}
+                      className={`h-2 w-2 rounded-full transition-all ${
+                        index === currentStep
+                          ? "w-6 bg-accent"
+                          : index < currentStep
+                          ? "bg-accent/50"
+                          : "bg-white/20"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs text-white/30">
+                  {currentStep + 1} / {steps.length}
+                </span>
               </div>
 
               <button

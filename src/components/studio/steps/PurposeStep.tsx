@@ -143,6 +143,13 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
           );
         })}
       </div>
+
+      {/* Example Lightbox */}
+      <PurposeExampleLightbox
+        open={!!lightboxPurpose}
+        onOpenChange={(open) => !open && setLightboxPurpose(null)}
+        purposeType={lightboxPurpose || ""}
+      />
     </div>
   );
 };

@@ -645,7 +645,7 @@ export const DesignBriefChat = ({
       // Initial greeting
       setMessages([{
         role: "assistant",
-        content: "Hi! I'm your AI design consultant. I'm here to help you create a comprehensive design brief for your website.\n\nLet's start with the basics — tell me about your business. What do you do, and what makes you different from others in your space?"
+        content: "Welcome to the AI Brief Builder! I'll help you create a professional design brief document — a detailed specification for your website project.\n\nLet's start with the basics — tell me about your business. What do you do, and what makes you different from others in your space?"
       }]);
     }
   }, [isOpen, messages.length]);
