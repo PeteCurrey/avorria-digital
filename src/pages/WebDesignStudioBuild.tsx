@@ -307,10 +307,41 @@ const WebDesignStudioBuild = () => {
             </div>
             {(musicPlaying || musicLoading) && (
               <span className="text-[10px] text-accent/70 font-light">
-                {musicLoading ? "Generating soundscape..." : `${steps[currentStep]?.label} — ${currentMood}`}
+                {musicLoading ? "Generating soundscape..." : soundscapeTheme === "auto" ? `${steps[currentStep]?.label} — ${currentMood}` : currentMood}
               </span>
             )}
           </motion.button>
+
+          {/* Soundscape Theme Selector - visible when music is on */}
+          {(musicPlaying || musicLoading) && (
+            <motion.div
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+            >
+              <Select value={soundscapeTheme} onValueChange={setSoundscapeTheme}>
+                <SelectTrigger className="h-8 w-full rounded-lg border-white/10 bg-black/50 text-xs text-white/70 backdrop-blur-sm hover:border-white/20 focus:ring-accent/30 [&>svg]:text-white/40">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent className="rounded-lg border-white/10 bg-black/90 backdrop-blur-xl">
+                  {Object.entries(SOUNDSCAPE_THEMES).map(([key, theme]) => (
+                    <SelectItem
+                      key={key}
+                      value={key}
+                      className="text-xs text-white/70 focus:bg-white/10 focus:text-white"
+                    >
+                      <div className="flex flex-col">
+                        <span>{theme.label}</span>
+                        {key !== "auto" && (
+                          <span className="text-[10px] text-white/40">{theme.description}</span>
+                        )}
+                      </div>
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </motion.div>
+          )}
         </div>
 
         {/* Main Content */}
