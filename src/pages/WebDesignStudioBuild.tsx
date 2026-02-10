@@ -118,6 +118,7 @@ const WebDesignStudioBuild = () => {
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showWelcomeBanner, setShowWelcomeBanner] = useState(false);
   const { playClick } = useClickSound();
   const mockupRef = useRef<HTMLDivElement>(null);
   
