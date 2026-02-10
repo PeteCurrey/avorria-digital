@@ -114,6 +114,7 @@ const steps = [
 
 const WebDesignStudioBuild = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [soundscapeTheme, setSoundscapeTheme] = useState("auto");
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
