@@ -1,69 +1,93 @@
 
-## Add Soundscape Selector Dropdown to Web Design Studio
 
-### Overview
-Add a dropdown selector next to the existing music toggle that lets visitors choose from different ambient audio themes. When selected, the theme overrides the default step-based soundscapes with a consistent mood throughout the wizard. Selecting "Auto (Step-Based)" returns to the default behaviour.
+## Web Design Studio Build Page Enhancement
 
-### Soundscape Themes
+This is a comprehensive upgrade to the studio build experience covering spacing fixes, clearer AI assistant purpose, example website lightboxes, visual engagement improvements, and branded PDF delivery gated behind contact info.
 
-| Theme | Description | Prompt Prefix |
-|-------|-------------|---------------|
-| Auto (Step-Based) | Default - changes with each wizard step | *(uses existing step prompts)* |
-| Cyberpunk Nightscape | Neon-lit city, rain, electronic hum | "Cyberpunk city rain, neon buzzing, distant synth bass, dark electronic atmosphere, blade runner ambience" |
-| Zen Garden | Water, wind chimes, meditative calm | "Japanese zen garden, gentle water fountain, sparse wind chimes, meditative calm, bamboo rustling" |
-| Late Night Creative | Lo-fi rain, vinyl crackle, cosy warmth | "Late night studio, rain on windows, soft vinyl crackle, lo-fi warmth, distant jazz piano, creative flow" |
-| Space Station | Deep hums, satellite pings, vastness | "Space station observatory, deep cosmic hum, distant satellite pings, weightless atmosphere, sci-fi ambient" |
-| High-Rise Studio | Urban wind, soft typing, modern office | "High-rise creative studio, soft wind on glass, subtle keyboard typing, modern office calm, city below" |
+### 1. Fix "What's the mission?" Card Spacing
 
-### Implementation
+**Problem:** The purpose cards in PurposeStep are too close to the header.
 
-**1. Update `src/hooks/useStepBasedAudio.ts`**
+**Fix in `src/components/studio/steps/PurposeStep.tsx`:**
+- Increase bottom margin on the header from `mb-12` to `mb-16`
+- Add top padding (`pt-4`) to give the cards breathing room from the container
 
-- Export the `STEP_SOUNDSCAPES` array (already defined)
-- Add a new `soundscapeTheme` parameter to the hook options
-- When a theme other than "auto" is selected, override the step prompt with the theme's prompt
-- The `currentMood` return value changes to show the theme name instead of the step mood
-- Cache key changes to include the theme, so switching themes generates new audio
-- When switching themes while playing, crossfade to the new theme's audio
+### 2. AI Design Brief Chat - Clearer Purpose and Auto-Open
 
-**2. Update `src/pages/WebDesignStudioBuild.tsx`**
+**Problem:** Users might confuse the AI chat with a generic "Contact Us" widget.
 
-- Add a `soundscapeTheme` state variable (default: `"auto"`)
-- Import the `Select` component from `@/components/ui/select`
-- Add a themed dropdown below or integrated into the existing music toggle area
-- Pass `soundscapeTheme` to `useStepBasedAudio`
-- Style the dropdown to match the dark, glassmorphic aesthetic of the existing toggle buttons
+**Changes to `src/pages/WebDesignStudioBuild.tsx`:**
+- Auto-open the chat panel on first visit with a 2-second delay, using a `useEffect` + `setTimeout`
+- Change the floating trigger button text from "AI Design Brief" to "Build Your Brief" with a subtitle label
 
-### UI Design
+**Changes to `src/components/studio/DesignBriefChat.tsx`:**
+- Update the panel header to clearly say "AI Brief Builder" with subtitle "I'll help you build a design brief - not a contact form"
+- Add a purpose banner at the top of the chat area (before messages) explaining: "I'm here to understand your project so I can produce a professional design brief document. Answer a few questions and I'll generate a branded PDF you can share with your team."
+- Update the initial greeting message to be clearer about the brief-building purpose
 
-The dropdown appears in the fixed top-right control area, below the existing Music toggle button. It's only visible when music is enabled/playing:
+### 3. Example Website Lightbox on PurposeStep
 
-```text
-  [Volume2] Effects On
-  [Volume2] Music On
-     Purpose - Inspiring
-  [ChevronDown] Auto (Step-Based)   <-- new dropdown
-```
+**Problem:** Users don't understand what "Lead Generation" vs "Authority Hub" etc. actually look like.
 
-When expanded, it shows the theme list with short descriptions. Styled with dark background, white/accent text, matching the existing pill-style buttons.
+**New component: `src/components/studio/PurposeExampleLightbox.tsx`**
+- A dialog/lightbox triggered by an "See Example" link on each purpose card
+- Shows a full-screen preview of an example website for that type
+- Uses the existing studio preview images (e.g., `lead-gen-dark.jpg`, `content-hub-dark.jpg`, etc.)
+- Includes a short description of what makes this type of site effective
+- Uses the Dialog component from the UI library for the lightbox
 
-### Technical Details
+**Changes to `src/components/studio/steps/PurposeStep.tsx`:**
+- Add a small "View Example" button/link on each purpose card
+- Wire it to open the lightbox with the relevant example content
+- Each purpose type gets a curated description and the best preview image
 
-**Hook Changes:**
-- New option: `soundscapeTheme?: string` (default `"auto"`)
-- New constant: `SOUNDSCAPE_THEMES` map with theme id -> prompt
-- When theme is not "auto", `generateAudioForStep` uses the theme prompt instead of the step prompt
-- Cache key becomes `${theme}-${step}` so each theme+step combo is independently cached
-- When theme is not "auto", all steps use the same prompt (no step variation), so the cache key simplifies to just the theme name
+Example content per purpose type:
+- **Lead Generation**: "Designed to convert visitors into qualified leads. Features prominent CTAs, trust signals, and conversion-optimised layouts."
+- **Authority Hub**: "Built around content and expertise. Features resource libraries, thought leadership articles, and knowledge centres."
+- **Product / SaaS**: "Showcases features and drives signups. Features product tours, pricing tables, and onboarding flows."
+- **Service Platform**: "Multi-service navigation with clear service areas. Features service breakdowns, case studies, and booking systems."
 
-**Crossfade on Theme Change:**
-- Detect theme changes via a ref
-- If playing, crossfade to new theme's audio
-- Clear the old theme's cache to free memory (optional, could keep for quick switching)
+### 4. Enhanced Visual Onboarding Banner
+
+**Changes to `src/pages/WebDesignStudioBuild.tsx`:**
+- Add a dismissible welcome banner at the top of the page (first visit only) that explains:
+  - "You're building a design brief, not a website"
+  - "Configure your preferences, then submit to receive a branded PDF specification"
+  - Uses `localStorage` to only show once
+
+### 5. PDF Gated Behind Contact Info (Already Implemented, Verify Flow)
+
+The current SummaryStep already requires name and email before submission, and the PDF download only appears after submission. This flow is correct. Minor enhancement:
+
+**Changes to `src/components/studio/steps/SummaryStep.tsx`:**
+- Add a note on the success screen: "A copy of this blueprint has also been sent to [email]" (as a future promise / UX text)
+- Ensure the PDF download button is prominent and clearly labelled
+
+### 6. Visual Polish and Engagement
+
+**Changes to `src/pages/WebDesignStudioBuild.tsx`:**
+- Add a subtle progress percentage indicator near the step dots (e.g., "Step 2 of 6")
+- Add animated gradient border effect on the active step's content panel
+
+**Changes to `src/components/studio/steps/PurposeStep.tsx`:**
+- Add a subtle animated shimmer effect on hover for unselected cards
+- Increase card minimum height slightly for better visual balance
 
 ### Files Changed
 
 | File | Action |
 |------|--------|
-| `src/hooks/useStepBasedAudio.ts` | Modify - Add theme support, export themes config |
-| `src/pages/WebDesignStudioBuild.tsx` | Modify - Add dropdown UI, theme state, pass to hook |
+| `src/components/studio/steps/PurposeStep.tsx` | Edit - Fix spacing, add "View Example" buttons |
+| `src/components/studio/PurposeExampleLightbox.tsx` | Create - Lightbox component for example websites |
+| `src/pages/WebDesignStudioBuild.tsx` | Edit - Auto-open chat, welcome banner, progress indicator |
+| `src/components/studio/DesignBriefChat.tsx` | Edit - Clearer purpose messaging, updated header and greeting |
+| `src/components/studio/steps/SummaryStep.tsx` | Edit - Email confirmation text on success screen |
+
+### Technical Notes
+
+- The lightbox uses the existing `Dialog` component from `@/components/ui/dialog`
+- Auto-open chat uses `localStorage` key `studio-chat-shown` to avoid re-triggering on revisits
+- Welcome banner uses `localStorage` key `studio-welcome-dismissed`
+- All new animations respect `prefers-reduced-motion`
+- Example images reuse existing assets from `src/assets/studio-previews/` -- no new image uploads needed
+
