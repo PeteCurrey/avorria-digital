@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Target, BookOpen, Rocket, Layers } from "lucide-react";
+import { Target, BookOpen, Rocket, Layers, Eye } from "lucide-react";
 import type { StudioConfig } from "@/types/studio";
+import { PurposeExampleLightbox } from "@/components/studio/PurposeExampleLightbox";
 
 // Import purpose images
 import leadGenImage from "@/assets/studio-previews/lead-gen.jpg";
