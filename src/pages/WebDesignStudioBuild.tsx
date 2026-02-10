@@ -12,7 +12,8 @@ import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import { DeviceMockup } from "@/components/studio/DeviceMockup";
 import { DesignBriefChat } from "@/components/studio/DesignBriefChat";
-import { useStepBasedAudio } from "@/hooks/useStepBasedAudio";
+import { useStepBasedAudio, SOUNDSCAPE_THEMES } from "@/hooks/useStepBasedAudio";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 // Lead Generation previews by palette and size
 import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
