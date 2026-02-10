@@ -51,6 +51,8 @@ const purposes = [
 ];
 
 export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
+  const [lightboxPurpose, setLightboxPurpose] = useState<string | null>(null);
+
   return (
     <div className="flex min-h-full flex-col">
       {/* Header */}
