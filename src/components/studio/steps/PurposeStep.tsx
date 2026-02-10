@@ -69,7 +69,7 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
       </motion.div>
 
       {/* Purpose Cards Grid */}
-      <div className="grid flex-1 gap-6 md:grid-cols-2">
+      <div className="grid flex-1 gap-6 pt-2 md:grid-cols-2">
         {purposes.map((purpose, index) => {
           const Icon = purpose.icon;
           const isSelected = config.purpose === purpose.value;
