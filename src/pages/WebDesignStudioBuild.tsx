@@ -579,7 +579,7 @@ const WebDesignStudioBuild = () => {
           </motion.div>
         )}
         
-        {/* AI Design Brief Floating Trigger */}
+        {/* AI Brief Builder Floating Trigger */}
         {!isChatOpen && (
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
@@ -587,10 +587,13 @@ const WebDesignStudioBuild = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-24 right-6 z-40 flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
+            className="fixed bottom-24 right-6 z-40 flex flex-col items-center gap-0.5 rounded-2xl bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
           >
-            <MessageSquare className="h-5 w-5" />
-            <span className="font-medium">AI Design Brief</span>
+            <div className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              <span className="font-medium">Build Your Brief</span>
+            </div>
+            <span className="text-[10px] opacity-70">AI-powered design document</span>
           </motion.button>
         )}
 
