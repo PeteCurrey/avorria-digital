@@ -185,6 +185,26 @@ const WebDesignStudioBuild = () => {
   const nextStep = () => goToStep(currentStep + 1);
   const prevStep = () => goToStep(currentStep - 1);
 
+  // Auto-open chat on first visit
+  useEffect(() => {
+    const hasShown = localStorage.getItem("studio-chat-shown");
+    if (!hasShown) {
+      const timer = setTimeout(() => {
+        setIsChatOpen(true);
+        localStorage.setItem("studio-chat-shown", "true");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Show welcome banner on first visit
+  useEffect(() => {
+    const dismissed = localStorage.getItem("studio-welcome-dismissed");
+    if (!dismissed) {
+      setShowWelcomeBanner(true);
+    }
+  }, []);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
