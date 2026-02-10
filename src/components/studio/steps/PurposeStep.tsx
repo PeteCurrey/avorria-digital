@@ -1,6 +1,8 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { Target, BookOpen, Rocket, Layers } from "lucide-react";
+import { Target, BookOpen, Rocket, Layers, Eye } from "lucide-react";
 import type { StudioConfig } from "@/types/studio";
+import { PurposeExampleLightbox } from "@/components/studio/PurposeExampleLightbox";
 
 // Import purpose images
 import leadGenImage from "@/assets/studio-previews/lead-gen.jpg";
@@ -49,6 +51,8 @@ const purposes = [
 ];
 
 export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
+  const [lightboxPurpose, setLightboxPurpose] = useState<string | null>(null);
+
   return (
     <div className="flex min-h-full flex-col">
       {/* Header */}
@@ -56,7 +60,7 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mb-12 text-center"
+        className="mb-16 text-center"
       >
         <h2 className="mb-4 text-4xl font-extralight tracking-tight text-white md:text-5xl">
           What's the <span className="text-accent">mission</span>?
@@ -67,7 +71,7 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
       </motion.div>
 
       {/* Purpose Cards Grid */}
-      <div className="grid flex-1 gap-6 md:grid-cols-2">
+      <div className="grid flex-1 gap-6 pt-2 md:grid-cols-2">
         {purposes.map((purpose, index) => {
           const Icon = purpose.icon;
           const isSelected = config.purpose === purpose.value;
@@ -113,6 +117,19 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
                 <h3 className="mb-2 text-xl font-light text-white">{purpose.label}</h3>
                 <p className="text-sm font-extralight text-white/60">{purpose.description}</p>
 
+                {/* View Example Link */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxPurpose(purpose.value);
+                  }}
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent/80 transition-colors hover:text-accent"
+                >
+                  <Eye className="h-3 w-3" />
+                  View Example
+                </button>
+
                 {/* Selected Indicator */}
                 {isSelected && (
                   <motion.div
@@ -126,6 +143,13 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
           );
         })}
       </div>
+
+      {/* Example Lightbox */}
+      <PurposeExampleLightbox
+        open={!!lightboxPurpose}
+        onOpenChange={(open) => !open && setLightboxPurpose(null)}
+        purposeType={lightboxPurpose || ""}
+      />
     </div>
   );
 };

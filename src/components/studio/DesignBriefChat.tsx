@@ -645,7 +645,7 @@ export const DesignBriefChat = ({
       // Initial greeting
       setMessages([{
         role: "assistant",
-        content: "Hi! I'm your AI design consultant. I'm here to help you create a comprehensive design brief for your website.\n\nLet's start with the basics — tell me about your business. What do you do, and what makes you different from others in your space?"
+        content: "Welcome to the AI Brief Builder! I'll help you create a professional design brief document — a detailed specification for your website project.\n\nLet's start with the basics — tell me about your business. What do you do, and what makes you different from others in your space?"
       }]);
     }
   }, [isOpen, messages.length]);
@@ -813,11 +813,11 @@ export const DesignBriefChat = ({
           <div className="flex items-center justify-between p-4 border-b border-border bg-gradient-to-r from-primary/10 to-transparent">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-primary" />
+                <FileText className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-semibold text-foreground">AI Design Consultant</h3>
-                <p className="text-xs text-muted-foreground">Creating your design brief</p>
+                <h3 className="font-semibold text-foreground">AI Brief Builder</h3>
+                <p className="text-xs text-muted-foreground">I build your design brief — not a contact form</p>
               </div>
             </div>
             <Button variant="ghost" size="icon" onClick={onClose}>
@@ -827,6 +827,18 @@ export const DesignBriefChat = ({
 
           {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
+            {/* Purpose Banner */}
+            {messages.length <= 1 && (
+              <motion.div
+                initial={{ opacity: 0, y: 5 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="rounded-xl border border-primary/20 bg-primary/5 p-3 text-center"
+              >
+                <p className="text-xs leading-relaxed text-muted-foreground">
+                  I'm here to understand your project so I can produce a <span className="font-medium text-foreground">professional design brief document</span>. Answer a few questions and I'll generate a branded PDF you can share with your team.
+                </p>
+              </motion.div>
+            )}
             {messages.map((message, index) => (
               <motion.div
                 key={index}

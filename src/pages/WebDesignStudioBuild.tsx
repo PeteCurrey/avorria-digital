@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, FileText, Loader2, X } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
@@ -118,6 +118,7 @@ const WebDesignStudioBuild = () => {
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showWelcomeBanner, setShowWelcomeBanner] = useState(false);
   const { playClick } = useClickSound();
   const mockupRef = useRef<HTMLDivElement>(null);
   
@@ -183,6 +184,26 @@ const WebDesignStudioBuild = () => {
 
   const nextStep = () => goToStep(currentStep + 1);
   const prevStep = () => goToStep(currentStep - 1);
+
+  // Auto-open chat on first visit
+  useEffect(() => {
+    const hasShown = localStorage.getItem("studio-chat-shown");
+    if (!hasShown) {
+      const timer = setTimeout(() => {
+        setIsChatOpen(true);
+        localStorage.setItem("studio-chat-shown", "true");
+      }, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
+  // Show welcome banner on first visit
+  useEffect(() => {
+    const dismissed = localStorage.getItem("studio-welcome-dismissed");
+    if (!dismissed) {
+      setShowWelcomeBanner(true);
+    }
+  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -344,6 +365,35 @@ const WebDesignStudioBuild = () => {
           )}
         </div>
 
+        {/* Welcome Banner */}
+        <AnimatePresence>
+          {showWelcomeBanner && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed left-0 right-0 top-16 z-30 flex items-center justify-center px-4"
+            >
+              <div className="mx-auto flex max-w-2xl items-center gap-4 rounded-xl border border-accent/20 bg-black/80 px-6 py-3 backdrop-blur-xl">
+                <Sparkles className="h-5 w-5 flex-shrink-0 text-accent" />
+                <p className="text-sm text-white/70">
+                  <span className="font-medium text-white">You're building a design brief, not a website.</span>{" "}
+                  Configure your preferences, then submit to receive a branded PDF specification.
+                </p>
+                <button
+                  onClick={() => {
+                    setShowWelcomeBanner(false);
+                    localStorage.setItem("studio-welcome-dismissed", "true");
+                  }}
+                  className="flex-shrink-0 text-white/40 hover:text-white/70"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Main Content */}
         <div className="flex min-h-screen pt-28 pb-24">
           {/* Left: Configuration Panel */}
@@ -502,20 +552,25 @@ const WebDesignStudioBuild = () => {
                 {currentStep > 0 && steps[currentStep - 1].label}
               </button>
 
-              <div className="flex items-center gap-2">
-                {steps.map((step, index) => (
-                  <button
-                    key={step.id}
-                    onClick={() => goToStep(index)}
-                    className={`h-2 w-2 rounded-full transition-all ${
-                      index === currentStep
-                        ? "w-6 bg-accent"
-                        : index < currentStep
-                        ? "bg-accent/50"
-                        : "bg-white/20"
-                    }`}
-                  />
-                ))}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2">
+                  {steps.map((step, index) => (
+                    <button
+                      key={step.id}
+                      onClick={() => goToStep(index)}
+                      className={`h-2 w-2 rounded-full transition-all ${
+                        index === currentStep
+                          ? "w-6 bg-accent"
+                          : index < currentStep
+                          ? "bg-accent/50"
+                          : "bg-white/20"
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-xs text-white/30">
+                  {currentStep + 1} / {steps.length}
+                </span>
               </div>
 
               <button
@@ -529,7 +584,7 @@ const WebDesignStudioBuild = () => {
           </motion.div>
         )}
         
-        {/* AI Design Brief Floating Trigger */}
+        {/* AI Brief Builder Floating Trigger */}
         {!isChatOpen && (
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
@@ -537,10 +592,13 @@ const WebDesignStudioBuild = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-24 right-6 z-40 flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
+            className="fixed bottom-24 right-6 z-40 flex flex-col items-center gap-0.5 rounded-2xl bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
           >
-            <MessageSquare className="h-5 w-5" />
-            <span className="font-medium">AI Design Brief</span>
+            <div className="flex items-center gap-2">
+              <FileText className="h-5 w-5" />
+              <span className="font-medium">Build Your Brief</span>
+            </div>
+            <span className="text-[10px] opacity-70">AI-powered design document</span>
           </motion.button>
         )}
 
