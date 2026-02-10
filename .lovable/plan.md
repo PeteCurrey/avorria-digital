@@ -1,134 +1,69 @@
 
-
-## Add Subtle Sound Effects for Studio UI Interactions
+## Add Soundscape Selector Dropdown to Web Design Studio
 
 ### Overview
-Enhance the Web Design Studio wizard with immersive, subtle sound effects that respond to user interactions. The current `useClickSound` hook uses basic oscillator tones - we'll create a more sophisticated audio experience with atmospheric sounds that match the premium studio aesthetic.
+Add a dropdown selector next to the existing music toggle that lets visitors choose from different ambient audio themes. When selected, the theme overrides the default step-based soundscapes with a consistent mood throughout the wizard. Selecting "Auto (Step-Based)" returns to the default behaviour.
 
-### Sound Design
+### Soundscape Themes
 
-| Interaction | Sound Type | Description |
-|-------------|------------|-------------|
-| Step Navigation | Soft Whoosh | A gentle, airy sweep sound when moving between wizard steps |
-| Option Selection | Gentle Chime | A crystalline, bell-like tone when selecting purpose, palette, features, etc. |
-| Checkbox Toggle | Soft Click | A subtle, satisfying "tick" when toggling checkboxes on/off |
-| Slider Adjustment | Subtle Tick | Very quiet feedback as sliders move |
-| Form Submission | Celebration | A triumphant ascending chime sequence on blueprint submit |
-| Hover (Optional) | Subtle Hum | Very quiet, almost subliminal feedback on hover |
+| Theme | Description | Prompt Prefix |
+|-------|-------------|---------------|
+| Auto (Step-Based) | Default - changes with each wizard step | *(uses existing step prompts)* |
+| Cyberpunk Nightscape | Neon-lit city, rain, electronic hum | "Cyberpunk city rain, neon buzzing, distant synth bass, dark electronic atmosphere, blade runner ambience" |
+| Zen Garden | Water, wind chimes, meditative calm | "Japanese zen garden, gentle water fountain, sparse wind chimes, meditative calm, bamboo rustling" |
+| Late Night Creative | Lo-fi rain, vinyl crackle, cosy warmth | "Late night studio, rain on windows, soft vinyl crackle, lo-fi warmth, distant jazz piano, creative flow" |
+| Space Station | Deep hums, satellite pings, vastness | "Space station observatory, deep cosmic hum, distant satellite pings, weightless atmosphere, sci-fi ambient" |
+| High-Rise Studio | Urban wind, soft typing, modern office | "High-rise creative studio, soft wind on glass, subtle keyboard typing, modern office calm, city below" |
 
-### Technical Implementation
+### Implementation
 
-**1. Enhance `src/hooks/useClickSound.ts`**
+**1. Update `src/hooks/useStepBasedAudio.ts`**
 
-Expand the hook with new sound profiles designed for a premium, immersive experience:
-- Add new sound types: `whoosh`, `chime`, `tick`, `celebration`
-- Create layered oscillator sounds with proper ADSR envelopes (Attack, Decay, Sustain, Release)
-- Use multiple oscillators with harmonics for richer tones
-- Add optional detuning for natural, organic feel
-- Include volume control parameter
-
-```text
-New API:
-playClick(type: "select" | "hover" | "success" | "navigate" | "whoosh" | "chime" | "tick" | "celebration", volume?: number)
-```
-
-**Sound Specifications:**
-
-- **Whoosh (Navigation)**: Low-pass filtered noise sweep, 150ms duration, gentle fade in/out
-- **Chime (Selection)**: Layered sine waves at harmonic frequencies (fundamental + octave + fifth), 200ms with decay
-- **Tick (Checkbox/Slider)**: Very short click with fast attack, 50ms
-- **Celebration (Submit)**: Ascending arpeggio (C-E-G-C) over 500ms with shimmer
+- Export the `STEP_SOUNDSCAPES` array (already defined)
+- Add a new `soundscapeTheme` parameter to the hook options
+- When a theme other than "auto" is selected, override the step prompt with the theme's prompt
+- The `currentMood` return value changes to show the theme name instead of the step mood
+- Cache key changes to include the theme, so switching themes generates new audio
+- When switching themes while playing, crossfade to the new theme's audio
 
 **2. Update `src/pages/WebDesignStudioBuild.tsx`**
 
-- Replace `"navigate"` with `"whoosh"` for step transitions
-- Keep `"select"` → `"chime"` mapping for config changes
-- Pass sound function to child step components
+- Add a `soundscapeTheme` state variable (default: `"auto"`)
+- Import the `Select` component from `@/components/ui/select`
+- Add a themed dropdown below or integrated into the existing music toggle area
+- Pass `soundscapeTheme` to `useStepBasedAudio`
+- Style the dropdown to match the dark, glassmorphic aesthetic of the existing toggle buttons
 
-**3. Update Step Components**
+### UI Design
 
-Add sound callbacks to interactive elements:
+The dropdown appears in the fixed top-right control area, below the existing Music toggle button. It's only visible when music is enabled/playing:
 
-| Component | Element | Sound |
-|-----------|---------|-------|
-| PurposeStep | Purpose card click | `chime` (via setConfig) |
-| AestheticStep | Palette selection | `chime` (via setConfig) |
-| AestheticStep | Slider change | `tick` (on release) |
-| StructureStep | Size card click | `chime` (via setConfig) |
-| StructureStep | Module checkbox | `tick` (via setConfig) |
-| FeaturesStep | Feature card click | `tick` (via setConfig) |
-| PersonalityStep | Slider change | `tick` (on release) |
-| SummaryStep | Submit success | `celebration` |
-
-**4. Add Sound to SummaryStep**
-
-When blueprint submission succeeds:
-- Play `celebration` sound
-- Syncs with the success animation (CheckCircle2 scale-in)
-
-### Implementation Details
-
-**Whoosh Sound (Step Navigation)**
 ```text
-- Use BiquadFilter (lowpass) on white noise
-- Frequency sweep: 2000Hz → 500Hz over 150ms
-- Volume envelope: 0 → 0.08 → 0 over 150ms
-- Creates airy, movement sensation
+  [Volume2] Effects On
+  [Volume2] Music On
+     Purpose - Inspiring
+  [ChevronDown] Auto (Step-Based)   <-- new dropdown
 ```
 
-**Chime Sound (Selections)**
-```text
-- 3 layered oscillators:
-  - Fundamental (e.g., 523Hz - C5)
-  - Octave (+1200 cents)
-  - Perfect fifth (+700 cents)
-- Gentle attack (20ms), medium decay (180ms)
-- Volume: 0.06 per oscillator
-```
+When expanded, it shows the theme list with short descriptions. Styled with dark background, white/accent text, matching the existing pill-style buttons.
 
-**Celebration Sound (Submit)**
-```text
-- Sequential notes: C5 → E5 → G5 → C6
-- 100ms per note, slight overlap
-- Add subtle reverb-like decay
-- Total duration: ~500ms
-```
+### Technical Details
+
+**Hook Changes:**
+- New option: `soundscapeTheme?: string` (default `"auto"`)
+- New constant: `SOUNDSCAPE_THEMES` map with theme id -> prompt
+- When theme is not "auto", `generateAudioForStep` uses the theme prompt instead of the step prompt
+- Cache key becomes `${theme}-${step}` so each theme+step combo is independently cached
+- When theme is not "auto", all steps use the same prompt (no step variation), so the cache key simplifies to just the theme name
+
+**Crossfade on Theme Change:**
+- Detect theme changes via a ref
+- If playing, crossfade to new theme's audio
+- Clear the old theme's cache to free memory (optional, could keep for quick switching)
 
 ### Files Changed
 
 | File | Action |
 |------|--------|
-| `src/hooks/useClickSound.ts` | Modify - Add new sound types with richer audio design |
-| `src/pages/WebDesignStudioBuild.tsx` | Modify - Use new sound types for navigation |
-| `src/components/studio/steps/SummaryStep.tsx` | Modify - Add celebration sound on successful submission |
-| `src/components/studio/steps/AestheticStep.tsx` | Modify - Add tick sound on slider commit |
-| `src/components/studio/steps/PersonalityStep.tsx` | Modify - Add tick sound on slider commit |
-
-### Sound Preferences
-
-All sounds respect the existing `soundEnabled` state in the studio. When sounds are disabled, no audio plays. The volume is kept intentionally low (0.03-0.12 range) to be subtle and non-intrusive.
-
-### Technical Considerations
-
-**Web Audio API Best Practices:**
-- Reuse AudioContext (already implemented)
-- Create new oscillators per sound (oscillators are one-shot)
-- Use exponentialRampToValueAtTime for natural volume curves
-- Properly disconnect and stop oscillators after playback
-
-**Performance:**
-- All sounds are synthesized (no network requests)
-- Minimal CPU overhead - single AudioContext
-- No memory leaks - proper cleanup of audio nodes
-
-### User Experience
-
-1. User enters the studio wizard
-2. Clicks "Lead Generation" card → gentle chime plays
-3. Adjusts "Minimal ↔ Bold" slider → subtle tick on release
-4. Clicks "Next" → soft whoosh as step animates
-5. Selects features → satisfying tick sounds
-6. Submits blueprint → celebratory ascending chime
-
-The sound design is intentionally subtle - enhancing the experience without being distracting. Users can disable all sounds via the "Effects Off" toggle already present in the UI.
-
+| `src/hooks/useStepBasedAudio.ts` | Modify - Add theme support, export themes config |
+| `src/pages/WebDesignStudioBuild.tsx` | Modify - Add dropdown UI, theme state, pass to hook |
