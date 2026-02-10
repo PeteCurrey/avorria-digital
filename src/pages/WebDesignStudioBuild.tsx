@@ -127,7 +127,7 @@ const WebDesignStudioBuild = () => {
     isLoading: musicLoading, 
     toggle: toggleMusic,
     currentMood 
-  } = useStepBasedAudio(currentStep, { volume: 0.3 });
+  } = useStepBasedAudio(currentStep, { volume: 0.3, soundscapeTheme });
   
   // Mouse position for parallax effect
   const mouseX = useMotionValue(0);
