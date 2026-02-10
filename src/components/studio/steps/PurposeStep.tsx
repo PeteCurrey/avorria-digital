@@ -117,6 +117,19 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
                 <h3 className="mb-2 text-xl font-light text-white">{purpose.label}</h3>
                 <p className="text-sm font-extralight text-white/60">{purpose.description}</p>
 
+                {/* View Example Link */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setLightboxPurpose(purpose.value);
+                  }}
+                  className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-accent/80 transition-colors hover:text-accent"
+                >
+                  <Eye className="h-3 w-3" />
+                  View Example
+                </button>
+
                 {/* Selected Indicator */}
                 {isSelected && (
                   <motion.div
