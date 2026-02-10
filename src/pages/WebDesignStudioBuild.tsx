@@ -365,6 +365,35 @@ const WebDesignStudioBuild = () => {
           )}
         </div>
 
+        {/* Welcome Banner */}
+        <AnimatePresence>
+          {showWelcomeBanner && (
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="fixed left-0 right-0 top-16 z-30 flex items-center justify-center px-4"
+            >
+              <div className="mx-auto flex max-w-2xl items-center gap-4 rounded-xl border border-accent/20 bg-black/80 px-6 py-3 backdrop-blur-xl">
+                <Sparkles className="h-5 w-5 flex-shrink-0 text-accent" />
+                <p className="text-sm text-white/70">
+                  <span className="font-medium text-white">You're building a design brief, not a website.</span>{" "}
+                  Configure your preferences, then submit to receive a branded PDF specification.
+                </p>
+                <button
+                  onClick={() => {
+                    setShowWelcomeBanner(false);
+                    localStorage.setItem("studio-welcome-dismissed", "true");
+                  }}
+                  className="flex-shrink-0 text-white/40 hover:text-white/70"
+                >
+                  <X className="h-4 w-4" />
+                </button>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Main Content */}
         <div className="flex min-h-screen pt-28 pb-24">
           {/* Left: Configuration Panel */}
