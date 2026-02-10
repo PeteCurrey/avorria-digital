@@ -60,7 +60,7 @@ export const PurposeStep = ({ config, setConfig }: PurposeStepProps) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
-        className="mb-12 text-center"
+        className="mb-16 text-center"
       >
         <h2 className="mb-4 text-4xl font-extralight tracking-tight text-white md:text-5xl">
           What's the <span className="text-accent">mission</span>?
