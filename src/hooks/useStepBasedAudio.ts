@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // Step soundscape configurations
-const STEP_SOUNDSCAPES = [
+export const STEP_SOUNDSCAPES = [
   {
     step: 0,
     name: "Inspiring",
@@ -34,6 +34,16 @@ const STEP_SOUNDSCAPES = [
   },
 ];
 
+// Soundscape theme presets
+export const SOUNDSCAPE_THEMES: Record<string, { label: string; description: string; prompt: string }> = {
+  auto: { label: "Auto (Step-Based)", description: "Changes with each wizard step", prompt: "" },
+  cyberpunk: { label: "Cyberpunk Nightscape", description: "Neon city, rain, electronic hum", prompt: "Cyberpunk city rain, neon buzzing, distant synth bass, dark electronic atmosphere, blade runner ambience" },
+  zen: { label: "Zen Garden", description: "Water, wind chimes, calm", prompt: "Japanese zen garden, gentle water fountain, sparse wind chimes, meditative calm, bamboo rustling" },
+  lofi: { label: "Late Night Creative", description: "Lo-fi rain, vinyl crackle, cosy", prompt: "Late night studio, rain on windows, soft vinyl crackle, lo-fi warmth, distant jazz piano, creative flow" },
+  space: { label: "Space Station", description: "Deep hums, satellite pings", prompt: "Space station observatory, deep cosmic hum, distant satellite pings, weightless atmosphere, sci-fi ambient" },
+  highrise: { label: "High-Rise Studio", description: "Urban wind, soft typing", prompt: "High-rise creative studio, soft wind on glass, subtle keyboard typing, modern office calm, city below" },
+};
+
 interface CachedAudio {
   audioUrl: string;
   audioElement: HTMLAudioElement;
@@ -42,6 +52,7 @@ interface CachedAudio {
 interface UseStepBasedAudioOptions {
   volume?: number;
   crossfadeDuration?: number;
+  soundscapeTheme?: string;
 }
 
 interface UseStepBasedAudioReturn {
@@ -55,17 +66,18 @@ export function useStepBasedAudio(
   currentStep: number,
   options: UseStepBasedAudioOptions = {}
 ): UseStepBasedAudioReturn {
-  const { volume = 0.3, crossfadeDuration = 1000 } = options;
+  const { volume = 0.3, crossfadeDuration = 1000, soundscapeTheme = "auto" } = options;
   
   const [isPlaying, setIsPlaying] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [activeStep, setActiveStep] = useState<number | null>(null);
   
-  const audioCacheRef = useRef<Map<number, CachedAudio>>(new Map());
+  const audioCacheRef = useRef<Map<string, CachedAudio>>(new Map());
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const isGeneratingRef = useRef<Set<number>>(new Set());
+  const isGeneratingRef = useRef<Set<string>>(new Set());
   const volumeRef = useRef(volume);
   const isPlayingRef = useRef(false);
+  const activeThemeRef = useRef(soundscapeTheme);
   
   // Keep refs in sync
   useEffect(() => {
@@ -79,24 +91,35 @@ export function useStepBasedAudio(
     isPlayingRef.current = isPlaying;
   }, [isPlaying]);
 
-  const getCurrentMood = useCallback(() => {
-    const soundscape = STEP_SOUNDSCAPES[currentStep];
-    return soundscape?.name || "Ambient";
-  }, [currentStep]);
+  // Build a cache key based on theme and step
+  const getCacheKey = useCallback((theme: string, step: number): string => {
+    return theme === "auto" ? `auto-${step}` : theme;
+  }, []);
 
-  // Generate audio for a specific step
-  const generateAudioForStep = useCallback(async (step: number): Promise<CachedAudio | null> => {
-    // Check cache first
-    const cached = audioCacheRef.current.get(step);
+  // Get the prompt for a given theme+step
+  const getPrompt = useCallback((theme: string, step: number): string => {
+    if (theme === "auto") {
+      return STEP_SOUNDSCAPES[step]?.prompt || "";
+    }
+    return SOUNDSCAPE_THEMES[theme]?.prompt || "";
+  }, []);
+
+  const getCurrentMood = useCallback(() => {
+    if (soundscapeTheme !== "auto") {
+      return SOUNDSCAPE_THEMES[soundscapeTheme]?.label || "Ambient";
+    }
+    return STEP_SOUNDSCAPES[currentStep]?.name || "Ambient";
+  }, [currentStep, soundscapeTheme]);
+
+  // Generate audio for a specific cache key
+  const generateAudio = useCallback(async (cacheKey: string, prompt: string): Promise<CachedAudio | null> => {
+    const cached = audioCacheRef.current.get(cacheKey);
     if (cached) return cached;
 
-    // Check if already generating
-    if (isGeneratingRef.current.has(step)) return null;
+    if (isGeneratingRef.current.has(cacheKey)) return null;
+    if (!prompt) return null;
 
-    const soundscape = STEP_SOUNDSCAPES[step];
-    if (!soundscape) return null;
-
-    isGeneratingRef.current.add(step);
+    isGeneratingRef.current.add(cacheKey);
 
     try {
       const response = await fetch(
@@ -108,10 +131,7 @@ export function useStepBasedAudio(
             apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
             Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
           },
-          body: JSON.stringify({ 
-            prompt: soundscape.prompt,
-            duration: 22 // Maximum duration for sound effects
-          }),
+          body: JSON.stringify({ prompt, duration: 22 }),
         }
       );
 
@@ -127,35 +147,32 @@ export function useStepBasedAudio(
       audioElement.volume = 0;
 
       const cachedAudio: CachedAudio = { audioUrl, audioElement };
-      audioCacheRef.current.set(step, cachedAudio);
+      audioCacheRef.current.set(cacheKey, cachedAudio);
       
       return cachedAudio;
     } catch (error) {
-      console.error(`Failed to generate audio for step ${step}:`, error);
+      console.error(`Failed to generate audio for ${cacheKey}:`, error);
       return null;
     } finally {
-      isGeneratingRef.current.delete(step);
+      isGeneratingRef.current.delete(cacheKey);
     }
   }, []);
 
-  // Crossfade between audio tracks
-  const crossfadeTo = useCallback(async (newStep: number) => {
+  // Crossfade to a new cache key
+  const crossfadeTo = useCallback(async (cacheKey: string, prompt: string) => {
     const oldAudio = currentAudioRef.current;
     const targetVolume = volumeRef.current;
     
-    // Get or generate new audio
-    let newCached = audioCacheRef.current.get(newStep);
+    let newCached = audioCacheRef.current.get(cacheKey);
     if (!newCached) {
       setIsLoading(true);
-      newCached = await generateAudioForStep(newStep);
+      newCached = await generateAudio(cacheKey, prompt);
       setIsLoading(false);
     }
     
     if (!newCached) return;
     
     const newAudio = newCached.audioElement;
-    
-    // Start new audio at volume 0
     newAudio.volume = 0;
     newAudio.currentTime = 0;
     
@@ -167,26 +184,20 @@ export function useStepBasedAudio(
     }
     
     currentAudioRef.current = newAudio;
-    setActiveStep(newStep);
     
-    // Crossfade animation
     const startTime = performance.now();
     const fadeStep = () => {
       const elapsed = performance.now() - startTime;
       const progress = Math.min(elapsed / crossfadeDuration, 1);
       
-      // Fade out old audio
       if (oldAudio && oldAudio !== newAudio) {
         oldAudio.volume = targetVolume * (1 - progress);
       }
-      
-      // Fade in new audio
       newAudio.volume = targetVolume * progress;
       
       if (progress < 1) {
         requestAnimationFrame(fadeStep);
       } else {
-        // Cleanup old audio
         if (oldAudio && oldAudio !== newAudio) {
           oldAudio.pause();
           oldAudio.volume = 0;
@@ -195,44 +206,62 @@ export function useStepBasedAudio(
     };
     
     requestAnimationFrame(fadeStep);
-  }, [crossfadeDuration, generateAudioForStep]);
+  }, [crossfadeDuration, generateAudio]);
 
-  // Pre-generate next step's audio
-  const preGenerateNext = useCallback((step: number) => {
+  // Pre-generate next step's audio (only relevant in auto mode)
+  const preGenerateNext = useCallback((theme: string, step: number) => {
+    if (theme !== "auto") return;
     const nextStep = step + 1;
-    if (nextStep < STEP_SOUNDSCAPES.length && !audioCacheRef.current.has(nextStep)) {
-      // Generate in background, don't await
-      generateAudioForStep(nextStep);
+    if (nextStep < STEP_SOUNDSCAPES.length) {
+      const key = getCacheKey(theme, nextStep);
+      if (!audioCacheRef.current.has(key)) {
+        generateAudio(key, getPrompt(theme, nextStep));
+      }
     }
-  }, [generateAudioForStep]);
+  }, [generateAudio, getCacheKey, getPrompt]);
 
-  // Handle step changes
+  // Handle step changes (only matters in auto mode)
   useEffect(() => {
-    if (!isPlayingRef.current) return;
+    if (!isPlayingRef.current || soundscapeTheme !== "auto") return;
     
-    // Only crossfade if step actually changed and we're playing
-    if (activeStep !== null && activeStep !== currentStep) {
-      crossfadeTo(currentStep);
+    const key = getCacheKey("auto", currentStep);
+    const currentKey = activeStep !== null ? getCacheKey("auto", activeStep) : null;
+    
+    if (currentKey !== null && currentKey !== key) {
+      crossfadeTo(key, getPrompt("auto", currentStep));
+      setActiveStep(currentStep);
     }
     
-    // Pre-generate next step
-    preGenerateNext(currentStep);
-  }, [currentStep, activeStep, crossfadeTo, preGenerateNext]);
+    preGenerateNext("auto", currentStep);
+  }, [currentStep, activeStep, soundscapeTheme, crossfadeTo, preGenerateNext, getCacheKey, getPrompt]);
+
+  // Handle theme changes while playing
+  useEffect(() => {
+    if (!isPlayingRef.current) {
+      activeThemeRef.current = soundscapeTheme;
+      return;
+    }
+    
+    if (activeThemeRef.current === soundscapeTheme) return;
+    activeThemeRef.current = soundscapeTheme;
+    
+    const key = getCacheKey(soundscapeTheme, currentStep);
+    const prompt = getPrompt(soundscapeTheme, currentStep);
+    crossfadeTo(key, prompt);
+    setActiveStep(currentStep);
+  }, [soundscapeTheme, currentStep, crossfadeTo, getCacheKey, getPrompt]);
 
   // Toggle playback
   const toggle = useCallback(async () => {
     if (isPlaying) {
-      // Stop all audio
       const currentAudio = currentAudioRef.current;
       if (currentAudio) {
-        // Fade out
         const startVolume = currentAudio.volume;
         const startTime = performance.now();
         const fadeOut = () => {
           const elapsed = performance.now() - startTime;
           const progress = Math.min(elapsed / 500, 1);
           currentAudio.volume = startVolume * (1 - progress);
-          
           if (progress < 1) {
             requestAnimationFrame(fadeOut);
           } else {
@@ -244,9 +273,11 @@ export function useStepBasedAudio(
       setIsPlaying(false);
       setActiveStep(null);
     } else {
-      // Start playing current step
+      const key = getCacheKey(soundscapeTheme, currentStep);
+      const prompt = getPrompt(soundscapeTheme, currentStep);
+      
       setIsLoading(true);
-      const cached = await generateAudioForStep(currentStep);
+      const cached = await generateAudio(key, prompt);
       setIsLoading(false);
       
       if (cached) {
@@ -257,15 +288,13 @@ export function useStepBasedAudio(
           currentAudioRef.current = cached.audioElement;
           setActiveStep(currentStep);
           setIsPlaying(true);
-          
-          // Pre-generate next step
-          preGenerateNext(currentStep);
+          preGenerateNext(soundscapeTheme, currentStep);
         } catch (error) {
           console.error("Failed to start audio:", error);
         }
       }
     }
-  }, [isPlaying, currentStep, generateAudioForStep, preGenerateNext]);
+  }, [isPlaying, currentStep, soundscapeTheme, generateAudio, preGenerateNext, getCacheKey, getPrompt]);
 
   // Cleanup on unmount
   useEffect(() => {
