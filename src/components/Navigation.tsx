@@ -146,7 +146,7 @@ const Navigation = ({
     >
       <div className={`mx-auto transition-all duration-500 ${isScrolled ? "px-4" : "container px-6"}`}>
         <div className={`flex items-center justify-between gap-6 transition-all duration-500 ${isScrolled ? "h-16" : "h-20"}`}>
-          <AnimatedLogo isTransparent={shouldBeTransparent} />
+          <AnimatedLogo isTransparent={shouldBeTransparent || isScrolled} />
 
           <div className="hidden lg:flex flex-1"></div>
 
