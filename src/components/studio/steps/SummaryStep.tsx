@@ -193,21 +193,10 @@ export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="mb-2 max-w-md text-lg text-white/60"
+          className="mb-8 max-w-md text-lg text-white/60"
         >
           We'll review your specifications and reach out within 24 hours with a tailored proposal.
         </motion.p>
-
-        {formData.email && (
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.35 }}
-            className="mb-8 text-sm text-white/40"
-          >
-            A copy of this blueprint has been sent to <span className="text-accent/80">{formData.email}</span>
-          </motion.p>
-        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

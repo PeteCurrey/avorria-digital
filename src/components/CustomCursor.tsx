@@ -256,20 +256,6 @@ export const CustomCursor = () => {
         transition={{ duration: 0.15, ease: "easeOut" }}
       />
 
-      {/* Hide default cursor */}
-      <style>{`
-        html, body, * {
-          cursor: none !important;
-        }
-        a, button, input, textarea, select, [role="button"], [data-cursor] {
-          cursor: none !important;
-        }
-        @media (pointer: coarse), (max-width: 767px) {
-          html, body, * {
-            cursor: auto !important;
-          }
-        }
-      `}</style>
     </>
   );
 };

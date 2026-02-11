@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
-import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, FileText, Loader2, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare, Loader2 } from "lucide-react";
 import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
@@ -12,8 +12,7 @@ import SummaryStep from "@/components/studio/steps/SummaryStep";
 import { useClickSound } from "@/hooks/useClickSound";
 import { DeviceMockup } from "@/components/studio/DeviceMockup";
 import { DesignBriefChat } from "@/components/studio/DesignBriefChat";
-import { useStepBasedAudio, SOUNDSCAPE_THEMES } from "@/hooks/useStepBasedAudio";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useStepBasedAudio } from "@/hooks/useStepBasedAudio";
 
 // Lead Generation previews by palette and size
 import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
@@ -114,11 +113,9 @@ const steps = [
 
 const WebDesignStudioBuild = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const [soundscapeTheme, setSoundscapeTheme] = useState("auto");
   const [direction, setDirection] = useState<"forward" | "backward">("forward");
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [showWelcomeBanner, setShowWelcomeBanner] = useState(false);
   const { playClick } = useClickSound();
   const mockupRef = useRef<HTMLDivElement>(null);
   
@@ -128,7 +125,7 @@ const WebDesignStudioBuild = () => {
     isLoading: musicLoading, 
     toggle: toggleMusic,
     currentMood 
-  } = useStepBasedAudio(currentStep, { volume: 0.3, soundscapeTheme });
+  } = useStepBasedAudio(currentStep, { volume: 0.3 });
   
   // Mouse position for parallax effect
   const mouseX = useMotionValue(0);
@@ -184,26 +181,6 @@ const WebDesignStudioBuild = () => {
 
   const nextStep = () => goToStep(currentStep + 1);
   const prevStep = () => goToStep(currentStep - 1);
-
-  // Auto-open chat on first visit
-  useEffect(() => {
-    const hasShown = localStorage.getItem("studio-chat-shown");
-    if (!hasShown) {
-      const timer = setTimeout(() => {
-        setIsChatOpen(true);
-        localStorage.setItem("studio-chat-shown", "true");
-      }, 2000);
-      return () => clearTimeout(timer);
-    }
-  }, []);
-
-  // Show welcome banner on first visit
-  useEffect(() => {
-    const dismissed = localStorage.getItem("studio-welcome-dismissed");
-    if (!dismissed) {
-      setShowWelcomeBanner(true);
-    }
-  }, []);
 
   // Keyboard navigation
   useEffect(() => {
@@ -328,71 +305,11 @@ const WebDesignStudioBuild = () => {
             </div>
             {(musicPlaying || musicLoading) && (
               <span className="text-[10px] text-accent/70 font-light">
-                {musicLoading ? "Generating soundscape..." : soundscapeTheme === "auto" ? `${steps[currentStep]?.label} — ${currentMood}` : currentMood}
+                {musicLoading ? "Generating soundscape..." : `${steps[currentStep]?.label} — ${currentMood}`}
               </span>
             )}
           </motion.button>
-
-          {/* Soundscape Theme Selector - visible when music is on */}
-          {(musicPlaying || musicLoading) && (
-            <motion.div
-              initial={{ opacity: 0, y: -4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-            >
-              <Select value={soundscapeTheme} onValueChange={setSoundscapeTheme}>
-                <SelectTrigger className="h-8 w-full rounded-lg border-white/10 bg-black/50 text-xs text-white/70 backdrop-blur-sm hover:border-white/20 focus:ring-accent/30 [&>svg]:text-white/40">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="rounded-lg border-white/10 bg-black/90 backdrop-blur-xl">
-                  {Object.entries(SOUNDSCAPE_THEMES).map(([key, theme]) => (
-                    <SelectItem
-                      key={key}
-                      value={key}
-                      className="text-xs text-white/70 focus:bg-white/10 focus:text-white"
-                    >
-                      <div className="flex flex-col">
-                        <span>{theme.label}</span>
-                        {key !== "auto" && (
-                          <span className="text-[10px] text-white/40">{theme.description}</span>
-                        )}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </motion.div>
-          )}
         </div>
-
-        {/* Welcome Banner */}
-        <AnimatePresence>
-          {showWelcomeBanner && (
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              className="fixed left-0 right-0 top-16 z-30 flex items-center justify-center px-4"
-            >
-              <div className="mx-auto flex max-w-2xl items-center gap-4 rounded-xl border border-accent/20 bg-black/80 px-6 py-3 backdrop-blur-xl">
-                <Sparkles className="h-5 w-5 flex-shrink-0 text-accent" />
-                <p className="text-sm text-white/70">
-                  <span className="font-medium text-white">You're building a design brief, not a website.</span>{" "}
-                  Configure your preferences, then submit to receive a branded PDF specification.
-                </p>
-                <button
-                  onClick={() => {
-                    setShowWelcomeBanner(false);
-                    localStorage.setItem("studio-welcome-dismissed", "true");
-                  }}
-                  className="flex-shrink-0 text-white/40 hover:text-white/70"
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Main Content */}
         <div className="flex min-h-screen pt-28 pb-24">
@@ -552,25 +469,20 @@ const WebDesignStudioBuild = () => {
                 {currentStep > 0 && steps[currentStep - 1].label}
               </button>
 
-              <div className="flex items-center gap-3">
-                <div className="flex items-center gap-2">
-                  {steps.map((step, index) => (
-                    <button
-                      key={step.id}
-                      onClick={() => goToStep(index)}
-                      className={`h-2 w-2 rounded-full transition-all ${
-                        index === currentStep
-                          ? "w-6 bg-accent"
-                          : index < currentStep
-                          ? "bg-accent/50"
-                          : "bg-white/20"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-xs text-white/30">
-                  {currentStep + 1} / {steps.length}
-                </span>
+              <div className="flex items-center gap-2">
+                {steps.map((step, index) => (
+                  <button
+                    key={step.id}
+                    onClick={() => goToStep(index)}
+                    className={`h-2 w-2 rounded-full transition-all ${
+                      index === currentStep
+                        ? "w-6 bg-accent"
+                        : index < currentStep
+                        ? "bg-accent/50"
+                        : "bg-white/20"
+                    }`}
+                  />
+                ))}
               </div>
 
               <button
@@ -584,7 +496,7 @@ const WebDesignStudioBuild = () => {
           </motion.div>
         )}
         
-        {/* AI Brief Builder Floating Trigger */}
+        {/* AI Design Brief Floating Trigger */}
         {!isChatOpen && (
           <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
@@ -592,13 +504,10 @@ const WebDesignStudioBuild = () => {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setIsChatOpen(true)}
-            className="fixed bottom-24 right-6 z-40 flex flex-col items-center gap-0.5 rounded-2xl bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
+            className="fixed bottom-24 right-6 z-40 flex items-center gap-2 rounded-full bg-accent px-5 py-3 text-accent-foreground shadow-lg shadow-accent/30 transition-all hover:shadow-accent/50"
           >
-            <div className="flex items-center gap-2">
-              <FileText className="h-5 w-5" />
-              <span className="font-medium">Build Your Brief</span>
-            </div>
-            <span className="text-[10px] opacity-70">AI-powered design document</span>
+            <MessageSquare className="h-5 w-5" />
+            <span className="font-medium">AI Design Brief</span>
           </motion.button>
         )}
 

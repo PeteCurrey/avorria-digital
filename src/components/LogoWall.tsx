@@ -98,15 +98,6 @@ export const LogoWall = ({ title, type = "clients", variant = "dark" }: LogoWall
                 {getInitials(logo.name)}
               </div>
             )}
-            {/* Company name */}
-            <span className={cn(
-              "text-sm font-medium transition-colors duration-300 hidden sm:block",
-              variant === "light"
-                ? "text-muted-foreground group-hover:text-foreground"
-                : "text-white/60 group-hover:text-white"
-            )}>
-              {logo.name}
-            </span>
           </div>
         ))}
       </div>
