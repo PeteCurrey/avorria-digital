@@ -286,7 +286,7 @@ const About = () => {
                 </ScrollReveal>
 
                 <ScrollReveal variant="fade-up" delay={150} duration={500}>
-                  <TiltCard className="max-w-2xl mx-auto" maxTilt={4}>
+                  <TiltCard className="max-w-2xl mx-auto">
                     <div className="p-10 rounded-xl border border-white/10 bg-white/5 backdrop-blur-sm">
                       <div className="flex items-start gap-6">
                         <div className="w-20 h-20 rounded-xl bg-gradient-to-br from-accent to-[hsl(260,75%,60%)] flex items-center justify-center text-white text-2xl font-semibold flex-shrink-0 shadow-lg">
