@@ -313,7 +313,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto bg-muted/30 p-6">
+        <main className="flex-1 overflow-y-auto bg-muted/30 p-6 pt-8">
           {children}
         </main>
       </div>
