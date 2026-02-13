@@ -1415,6 +1415,66 @@ export type Database = {
           },
         ]
       }
+      resources: {
+        Row: {
+          category: string
+          content: string
+          created_at: string
+          id: string
+          industry_relation: string | null
+          is_pillar: boolean
+          is_published: boolean
+          meta_description: string | null
+          meta_title: string | null
+          published_date: string | null
+          reading_time: number
+          service_relation: string | null
+          slug: string
+          summary: string
+          target_keyword: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          content: string
+          created_at?: string
+          id?: string
+          industry_relation?: string | null
+          is_pillar?: boolean
+          is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
+          published_date?: string | null
+          reading_time?: number
+          service_relation?: string | null
+          slug: string
+          summary: string
+          target_keyword?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          content?: string
+          created_at?: string
+          id?: string
+          industry_relation?: string | null
+          is_pillar?: boolean
+          is_published?: boolean
+          meta_description?: string | null
+          meta_title?: string | null
+          published_date?: string | null
+          reading_time?: number
+          service_relation?: string | null
+          slug?: string
+          summary?: string
+          target_keyword?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       scheduled_reports: {
         Row: {
           config: Json | null

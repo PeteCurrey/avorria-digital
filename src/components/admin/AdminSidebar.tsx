@@ -74,6 +74,7 @@ const navSections: NavSection[] = [
   {
     title: "Content & Marketing",
     items: [
+      { name: "Resources", icon: FileText, tab: "resources" },
       { name: "Case Studies", icon: Image, tab: "case-studies" },
       { name: "Testimonials", icon: MessageSquareQuote, tab: "testimonials" },
       { name: "Client Logos", icon: Building2, tab: "client-logos" },
