@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, BarChart3, TrendingUp, Target, Eye, MessageSquare, Zap } from "lucide-react";
+import { ArrowRight, BarChart3, TrendingUp, Target, Eye, MessageSquare, Zap, Globe, FileText, Link2, Clock } from "lucide-react";
 import {
   Accordion,
   AccordionContent,
@@ -134,17 +134,71 @@ const Reporting = () => {
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
-                asChild
-              >
-                <Link to="/contact">Book a Strategy Call</Link>
-              </Button>
+              <div className="relative group inline-flex">
+                <div className="absolute -inset-[1px] rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%", animationDuration: "3s" }} />
+                <div className="absolute -inset-[2px] rounded-md opacity-0 group-hover:opacity-30 blur-sm transition-opacity duration-500" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--accent)), transparent)", backgroundSize: "200% 100%", animation: "beam 3s linear infinite" }} />
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="relative bg-white/[0.06] border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
+                  asChild
+                >
+                  <Link to="/contact">Book a Strategy Call</Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </section>
+
+        {/* Introduction Section */}
+        <SectionReveal type="fade-blur">
+          <section className="py-24 px-6 bg-background">
+            <div className="container mx-auto max-w-6xl">
+              <div className="grid md:grid-cols-2 gap-16 items-start">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <h2 className="text-4xl font-light mb-6 text-foreground">Your marketing data, finally in one place.</h2>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Most agencies send you a slide deck once a month and call it reporting. We don't think that's good enough. You need to see what's happening now — not what happened three weeks ago.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed mb-4">
+                    Every Avorria engagement comes with a live dashboard and a short written summary that connects the dots between activity, results and next steps. No jargon, no vanity metrics, no 40-page PDFs.
+                  </p>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Whether you check in daily or monthly, you'll always know where you stand — and what we're doing about it.
+                  </p>
+                </motion.div>
+
+                <div className="space-y-5">
+                  {[
+                    { icon: Globe, label: "Live dashboards updated in real time" },
+                    { icon: FileText, label: "Plain-English written summaries with every report" },
+                    { icon: Link2, label: "Connected to your CRM, GA4 and ad platforms" },
+                    { icon: Clock, label: "Weekly, monthly and quarterly reporting cadence" },
+                  ].map((item, idx) => (
+                    <motion.div
+                      key={idx}
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true, margin: "-40px" }}
+                      transition={{ delay: idx * 0.1, duration: 0.4 }}
+                      className="flex items-start gap-4"
+                    >
+                      <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center shrink-0 mt-0.5">
+                        <item.icon className="text-accent" size={20} />
+                      </div>
+                      <p className="text-foreground font-medium text-lg leading-snug">{item.label}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+        </SectionReveal>
 
         {/* What We Show You */}
         <SectionReveal type="fade-blur">
@@ -335,14 +389,18 @@ const Reporting = () => {
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
-                asChild
-              >
-                <Link to="/contact">Book a strategy call</Link>
-              </Button>
+              <div className="relative group inline-flex">
+                <div className="absolute -inset-[1px] rounded-md opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-r from-transparent via-accent to-transparent animate-beam" style={{ backgroundSize: "200% 100%", animationDuration: "3s" }} />
+                <div className="absolute -inset-[2px] rounded-md opacity-0 group-hover:opacity-30 blur-sm transition-opacity duration-500" style={{ background: "linear-gradient(90deg, transparent, hsl(var(--accent)), transparent)", backgroundSize: "200% 100%", animation: "beam 3s linear infinite" }} />
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="relative bg-white/[0.06] border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
+                  asChild
+                >
+                  <Link to="/contact">Book a strategy call</Link>
+                </Button>
+              </div>
             </motion.div>
           </div>
         </section>
