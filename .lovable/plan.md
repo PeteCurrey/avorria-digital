@@ -1,70 +1,44 @@
 
 
-## Enhance the Why Avorria Page — Premium Visual Upgrade
+## Make Case Studies 100% Database-Driven
 
-### Content Fixes
-- **Remove "fluff"** everywhere — replace with "filler" or "noise" depending on context
-  - Hero H1: "Why teams who are done with the noise pick Avorria"
-  - Meta description: updated accordingly
-  - "How We Work" communication card: "30 minutes, no filler"
-- Refine copy throughout for authenticity and SEO value
+### Problem
+The Case Studies page currently merges two data sources: the database (managed via admin panel) and a hardcoded static file (`src/data/caseStudies.ts`). This means:
 
-### Visual Enhancements (Single File: `src/pages/WhyAvorria.tsx`)
+- 6 static "Confidential" case studies with placeholder images (`/placeholder.svg`) are showing alongside real DB entries -- these are the cards with no images
+- You cannot edit or remove them from the admin panel because they are not in the database
+- The detail page also falls back to static data, creating inconsistency
 
-#### 1. Hero — Cinematic Dark Treatment
-- Replace the flat gradient background with a dark hero section matching the About page pattern (`bg-[hsl(220,25%,8%)]`)
-- Add radial gradient accent glow for depth
-- Use `motion` animated entrance (staggered fade-up) for badge, heading, subtext and CTAs — same pattern as About hero
-- Add a small uppercase tracking badge above the H1 ("Why Avorria")
-- Larger, more spacious layout with `min-h-[70vh]` and centred alignment
-- Update CTAs: accent gradient primary button + glass-effect secondary button
+The database already has 8 published case studies with real content. The static file is redundant.
 
-#### 2. Operating Principles — Dark Cards on Light
-- Keep the 2x2 grid but elevate the cards with gradient top border accent bars (matching Resources pillar cards pattern)
-- Add backdrop-blur and subtle `bg-card/80` treatment
-- Refine icon containers with slightly larger rounded backgrounds
-- Keep the `OpinionatedQuote` component — it works well here
-- Wrap section heading in `SectionReveal` for scroll transition
+### Changes
 
-#### 3. How We Work — Horizontal Timeline
-- Replace the stacked cards with a horizontal numbered timeline (matching the About page's "How We Work" pattern)
-- Three columns on desktop, stacked on mobile
-- Connecting line between steps with accent-coloured step numbers
-- Dark background section (`bg-[hsl(220,25%,8%)]`) for contrast rhythm
-- Use `SectionReveal` with `wipe-up` type
+#### 1. Update Case Studies Listing Page (`src/pages/CaseStudies.tsx`)
+- Remove the static data import and the merge logic that combines DB + static entries
+- Source all case studies exclusively from the database via `useCaseStudiesPublic()`
+- Build filter options dynamically from the database results (sectors, services, years) instead of from the static file
+- Add a loading state while data is being fetched
+- The `filteredCases` memo currently references `caseStudies` from the merge -- update it to use the DB-only list
 
-#### 4. Comparison Grid — Embed Inline
-- Replace the plain "Dig into the detail" link cards with the `ServiceComparisonGrid` component (Avorria vs. Typical Agency table)
-- This adds real substance and visual interest instead of just link buttons
-- Keep the link buttons below the grid as secondary navigation
+#### 2. Update Case Study Detail Page (`src/pages/CaseStudyDetail.tsx`)
+- Remove the static fallback (`getCaseStudyBySlug`) so the page only loads from the database
+- Remove the `getRelatedCaseStudies` static helper -- fetch related projects from DB instead by querying for slugs in `relatedSlugs`
+- Keep the loading and 404 states as they are
 
-#### 5. Services and Case Studies — Refined Cards
-- Elevate the two-column cards with gradient top accent bars, hover lift, and backdrop-blur
-- Add subtle icons (Briefcase for Services, BarChart3 for Case Studies) above each card title
-- Wrap in `SectionReveal` for scroll entrance
+#### 3. Clean Up Static Data File (`src/data/caseStudies.ts`)
+- Keep the file for its TypeScript interfaces (`CaseStudy`, `CaseMetric`, `CaseQuote`, `CaseTimelineStep`) which are used by multiple components
+- Remove the hardcoded `caseStudies` array and all helper functions (`getCaseStudyBySlug`, `getFeaturedCaseStudies`, `getRelatedCaseStudies`)
+- Remove the static `filterOptions` export
+- Remove the image imports that are no longer needed
 
-#### 6. Final CTA — Gradient Background Treatment
-- Replace flat `bg-background` with a radial gradient dark section matching the About page CTA
-- Glass-effect secondary button (same fix applied on About page)
-- Stronger, more confident closing copy
+### Result
+- Every case study on the front end comes from the database
+- Every case study can be edited, unpublished, or deleted from the admin panel
+- No more placeholder-image cards appearing on the page
+- Filter options reflect what is actually in the database
 
-#### 7. SEO Enhancements
-- Add full Open Graph and Twitter Card meta tags
-- Add canonical URL
-- Add Organization + WebPage structured data (JSON-LD)
-- Improve meta description with keyword-rich copy
+### Files Modified
+- `src/pages/CaseStudies.tsx` -- remove static merge, use DB only
+- `src/pages/CaseStudyDetail.tsx` -- remove static fallback
+- `src/data/caseStudies.ts` -- keep interfaces, remove hardcoded data
 
-### Visual Rhythm (Top to Bottom)
-1. **Hero** — Dark with radial accent glow, centred
-2. **Operating Principles** — Light background, elevated cards with gradient bars
-3. **Opinionated Quote** — Gradient banner (existing)
-4. **How We Work** — Dark background, horizontal timeline
-5. **Comparison Grid** — Light background, data table
-6. **Services / Case Studies** — Light/secondary background, refined cards
-7. **CTA** — Dark gradient, glass buttons
-
-### Technical Notes
-- Single file edit: `src/pages/WhyAvorria.tsx`
-- New imports: `motion` from framer-motion, `SectionReveal`, `ServiceComparisonGrid`, additional Lucide icons (`Briefcase`, `BarChart3`, `Check`, `X`)
-- Removes: `LogoWall` import (unused on page)
-- No new dependencies or files needed
