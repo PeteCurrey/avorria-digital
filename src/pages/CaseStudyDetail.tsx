@@ -1,12 +1,12 @@
 import { useParams, Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Quote, Loader2 } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
-import { getCaseStudyBySlug, getRelatedCaseStudies, CaseStudy } from "@/data/caseStudies";
-import { useCaseStudyBySlug, CaseStudyDB, BeforeAfterPair } from "@/hooks/useCaseStudies";
+import type { CaseStudy } from "@/data/caseStudies";
+import { useCaseStudyBySlug, useCaseStudiesPublic, CaseStudyDB, BeforeAfterPair } from "@/hooks/useCaseStudies";
 import { CaseHero, CaseHeroImage } from "@/components/case-studies/CaseHero";
 import { CaseTimeline } from "@/components/case-studies/CaseTimeline";
 import { CaseMetrics } from "@/components/case-studies/CaseMetrics";
@@ -54,18 +54,23 @@ const dbToCaseStudy = (db: CaseStudyDB): CaseStudyExtended => ({
 const CaseStudyDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   
-  // Try database first
+  // Fetch from database only
   const { data: dbCaseStudy, isLoading } = useCaseStudyBySlug(slug || "");
   
-  // Fall back to static data
-  const staticCaseStudy = slug ? getCaseStudyBySlug(slug) : null;
-  
-  // Use DB version if available, otherwise static
+  // Fetch all published case studies for related projects
+  const { data: allCaseStudies } = useCaseStudiesPublic();
+
   const caseStudy: CaseStudyExtended | null = dbCaseStudy 
     ? dbToCaseStudy(dbCaseStudy) 
-    : staticCaseStudy 
-      ? { ...staticCaseStudy, beforeAfterPairs: undefined }
-      : null;
+    : null;
+
+  // Get related projects from DB data
+  const relatedProjects = useMemo(() => {
+    if (!caseStudy || !allCaseStudies) return [];
+    return allCaseStudies
+      .filter(cs => caseStudy.relatedSlugs.includes(cs.slug) && cs.slug !== caseStudy.slug)
+      .map(dbToCaseStudy);
+  }, [caseStudy, allCaseStudies]);
 
   useEffect(() => {
     if (caseStudy) {
@@ -94,11 +99,8 @@ const CaseStudyDetail = () => {
     );
   }
 
-  const relatedProjects = getRelatedCaseStudies(caseStudy.slug, caseStudy.relatedSlugs);
-
   const handleDownloadPDF = () => {
     trackEvent("case_downloaded_pdf", { case_slug: slug });
-    // PDF generation would go here
   };
 
   return (
@@ -110,7 +112,7 @@ const CaseStudyDetail = () => {
       </Helmet>
 
       <div className="min-h-screen bg-slate-950 scroll-smooth snap-y snap-mandatory overflow-y-auto">
-        {/* Hero - Half page with solid background */}
+        {/* Hero */}
         <div className="snap-start snap-always">
           <CaseHero
             headline={caseStudy.headline}
@@ -123,7 +125,7 @@ const CaseStudyDetail = () => {
           />
         </div>
 
-        {/* Full-screen hero image - Website screenshot */}
+        {/* Full-screen hero image */}
         {caseStudy.heroMedia?.src && (
           <CaseHeroImage 
             src={caseStudy.heroMedia.src} 
@@ -181,7 +183,7 @@ const CaseStudyDetail = () => {
             </div>
           </section>
 
-          {/* Before/After - Multi-page or single */}
+          {/* Before/After */}
           {caseStudy.beforeAfterPairs && caseStudy.beforeAfterPairs.length > 0 ? (
             <section className="py-20 px-6 section-dark">
               <div className="container mx-auto max-w-4xl">
@@ -231,7 +233,9 @@ const CaseStudyDetail = () => {
           <CaseCTACluster onDownloadPDF={handleDownloadPDF} />
 
           {/* Related Projects */}
-          <RelatedProjects projects={relatedProjects} />
+          {relatedProjects.length > 0 && (
+            <RelatedProjects projects={relatedProjects} />
+          )}
 
           {/* Back link */}
           <section className="py-12 px-6 section-dark border-t border-white/5">
