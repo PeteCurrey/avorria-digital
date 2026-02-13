@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2, TrendingUp, X } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, X, Target, LineChart } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { HeroBand, ContentBand, SectionBand } from "@/components/ContentBand";
@@ -169,6 +169,47 @@ const SEOServices = () => {
         secondaryCta={{ text: "Get a free SEO audit", href: "/free-seo-website-audit" }}
       />
 
+      {/* Introduction */}
+      <SectionBand background="light" padding="large">
+        <div className="max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
+            <ScrollReveal>
+              <h2 className="text-3xl md:text-4xl font-light leading-tight mb-8 text-foreground">
+                What SEO actually means for your business.
+              </h2>
+              <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
+                <p>
+                  SEO isn't a technical mystery or a monthly report full of jargon. It's a revenue channel. When it's done properly, it means the right people find your business at the exact moment they're looking for what you sell – and they keep finding you, month after month, without you paying per click.
+                </p>
+                <p>
+                  The problem is that most SEO work focuses on the wrong things: vanity rankings for terms nobody searches, content that ticks a box but doesn't convert, and technical audits that gather dust. What's missing is a commercial strategy – one that targets the searches your buyers actually make and builds the kind of authority that compounds over time.
+                </p>
+                <p>
+                  That's what we do. We treat SEO as a business growth lever, not a checkbox. Every keyword we target, every page we optimise and every piece of content we create is tied to a commercial outcome – more qualified leads, better pipeline, stronger revenue.
+                </p>
+              </div>
+            </ScrollReveal>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {[
+                { icon: Target, title: "Commercial keyword targeting", description: "We go after the searches your buyers actually make – not vanity terms with no purchase intent." },
+                { icon: TrendingUp, title: "Technical foundations that compound", description: "Site speed, structure and crawlability fixes that keep paying dividends for years." },
+                { icon: CheckCircle2, title: "Content that ranks and converts", description: "Strategic content built around buyer intent, not keyword volume." },
+                { icon: LineChart, title: "Transparent reporting tied to pipeline", description: "Dashboards showing organic traffic, leads and revenue – not just ranking positions." },
+              ].map((feature, i) => (
+                <ScrollReveal key={feature.title} delay={0.1 * (i + 1)}>
+                  <div className="p-5 rounded-xl border border-border bg-card/50">
+                    <feature.icon className="text-accent mb-3" size={24} />
+                    <h3 className="font-semibold text-foreground mb-2 text-sm">{feature.title}</h3>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{feature.description}</p>
+                  </div>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </SectionBand>
+
       {/* Pain Points */}
       <SectionBand background="gradient" padding="large">
         <div className="max-w-4xl mx-auto">
@@ -273,6 +314,8 @@ const SEOServices = () => {
               </div>
             </ScrollReveal>
           </div>
+
+          <OpinionatedQuote quote="Most SEO agencies optimise for rankings. We optimise for revenue. If a keyword ranks but doesn't convert, it's a vanity metric – and we don't bill you for vanity." />
         </div>
       </SectionBand>
 
