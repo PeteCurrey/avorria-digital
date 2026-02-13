@@ -112,9 +112,8 @@ export const CaseCTACluster = ({ onDownloadPDF, relatedSlugs }: CaseCTAClusterPr
               className="mt-8"
             >
               <Button
-                variant="outline"
+                variant="outline-dark"
                 onClick={onDownloadPDF}
-                className="border-white/20 text-white hover:bg-white/10"
               >
                 <FileText size={18} className="mr-2" />
                 Download Case Study PDF

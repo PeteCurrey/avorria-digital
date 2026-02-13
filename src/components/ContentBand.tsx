@@ -100,7 +100,7 @@ export const ContentBand = ({
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>}
-                {secondaryCta && <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                {secondaryCta && <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
                     <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
                   </Button>}
               </div>}
@@ -184,7 +184,7 @@ export const HeroBand = ({
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>}
-                {secondaryCta && <Button size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20">
+                {secondaryCta && <Button size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/[0.06] backdrop-blur-sm text-white border border-white/20 hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98] transition-all">
                     <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
                   </Button>}
               </div>

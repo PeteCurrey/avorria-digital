@@ -325,7 +325,7 @@ const WebDesign = () => {
               ))}
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline-dark" size="lg" asChild>
                 <Link to="/free-seo-website-audit?focus=web">Request a website teardown</Link>
               </Button>
               <Button variant="accent" size="lg" asChild>
@@ -463,7 +463,7 @@ const WebDesign = () => {
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
                 <Link to="/contact">Talk about a rebuild</Link>
               </Button>
             </div>

@@ -12,7 +12,7 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow-md",
         accent: "bg-gradient-to-r from-[hsl(320,85%,55%)] to-[hsl(280,75%,60%)] bg-[length:200%_200%] text-accent-foreground shadow-md hover:shadow-lg hover:scale-[1.02] animate-gradient-shift",
         outline: "border border-border bg-background hover:bg-secondary hover:border-accent/30 hover:-translate-y-0.5",
-        "outline-dark": "border border-pink-500/50 bg-muted/80 text-foreground hover:bg-muted hover:border-pink-500 hover:-translate-y-0.5",
+        "outline-dark": "border border-white/20 bg-white/[0.06] text-white backdrop-blur-sm hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98] transition-all",
         secondary: "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-secondary hover:text-foreground",
         link: "text-foreground underline-offset-4 hover:underline hover:text-accent",

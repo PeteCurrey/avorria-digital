@@ -604,7 +604,7 @@ const Home = () => {
                     <p className="text-lg text-white/80 leading-relaxed">
                       We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
                     </p>
-                    <Button variant="outline" size="lg" className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:border-white/50 mt-4" asChild>
+                    <Button variant="outline-dark" size="lg" className="mt-4" asChild>
                       <Link to="/about">
                         Learn more about us
                         <ArrowRight className="ml-2 w-4 h-4" />

@@ -327,7 +327,7 @@ const Analytics = () => {
                     Book a tracking review <ArrowRight className="ml-2" size={18} />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" className="border-white/20 text-white hover:bg-white/10" asChild>
+                <Button variant="outline-dark" size="lg" asChild>
                   <Link to="/services">View all services</Link>
                 </Button>
               </div>
