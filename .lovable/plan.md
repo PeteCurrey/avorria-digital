@@ -1,83 +1,43 @@
 
 
-## Enhance the Reporting Page and Align the Demo with the Client Portal
+## Reporting Page — Introduction Section + Button Fixes + Beam Hover
 
-### Problem
-1. **Reporting page** (`/reporting`) is visually flat — no animations, no premium feel, and still uses the word "fluff" (line 126)
-2. **Dashboard demo** (`/reporting/demo`) uses the old `DashboardLayout` component with tabs like SEO, Paid Media, Funnel, Content, Notes, Audits, Website Health — this does NOT match the actual client portal
-3. The real client portal at `/client` uses `AppShell` with a completely different navigation: Overview, Projects, Proposals, Documents, Billing, Analytics, SEO Intelligence, Audits, Website Health, Reporting, Resources
-4. No way to navigate back to `/reporting` from the demo
+### 1. Add Introduction Section Below the Hero
 
-### Changes
+Insert a new section between the hero and the "numbers that matter" section. This will be a light-background section with a two-column layout:
+- **Left column**: A short heading like "Your marketing data, finally in one place" with 2-3 paragraphs explaining what the reporting service is — live dashboards, written summaries, a cadence that keeps you in control
+- **Right column**: 3-4 short bullet-style feature highlights with icons (e.g. "Live dashboards updated in real time", "Plain-English written summaries", "Connected to your CRM, GA4 and ad platforms", "No 40-slide decks")
+- Wrapped in `SectionReveal` with staggered `motion` entrance
 
-#### 1. Reporting Page Visual Upgrade (`src/pages/Reporting.tsx`)
+### 2. Fix Secondary Buttons — White-on-White Issue
 
-**Hero section:**
-- Dark cinematic hero (`bg-[hsl(220,25%,8%)]`) with radial gradient glow — matching About and Why Avorria pages
-- Staggered `motion` entrance animations (badge, heading, subtext, CTAs)
-- Uppercase tracking badge above the H1
-- Glass-effect secondary CTA button
-- Replace "fluff" with "noise" on line 126
+Two locations have invisible "Book a Strategy Call" buttons on dark backgrounds:
 
-**"The numbers that matter" section:**
-- Add gradient top-border accent bars to the three cards
-- Add `SectionReveal` scroll animations
-- Backdrop-blur card treatment
+**Hero (lines 137-144):**
+Current: `border-white/20 text-white hover:bg-white/10` — the text is `text-white` but against the dark background it should be visible. The issue is likely that `variant="outline"` base styles are overriding with a white/light background. Fix: use `variant="outline-dark"` which already exists in the button variants and has visible styling, OR apply explicit classes: `bg-white/[0.06] border-white/20 text-white backdrop-blur-sm` as the default state (the current hover appearance becomes the resting state).
 
-**Reporting cadence section:**
-- Dark background section with horizontal timeline layout (matching About/Why Avorria pattern)
-- Connecting line between the three cadence steps
-- Numbered accent circles
+**CTA section (lines 338-345):**
+Same fix — make the resting state show the frosted glass appearance with visible text.
 
-**"No 40-slide decks" section:**
-- Add subtle animation to the three question cards
-- More descriptive content under each question card (not just a title)
+### 3. Add Beam Border Animation on Hover for Secondary Buttons
 
-**FAQ section:**
-- Wrap in `SectionReveal` for scroll entrance
-- Keep the accordion pattern — it works well
+Wrap both secondary buttons in the existing `BeamBorder` component from `src/components/BeamBorder.tsx`. This component already:
+- Shows a beam animation on hover (`opacity-0 group-hover:opacity-100`)
+- Has a glow effect
+- Uses the accent colour
 
-**CTA section:**
-- Dark radial gradient background (matching other premium pages)
-- Glass-effect secondary button fix
+The `BeamBorder` wraps its children in a `bg-card` container, so we'll need to adjust: instead of wrapping the `Button`, we'll add inline beam animation styles directly to the buttons using a small wrapper `div` with the `group` class and the beam pseudo-elements. This keeps the button's `asChild` pattern working cleanly.
 
-**SEO:**
-- Use `SEOHead` component for consistency
-- Add FAQPage schema for the FAQ section
-- Keep existing meta tags and structured data
+Approach: Create a small `BeamButton` wrapper that applies the beam border effect around any button — similar to `BeamBorder` but without forcing `bg-card` on the inner content. The beam animates on hover with a gentle accent glow.
 
-#### 2. Dashboard Demo — Mirror the Real Client Portal (`src/pages/DashboardDemo.tsx`)
+### Technical Details
 
-The demo currently uses `DashboardLayout` (an old reporting-specific layout). It needs to use `AppShell` to show what the actual client portal looks like.
+**File: `src/pages/Reporting.tsx`**
 
-**Changes:**
-- Replace `DashboardLayout` with `AppShell` (same component the real `/client` pages use)
-- Set `type="client"` with demo user details (e.g. userName="Sarah", clientName="TechCorp Industries")
-- Show the `ClientOverview`-style content as the default landing, or render the same tab components the real client portal uses
-- Add a prominent "Back to Reporting" link/banner at the top to make it clear this is a demo and allow navigation back
-- Add a demo mode banner across the top: "You're viewing a demo of the Avorria Client Portal"
-- The sidebar navigation should show the real client portal nav items (Overview, Projects, Proposals, etc.) but link to `/reporting/demo?tab=X` so the user stays in demo mode
-- Keep the existing dashboard tab content (OverviewTab, SEOTab, etc.) for now — they provide good visual substance
+- Add new intro section (approximately 20-25 lines) between lines 147 and 149
+- Import additional icons: `Globe`, `FileText`, `Link2`, `Clock`
+- Fix hero secondary button (line 140): change classes to `bg-white/[0.06] border-white/20 text-white hover:bg-white/10 backdrop-blur-sm`
+- Fix CTA secondary button (line 340): same class fix
+- Wrap both secondary buttons in a beam hover wrapper using inline styles matching `BeamBorder` pattern but without the card background
 
-#### 3. DashboardLayout Cleanup
-
-After the demo is updated, `DashboardLayout` will only be used by `ClientPortal.tsx`. We should check if `ClientPortal.tsx` is even routed — looking at the routes, it is NOT in `AnimatedRoutes.tsx`, so it is dead code. We can leave it for now but it is not actively used.
-
-### Visual Rhythm for Reporting Page (Top to Bottom)
-1. **Hero** — Dark cinematic with radial glow, centred
-2. **What We Track** — Light background, elevated cards with gradient bars
-3. **Reporting Cadence** — Dark background, horizontal timeline
-4. **No Slide Decks** — Light background, enhanced question cards
-5. **FAQ** — Secondary background, accordion
-6. **CTA** — Dark radial gradient, glass buttons
-
-### Files Modified
-- `src/pages/Reporting.tsx` — full visual upgrade, remove "fluff", add animations
-- `src/pages/DashboardDemo.tsx` — switch to `AppShell`, add demo banner, back-to-reporting link, align with real client portal navigation
-
-### Technical Notes
-- New imports for Reporting.tsx: `motion` from framer-motion, `SectionReveal`, `SEOHead`
-- New imports for DashboardDemo.tsx: `AppShell` (replacing `DashboardLayout`), demo banner component
-- Remove "fluff" and replace with "noise" in card copy
-- No new dependencies needed
-
+No new files or dependencies needed. Single file edit.
