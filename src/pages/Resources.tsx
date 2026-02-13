@@ -113,58 +113,59 @@ const Resources = () => {
         </section>
 
         {/* Pillar Guides Section */}
-        <section className="py-24 px-6 bg-background">
-          <div className="container mx-auto max-w-6xl">
+        <section className="relative py-28 px-6 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-accent/5" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,hsl(var(--accent)/0.08),transparent_60%)]" />
+          <div className="container mx-auto max-w-6xl relative z-10">
             <ScrollReveal>
-              <div className="flex items-center gap-3 mb-8">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center">
-                  <FileText className="text-accent" size={24} />
-                </div>
-                <h2 className="text-3xl lg:text-4xl font-semibold text-foreground">Core Playbooks</h2>
+              <div className="text-center mb-16">
+                <Badge className="mb-4 bg-accent/10 text-accent border-accent/20 hover:bg-accent/20">Flagship Guides</Badge>
+                <h2 className="text-4xl lg:text-5xl font-light text-foreground mb-4">Core Playbooks</h2>
+                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                  Everything you need to know about SEO, high-converting websites, and marketing analytics — without the waffle.
+                </p>
               </div>
-              <p className="text-lg text-muted-foreground mb-12 max-w-3xl">
-                Our flagship guides. Everything you need to know about SEO, high-converting websites, and marketing analytics — without the waffle.
-              </p>
             </ScrollReveal>
 
-            <ScrollRevealGrid className="grid md:grid-cols-3 gap-8" stagger={100}>
+            <ScrollRevealGrid className="grid md:grid-cols-3 gap-8" stagger={120}>
               {pillarGuides.map((guide) => (
-                <Card
+                <Link
                   key={guide.id}
-                  className="border-border hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-1 group card-glow"
+                  to={`/resources/${guide.slug}`}
+                  onClick={() =>
+                    trackEvent(EVENTS.RESOURCE_OPENED, {
+                      resource_slug: guide.slug,
+                      resource_type: "pillar",
+                      channel: guide.category.toLowerCase(),
+                    })
+                  }
+                  className="block group"
                 >
-                  <CardContent className="p-8">
-                    <Badge className={categoryBadgeColors[guide.category] || "bg-accent/10 text-accent border-accent/30"}>
+                  <div className="relative h-full rounded-xl border border-border/50 bg-card/80 backdrop-blur-sm p-8 flex flex-col transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:border-accent/30 overflow-hidden">
+                    {/* Gradient accent top edge */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary via-accent to-primary opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
+
+                    <Badge className={`w-fit mb-5 ${categoryBadgeColors[guide.category] || "bg-accent/10 text-accent border-accent/30"}`}>
                       {guide.category}
                     </Badge>
-                    <h3 className="text-2xl font-semibold text-foreground mb-4 mt-4 group-hover:text-accent transition-colors duration-[var(--duration-base)]">
+                    <h3 className="text-2xl font-semibold text-foreground mb-4 group-hover:text-accent transition-colors duration-300 flex-grow-0">
                       {guide.title}
                     </h3>
-                    <p className="text-muted-foreground mb-6 leading-relaxed">
+                    <p className="text-muted-foreground mb-6 leading-relaxed flex-grow">
                       {guide.summary}
                     </p>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-                      <Clock size={16} />
-                      <span>{guide.readingTime} min read</span>
-                    </div>
-                    <Button variant="outline" asChild className="w-full group-hover:border-accent/50">
-                      <Link
-                        to={`/resources/${guide.slug}`}
-                        onClick={() =>
-                          trackEvent(EVENTS.RESOURCE_OPENED, {
-                            resource_slug: guide.slug,
-                            resource_type: "pillar",
-                            channel: guide.category.toLowerCase(),
-                          })
-                        }
-                        className="group/link"
-                      >
+                    <div className="flex items-center justify-between mt-auto pt-5 border-t border-border/30">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Clock size={16} />
+                        <span>{guide.readingTime} min read</span>
+                      </div>
+                      <span className="inline-flex items-center text-sm font-medium text-accent">
                         Read Guide
-                        <ArrowRight className="ml-2 group-hover/link:translate-x-1 transition-transform duration-[var(--duration-fast)]" size={18} />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
+                        <ArrowRight className="ml-1.5 group-hover:translate-x-1 transition-transform duration-200" size={16} />
+                      </span>
+                    </div>
+                  </div>
+                </Link>
               ))}
             </ScrollRevealGrid>
           </div>
