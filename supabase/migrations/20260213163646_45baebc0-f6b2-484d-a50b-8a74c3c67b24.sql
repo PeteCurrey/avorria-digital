@@ -1,0 +1,2 @@
+ALTER TABLE public.client_projects 
+ADD COLUMN portal_config jsonb DEFAULT '{"show_design_showcase": true, "show_seo_performance": false, "show_documents": true, "show_wireframes": true, "featured_image_url": null}'::jsonb;
