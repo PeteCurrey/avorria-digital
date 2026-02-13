@@ -45,6 +45,7 @@ import { ClientLogosTab } from "@/components/admin/ClientLogosTab";
 import ClientProjectsManager from "@/components/admin/ClientProjectsManager";
 import InvoiceManager from "@/components/admin/InvoiceManager";
 import AssetManager from "@/components/admin/AssetManager";
+import ResourcesManager from "@/components/admin/ResourcesManager";
 import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab";
 import ClientsManager from "@/components/admin/ClientsManager";
 import { Button } from "@/components/ui/button";
@@ -171,6 +172,7 @@ const Admin = () => {
       case "integrations": return "Integrations";
       case "settings": return "Settings";
       case "landing-pages": return "SEO Landing Pages";
+      case "resources": return "Resources";
       default: return "Admin Dashboard";
     }
   };
@@ -200,6 +202,7 @@ const Admin = () => {
       case "integrations": return "Connect third-party services";
       case "settings": return "Configure your admin preferences";
       case "landing-pages": return "Create and manage SEO landing pages";
+      case "resources": return "Manage and generate resource guides";
       default: return "";
     }
   };
@@ -664,6 +667,9 @@ const Admin = () => {
 
       case "settings":
         return <AdminSettings />;
+
+      case "resources":
+        return <ResourcesManager />;
 
       case "landing-pages":
         return <LandingPageManager />;
