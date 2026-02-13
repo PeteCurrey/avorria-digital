@@ -1,54 +1,106 @@
 
+## Enhance Paid Media and SEO Service Pages
 
-## Fix White-on-White Secondary Buttons Across the Entire Site
+### Overview
+Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
 
-### Root Cause
-The `outline` button variant in the design system has `bg-background` (white) baked in. When pages on dark sections add `text-white` and `border-white/20` overrides, the white background still shows through, making the text invisible until hover.
+---
 
-### Solution — Two-Part Fix
+### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
 
-#### Part 1: Update the `outline-dark` Button Variant (Design System Level)
+**Hero Section:**
+- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
+- Use the existing `service-paid-media.jpg` asset as the parallax background image
+- Keep the headline and copy but improve the subheadline badge
+- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
 
-Update `src/components/ui/button.tsx` to make the `outline-dark` variant the proper frosted glass style with beam hover:
+**New Introduction Section (below hero):**
+- Two-column layout matching the Reporting page pattern
+- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
+- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
+- Wrapped in `SectionReveal` with staggered `motion` entrance animations
 
-- **Resting state**: `bg-white/[0.06] border-white/20 text-white backdrop-blur-sm` — dark, frosted, semi-transparent with visible text
-- **Hover state**: `hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98]` — gentle shrink + accent border glow
-- This eliminates the need for every page to manually override classes
+**Pain Points Section:**
+- Keep the content but enhance with `SectionReveal` animation
+- Add more descriptive intro paragraph above the pain point list
 
-#### Part 2: Update All Affected Buttons Across the Site
+**How We Approach Paid Media Section:**
+- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
 
-Switch every `variant="outline"` button on a dark background from messy class overrides to the clean `variant="outline-dark"`. Remove the redundant `border-white`, `text-white`, `hover:bg-white` class overrides since the variant handles it all.
+**New "What You Get" Section:**
+- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
 
-**Files and locations to update:**
+**New "Process Timeline" Section:**
+- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
 
-| File | Instances | Button Text |
-|------|-----------|-------------|
-| `src/pages/Services.tsx` | 4 | "Get Free Audit", 3x "Where Should You Start" cards, "Book a strategy call" |
-| `src/pages/SEOServices.tsx` | 6 | "Discuss your industry", "View case studies", 3x location cards, "Book an SEO strategy call" |
-| `src/pages/WebDesign.tsx` | 2 | "Request a website teardown", "Talk about a rebuild" |
-| `src/pages/Analytics.tsx` | 1 | "View all services" |
-| `src/pages/SocialPersonalBrand.tsx` | 1 | "View all services" |
-| `src/pages/ContentEmail.tsx` | 1 | "View all services" |
-| `src/pages/CaseStudies.tsx` | 1 | "Try the Studio" |
-| `src/components/ContentBand.tsx` | 1 | Secondary CTA (reusable component) |
-| `src/components/case-studies/CaseCTACluster.tsx` | 1 | "Download Case Study PDF" |
+**Platforms Section:**
+- Keep but enrich with more descriptive content per platform
+- Add a brief intro paragraph
 
-**Note:** `src/pages/Home.tsx` already has `bg-white/10` in its classes so it works — but we'll clean it up to use the variant too. `src/pages/Reporting.tsx` was already fixed in a previous session with `bg-white/[0.06]`.
+**New FAQ Section:**
+- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
+- Add `FAQSchema` for SEO
+- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
 
-### What Each Button Will Look Like
+**CTA Section:**
+- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
 
-- **Resting**: Dark frosted glass background, white text, subtle white/pink border — clearly readable
-- **Hover**: Gentle 2% scale-down (shrink), border shifts to accent pink, slightly brighter background
+**SEO Enhancements:**
+- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
+- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
+
+---
+
+### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+
+**New Introduction Section (below hero, before pain points):**
+- Same two-column layout as Reporting and Paid Media pages
+- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
+- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
+- Wrapped in `SectionReveal` with staggered `motion` entrance
+
+**Content Enrichment:**
+- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
+- Enrich the case study teaser cards with slightly more descriptive content
+
+**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+
+---
+
+### Visual Rhythm
+
+**Paid Media (top to bottom):**
+1. Hero — cinematic with `service-paid-media.jpg` parallax background
+2. Introduction — light background, two-column explainer
+3. Pain Points — gradient background, enhanced list
+4. How We Approach — dark background, 4-card grid + pull-quote
+5. What You Get — gradient background, deliverables checklist
+6. Process Timeline — mesh background, phased timeline
+7. Platforms — dark background, enriched 3-column cards
+8. FAQ — mesh background, accordion with schema
+9. CTA — gradient background, fixed buttons
+
+**SEO Services (top to bottom):**
+1. Hero (existing) — with `service-seo.jpg`
+2. **Introduction (NEW)** — light background, two-column explainer
+3. Pain Points (existing)
+4. What's Included (existing) + **pull-quote (NEW)**
+5. Process Timeline (existing)
+6. Deliverables (existing)
+7. SEO by Industry (existing)
+8. Case Studies (existing, enriched)
+9. SEO by Location (existing)
+10. FAQ (existing)
+11. CTA (existing)
+
+---
 
 ### Files Modified
-- `src/components/ui/button.tsx` — update `outline-dark` variant styling
-- `src/pages/Services.tsx` — 4 buttons
-- `src/pages/SEOServices.tsx` — 6 buttons
-- `src/pages/WebDesign.tsx` — 2 buttons
-- `src/pages/Analytics.tsx` — 1 button
-- `src/pages/SocialPersonalBrand.tsx` — 1 button
-- `src/pages/ContentEmail.tsx` — 1 button
-- `src/pages/CaseStudies.tsx` — 1 button
-- `src/pages/Home.tsx` — 1 button
-- `src/components/ContentBand.tsx` — 1 button
-- `src/components/case-studies/CaseCTACluster.tsx` — 1 button
+- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
+- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+
+### New Imports
+- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
+- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
+
+### No new dependencies needed
