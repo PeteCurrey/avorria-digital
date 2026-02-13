@@ -1,98 +1,70 @@
 
 
-## Redesign the About Page — Established, Premium Agency Identity
+## Enhance the Why Avorria Page — Premium Visual Upgrade
 
-### Problem
-The current About page mirrors the homepage too closely — same video timelapse background, same parallax race car CTA, same beam-border card patterns, and identical visual effects. The "Founder / Lead" section is generic placeholder content. The page feels fragmented with too many alternating background treatments (dark/light/video/image/dark/image).
+### Content Fixes
+- **Remove "fluff"** everywhere — replace with "filler" or "noise" depending on context
+  - Hero H1: "Why teams who are done with the noise pick Avorria"
+  - Meta description: updated accordingly
+  - "How We Work" communication card: "30 minutes, no filler"
+- Refine copy throughout for authenticity and SEO value
 
-### Design Direction
-Strip back the visual noise. A premium agency About page should feel **calm, confident and authoritative** — not flashy. Use a cleaner visual rhythm with fewer background changes, richer written content, and a proper story arc.
+### Visual Enhancements (Single File: `src/pages/WhyAvorria.tsx`)
 
-### Changes (Single File: `src/pages/About.tsx`)
+#### 1. Hero — Cinematic Dark Treatment
+- Replace the flat gradient background with a dark hero section matching the About page pattern (`bg-[hsl(220,25%,8%)]`)
+- Add radial gradient accent glow for depth
+- Use `motion` animated entrance (staggered fade-up) for badge, heading, subtext and CTAs — same pattern as About hero
+- Add a small uppercase tracking badge above the H1 ("Why Avorria")
+- Larger, more spacious layout with `min-h-[70vh]` and centred alignment
+- Update CTAs: accent gradient primary button + glass-effect secondary button
 
-#### 1. Simplified Hero (Keep Image, Remove Effects)
-- Keep the `heroAboutTeam` image background — it's appropriate for About
-- **Remove** `GradientMesh` and `FloatingElements` overlays (these are homepage signatures)
-- Cleaner gradient overlay: simple left-to-right dark fade
-- Refine the copy to be more story-driven: "We started Avorria because we got tired of watching good businesses waste money on bad marketing."
-- Keep the two CTAs but soften the second to "Our approach" (anchor link down-page)
+#### 2. Operating Principles — Dark Cards on Light
+- Keep the 2x2 grid but elevate the cards with gradient top border accent bars (matching Resources pillar cards pattern)
+- Add backdrop-blur and subtle `bg-card/80` treatment
+- Refine icon containers with slightly larger rounded backgrounds
+- Keep the `OpinionatedQuote` component — it works well here
+- Wrap section heading in `SectionReveal` for scroll transition
 
-#### 2. Our Story Section (NEW — Replace Video Background Beliefs)
-- **Remove** the city timelapse `ParallaxBackground` (that's a homepage element)
-- Replace with a clean, light-background narrative section
-- Two-column layout: left side has a short origin story (3-4 paragraphs about why Avorria exists, what frustrated the founders about the agency world, what they set out to fix), right side has a subtle accent-bordered pull quote
-- Uses standard `bg-background` — no video, no parallax
-- This gives the page its own identity and actual substance
+#### 3. How We Work — Horizontal Timeline
+- Replace the stacked cards with a horizontal numbered timeline (matching the About page's "How We Work" pattern)
+- Three columns on desktop, stacked on mobile
+- Connecting line between steps with accent-coloured step numbers
+- Dark background section (`bg-[hsl(220,25%,8%)]`) for contrast rhythm
+- Use `SectionReveal` with `wipe-up` type
 
-#### 3. What We Believe (Refined, No Video)
-- Keep the four principles but present them on a clean dark section (`bg-[hsl(220,25%,8%)]`) without the video background
-- Simpler card styling: clean border, no beam animation, subtle hover lift only
-- This differentiates from the homepage's beam-heavy card style
+#### 4. Comparison Grid — Embed Inline
+- Replace the plain "Dig into the detail" link cards with the `ServiceComparisonGrid` component (Avorria vs. Typical Agency table)
+- This adds real substance and visual interest instead of just link buttons
+- Keep the link buttons below the grid as secondary navigation
 
-#### 4. Stats Band (Keep, Minor Refinement)
-- Keep the stats section but remove beam-border hover effects
-- Simpler presentation: just the numbers with clean dividers between them, inline on one row
-- More understated, letting the numbers speak
+#### 5. Services and Case Studies — Refined Cards
+- Elevate the two-column cards with gradient top accent bars, hover lift, and backdrop-blur
+- Add subtle icons (Briefcase for Services, BarChart3 for Case Studies) above each card title
+- Wrap in `SectionReveal` for scroll entrance
 
-#### 5. Who We Are — Team / Leadership (Replace Generic Section)
-- **Remove** the placeholder "Avorria Leadership / Founder / Operator" card with its gradient "A" avatar
-- Replace with a proper team section showing 3-4 named roles with brief bios:
-  - Founder and Strategy Lead
-  - Head of SEO and Technical
-  - Head of Paid Media and CRO  
-  - Head of Design and Development
-- Each presented as a clean card with initials avatar, name, title, and 2-3 sentence bio
-- No TiltCard effect — clean, professional grid layout
-- Section title: "The team behind the work."
+#### 6. Final CTA — Gradient Background Treatment
+- Replace flat `bg-background` with a radial gradient dark section matching the About page CTA
+- Glass-effect secondary button (same fix applied on About page)
+- Stronger, more confident closing copy
 
-#### 6. Who We Work Best With (Keep, Light Polish)
-- This section is good and unique to the About page — keep it
-- Minor: soften the border colours slightly for a more premium feel
-
-#### 7. How We Work (Simplify)
-- **Remove** the `heroCityscape` parallax background (another homepage-style treatment)
-- Present the 3-step process on a clean dark background
-- Horizontal timeline layout with connecting lines between steps on desktop
-- Cleaner, more editorial presentation
-
-#### 8. CTA Section (Replace Race Car)
-- **Remove** the `bgRaceCar` parallax — this is directly from the homepage
-- Replace with a clean, gradient-background CTA section (subtle radial gradient, no image)
-- Refined copy: "Let's talk about what's not working." with two buttons
-- Understated and confident rather than flashy
-
-### What Gets Removed
-- `GradientMesh` component (homepage signature)
-- `FloatingElements` component (homepage signature)
-- `ParallaxBackground` with video (homepage signature)
-- `ParallaxBackground` with cityscape image
-- `ParallaxBackground` with race car image
-- `TiltCard` wrapping the leadership card
-- Beam-border hover animations on cards
-- All three parallax/video background sections
-
-### What Gets Added
-- Origin story narrative section (new content, two-column layout)
-- Proper team grid with 4 named roles and bios
-- Horizontal timeline for the process steps
-- Clean gradient CTA without background imagery
+#### 7. SEO Enhancements
+- Add full Open Graph and Twitter Card meta tags
+- Add canonical URL
+- Add Organization + WebPage structured data (JSON-LD)
+- Improve meta description with keyword-rich copy
 
 ### Visual Rhythm (Top to Bottom)
-1. **Hero** — Image background (dark), full-width
-2. **Our Story** — Light background, editorial two-column
-3. **What We Believe** — Dark background, clean cards
-4. **Stats** — Darker band, minimal styling
-5. **The Team** — Light background, professional grid
-6. **Best Fit / Not a Fit** — Light background (kept)
-7. **How We Work** — Dark background, timeline
-8. **CTA** — Gradient background, no image
-
-This creates a calmer dark/light/dark/dark/light/light/dark/gradient flow instead of the current chaotic mix of videos, images and parallax layers.
+1. **Hero** — Dark with radial accent glow, centred
+2. **Operating Principles** — Light background, elevated cards with gradient bars
+3. **Opinionated Quote** — Gradient banner (existing)
+4. **How We Work** — Dark background, horizontal timeline
+5. **Comparison Grid** — Light background, data table
+6. **Services / Case Studies** — Light/secondary background, refined cards
+7. **CTA** — Dark gradient, glass buttons
 
 ### Technical Notes
-- Single file edit: `src/pages/About.tsx`
-- Removes imports for `GradientMesh`, `FloatingElements`, `ParallaxBackground`, `TiltCard`, `cityTimelapseVideo`, `heroCityscape`, `bgRaceCar`
-- Keeps `ScrollReveal`, `ScrollRevealGrid`, `CountUp`, `SectionReveal` for subtle animation
-- Keeps `heroAboutTeam` for the hero image
-- No new dependencies or components needed
-
+- Single file edit: `src/pages/WhyAvorria.tsx`
+- New imports: `motion` from framer-motion, `SectionReveal`, `ServiceComparisonGrid`, additional Lucide icons (`Briefcase`, `BarChart3`, `Check`, `X`)
+- Removes: `LogoWall` import (unused on page)
+- No new dependencies or files needed
