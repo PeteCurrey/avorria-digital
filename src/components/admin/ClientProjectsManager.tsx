@@ -1,49 +1,31 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAllProjects, useCreateProject, useUpdateProject, useDeleteProject } from "@/hooks/useClientProjects";
 import { useClients } from "@/hooks/useClients";
+import { useAuth } from "@/hooks/useAuth";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Switch } from "@/components/ui/switch";
 import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow 
 } from "@/components/ui/table";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Separator } from "@/components/ui/separator";
 import { 
-  Plus, 
-  Search, 
-  Globe, 
-  Trash2, 
-  Pencil,
-  ExternalLink,
-  Rocket,
-  Clock,
-  CheckCircle2
+  Plus, Search, Globe, Trash2, Pencil, ExternalLink, Rocket, Clock, CheckCircle2, Eye
 } from "lucide-react";
 import { format } from "date-fns";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const statusConfig = {
   discovery: { label: "Discovery", color: "bg-blue-500/20 text-blue-400 border-blue-500/30" },
@@ -60,7 +42,25 @@ const typeConfig = {
   branding: "Branding",
 };
 
+interface PortalConfig {
+  show_design_showcase: boolean;
+  show_seo_performance: boolean;
+  show_documents: boolean;
+  show_wireframes: boolean;
+  featured_image_url: string | null;
+}
+
+const defaultPortalConfig: PortalConfig = {
+  show_design_showcase: true,
+  show_seo_performance: false,
+  show_documents: true,
+  show_wireframes: true,
+  featured_image_url: null,
+};
+
 const ClientProjectsManager = () => {
+  const navigate = useNavigate();
+  const { setImpersonatedClient } = useAuth();
   const { data: projects, isLoading } = useAllProjects();
   const { data: clients } = useClients();
   const createProject = useCreateProject();
@@ -71,7 +71,6 @@ const ClientProjectsManager = () => {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [editingProject, setEditingProject] = useState<string | null>(null);
 
-  // Form state
   const [formData, setFormData] = useState({
     client_id: "",
     name: "",
@@ -84,29 +83,22 @@ const ClientProjectsManager = () => {
     target_launch_date: "",
   });
 
+  const [portalConfig, setPortalConfig] = useState<PortalConfig>(defaultPortalConfig);
+
   const resetForm = () => {
     setFormData({
-      client_id: "",
-      name: "",
-      description: "",
-      project_type: "website",
-      status: "discovery",
-      live_url: "",
-      staging_url: "",
-      start_date: "",
-      target_launch_date: "",
+      client_id: "", name: "", description: "", project_type: "website", status: "discovery",
+      live_url: "", staging_url: "", start_date: "", target_launch_date: "",
     });
+    setPortalConfig(defaultPortalConfig);
     setEditingProject(null);
   };
 
   const handleSubmit = async () => {
     if (!formData.client_id || !formData.name) return;
-
-    // Get user_id from the client's owner
     const client = clients?.find(c => c.id === formData.client_id);
     const user_id = client?.owner_id || "";
 
-    // Sanitize data: convert empty strings to undefined for optional fields
     const sanitizedData = {
       client_id: formData.client_id,
       name: formData.name,
@@ -120,15 +112,11 @@ const ClientProjectsManager = () => {
     };
 
     if (editingProject) {
-      await updateProject.mutateAsync({
-        id: editingProject,
-        updates: sanitizedData,
-      });
+      await updateProject.mutateAsync({ id: editingProject, updates: sanitizedData });
+      // Update portal_config separately since it's not in the typed interface
+      await supabase.from("client_projects").update({ portal_config: portalConfig as any }).eq("id", editingProject);
     } else {
-      await createProject.mutateAsync({
-        ...sanitizedData,
-        user_id,
-      });
+      await createProject.mutateAsync({ ...sanitizedData, user_id });
     }
 
     resetForm();
@@ -147,6 +135,7 @@ const ClientProjectsManager = () => {
       start_date: project.start_date || "",
       target_launch_date: project.target_launch_date || "",
     });
+    setPortalConfig(project.portal_config || defaultPortalConfig);
     setEditingProject(project.id);
     setIsCreateOpen(true);
   };
@@ -155,6 +144,14 @@ const ClientProjectsManager = () => {
     if (confirm("Are you sure you want to delete this project?")) {
       await deleteProject.mutateAsync(id);
     }
+  };
+
+  const handlePreviewPortal = (project: any) => {
+    const clientName = project.client?.name || "Client";
+    if (setImpersonatedClient) {
+      setImpersonatedClient(clientName);
+    }
+    navigate(`/client/projects/${project.id}`);
   };
 
   const filteredProjects = projects?.filter(project =>
@@ -168,59 +165,30 @@ const ClientProjectsManager = () => {
       <div className="flex flex-col sm:flex-row gap-4 justify-between">
         <div className="relative flex-1 max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search projects..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-card/50 border-border/50"
-          />
+          <Input placeholder="Search projects..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} className="pl-10 bg-card/50 border-border/50" />
         </div>
-        <Dialog open={isCreateOpen} onOpenChange={(open) => {
-          setIsCreateOpen(open);
-          if (!open) resetForm();
-        }}>
+        <Dialog open={isCreateOpen} onOpenChange={(open) => { setIsCreateOpen(open); if (!open) resetForm(); }}>
           <DialogTrigger asChild>
-            <Button>
-              <Plus className="h-4 w-4 mr-2" />
-              Add Project
-            </Button>
+            <Button><Plus className="h-4 w-4 mr-2" />Add Project</Button>
           </DialogTrigger>
-          <DialogContent className="sm:max-w-[600px]">
+          <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto">
             <DialogHeader>
               <DialogTitle>{editingProject ? "Edit Project" : "Create New Project"}</DialogTitle>
-              <DialogDescription>
-                {editingProject ? "Update project details" : "Add a new client project"}
-              </DialogDescription>
+              <DialogDescription>{editingProject ? "Update project details and portal configuration" : "Add a new client project"}</DialogDescription>
             </DialogHeader>
             <div className="grid gap-4 py-4">
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="client">Client</Label>
-                  <Select
-                    value={formData.client_id}
-                    onValueChange={(value) => setFormData({ ...formData, client_id: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select client" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {clients?.map((client) => (
-                        <SelectItem key={client.id} value={client.id}>
-                          {client.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
+                  <Label>Client</Label>
+                  <Select value={formData.client_id} onValueChange={(value) => setFormData({ ...formData, client_id: value })}>
+                    <SelectTrigger><SelectValue placeholder="Select client" /></SelectTrigger>
+                    <SelectContent>{clients?.map((client) => (<SelectItem key={client.id} value={client.id}>{client.name}</SelectItem>))}</SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="type">Project Type</Label>
-                  <Select
-                    value={formData.project_type}
-                    onValueChange={(value: any) => setFormData({ ...formData, project_type: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
+                  <Label>Project Type</Label>
+                  <Select value={formData.project_type} onValueChange={(value: any) => setFormData({ ...formData, project_type: value })}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="website">Website</SelectItem>
                       <SelectItem value="seo">SEO</SelectItem>
@@ -231,33 +199,18 @@ const ClientProjectsManager = () => {
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="name">Project Name</Label>
-                <Input
-                  id="name"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  placeholder="e.g., Website Redesign 2024"
-                />
+                <Label>Project Name</Label>
+                <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="e.g., Website Redesign 2024" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="description">Description</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  placeholder="Brief project description..."
-                />
+                <Label>Description</Label>
+                <Textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Brief project description..." />
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="status">Status</Label>
-                  <Select
-                    value={formData.status}
-                    onValueChange={(value: any) => setFormData({ ...formData, status: value })}
-                  >
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
+                  <Label>Status</Label>
+                  <Select value={formData.status} onValueChange={(value: any) => setFormData({ ...formData, status: value })}>
+                    <SelectTrigger><SelectValue /></SelectTrigger>
                     <SelectContent>
                       <SelectItem value="discovery">Discovery</SelectItem>
                       <SelectItem value="in_progress">In Progress</SelectItem>
@@ -268,40 +221,62 @@ const ClientProjectsManager = () => {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="start_date">Start Date</Label>
-                  <Input
-                    id="start_date"
-                    type="date"
-                    value={formData.start_date}
-                    onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                  />
+                  <Label>Start Date</Label>
+                  <Input type="date" value={formData.start_date} onChange={(e) => setFormData({ ...formData, start_date: e.target.value })} />
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="live_url">Live URL</Label>
-                  <Input
-                    id="live_url"
-                    value={formData.live_url}
-                    onChange={(e) => setFormData({ ...formData, live_url: e.target.value })}
-                    placeholder="https://..."
-                  />
+                  <Label>Live URL</Label>
+                  <Input value={formData.live_url} onChange={(e) => setFormData({ ...formData, live_url: e.target.value })} placeholder="https://..." />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="staging_url">Staging URL</Label>
-                  <Input
-                    id="staging_url"
-                    value={formData.staging_url}
-                    onChange={(e) => setFormData({ ...formData, staging_url: e.target.value })}
-                    placeholder="https://staging..."
-                  />
+                  <Label>Staging URL</Label>
+                  <Input value={formData.staging_url} onChange={(e) => setFormData({ ...formData, staging_url: e.target.value })} placeholder="https://staging..." />
                 </div>
               </div>
+
+              {/* Portal Config Section */}
+              {editingProject && (
+                <>
+                  <Separator />
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="text-sm font-medium text-foreground">Portal Configuration</h4>
+                      <p className="text-xs text-muted-foreground">Control which sections are visible to the client</p>
+                    </div>
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm">Design Showcase</Label>
+                        <Switch checked={portalConfig.show_design_showcase} onCheckedChange={(v) => setPortalConfig({ ...portalConfig, show_design_showcase: v })} />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm">SEO Performance</Label>
+                        <Switch checked={portalConfig.show_seo_performance} onCheckedChange={(v) => setPortalConfig({ ...portalConfig, show_seo_performance: v })} />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm">Documents</Label>
+                        <Switch checked={portalConfig.show_documents} onCheckedChange={(v) => setPortalConfig({ ...portalConfig, show_documents: v })} />
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <Label className="text-sm">Wireframes</Label>
+                        <Switch checked={portalConfig.show_wireframes} onCheckedChange={(v) => setPortalConfig({ ...portalConfig, show_wireframes: v })} />
+                      </div>
+                    </div>
+                    <div className="space-y-2">
+                      <Label className="text-sm">Featured Image URL</Label>
+                      <Input 
+                        value={portalConfig.featured_image_url || ""} 
+                        onChange={(e) => setPortalConfig({ ...portalConfig, featured_image_url: e.target.value || null })} 
+                        placeholder="https://... (optional hero image)"
+                      />
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
             <DialogFooter>
-              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>
-                Cancel
-              </Button>
+              <Button variant="outline" onClick={() => setIsCreateOpen(false)}>Cancel</Button>
               <Button onClick={handleSubmit} disabled={!formData.client_id || !formData.name}>
                 {editingProject ? "Save Changes" : "Create Project"}
               </Button>
@@ -351,56 +326,36 @@ const ClientProjectsManager = () => {
                     <TableCell>
                       <div>
                         <p className="font-medium">{project.name}</p>
-                        {project.description && (
-                          <p className="text-sm text-muted-foreground line-clamp-1">{project.description}</p>
-                        )}
+                        {project.description && <p className="text-sm text-muted-foreground line-clamp-1">{project.description}</p>}
                       </div>
                     </TableCell>
                     <TableCell>{project.client?.name || "—"}</TableCell>
-                    <TableCell>
-                      <Badge variant="outline">{typeConfig[project.project_type]}</Badge>
-                    </TableCell>
-                    <TableCell>
-                      <Badge className={statusConfig[project.status].color}>
-                        {statusConfig[project.status].label}
-                      </Badge>
-                    </TableCell>
+                    <TableCell><Badge variant="outline">{typeConfig[project.project_type]}</Badge></TableCell>
+                    <TableCell><Badge className={statusConfig[project.status].color}>{statusConfig[project.status].label}</Badge></TableCell>
                     <TableCell>
                       <div className="flex items-center gap-2">
                         {project.live_url && (
                           <a href={project.live_url} target="_blank" rel="noopener noreferrer">
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                              <Globe className="h-4 w-4" />
-                            </Button>
+                            <Button variant="ghost" size="icon" className="h-8 w-8"><Globe className="h-4 w-4" /></Button>
                           </a>
                         )}
                         {project.staging_url && (
                           <a href={project.staging_url} target="_blank" rel="noopener noreferrer">
-                            <Button variant="ghost" size="icon" className="h-8 w-8">
-                              <ExternalLink className="h-4 w-4" />
-                            </Button>
+                            <Button variant="ghost" size="icon" className="h-8 w-8"><ExternalLink className="h-4 w-4" /></Button>
                           </a>
                         )}
                       </div>
                     </TableCell>
-                    <TableCell className="text-muted-foreground">
-                      {format(new Date(project.created_at), "MMM d, yyyy")}
-                    </TableCell>
+                    <TableCell className="text-muted-foreground">{format(new Date(project.created_at), "MMM d, yyyy")}</TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-1">
-                        <Button 
-                          variant="ghost" 
-                          size="icon"
-                          onClick={() => handleEdit(project)}
-                        >
+                        <Button variant="ghost" size="icon" title="Preview Portal" onClick={() => handlePreviewPortal(project)}>
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                        <Button variant="ghost" size="icon" onClick={() => handleEdit(project)}>
                           <Pencil className="h-4 w-4" />
                         </Button>
-                        <Button 
-                          variant="ghost" 
-                          size="icon"
-                          className="text-destructive hover:text-destructive"
-                          onClick={() => handleDelete(project.id)}
-                        >
+                        <Button variant="ghost" size="icon" className="text-destructive hover:text-destructive" onClick={() => handleDelete(project.id)}>
                           <Trash2 className="h-4 w-4" />
                         </Button>
                       </div>

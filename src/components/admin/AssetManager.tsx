@@ -3,62 +3,31 @@ import { useProjectAssets, useCreateAsset, useDeleteAsset, uploadAssetFile, type
 import { useAllProjects } from "@/hooks/useClientProjects";
 import { useClients } from "@/hooks/useClients";
 import { useAuth } from "@/hooks/useAuth";
+import { BeforeAfterSliderMulti } from "@/components/case-studies/BeforeAfterSliderMulti";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { 
-  Table, 
-  TableBody, 
-  TableCell, 
-  TableHead, 
-  TableHeader, 
-  TableRow 
+  Table, TableBody, TableCell, TableHead, TableHeader, TableRow 
 } from "@/components/ui/table";
 import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
+  Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger,
 } from "@/components/ui/dialog";
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
+  Select, SelectContent, SelectItem, SelectTrigger, SelectValue,
 } from "@/components/ui/select";
 import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
+  Collapsible, CollapsibleContent, CollapsibleTrigger,
 } from "@/components/ui/collapsible";
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
+  Tabs, TabsContent, TabsList, TabsTrigger,
 } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { 
-  Plus, 
-  Search, 
-  Trash2, 
-  Upload,
-  Image,
-  FileText,
-  Eye,
-  Download,
-  Link,
-  ChevronDown,
-  Info,
-  Camera,
-  Lightbulb,
+  Plus, Search, Trash2, Upload, Image, FileText, Eye, Download, Link, ChevronDown, Info, Camera, Lightbulb, SlidersHorizontal,
 } from "lucide-react";
 import { format } from "date-fns";
 import { toast } from "sonner";
@@ -598,7 +567,39 @@ const AssetManager = () => {
                   <Upload className="h-4 w-4 mr-2" />
                   Upload First Asset
                 </Button>
-              </div>
+      </div>
+
+      {/* Inline Before/After Preview */}
+      {selectedProjectId && groupedAssets.screenshots.length >= 2 && (() => {
+        const beforeShots = groupedAssets.screenshots.filter(a => a.asset_type === "screenshot_before");
+        const afterShots = groupedAssets.screenshots.filter(a => a.asset_type === "screenshot_after");
+        const previewPairs: Array<{ id: string; label: string; beforeImage: string; afterImage: string }> = [];
+        const pairedIds = new Set<string>();
+        beforeShots.forEach(before => {
+          if (before.pair_id) {
+            const match = afterShots.find(a => a.pair_id === before.pair_id && !pairedIds.has(a.id));
+            if (match) {
+              previewPairs.push({ id: before.id, label: before.pair_id || before.title, beforeImage: before.file_url, afterImage: match.file_url });
+              pairedIds.add(match.id);
+            }
+          }
+        });
+        if (previewPairs.length === 0) return null;
+        return (
+          <Card className="bg-card/50 border-border/50">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-sm flex items-center gap-2">
+                <SlidersHorizontal className="h-4 w-4 text-primary" />
+                Before/After Preview
+              </CardTitle>
+              <CardDescription>Preview how the client will see the before/after slider</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <BeforeAfterSliderMulti pairs={previewPairs} />
+            </CardContent>
+          </Card>
+        );
+      })()}
             </div>
           ) : (
             <Table>

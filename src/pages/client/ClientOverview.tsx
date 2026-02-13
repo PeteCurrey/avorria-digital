@@ -24,7 +24,9 @@ import {
   Clock,
   Briefcase,
   Eye,
-  Sparkles
+  Sparkles,
+  Palette,
+  Image as ImageIcon
 } from "lucide-react";
 
 const ClientOverview = () => {
@@ -49,8 +51,10 @@ const ClientOverview = () => {
   }, [clientName]);
 
   // Find featured website project
-  const websiteProject = projects?.find(p => p.project_type === 'website');
+  const websiteProject = projects?.find(p => p.project_type === 'website' || p.project_type === 'branding');
+  const seoProject = projects?.find(p => p.project_type === 'seo');
   const hasWebsiteProject = !!websiteProject;
+  const hasSEOProject = !!seoProject;
 
   // Calculate account balance
   const outstandingInvoices = invoices?.filter(inv => inv.status === 'sent' || inv.status === 'overdue') || [];
@@ -293,25 +297,51 @@ const ClientOverview = () => {
 
           {/* Quick Links */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Card className="hover:shadow-lg transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Search className="h-5 w-5 text-primary" />
+            {/* Design Progress - show for web design clients */}
+            {hasWebsiteProject && (
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Palette className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-medium text-foreground">Design Progress</h3>
                   </div>
-                  <h3 className="font-medium text-foreground">SEO Intelligence</h3>
-                </div>
-                <p className="text-sm text-muted-foreground mb-4">
-                  AI-powered website analysis, competitor insights & keyword research.
-                </p>
-                <Link to="/client/seo-intelligence">
-                  <Button variant="outline" className="w-full">
-                    Open tools
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Button>
-                </Link>
-              </CardContent>
-            </Card>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    View before & after comparisons and leave feedback on your website design.
+                  </p>
+                  <Link to={`/client/projects/${websiteProject!.id}`}>
+                    <Button variant="outline" className="w-full">
+                      View designs
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* SEO Intelligence - show for SEO clients */}
+            {hasSEOProject && (
+              <Card className="hover:shadow-lg transition-shadow">
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                      <Search className="h-5 w-5 text-primary" />
+                    </div>
+                    <h3 className="font-medium text-foreground">SEO Intelligence</h3>
+                  </div>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    AI-powered website analysis, competitor insights & keyword research.
+                  </p>
+                  <Link to="/client/seo-intelligence">
+                    <Button variant="outline" className="w-full">
+                      Open tools
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </CardContent>
+              </Card>
+            )}
 
             <Card className="hover:shadow-lg transition-shadow">
               <CardContent className="p-6">
@@ -339,14 +369,14 @@ const ClientOverview = () => {
                   <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
                     <BarChart3 className="h-5 w-5 text-primary" />
                   </div>
-                  <h3 className="font-medium text-foreground">Latest Report</h3>
+                  <h3 className="font-medium text-foreground">Analytics</h3>
                 </div>
                 <p className="text-sm text-muted-foreground mb-4">
-                  See your latest performance report with all key metrics.
+                  Real-time website performance and visitor insights.
                 </p>
-                <Link to="/client/reporting">
+                <Link to="/client/analytics">
                   <Button variant="outline" className="w-full">
-                    View reporting
+                    View analytics
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
                 </Link>

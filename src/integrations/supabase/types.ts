@@ -507,6 +507,7 @@ export type Database = {
           launched_at: string | null
           live_url: string | null
           name: string
+          portal_config: Json | null
           project_type: Database["public"]["Enums"]["project_type"]
           staging_url: string | null
           start_date: string | null
@@ -523,6 +524,7 @@ export type Database = {
           launched_at?: string | null
           live_url?: string | null
           name: string
+          portal_config?: Json | null
           project_type?: Database["public"]["Enums"]["project_type"]
           staging_url?: string | null
           start_date?: string | null
@@ -539,6 +541,7 @@ export type Database = {
           launched_at?: string | null
           live_url?: string | null
           name?: string
+          portal_config?: Json | null
           project_type?: Database["public"]["Enums"]["project_type"]
           staging_url?: string | null
           start_date?: string | null
