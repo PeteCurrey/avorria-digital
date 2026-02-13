@@ -309,16 +309,9 @@ const About = () => {
                     </div>
                   ))}
                 </ScrollRevealGrid>
-              </div>
-            </div>
-          </section>
-        </SectionReveal>
 
-        {/* ─── Who We Work Best With ─── */}
-        <SectionReveal type="wipe-up">
-          <section className="py-24 md:py-32 bg-background">
-            <div className="container mx-auto px-4 sm:px-6">
-              <div className="max-w-5xl mx-auto">
+                {/* Divider */}
+                <div className="my-20 border-t border-border/30" />
                 <ScrollReveal variant="fade-up" duration={500}>
                   <div className="text-center mb-12">
                     <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4 text-foreground">
@@ -410,7 +403,7 @@ const About = () => {
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+                  <Button size="lg" asChild className="w-full sm:w-auto border border-white/30 bg-white/[0.08] text-white hover:bg-white/15 backdrop-blur-sm">
                     <Link to="/contact">Book a strategy call</Link>
                   </Button>
                 </div>
