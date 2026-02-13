@@ -1,9 +1,18 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
-import { ShieldAlert, ArrowLeft } from "lucide-react";
+import { ShieldAlert, ArrowLeft, LogOut } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Unauthorized = () => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOutAndLogin = async () => {
+    await signOut();
+    navigate("/auth/login?returnTo=/admin");
+  };
+
   return (
     <>
       <Helmet>
@@ -23,10 +32,19 @@ const Unauthorized = () => {
             <p className="text-lg text-muted-foreground">
               You don't have permission to access this page.
             </p>
+            {user?.email && (
+              <p className="text-sm text-muted-foreground">
+                Signed in as <span className="font-medium text-foreground">{user.email}</span>
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
-            <Button asChild variant="default">
+            <Button onClick={handleSignOutAndLogin} variant="default">
+              <LogOut className="mr-2 h-4 w-4" />
+              Sign Out &amp; Sign In
+            </Button>
+            <Button asChild variant="outline">
               <Link to="/">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Go Home
