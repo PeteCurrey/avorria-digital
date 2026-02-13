@@ -1,137 +1,49 @@
-import React, { createContext, useContext, useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useSpring, useTransform, MotionValue } from 'framer-motion';
+import React, { createContext, useContext, useEffect, useRef } from 'react';
+import Lenis from 'lenis';
 
 interface SmoothScrollContextType {
-  scrollY: MotionValue<number>;
-  scrollYProgress: MotionValue<number>;
-  scrollVelocity: number;
+  lenis: Lenis | null;
 }
 
-const SmoothScrollContext = createContext<SmoothScrollContextType | null>(null);
+const SmoothScrollContext = createContext<SmoothScrollContextType>({ lenis: null });
 
-export const useSmoothScroll = () => {
-  const context = useContext(SmoothScrollContext);
-  if (!context) {
-    throw new Error('useSmoothScroll must be used within SmoothScrollProvider');
-  }
-  return context;
-};
+export const useSmoothScroll = () => useContext(SmoothScrollContext);
 
 interface SmoothScrollProviderProps {
   children: React.ReactNode;
 }
 
 export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ children }) => {
-  const [scrollVelocity, setScrollVelocity] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [pageHeight, setPageHeight] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
-
-  const { scrollY, scrollYProgress } = useScroll();
-  
-  // Smooth spring for scroll position
-  const smoothScrollY = useSpring(scrollY, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001,
-  });
-
-  // IMPORTANT: All hooks must be called unconditionally at top level
-  // This transform is used for the smooth scroll effect on desktop
-  const contentY = useTransform(smoothScrollY, (value) => -value);
+  const lenisRef = useRef<Lenis | null>(null);
 
   useEffect(() => {
-    // Check for mobile and reduced motion preference
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 1024 || 'ontouchstart' in window);
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    lenisRef.current = lenis;
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     };
-    
-    const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-    setPrefersReducedMotion(motionQuery.matches);
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-    
-    const handleMotionChange = (e: MediaQueryListEvent) => {
-      setPrefersReducedMotion(e.matches);
-    };
-    motionQuery.addEventListener('change', handleMotionChange);
-    
+    requestAnimationFrame(raf);
+
     return () => {
-      window.removeEventListener('resize', checkMobile);
-      motionQuery.removeEventListener('change', handleMotionChange);
+      lenis.destroy();
+      lenisRef.current = null;
     };
   }, []);
 
-  useEffect(() => {
-    if (isMobile || prefersReducedMotion) return;
-    
-    const updateHeight = () => {
-      if (scrollRef.current) {
-        setPageHeight(scrollRef.current.scrollHeight);
-      }
-    };
-    
-    updateHeight();
-    
-    // Use ResizeObserver for dynamic content
-    const resizeObserver = new ResizeObserver(updateHeight);
-    if (scrollRef.current) {
-      resizeObserver.observe(scrollRef.current);
-    }
-    
-    return () => resizeObserver.disconnect();
-  }, [isMobile, prefersReducedMotion]);
-
-  useEffect(() => {
-    let lastScrollY = 0;
-    const unsubscribe = scrollY.on('change', (latest) => {
-      setScrollVelocity(latest - lastScrollY);
-      lastScrollY = latest;
-    });
-    return unsubscribe;
-  }, [scrollY]);
-
-  // Conditional rendering instead of early return (hooks already called above)
-  const shouldUseSmoothScroll = !isMobile && !prefersReducedMotion;
-
   return (
-    <SmoothScrollContext.Provider value={{ 
-      scrollY: shouldUseSmoothScroll ? smoothScrollY : scrollY, 
-      scrollYProgress, 
-      scrollVelocity 
-    }}>
-      {shouldUseSmoothScroll ? (
-        <>
-          <div 
-            ref={containerRef}
-            style={{ 
-              position: 'fixed',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              overflow: 'hidden',
-            }}
-          >
-            <motion.div
-              ref={scrollRef}
-              style={{ 
-                y: contentY,
-                willChange: 'transform',
-              }}
-            >
-              {children}
-            </motion.div>
-          </div>
-          {/* Spacer to maintain scroll height */}
-          <div style={{ height: pageHeight }} />
-        </>
-      ) : (
-        children
-      )}
+    <SmoothScrollContext.Provider value={{ lenis: lenisRef.current }}>
+      {children}
     </SmoothScrollContext.Provider>
   );
 };

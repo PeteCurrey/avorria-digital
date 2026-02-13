@@ -16,6 +16,7 @@ import AIConsultantTrigger from "./components/ai-consultant/AIConsultantTrigger"
 import NavigationProgress from "./components/NavigationProgress";
 import CustomCursor from "./components/CustomCursor";
 import PageLoader from "./components/PageLoader";
+import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const location = useLocation();
@@ -101,7 +102,7 @@ const App = () => {
             <BrowserRouter>
               <PageLoader onComplete={handleLoaderComplete} />
               {!isLoading && (
-                <>
+                <SmoothScrollProvider>
                   <ScrollToTop />
                   <BackToTop />
                   <NavigationProgress />
@@ -111,7 +112,7 @@ const App = () => {
                   <Layout>
                     <AnimatedRoutes />
                   </Layout>
-                </>
+                </SmoothScrollProvider>
               )}
             </BrowserRouter>
           </AuthProvider>
