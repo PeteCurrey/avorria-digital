@@ -290,7 +290,7 @@ const CaseStudies = () => {
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
-                <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline-dark" size="lg" asChild>
                   <Link to="/web-design/studio">Try the Studio</Link>
                 </Button>
               </div>

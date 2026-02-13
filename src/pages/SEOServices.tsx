@@ -415,7 +415,7 @@ const SEOServices = () => {
                 <p className="text-white/60 mb-4">
                   Don't see your industry? We work with many sectors.
                 </p>
-                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline-dark" size="sm" asChild>
                   <Link to="/contact">Discuss your industry</Link>
                 </Button>
               </CardContent>
@@ -446,7 +446,7 @@ const SEOServices = () => {
           </ScrollRevealGrid>
           <div className="text-center mt-12">
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="outline" size="lg" asChild className="border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline-dark" size="lg" asChild>
                 <Link to="/case-studies">View case studies</Link>
               </Button>
               <Button variant="accent" size="lg" asChild>
@@ -475,7 +475,7 @@ const SEOServices = () => {
                 <p className="text-white/60 mb-4">
                   Performance-focused SEO for Sheffield and South Yorkshire businesses.
                 </p>
-                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline-dark" size="sm" asChild>
                   <Link to="/seo-agency/sheffield">
                     Learn more
                     <ArrowRight className="ml-2" size={16} />
@@ -489,7 +489,7 @@ const SEOServices = () => {
                 <p className="text-white/60 mb-4">
                   Pipeline-focused SEO strategy for London-based teams.
                 </p>
-                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline-dark" size="sm" asChild>
                   <Link to="/seo-agency/london">
                     Learn more
                     <ArrowRight className="ml-2" size={16} />
@@ -503,7 +503,7 @@ const SEOServices = () => {
                 <p className="text-white/60 mb-4">
                   Work with us wherever you're based in the UK.
                 </p>
-                <Button variant="outline" size="sm" asChild className="border-white/20 text-white hover:bg-white/10">
+                <Button variant="outline-dark" size="sm" asChild>
                   <Link to="/digital-marketing-agency/uk">
                     Learn more
                     <ArrowRight className="ml-2" size={16} />
@@ -557,7 +557,7 @@ const SEOServices = () => {
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
-              <Button variant="outline" size="lg" asChild className="w-full sm:w-auto border-white/20 text-white hover:bg-white/10">
+              <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
                 <Link to="/contact">Book an SEO strategy call</Link>
               </Button>
             </div>

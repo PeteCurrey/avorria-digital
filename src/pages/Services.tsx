@@ -202,7 +202,7 @@ const Services = () => {
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>
-                  <Button variant="outline" size="lg" asChild className="border-white/30 text-white hover:bg-white/10">
+                  <Button variant="outline-dark" size="lg" asChild>
                     <Link to="/free-seo-website-audit">Get Free Audit</Link>
                   </Button>
                 </motion.div>
@@ -370,10 +370,10 @@ const Services = () => {
                           <h3 className="text-xl font-semibold text-white">{item.title}</h3>
                           <p className="text-white/80 leading-relaxed">{item.description}</p>
                           <Button
-                            variant="outline"
+                            variant="outline-dark"
                             size="sm"
                             asChild
-                            className="w-full border-white/30 text-white hover:bg-white/20"
+                            className="w-full"
                           >
                             <Link to={item.href}>
                               {item.cta}
@@ -407,10 +407,10 @@ const Services = () => {
                       </Link>
                     </Button>
                     <Button
-                      variant="outline"
+                      variant="outline-dark"
                       size="lg"
                       asChild
-                      className="w-full sm:w-auto border-white/30 text-white hover:bg-white/20"
+                      className="w-full sm:w-auto"
                     >
                       <Link to="/contact">Book a strategy call</Link>
                     </Button>
