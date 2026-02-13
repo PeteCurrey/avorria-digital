@@ -1,43 +1,54 @@
 
 
-## Reporting Page — Introduction Section + Button Fixes + Beam Hover
+## Fix White-on-White Secondary Buttons Across the Entire Site
 
-### 1. Add Introduction Section Below the Hero
+### Root Cause
+The `outline` button variant in the design system has `bg-background` (white) baked in. When pages on dark sections add `text-white` and `border-white/20` overrides, the white background still shows through, making the text invisible until hover.
 
-Insert a new section between the hero and the "numbers that matter" section. This will be a light-background section with a two-column layout:
-- **Left column**: A short heading like "Your marketing data, finally in one place" with 2-3 paragraphs explaining what the reporting service is — live dashboards, written summaries, a cadence that keeps you in control
-- **Right column**: 3-4 short bullet-style feature highlights with icons (e.g. "Live dashboards updated in real time", "Plain-English written summaries", "Connected to your CRM, GA4 and ad platforms", "No 40-slide decks")
-- Wrapped in `SectionReveal` with staggered `motion` entrance
+### Solution — Two-Part Fix
 
-### 2. Fix Secondary Buttons — White-on-White Issue
+#### Part 1: Update the `outline-dark` Button Variant (Design System Level)
 
-Two locations have invisible "Book a Strategy Call" buttons on dark backgrounds:
+Update `src/components/ui/button.tsx` to make the `outline-dark` variant the proper frosted glass style with beam hover:
 
-**Hero (lines 137-144):**
-Current: `border-white/20 text-white hover:bg-white/10` — the text is `text-white` but against the dark background it should be visible. The issue is likely that `variant="outline"` base styles are overriding with a white/light background. Fix: use `variant="outline-dark"` which already exists in the button variants and has visible styling, OR apply explicit classes: `bg-white/[0.06] border-white/20 text-white backdrop-blur-sm` as the default state (the current hover appearance becomes the resting state).
+- **Resting state**: `bg-white/[0.06] border-white/20 text-white backdrop-blur-sm` — dark, frosted, semi-transparent with visible text
+- **Hover state**: `hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98]` — gentle shrink + accent border glow
+- This eliminates the need for every page to manually override classes
 
-**CTA section (lines 338-345):**
-Same fix — make the resting state show the frosted glass appearance with visible text.
+#### Part 2: Update All Affected Buttons Across the Site
 
-### 3. Add Beam Border Animation on Hover for Secondary Buttons
+Switch every `variant="outline"` button on a dark background from messy class overrides to the clean `variant="outline-dark"`. Remove the redundant `border-white`, `text-white`, `hover:bg-white` class overrides since the variant handles it all.
 
-Wrap both secondary buttons in the existing `BeamBorder` component from `src/components/BeamBorder.tsx`. This component already:
-- Shows a beam animation on hover (`opacity-0 group-hover:opacity-100`)
-- Has a glow effect
-- Uses the accent colour
+**Files and locations to update:**
 
-The `BeamBorder` wraps its children in a `bg-card` container, so we'll need to adjust: instead of wrapping the `Button`, we'll add inline beam animation styles directly to the buttons using a small wrapper `div` with the `group` class and the beam pseudo-elements. This keeps the button's `asChild` pattern working cleanly.
+| File | Instances | Button Text |
+|------|-----------|-------------|
+| `src/pages/Services.tsx` | 4 | "Get Free Audit", 3x "Where Should You Start" cards, "Book a strategy call" |
+| `src/pages/SEOServices.tsx` | 6 | "Discuss your industry", "View case studies", 3x location cards, "Book an SEO strategy call" |
+| `src/pages/WebDesign.tsx` | 2 | "Request a website teardown", "Talk about a rebuild" |
+| `src/pages/Analytics.tsx` | 1 | "View all services" |
+| `src/pages/SocialPersonalBrand.tsx` | 1 | "View all services" |
+| `src/pages/ContentEmail.tsx` | 1 | "View all services" |
+| `src/pages/CaseStudies.tsx` | 1 | "Try the Studio" |
+| `src/components/ContentBand.tsx` | 1 | Secondary CTA (reusable component) |
+| `src/components/case-studies/CaseCTACluster.tsx` | 1 | "Download Case Study PDF" |
 
-Approach: Create a small `BeamButton` wrapper that applies the beam border effect around any button — similar to `BeamBorder` but without forcing `bg-card` on the inner content. The beam animates on hover with a gentle accent glow.
+**Note:** `src/pages/Home.tsx` already has `bg-white/10` in its classes so it works — but we'll clean it up to use the variant too. `src/pages/Reporting.tsx` was already fixed in a previous session with `bg-white/[0.06]`.
 
-### Technical Details
+### What Each Button Will Look Like
 
-**File: `src/pages/Reporting.tsx`**
+- **Resting**: Dark frosted glass background, white text, subtle white/pink border — clearly readable
+- **Hover**: Gentle 2% scale-down (shrink), border shifts to accent pink, slightly brighter background
 
-- Add new intro section (approximately 20-25 lines) between lines 147 and 149
-- Import additional icons: `Globe`, `FileText`, `Link2`, `Clock`
-- Fix hero secondary button (line 140): change classes to `bg-white/[0.06] border-white/20 text-white hover:bg-white/10 backdrop-blur-sm`
-- Fix CTA secondary button (line 340): same class fix
-- Wrap both secondary buttons in a beam hover wrapper using inline styles matching `BeamBorder` pattern but without the card background
-
-No new files or dependencies needed. Single file edit.
+### Files Modified
+- `src/components/ui/button.tsx` — update `outline-dark` variant styling
+- `src/pages/Services.tsx` — 4 buttons
+- `src/pages/SEOServices.tsx` — 6 buttons
+- `src/pages/WebDesign.tsx` — 2 buttons
+- `src/pages/Analytics.tsx` — 1 button
+- `src/pages/SocialPersonalBrand.tsx` — 1 button
+- `src/pages/ContentEmail.tsx` — 1 button
+- `src/pages/CaseStudies.tsx` — 1 button
+- `src/pages/Home.tsx` — 1 button
+- `src/components/ContentBand.tsx` — 1 button
+- `src/components/case-studies/CaseCTACluster.tsx` — 1 button
