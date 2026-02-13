@@ -3,9 +3,9 @@ import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Building2, Car, Truck } from "lucide-react";
+import { ArrowRight, Sparkles, Building2, Car, Truck, Loader2 } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
-import { caseStudies as staticCaseStudies, filterOptions, CaseStudy } from "@/data/caseStudies";
+import type { CaseStudy } from "@/data/caseStudies";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseFeaturedCarousel } from "@/components/case-studies/CaseFeaturedCarousel";
@@ -57,16 +57,26 @@ const CaseStudies = () => {
     year: "all",
   });
 
-  // Fetch from database
-  const { data: dbCaseStudies } = useCaseStudiesPublic();
+  // Fetch from database — this is now the sole data source
+  const { data: dbCaseStudies, isLoading } = useCaseStudiesPublic();
 
-  // Merge DB and static case studies (DB takes priority for matching slugs)
+  // Convert DB entries to component format
   const caseStudies = useMemo(() => {
-    const dbConverted = dbCaseStudies?.map(dbToCaseStudy) || [];
-    const dbSlugs = new Set(dbConverted.map(cs => cs.slug));
-    const staticOnly = staticCaseStudies.filter(cs => !dbSlugs.has(cs.slug));
-    return [...dbConverted, ...staticOnly];
+    return dbCaseStudies?.map(dbToCaseStudy) || [];
   }, [dbCaseStudies]);
+
+  // Build filter options dynamically from database data
+  const filterOptions = useMemo(() => ({
+    sectors: [...new Set(caseStudies.map(cs => cs.sector))],
+    services: [...new Set(caseStudies.flatMap(cs => cs.services))],
+    outcomes: [
+      { value: 'leads', label: 'Lead Generation' },
+      { value: 'revenue', label: 'Revenue Growth' },
+      { value: 'traffic', label: 'Traffic Growth' },
+      { value: 'efficiency', label: 'Cost Efficiency' },
+    ],
+    years: [...new Set(caseStudies.map(cs => cs.year))].sort((a, b) => b - a),
+  }), [caseStudies]);
 
   const featuredCases = useMemo(() => {
     return caseStudies.filter(cs => cs.isFeatured);
@@ -86,7 +96,7 @@ const CaseStudies = () => {
       if (filters.year !== "all" && cs.year.toString() !== filters.year) return false;
       return true;
     });
-  }, [filters]);
+  }, [filters, caseStudies]);
 
   const handleFilterChange = (key: keyof FilterState, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
@@ -117,6 +127,14 @@ const CaseStudies = () => {
       description: "Premium digital experiences for automotive",
     },
   ];
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[hsl(220,25%,8%)]">
+        <Loader2 className="h-8 w-8 animate-spin text-accent" />
+      </div>
+    );
+  }
 
   return (
     <>
@@ -160,7 +178,7 @@ const CaseStudies = () => {
       </Helmet>
 
       <div className="min-h-screen bg-[hsl(220,25%,8%)]">
-        {/* Hero - Using penthouse image since race car is now on Home page */}
+        {/* Hero */}
         <CaseHero
           isLobby
           headline="Our Work"
@@ -206,10 +224,12 @@ const CaseStudies = () => {
         </section>
 
         {/* Featured Carousel */}
-        <CaseFeaturedCarousel
-          cases={featuredCases}
-          onCaseClick={handleTileClick}
-        />
+        {featuredCases.length > 0 && (
+          <CaseFeaturedCarousel
+            cases={featuredCases}
+            onCaseClick={handleTileClick}
+          />
+        )}
 
         {/* Filter Bar */}
         <CaseFilterBar
