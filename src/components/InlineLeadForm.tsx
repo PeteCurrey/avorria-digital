@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,7 +18,8 @@ import { Card } from "@/components/ui/card";
 import { trackEvent, EVENTS, trackFormStart, trackAuditReportGenerated, trackAuditReportView, trackAuditCTAClick } from "@/lib/tracking";
 
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, CheckCircle, FileText, AlertCircle } from "lucide-react";
+import { Loader2, CheckCircle, FileText, AlertCircle, Download } from "lucide-react";
+import { generateAuditPDF, type AuditPDFData } from "@/lib/audit-pdf-generator";
 
 const formSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters").max(100),
@@ -61,6 +62,13 @@ interface AuditResult {
   reportUrl: string;
   overallScore: number;
   emailSent: boolean;
+  companyName: string;
+  websiteUrl: string;
+  userName: string;
+  executiveSummary: string;
+  sections: AuditPDFData["sections"];
+  quickWins: string[];
+  roadmap90Days: string[];
 }
 
 export function InlineLeadForm({ source = "inline", variant = "default" }: InlineLeadFormProps) {
@@ -178,6 +186,13 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
         reportUrl: auditData.reportUrl,
         overallScore: auditData.overallScore,
         emailSent: auditData.emailSent,
+        companyName: data.company,
+        websiteUrl: data.website,
+        userName: data.name,
+        executiveSummary: auditData.executiveSummary || "",
+        sections: auditData.sections,
+        quickWins: auditData.quickWins || [],
+        roadmap90Days: auditData.roadmap90Days || [],
       });
       setStatus("success");
       
@@ -234,11 +249,24 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button asChild size="lg" onClick={() => trackAuditReportView(auditResult.reportUrl, 'view')}>
-              <a href={auditResult.reportUrl} target="_blank" rel="noopener noreferrer">
-                <FileText className="w-4 h-4 mr-2" />
-                View Full Report
-              </a>
+            <Button 
+              size="lg" 
+              onClick={() => {
+                trackAuditReportView(auditResult.reportUrl, 'download');
+                generateAuditPDF({
+                  companyName: auditResult.companyName,
+                  websiteUrl: auditResult.websiteUrl,
+                  userName: auditResult.userName,
+                  overallScore: auditResult.overallScore,
+                  executiveSummary: auditResult.executiveSummary,
+                  sections: auditResult.sections,
+                  quickWins: auditResult.quickWins,
+                  roadmap90Days: auditResult.roadmap90Days,
+                });
+              }}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Download Full Report
             </Button>
             <Button 
               variant="outline" 

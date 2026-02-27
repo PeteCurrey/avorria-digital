@@ -179,6 +179,10 @@ serve(async (req) => {
         reportUrl,
         emailSent,
         overallScore: auditResult.overallScore,
+        executiveSummary: auditResult.executiveSummary,
+        sections: auditResult.sections,
+        quickWins: auditResult.quickWins,
+        roadmap90Days: auditResult.roadmap90Days,
         message: emailSent
           ? "Your audit has been generated and emailed to you!"
           : "Your audit has been generated! Download link is ready.",
