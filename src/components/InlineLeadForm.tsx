@@ -251,9 +251,9 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <Button 
               size="lg" 
-              onClick={() => {
+              onClick={async () => {
                 trackAuditReportView(auditResult.reportUrl, 'download');
-                generateAuditPDF({
+                await generateAuditPDF({
                   companyName: auditResult.companyName,
                   websiteUrl: auditResult.websiteUrl,
                   userName: auditResult.userName,
