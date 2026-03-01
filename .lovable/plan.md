@@ -1,106 +1,71 @@
 
-## Enhance Paid Media and SEO Service Pages
 
-### Overview
-Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
+## Enhance Audit PDF — Visual Polish, Website Screenshot, Agency Brochure & Proposal
 
----
+### Issues to Fix
 
-### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
+1. **Pink accent lines** — currently 0.4mm and 1.2mm thick; reduce to 0.15–0.3mm
+2. **Headers** — some still use `bold`; switch all section/page headers to `normal` (light weight)
+3. **Watermark** — currently "AVORRIA" text at 110pt/7% opacity; change to ~150pt, 4% opacity, spanning full diagonal, and append the pink full stop: "AVORRIA." with the dot in accent colour (faded)
+4. **Recommendations text overlap** — the code draws the background card AFTER the text (lines 672–730), causing a shadow/overlap artifact. Fix: draw card first, then render text only once (remove the double-render pattern)
 
-**Hero Section:**
-- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
-- Use the existing `service-paid-media.jpg` asset as the parallax background image
-- Keep the headline and copy but improve the subheadline badge
-- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
+### New Pages to Add
 
-**New Introduction Section (below hero):**
-- Two-column layout matching the Reporting page pattern
-- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
-- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
-- Wrapped in `SectionReveal` with staggered `motion` entrance animations
+**Page 2 — Website Screenshot**
+- Use `html2canvas`-style approach: fetch a screenshot of `data.websiteUrl` homepage via a lightweight screenshot edge function, or use a placeholder frame with the URL displayed prominently
+- Since we can't reliably screenshot external sites client-side, we'll use the Firecrawl connector (already configured) or render a styled browser mockup frame showing the URL with a placeholder visual
+- Realistic approach: render a browser chrome mockup (address bar, dots) with the website URL, and note "Homepage at time of audit" — this is visually effective without requiring external screenshots
 
-**Pain Points Section:**
-- Keep the content but enhance with `SectionReveal` animation
-- Add more descriptive intro paragraph above the pain point list
+**Pages: About Avorria (2-3 pages)**
+- "Who We Are" — brief agency intro, positioning statement, team size, years in business
+- "Our Services" — 4 service cards (SEO, Web Design, Paid Media, Content & Email) with one-line descriptions
+- "Why Avorria" — 3-4 differentiators (data-led, transparent reporting, senior-only teams, no lock-in contracts)
 
-**How We Approach Paid Media Section:**
-- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
+**Pages: Proposal Section (2-3 pages)**
+- "Recommended Package" — based on audit scores, suggest services that address weak areas
+- Pricing table with the three engagement models (Ongoing Retainer £4k–12k, Fixed Project £8k–40k, Strategy & Advisory £1.5k–4k)
+- "Suggested Timeline" — 6-month phased roadmap with monthly milestones tied to the audit findings
+- "Investment Summary" — clean table with recommended services, estimated costs, and expected outcomes
 
-**New "What You Get" Section:**
-- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
+### Implementation Details
 
-**New "Process Timeline" Section:**
-- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
+**Watermark update:**
+- 150pt font, 4% opacity, full diagonal across page
+- Render "AVORRIA" in light grey, then append "." in accent pink (same opacity)
 
-**Platforms Section:**
-- Keep but enrich with more descriptive content per platform
-- Add a brief intro paragraph
+**Accent line thinning:**
+- Footer line: 0.4 → 0.15mm
+- Section title underline: 1.2 → 0.6mm
+- Card top accent: 0.8 → 0.3mm
+- Cover top/bottom bars: 2.5 → 1.5mm
 
-**New FAQ Section:**
-- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
-- Add `FAQSchema` for SEO
-- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
+**Fix recommendations double-render:**
+- Draw the background card and left accent bar FIRST
+- Then render text ONCE on top — eliminates the shadow/overlap completely
 
-**CTA Section:**
-- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
+**Proposal logic:**
+- Score-based service recommendations: if technical/performance < 60 → recommend Web Design; if SEO < 60 → recommend SEO; if conversion < 60 → recommend Paid Media; always include content if content score < 60
+- Pricing pulled from the memory context (Retainer £4k–12k, Fixed £8k–40k, Advisory £1.5k–4k)
 
-**SEO Enhancements:**
-- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
-- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
-
----
-
-### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
-
-**New Introduction Section (below hero, before pain points):**
-- Same two-column layout as Reporting and Paid Media pages
-- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
-- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
-- Wrapped in `SectionReveal` with staggered `motion` entrance
-
-**Content Enrichment:**
-- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
-- Enrich the case study teaser cards with slightly more descriptive content
-
-**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
-
----
-
-### Visual Rhythm
-
-**Paid Media (top to bottom):**
-1. Hero — cinematic with `service-paid-media.jpg` parallax background
-2. Introduction — light background, two-column explainer
-3. Pain Points — gradient background, enhanced list
-4. How We Approach — dark background, 4-card grid + pull-quote
-5. What You Get — gradient background, deliverables checklist
-6. Process Timeline — mesh background, phased timeline
-7. Platforms — dark background, enriched 3-column cards
-8. FAQ — mesh background, accordion with schema
-9. CTA — gradient background, fixed buttons
-
-**SEO Services (top to bottom):**
-1. Hero (existing) — with `service-seo.jpg`
-2. **Introduction (NEW)** — light background, two-column explainer
-3. Pain Points (existing)
-4. What's Included (existing) + **pull-quote (NEW)**
-5. Process Timeline (existing)
-6. Deliverables (existing)
-7. SEO by Industry (existing)
-8. Case Studies (existing, enriched)
-9. SEO by Location (existing)
-10. FAQ (existing)
-11. CTA (existing)
-
----
+### Page Order (final)
+1. Cover (existing, refined)
+2. Website Screenshot / Browser Mockup (NEW)
+3. Table of Contents (updated with new sections)
+4. Executive Summary
+5. Score Overview & Radar
+6. Technical Health
+7. SEO Analysis
+8. Performance Audit
+9. Content Quality
+10. Conversion Optimisation
+11. Quick Wins
+12. 90-Day Roadmap
+13. About Avorria (NEW)
+14. Our Services (NEW)
+15. Recommended Package & Pricing (NEW)
+16. Investment & Timeline (NEW)
+17. Next Steps / CTA (existing, refined)
 
 ### Files Modified
-- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
-- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+- `src/lib/audit-pdf-generator.ts` — major enhancement: fix double-render, thin lines, light headers, enhanced watermark, add ~6 new pages (screenshot mockup, about, services, proposal, pricing, timeline)
 
-### New Imports
-- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
-- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
-
-### No new dependencies needed
