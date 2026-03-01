@@ -40,24 +40,24 @@ import bgRaceCar from "@/assets/bg-race-car.png";
 
 // Section definitions for scroll spy navigation
 const homeSections = [
-  { id: "hero", label: "Home" },
-  { id: "about", label: "About" },
-  { id: "services", label: "Services" },
-  { id: "process", label: "Process" },
-  { id: "case-studies", label: "Results" },
-  { id: "testimonials", label: "Testimonials" },
-  { id: "faq", label: "FAQ" },
-];
+{ id: "hero", label: "Home" },
+{ id: "about", label: "About" },
+{ id: "services", label: "Services" },
+{ id: "process", label: "Process" },
+{ id: "case-studies", label: "Results" },
+{ id: "testimonials", label: "Testimonials" },
+{ id: "faq", label: "FAQ" }];
+
 
 const Home = () => {
   // Scroll spy for section navigation
   const activeSection = useScrollSpy(homeSections, 120);
-  
+
   // Fetch case studies from database
   const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
   // Fetch testimonials from database
   const { data: dbTestimonials } = useTestimonialsPublic();
-  
+
   // Organization schema for brand visibility in search results
   const organizationSchema = {
     "@context": "https://schema.org",
@@ -71,7 +71,7 @@ const Home = () => {
       "@type": "ImageObject",
       url: "https://avorria.com/logo.png",
       width: 512,
-      height: 512,
+      height: 512
     },
     image: "https://avorria.com/og-image.jpg",
     email: "hello@avorria.com",
@@ -79,91 +79,91 @@ const Home = () => {
     foundingDate: "2020",
     slogan: "Digital Marketing, SEO & Web Experiences that Actually Convert",
     knowsAbout: [
-      "Search Engine Optimization",
-      "Digital Marketing",
-      "Web Design",
-      "Paid Media Advertising",
-      "Google Ads",
-      "Content Marketing",
-      "Analytics & Tracking",
-      "Conversion Rate Optimization",
-    ],
+    "Search Engine Optimization",
+    "Digital Marketing",
+    "Web Design",
+    "Paid Media Advertising",
+    "Google Ads",
+    "Content Marketing",
+    "Analytics & Tracking",
+    "Conversion Rate Optimization"],
+
     sameAs: [
-      "https://www.linkedin.com/company/avorria",
-      "https://twitter.com/avorria",
-    ],
+    "https://www.linkedin.com/company/avorria",
+    "https://twitter.com/avorria"],
+
     address: {
       "@type": "PostalAddress",
       streetAddress: "Innovation Centre",
       addressLocality: "Chesterfield",
       addressRegion: "Derbyshire",
       postalCode: "S41 7QJ",
-      addressCountry: "GB",
+      addressCountry: "GB"
     },
     areaServed: [
-      { "@type": "AdministrativeArea", name: "Derbyshire" },
-      { "@type": "City", name: "Chesterfield" },
-      { "@type": "City", name: "Derby" },
-      { "@type": "City", name: "Nottingham" },
-      { "@type": "City", name: "Sheffield" },
-      { "@type": "City", name: "Manchester" },
-      { "@type": "City", name: "Birmingham" },
-      { "@type": "City", name: "London" },
-      { "@type": "Country", name: "United Kingdom" },
-    ],
+    { "@type": "AdministrativeArea", name: "Derbyshire" },
+    { "@type": "City", name: "Chesterfield" },
+    { "@type": "City", name: "Derby" },
+    { "@type": "City", name: "Nottingham" },
+    { "@type": "City", name: "Sheffield" },
+    { "@type": "City", name: "Manchester" },
+    { "@type": "City", name: "Birmingham" },
+    { "@type": "City", name: "London" },
+    { "@type": "Country", name: "United Kingdom" }],
+
     serviceArea: {
       "@type": "GeoCircle",
       geoMidpoint: {
         "@type": "GeoCoordinates",
         latitude: 53.2350,
-        longitude: -1.4210,
+        longitude: -1.4210
       },
-      geoRadius: "200 mi",
+      geoRadius: "200 mi"
     },
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Digital Marketing Services",
       itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "SEO Services",
-            description: "Technical SEO, content strategy and on-site optimisation focused on commercial keywords.",
-            url: "https://avorria.com/services/seo",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Paid Media",
-            description: "Google Ads and paid acquisition with clear ROAS and CPL targets.",
-            url: "https://avorria.com/services/paid-media",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Web Design & Development",
-            description: "High-end websites built for speed, clarity and conversion.",
-            url: "https://avorria.com/services/web-design",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Analytics & Tracking",
-            description: "Marketing analytics, tracking setup and data-driven reporting.",
-            url: "https://avorria.com/services/analytics",
-          },
-        },
-      ],
-    },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "SEO Services",
+          description: "Technical SEO, content strategy and on-site optimisation focused on commercial keywords.",
+          url: "https://avorria.com/services/seo"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Paid Media",
+          description: "Google Ads and paid acquisition with clear ROAS and CPL targets.",
+          url: "https://avorria.com/services/paid-media"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Web Design & Development",
+          description: "High-end websites built for speed, clarity and conversion.",
+          url: "https://avorria.com/services/web-design"
+        }
+      },
+      {
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: "Analytics & Tracking",
+          description: "Marketing analytics, tracking setup and data-driven reporting.",
+          url: "https://avorria.com/services/analytics"
+        }
+      }]
+
+    }
   };
-  
+
   // Local Business schema for local SEO
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -182,29 +182,29 @@ const Home = () => {
       addressLocality: "Chesterfield",
       addressRegion: "Derbyshire",
       postalCode: "S41 7QJ",
-      addressCountry: "GB",
+      addressCountry: "GB"
     },
     geo: {
       "@type": "GeoCoordinates",
       latitude: 53.2350,
-      longitude: -1.4210,
+      longitude: -1.4210
     },
     areaServed: [
-      { "@type": "AdministrativeArea", name: "Derbyshire" },
-      { "@type": "City", name: "Chesterfield" },
-      { "@type": "City", name: "Derby" },
-      { "@type": "City", name: "Nottingham" },
-      { "@type": "City", name: "Sheffield" },
-      { "@type": "City", name: "Manchester" },
-      { "@type": "City", name: "London" },
-      { "@type": "Country", name: "United Kingdom" },
-    ],
+    { "@type": "AdministrativeArea", name: "Derbyshire" },
+    { "@type": "City", name: "Chesterfield" },
+    { "@type": "City", name: "Derby" },
+    { "@type": "City", name: "Nottingham" },
+    { "@type": "City", name: "Sheffield" },
+    { "@type": "City", name: "Manchester" },
+    { "@type": "City", name: "London" },
+    { "@type": "Country", name: "United Kingdom" }],
+
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
       dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "09:00",
-      closes: "17:30",
-    },
+      closes: "17:30"
+    }
   };
 
   const services = [{
@@ -265,11 +265,11 @@ const Home = () => {
     headline: "Technical precision meets digital excellence",
     image: ognCraneHero,
     metrics: [
-      { label: "Quality Enquiries", value: "+218%" },
-      { label: "Organic Traffic", value: "+312%" },
-      { label: "Conversion Rate", value: "4.8%" },
-    ],
-    services: ["Web Design", "SEO", "Content Strategy"],
+    { label: "Quality Enquiries", value: "+218%" },
+    { label: "Organic Traffic", value: "+312%" },
+    { label: "Conversion Rate", value: "4.8%" }],
+
+    services: ["Web Design", "SEO", "Content Strategy"]
   }, {
     slug: "entirefm-rebrand",
     client: "EntireFM",
@@ -277,11 +277,11 @@ const Home = () => {
     headline: "From outdated to industry-leading",
     image: entirefmHero,
     metrics: [
-      { label: "Enquiry Increase", value: "+156%" },
-      { label: "Bounce Rate", value: "-47%" },
-      { label: "Lead Quality", value: "+71%" },
-    ],
-    services: ["Brand Development", "Web Design", "AI Integration"],
+    { label: "Enquiry Increase", value: "+156%" },
+    { label: "Bounce Rate", value: "-47%" },
+    { label: "Lead Quality", value: "+71%" }],
+
+    services: ["Brand Development", "Web Design", "AI Integration"]
   }, {
     slug: "classic-cars-direct",
     client: "Classic Cars Direct",
@@ -289,28 +289,28 @@ const Home = () => {
     headline: "Where heritage meets digital excellence",
     image: heroRaceCar,
     metrics: [
-      { label: "Lead Quality", value: "+187%" },
-      { label: "Time on Site", value: "+142%" },
-      { label: "Avg Enquiry Value", value: "+£48k" },
-    ],
-    services: ["Brand Identity", "Web Design", "SEO"],
+    { label: "Lead Quality", value: "+187%" },
+    { label: "Time on Site", value: "+142%" },
+    { label: "Avg Enquiry Value", value: "+£48k" }],
+
+    services: ["Brand Identity", "Web Design", "SEO"]
   }];
 
   // Use database case studies if available, fallback to static
-  const featuredCaseStudies = dbCaseStudies && dbCaseStudies.filter(cs => cs.is_featured).length > 0
-    ? dbCaseStudies.filter(cs => cs.is_featured).slice(0, 3).map((cs: CaseStudyDB) => ({
-        slug: cs.slug,
-        client: cs.client,
-        sector: cs.sector,
-        headline: cs.headline,
-        image: cs.hero_media_src,
-        metrics: cs.kpi_badges.slice(0, 3).map(badge => ({
-          label: badge.label,
-          value: badge.value,
-        })),
-        services: cs.services.slice(0, 3),
-      }))
-    : staticCaseStudies;
+  const featuredCaseStudies = dbCaseStudies && dbCaseStudies.filter((cs) => cs.is_featured).length > 0 ?
+  dbCaseStudies.filter((cs) => cs.is_featured).slice(0, 3).map((cs: CaseStudyDB) => ({
+    slug: cs.slug,
+    client: cs.client,
+    sector: cs.sector,
+    headline: cs.headline,
+    image: cs.hero_media_src,
+    metrics: cs.kpi_badges.slice(0, 3).map((badge) => ({
+      label: badge.label,
+      value: badge.value
+    })),
+    services: cs.services.slice(0, 3)
+  })) :
+  staticCaseStudies;
 
   const comparison = [{
     feature: "Reporting",
@@ -356,15 +356,15 @@ const Home = () => {
   }];
 
   // Use database testimonials if available, fallback to static
-  const testimonials = dbTestimonials && dbTestimonials.length > 0
-    ? dbTestimonials.map(t => ({
-        quote: t.quote,
-        author: t.author,
-        role: t.role,
-        company: t.company,
-        avatar: t.avatar_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
-      }))
-    : staticTestimonials;
+  const testimonials = dbTestimonials && dbTestimonials.length > 0 ?
+  dbTestimonials.map((t) => ({
+    quote: t.quote,
+    author: t.author,
+    role: t.role,
+    company: t.company,
+    avatar: t.avatar_url || "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+  })) :
+  staticTestimonials;
 
   const faqs = [{
     question: "What size businesses do you work with?",
@@ -391,9 +391,9 @@ const Home = () => {
       name: faq.question,
       acceptedAnswer: {
         "@type": "Answer",
-        text: faq.answer,
-      },
-    })),
+        text: faq.answer
+      }
+    }))
   };
 
   return <>
@@ -431,7 +431,7 @@ const Home = () => {
           "url": "https://avorria.com",
           "name": "Avorria",
           "description": "Performance-first digital marketing agency",
-          "publisher": {"@id": "https://avorria.com/#organization"},
+          "publisher": { "@id": "https://avorria.com/#organization" },
           "potentialAction": {
             "@type": "SearchAction",
             "target": "https://avorria.com/search?q={search_term_string}",
@@ -447,8 +447,8 @@ const Home = () => {
           "url": "https://avorria.com",
           "name": "Avorria – Digital Marketing, SEO & Web Design Agency",
           "description": "Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics for B2B and service businesses.",
-          "isPartOf": {"@id": "https://avorria.com/#website"},
-          "about": {"@id": "https://avorria.com/#organization"},
+          "isPartOf": { "@id": "https://avorria.com/#website" },
+          "about": { "@id": "https://avorria.com/#organization" },
           "primaryImageOfPage": {
             "@type": "ImageObject",
             "url": "https://avorria.com/og-image.jpg"
@@ -476,11 +476,11 @@ const Home = () => {
         <section id="hero" className="relative min-h-screen flex items-center overflow-hidden">
           {/* Static penthouse cityscape background */}
           <div className="absolute inset-0">
-            <img 
-              src={heroPenthouse} 
-              alt="Luxury penthouse cityscape" 
-              className="w-full h-full object-cover"
-            />
+            <img
+            src={heroPenthouse}
+            alt="Luxury penthouse cityscape"
+            className="w-full h-full object-cover" />
+
           </div>
           
           {/* Gradient overlay for text legibility */}
@@ -494,34 +494,34 @@ const Home = () => {
           <div className="container mx-auto px-6 relative z-10 pt-24">
             <div className="max-w-2xl lg:max-w-xl xl:max-w-2xl ml-0 mr-auto">
               <div className="space-y-5 md:space-y-6">
-                <motion.span 
-                  className="inline-block text-xs sm:text-sm font-medium text-white/60 uppercase tracking-[0.2em]"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                >
+                <motion.span
+                className="inline-block text-xs sm:text-sm font-medium text-white/60 uppercase tracking-[0.2em]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}>
+
                   Performance-First Digital Agency
                 </motion.span>
-                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-white font-light">
+                <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-white font-extralight">
                   <CharacterReveal text="Digital Marketing, SEO & Web Experiences that" delay={0.4} />
                   {" "}
                   <span className="text-accent font-normal animate-glow-pulse-accent">
                     <CharacterReveal text="Actually Convert." delay={0.8} emphasis />
                   </span>
                 </h1>
-                <motion.p 
-                  className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 1.2 }}
-                >
+                <motion.p
+                className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl font-light"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 1.2 }}>
+
                   We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </motion.p>
 
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-3 pt-3">
                   <Button variant="accent" size="default" className="text-sm sm:text-base px-6 py-5 shadow-lg" asChild>
-                    <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')}>
+                    <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')} className="bg-black/20">
                       Book a strategy call
                       <ArrowRight className="ml-2" size={18} />
                     </Link>
@@ -587,8 +587,8 @@ const Home = () => {
           speed={0.3}
           overlay="dark"
           minHeight="auto"
-          className="py-24 md:py-32"
-        >
+          className="py-24 md:py-32">
+
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <div className="max-w-6xl mx-auto">
               <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -741,18 +741,18 @@ const Home = () => {
           speed={0.2}
           overlay="dark"
           minHeight="auto"
-          className="py-24 md:py-32"
-        >
+          className="py-24 md:py-32">
+
           <div className="container mx-auto px-4 sm:px-6 relative z-10">
             <ScrollReveal variant="fade-up" duration={500}>
               <div className="text-center mb-16 md:mb-20">
-                <motion.span 
+                <motion.span
                   className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4"
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
-                  viewport={{ once: true }}
-                >
+                  viewport={{ once: true }}>
+
                   Our Services
                 </motion.span>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 text-white">
@@ -765,20 +765,20 @@ const Home = () => {
             </ScrollReveal>
             
             <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 max-w-7xl mx-auto" stagger={80} variant="fade-up">
-              {services.map((service, index) => (
-                <Link key={index} to={service.href} className="group relative overflow-hidden rounded-xl">
+              {services.map((service, index) =>
+              <Link key={index} to={service.href} className="group relative overflow-hidden rounded-xl">
                   <motion.div
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.3 }}
-                    className="relative"
-                  >
+                  whileHover={{ scale: 1.02 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative">
+
                     <Card className="h-full border border-white/10 bg-white/5 backdrop-blur-sm overflow-hidden hover:border-accent/40 transition-all duration-300">
                       <div className="relative h-64 sm:h-72 overflow-hidden rounded-xl">
-                        <img 
-                          src={service.image} 
-                          alt={service.title} 
-                          className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" 
-                        />
+                        <img
+                        src={service.image}
+                        alt={service.title}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
                         
                         <CardContent className="absolute inset-0 flex flex-col justify-end p-6 sm:p-8">
@@ -799,7 +799,7 @@ const Home = () => {
                     </div>
                   </motion.div>
                 </Link>
-              ))}
+              )}
             </ScrollRevealGrid>
             
             <ScrollReveal delay={300} variant="fade-up">
@@ -829,8 +829,8 @@ const Home = () => {
             </ScrollReveal>
             
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-6xl mx-auto">
-              {process.map((step, index) => (
-                <ScrollReveal key={index} delay={index * 80} variant="fade-up">
+              {process.map((step, index) =>
+            <ScrollReveal key={index} delay={index * 80} variant="fade-up">
                   <div className="relative group p-6 bg-white/5 rounded-xl border border-white/10 hover:border-accent/40 transition-all duration-300">
                     <div className="space-y-4">
                       <div className="text-5xl sm:text-6xl font-extralight text-accent/60 group-hover:text-accent transition-colors duration-300">
@@ -839,12 +839,12 @@ const Home = () => {
                       <h3 className="text-lg font-semibold text-white group-hover:text-accent/90 transition-colors duration-300">{step.title}</h3>
                       <p className="text-sm text-white/70 leading-relaxed">{step.description}</p>
                     </div>
-                    {index < process.length - 1 && (
-                      <div className="hidden lg:block absolute top-12 -right-4 w-8 h-px bg-gradient-to-r from-accent/40 to-transparent" />
-                    )}
+                    {index < process.length - 1 &&
+                <div className="hidden lg:block absolute top-12 -right-4 w-8 h-px bg-gradient-to-r from-accent/40 to-transparent" />
+                }
                   </div>
                 </ScrollReveal>
-              ))}
+            )}
             </div>
           </div>
         </section>
@@ -865,23 +865,23 @@ const Home = () => {
             </ScrollReveal>
 
             <ScrollRevealGrid className="grid lg:grid-cols-3 gap-8 max-w-7xl mx-auto" stagger={100} variant="fade-up">
-              {featuredCaseStudies.map((study, index) => (
-                <Link key={index} to={`/case-studies/${study.slug}`} className="group">
+              {featuredCaseStudies.map((study, index) =>
+            <Link key={index} to={`/case-studies/${study.slug}`} className="group">
                   <Card className="h-full border-gray-200 bg-white hover:border-accent/40 hover:shadow-xl transition-all duration-300 overflow-hidden">
                     <div className="relative h-56 overflow-hidden">
-                      <img 
-                        src={study.image} 
-                        alt={study.client}
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
+                      <img
+                    src={study.image}
+                    alt={study.client}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                       <div className="absolute bottom-4 left-4 right-4">
                         <div className="flex flex-wrap gap-2">
-                          {study.services.slice(0, 2).map((service, i) => (
-                            <span key={i} className="text-xs px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white">
+                          {study.services.slice(0, 2).map((service, i) =>
+                      <span key={i} className="text-xs px-2 py-1 bg-white/20 backdrop-blur-sm rounded-full text-white">
                               {service}
                             </span>
-                          ))}
+                      )}
                         </div>
                       </div>
                     </div>
@@ -894,17 +894,17 @@ const Home = () => {
                       
                       {/* Metrics */}
                       <div className="grid grid-cols-3 gap-2 pt-4 border-t border-gray-100">
-                        {study.metrics.map((metric, i) => (
-                          <div key={i} className="text-center">
+                        {study.metrics.map((metric, i) =>
+                    <div key={i} className="text-center">
                             <div className="text-lg font-semibold text-accent">{metric.value}</div>
                             <div className="text-xs text-gray-500">{metric.label}</div>
                           </div>
-                        ))}
+                    )}
                       </div>
                     </CardContent>
                   </Card>
                 </Link>
-              ))}
+            )}
             </ScrollRevealGrid>
 
             <ScrollReveal delay={300} variant="fade-up">
@@ -948,13 +948,13 @@ const Home = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {comparison.map((item, index) => (
-                          <tr key={index} className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-200">
+                        {comparison.map((item, index) =>
+                      <tr key={index} className="border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-colors duration-200">
                             <td className="p-4 sm:p-6 text-sm font-medium text-gray-900">{item.feature}</td>
                             <td className="p-4 sm:p-6 text-sm text-gray-500">{item.typical}</td>
                             <td className="p-4 sm:p-6 text-sm text-gray-700 font-medium">{item.avorria}</td>
                           </tr>
-                        ))}
+                      )}
                       </tbody>
                     </table>
                   </div>
@@ -998,17 +998,17 @@ const Home = () => {
               </div>
             </ScrollReveal>
             <ScrollRevealGrid className="grid sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 max-w-5xl mx-auto" stagger={80} variant="fade-up">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
+              {testimonials.map((testimonial, index) =>
+            <Card key={index} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
                   <CardContent className="p-6 sm:p-8">
                     <Quote className="w-8 h-8 text-accent/40 mb-4" />
                     <p className="text-base text-white/90 leading-relaxed">"{testimonial.quote}"</p>
                     <div className="mt-6 pt-4 border-t border-white/10 flex items-center gap-4">
-                      <img 
-                        src={testimonial.avatar} 
-                        alt={testimonial.author}
-                        className="w-12 h-12 rounded-full object-cover border-2 border-accent/30"
-                      />
+                      <img
+                    src={testimonial.avatar}
+                    alt={testimonial.author}
+                    className="w-12 h-12 rounded-full object-cover border-2 border-accent/30" />
+
                       <div>
                         <p className="text-sm font-medium text-white">{testimonial.author}</p>
                         <p className="text-xs text-white/60">{testimonial.role}, {testimonial.company}</p>
@@ -1016,7 +1016,7 @@ const Home = () => {
                     </div>
                   </CardContent>
                 </Card>
-              ))}
+            )}
             </ScrollRevealGrid>
           </div>
         </section>
@@ -1033,19 +1033,19 @@ const Home = () => {
                 </div>
               </ScrollReveal>
               <Accordion type="single" collapsible className="space-y-4">
-                {faqs.map((faq, index) => (
-                  <ScrollReveal key={index} delay={index * 60} variant="fade-up">
-                    <AccordionItem 
-                      value={`item-${index}`} 
-                      className="border border-gray-200 bg-white px-6 rounded-lg hover:border-accent/40 transition-all duration-300"
-                    >
+                {faqs.map((faq, index) =>
+              <ScrollReveal key={index} delay={index * 60} variant="fade-up">
+                    <AccordionItem
+                  value={`item-${index}`}
+                  className="border border-gray-200 bg-white px-6 rounded-lg hover:border-accent/40 transition-all duration-300">
+
                       <AccordionTrigger className="text-left text-base font-semibold text-gray-900 hover:text-accent py-5">
                         {faq.question}
                       </AccordionTrigger>
                       <AccordionContent className="text-base text-gray-600 leading-relaxed pb-4">{faq.answer}</AccordionContent>
                     </AccordionItem>
                   </ScrollReveal>
-                ))}
+              )}
               </Accordion>
             </div>
           </div>
