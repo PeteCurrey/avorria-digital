@@ -201,7 +201,7 @@ const CaseStudies = () => {
               className="text-center mb-12">
 
               <span className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Diverse Expertise</span>
-              <h2 className="text-2xl md:text-3xl font-light text-white">From Facilities Management to GPS Trackers — We Make Complex Simple</h2>
+              <h2 className="text-2xl md:text-3xl text-white font-extralight">From Facilities Management to GPS Trackers — We Make Complex Simple</h2>
             </motion.div>
             
             <div className="grid md:grid-cols-3 gap-6">
