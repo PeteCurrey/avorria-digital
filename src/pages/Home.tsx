@@ -542,7 +542,7 @@ const Home = () => {
                     <div className="text-xs text-white/60">Active clients</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-light text-white">£2.4M+</div>
+                    <div className="text-2xl font-light text-white">£6.4M+</div>
                     <div className="text-xs text-white/60">Pipeline generated</div>
                   </div>
                   <div>
