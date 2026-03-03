@@ -1096,7 +1096,7 @@ Common SEO mistakes during redesigns:
   },
   {
     id: "google-ads-service-businesses",
-    title: "Google Ads for Service Businesses: A No-Fluff Starter Guide",
+    title: "Google Ads for Service Businesses: A Straight-Talk Starter Guide",
     slug: "google-ads-service-businesses",
     summary: "Google Ads can be the fastest path to leads—or the fastest way to burn cash. Here's how service businesses should set up, structure, and optimise campaigns that actually convert.",
     category: "Paid Media",
