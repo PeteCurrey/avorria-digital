@@ -109,7 +109,11 @@ const AnimatedRoutes = () => {
           {/* Resources */}
           <Route path="/resources" element={<PageTransition><Resources /></PageTransition>} />
           <Route path="/resources/:slug" element={<PageTransition><ResourceDetail /></PageTransition>} />
-          <Route path="/resources/marketing-assets" element={<PageTransition><MarketingAssets /></PageTransition>} />
+          <Route path="/resources/marketing-assets" element={
+            <ProtectedRoute allowStaff>
+              <PageTransition><MarketingAssets /></PageTransition>
+            </ProtectedRoute>
+          } />
           <Route path="/resources/seo-glossary" element={<PageTransition><SEOGlossary /></PageTransition>} />
           
           {/* SEO Sub-Services */}

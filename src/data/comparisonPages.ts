@@ -12,7 +12,7 @@ export const comparisonPages: ComparisonPage[] = [
     summary: "If you've worked with agencies before, this comparison will sound familiar. Here's where we're different—and why it matters for your bottom line.",
     ctaText: "If you want grown-up marketing conversations, let's talk",
     metaTitle: "Avorria vs Typical Marketing Agency | Why We're Different",
-    metaDescription: "Tired of agency fluff and vague reporting? See how Avorria's performance-first approach differs from typical marketing agencies.",
+    metaDescription: "Tired of agency noise and vague reporting? See how Avorria's performance-first approach differs from typical marketing agencies.",
     sections: [
       {
         type: "intro",

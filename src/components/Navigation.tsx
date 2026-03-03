@@ -331,77 +331,7 @@ const Navigation = ({
                   })}
                 </div>
               ))}
-              {/* Avorria Ecosystem - Mobile */}
-              <div className="pt-6 space-y-4 px-2 border-t border-border">
-                <div>
-                  <h4 className="text-xs font-semibold text-foreground uppercase tracking-wider mb-1">
-                    Avorria Ecosystem
-                  </h4>
-                  <p className="text-xs text-muted-foreground">Our platform suite</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <a 
-                    href="http://ai.avorria.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackNavClick('avorria_ai', 'header');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-violet-500/10 to-fuchsia-500/5 border border-violet-500/20"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-violet-500/20 flex items-center justify-center">
-                      <Bot className="w-5 h-5 text-violet-400" />
-                    </div>
-                    <div className="flex-1">
-                      <span className="text-sm font-medium text-foreground">Avorria AI</span>
-                      <p className="text-xs text-muted-foreground">AI-powered marketing assistant</p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                  </a>
-                  
-                  <a 
-                    href="https://media.avorria.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackNavClick('avorria_media', 'header');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-amber-500/10 to-orange-500/5 border border-amber-500/20"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                      <Sparkles className="w-5 h-5 text-amber-400" />
-                    </div>
-                    <div className="flex-1">
-                      <span className="text-sm font-medium text-foreground">Avorria Media</span>
-                      <p className="text-xs text-muted-foreground">Creative content & video</p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                  </a>
-                  
-                  <a 
-                    href="https://marketing.avorria.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    onClick={() => {
-                      trackNavClick('marketing_command', 'header');
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="flex items-center gap-3 p-3 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/5 border border-emerald-500/20"
-                  >
-                    <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                      <Zap className="w-5 h-5 text-emerald-400" />
-                    </div>
-                    <div className="flex-1">
-                      <span className="text-sm font-medium text-foreground">Marketing Command</span>
-                      <p className="text-xs text-muted-foreground">Campaign management hub</p>
-                    </div>
-                    <ExternalLink className="w-4 h-4 text-muted-foreground" />
-                  </a>
-                </div>
-              </div>
+              {/* Ecosystem links hidden until subdomains are live */}
               
               <div className="pt-4 space-y-3 px-2">
                 <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>

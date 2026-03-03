@@ -711,7 +711,7 @@ const Home = () => {
                       Design that earns its keep
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      We build sites that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing fluff.
+                      We build sites that look like top-tier agency work, but every layout, block and CTA is engineered for conversions. No award-chasing filler.
                     </p>
                   </CardContent>
                 </Card>

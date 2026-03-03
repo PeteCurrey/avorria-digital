@@ -51,27 +51,24 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/avorria"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-accent transition-colors">
-
                 <Linkedin size={20} />
               </a>
               <a
-                href="https://twitter.com"
+                href="https://x.com/avorria"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-accent transition-colors">
-
                 <Twitter size={20} />
               </a>
               <a
-                href="https://instagram.com"
+                href="https://www.instagram.com/avorria"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-accent transition-colors">
-
                 <Instagram size={20} />
               </a>
             </div>

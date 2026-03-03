@@ -125,7 +125,7 @@ const ResourcesManager = () => {
           prompt: `Write a 1000-word marketing resource article for Avorria, a digital marketing agency. 
 Category: ${form.category}. 
 Topic: ${form.title || "A practical guide relevant to " + form.category}. 
-Tone: Direct, opinionated, no fluff. Written for business owners, not marketers.
+Tone: Direct, opinionated, no filler. Written for business owners, not marketers.
 Format: Markdown with H2 and H3 headings.
 Include actionable advice and specific examples.
 End with a call to action to book a strategy call.`,

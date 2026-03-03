@@ -346,7 +346,6 @@ export default function AuditFunnel() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
   );
