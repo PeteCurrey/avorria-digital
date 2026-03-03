@@ -251,10 +251,6 @@ const Admin = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <Eye className="h-5 w-5 text-primary/70" />
-                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                      <TrendingUp className="h-3 w-3 mr-1" />
-                      +15%
-                    </Badge>
                   </div>
                   {analyticsLoading ? (
                     <Skeleton className="h-8 w-16" />
