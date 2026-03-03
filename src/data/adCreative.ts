@@ -14,7 +14,7 @@ export const adCreative = {
   seoAudit: {
     hookAngle: "You've got traffic, but not enough pipeline",
     headlines: [
-      "Free SEO & website audit – no fluff",
+      "Free SEO & website audit – straight talk only",
       "Your SEO report says 'up' – your pipeline doesn't",
       "If SEO doesn't touch revenue, why bother?"
     ],
