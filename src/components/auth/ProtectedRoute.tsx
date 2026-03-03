@@ -22,7 +22,7 @@ const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        navigate(redirectTo);
+        navigate(`${redirectTo}?returnTo=${encodeURIComponent(location.pathname + location.search)}`);
       } else if (requiredRole) {
         // Admin and strategist can access everything
         if (userRole === "admin" || userRole === "strategist") {
