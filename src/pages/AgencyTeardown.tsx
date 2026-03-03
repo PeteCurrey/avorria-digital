@@ -111,7 +111,7 @@ const AgencyTeardown = () => {
         <title>Agency Report Teardown - Get a Blunt Assessment | Avorria</title>
         <meta 
           name="description" 
-          content="Upload your agency's report and we'll tell you if it's worth what you're paying. Plain-English breakdown of what's solid, what's fluff, and where you're being short-changed." 
+          content="Upload your agency's report and we'll tell you if it's worth what you're paying. Plain-English breakdown of what's solid, what's filler, and where you're being short-changed." 
         />
       </Helmet>
 
