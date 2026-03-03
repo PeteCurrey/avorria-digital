@@ -386,7 +386,7 @@ const About = () => {
         </SectionReveal>
 
         {/* ─── CTA ─── */}
-        <section className="py-32 md:py-40 bg-[radial-gradient(ellipse_at_center,hsl(var(--accent)/0.12),transparent_70%),hsl(220,25%,6%)]">
+        <section className="py-32 md:py-40" style={{ background: 'radial-gradient(ellipse at center, hsl(320 85% 55% / 0.12), transparent 70%), hsl(220 25% 6%)' }}>
           <div className="container mx-auto px-4 sm:px-6">
             <ScrollReveal variant="fade-up" duration={600}>
               <div className="max-w-3xl mx-auto text-center">
