@@ -1104,7 +1104,7 @@ Common SEO mistakes during redesigns:
     serviceRelation: "paid-media",
     isPillar: false,
     targetKeyword: "Google Ads for service businesses",
-    metaTitle: "Google Ads for Service Businesses: A No-Fluff Starter Guide | Avorria",
+    metaTitle: "Google Ads for Service Businesses: A Straight-Talk Starter Guide | Avorria",
     metaDescription: "How to set up Google Ads that actually generate leads for service businesses. Campaign structure, keyword strategy, landing pages, and budget allocation explained.",
     publishedDate: "2025-02-20",
     content: `## Why Google Ads Works for Service Businesses
