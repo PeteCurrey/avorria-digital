@@ -217,6 +217,9 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                             collapsed && "justify-center px-2"
                           )}
                         >
+                          {isActive && (
+                            <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r bg-accent" />
+                          )}
                           <item.icon
                             className={cn(
                               "h-5 w-5 shrink-0 transition-colors",
