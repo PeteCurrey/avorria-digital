@@ -204,7 +204,7 @@ No 47-page PDFs. No jargon. Just a clear breakdown of what's worth fixing and wh
     isPillar: true,
     targetKeyword: "high converting website design",
     metaTitle: "High-Converting Websites: A Practical Playbook | Avorria",
-    metaDescription: "How to build a service business website that actually converts visitors into leads. No fluff, no awards—just structure, copy and design that drives pipeline.",
+    metaDescription: "How to build a service business website that actually converts visitors into leads. No filler, no awards—just structure, copy and design that drives pipeline.",
     publishedDate: "2025-01-20",
     content: `## Why Most Agency-Built Sites Don't Convert
 
