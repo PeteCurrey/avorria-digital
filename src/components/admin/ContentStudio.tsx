@@ -87,12 +87,14 @@ const ContentStudio = () => {
 
   // Database hooks
   const { data: pendingContent, isLoading: loadingPending, refetch: refetchPending } = usePendingReviewContent();
+  const { data: approvedContentDB, isLoading: loadingApproved, refetch: refetchApproved } = useApprovedContent();
   const { data: scheduledContent, isLoading: loadingScheduled, refetch: refetchScheduled } = useScheduledContent();
   const approveContent = useApproveContent();
   const rejectContent = useRejectContent();
   const updateContent = useUpdateContent();
   const deleteContent = useDeleteContent();
   const saveContent = useSaveGeneratedContent();
+  const markPublished = useMarkPublished();
 
   const platformIcons: Record<string, React.ElementType> = {
     twitter: Twitter,
