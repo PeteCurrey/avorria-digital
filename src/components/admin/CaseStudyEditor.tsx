@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Plus, Trash2, Save } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Save, Sparkles, Loader2, Info, BarChart3, FileText, Image, Quote, Layout } from "lucide-react";
 import {
   useCreateCaseStudy,
   useUpdateCaseStudy,
@@ -22,6 +22,8 @@ import {
 } from "@/hooks/useCaseStudies";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageUploader, MultiImageUploader } from "./ImageUploader";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 interface CaseStudyEditorProps {
   caseStudy: CaseStudyDB | null;
