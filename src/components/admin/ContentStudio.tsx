@@ -827,6 +827,147 @@ const ContentStudio = () => {
           </Card>
         </TabsContent>
 
+        {/* Approved Content Tab */}
+        <TabsContent value="approved" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <Check className="h-5 w-5 text-green-500" />
+                    Approved Content
+                  </CardTitle>
+                  <CardDescription>
+                    Content approved and ready to publish or schedule
+                  </CardDescription>
+                </div>
+                <Button variant="outline" size="sm" onClick={() => refetchApproved()}>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Refresh
+                </Button>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {loadingApproved ? (
+                <div className="flex items-center justify-center py-12">
+                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                </div>
+              ) : !approvedContentDB || approvedContentDB.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+                  <Check className="h-12 w-12 text-muted-foreground/50 mb-4" />
+                  <p className="text-muted-foreground">No approved content waiting</p>
+                  <p className="text-sm text-muted-foreground/70 mt-1">
+                    Approved content from the Review tab will appear here
+                  </p>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {approvedContentDB.map((item) => {
+                    const Icon = platformIcons[item.platform || ""] || FileText;
+                    return (
+                      <Card key={item.id} className="border-border/50">
+                        <CardContent className="p-4">
+                          <div className="flex items-start justify-between gap-2 mb-3">
+                            <div className="flex items-center gap-2">
+                              <Icon className="h-4 w-4 text-muted-foreground" />
+                              <span className="text-sm font-medium capitalize">
+                                {item.platform || item.content_type}
+                              </span>
+                              <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
+                                Approved
+                              </Badge>
+                              <span className="text-xs text-muted-foreground">
+                                {formatDistanceToNow(new Date(item.created_at), { addSuffix: true })}
+                              </span>
+                            </div>
+                          </div>
+
+                          {item.title && (
+                            <h4 className="font-semibold mb-2">{item.title}</h4>
+                          )}
+
+                          <p className="text-sm text-muted-foreground whitespace-pre-wrap mb-3">
+                            {item.content}
+                          </p>
+
+                          {item.hashtags && item.hashtags.length > 0 && (
+                            <div className="flex flex-wrap gap-1 mb-3">
+                              {item.hashtags.map((tag) => (
+                                <Badge key={tag} variant="outline" className="text-xs">
+                                  #{tag}
+                                </Badge>
+                              ))}
+                            </div>
+                          )}
+
+                          <Separator className="my-3" />
+
+                          <div className="flex flex-wrap gap-2">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => handleCopy({ id: item.id, content: item.content })}
+                            >
+                              {copiedId === item.id ? (
+                                <Check className="h-3 w-3 mr-1" />
+                              ) : (
+                                <Copy className="h-3 w-3 mr-1" />
+                              )}
+                              Copy
+                            </Button>
+                            <Button
+                              size="sm"
+                              onClick={() => markPublished.mutateAsync(item.id).then(() => refetchApproved())}
+                              disabled={markPublished.isPending}
+                            >
+                              {markPublished.isPending ? (
+                                <Loader2 className="h-3 w-3 mr-1 animate-spin" />
+                              ) : (
+                                <Send className="h-3 w-3 mr-1" />
+                              )}
+                              Mark Published
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={() => {
+                                const scheduledFor = new Date();
+                                scheduledFor.setDate(scheduledFor.getDate() + 1);
+                                scheduledFor.setHours(9, 0, 0, 0);
+                                updateContent.mutateAsync({
+                                  id: item.id,
+                                  updates: {
+                                    status: "scheduled",
+                                    scheduled_for: scheduledFor.toISOString(),
+                                  },
+                                }).then(() => {
+                                  refetchApproved();
+                                  refetchScheduled();
+                                });
+                              }}
+                            >
+                              <Calendar className="h-3 w-3 mr-1" />
+                              Schedule
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              className="text-destructive hover:text-destructive"
+                              onClick={() => handleDeleteDB(item.id)}
+                            >
+                              <Trash2 className="h-3 w-3" />
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    );
+                  })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Scheduled Content Tab */}
         <TabsContent value="scheduled" className="space-y-6">
           <Card>
