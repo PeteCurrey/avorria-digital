@@ -235,6 +235,71 @@ export type Database = {
           },
         ]
       }
+      audit_reports: {
+        Row: {
+          company_name: string
+          created_at: string
+          email: string
+          email_sent: boolean
+          id: string
+          lead_id: string | null
+          name: string
+          overall_score: number | null
+          quick_wins: Json | null
+          report_file_name: string | null
+          report_url: string | null
+          roadmap: Json | null
+          sections: Json | null
+          status: string
+          updated_at: string
+          website_url: string
+        }
+        Insert: {
+          company_name?: string
+          created_at?: string
+          email: string
+          email_sent?: boolean
+          id?: string
+          lead_id?: string | null
+          name?: string
+          overall_score?: number | null
+          quick_wins?: Json | null
+          report_file_name?: string | null
+          report_url?: string | null
+          roadmap?: Json | null
+          sections?: Json | null
+          status?: string
+          updated_at?: string
+          website_url: string
+        }
+        Update: {
+          company_name?: string
+          created_at?: string
+          email?: string
+          email_sent?: boolean
+          id?: string
+          lead_id?: string | null
+          name?: string
+          overall_score?: number | null
+          quick_wins?: Json | null
+          report_file_name?: string | null
+          report_url?: string | null
+          roadmap?: Json | null
+          sections?: Json | null
+          status?: string
+          updated_at?: string
+          website_url?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "audit_reports_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       campaigns: {
         Row: {
           budget: number | null
