@@ -271,9 +271,6 @@ const Admin = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <MousePointerClick className="h-5 w-5 text-primary/70" />
-                    <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30 text-xs">
-                      2.4% rate
-                    </Badge>
                   </div>
                   {analyticsLoading ? (
                     <Skeleton className="h-8 w-16" />
