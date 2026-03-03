@@ -27,7 +27,6 @@ serve(async (req) => {
 
     console.log("Generating image with prompt:", prompt);
 
-    // Use Google's Gemini image generation model via Lovable AI
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -35,11 +34,11 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image-preview",
+        model: "google/gemini-2.5-flash-image",
         messages: [
           {
             role: "user",
-            content: `Generate a professional, modern marketing image: ${prompt}. Style: clean, minimalist, high-quality, suitable for social media marketing.`,
+            content: `Generate a professional, modern marketing image: ${prompt}. Style: clean, high-quality, suitable for digital marketing.`,
           },
         ],
         modalities: ["image", "text"],
@@ -48,46 +47,53 @@ serve(async (req) => {
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error("Image generation API error:", errorText);
+      console.error("Image generation API error:", response.status, errorText);
+      
+      if (response.status === 429) {
+        return new Response(
+          JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }),
+          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
+      if (response.status === 402) {
+        return new Response(
+          JSON.stringify({ error: "AI credits exhausted. Please add credits to continue." }),
+          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        );
+      }
       throw new Error(`Image generation failed: ${response.status}`);
     }
 
     const data = await response.json();
-    
-    // Extract the image URL from the response
     const imageData = data.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-    
+
     if (!imageData) {
-      console.log("No image in response, falling back to placeholder");
-      // Return a placeholder if image generation fails
+      console.log("No image in response");
       return new Response(
         JSON.stringify({ 
-          imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80",
-          message: "Using placeholder image - image generation requires additional setup"
+          error: "Image generation did not return an image. Try a different prompt.",
+          imageUrl: null,
         }),
-        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+        { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    // If we have a base64 image, we could upload it to storage
-    // For now, return the data URL directly
+    // Always upload to Supabase storage for a proper URL
     let imageUrl = imageData;
 
-    // Optionally upload to Supabase storage
-    if (contentId && imageData.startsWith("data:image")) {
+    if (imageData.startsWith("data:image")) {
       try {
         const supabaseUrl = Deno.env.get("SUPABASE_URL");
         const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-        
+
         if (supabaseUrl && supabaseKey) {
           const supabase = createClient(supabaseUrl, supabaseKey);
-          
-          // Extract base64 data
+
           const base64Data = imageData.split(",")[1];
           const imageBuffer = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
-          
-          const fileName = `ai-generated/${contentId}-${Date.now()}.png`;
-          
+
+          const fileName = `ai-generated/${contentId || "img"}-${Date.now()}.png`;
+
           const { error: uploadError } = await supabase.storage
             .from("case-study-images")
             .upload(fileName, imageBuffer, {
@@ -99,13 +105,14 @@ serve(async (req) => {
             const { data: urlData } = supabase.storage
               .from("case-study-images")
               .getPublicUrl(fileName);
-            
             imageUrl = urlData.publicUrl;
+            console.log("Image uploaded to storage:", imageUrl);
+          } else {
+            console.error("Storage upload error:", uploadError);
           }
         }
       } catch (storageError) {
         console.error("Error uploading to storage:", storageError);
-        // Continue with the base64 URL
       }
     }
 
@@ -118,11 +125,8 @@ serve(async (req) => {
   } catch (error: any) {
     console.error("Error in generate-image:", error);
     return new Response(
-      JSON.stringify({ 
-        error: error.message,
-        imageUrl: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&q=80"
-      }),
-      { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      JSON.stringify({ error: error.message }),
+      { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }
 });
