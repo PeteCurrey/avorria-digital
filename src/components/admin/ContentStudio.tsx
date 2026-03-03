@@ -323,7 +323,7 @@ const ContentStudio = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:grid-cols-4">
+        <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:grid-cols-5">
           <TabsTrigger value="generate" className="gap-2">
             <Wand2 className="h-4 w-4" />
             <span className="hidden sm:inline">Generate</span>
@@ -334,6 +334,15 @@ const ContentStudio = () => {
             {pendingContent && pendingContent.length > 0 && (
               <span className="absolute -top-1 -right-1 h-4 w-4 text-xs bg-accent text-accent-foreground rounded-full flex items-center justify-center">
                 {pendingContent.length}
+              </span>
+            )}
+          </TabsTrigger>
+          <TabsTrigger value="approved" className="gap-2 relative">
+            <Check className="h-4 w-4" />
+            <span className="hidden sm:inline">Approved</span>
+            {approvedContentDB && approvedContentDB.length > 0 && (
+              <span className="absolute -top-1 -right-1 h-4 w-4 text-xs bg-green-500 text-white rounded-full flex items-center justify-center">
+                {approvedContentDB.length}
               </span>
             )}
           </TabsTrigger>
