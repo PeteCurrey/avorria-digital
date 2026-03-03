@@ -8,7 +8,7 @@ export const comparisonPages: ComparisonPage[] = [
     comparisonType: "avorria-vs-agency",
     primarySubject: "Avorria",
     secondarySubject: "Typical Agency",
-    audience: "Business owners and marketing leaders tired of agency fluff",
+    audience: "Business owners and marketing leaders tired of agency noise",
     summary: "If you've worked with agencies before, this comparison will sound familiar. Here's where we're different—and why it matters for your bottom line.",
     ctaText: "If you want grown-up marketing conversations, let's talk",
     metaTitle: "Avorria vs Typical Marketing Agency | Why We're Different",
