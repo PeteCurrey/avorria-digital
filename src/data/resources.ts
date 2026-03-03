@@ -12,7 +12,7 @@ export const resources: Resource[] = [
     isPillar: true,
     targetKeyword: "SEO for businesses",
     metaTitle: "The No-Bullshit Guide to SEO for Real Businesses | Avorria",
-    metaDescription: "SEO explained for business owners who are tired of agency fluff. Learn what actually drives leads and revenue, and how to spot when you're being sold snake oil.",
+    metaDescription: "SEO explained for business owners who are tired of agency noise. Learn what actually drives leads and revenue, and how to spot when you're being sold snake oil.",
     publishedDate: "2025-01-15",
     content: `## What SEO Actually Is (And Isn't) for a Business Owner
 
