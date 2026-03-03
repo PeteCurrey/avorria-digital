@@ -291,17 +291,13 @@ const Admin = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between mb-2">
                     <Clock className="h-5 w-5 text-primary/70" />
-                    <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">
-                      <TrendingUp className="h-3 w-3 mr-1" />
-                      +8%
-                    </Badge>
                   </div>
                   <motion.p 
                     className="text-2xl font-bold text-foreground"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                   >
-                    {avgSessionDuration || '3m 24s'}
+                    {avgSessionDuration || '0m 0s'}
                   </motion.p>
                   <p className="text-sm text-muted-foreground">Avg. Session</p>
                 </CardContent>
