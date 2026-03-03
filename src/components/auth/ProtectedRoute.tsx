@@ -13,6 +13,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo = "/auth/login" }: ProtectedRouteProps) => {
   const { user, userRole, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Staff roles that can access admin areas
   const staffRoles = ["admin", "strategist", "specialist"];
