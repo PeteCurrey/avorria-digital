@@ -1,80 +1,106 @@
 
+## Enhance Paid Media and SEO Service Pages
 
-## Website Review — Streamline, Polish & Fix
-
-After reviewing the full route map (55+ public routes), navigation, footer, page content, and codebase patterns, here is a summary of findings and a prioritised plan.
-
----
-
-### Issues Found
-
-**1. Double Navigation/Footer on Two Pages**
-`Tools.tsx` and `AuditFunnel.tsx` both import and render their own `<Navigation />` and `<Footer />`, but the global `Layout` wrapper in `App.tsx` already renders these. This results in double headers and double footers on those pages.
-
-**2. "Fluff" and AI-Typical Language**
-The word "fluff" appears across 10 files in meta descriptions, body copy, and ad creative data. The brand guidelines explicitly state to avoid this word. Instances to clean:
-- `src/pages/Home.tsx` line 714: "No award-chasing fluff"
-- `src/pages/Tools.tsx` lines 40, 48, 57, 73: "No fluff, just actionable insights"
-- `src/pages/AgencyTeardown.tsx` lines 114, 127: "what's fluff"
-- `src/data/comparisonPages.ts` lines 11, 15: "agency fluff"
-- `src/data/resources.ts` lines 15, 207, 583, 1099, 1107, 1154: multiple "fluff" instances
-- `src/data/adCreative.ts` lines 17, 27: "no fluff"
-
-**3. Pages That Add Questionable Value for a Visitor**
-These pages exist as routes but serve internal/niche purposes that bloat the site and may confuse visitors:
-- `/resources/marketing-assets` — Internal copy bank (email sequences, ad creative). Should be admin-only, not public.
-- `/reporting/demo` — Dashboard demo with mock data. Linked from Tools page. Should either be removed or clearly gated.
-- `/websites-we-would-fire` — 1080-line page with 10+ interactive components (quiz, calculator, slider, fire risk meter, horizontal scroll). Very heavy, very "look what we can build" rather than serving the visitor. Could be tightened significantly.
-- `/agency-report-teardown` — Niche lead gen funnel. Fine to keep but shouldn't be prominent.
-- `/project-estimator` — Useful, keep.
-- `/web-design/studio` and `/web-design/studio/build` — Interactive design studio. Impressive feature but ensure it actually works end-to-end.
-
-**4. Duplicate/Overlapping Service Routes**
-- `/services/web-design` and `/web-design` both render `WebDesign` component — duplicate routes
-- `/services/seo` (SEOServices page) vs `/seo-agency` (SEOAgencyPillar) — two separate SEO pages with overlapping content
-- `/services/paid-media` vs `/paid-media-agency` — same overlap pattern
-- `/digital-marketing-agency` — pillar page that largely duplicates `/services`
-
-**5. Footer Links to Potentially Broken Routes**
-- `/web-design/for/trades`, `/seo/for/professional-services`, `/paid-media/for/saas` — These use the pattern `/:serviceSlug/for/:industrySlug` which routes to `DynamicLanding`, but the service slugs don't match the expected patterns (should be `seo-agency`, not `seo`).
-
-**6. Social Links Are Generic**
-Footer social links point to `https://linkedin.com`, `https://twitter.com`, `https://instagram.com` — not Avorria's actual profiles.
-
-**7. Ecosystem External Links May Not Exist**
-Navigation links to `hub.avorria.com`, `ai.avorria.com`, `media.avorria.com`, `marketing.avorria.com` — if these don't resolve, they create a poor impression.
+### Overview
+Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
 
 ---
 
-### Plan
+### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
 
-#### Phase 1 — Fix Bugs & Broken Things
-1. **Remove duplicate Navigation/Footer** from `Tools.tsx` and `AuditFunnel.tsx` (they already get them from the Layout wrapper)
-2. **Fix footer industry links** — update slugs to match the routing pattern (`/seo-agency/for/trades` etc.) or correct the route pattern
-3. **Update social links** to real Avorria profiles or remove if not yet created
+**Hero Section:**
+- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
+- Use the existing `service-paid-media.jpg` asset as the parallax background image
+- Keep the headline and copy but improve the subheadline badge
+- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
 
-#### Phase 2 — Remove "Fluff" Language
-4. Replace every instance of "fluff" across all files with alternatives: "noise", "filler", "padding", "waffle" — per the brand guidelines which explicitly say to avoid the word
+**New Introduction Section (below hero):**
+- Two-column layout matching the Reporting page pattern
+- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
+- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
+- Wrapped in `SectionReveal` with staggered `motion` entrance animations
 
-#### Phase 3 — Consolidate Redundant Pages
-5. **Make `/resources/marketing-assets` admin-only** — remove from public routing or gate behind auth
-6. **Redirect `/services/web-design` to `/web-design`** — eliminate the duplicate route
-7. **Review ecosystem links** in navigation — if those domains don't exist yet, remove or hide them to avoid dead links
+**Pain Points Section:**
+- Keep the content but enhance with `SectionReveal` animation
+- Add more descriptive intro paragraph above the pain point list
 
-#### Phase 4 — Visual & UX Polish
-8. **Review card border-radius** — the design system uses `--radius: 0.25rem` (4px, quite sharp). Cards already use `rounded-lg` which is fine. Verify no components use overly rounded corners (`rounded-2xl`, `rounded-3xl`) that look "bubbly"
-9. **Tighten the "Websites We'd Fire" page** — it's 1080 lines with 10+ interactive toys. Consider whether each component earns its place or if it's feature-creep
+**How We Approach Paid Media Section:**
+- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
+
+**New "What You Get" Section:**
+- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
+
+**New "Process Timeline" Section:**
+- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
+
+**Platforms Section:**
+- Keep but enrich with more descriptive content per platform
+- Add a brief intro paragraph
+
+**New FAQ Section:**
+- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
+- Add `FAQSchema` for SEO
+- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
+
+**CTA Section:**
+- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
+
+**SEO Enhancements:**
+- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
+- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
+
+---
+
+### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+
+**New Introduction Section (below hero, before pain points):**
+- Same two-column layout as Reporting and Paid Media pages
+- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
+- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
+- Wrapped in `SectionReveal` with staggered `motion` entrance
+
+**Content Enrichment:**
+- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
+- Enrich the case study teaser cards with slightly more descriptive content
+
+**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+
+---
+
+### Visual Rhythm
+
+**Paid Media (top to bottom):**
+1. Hero — cinematic with `service-paid-media.jpg` parallax background
+2. Introduction — light background, two-column explainer
+3. Pain Points — gradient background, enhanced list
+4. How We Approach — dark background, 4-card grid + pull-quote
+5. What You Get — gradient background, deliverables checklist
+6. Process Timeline — mesh background, phased timeline
+7. Platforms — dark background, enriched 3-column cards
+8. FAQ — mesh background, accordion with schema
+9. CTA — gradient background, fixed buttons
+
+**SEO Services (top to bottom):**
+1. Hero (existing) — with `service-seo.jpg`
+2. **Introduction (NEW)** — light background, two-column explainer
+3. Pain Points (existing)
+4. What's Included (existing) + **pull-quote (NEW)**
+5. Process Timeline (existing)
+6. Deliverables (existing)
+7. SEO by Industry (existing)
+8. Case Studies (existing, enriched)
+9. SEO by Location (existing)
+10. FAQ (existing)
+11. CTA (existing)
+
+---
 
 ### Files Modified
-| File | Change |
-|------|--------|
-| `src/pages/Tools.tsx` | Remove duplicate Nav/Footer imports and rendering |
-| `src/pages/AuditFunnel.tsx` | Remove duplicate Nav/Footer imports and rendering |
-| `src/components/Footer.tsx` | Fix industry link slugs, update social URLs |
-| `src/pages/Home.tsx` | Replace "fluff" with brand-appropriate alternative |
-| `src/data/comparisonPages.ts` | Replace "fluff" instances |
-| `src/data/resources.ts` | Replace "fluff" instances |
-| `src/data/adCreative.ts` | Replace "fluff" instances |
-| `src/pages/AgencyTeardown.tsx` | Replace "fluff" instances |
-| `src/components/AnimatedRoutes.tsx` | Remove `/services/web-design` duplicate route, gate `/resources/marketing-assets` |
+- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
+- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
 
+### New Imports
+- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
+- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
+
+### No new dependencies needed

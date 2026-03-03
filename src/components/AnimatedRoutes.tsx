@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import { AnimatePresence } from "framer-motion";
 import PageTransition from "./PageTransition";
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
@@ -92,8 +92,8 @@ const AnimatedRoutes = () => {
           <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
           <Route path="/services/seo" element={<PageTransition><SEOServices /></PageTransition>} />
           <Route path="/services/paid-media" element={<PageTransition><PaidMedia /></PageTransition>} />
-          <Route path="/services/web-design" element={<PageTransition><WebDesign /></PageTransition>} />
           <Route path="/web-design" element={<PageTransition><WebDesign /></PageTransition>} />
+          <Route path="/services/web-design" element={<Navigate to="/web-design" replace />} />
           <Route path="/web-design/studio" element={<PageTransition><WebDesignStudio /></PageTransition>} />
           <Route path="/web-design/studio/build" element={<PageTransition><WebDesignStudioBuild /></PageTransition>} />
           <Route path="/case-studies" element={<PageTransition><CaseStudies /></PageTransition>} />
@@ -110,7 +110,11 @@ const AnimatedRoutes = () => {
           {/* Resources */}
           <Route path="/resources" element={<PageTransition><Resources /></PageTransition>} />
           <Route path="/resources/:slug" element={<PageTransition><ResourceDetail /></PageTransition>} />
-          <Route path="/resources/marketing-assets" element={<PageTransition><MarketingAssets /></PageTransition>} />
+          <Route path="/resources/marketing-assets" element={
+            <ProtectedRoute allowStaff>
+              <PageTransition><MarketingAssets /></PageTransition>
+            </ProtectedRoute>
+          } />
           <Route path="/resources/seo-glossary" element={<PageTransition><SEOGlossary /></PageTransition>} />
           
           {/* SEO Sub-Services */}

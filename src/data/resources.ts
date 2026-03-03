@@ -12,7 +12,7 @@ export const resources: Resource[] = [
     isPillar: true,
     targetKeyword: "SEO for businesses",
     metaTitle: "The No-Bullshit Guide to SEO for Real Businesses | Avorria",
-    metaDescription: "SEO explained for business owners who are tired of agency fluff. Learn what actually drives leads and revenue, and how to spot when you're being sold snake oil.",
+    metaDescription: "SEO explained for business owners who are tired of agency noise. Learn what actually drives leads and revenue, and how to spot when you're being sold snake oil.",
     publishedDate: "2025-01-15",
     content: `## What SEO Actually Is (And Isn't) for a Business Owner
 
@@ -204,7 +204,7 @@ No 47-page PDFs. No jargon. Just a clear breakdown of what's worth fixing and wh
     isPillar: true,
     targetKeyword: "high converting website design",
     metaTitle: "High-Converting Websites: A Practical Playbook | Avorria",
-    metaDescription: "How to build a service business website that actually converts visitors into leads. No fluff, no awards—just structure, copy and design that drives pipeline.",
+    metaDescription: "How to build a service business website that actually converts visitors into leads. No filler, no awards—just structure, copy and design that drives pipeline.",
     publishedDate: "2025-01-20",
     content: `## Why Most Agency-Built Sites Don't Convert
 
@@ -580,7 +580,7 @@ If you can't confidently answer "What's driving our leads?" your tracking is bro
 At Avorria, we offer:
 - **Full analytics audits** (GA4, CRM, ad platform setup review)
 - **Tracking overhauls** (clean implementation from scratch)
-- **Custom dashboard builds** (one source of truth, no fluff)
+- **Custom dashboard builds** (one source of truth, no filler)
 
 We don't do this as an upsell—it's often the first thing we do, because you can't optimise what you can't measure.
 
@@ -1096,7 +1096,7 @@ Common SEO mistakes during redesigns:
   },
   {
     id: "google-ads-service-businesses",
-    title: "Google Ads for Service Businesses: A No-Fluff Starter Guide",
+    title: "Google Ads for Service Businesses: A Straight-Talk Starter Guide",
     slug: "google-ads-service-businesses",
     summary: "Google Ads can be the fastest path to leads—or the fastest way to burn cash. Here's how service businesses should set up, structure, and optimise campaigns that actually convert.",
     category: "Paid Media",
@@ -1104,7 +1104,7 @@ Common SEO mistakes during redesigns:
     serviceRelation: "paid-media",
     isPillar: false,
     targetKeyword: "Google Ads for service businesses",
-    metaTitle: "Google Ads for Service Businesses: A No-Fluff Starter Guide | Avorria",
+    metaTitle: "Google Ads for Service Businesses: A Straight-Talk Starter Guide | Avorria",
     metaDescription: "How to set up Google Ads that actually generate leads for service businesses. Campaign structure, keyword strategy, landing pages, and budget allocation explained.",
     publishedDate: "2025-02-20",
     content: `## Why Google Ads Works for Service Businesses
@@ -1151,7 +1151,7 @@ Most service businesses make the mistake of throwing everything into one campaig
 
 ### Descriptions That Convert:
 - Address a pain point: "Tired of agencies that overpromise?"
-- State your differentiator: "No contracts. No fluff. Just results."
+- State your differentiator: "No contracts. No filler. Just results."
 - Include a CTA: "Book a Free Strategy Call Today"
 - Add proof: "4.9★ from 80+ Google Reviews"
 

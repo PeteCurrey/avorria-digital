@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import Navigation from "@/components/Navigation";
 import { trackCTAClick, trackAuditFunnelView } from "@/lib/tracking";
-import Footer from "@/components/Footer";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -51,7 +49,6 @@ export default function AuditFunnel() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <Navigation />
 
         {/* Hero Section with Gradient Background */}
         <section className="relative min-h-[80vh] flex items-center overflow-hidden">
@@ -349,7 +346,6 @@ export default function AuditFunnel() {
           </div>
         </section>
 
-        <Footer />
       </div>
     </>
   );

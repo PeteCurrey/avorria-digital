@@ -14,7 +14,7 @@ export const adCreative = {
   seoAudit: {
     hookAngle: "You've got traffic, but not enough pipeline",
     headlines: [
-      "Free SEO & website audit – no fluff",
+      "Free SEO & website audit – straight talk only",
       "Your SEO report says 'up' – your pipeline doesn't",
       "If SEO doesn't touch revenue, why bother?"
     ],
@@ -24,7 +24,7 @@ export const adCreative = {
         text: `You don't need another 40-page SEO report.
 You need someone to look at your site, your structure and your tracking, then tell you – in plain English – what's actually holding you back.
 
-We'll do that, for free. No fluff, no junior "specialist", no 6-month pitch.
+We'll do that, for free. No filler, no junior "specialist", no 6-month pitch.
 
 👉 Request a free SEO & website audit.`
       },

@@ -1,7 +1,5 @@
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import Navigation from "@/components/Navigation";
-import Footer from "@/components/Footer";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Activity, FileCheck, Calculator, ArrowRight } from "lucide-react";
@@ -37,7 +35,7 @@ const Tools = () => {
         <title>Free Tools & Calculators | Avorria</title>
         <meta
           name="description"
-          content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. No fluff, just actionable insights."
+          content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. Straight talk, actionable insights."
         />
         <link rel="canonical" href="https://avorria.com/tools" />
 
@@ -45,7 +43,7 @@ const Tools = () => {
         <meta property="og:title" content="Free Tools & Calculators | Avorria" />
         <meta
           property="og:description"
-          content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. No fluff, just actionable insights."
+          content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. Straight talk, actionable insights."
         />
         <meta property="og:url" content="https://avorria.com/tools" />
         <meta property="og:type" content="website" />
@@ -55,11 +53,9 @@ const Tools = () => {
         <meta name="twitter:title" content="Free Tools & Calculators | Avorria" />
         <meta
           name="twitter:description"
-          content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. No fluff, just actionable insights."
+          content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. Straight talk, actionable insights."
         />
       </Helmet>
-
-      <Navigation />
 
       <main className="min-h-screen pt-24 pb-16 bg-background">
         <div className="container max-w-7xl mx-auto px-4">
@@ -70,7 +66,7 @@ const Tools = () => {
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Self-service tools to check your website health, get custom audits, and estimate project costs.
-              No fluff, just actionable insights.
+              Straight talk, actionable insights.
             </p>
           </div>
 
@@ -129,8 +125,6 @@ const Tools = () => {
           </Card>
         </div>
       </main>
-
-      <Footer />
     </>
   );
 };
