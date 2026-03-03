@@ -198,7 +198,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               {navSections.map((section, sectionIdx) => (
                 <div key={section.title}>
                   {!collapsed && (
-                    <h3 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <h3 className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/70">
                       {section.title}
                     </h3>
                   )}
