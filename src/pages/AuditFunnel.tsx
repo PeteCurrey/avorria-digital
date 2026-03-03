@@ -1,8 +1,6 @@
 import React, { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
-import Navigation from "@/components/Navigation";
 import { trackCTAClick, trackAuditFunnelView } from "@/lib/tracking";
-import Footer from "@/components/Footer";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
