@@ -281,6 +281,7 @@ const ContentStudio = () => {
   const handleApproveDB = async (id: string) => {
     await approveContent.mutateAsync({ id });
     refetchPending();
+    refetchApproved();
     refetchScheduled();
   };
 
