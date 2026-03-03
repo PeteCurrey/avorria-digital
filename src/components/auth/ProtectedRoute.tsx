@@ -1,5 +1,5 @@
 import React, { ReactNode, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 
@@ -13,6 +13,7 @@ interface ProtectedRouteProps {
 const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo = "/auth/login" }: ProtectedRouteProps) => {
   const { user, userRole, loading } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   // Staff roles that can access admin areas
   const staffRoles = ["admin", "strategist", "specialist"];
@@ -21,7 +22,7 @@ const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo
   useEffect(() => {
     if (!loading) {
       if (!user) {
-        navigate(redirectTo);
+        navigate(`${redirectTo}?returnTo=${encodeURIComponent(location.pathname + location.search)}`);
       } else if (requiredRole) {
         // Admin and strategist can access everything
         if (userRole === "admin" || userRole === "strategist") {

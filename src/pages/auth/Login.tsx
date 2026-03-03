@@ -15,7 +15,7 @@ const Login = () => {
   const { signIn, user } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const returnTo = searchParams.get("returnTo") || "/platform";
+  const returnTo = searchParams.get("returnTo") || "/admin";
 
   useEffect(() => {
     if (user) {
