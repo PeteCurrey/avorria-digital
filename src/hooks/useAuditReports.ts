@@ -24,34 +24,23 @@ export function useAuditReports() {
   return useQuery({
     queryKey: ["audit-reports"],
     queryFn: async () => {
-      // Use raw SQL query since the table isn't in generated types yet
-      const { data, error } = await supabase
-        .rpc("get_audit_reports" as never)
-        .select("*");
-      
-      // Fallback to direct query with type assertion
-      if (error) {
-        const response = await fetch(
-          `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/audit_reports?select=*&order=created_at.desc`,
-          {
-            headers: {
-              apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-              Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
-            },
-          }
-        );
-        if (!response.ok) throw new Error("Failed to fetch audit reports");
-        return (await response.json()) as AuditReport[];
-      }
-
-      return data as AuditReport[];
+      const response = await fetch(
+        `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/audit_reports?select=*&order=created_at.desc`,
+        {
+          headers: {
+            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+          },
+        }
+      );
+      if (!response.ok) throw new Error("Failed to fetch audit reports");
+      return (await response.json()) as AuditReport[];
     },
   });
 }
 
 export function useDeleteAuditReport() {
   const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: async (id: string) => {
       const session = await supabase.auth.getSession();
@@ -88,11 +77,11 @@ export function useAuditReportStats() {
           },
         }
       );
-      
+
       if (!response.ok) {
         return { total: 0, emailsSent: 0, avgScore: 0, thisWeek: 0 };
       }
-      
+
       const data = (await response.json()) as Array<{
         overall_score: number | null;
         email_sent: boolean;
@@ -103,24 +92,14 @@ export function useAuditReportStats() {
       const emailsSent = data?.filter((r) => r.email_sent).length || 0;
       const avgScore =
         data && data.length > 0
-          ? Math.round(
-              data.reduce((sum, r) => sum + (r.overall_score || 0), 0) / data.length
-            )
+          ? Math.round(data.reduce((sum, r) => sum + (r.overall_score || 0), 0) / data.length)
           : 0;
 
-      // Count audits this week
       const oneWeekAgo = new Date();
       oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-      const thisWeek = data?.filter(
-        (r) => new Date(r.created_at) >= oneWeekAgo
-      ).length || 0;
+      const thisWeek = data?.filter((r) => new Date(r.created_at) >= oneWeekAgo).length || 0;
 
-      return {
-        total,
-        emailsSent,
-        avgScore,
-        thisWeek,
-      };
+      return { total, emailsSent, avgScore, thisWeek };
     },
   });
 }
