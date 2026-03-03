@@ -62,9 +62,15 @@ export default function LiveSearchConsoleWidget() {
         },
       });
 
-      if (error) throw error;
-
-      setData(result);
+      // Even if there's an error, the response may contain mockData we can use
+      const responseData = result || (error as any)?.context?.json;
+      if (responseData) {
+        setData(responseData);
+      } else if (error) {
+        throw error;
+      } else {
+        setData(result);
+      }
       setLastUpdated(new Date());
 
       if (showToast) {
