@@ -12,7 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowLeft, Plus, Trash2, Save } from "lucide-react";
+import { ArrowLeft, Plus, Trash2, Save, Sparkles, Loader2, Info, BarChart3, FileText, Image, Quote, Layout } from "lucide-react";
 import {
   useCreateCaseStudy,
   useUpdateCaseStudy,
@@ -22,6 +22,8 @@ import {
 } from "@/hooks/useCaseStudies";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ImageUploader, MultiImageUploader } from "./ImageUploader";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "@/hooks/use-toast";
 
 interface CaseStudyEditorProps {
   caseStudy: CaseStudyDB | null;
@@ -177,12 +179,68 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
     updateField("outcomes", updated);
   };
 
+  const [isGenerating, setIsGenerating] = useState(false);
   const isLoading = createMutation.isPending || updateMutation.isPending;
+
+  const canGenerate = formData.client.trim() && formData.sector.trim();
+
+  const handleAIGenerate = async () => {
+    if (!canGenerate) {
+      toast({ title: "Missing info", description: "Fill in at least the client name and sector before generating.", variant: "destructive" });
+      return;
+    }
+    setIsGenerating(true);
+    try {
+      const { data, error } = await supabase.functions.invoke("generate-case-study", {
+        body: {
+          client: formData.client,
+          sector: formData.sector,
+          services: formData.services,
+          outcome: formData.outcome,
+          timeframe: formData.timeframe || "6 months",
+          year: formData.year,
+        },
+      });
+      if (error) throw error;
+      if (data?.error) throw new Error(data.error);
+
+      // Only populate empty fields
+      setFormData((prev) => ({
+        ...prev,
+        headline: prev.headline || data.headline || "",
+        subheadline: prev.subheadline || data.subheadline || "",
+        problem: prev.problem || data.problem || "",
+        title: prev.title || data.title || "",
+        slug: prev.slug || data.slug || "",
+        approach: prev.approach.length <= 1 && !prev.approach[0]?.title ? (data.approach || prev.approach) : prev.approach,
+        kpi_badges: prev.kpi_badges.length <= 1 && !prev.kpi_badges[0]?.label ? (data.kpi_badges || prev.kpi_badges) : prev.kpi_badges,
+        outcomes: prev.outcomes.length <= 1 && !prev.outcomes[0]?.label ? (data.outcomes || prev.outcomes) : prev.outcomes,
+        quote: prev.quote?.text ? prev.quote : (data.quote || prev.quote),
+      }));
+
+      toast({ title: "Content generated", description: "AI-generated content has been added to empty fields. Review and adjust as needed." });
+    } catch (err: any) {
+      console.error("AI generation error:", err);
+      toast({ title: "Generation failed", description: err.message || "Something went wrong. Try again.", variant: "destructive" });
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  // Tab completion indicators
+  const tabStatus = {
+    basic: !!(formData.client && formData.sector && formData.title),
+    hero: !!(formData.headline && formData.hero_media_src),
+    content: !!(formData.problem && formData.approach[0]?.title),
+    outcomes: !!(formData.outcomes[0]?.label),
+    media: !!(formData.hero_media_src),
+    quote: !!(formData.quote?.text),
+  };
 
   return (
     <div className="space-y-6">
           {/* Header */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between flex-wrap gap-4">
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon" onClick={onClose}>
                 <ArrowLeft className="h-4 w-4" />
@@ -198,7 +256,20 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3 flex-wrap">
+              <Button
+                variant="outline"
+                onClick={handleAIGenerate}
+                disabled={isGenerating || !canGenerate}
+                className="gap-2 border-accent/30 text-accent hover:bg-accent/10 hover:text-accent"
+              >
+                {isGenerating ? (
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4" />
+                )}
+                {isGenerating ? "Generating..." : "Generate with AI"}
+              </Button>
               <div className="flex items-center gap-2">
                 <Label htmlFor="published" className="text-sm">
                   Published
@@ -232,12 +303,36 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
 
           <Tabs defaultValue="basic" className="space-y-6">
             <TabsList>
-              <TabsTrigger value="basic">Basic Info</TabsTrigger>
-              <TabsTrigger value="hero">Hero Section</TabsTrigger>
-              <TabsTrigger value="content">Content</TabsTrigger>
-              <TabsTrigger value="outcomes">Outcomes</TabsTrigger>
-              <TabsTrigger value="media">Media</TabsTrigger>
-              <TabsTrigger value="quote">Quote</TabsTrigger>
+              <TabsTrigger value="basic" className="gap-1.5">
+                <Info className="h-3.5 w-3.5" />
+                Basic Info
+                {tabStatus.basic && <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500" />}
+              </TabsTrigger>
+              <TabsTrigger value="hero" className="gap-1.5">
+                <Layout className="h-3.5 w-3.5" />
+                Hero
+                {tabStatus.hero && <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500" />}
+              </TabsTrigger>
+              <TabsTrigger value="content" className="gap-1.5">
+                <FileText className="h-3.5 w-3.5" />
+                Content
+                {tabStatus.content && <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500" />}
+              </TabsTrigger>
+              <TabsTrigger value="outcomes" className="gap-1.5">
+                <BarChart3 className="h-3.5 w-3.5" />
+                Outcomes
+                {tabStatus.outcomes && <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500" />}
+              </TabsTrigger>
+              <TabsTrigger value="media" className="gap-1.5">
+                <Image className="h-3.5 w-3.5" />
+                Media
+                {tabStatus.media && <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500" />}
+              </TabsTrigger>
+              <TabsTrigger value="quote" className="gap-1.5">
+                <Quote className="h-3.5 w-3.5" />
+                Quote
+                {tabStatus.quote && <span className="ml-1 h-1.5 w-1.5 rounded-full bg-green-500" />}
+              </TabsTrigger>
             </TabsList>
 
             {/* Basic Info Tab */}

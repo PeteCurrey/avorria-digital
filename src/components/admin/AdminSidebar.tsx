@@ -198,7 +198,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               {navSections.map((section, sectionIdx) => (
                 <div key={section.title}>
                   {!collapsed && (
-                    <h3 className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                    <h3 className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-muted-foreground/70">
                       {section.title}
                     </h3>
                   )}
@@ -210,13 +210,16 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                           key={item.tab}
                           to={`/admin?tab=${item.tab}`}
                           className={cn(
-                            "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
+                          "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all",
                             isActive
                               ? "bg-gradient-to-r from-accent/15 to-primary/10 text-accent shadow-sm"
                               : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground",
                             collapsed && "justify-center px-2"
                           )}
                         >
+                          {isActive && (
+                            <span className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r bg-accent" />
+                          )}
                           <item.icon
                             className={cn(
                               "h-5 w-5 shrink-0 transition-colors",

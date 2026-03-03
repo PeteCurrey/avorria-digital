@@ -77,7 +77,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
         )}
       >
         {/* Top Bar */}
-        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border/50 bg-card/80 px-4 backdrop-blur-sm lg:px-6">
+        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border/50 bg-card/80 px-4 backdrop-blur-sm lg:px-6 after:absolute after:bottom-0 after:left-0 after:right-0 after:h-px after:bg-gradient-to-r after:from-transparent after:via-accent/30 after:to-transparent">
           <div className="flex items-center gap-4">
             {/* Mobile Menu Toggle */}
             <Button
@@ -187,7 +187,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
         </header>
 
         {/* Page Content */}
-        <main className="p-4 pt-20 lg:p-6 lg:pt-24">
+        <main className="p-4 pt-6 lg:p-6 lg:pt-8">
           {(title || subtitle) && (
             <div className="mb-6">
               {title && (
