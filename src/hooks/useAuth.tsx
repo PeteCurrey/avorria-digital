@@ -60,11 +60,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         
         // Only fetch role for ongoing changes (not initial)
         if (hasInitialized && currentSession?.user) {
-          // Use setTimeout to avoid blocking
-          setTimeout(async () => {
-            const role = await fetchUserRole(currentSession.user.id);
-            if (isMounted) setUserRole(role);
-          }, 0);
+          const role = await fetchUserRole(currentSession.user.id);
+          if (isMounted) setUserRole(role);
         } else if (!currentSession) {
           setUserRole(null);
         }
