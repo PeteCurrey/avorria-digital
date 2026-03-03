@@ -49,7 +49,6 @@ export default function AuditFunnel() {
       </Helmet>
 
       <div className="min-h-screen bg-background">
-        <Navigation />
 
         {/* Hero Section with Gradient Background */}
         <section className="relative min-h-[80vh] flex items-center overflow-hidden">
