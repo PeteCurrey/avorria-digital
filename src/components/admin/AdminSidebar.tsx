@@ -210,7 +210,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                           key={item.tab}
                           to={`/admin?tab=${item.tab}`}
                           className={cn(
-                            "group flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all",
+                          "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all",
                             isActive
                               ? "bg-gradient-to-r from-accent/15 to-primary/10 text-accent shadow-sm"
                               : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground",
