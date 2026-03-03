@@ -41,7 +41,8 @@ const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo
     }
   }, [user, userRole, loading, navigate, requiredRole, redirectTo, isStaff, allowStaff]);
 
-  if (loading) {
+  // Wait for both auth and role to be resolved
+  if (loading || (user && !userRole && (requiredRole || allowStaff))) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <Loader2 className="h-8 w-8 animate-spin text-primary" />
