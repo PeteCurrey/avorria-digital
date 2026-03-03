@@ -16,12 +16,14 @@ import { supabase } from "@/integrations/supabase/client";
 import { ContentRecipeManager } from "./ContentRecipeManager";
 import {
   usePendingReviewContent,
+  useApprovedContent,
   useScheduledContent,
   useApproveContent,
   useRejectContent,
   useUpdateContent,
   useDeleteContent,
   useSaveGeneratedContent,
+  useMarkPublished,
 } from "@/hooks/useAIGeneratedContent";
 import {
   Sparkles,
