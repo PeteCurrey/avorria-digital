@@ -23,8 +23,8 @@ const Footer = () => {
   const industries = [
   { name: "All Industries", href: "/industries" },
   { name: "Web Design for Trades", href: "/web-design/for/trades" },
-  { name: "SEO for Professional Services", href: "/seo/for/professional-services" },
-  { name: "Paid Media for SaaS", href: "/paid-media/for/saas" }];
+  { name: "SEO for Professional Services", href: "/seo-agency/for/professional-services" },
+  { name: "Paid Media for SaaS", href: "/paid-media-agency/for/saas" }];
 
 
   const company = [
