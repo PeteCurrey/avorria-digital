@@ -1,106 +1,59 @@
 
-## Enhance Paid Media and SEO Service Pages
 
-### Overview
-Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
+## Team Members Management & Website Content Admin
 
----
-
-### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
-
-**Hero Section:**
-- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
-- Use the existing `service-paid-media.jpg` asset as the parallax background image
-- Keep the headline and copy but improve the subheadline badge
-- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
-
-**New Introduction Section (below hero):**
-- Two-column layout matching the Reporting page pattern
-- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
-- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
-- Wrapped in `SectionReveal` with staggered `motion` entrance animations
-
-**Pain Points Section:**
-- Keep the content but enhance with `SectionReveal` animation
-- Add more descriptive intro paragraph above the pain point list
-
-**How We Approach Paid Media Section:**
-- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
-
-**New "What You Get" Section:**
-- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
-
-**New "Process Timeline" Section:**
-- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
-
-**Platforms Section:**
-- Keep but enrich with more descriptive content per platform
-- Add a brief intro paragraph
-
-**New FAQ Section:**
-- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
-- Add `FAQSchema` for SEO
-- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
-
-**CTA Section:**
-- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
-
-**SEO Enhancements:**
-- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
-- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
+### What you asked for
+1. Enhance About page team cards with images, LinkedIn links, and contact info
+2. Manage team members from the admin panel (add, edit, delete)
+3. A "Website Management" section in admin to manage internal website content (pages, team, etc.)
+4. Verify existing content management tools (landing pages, resources) work properly
 
 ---
 
-### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+### Plan
 
-**New Introduction Section (below hero, before pain points):**
-- Same two-column layout as Reporting and Paid Media pages
-- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
-- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
-- Wrapped in `SectionReveal` with staggered `motion` entrance
+#### 1. Database: `team_members` table
+Create a new table with columns: `id`, `full_name`, `title`, `bio`, `initials`, `photo_url`, `linkedin_url`, `email`, `phone`, `display_order`, `is_published`, `created_at`, `updated_at`. RLS policies for staff CRUD and public SELECT on published members.
 
-**Content Enrichment:**
-- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
-- Enrich the case study teaser cards with slightly more descriptive content
+#### 2. Admin: Team Members Manager (`src/components/admin/TeamMembersManager.tsx`)
+A CRUD interface (matching the pattern of `TestimonialsTab` / `ResourcesManager`) with:
+- Table listing all team members with edit/delete actions
+- Dialog form for add/edit with fields: name, title, bio, initials, photo upload (to `client-logos` bucket or a new `team-photos` bucket), LinkedIn URL, email, phone, display order, published toggle
+- Image upload using the existing `ImageUploader` component
 
-**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+#### 3. About page: Dynamic team cards
+- Replace the hardcoded `team` array with a `useTeamMembers()` hook that fetches from the database
+- Enhance each card with: clickable photo/avatar, LinkedIn icon link, email link
+- Fallback to initials circle if no photo is uploaded
 
----
+#### 4. Admin sidebar: "Website" section
+Add a new nav section called **"Website"** in `AdminSidebar.tsx` with:
+- **Team Members** (tab: `team-members`) -- the new manager
+- **Resources** (move from Content & Marketing, since these are website pages)
+- **Case Studies** (already exists, keep in Content & Marketing too or move)
 
-### Visual Rhythm
+This groups internal website content management together.
 
-**Paid Media (top to bottom):**
-1. Hero — cinematic with `service-paid-media.jpg` parallax background
-2. Introduction — light background, two-column explainer
-3. Pain Points — gradient background, enhanced list
-4. How We Approach — dark background, 4-card grid + pull-quote
-5. What You Get — gradient background, deliverables checklist
-6. Process Timeline — mesh background, phased timeline
-7. Platforms — dark background, enriched 3-column cards
-8. FAQ — mesh background, accordion with schema
-9. CTA — gradient background, fixed buttons
-
-**SEO Services (top to bottom):**
-1. Hero (existing) — with `service-seo.jpg`
-2. **Introduction (NEW)** — light background, two-column explainer
-3. Pain Points (existing)
-4. What's Included (existing) + **pull-quote (NEW)**
-5. Process Timeline (existing)
-6. Deliverables (existing)
-7. SEO by Industry (existing)
-8. Case Studies (existing, enriched)
-9. SEO by Location (existing)
-10. FAQ (existing)
-11. CTA (existing)
+#### 5. Wire up in Admin.tsx
+- Import `TeamMembersManager`, add `case "team-members"` to the switch
+- Add title/subtitle entries for the new tab
 
 ---
 
-### Files Modified
-- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
-- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+### Files to create
+| File | Purpose |
+|------|---------|
+| `src/components/admin/TeamMembersManager.tsx` | CRUD admin component |
+| `src/hooks/useTeamMembers.ts` | React Query hook for team_members table |
 
-### New Imports
-- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
-- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
+### Files to modify
+| File | Changes |
+|------|---------|
+| `src/pages/About.tsx` | Fetch team from DB, enhance cards with photo/LinkedIn/email |
+| `src/pages/Admin.tsx` | Add team-members tab case |
+| `src/components/admin/AdminSidebar.tsx` | Add "Website" section with Team Members link |
 
-### No new dependencies needed
+### Database migration
+- Create `team_members` table with RLS
+- Create `team-photos` storage bucket (public)
+
