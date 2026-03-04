@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import AnimatedLogo from "@/components/AnimatedLogo";
 import {
   LayoutDashboard,
   Users,
@@ -117,22 +118,15 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
     <TooltipProvider>
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-screen border-r border-border/50 bg-card/95 backdrop-blur-sm transition-all duration-300",
+          "fixed left-0 top-0 z-40 h-screen border-r border-border/20 bg-card/90 backdrop-blur-xl transition-all duration-300",
           collapsed ? "w-16" : "w-64"
         )}
       >
         <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex h-16 items-center justify-between border-b border-border/50 px-4">
+          <div className="flex h-16 items-center justify-between border-b border-border/30 px-4">
             {!collapsed && (
-              <Link
-                to="/"
-                className="flex items-center gap-2 text-xl font-semibold tracking-tight"
-              >
-                <span className="bg-gradient-to-r from-primary via-accent to-accent bg-clip-text text-transparent">
-                  Avorria
-                </span>
-              </Link>
+              <AnimatedLogo />
             )}
             <Button
               variant="ghost"

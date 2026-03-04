@@ -10,6 +10,7 @@ const corsHeaders = {
 interface ImageRequest {
   prompt: string;
   contentId?: string;
+  imageStyle?: string;
 }
 
 serve(async (req) => {
@@ -18,15 +19,16 @@ serve(async (req) => {
   }
 
   try {
-    const { prompt, contentId }: ImageRequest = await req.json();
+    const { prompt, contentId, imageStyle }: ImageRequest = await req.json();
 
     const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
     if (!lovableApiKey) {
       throw new Error("LOVABLE_API_KEY is not configured");
     }
 
-    console.log("Generating image with prompt:", prompt);
+    console.log("Generating image with prompt:", prompt, "style:", imageStyle);
 
+    // Step 1: Generate the base image
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -34,11 +36,11 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-3-pro-image-preview",
+        model: "google/gemini-2.5-flash-image",
         messages: [
           {
             role: "user",
-            content: `Generate a professional, modern marketing image: ${prompt}. Style: clean, high-quality, suitable for digital marketing.`,
+            content: `Generate a professional, modern marketing image: ${prompt}. Style: clean, high-quality, suitable for digital marketing. Do not include any text in the image.`,
           },
         ],
         modalities: ["image", "text"],
@@ -78,10 +80,57 @@ serve(async (req) => {
       );
     }
 
-    // Always upload to Supabase storage for a proper URL
-    let imageUrl = imageData;
+    // Step 2: Add Avorria watermark via second AI call
+    let finalImageData = imageData;
+    try {
+      console.log("Adding Avorria watermark...");
+      const watermarkResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${lovableApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.5-flash-image",
+          messages: [
+            {
+              role: "user",
+              content: [
+                {
+                  type: "text",
+                  text: 'Add a subtle, semi-transparent watermark in the bottom-right corner of this image. The watermark should say "Avorria." where the dot is pink/magenta colored. Use a thin, lightweight sans-serif font. The watermark should be small, elegant, and semi-transparent (about 40% opacity) so it does not distract from the main image. Do not change anything else about the image.',
+                },
+                {
+                  type: "image_url",
+                  image_url: { url: imageData },
+                },
+              ],
+            },
+          ],
+          modalities: ["image", "text"],
+        }),
+      });
 
-    if (imageData.startsWith("data:image")) {
+      if (watermarkResponse.ok) {
+        const watermarkData = await watermarkResponse.json();
+        const watermarkedImage = watermarkData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
+        if (watermarkedImage) {
+          finalImageData = watermarkedImage;
+          console.log("Watermark added successfully");
+        } else {
+          console.log("Watermark call returned no image, using original");
+        }
+      } else {
+        console.log("Watermark call failed, using original image");
+      }
+    } catch (watermarkError) {
+      console.error("Watermark error (non-fatal):", watermarkError);
+    }
+
+    // Step 3: Upload to storage
+    let imageUrl = finalImageData;
+
+    if (finalImageData.startsWith("data:image")) {
       try {
         const supabaseUrl = Deno.env.get("SUPABASE_URL");
         const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
@@ -89,7 +138,7 @@ serve(async (req) => {
         if (supabaseUrl && supabaseKey) {
           const supabase = createClient(supabaseUrl, supabaseKey);
 
-          const base64Data = imageData.split(",")[1];
+          const base64Data = finalImageData.split(",")[1];
           const imageBuffer = Uint8Array.from(atob(base64Data), c => c.charCodeAt(0));
 
           const fileName = `ai-generated/${contentId || "img"}-${Date.now()}.png`;

@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ContentRecipeManager } from "./ContentRecipeManager";
@@ -53,10 +54,15 @@ import {
   ThumbsDown,
   Zap,
   Link2,
-  ExternalLink,
   ArrowRight,
+  Maximize2,
+  Camera,
+  Paintbrush,
+  Box,
+  X,
 } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 interface GeneratedContent {
   id: string;
@@ -70,7 +76,14 @@ interface GeneratedContent {
   status: "draft" | "review" | "approved" | "scheduled";
 }
 
+const imageStyleOptions = [
+  { value: "photographic", label: "Photographic", icon: Camera, desc: "Realistic stock-photo style" },
+  { value: "illustrative", label: "Illustrative", icon: Paintbrush, desc: "Clean vector/abstract graphics" },
+  { value: "3d-render", label: "3D Render", icon: Box, desc: "Modern 3D objects & scenes" },
+];
+
 const ContentStudio = () => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("generate");
   const [contentType, setContentType] = useState<string>("social");
   const [platform, setPlatform] = useState<string>("linkedin");
@@ -80,12 +93,20 @@ const ContentStudio = () => {
   const [additionalContext, setAdditionalContext] = useState("");
   const [includeHashtags, setIncludeHashtags] = useState(true);
   const [generateImage, setGenerateImage] = useState(false);
+  const [imageStyle, setImageStyle] = useState("illustrative");
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedContent, setGeneratedContent] = useState<GeneratedContent[]>([]);
   const [editingContent, setEditingContent] = useState<string | null>(null);
   const [editedText, setEditedText] = useState("");
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [bulkCount, setBulkCount] = useState(3);
+
+  // Lightbox state
+  const [lightboxImage, setLightboxImage] = useState<string | null>(null);
+  // Custom prompt dialog
+  const [customPromptOpen, setCustomPromptOpen] = useState(false);
+  const [customPromptText, setCustomPromptText] = useState("");
+  const [customPromptTargetId, setCustomPromptTargetId] = useState<string | null>(null);
 
   // Database hooks
   const { data: pendingContent, isLoading: loadingPending, refetch: refetchPending } = usePendingReviewContent();
@@ -135,17 +156,30 @@ const ContentStudio = () => {
     newsletter: [{ value: "email", label: "Newsletter" }],
   };
 
-  const handleGenerateImage = async (content: GeneratedContent) => {
+  const getImageStylePrompt = (style: string) => {
+    switch (style) {
+      case "photographic":
+        return "Photorealistic, professional photography style, natural lighting, high-resolution stock photo quality.";
+      case "3d-render":
+        return "Modern 3D rendered scene, clean materials, soft lighting, studio quality 3D visualization.";
+      default:
+        return "Clean vector illustration style, flat design, abstract marketing graphic, minimalist.";
+    }
+  };
+
+  const handleGenerateImage = async (content: GeneratedContent, customPrompt?: string) => {
     setGeneratedContent((prev) =>
       prev.map((c) => (c.id === content.id ? { ...c, isGeneratingImage: true } : c))
     );
 
     try {
+      const stylePrompt = getImageStylePrompt(imageStyle);
+      const prompt = customPrompt
+        ? customPrompt
+        : `Create a professional marketing visual for: ${content.title || topic}. ${stylePrompt} Suitable for ${content.platform} marketing. No text overlays.`;
+
       const { data, error } = await supabase.functions.invoke("generate-image", {
-        body: {
-          prompt: `Create a professional, modern marketing visual for: ${content.title || topic}. Style: clean, minimalist, suitable for ${content.platform} marketing. No text overlays.`,
-          contentId: content.id,
-        },
+        body: { prompt, contentId: content.id, imageStyle },
       });
 
       if (error) throw error;
@@ -156,7 +190,7 @@ const ContentStudio = () => {
             c.id === content.id ? { ...c, imageUrl: data.imageUrl, isGeneratingImage: false } : c
           )
         );
-        toast.success("Image generated!");
+        toast.success("Image generated with Avorria watermark!");
       } else {
         throw new Error(data?.error || "No image returned");
       }
@@ -167,6 +201,25 @@ const ContentStudio = () => {
       );
       toast.error(error.message || "Failed to generate image");
     }
+  };
+
+  const handleReplaceImage = (content: GeneratedContent) => {
+    handleGenerateImage(content);
+  };
+
+  const handleCustomPromptImage = (contentId: string) => {
+    setCustomPromptTargetId(contentId);
+    setCustomPromptText("");
+    setCustomPromptOpen(true);
+  };
+
+  const submitCustomPrompt = () => {
+    if (!customPromptTargetId || !customPromptText.trim()) return;
+    const content = generatedContent.find((c) => c.id === customPromptTargetId);
+    if (content) {
+      handleGenerateImage(content, customPromptText);
+    }
+    setCustomPromptOpen(false);
   };
 
   const handleGenerate = async () => {
@@ -199,7 +252,6 @@ const ContentStudio = () => {
       setGeneratedContent((prev) => [...newContent, ...prev]);
       toast.success(`Generated ${newContent.length} content piece(s)`);
 
-      // Generate images for all content if toggled on
       if (generateImage) {
         for (const item of newContent) {
           handleGenerateImage(item);
@@ -301,13 +353,13 @@ const ContentStudio = () => {
         exit={{ opacity: 0, y: -12 }}
         layout
       >
-        <Card className="border-border/40 bg-card/80 backdrop-blur-sm hover:border-border/60 transition-colors">
+        <Card className="border-border/30 bg-card/60 backdrop-blur-sm hover:border-accent/20 transition-all duration-200 hover:shadow-sm">
           <CardContent className="p-5">
             <div className="flex items-center gap-2 mb-3">
-              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-secondary">
+              <div className="flex h-7 w-7 items-center justify-center rounded-md bg-accent/10 border border-accent/20">
                 <Icon className="h-3.5 w-3.5 text-accent" />
               </div>
-              <span className="text-sm font-medium capitalize">
+              <span className="text-xs font-medium capitalize tracking-wide text-foreground/80">
                 {item.platform || item.content_type}
               </span>
               {item.auto_generated && (
@@ -317,13 +369,13 @@ const ContentStudio = () => {
               )}
               {badge}
               {item.created_at && (
-                <span className="text-[11px] text-muted-foreground ml-auto">
+                <span className="text-[10px] text-muted-foreground/60 ml-auto font-mono">
                   {formatDistanceToNow(new Date(item.created_at), { addSuffix: true })}
                 </span>
               )}
             </div>
 
-            {item.title && <h4 className="font-semibold text-sm mb-2">{item.title}</h4>}
+            {item.title && <h4 className="font-semibold text-sm mb-2 tracking-tight">{item.title}</h4>}
 
             <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
               {item.content}
@@ -331,35 +383,39 @@ const ContentStudio = () => {
 
             {/* AI Generated Image */}
             {item.isGeneratingImage && (
-              <div className="mt-3 rounded-lg border border-dashed border-border/60 bg-muted/30 p-6 flex flex-col items-center gap-2">
+              <div className="mt-3 rounded-lg border border-dashed border-accent/20 bg-accent/5 p-8 flex flex-col items-center gap-2">
                 <Loader2 className="h-6 w-6 animate-spin text-accent" />
                 <span className="text-xs text-muted-foreground">Generating image...</span>
               </div>
             )}
             {item.imageUrl && !item.isGeneratingImage && (
-              <div className="mt-3 rounded-lg overflow-hidden border border-border/40">
+              <div className="mt-3 rounded-lg overflow-hidden border border-border/30 relative group">
                 <img
                   src={item.imageUrl}
                   alt={item.title || "AI generated image"}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-48 object-cover cursor-pointer transition-transform duration-200 group-hover:scale-[1.02]"
+                  onClick={() => setLightboxImage(item.imageUrl!)}
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}
                 />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors flex items-center justify-center opacity-0 group-hover:opacity-100 pointer-events-none">
+                  <Maximize2 className="h-6 w-6 text-white drop-shadow-lg" />
+                </div>
               </div>
             )}
 
             {item.hashtags && item.hashtags.length > 0 && (
               <div className="flex flex-wrap gap-1 mt-3">
                 {item.hashtags.map((tag) => (
-                  <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0 border-accent/30 text-accent">
+                  <Badge key={tag} variant="outline" className="text-[10px] px-1.5 py-0 border-accent/20 text-accent/80 font-mono">
                     #{tag}
                   </Badge>
                 ))}
               </div>
             )}
 
-            <Separator className="my-3" />
+            <Separator className="my-3 bg-border/30" />
             <div className="flex flex-wrap gap-1.5">{actions}</div>
           </CardContent>
         </Card>
@@ -368,133 +424,171 @@ const ContentStudio = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-5">
+      {/* Image Lightbox */}
+      <Dialog open={!!lightboxImage} onOpenChange={() => setLightboxImage(null)}>
+        <DialogContent className="max-w-4xl p-0 bg-black/95 border-border/20">
+          <DialogHeader className="sr-only">
+            <DialogTitle>Image Preview</DialogTitle>
+          </DialogHeader>
+          {lightboxImage && (
+            <div className="relative">
+              <img
+                src={lightboxImage}
+                alt="Full size preview"
+                className="w-full h-auto max-h-[85vh] object-contain"
+              />
+              <Button
+                size="icon"
+                variant="ghost"
+                className="absolute top-3 right-3 text-white/80 hover:text-white hover:bg-white/10 h-8 w-8"
+                onClick={() => setLightboxImage(null)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Custom Prompt Dialog */}
+      <Dialog open={customPromptOpen} onOpenChange={setCustomPromptOpen}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-base">
+              <Paintbrush className="h-4 w-4 text-accent" />
+              Custom Image Prompt
+            </DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Describe the image you want</Label>
+              <Textarea
+                value={customPromptText}
+                onChange={(e) => setCustomPromptText(e.target.value)}
+                placeholder="e.g., A modern office workspace with a laptop showing analytics charts, warm natural lighting, minimalist desk setup..."
+                className="min-h-[100px] text-sm"
+              />
+            </div>
+            <div className="flex gap-2 justify-end">
+              <Button variant="outline" size="sm" onClick={() => setCustomPromptOpen(false)}>
+                Cancel
+              </Button>
+              <Button size="sm" onClick={submitCustomPrompt} disabled={!customPromptText.trim()}>
+                <ImageIcon className="h-3.5 w-3.5 mr-1.5" />
+                Generate
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       {/* Header */}
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight flex items-center gap-2">
-            <Sparkles className="h-6 w-6 text-accent" />
-            AI Content Studio
+          <h2 className="text-xl font-semibold tracking-tight flex items-center gap-2">
+            <div className="h-8 w-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+              <Sparkles className="h-4 w-4 text-accent" />
+            </div>
+            Content Studio
           </h2>
-          <p className="text-muted-foreground text-sm mt-1">
-            Generate, review, and schedule content across all your channels
+          <p className="text-muted-foreground text-xs mt-1 ml-10">
+            Generate, review, and schedule content across all channels
           </p>
         </div>
         <div className="flex items-center gap-2">
           {pendingContent && pendingContent.length > 0 && (
-            <Badge variant="secondary" className="gap-1">
+            <Badge variant="secondary" className="gap-1 text-[10px]">
               <Clock className="h-3 w-3" />
               {pendingContent.length} pending
             </Badge>
           )}
-          <Button
-            variant="outline"
-            size="sm"
-            className="gap-1.5"
-            onClick={() => {
-              // Navigate to integrations tab in admin
-              const event = new CustomEvent("admin-navigate", { detail: { tab: "settings" } });
-              window.dispatchEvent(event);
-              toast.info("Go to Settings → Integrations → Social tab to link your accounts");
-            }}
-          >
-            <Link2 className="h-3.5 w-3.5" />
-            Connect Social Accounts
-          </Button>
         </div>
       </div>
 
-      {/* Social Accounts Banner */}
-      <Card className="border-accent/20 bg-gradient-to-r from-accent/5 via-transparent to-primary/5">
-        <CardContent className="p-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="flex -space-x-1">
-              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center border-2 border-background">
-                <Twitter className="h-3.5 w-3.5" />
+      {/* Social Accounts Status Bar */}
+      <div className="flex items-center gap-3 px-4 py-3 rounded-lg border border-border/30 bg-card/40 backdrop-blur-sm">
+        <div className="flex items-center gap-2">
+          <div className="flex -space-x-1.5">
+            {[
+              { icon: Twitter, label: "X" },
+              { icon: Linkedin, label: "LI" },
+              { icon: Instagram, label: "IG" },
+            ].map(({ icon: SIcon, label }) => (
+              <div key={label} className="h-7 w-7 rounded-full bg-muted/60 flex items-center justify-center border border-background text-muted-foreground">
+                <SIcon className="h-3 w-3" />
               </div>
-              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center border-2 border-background">
-                <Linkedin className="h-3.5 w-3.5" />
-              </div>
-              <div className="h-8 w-8 rounded-full bg-secondary flex items-center justify-center border-2 border-background">
-                <Instagram className="h-3.5 w-3.5" />
-              </div>
-            </div>
-            <div>
-              <p className="text-sm font-medium">Link social accounts for auto-publishing</p>
-              <p className="text-xs text-muted-foreground">
-                Connect your accounts in Settings → Integrations → Social to publish directly
-              </p>
-            </div>
+            ))}
           </div>
-          <Button
-            variant="ghost"
-            size="sm"
-            className="gap-1 text-accent hover:text-accent"
-            onClick={() => toast.info("Navigate to Admin → Settings → Integrations → Social tab")}
-          >
-            Set up <ArrowRight className="h-3.5 w-3.5" />
-          </Button>
-        </CardContent>
-      </Card>
+          <span className="text-xs text-muted-foreground">
+            Connect accounts for auto-publishing
+          </span>
+        </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="gap-1 text-accent hover:text-accent ml-auto h-7 text-xs"
+          onClick={() => navigate("/admin?tab=integrations")}
+        >
+          Set up <ArrowRight className="h-3 w-3" />
+        </Button>
+      </div>
 
-      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:grid-cols-5 bg-muted/50 backdrop-blur-sm">
-          <TabsTrigger value="generate" className="gap-1.5 data-[state=active]:bg-background">
-            <Wand2 className="h-4 w-4" />
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-5">
+        <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:grid-cols-5 bg-muted/30 backdrop-blur-sm border border-border/20 h-9">
+          <TabsTrigger value="generate" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
+            <Wand2 className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Generate</span>
           </TabsTrigger>
-          <TabsTrigger value="queue" className="gap-1.5 relative data-[state=active]:bg-background">
-            <Eye className="h-4 w-4" />
+          <TabsTrigger value="queue" className="gap-1.5 relative data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
+            <Eye className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Review</span>
             {pendingContent && pendingContent.length > 0 && (
-              <span className="absolute -top-1 -right-1 h-4 w-4 text-[10px] bg-accent text-accent-foreground rounded-full flex items-center justify-center font-bold">
+              <span className="absolute -top-1 -right-1 h-4 w-4 text-[9px] bg-accent text-accent-foreground rounded-full flex items-center justify-center font-bold">
                 {pendingContent.length}
               </span>
             )}
           </TabsTrigger>
-          <TabsTrigger value="approved" className="gap-1.5 relative data-[state=active]:bg-background">
-            <Check className="h-4 w-4" />
+          <TabsTrigger value="approved" className="gap-1.5 relative data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
+            <Check className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Approved</span>
             {approvedContentDB && approvedContentDB.length > 0 && (
-              <span className="absolute -top-1 -right-1 h-4 w-4 text-[10px] bg-green-500 text-white rounded-full flex items-center justify-center font-bold">
+              <span className="absolute -top-1 -right-1 h-4 w-4 text-[9px] bg-green-500 text-white rounded-full flex items-center justify-center font-bold">
                 {approvedContentDB.length}
               </span>
             )}
           </TabsTrigger>
-          <TabsTrigger value="scheduled" className="gap-1.5 data-[state=active]:bg-background">
-            <Calendar className="h-4 w-4" />
+          <TabsTrigger value="scheduled" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
+            <Calendar className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Scheduled</span>
           </TabsTrigger>
-          <TabsTrigger value="automation" className="gap-1.5 data-[state=active]:bg-background">
-            <Settings2 className="h-4 w-4" />
+          <TabsTrigger value="automation" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
+            <Settings2 className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Automation</span>
           </TabsTrigger>
         </TabsList>
 
         {/* ====== GENERATE TAB ====== */}
-        <TabsContent value="generate" className="space-y-6">
-          <div className="grid gap-6 lg:grid-cols-5">
+        <TabsContent value="generate" className="space-y-5">
+          <div className="grid gap-5 lg:grid-cols-5">
             {/* Generation Form - 2 cols */}
-            <Card className="lg:col-span-2 border-border/40">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <Wand2 className="h-5 w-5 text-accent" />
+            <Card className="lg:col-span-2 border-border/20 bg-card/60 backdrop-blur-sm">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+                  <Wand2 className="h-4 w-4 text-accent" />
                   Content Generator
                 </CardTitle>
-                <CardDescription className="text-xs">
-                  Configure and generate AI-powered content
-                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-5">
+              <CardContent className="space-y-4">
                 {/* Content Type */}
-                <div className="space-y-2">
-                  <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Content Type</Label>
+                <div className="space-y-1.5">
+                  <Label className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">Content Type</Label>
                   <div className="grid grid-cols-2 gap-1.5">
                     {contentTypeOptions.map((option) => (
                       <Button
                         key={option.value}
                         variant={contentType === option.value ? "default" : "outline"}
-                        className="flex-col gap-1 h-auto py-2.5 text-xs"
+                        className="flex-col gap-1 h-auto py-2 text-[11px]"
                         size="sm"
                         onClick={() => {
                           setContentType(option.value);
@@ -510,10 +604,10 @@ const ContentStudio = () => {
 
                 {/* Platform */}
                 {contentType === "social" && (
-                  <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Platform</Label>
+                  <div className="space-y-1.5">
+                    <Label className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">Platform</Label>
                     <Select value={platform} onValueChange={setPlatform}>
-                      <SelectTrigger className="h-9">
+                      <SelectTrigger className="h-8 text-xs">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -526,25 +620,25 @@ const ContentStudio = () => {
                 )}
 
                 {/* Topic */}
-                <div className="space-y-2">
-                  <Label htmlFor="topic" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Topic / Idea *</Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="topic" className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">Topic / Idea *</Label>
                   <Textarea
                     id="topic"
                     placeholder="e.g., Share tips on improving website SEO for small businesses"
                     value={topic}
                     onChange={(e) => setTopic(e.target.value)}
-                    className="min-h-[80px] text-sm"
+                    className="min-h-[70px] text-xs"
                   />
                 </div>
 
-                {/* Tone & Audience in row */}
-                <div className="grid grid-cols-2 gap-3">
-                  <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                      <Palette className="h-3 w-3" /> Tone
+                {/* Tone & Variations */}
+                <div className="grid grid-cols-2 gap-2">
+                  <div className="space-y-1.5">
+                    <Label className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70 flex items-center gap-1">
+                      <Palette className="h-2.5 w-2.5" /> Tone
                     </Label>
                     <Select value={tone} onValueChange={setTone}>
-                      <SelectTrigger className="h-9 text-xs">
+                      <SelectTrigger className="h-8 text-xs">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -554,10 +648,10 @@ const ContentStudio = () => {
                       </SelectContent>
                     </Select>
                   </div>
-                  <div className="space-y-2">
-                    <Label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Variations</Label>
+                  <div className="space-y-1.5">
+                    <Label className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">Variations</Label>
                     <Select value={bulkCount.toString()} onValueChange={(v) => setBulkCount(parseInt(v))}>
-                      <SelectTrigger className="h-9 text-xs">
+                      <SelectTrigger className="h-8 text-xs">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -570,54 +664,86 @@ const ContentStudio = () => {
                 </div>
 
                 {/* Target Audience */}
-                <div className="space-y-2">
-                  <Label htmlFor="audience" className="text-xs font-medium uppercase tracking-wider text-muted-foreground flex items-center gap-1">
-                    <Target className="h-3 w-3" /> Target Audience
+                <div className="space-y-1.5">
+                  <Label htmlFor="audience" className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70 flex items-center gap-1">
+                    <Target className="h-2.5 w-2.5" /> Target Audience
                   </Label>
                   <Input
                     id="audience"
                     placeholder="e.g., Marketing managers at SMBs"
                     value={targetAudience}
                     onChange={(e) => setTargetAudience(e.target.value)}
-                    className="h-9 text-sm"
+                    className="h-8 text-xs"
                   />
                 </div>
 
                 {/* Additional Context */}
-                <div className="space-y-2">
-                  <Label htmlFor="context" className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Additional Context</Label>
+                <div className="space-y-1.5">
+                  <Label htmlFor="context" className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">Additional Context</Label>
                   <Textarea
                     id="context"
                     placeholder="Any specific points, CTAs, or brand guidelines..."
                     value={additionalContext}
                     onChange={(e) => setAdditionalContext(e.target.value)}
-                    className="min-h-[60px] text-sm"
+                    className="min-h-[50px] text-xs"
                   />
                 </div>
 
-                <Separator />
+                <Separator className="bg-border/20" />
 
                 {/* Toggles */}
-                <div className="space-y-3">
+                <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="hashtags" className="flex items-center gap-2 cursor-pointer text-sm">
-                      <Hash className="h-3.5 w-3.5 text-muted-foreground" /> Hashtags
+                    <Label htmlFor="hashtags" className="flex items-center gap-2 cursor-pointer text-xs">
+                      <Hash className="h-3 w-3 text-muted-foreground/60" /> Hashtags
                     </Label>
                     <Switch id="hashtags" checked={includeHashtags} onCheckedChange={setIncludeHashtags} />
                   </div>
                   <div className="flex items-center justify-between">
-                    <Label htmlFor="image" className="flex items-center gap-2 cursor-pointer text-sm">
-                      <ImageIcon className="h-3.5 w-3.5 text-muted-foreground" /> Generate AI Images
+                    <Label htmlFor="image" className="flex items-center gap-2 cursor-pointer text-xs">
+                      <ImageIcon className="h-3 w-3 text-muted-foreground/60" /> Generate AI Images
                     </Label>
                     <Switch id="image" checked={generateImage} onCheckedChange={setGenerateImage} />
                   </div>
                 </div>
 
+                {/* Image Style Selector */}
+                <AnimatePresence>
+                  {generateImage && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: "auto" }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden"
+                    >
+                      <div className="space-y-1.5 pt-1">
+                        <Label className="text-[10px] font-medium uppercase tracking-[0.12em] text-muted-foreground/70">Image Style</Label>
+                        <div className="grid grid-cols-3 gap-1.5">
+                          {imageStyleOptions.map((style) => (
+                            <button
+                              key={style.value}
+                              onClick={() => setImageStyle(style.value)}
+                              className={`flex flex-col items-center gap-1 rounded-lg border p-2.5 transition-all text-center ${
+                                imageStyle === style.value
+                                  ? "border-accent/40 bg-accent/10 text-accent"
+                                  : "border-border/30 hover:border-border/50 text-muted-foreground"
+                              }`}
+                            >
+                              <style.icon className="h-4 w-4" />
+                              <span className="text-[10px] font-medium leading-tight">{style.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
                 <Button
                   onClick={handleGenerate}
                   disabled={isGenerating || !topic.trim()}
                   className="w-full"
-                  size="lg"
+                  size="default"
                 >
                   {isGenerating ? (
                     <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Generating...</>
@@ -629,34 +755,34 @@ const ContentStudio = () => {
             </Card>
 
             {/* Generated Content Preview - 3 cols */}
-            <Card className="lg:col-span-3 border-border/40">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center justify-between text-lg">
+            <Card className="lg:col-span-3 border-border/20 bg-card/60 backdrop-blur-sm">
+              <CardHeader className="pb-3">
+                <CardTitle className="flex items-center justify-between text-sm font-semibold tracking-tight">
                   <span className="flex items-center gap-2">
-                    <Eye className="h-5 w-5 text-accent" />
-                    Generated Content
+                    <Eye className="h-4 w-4 text-accent" />
+                    Preview
                   </span>
                   {generatedContent.length > 0 && (
-                    <Badge variant="secondary" className="text-xs">{generatedContent.length} items</Badge>
+                    <Badge variant="secondary" className="text-[10px]">{generatedContent.length}</Badge>
                   )}
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ScrollArea className="h-[680px] pr-4">
+                <ScrollArea className="h-[680px] pr-3">
                   <AnimatePresence mode="popLayout">
                     {generatedContent.length === 0 ? (
                       <motion.div
                         key="empty"
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        className="flex flex-col items-center justify-center py-20 text-center"
+                        className="flex flex-col items-center justify-center py-24 text-center"
                       >
-                        <div className="h-16 w-16 rounded-2xl bg-muted/50 flex items-center justify-center mb-4">
-                          <Sparkles className="h-8 w-8 text-muted-foreground/40" />
+                        <div className="h-14 w-14 rounded-2xl bg-muted/30 border border-border/20 flex items-center justify-center mb-4">
+                          <Sparkles className="h-6 w-6 text-muted-foreground/30" />
                         </div>
-                        <p className="text-muted-foreground font-medium">No content yet</p>
-                        <p className="text-xs text-muted-foreground/60 mt-1 max-w-[240px]">
-                          Configure your settings on the left and click "Generate Content"
+                        <p className="text-sm text-muted-foreground/60 font-medium">No content generated yet</p>
+                        <p className="text-[11px] text-muted-foreground/40 mt-1 max-w-[220px]">
+                          Configure settings and click Generate
                         </p>
                       </motion.div>
                     ) : (
@@ -667,23 +793,37 @@ const ContentStudio = () => {
                             item={{ ...content, created_at: undefined }}
                             actions={
                               <>
-                                <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => handleCopy(content)}>
+                                <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy(content)}>
                                   {copiedId === content.id ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
                                   Copy
                                 </Button>
-                                <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => handleEdit(content)}>
+                                <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleEdit(content)}>
                                   <Edit3 className="h-3 w-3 mr-1" /> Edit
                                 </Button>
-                                {!content.imageUrl && !content.isGeneratingImage && (
-                                  <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => handleGenerateImage(content)}>
-                                    <ImageIcon className="h-3 w-3 mr-1" /> Image
-                                  </Button>
-                                )}
-                                <Button size="sm" className="h-7 text-xs" onClick={() => handleSaveToQueue(content)} disabled={saveContent.isPending}>
+                                {content.imageUrl && !content.isGeneratingImage ? (
+                                  <>
+                                    <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleReplaceImage(content)}>
+                                      <RefreshCw className="h-3 w-3 mr-1" /> Replace
+                                    </Button>
+                                    <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCustomPromptImage(content.id)}>
+                                      <Paintbrush className="h-3 w-3 mr-1" /> Prompt
+                                    </Button>
+                                  </>
+                                ) : !content.isGeneratingImage ? (
+                                  <>
+                                    <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleGenerateImage(content)}>
+                                      <ImageIcon className="h-3 w-3 mr-1" /> Image
+                                    </Button>
+                                    <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCustomPromptImage(content.id)}>
+                                      <Paintbrush className="h-3 w-3 mr-1" /> Custom
+                                    </Button>
+                                  </>
+                                ) : null}
+                                <Button size="sm" className="h-7 text-[11px]" onClick={() => handleSaveToQueue(content)} disabled={saveContent.isPending}>
                                   {saveContent.isPending ? <Loader2 className="h-3 w-3 mr-1 animate-spin" /> : <Send className="h-3 w-3 mr-1" />}
                                   Queue
                                 </Button>
-                                <Button size="sm" variant="ghost" className="h-7 text-xs text-destructive hover:text-destructive ml-auto" onClick={() => handleDelete(content.id)}>
+                                <Button size="sm" variant="ghost" className="h-7 text-[11px] text-destructive hover:text-destructive ml-auto" onClick={() => handleDelete(content.id)}>
                                   <Trash2 className="h-3 w-3" />
                                 </Button>
                               </>
@@ -700,33 +840,33 @@ const ContentStudio = () => {
         </TabsContent>
 
         {/* ====== REVIEW TAB ====== */}
-        <TabsContent value="queue" className="space-y-6">
-          <Card className="border-border/40">
-            <CardHeader className="pb-4">
+        <TabsContent value="queue" className="space-y-5">
+          <Card className="border-border/20 bg-card/60 backdrop-blur-sm">
+            <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Eye className="h-5 w-5 text-accent" /> Review Queue
+                  <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+                    <Eye className="h-4 w-4 text-accent" /> Review Queue
                   </CardTitle>
-                  <CardDescription className="text-xs">Content awaiting your review and approval</CardDescription>
+                  <CardDescription className="text-[11px]">Content awaiting review and approval</CardDescription>
                 </div>
-                <Button variant="outline" size="sm" className="h-8" onClick={() => refetchPending()}>
-                  <RefreshCw className="h-3.5 w-3.5 mr-1.5" /> Refresh
+                <Button variant="outline" size="sm" className="h-7 text-xs border-border/30" onClick={() => refetchPending()}>
+                  <RefreshCw className="h-3 w-3 mr-1" /> Refresh
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
               {loadingPending ? (
                 <div className="flex items-center justify-center py-16">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground/40" />
                 </div>
               ) : !pendingContent || pendingContent.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="h-14 w-14 rounded-2xl bg-green-500/10 flex items-center justify-center mb-3">
-                    <Check className="h-7 w-7 text-green-500/60" />
+                  <div className="h-12 w-12 rounded-2xl bg-green-500/5 border border-green-500/10 flex items-center justify-center mb-3">
+                    <Check className="h-5 w-5 text-green-500/50" />
                   </div>
-                  <p className="text-muted-foreground font-medium">All caught up!</p>
-                  <p className="text-xs text-muted-foreground/60 mt-1">No content pending review</p>
+                  <p className="text-sm text-muted-foreground/60 font-medium">All caught up</p>
+                  <p className="text-[11px] text-muted-foreground/40 mt-1">No content pending review</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -737,17 +877,17 @@ const ContentStudio = () => {
                         item={item}
                         actions={
                           <>
-                            <Button size="sm" className="h-7 text-xs" onClick={() => handleApproveDB(item.id)} disabled={approveContent.isPending}>
+                            <Button size="sm" className="h-7 text-[11px]" onClick={() => handleApproveDB(item.id)} disabled={approveContent.isPending}>
                               <Check className="h-3 w-3 mr-1" /> Approve
                             </Button>
-                            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => handleCopy({ id: item.id, content: item.content })}>
+                            <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy({ id: item.id, content: item.content })}>
                               {copiedId === item.id ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
                               Copy
                             </Button>
-                            <Button size="sm" variant="outline" className="h-7 text-xs text-destructive hover:text-destructive" onClick={() => handleRejectDB(item.id)}>
+                            <Button size="sm" variant="outline" className="h-7 text-[11px] text-destructive hover:text-destructive border-border/30" onClick={() => handleRejectDB(item.id)}>
                               <ThumbsDown className="h-3 w-3 mr-1" /> Reject
                             </Button>
-                            <Button size="sm" variant="ghost" className="h-7 text-xs text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
+                            <Button size="sm" variant="ghost" className="h-7 text-[11px] text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
                               <Trash2 className="h-3 w-3" />
                             </Button>
                           </>
@@ -762,33 +902,33 @@ const ContentStudio = () => {
         </TabsContent>
 
         {/* ====== APPROVED TAB ====== */}
-        <TabsContent value="approved" className="space-y-6">
-          <Card className="border-border/40">
-            <CardHeader className="pb-4">
+        <TabsContent value="approved" className="space-y-5">
+          <Card className="border-border/20 bg-card/60 backdrop-blur-sm">
+            <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Check className="h-5 w-5 text-green-500" /> Approved Content
+                  <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+                    <Check className="h-4 w-4 text-green-500" /> Approved Content
                   </CardTitle>
-                  <CardDescription className="text-xs">Ready to publish or schedule</CardDescription>
+                  <CardDescription className="text-[11px]">Ready to publish or schedule</CardDescription>
                 </div>
-                <Button variant="outline" size="sm" className="h-8" onClick={() => refetchApproved()}>
-                  <RefreshCw className="h-3.5 w-3.5 mr-1.5" /> Refresh
+                <Button variant="outline" size="sm" className="h-7 text-xs border-border/30" onClick={() => refetchApproved()}>
+                  <RefreshCw className="h-3 w-3 mr-1" /> Refresh
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
               {loadingApproved ? (
                 <div className="flex items-center justify-center py-16">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground/40" />
                 </div>
               ) : !approvedContentDB || approvedContentDB.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="h-14 w-14 rounded-2xl bg-muted/50 flex items-center justify-center mb-3">
-                    <Check className="h-7 w-7 text-muted-foreground/40" />
+                  <div className="h-12 w-12 rounded-2xl bg-muted/30 border border-border/20 flex items-center justify-center mb-3">
+                    <Check className="h-5 w-5 text-muted-foreground/30" />
                   </div>
-                  <p className="text-muted-foreground font-medium">No approved content</p>
-                  <p className="text-xs text-muted-foreground/60 mt-1">Approve content from the Review tab</p>
+                  <p className="text-sm text-muted-foreground/60 font-medium">No approved content</p>
+                  <p className="text-[11px] text-muted-foreground/40 mt-1">Approve content from Review</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -798,19 +938,19 @@ const ContentStudio = () => {
                         key={item.id}
                         item={item}
                         badge={
-                          <Badge className="bg-green-500/15 text-green-400 border-green-500/25 text-[10px] px-1.5 py-0">
+                          <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-[10px] px-1.5 py-0">
                             Approved
                           </Badge>
                         }
                         actions={
                           <>
-                            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => handleCopy({ id: item.id, content: item.content })}>
+                            <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy({ id: item.id, content: item.content })}>
                               {copiedId === item.id ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
                               Copy
                             </Button>
                             <Button
                               size="sm"
-                              className="h-7 text-xs"
+                              className="h-7 text-[11px]"
                               onClick={() => markPublished.mutateAsync(item.id).then(() => refetchApproved())}
                               disabled={markPublished.isPending}
                             >
@@ -820,7 +960,7 @@ const ContentStudio = () => {
                             <Button
                               size="sm"
                               variant="outline"
-                              className="h-7 text-xs"
+                              className="h-7 text-[11px] border-border/30"
                               onClick={() => {
                                 const scheduledFor = new Date();
                                 scheduledFor.setDate(scheduledFor.getDate() + 1);
@@ -833,7 +973,7 @@ const ContentStudio = () => {
                             >
                               <Calendar className="h-3 w-3 mr-1" /> Schedule
                             </Button>
-                            <Button size="sm" variant="ghost" className="h-7 text-xs text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
+                            <Button size="sm" variant="ghost" className="h-7 text-[11px] text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
                               <Trash2 className="h-3 w-3" />
                             </Button>
                           </>
@@ -848,33 +988,33 @@ const ContentStudio = () => {
         </TabsContent>
 
         {/* ====== SCHEDULED TAB ====== */}
-        <TabsContent value="scheduled" className="space-y-6">
-          <Card className="border-border/40">
-            <CardHeader className="pb-4">
+        <TabsContent value="scheduled" className="space-y-5">
+          <Card className="border-border/20 bg-card/60 backdrop-blur-sm">
+            <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle className="flex items-center gap-2 text-lg">
-                    <Calendar className="h-5 w-5 text-accent" /> Scheduled Content
+                  <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+                    <Calendar className="h-4 w-4 text-accent" /> Scheduled
                   </CardTitle>
-                  <CardDescription className="text-xs">Queued for publishing at the scheduled time</CardDescription>
+                  <CardDescription className="text-[11px]">Queued for publishing</CardDescription>
                 </div>
-                <Button variant="outline" size="sm" className="h-8" onClick={() => refetchScheduled()}>
-                  <RefreshCw className="h-3.5 w-3.5 mr-1.5" /> Refresh
+                <Button variant="outline" size="sm" className="h-7 text-xs border-border/30" onClick={() => refetchScheduled()}>
+                  <RefreshCw className="h-3 w-3 mr-1" /> Refresh
                 </Button>
               </div>
             </CardHeader>
             <CardContent>
               {loadingScheduled ? (
                 <div className="flex items-center justify-center py-16">
-                  <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground/40" />
                 </div>
               ) : !scheduledContent || scheduledContent.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="h-14 w-14 rounded-2xl bg-muted/50 flex items-center justify-center mb-3">
-                    <Calendar className="h-7 w-7 text-muted-foreground/40" />
+                  <div className="h-12 w-12 rounded-2xl bg-muted/30 border border-border/20 flex items-center justify-center mb-3">
+                    <Calendar className="h-5 w-5 text-muted-foreground/30" />
                   </div>
-                  <p className="text-muted-foreground font-medium">No scheduled content</p>
-                  <p className="text-xs text-muted-foreground/60 mt-1">Schedule approved content to appear here</p>
+                  <p className="text-sm text-muted-foreground/60 font-medium">No scheduled content</p>
+                  <p className="text-[11px] text-muted-foreground/40 mt-1">Schedule approved content to appear here</p>
                 </div>
               ) : (
                 <div className="space-y-3">
@@ -884,17 +1024,17 @@ const ContentStudio = () => {
                         key={item.id}
                         item={item}
                         badge={
-                          <Badge variant="secondary" className="text-[10px] px-1.5 py-0">
+                          <Badge variant="secondary" className="text-[10px] px-1.5 py-0 font-mono">
                             {item.scheduled_for ? format(new Date(item.scheduled_for), "MMM d, h:mm a") : "Scheduled"}
                           </Badge>
                         }
                         actions={
                           <>
-                            <Button size="sm" variant="outline" className="h-7 text-xs" onClick={() => handleCopy({ id: item.id, content: item.content })}>
+                            <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy({ id: item.id, content: item.content })}>
                               {copiedId === item.id ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
                               Copy
                             </Button>
-                            <Button size="sm" variant="ghost" className="h-7 text-xs text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
+                            <Button size="sm" variant="ghost" className="h-7 text-[11px] text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
                               <Trash2 className="h-3 w-3 mr-1" /> Remove
                             </Button>
                           </>
@@ -909,7 +1049,7 @@ const ContentStudio = () => {
         </TabsContent>
 
         {/* ====== AUTOMATION TAB ====== */}
-        <TabsContent value="automation" className="space-y-6">
+        <TabsContent value="automation" className="space-y-5">
           <ContentRecipeManager />
         </TabsContent>
       </Tabs>
