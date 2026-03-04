@@ -73,12 +73,18 @@ const navSections: NavSection[] = [
     ],
   },
   {
-    title: "Content & Marketing",
+    title: "Website",
     items: [
+      { name: "Team Members", icon: Users, tab: "team-members" },
       { name: "Resources", icon: FileText, tab: "resources" },
       { name: "Case Studies", icon: Image, tab: "case-studies" },
       { name: "Testimonials", icon: MessageSquareQuote, tab: "testimonials" },
       { name: "Client Logos", icon: Building2, tab: "client-logos" },
+    ],
+  },
+  {
+    title: "Content & Marketing",
+    items: [
       { name: "Content Studio", icon: Sparkles, tab: "content-studio" },
       { name: "Content Calendar", icon: Calendar, tab: "content" },
       { name: "Newsletter Builder", icon: Mail, tab: "newsletter" },
