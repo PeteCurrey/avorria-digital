@@ -129,6 +129,53 @@ const IntegrationsPanel = () => {
       ],
       helpUrl: "https://resend.com/docs/api-reference/introduction",
     },
+    {
+      id: "twitter",
+      name: "Twitter / X",
+      description: "Auto-publish content to your X (Twitter) account",
+      icon: Globe,
+      type: "twitter",
+      category: "social",
+      isConnected: false,
+      status: "inactive",
+      configFields: [
+        { key: "apiKey", label: "API Key", placeholder: "Your Twitter API key", type: "password" },
+        { key: "apiSecret", label: "API Secret", placeholder: "Your Twitter API secret", type: "password" },
+        { key: "accessToken", label: "Access Token", placeholder: "Your access token", type: "password" },
+        { key: "accessTokenSecret", label: "Access Token Secret", placeholder: "Your access token secret", type: "password" },
+      ],
+      helpUrl: "https://developer.x.com/en/portal/dashboard",
+    },
+    {
+      id: "linkedin",
+      name: "LinkedIn",
+      description: "Auto-publish content to your LinkedIn company page",
+      icon: Globe,
+      type: "linkedin",
+      category: "social",
+      isConnected: false,
+      status: "inactive",
+      configFields: [
+        { key: "accessToken", label: "Access Token", placeholder: "Your LinkedIn access token", type: "password" },
+        { key: "organizationId", label: "Organization ID", placeholder: "Your LinkedIn organization URN ID" },
+      ],
+      helpUrl: "https://learn.microsoft.com/en-us/linkedin/marketing/getting-started",
+    },
+    {
+      id: "instagram",
+      name: "Instagram",
+      description: "Schedule and publish content to Instagram Business",
+      icon: Globe,
+      type: "instagram",
+      category: "social",
+      isConnected: false,
+      status: "inactive",
+      configFields: [
+        { key: "accessToken", label: "Access Token", placeholder: "Your Instagram Graph API access token", type: "password" },
+        { key: "accountId", label: "Account ID", placeholder: "Your Instagram Business account ID" },
+      ],
+      helpUrl: "https://developers.facebook.com/docs/instagram-api/getting-started",
+    },
   ]);
 
   const [activeCategory, setActiveCategory] = useState<string>("google");
