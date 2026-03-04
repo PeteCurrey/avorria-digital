@@ -40,7 +40,7 @@ interface Integration {
   description: string;
   icon: React.ElementType;
   type: string;
-  category: "google" | "seo" | "email" | "webhooks";
+  category: "google" | "seo" | "email" | "social" | "webhooks";
   isConnected: boolean;
   status: "active" | "inactive" | "error";
   lastSync?: string;
