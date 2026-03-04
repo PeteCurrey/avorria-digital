@@ -79,8 +79,6 @@ export default function SystemHealthMonitor() {
           name: "CDN",
           status: "operational",
           icon: Globe,
-          latency: Math.floor(Math.random() * 20) + 5,
-          uptime: 99.99,
           lastCheck: new Date(),
         },
         {
