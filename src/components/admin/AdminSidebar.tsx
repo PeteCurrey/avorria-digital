@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import AnimatedLogo from "@/components/AnimatedLogo";
 import {
   LayoutDashboard,
   Users,
