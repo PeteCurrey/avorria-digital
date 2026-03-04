@@ -666,6 +666,9 @@ const Admin = () => {
       case "landing-pages":
         return <LandingPageManager />;
 
+      case "team-members":
+        return <TeamMembersManager />;
+
       default:
         return (
           <div className="text-center py-12">
