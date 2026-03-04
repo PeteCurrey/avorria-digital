@@ -427,7 +427,7 @@ const IntegrationsPanel = () => {
 
       {/* Category Tabs */}
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-        <TabsList className="grid w-full grid-cols-4 lg:w-auto">
+        <TabsList className="grid w-full grid-cols-5 lg:w-auto">
           <TabsTrigger value="google" className="gap-2">
             <Globe className="h-4 w-4" />
             <span className="hidden sm:inline">Google</span>
@@ -435,6 +435,10 @@ const IntegrationsPanel = () => {
           <TabsTrigger value="seo" className="gap-2">
             <Search className="h-4 w-4" />
             <span className="hidden sm:inline">SEO APIs</span>
+          </TabsTrigger>
+          <TabsTrigger value="social" className="gap-2">
+            <LinkIcon className="h-4 w-4" />
+            <span className="hidden sm:inline">Social</span>
           </TabsTrigger>
           <TabsTrigger value="email" className="gap-2">
             <Mail className="h-4 w-4" />
