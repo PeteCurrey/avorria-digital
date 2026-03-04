@@ -205,6 +205,7 @@ const Admin = () => {
       case "settings": return "Configure your admin preferences";
       case "landing-pages": return "Create and manage SEO landing pages";
       case "resources": return "Manage and generate resource guides";
+      case "team-members": return "Manage team members on the About page";
       default: return "";
     }
   };
