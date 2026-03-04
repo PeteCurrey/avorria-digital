@@ -1756,6 +1756,54 @@ export type Database = {
         }
         Relationships: []
       }
+      team_members: {
+        Row: {
+          bio: string
+          created_at: string
+          display_order: number
+          email: string | null
+          full_name: string
+          id: string
+          initials: string
+          is_published: boolean
+          linkedin_url: string | null
+          phone: string | null
+          photo_url: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          bio?: string
+          created_at?: string
+          display_order?: number
+          email?: string | null
+          full_name: string
+          id?: string
+          initials?: string
+          is_published?: boolean
+          linkedin_url?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          bio?: string
+          created_at?: string
+          display_order?: number
+          email?: string | null
+          full_name?: string
+          id?: string
+          initials?: string
+          is_published?: boolean
+          linkedin_url?: string | null
+          phone?: string | null
+          photo_url?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       testimonials: {
         Row: {
           author: string

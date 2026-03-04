@@ -46,6 +46,7 @@ import ClientProjectsManager from "@/components/admin/ClientProjectsManager";
 import InvoiceManager from "@/components/admin/InvoiceManager";
 import AssetManager from "@/components/admin/AssetManager";
 import ResourcesManager from "@/components/admin/ResourcesManager";
+import TeamMembersManager from "@/components/admin/TeamMembersManager";
 import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab";
 import ClientsManager from "@/components/admin/ClientsManager";
 import { Button } from "@/components/ui/button";
@@ -173,6 +174,7 @@ const Admin = () => {
       case "settings": return "Settings";
       case "landing-pages": return "SEO Landing Pages";
       case "resources": return "Resources";
+      case "team-members": return "Team Members";
       default: return "Admin Dashboard";
     }
   };
@@ -203,6 +205,7 @@ const Admin = () => {
       case "settings": return "Configure your admin preferences";
       case "landing-pages": return "Create and manage SEO landing pages";
       case "resources": return "Manage and generate resource guides";
+      case "team-members": return "Manage team members on the About page";
       default: return "";
     }
   };
@@ -662,6 +665,9 @@ const Admin = () => {
 
       case "landing-pages":
         return <LandingPageManager />;
+
+      case "team-members":
+        return <TeamMembersManager />;
 
       default:
         return (
