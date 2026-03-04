@@ -100,8 +100,6 @@ export default function SystemHealthMonitor() {
           name: "Auth Service",
           status: "operational",
           icon: Wifi,
-          latency: Math.floor(Math.random() * 15) + 10,
-          uptime: 99.95,
           lastCheck: new Date(),
         },
       ];
