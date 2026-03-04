@@ -79,8 +79,6 @@ export default function SystemHealthMonitor() {
           name: "CDN",
           status: "operational",
           icon: Globe,
-          latency: Math.floor(Math.random() * 20) + 5,
-          uptime: 99.99,
           lastCheck: new Date(),
         },
         {
@@ -102,8 +100,6 @@ export default function SystemHealthMonitor() {
           name: "Auth Service",
           status: "operational",
           icon: Wifi,
-          latency: Math.floor(Math.random() * 15) + 10,
-          uptime: 99.95,
           lastCheck: new Date(),
         },
       ];
@@ -111,10 +107,10 @@ export default function SystemHealthMonitor() {
       setSystems(systemChecks);
       setLastUpdated(new Date());
       
-      // Simulate storage usage
+      // Storage usage not available without admin API — leave at 0
       setStorage({
-        used: Math.floor(Math.random() * 50) + 10,
-        total: 100,
+        used: 0,
+        total: 0,
         unit: "MB",
       });
     } catch (error) {

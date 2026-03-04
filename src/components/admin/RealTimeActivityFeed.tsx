@@ -169,13 +169,7 @@ export default function RealTimeActivityFeed() {
     }
   };
 
-  // If no real data, show placeholder activities
-  const displayActivities = activities.length > 0 ? activities : [
-    { id: "1", type: "lead" as const, message: "New lead from SEO Audit", time: new Date(Date.now() - 1000 * 60 * 5) },
-    { id: "2", type: "seo" as const, message: "3 keywords moved to page 1", time: new Date(Date.now() - 1000 * 60 * 30) },
-    { id: "3", type: "security" as const, message: "SSL certificate verified", time: new Date(Date.now() - 1000 * 60 * 60 * 2) },
-    { id: "4", type: "content" as const, message: "Blog post indexed", time: new Date(Date.now() - 1000 * 60 * 60 * 6) },
-  ];
+  const displayActivities = activities;
 
   return (
     <Card className="bg-card/50 border-border/50 backdrop-blur-sm">

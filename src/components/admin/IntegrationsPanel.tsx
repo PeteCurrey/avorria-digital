@@ -40,7 +40,7 @@ interface Integration {
   description: string;
   icon: React.ElementType;
   type: string;
-  category: "google" | "seo" | "email" | "webhooks";
+  category: "google" | "seo" | "email" | "social" | "webhooks";
   isConnected: boolean;
   status: "active" | "inactive" | "error";
   lastSync?: string;
@@ -128,6 +128,53 @@ const IntegrationsPanel = () => {
         { key: "fromEmail", label: "From Email", placeholder: "hello@yourdomain.com" },
       ],
       helpUrl: "https://resend.com/docs/api-reference/introduction",
+    },
+    {
+      id: "twitter",
+      name: "Twitter / X",
+      description: "Auto-publish content to your X (Twitter) account",
+      icon: Globe,
+      type: "twitter",
+      category: "social",
+      isConnected: false,
+      status: "inactive",
+      configFields: [
+        { key: "apiKey", label: "API Key", placeholder: "Your Twitter API key", type: "password" },
+        { key: "apiSecret", label: "API Secret", placeholder: "Your Twitter API secret", type: "password" },
+        { key: "accessToken", label: "Access Token", placeholder: "Your access token", type: "password" },
+        { key: "accessTokenSecret", label: "Access Token Secret", placeholder: "Your access token secret", type: "password" },
+      ],
+      helpUrl: "https://developer.x.com/en/portal/dashboard",
+    },
+    {
+      id: "linkedin",
+      name: "LinkedIn",
+      description: "Auto-publish content to your LinkedIn company page",
+      icon: Globe,
+      type: "linkedin",
+      category: "social",
+      isConnected: false,
+      status: "inactive",
+      configFields: [
+        { key: "accessToken", label: "Access Token", placeholder: "Your LinkedIn access token", type: "password" },
+        { key: "organizationId", label: "Organization ID", placeholder: "Your LinkedIn organization URN ID" },
+      ],
+      helpUrl: "https://learn.microsoft.com/en-us/linkedin/marketing/getting-started",
+    },
+    {
+      id: "instagram",
+      name: "Instagram",
+      description: "Schedule and publish content to Instagram Business",
+      icon: Globe,
+      type: "instagram",
+      category: "social",
+      isConnected: false,
+      status: "inactive",
+      configFields: [
+        { key: "accessToken", label: "Access Token", placeholder: "Your Instagram Graph API access token", type: "password" },
+        { key: "accountId", label: "Account ID", placeholder: "Your Instagram Business account ID" },
+      ],
+      helpUrl: "https://developers.facebook.com/docs/instagram-api/getting-started",
     },
   ]);
 
@@ -380,7 +427,7 @@ const IntegrationsPanel = () => {
 
       {/* Category Tabs */}
       <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-        <TabsList className="grid w-full grid-cols-4 lg:w-auto">
+        <TabsList className="grid w-full grid-cols-5 lg:w-auto">
           <TabsTrigger value="google" className="gap-2">
             <Globe className="h-4 w-4" />
             <span className="hidden sm:inline">Google</span>
@@ -388,6 +435,10 @@ const IntegrationsPanel = () => {
           <TabsTrigger value="seo" className="gap-2">
             <Search className="h-4 w-4" />
             <span className="hidden sm:inline">SEO APIs</span>
+          </TabsTrigger>
+          <TabsTrigger value="social" className="gap-2">
+            <LinkIcon className="h-4 w-4" />
+            <span className="hidden sm:inline">Social</span>
           </TabsTrigger>
           <TabsTrigger value="email" className="gap-2">
             <Mail className="h-4 w-4" />
