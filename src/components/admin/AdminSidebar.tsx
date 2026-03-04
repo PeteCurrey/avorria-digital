@@ -124,16 +124,9 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
       >
         <div className="flex h-full flex-col">
           {/* Header */}
-          <div className="flex h-16 items-center justify-between border-b border-border/50 px-4">
+          <div className="flex h-16 items-center justify-between border-b border-border/30 px-4">
             {!collapsed && (
-              <Link
-                to="/"
-                className="flex items-center gap-2 text-xl font-semibold tracking-tight"
-              >
-                <span className="bg-gradient-to-r from-primary via-accent to-accent bg-clip-text text-transparent">
-                  Avorria
-                </span>
-              </Link>
+              <AnimatedLogo />
             )}
             <Button
               variant="ghost"
