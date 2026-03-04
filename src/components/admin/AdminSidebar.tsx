@@ -118,7 +118,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
     <TooltipProvider>
       <aside
         className={cn(
-          "fixed left-0 top-0 z-40 h-screen border-r border-border/50 bg-card/95 backdrop-blur-sm transition-all duration-300",
+          "fixed left-0 top-0 z-40 h-screen border-r border-border/20 bg-card/90 backdrop-blur-xl transition-all duration-300",
           collapsed ? "w-16" : "w-64"
         )}
       >
