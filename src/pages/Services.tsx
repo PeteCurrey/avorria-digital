@@ -474,7 +474,7 @@ const Services = () => {
               ))}
             </div>
           </div>
-        </SectionBand>
+        </SectionBand></section>
 
         {/* Web Design Feature Band */}
         <SectionBand background="mesh">
