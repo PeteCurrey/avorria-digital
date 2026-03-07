@@ -238,7 +238,7 @@ const Services = () => {
         </section>
 
         {/* Introduction Section */}
-        <SectionBand background="light" id="intro">
+        <section id="intro"><SectionBand background="light">
           <div className="max-w-6xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-start">
               {/* Left: Explainer */}
