@@ -555,7 +555,7 @@ const Services = () => {
               ))}
             </Accordion>
           </div>
-        </SectionBand>
+        </SectionBand></section>
 
         {/* Final CTA */}
         <section>
