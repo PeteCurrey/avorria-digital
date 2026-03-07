@@ -30,7 +30,7 @@ import { LogoWall } from "@/components/LogoWall";
 import { StickyImageSection } from "@/components/StickyImageSection";
 import HorizontalScroll from "@/components/HorizontalScroll";
 import SectionNav from "@/components/SectionNav";
-import { FloatingElements } from "@/components/FloatingElements";
+import FloatingElements from "@/components/FloatingElements";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
