@@ -521,7 +521,7 @@ const Services = () => {
         </SectionBand>
 
         {/* FAQ Section */}
-        <SectionBand background="gradient" id="faq">
+        <section id="faq"><SectionBand background="gradient">
           <div className="max-w-3xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
