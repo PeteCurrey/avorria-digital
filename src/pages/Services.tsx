@@ -425,7 +425,7 @@ const Services = () => {
               ))}
             </div>
           </div>
-        </SectionBand>
+        </SectionBand></section>
 
         {/* Stats */}
         <ServiceStatsExplosion />
