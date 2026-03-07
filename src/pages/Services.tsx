@@ -509,12 +509,17 @@ const Services = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: 0.15 }}
               >
-                <img
-                  src={serviceWebDesign}
-                  alt="Modern conversion-optimised website design by Avorria"
-                  className="rounded-xl shadow-lg w-full"
-                  loading="lazy"
-                />
+                <Link to="/case-study/entirefm-rebrand" className="block group">
+                  <img
+                    src="https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/hero/1765529644769-8zabue.png"
+                    alt="EntireFM website redesign – facilities management case study by Avorria"
+                    className="rounded-xl shadow-lg w-full group-hover:shadow-xl transition-shadow duration-300"
+                    loading="lazy"
+                  />
+                  <p className="text-sm text-muted-foreground mt-3 group-hover:text-accent transition-colors">
+                    Case Study: EntireFM Digital Transformation →
+                  </p>
+                </Link>
               </motion.div>
             </div>
           </div>
