@@ -378,7 +378,7 @@ const Services = () => {
               ))}
             </div>
           </div>
-        </SectionBand>
+        </SectionBand></section>
 
         <OpinionatedQuote quote="If your agency reports on impressions and clicks but can't tell you cost per qualified lead, they're not a marketing partner – they're a media buyer with a nice deck." />
 
