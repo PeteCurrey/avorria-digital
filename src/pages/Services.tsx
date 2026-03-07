@@ -315,7 +315,7 @@ const Services = () => {
               </motion.div>
             </div>
           </div>
-        </SectionBand>
+        </SectionBand></section>
 
         {/* Services Grid */}
         <section id="services"><SectionBand background="gradient">
