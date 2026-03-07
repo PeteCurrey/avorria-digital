@@ -1,106 +1,80 @@
 
-## Enhance Paid Media and SEO Service Pages
 
-### Overview
-Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
+## Plan: Unique Hero Videos per Service Page + SEO & Quality Review
 
----
+### Problem
+All four service pages (`/services`, `/services/seo`, `/services/paid-media`, `/web-design`) use the identical `city-timelapse.mp4` video hero. This creates a repetitive, templated feel that undermines the premium agency positioning.
 
-### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
+### 1. Source Unique Hero Videos
 
-**Hero Section:**
-- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
-- Use the existing `service-paid-media.jpg` asset as the parallax background image
-- Keep the headline and copy but improve the subheadline badge
-- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
+Since we can't generate videos, we need to use **royalty-free stock videos** from services like Pexels or Pixabay. Each page gets a thematically distinct video + matching poster image:
 
-**New Introduction Section (below hero):**
-- Two-column layout matching the Reporting page pattern
-- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
-- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
-- Wrapped in `SectionReveal` with staggered `motion` entrance animations
+| Page | Video Theme | Poster Fallback |
+|------|------------|----------------|
+| `/services` | City timelapse (keep current) | `hero-services-digital.jpg` (keep current) |
+| `/services/seo` | Data/analytics dashboard, search console visuals | `bg-data-analytics.jpg` (already in assets) |
+| `/services/paid-media` | Fast-paced ad metrics, digital advertising screens | `service-paid-media.jpg` (keep current) |
+| `/web-design` | Design/code workflow, creative studio | `service-web-design.jpg` (keep current) |
 
-**Pain Points Section:**
-- Keep the content but enhance with `SectionReveal` animation
-- Add more descriptive intro paragraph above the pain point list
+**However** — we cannot download and bundle stock videos without the user providing them. The practical approach is:
 
-**How We Approach Paid Media Section:**
-- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
+- Use **different existing assets** for variety where possible (e.g. `studio-cityscape.mp4` for web design)
+- For SEO and Paid Media, show the **poster image on mobile** and keep video on desktop only — this already differentiates
+- Ask the user to provide/approve specific video files for each page
 
-**New "What You Get" Section:**
-- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
+### 2. Mobile Optimisation — Image-Only on Mobile
 
-**New "Process Timeline" Section:**
-- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
+For all four pages, implement a responsive hero that:
+- Shows **video on desktop** (md+ breakpoints)
+- Shows **static poster image on mobile** (saves bandwidth, faster LCP)
+- Uses a `<picture>` element or conditional rendering based on `useIsMobile()`
 
-**Platforms Section:**
-- Keep but enrich with more descriptive content per platform
-- Add a brief intro paragraph
+### 3. SEO Consistency Fixes
 
-**New FAQ Section:**
-- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
-- Add `FAQSchema` for SEO
-- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
+The SEO page (`/services/seo`) uses raw `<Helmet>` tags instead of the standardised `<SEOHead>` component. Fix this for consistency.
 
-**CTA Section:**
-- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
+### 4. Implementation Details
 
-**SEO Enhancements:**
-- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
-- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
+**Files to modify:**
+- `src/pages/Services.tsx` — keep current video, add mobile image fallback
+- `src/pages/SEOServices.tsx` — swap to `studio-cityscape.mp4` or unique video, replace raw Helmet with `<SEOHead>`, add mobile image fallback
+- `src/pages/PaidMedia.tsx` — swap video, add mobile image fallback  
+- `src/pages/WebDesign.tsx` — swap to `studio-cityscape.mp4`, add mobile image fallback
 
----
+**Hero pattern (applied to each page):**
+```tsx
+const isMobile = useIsMobile();
 
-### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+// In hero section:
+{!isMobile ? (
+  <video autoPlay muted loop playsInline poster={posterImage}>
+    <source src={heroVideo} type="video/mp4" />
+  </video>
+) : (
+  <img src={posterImage} alt="" className="w-full h-full object-cover" />
+)}
+```
 
-**New Introduction Section (below hero, before pain points):**
-- Same two-column layout as Reporting and Paid Media pages
-- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
-- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
-- Wrapped in `SectionReveal` with staggered `motion` entrance
+**Available unique videos in project:**
+- `city-timelapse.mp4` → keep for `/services` (general overview)
+- `studio-cityscape.mp4` → use for `/web-design` (design/studio context)
 
-**Content Enrichment:**
-- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
-- Enrich the case study teaser cards with slightly more descriptive content
+For SEO and Paid Media, we only have two video files. Options:
+1. Reuse the two videos across 4 pages (still some repetition)
+2. Ask the user to provide 2 more short looping videos
+3. Use static images with subtle CSS animation (ken-burns parallax) for the pages without unique video
 
-**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+### 5. Content & Technical SEO Audit Items
 
----
+Across all four pages, verify:
+- `<SEOHead>` component used consistently (not raw Helmet)
+- Unique, keyword-rich meta titles (~60 chars) and descriptions (~155 chars)
+- `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` all present
+- Canonical URLs set correctly
+- Internal links between service pages (cross-linking)
+- H1 tags are unique and keyword-targeted per page
 
-### Visual Rhythm
+### Decision Needed
 
-**Paid Media (top to bottom):**
-1. Hero — cinematic with `service-paid-media.jpg` parallax background
-2. Introduction — light background, two-column explainer
-3. Pain Points — gradient background, enhanced list
-4. How We Approach — dark background, 4-card grid + pull-quote
-5. What You Get — gradient background, deliverables checklist
-6. Process Timeline — mesh background, phased timeline
-7. Platforms — dark background, enriched 3-column cards
-8. FAQ — mesh background, accordion with schema
-9. CTA — gradient background, fixed buttons
+Since we only have 2 video files (`city-timelapse.mp4` and `studio-cityscape.mp4`), I need your input on how to handle the other two pages.
 
-**SEO Services (top to bottom):**
-1. Hero (existing) — with `service-seo.jpg`
-2. **Introduction (NEW)** — light background, two-column explainer
-3. Pain Points (existing)
-4. What's Included (existing) + **pull-quote (NEW)**
-5. Process Timeline (existing)
-6. Deliverables (existing)
-7. SEO by Industry (existing)
-8. Case Studies (existing, enriched)
-9. SEO by Location (existing)
-10. FAQ (existing)
-11. CTA (existing)
-
----
-
-### Files Modified
-- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
-- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
-
-### New Imports
-- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
-- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
-
-### No new dependencies needed
