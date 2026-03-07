@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -13,6 +12,7 @@ import { motion } from "framer-motion";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
+import SEOHead from "@/components/seo/SEOHead";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -24,11 +24,12 @@ import ServiceComparisonGrid from "@/components/services/ServiceComparisonGrid";
 import FloatingElements from "@/components/FloatingElements";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
+import { useIsMobile } from "@/hooks/use-mobile";
 import ParallaxBackground from "@/components/ParallaxBackground";
 import heroSeoImage from "@/assets/service-seo.jpg";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import bgDataAnalytics from "@/assets/bg-data-analytics.jpg";
-import cityTimelapse from "@/assets/city-timelapse.mp4";
+import heroSeoVideo from "@/assets/hero-seo-analytics.mp4";
 
 const sectionNavItems = [
   { id: "hero", label: "Overview" },

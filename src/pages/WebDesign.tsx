@@ -35,8 +35,9 @@ import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-import cityTimelapse from "@/assets/city-timelapse.mp4";
+import heroWebDesignVideo from "@/assets/hero-web-design.mp4";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { locations } from "@/data/locations";
 
 const painPoints = [

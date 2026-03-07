@@ -28,13 +28,14 @@ import ParallaxBackground from "@/components/ParallaxBackground";
 import FloatingElements from "@/components/FloatingElements";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
+import { useIsMobile } from "@/hooks/use-mobile";
 import SEOHead from "@/components/seo/SEOHead";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-import cityTimelapse from "@/assets/city-timelapse.mp4";
+import heroPaidMediaVideo from "@/assets/hero-paid-media.mp4";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 
 const faqs = [
