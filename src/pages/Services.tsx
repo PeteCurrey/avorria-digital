@@ -184,6 +184,7 @@ const sectionNavItems = [
 const Services = () => {
   const { data: testimonials } = useTestimonialsPublic();
   const activeSection = useScrollSpy(sectionNavItems, 120);
+  const isMobile = useIsMobile();
 
   return (
     <>
@@ -221,18 +222,22 @@ const Services = () => {
       <div className="min-h-screen">
         {/* ── 1. HERO: Video Background ── */}
         <section id="hero" className="relative overflow-hidden" style={{ minHeight: "75vh" }}>
-          {/* Video Background */}
+          {/* Video Background (desktop) / Image (mobile) */}
           <div className="absolute inset-0">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={heroServicesDigital}
-              className="w-full h-full object-cover"
-            >
-              <source src={cityTimelapse} type="video/mp4" />
-            </video>
+            {!isMobile ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={heroServicesDigital}
+                className="w-full h-full object-cover"
+              >
+                <source src={cityTimelapse} type="video/mp4" />
+              </video>
+            ) : (
+              <img src={heroServicesDigital} alt="" className="w-full h-full object-cover" loading="eager" />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
 

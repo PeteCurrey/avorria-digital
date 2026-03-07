@@ -156,8 +156,27 @@ const SEOServices = () => {
     },
   ];
 
+  const isMobile = useIsMobile();
+
   return (
     <>
+      <SEOHead
+        title="SEO Agency Sheffield & London | Technical SEO"
+        description="Expert SEO services for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads."
+        canonical="/services/seo"
+        keywords={[
+          "SEO agency",
+          "SEO services",
+          "technical SEO",
+          "content strategy",
+          "local SEO",
+          "B2B SEO",
+          "Sheffield SEO agency",
+          "London SEO agency",
+          "organic search",
+          "keyword research",
+        ]}
+      />
       <ServiceSchema
         name="SEO Services"
         description="Technical SEO, content strategy and organic search optimisation for B2B and service businesses. We focus on commercial keywords that drive qualified leads and revenue."
@@ -170,38 +189,28 @@ const SEOServices = () => {
         { name: "Services", url: "/services" },
         { name: "SEO", url: "/services/seo" }
       ]} />
-      <Helmet>
-        <title>SEO Agency Sheffield & London | Technical SEO & Content Strategy | Avorria</title>
-        <meta name="description" content="Expert SEO services for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads." />
-        <meta name="keywords" content="SEO agency, SEO services, technical SEO, content strategy, local SEO, B2B SEO, Sheffield SEO agency, London SEO agency, organic search, keyword research" />
-        <meta property="og:title" content="SEO Agency Sheffield & London | Avorria" />
-        <meta property="og:description" content="Technical SEO, content strategy and on-page optimisation focused on commercial keywords that drive qualified leads and revenue." />
-        <meta property="og:url" content="https://avorria.com/services/seo" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://avorria.com/og-seo-services.jpg" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="SEO Agency Sheffield & London | Avorria" />
-        <meta name="twitter:description" content="Technical SEO, content strategy and on-page optimisation focused on commercial keywords." />
-        <link rel="canonical" href="https://avorria.com/services/seo" />
-      </Helmet>
 
       {/* Scroll-spy dot navigation */}
       <SectionNav sections={sectionNavItems} activeId={activeSection} />
 
       <div className="min-h-screen">
-        {/* ── 1. HERO: Video Background ── */}
+        {/* ── 1. HERO: Video Background (desktop) / Image (mobile) ── */}
         <section id="hero" className="relative overflow-hidden" style={{ minHeight: "75vh" }}>
           <div className="absolute inset-0">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={heroSeoImage}
-              className="w-full h-full object-cover"
-            >
-              <source src={cityTimelapse} type="video/mp4" />
-            </video>
+            {!isMobile ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={heroSeoImage}
+                className="w-full h-full object-cover"
+              >
+                <source src={heroSeoVideo} type="video/mp4" />
+              </video>
+            ) : (
+              <img src={heroSeoImage} alt="" className="w-full h-full object-cover" loading="eager" />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
 
