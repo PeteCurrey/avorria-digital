@@ -431,7 +431,7 @@ const Services = () => {
         <ServiceStatsExplosion />
 
         {/* What You Get */}
-        <SectionBand background="light" id="deliverables">
+        <section id="deliverables"><SectionBand background="light">
           <div className="max-w-5xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
