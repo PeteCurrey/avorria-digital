@@ -1,68 +1,106 @@
 
+## Enhance Paid Media and SEO Service Pages
 
-## Services Page Enhancement Plan
-
-### Current State
-The page has solid content structure (hero, intro, services grid, process, stats, deliverables, web design feature, FAQ, CTA) but feels flat and repetitive visually. Every section uses the same pattern: heading + subtitle + grid of cards. There's no visual rhythm, no texture variation, and no moments that surprise or delight.
-
-### Enhancement Strategy
-
-The goal is to create visual drama and rhythm while keeping the content SEO-rich. We'll add depth through layered scroll effects, break the grid monotony, and introduce premium interactive touches that match the Home page's quality.
+### Overview
+Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
 
 ---
 
-### Changes
+### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
 
-#### 1. Hero: Add video background with fallback
-Replace the static `heroServicesDigital` parallax image with the existing `city-timelapse.mp4` video (already used on Home). The video plays muted/looped behind the overlay, with the static image as a poster/fallback. Adds immediate cinematic impact.
+**Hero Section:**
+- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
+- Use the existing `service-paid-media.jpg` asset as the parallax background image
+- Keep the headline and copy but improve the subheadline badge
+- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
 
-#### 2. Logo Wall social proof strip
-Add the existing `LogoWall` component (already built, pulls from DB) directly below the hero, before the intro section. A simple "Trusted by" strip that breaks the hero-to-content transition and adds credibility immediately.
+**New Introduction Section (below hero):**
+- Two-column layout matching the Reporting page pattern
+- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
+- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
+- Wrapped in `SectionReveal` with staggered `motion` entrance animations
 
-#### 3. Services Grid: Upgrade to staggered masonry-style layout
-Change from 2-column uniform grid to a staggered layout where alternating cards are slightly larger or have image accents pulled from the service page hero images (already imported: `serviceSeo`, `servicePaidMedia`, etc.). Each card gets a subtle background image with a heavy overlay, making them feel like miniature hero sections rather than flat cards.
+**Pain Points Section:**
+- Keep the content but enhance with `SectionReveal` animation
+- Add more descriptive intro paragraph above the pain point list
 
-#### 4. Comparison Grid section
-Re-add the `ServiceComparisonGrid` component (already built, currently unused) between the deliverables and web design sections. This is a strong conversion piece that differentiates Avorria and is currently wasted.
+**How We Approach Paid Media Section:**
+- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
 
-#### 5. Process section: Horizontal scroll on desktop
-Wrap the 4 process steps in the existing `HorizontalScroll` component on desktop, creating a scroll-jacking effect where the user scrolls vertically but the cards move horizontally. Falls back to vertical stack on mobile.
+**New "What You Get" Section:**
+- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
 
-#### 6. Sticky image parallax for Web Design section
-Replace the `SectionBand background="mesh"` wrapper with `StickyImageSection` using `serviceWebDesign` as the background, so the case study image sits over a pinned parallax photo background instead of a flat mesh gradient.
+**New "Process Timeline" Section:**
+- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
 
-#### 7. Testimonials section
-Add a testimonials strip (using `useTestimonialsPublic()` hook, already exists) between the comparison grid and FAQ. Pull 2-3 client quotes and display as large, elegant pull-quotes with client name and company.
+**Platforms Section:**
+- Keep but enrich with more descriptive content per platform
+- Add a brief intro paragraph
 
-#### 8. Scroll-spy vertical dot navigation
-Add the existing `SectionNav` component with `useScrollSpy` (same pattern as Home page) to provide a sticky vertical dot nav on the right side, letting users jump between sections.
+**New FAQ Section:**
+- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
+- Add `FAQSchema` for SEO
+- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
 
-#### 9. Visual polish
-- Add `ScrollReveal` wrappers to sections that currently use inline `motion.div` for consistency
-- Add subtle `FloatingElements` behind the intro section for depth
-- Refine spacing: increase padding between major sections for breathing room
+**CTA Section:**
+- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
+
+**SEO Enhancements:**
+- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
+- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
 
 ---
 
-### Section Flow (top to bottom)
-1. **Hero** -- video background, cinematic overlay
-2. **Logo Wall** -- trusted-by social proof strip
-3. **Introduction** -- two-column explainer (existing, unchanged)
-4. **Services Grid** -- staggered cards with service imagery
-5. **Opinionated Quote** (existing)
-6. **Process** -- horizontal scroll on desktop
-7. **Stats Explosion** (existing)
-8. **Deliverables** (existing)
-9. **Comparison Grid** -- Avorria vs typical agency table
-10. **Web Design Feature** -- sticky image parallax
-11. **Testimonials** -- client quotes
-12. **FAQ** (existing)
-13. **CTA** (existing)
-14. **SectionNav** -- floating dot nav throughout
+### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+
+**New Introduction Section (below hero, before pain points):**
+- Same two-column layout as Reporting and Paid Media pages
+- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
+- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
+- Wrapped in `SectionReveal` with staggered `motion` entrance
+
+**Content Enrichment:**
+- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
+- Enrich the case study teaser cards with slightly more descriptive content
+
+**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+
+---
+
+### Visual Rhythm
+
+**Paid Media (top to bottom):**
+1. Hero — cinematic with `service-paid-media.jpg` parallax background
+2. Introduction — light background, two-column explainer
+3. Pain Points — gradient background, enhanced list
+4. How We Approach — dark background, 4-card grid + pull-quote
+5. What You Get — gradient background, deliverables checklist
+6. Process Timeline — mesh background, phased timeline
+7. Platforms — dark background, enriched 3-column cards
+8. FAQ — mesh background, accordion with schema
+9. CTA — gradient background, fixed buttons
+
+**SEO Services (top to bottom):**
+1. Hero (existing) — with `service-seo.jpg`
+2. **Introduction (NEW)** — light background, two-column explainer
+3. Pain Points (existing)
+4. What's Included (existing) + **pull-quote (NEW)**
+5. Process Timeline (existing)
+6. Deliverables (existing)
+7. SEO by Industry (existing)
+8. Case Studies (existing, enriched)
+9. SEO by Location (existing)
+10. FAQ (existing)
+11. CTA (existing)
+
+---
 
 ### Files Modified
-- `src/pages/Services.tsx` -- all changes in this single file
+- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
+- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
 
-### No new files or dependencies needed
-All components (`LogoWall`, `SectionNav`, `HorizontalScroll`, `StickyImageSection`, `ServiceComparisonGrid`, `useScrollSpy`, `useTestimonialsPublic`, `FloatingElements`) already exist in the codebase.
+### New Imports
+- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
+- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
 
+### No new dependencies needed
