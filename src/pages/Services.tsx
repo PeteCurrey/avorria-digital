@@ -383,7 +383,7 @@ const Services = () => {
         <OpinionatedQuote quote="If your agency reports on impressions and clicks but can't tell you cost per qualified lead, they're not a marketing partner – they're a media buyer with a nice deck." />
 
         {/* How We Work - Process */}
-        <SectionBand background="dark" id="process">
+        <section id="process"><SectionBand background="dark">
           <div className="max-w-6xl mx-auto">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
