@@ -1,16 +1,59 @@
 import "https://deno.land/x/xhr@0.1.0/mod.ts";
 import { serve } from "https://deno.land/std@0.168.0/http/server.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { Image } from "https://deno.land/x/imagescript@1.3.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+const WATERMARK_URL = "https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/watermark%2Favorria-watermark.png";
+
 interface ImageRequest {
   prompt: string;
   contentId?: string;
   imageStyle?: string;
+}
+
+async function compositeWatermark(baseImageData: string): Promise<string> {
+  try {
+    // Decode the base64 base image
+    const base64 = baseImageData.split(",")[1];
+    const baseBytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+    const baseImage = await Image.decode(baseBytes);
+
+    // Fetch and decode the watermark
+    const wmResponse = await fetch(WATERMARK_URL);
+    if (!wmResponse.ok) throw new Error("Failed to fetch watermark");
+    const wmBytes = new Uint8Array(await wmResponse.arrayBuffer());
+    let watermark = await Image.decode(wmBytes);
+
+    // Scale watermark to ~15% of the base image width
+    const targetWidth = Math.round(baseImage.width * 0.15);
+    const scale = targetWidth / watermark.width;
+    const targetHeight = Math.round(watermark.height * scale);
+    watermark = watermark.resize(targetWidth, targetHeight);
+
+    // Apply semi-transparency (40% opacity)
+    watermark.opacity(0.4);
+
+    // Position in bottom-right with 3% margin
+    const margin = Math.round(baseImage.width * 0.03);
+    const x = baseImage.width - targetWidth - margin;
+    const y = baseImage.height - targetHeight - margin;
+
+    // Composite
+    baseImage.composite(watermark, x, y);
+
+    // Encode back to PNG base64
+    const outputBytes = await baseImage.encode();
+    const outputBase64 = btoa(String.fromCharCode(...outputBytes));
+    return `data:image/png;base64,${outputBase64}`;
+  } catch (err) {
+    console.error("Watermark compositing error (non-fatal):", err);
+    return baseImageData; // Return original if watermarking fails
+  }
 }
 
 serve(async (req) => {
@@ -80,52 +123,10 @@ serve(async (req) => {
       );
     }
 
-    // Step 2: Add Avorria watermark via second AI call
-    let finalImageData = imageData;
-    try {
-      console.log("Adding Avorria watermark...");
-      const watermarkResponse = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-        method: "POST",
-        headers: {
-          "Authorization": `Bearer ${lovableApiKey}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-2.5-flash-image",
-          messages: [
-            {
-              role: "user",
-              content: [
-                {
-                  type: "text",
-                  text: 'Add a subtle, semi-transparent watermark in the bottom-right corner of this image. The watermark should say "Avorria." where the dot is pink/magenta colored. Use a thin, lightweight sans-serif font. The watermark should be small, elegant, and semi-transparent (about 40% opacity) so it does not distract from the main image. Do not change anything else about the image.',
-                },
-                {
-                  type: "image_url",
-                  image_url: { url: imageData },
-                },
-              ],
-            },
-          ],
-          modalities: ["image", "text"],
-        }),
-      });
-
-      if (watermarkResponse.ok) {
-        const watermarkData = await watermarkResponse.json();
-        const watermarkedImage = watermarkData.choices?.[0]?.message?.images?.[0]?.image_url?.url;
-        if (watermarkedImage) {
-          finalImageData = watermarkedImage;
-          console.log("Watermark added successfully");
-        } else {
-          console.log("Watermark call returned no image, using original");
-        }
-      } else {
-        console.log("Watermark call failed, using original image");
-      }
-    } catch (watermarkError) {
-      console.error("Watermark error (non-fatal):", watermarkError);
-    }
+    // Step 2: Programmatically composite the Avorria watermark
+    console.log("Compositing Avorria watermark...");
+    const finalImageData = await compositeWatermark(imageData);
+    console.log("Watermark composited successfully");
 
     // Step 3: Upload to storage
     let imageUrl = finalImageData;
