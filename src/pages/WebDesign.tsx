@@ -35,8 +35,9 @@ import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import serviceWebDesign from "@/assets/service-web-design.jpg";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-import cityTimelapse from "@/assets/city-timelapse.mp4";
+import heroWebDesignVideo from "@/assets/hero-web-design.mp4";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
+import { useIsMobile } from "@/hooks/use-mobile";
 import { locations } from "@/data/locations";
 
 const painPoints = [
@@ -141,6 +142,7 @@ const sectionNavItems = [
 
 const WebDesign = () => {
   const { data: testimonials } = useTestimonialsPublic();
+  const isMobile = useIsMobile();
   const activeSection = useScrollSpy(sectionNavItems, 120);
 
   const ukLocations = locations.filter(l => l.countryCode === "GB");
@@ -181,19 +183,23 @@ const WebDesign = () => {
       <SectionNav sections={sectionNavItems} activeId={activeSection} />
 
       <div className="min-h-screen">
-        {/* ── 1. HERO: Video Background ── */}
+        {/* ── 1. HERO: Video Background (desktop) / Image (mobile) ── */}
         <section id="hero" className="relative overflow-hidden" style={{ minHeight: "75vh" }}>
           <div className="absolute inset-0">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={serviceWebDesign}
-              className="w-full h-full object-cover"
-            >
-              <source src={cityTimelapse} type="video/mp4" />
-            </video>
+            {!isMobile ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={serviceWebDesign}
+                className="w-full h-full object-cover"
+              >
+                <source src={heroWebDesignVideo} type="video/mp4" />
+              </video>
+            ) : (
+              <img src={serviceWebDesign} alt="" className="w-full h-full object-cover" loading="eager" />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
 

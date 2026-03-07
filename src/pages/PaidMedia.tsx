@@ -28,13 +28,14 @@ import ParallaxBackground from "@/components/ParallaxBackground";
 import FloatingElements from "@/components/FloatingElements";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
+import { useIsMobile } from "@/hooks/use-mobile";
 import SEOHead from "@/components/seo/SEOHead";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import servicePaidMedia from "@/assets/service-paid-media.jpg";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
-import cityTimelapse from "@/assets/city-timelapse.mp4";
+import heroPaidMediaVideo from "@/assets/hero-paid-media.mp4";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 
 const faqs = [
@@ -149,6 +150,7 @@ const sectionNavItems = [
 const PaidMedia = () => {
   const { data: testimonials } = useTestimonialsPublic();
   const activeSection = useScrollSpy(sectionNavItems, 120);
+  const isMobile = useIsMobile();
 
   return (
     <>
@@ -183,19 +185,23 @@ const PaidMedia = () => {
       <SectionNav sections={sectionNavItems} activeId={activeSection} />
 
       <div className="min-h-screen">
-        {/* ── 1. HERO: Video Background ── */}
+        {/* ── 1. HERO: Video Background (desktop) / Image (mobile) ── */}
         <section id="hero" className="relative overflow-hidden" style={{ minHeight: "75vh" }}>
           <div className="absolute inset-0">
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              poster={servicePaidMedia}
-              className="w-full h-full object-cover"
-            >
-              <source src={cityTimelapse} type="video/mp4" />
-            </video>
+            {!isMobile ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster={servicePaidMedia}
+                className="w-full h-full object-cover"
+              >
+                <source src={heroPaidMediaVideo} type="video/mp4" />
+              </video>
+            ) : (
+              <img src={servicePaidMedia} alt="" className="w-full h-full object-cover" loading="eager" />
+            )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
 
