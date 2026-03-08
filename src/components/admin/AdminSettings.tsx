@@ -1163,6 +1163,51 @@ export default function AdminSettings() {
           </Card>
         </TabsContent>
 
+        {/* Site Settings Tab */}
+        <TabsContent value="site" className="space-y-4">
+          <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Globe className="h-5 w-5 text-primary" />
+                Site Features
+              </CardTitle>
+              <CardDescription>
+                Toggle global website features on or off
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Slide-in Audit Panel</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the free audit offer panel when users scroll halfway down the page
+                  </p>
+                </div>
+                <Switch
+                  checked={siteSettings?.popup_slide_in_enabled ?? true}
+                  onCheckedChange={(checked) => 
+                    updateSiteSetting.mutate({ key: "popup_slide_in_enabled", value: checked })
+                  }
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Exit-Intent Popover</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the free audit offer when users move their mouse to leave the site
+                  </p>
+                </div>
+                <Switch
+                  checked={siteSettings?.popup_exit_intent_enabled ?? true}
+                  onCheckedChange={(checked) => 
+                    updateSiteSetting.mutate({ key: "popup_exit_intent_enabled", value: checked })
+                  }
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Roles Tab */}
         <TabsContent value="roles" className="space-y-4">
           <div className="grid md:grid-cols-2 gap-6">
