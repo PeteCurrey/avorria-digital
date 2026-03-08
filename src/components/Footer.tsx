@@ -31,9 +31,11 @@ const Footer = () => {
 
   const company = [
   { name: "About", href: "/about" },
+  { name: "Why Avorria", href: "/why-avorria" },
   { name: "Case Studies", href: "/case-studies" },
   { name: "Resources", href: "/resources" },
   { name: "Pricing", href: "/pricing" },
+  { name: "Free SEO Audit", href: "/free-seo-website-audit" },
   { name: "Contact", href: "/contact" }];
 
 
