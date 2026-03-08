@@ -25,13 +25,43 @@ export function useContentCalendar() {
   return useQuery({
     queryKey: ["content-calendar"],
     queryFn: async () => {
-      const { data, error } = await supabase
+      // Get manual calendar items
+      const { data: calendarItems, error: calError } = await supabase
         .from("content_calendar")
         .select("*")
         .order("scheduled_date", { ascending: true, nullsFirst: false });
       
-      if (error) throw error;
-      return data as ContentItem[];
+      if (calError) throw calError;
+
+      // Get scheduled AI content to merge into calendar
+      const { data: aiScheduled } = await supabase
+        .from("ai_generated_content")
+        .select("id, title, content, content_type, platform, status, scheduled_for, created_at, updated_at")
+        .eq("status", "scheduled")
+        .not("scheduled_for", "is", null)
+        .order("scheduled_for", { ascending: true });
+
+      // Convert AI scheduled content into calendar format
+      const aiCalendarItems: ContentItem[] = (aiScheduled || []).map((ai) => ({
+        id: `ai-${ai.id}`,
+        title: ai.title || `${ai.platform || ai.content_type} post`,
+        description: ai.content?.slice(0, 120) + "..." || null,
+        content_type: ai.content_type === "social" ? "social_post" : ai.content_type || "blog_post",
+        status: "planned",
+        scheduled_date: ai.scheduled_for?.split("T")[0] || null,
+        published_date: null,
+        author_id: null,
+        author_name: "AI Content Studio",
+        tags: [ai.platform || "auto"].filter(Boolean),
+        priority: "medium",
+        notes: `Auto-synced from Content Studio (${ai.platform || "general"})`,
+        slug: null,
+        metadata: { source: "ai_generated_content", original_id: ai.id } as Record<string, unknown>,
+        created_at: ai.created_at,
+        updated_at: ai.updated_at,
+      }));
+
+      return [...(calendarItems as ContentItem[]), ...aiCalendarItems];
     },
   });
 }
