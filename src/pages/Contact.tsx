@@ -10,6 +10,8 @@ import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 import { useCreateLead } from "@/hooks/useLeads";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroContactOffice from "@/assets/hero-contact-office.jpg";
 const Contact = () => {
   const {
