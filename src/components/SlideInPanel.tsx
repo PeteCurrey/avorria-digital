@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 interface SlideInPanelProps {
   triggerAfterScroll?: number; // Percentage of page scrolled (0-100)
   triggerAfterSeconds?: number; // Seconds elapsed
