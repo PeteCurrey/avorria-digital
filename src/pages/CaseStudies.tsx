@@ -10,6 +10,8 @@ import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseFeaturedCarousel } from "@/components/case-studies/CaseFeaturedCarousel";
 import { CaseFilterBar } from "@/components/case-studies/CaseFilterBar";
 import { CaseGrid } from "@/components/case-studies/CaseGrid";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 // Convert DB format to component format
 const dbToCaseStudy = (db: CaseStudyDB): CaseStudy => ({
