@@ -103,15 +103,18 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
               <Menu className="h-5 w-5" />
             </Button>
 
-            {/* Search */}
+            {/* Search / Cmd+K trigger */}
             <div className="hidden md:block">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Search..."
-                  className="w-64 bg-secondary/50 pl-9"
-                />
-              </div>
+              <button
+                onClick={() => setCmdOpen(true)}
+                className="flex items-center gap-2 w-64 px-3 py-2 rounded-lg bg-secondary/50 border border-border/30 text-sm text-muted-foreground hover:bg-secondary/80 transition-colors"
+              >
+                <Search className="h-4 w-4" />
+                <span className="flex-1 text-left">Search...</span>
+                <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border border-border/50 bg-muted px-1.5 font-mono text-[10px] text-muted-foreground">
+                  <Command className="h-2.5 w-2.5" />K
+                </kbd>
+              </button>
             </div>
           </div>
 
