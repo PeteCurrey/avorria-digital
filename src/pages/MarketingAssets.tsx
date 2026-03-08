@@ -9,6 +9,9 @@ import { adCreative, campaignNotes } from "@/data/adCreative";
 const MarketingAssets = () => {
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">
