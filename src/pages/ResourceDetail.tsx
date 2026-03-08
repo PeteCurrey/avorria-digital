@@ -1,5 +1,7 @@
 import { useParams, Link, Navigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ArticleSchema from "@/components/seo/ArticleSchema";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
