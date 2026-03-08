@@ -27,11 +27,24 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cmdOpen, setCmdOpen] = useState(false);
   
   const { data: notifications } = useNotifications(10);
   const { data: unreadCount } = useUnreadNotificationCount();
   const markAsRead = useMarkNotificationRead();
   const markAllAsRead = useMarkAllNotificationsRead();
+
+  // Cmd+K shortcut
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setCmdOpen((o) => !o);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
+  }, []);
 
   const handleNotificationClick = (notification: any) => {
     if (!notification.is_read) {
