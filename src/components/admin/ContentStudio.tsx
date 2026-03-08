@@ -1262,6 +1262,8 @@ const ContentStudio = () => {
           <ContentRecipeManager />
         </TabsContent>
       </Tabs>
+      </>
+      )}
     </div>
   );
 };
