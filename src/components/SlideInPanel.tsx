@@ -18,7 +18,7 @@ export function SlideInPanel({
   // If disabled globally, don't show
   const isEnabled = siteSettings?.popup_slide_in_enabled ?? true;
   useEffect(() => {
-    if (isDismissed) return;
+    if (isDismissed || !isEnabled) return;
     let scrollTriggered = false;
     let timeTriggered = false;
     const checkTriggers = () => {
