@@ -105,14 +105,11 @@ const Contact = () => {
       
     <div className="min-h-screen">
       {/* Hero Section with Parallax - flows behind header */}
-      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20" style={{
-        backgroundImage: "url(\"/lovable-uploads/c9ffc2f2-d1f9-470d-ac01-636f9fbdba53.png\")",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed"
-      }}>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20">
+        <div className="absolute inset-0">
+          <img src={heroContactOffice} alt="" className="w-full h-full object-cover" loading="eager" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
           <h1 className="text-4xl sm:text-5xl font-light leading-tight mb-6 text-white animate-fade-in lg:text-5xl">

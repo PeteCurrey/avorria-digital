@@ -111,21 +111,12 @@ const Pricing = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Pricing & Engagement Models | Avorria</title>
-        <meta name="description" content="No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions." />
-        
-        <meta property="og:title" content="Pricing & Engagement Models | Avorria" />
-        <meta property="og:description" content="No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions." />
-        <meta property="og:url" content="https://avorria.com/pricing" />
-        <meta property="og:type" content="website" />
-        
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Pricing & Engagement Models | Avorria" />
-        <meta name="twitter:description" content="No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions." />
-        
-        <link rel="canonical" href="https://avorria.com/pricing" />
-        
+      <SEOHead
+        title="Pricing & Engagement Models"
+        description="No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions."
+        canonical="/pricing"
+        keywords={["digital marketing pricing", "SEO retainer pricing", "marketing agency costs", "web design pricing UK"]}
+      >
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -139,7 +130,8 @@ const Pricing = () => {
             }
           })}
         </script>
-      </Helmet>
+      </SEOHead>
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Pricing", url: "https://avorria.com/pricing" }]} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

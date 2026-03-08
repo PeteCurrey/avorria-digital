@@ -65,17 +65,12 @@ const Resources = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Growth Playbooks & Guides | Avorria Resources</title>
-        <meta
-          name="description"
-          content="Operator-level guides on SEO, paid media, web, content and analytics. Playbooks, field notes and deep dives used to run real growth systems."
-        />
-        <meta property="og:title" content="Growth Playbooks & Guides | Avorria Resources" />
-        <meta property="og:description" content="Operator-level guides on SEO, paid media, web, content and analytics." />
-        <meta property="og:url" content="https://avorria.com/resources" />
-        <meta property="og:type" content="website" />
-        <link rel="canonical" href="https://avorria.com/resources" />
+      <SEOHead
+        title="Growth Playbooks & Guides | Avorria Resources"
+        description="Operator-level guides on SEO, paid media, web, content and analytics. Playbooks, field notes and deep dives used to run real growth systems."
+        canonical="/resources"
+        keywords={["SEO guides", "digital marketing playbooks", "marketing resources", "growth guides", "paid media guides"]}
+      >
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -89,7 +84,8 @@ const Resources = () => {
             })),
           })}
         </script>
-      </Helmet>
+      </SEOHead>
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Resources", url: "https://avorria.com/resources" }]} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

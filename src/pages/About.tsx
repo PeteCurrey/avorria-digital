@@ -131,7 +131,7 @@ const About = () => {
                       <p>Before Avorria, we spent years working inside businesses — not agencies. We sat in the meetings where marketing budgets were questioned, where dashboards full of impressions meant nothing to the board, and where "the agency" was just another line item nobody could justify.</p>
                       <p>We watched good companies hand over five-figure monthly retainers to agencies that delivered activity reports instead of results. Agencies that confused being busy with being effective. That prioritised their own award entries over their client's pipeline.</p>
                       <p>So we built something different. Avorria is deliberately small. Every client works directly with senior people who've managed real P&Ls, fixed broken tracking stacks, rebuilt websites that weren't converting, and turned paid media from a cost centre into a growth engine.</p>
-                      <p>We don't do fluff. We don't do vanity metrics. We do the hard, unglamorous work that actually moves the numbers — and we're transparent about what's working and what isn't.</p>
+                      <p>We don't do filler. We don't do vanity metrics. We do the hard, unglamorous work that actually moves the numbers — and we're transparent about what's working and what isn't.</p>
                     </div>
                   </ScrollReveal>
                   <ScrollReveal variant="fade-up" delay={200} duration={500} className="md:col-span-2">
