@@ -402,6 +402,7 @@ export default function SEODashboard() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="bg-card/50 border border-border/50 flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="overview" className="text-xs gap-1.5"><BarChart3 className="h-3.5 w-3.5" />Overview</TabsTrigger>
+          <TabsTrigger value="chart" className="text-xs gap-1.5"><TrendingUp className="h-3.5 w-3.5" />Position Chart</TabsTrigger>
           <TabsTrigger value="keywords" className="text-xs gap-1.5"><Target className="h-3.5 w-3.5" />Keywords</TabsTrigger>
           <TabsTrigger value="changes" className="text-xs gap-1.5 relative">
             <Bell className="h-3.5 w-3.5" />Changes
