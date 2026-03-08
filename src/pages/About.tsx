@@ -66,17 +66,12 @@ const About = () => {
 
   return (
     <>
-      <Helmet>
-        <title>About Avorria – Your Operator-Level Growth Partner</title>
-        <meta name="description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
-        <meta property="og:title" content="About Avorria – Your Operator-Level Growth Partner" />
-        <meta property="og:description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
-        <meta property="og:url" content="https://avorria.com/about" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Avorria – Your Operator-Level Growth Partner" />
-        <meta name="twitter:description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
-        <link rel="canonical" href="https://avorria.com/about" />
+      <SEOHead
+        title="About Avorria – Your Operator-Level Growth Partner"
+        description="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses across the UK and USA."
+        canonical="/about"
+        keywords={["about avorria", "digital marketing team", "growth partner", "marketing agency UK", "marketing agency USA"]}
+      >
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -89,7 +84,8 @@ const About = () => {
             "sameAs": ["https://www.linkedin.com/company/avorria"]
           })}
         </script>
-      </Helmet>
+      </SEOHead>
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "About", url: "https://avorria.com/about" }]} />
 
       <div className="min-h-screen">
         {/* ─── Hero ─── */}
