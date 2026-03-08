@@ -770,6 +770,87 @@ export type Database = {
           },
         ]
       }
+      competitor_snapshots: {
+        Row: {
+          company_name: string | null
+          competitor_url: string
+          created_at: string | null
+          id: string
+          key_differentiators: Json | null
+          marketing_tactics: Json | null
+          opportunities: Json | null
+          positioning: string | null
+          raw_response: Json | null
+          recommendations: Json | null
+          strengths: Json | null
+          threat_level: string | null
+          updated_at: string | null
+          weaknesses: Json | null
+        }
+        Insert: {
+          company_name?: string | null
+          competitor_url: string
+          created_at?: string | null
+          id?: string
+          key_differentiators?: Json | null
+          marketing_tactics?: Json | null
+          opportunities?: Json | null
+          positioning?: string | null
+          raw_response?: Json | null
+          recommendations?: Json | null
+          strengths?: Json | null
+          threat_level?: string | null
+          updated_at?: string | null
+          weaknesses?: Json | null
+        }
+        Update: {
+          company_name?: string | null
+          competitor_url?: string
+          created_at?: string | null
+          id?: string
+          key_differentiators?: Json | null
+          marketing_tactics?: Json | null
+          opportunities?: Json | null
+          positioning?: string | null
+          raw_response?: Json | null
+          recommendations?: Json | null
+          strengths?: Json | null
+          threat_level?: string | null
+          updated_at?: string | null
+          weaknesses?: Json | null
+        }
+        Relationships: []
+      }
+      competitor_targets: {
+        Row: {
+          check_frequency: string | null
+          company_name: string | null
+          competitor_url: string
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          last_checked_at: string | null
+        }
+        Insert: {
+          check_frequency?: string | null
+          company_name?: string | null
+          competitor_url: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_checked_at?: string | null
+        }
+        Update: {
+          check_frequency?: string | null
+          company_name?: string | null
+          competitor_url?: string
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          last_checked_at?: string | null
+        }
+        Relationships: []
+      }
       content_calendar: {
         Row: {
           author_id: string | null
@@ -1753,6 +1834,48 @@ export type Database = {
           search_volume?: number | null
           source?: string | null
           url?: string
+        }
+        Relationships: []
+      }
+      seo_suggestions: {
+        Row: {
+          context: string | null
+          created_at: string | null
+          id: string
+          metadata: Json | null
+          priority: string | null
+          resolved_at: string | null
+          status: string | null
+          suggestion: string
+          suggestion_type: string
+          target_page: string | null
+          target_url: string | null
+        }
+        Insert: {
+          context?: string | null
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          priority?: string | null
+          resolved_at?: string | null
+          status?: string | null
+          suggestion: string
+          suggestion_type: string
+          target_page?: string | null
+          target_url?: string | null
+        }
+        Update: {
+          context?: string | null
+          created_at?: string | null
+          id?: string
+          metadata?: Json | null
+          priority?: string | null
+          resolved_at?: string | null
+          status?: string | null
+          suggestion?: string
+          suggestion_type?: string
+          target_page?: string | null
+          target_url?: string | null
         }
         Relationships: []
       }
