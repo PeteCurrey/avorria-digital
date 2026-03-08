@@ -77,3 +77,12 @@ verify_jwt = false
 
 [functions.track-seo-rankings]
 verify_jwt = false
+
+[functions.publish-content]
+verify_jwt = false
+
+[functions.auto-competitor-analysis]
+verify_jwt = false
+
+[functions.seo-auto-optimize]
+verify_jwt = false
