@@ -8,6 +8,7 @@ import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import SectionReveal from "@/components/SectionReveal";
 import ServiceComparisonGrid from "@/components/services/ServiceComparisonGrid";
 import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const WhyAvorria = () => {
   const principles = [
