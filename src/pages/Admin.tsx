@@ -85,6 +85,7 @@ const Admin = () => {
   const { data: leads, isLoading: leadsLoading, refetch: refetchLeads } = useLeadsAdmin();
   const { data: leadStats } = useLeadStats();
   const { data: analyticsSnapshot, isLoading: analyticsLoading } = useLatestAnalyticsSnapshot();
+  const { data: analyticsHistory } = useAnalyticsSnapshots();
   const { data: clients } = useClients();
   const { data: alerts } = useAlerts({ unresolved: true });
   const updateLead = useUpdateLead();
