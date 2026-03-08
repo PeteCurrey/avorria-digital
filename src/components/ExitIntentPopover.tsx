@@ -19,12 +19,14 @@ export function ExitIntentPopover() {
 
   // Don't activate exit intent for first 5 seconds
   useEffect(() => {
+    if (!isEnabled) return;
+    
     const activationTimer = setTimeout(() => {
       setIsActive(true);
     }, 5000);
     
     return () => clearTimeout(activationTimer);
-  }, []);
+  }, [isEnabled]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     // Only show on desktop (768px+)
