@@ -556,7 +556,24 @@ const ContentStudio = () => {
             Generate, review, and publish content across all channels
           </p>
         </div>
+        <div className="flex items-center gap-2">
+          <Button size="sm" variant={viewMode === "tabs" ? "default" : "outline"} className="h-7 text-xs" onClick={() => setViewMode("tabs")}>Pipeline</Button>
+          <Button size="sm" variant={viewMode === "kanban" ? "default" : "outline"} className="h-7 text-xs" onClick={() => setViewMode("kanban")}>Board</Button>
+        </div>
       </div>
+
+      {viewMode === "kanban" ? (
+        <ContentKanbanBoard
+          reviewItems={(pendingContent || []) as any}
+          approvedItems={(approvedContentDB || []) as any}
+          scheduledItems={(scheduledContent || []) as any}
+          publishedItems={(publishedContent || []) as any}
+          onApprove={handleApproveDB}
+          onReject={handleRejectDB}
+          onDelete={handleDeleteDB}
+        />
+      ) : (
+      <>
 
       {/* Visual Pipeline Strip */}
       <div className="flex items-center gap-1 px-4 py-3 rounded-xl border border-border/20 bg-card/40 backdrop-blur-sm overflow-x-auto">
