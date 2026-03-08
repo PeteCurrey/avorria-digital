@@ -220,6 +220,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
           {children}
         </main>
       </div>
+      <CommandPalette open={cmdOpen} onOpenChange={setCmdOpen} />
     </div>
   );
 };
