@@ -1,106 +1,113 @@
 
-## Enhance Paid Media and SEO Service Pages
 
-### Overview
-Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
+## Plan: Admin Panel Enhancements — Internal Power Tool
 
----
-
-### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
-
-**Hero Section:**
-- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
-- Use the existing `service-paid-media.jpg` asset as the parallax background image
-- Keep the headline and copy but improve the subheadline badge
-- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
-
-**New Introduction Section (below hero):**
-- Two-column layout matching the Reporting page pattern
-- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
-- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
-- Wrapped in `SectionReveal` with staggered `motion` entrance animations
-
-**Pain Points Section:**
-- Keep the content but enhance with `SectionReveal` animation
-- Add more descriptive intro paragraph above the pain point list
-
-**How We Approach Paid Media Section:**
-- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
-
-**New "What You Get" Section:**
-- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
-
-**New "Process Timeline" Section:**
-- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
-
-**Platforms Section:**
-- Keep but enrich with more descriptive content per platform
-- Add a brief intro paragraph
-
-**New FAQ Section:**
-- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
-- Add `FAQSchema` for SEO
-- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
-
-**CTA Section:**
-- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
-
-**SEO Enhancements:**
-- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
-- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
+This is a large initiative spanning 5 workstreams. Given the scope, I recommend tackling it in **2 phases** — Phase 1 delivers the highest-impact improvements first.
 
 ---
 
-### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+### Phase 1 (This Implementation)
 
-**New Introduction Section (below hero, before pain points):**
-- Same two-column layout as Reporting and Paid Media pages
-- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
-- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
-- Wrapped in `SectionReveal` with staggered `motion` entrance
+#### 1. Content Studio UX Overhaul
+**Problem:** Content flow is unclear — users don't know where content goes after approval, publishing status is ambiguous, and the social account connection status is vague.
 
-**Content Enrichment:**
-- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
-- Enrich the case study teaser cards with slightly more descriptive content
+**Changes:**
+- Add a **visual pipeline strip** at the top of Content Studio showing the flow: Generate → Review → Approved → Scheduled → Published, with counts at each stage and animated transitions when content moves
+- On each content card in Review/Approved tabs, add clear **"Next step" indicators** (e.g., "Approve → moves to Approved", "Schedule → set date & time", "Publish Now → sends to connected accounts")
+- Upgrade the social accounts status bar to show **real connection status** by reading from `seo_integrations` table (currently hardcoded as disconnected) — show green/red dots per platform
+- Add a **"Published" tab** (6th tab) so users can see what's already been sent out, pulling from `status = 'published'` in `ai_generated_content`
+- Add a **"Publish to Social" button** on approved content cards that calls the existing `publish-content` pattern (or creates a new `publish-content` edge function if missing) to post to connected Twitter/LinkedIn/Instagram accounts
 
-**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+#### 2. Image Generation Quality Upgrade
+**Problem:** Images may not be high enough quality.
+
+**Changes:**
+- Switch the `generate-image` edge function from `google/gemini-2.5-flash-image` to **`google/gemini-3-pro-image-preview`** (higher quality model)
+- Enhance the default prompt template to be more specific: include brand colors, marketing context, aspect ratio guidance for each platform (square for Instagram, landscape for LinkedIn/Twitter)
+- Add **platform-aware aspect ratio** hints in the prompt (e.g., Instagram → "1:1 square format", LinkedIn → "1.91:1 landscape")
+
+#### 3. Automated Weekly Newsletter
+**Problem:** Newsletters are manual. Need weekly automation.
+
+**Changes:**
+- Create a new edge function `send-weekly-newsletter` that:
+  1. Queries `ai_generated_content` for content published in the last 7 days
+  2. Queries `resources` for recently published articles
+  3. Uses AI (Lovable AI) to compose a weekly digest newsletter HTML
+  4. Sends via the existing `send-newsletter` function to all active `newsletter_subscribers`
+- Create a `pg_cron` job to trigger this function weekly (every Monday at 9am)
+- Add a "Weekly Digest" toggle and preview in the Newsletter Builder UI
+
+#### 4. SEO Dashboard — Real Rank Tracking with Notifications
+**Problem:** SEO Dashboard only shows data if manually populated. No automated rank tracking or change notifications.
+
+**Changes:**
+- Create a `track-seo-rankings` edge function that:
+  1. Reads target keywords from `seo_rankings` table (or a new `seo_target_keywords` table)
+  2. Uses SerpAPI (if configured) or AI-based estimation to check current positions
+  3. Compares with previous positions and stores new records
+  4. If any keyword moves ≥3 positions up or down, creates a notification in the `notifications` table
+- Create a database migration for `seo_target_keywords` table (keyword, target_url, is_active, created_at)
+- Add a **"Add Keywords"** form to the SEO Dashboard so users can input target keywords to track
+- Add a **"Rank Changes"** tab showing position history with sparkline charts (like Semrush)
+- Set up a `pg_cron` job to run `track-seo-rankings` daily
+
+#### 5. Remove All Mock Data Fallbacks
+**Problem:** Several edge functions (serpapi, google-search-console) return mock data when not configured.
+
+**Changes:**
+- Update `serpapi/index.ts` to return `{ configured: false, data: null }` instead of mock data when API key is missing
+- Update SEO Dashboard to show a clear "Connect SerpAPI in Integrations" CTA instead of fake data
+- Audit `google-search-console` and `google-analytics` functions for similar mock fallbacks and replace with honest empty states
 
 ---
 
-### Visual Rhythm
+### Phase 2 (Follow-up Implementation)
 
-**Paid Media (top to bottom):**
-1. Hero — cinematic with `service-paid-media.jpg` parallax background
-2. Introduction — light background, two-column explainer
-3. Pain Points — gradient background, enhanced list
-4. How We Approach — dark background, 4-card grid + pull-quote
-5. What You Get — gradient background, deliverables checklist
-6. Process Timeline — mesh background, phased timeline
-7. Platforms — dark background, enriched 3-column cards
-8. FAQ — mesh background, accordion with schema
-9. CTA — gradient background, fixed buttons
+These are important but depend on Phase 1 being solid:
 
-**SEO Services (top to bottom):**
-1. Hero (existing) — with `service-seo.jpg`
-2. **Introduction (NEW)** — light background, two-column explainer
-3. Pain Points (existing)
-4. What's Included (existing) + **pull-quote (NEW)**
-5. Process Timeline (existing)
-6. Deliverables (existing)
-7. SEO by Industry (existing)
-8. Case Studies (existing, enriched)
-9. SEO by Location (existing)
-10. FAQ (existing)
-11. CTA (existing)
+- **Automated Competitor Analysis**: `pg_cron` job running `competitor-analysis` weekly against configured competitor URLs, storing results in a new `competitor_snapshots` table, with a comparison dashboard
+- **Social Publishing Edge Function**: Full `publish-content` edge function that posts to Twitter/LinkedIn/Instagram APIs using stored credentials from `seo_integrations`
+- **Content Calendar Integration**: Auto-populate the Content Calendar from scheduled content in `ai_generated_content`
+- **SEO Auto-Optimization**: AI-powered suggestions for internal linking, meta description improvements, and content gap analysis based on rank tracking data
+- **Analytics Dashboard Enhancement**: Pull real Google Analytics data into charts (already has the edge function, needs better UI integration)
 
 ---
 
-### Files Modified
-- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
-- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+### Technical Details
 
-### New Imports
-- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
-- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
+**New Database Tables:**
+```sql
+-- Target keywords for automated tracking
+CREATE TABLE public.seo_target_keywords (
+  id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
+  keyword text NOT NULL,
+  target_url text,
+  is_active boolean DEFAULT true,
+  created_at timestamptz DEFAULT now()
+);
+ALTER TABLE public.seo_target_keywords ENABLE ROW LEVEL SECURITY;
+-- Only authenticated staff can manage
+CREATE POLICY "Staff can manage target keywords" ON public.seo_target_keywords
+  FOR ALL TO authenticated
+  USING (public.has_role(auth.uid(), 'admin') OR public.has_role(auth.uid(), 'strategist'));
+```
 
-### No new dependencies needed
+**New Edge Functions:**
+- `supabase/functions/send-weekly-newsletter/index.ts`
+- `supabase/functions/track-seo-rankings/index.ts`
+
+**Modified Files:**
+- `src/components/admin/ContentStudio.tsx` — Pipeline strip, Published tab, social status, publish button
+- `src/components/admin/SEODashboard.tsx` — Add Keywords form, Rank Changes tab, notifications
+- `supabase/functions/generate-image/index.ts` — Upgrade model, platform-aware prompts
+- `supabase/functions/serpapi/index.ts` — Remove mock data
+- `src/components/admin/NewsletterBuilder.tsx` — Weekly digest toggle/preview
+- `src/components/admin/AdminSidebar.tsx` — No changes needed (structure is good)
+
+**Files to create:**
+- `supabase/functions/send-weekly-newsletter/index.ts`
+- `supabase/functions/track-seo-rankings/index.ts`
+
+This Phase 1 implementation transforms the admin panel from a content management tool into an active, automated SEO and marketing operations centre.
+
