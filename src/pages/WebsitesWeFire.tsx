@@ -1,6 +1,7 @@
 // Enhanced Websites We'd Fire page v2 - All 10 UX Enhancements
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
