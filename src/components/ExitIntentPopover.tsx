@@ -58,7 +58,7 @@ export function ExitIntentPopover() {
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [hasShown, handleMouseMove]);
+  }, [hasShown, handleMouseMove, isEnabled]);
 
   // Escape key to close
   useEffect(() => {
