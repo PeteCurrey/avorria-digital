@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import React, { useEffect, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Quote, Loader2 } from "lucide-react";
