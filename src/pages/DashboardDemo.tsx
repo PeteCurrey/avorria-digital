@@ -39,6 +39,10 @@ const DashboardDemo = () => {
   };
 
   return (
+    <>
+    <Helmet>
+      <meta name="robots" content="noindex, nofollow" />
+    </Helmet>
     <AppShell
       type="client"
       userName="Sarah Mitchell"
