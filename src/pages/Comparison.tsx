@@ -16,10 +16,17 @@ const Comparison = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{comparison.metaTitle}</title>
-        <meta name="description" content={comparison.metaDescription} />
-      </Helmet>
+      <SEOHead
+        title={comparison.metaTitle}
+        description={comparison.metaDescription}
+        canonical={`/why/${slug}`}
+        keywords={[comparison.primarySubject, comparison.secondarySubject, "comparison"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Why Avorria", url: "https://avorria.com/why-avorria" },
+        { name: comparison.title, url: `https://avorria.com/why/${slug}` },
+      ]} />
 
       <div className="min-h-screen pt-24 pb-20">
         <div className="container mx-auto max-w-5xl px-6">

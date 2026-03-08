@@ -74,6 +74,7 @@ const DashboardDemo = () => {
 
       {renderTab()}
     </AppShell>
+    </>
   );
 };
 

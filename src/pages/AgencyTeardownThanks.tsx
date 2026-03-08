@@ -68,13 +68,12 @@ const AgencyTeardownThanks = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Report Submitted - Agency Teardown | Avorria</title>
-        <meta 
-          name="description" 
-          content="We've received your report and will send you a plain-English breakdown within 3-5 working days." 
-        />
-      </Helmet>
+      <SEOHead
+        title="Report Submitted - Agency Teardown"
+        description="We've received your report and will send you a plain-English breakdown within 3-5 working days."
+        canonical="/agency-report-teardown/thanks"
+        noindex={true}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}

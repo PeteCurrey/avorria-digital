@@ -106,11 +106,34 @@ const CaseStudyDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{caseStudy.title} | Avorria Case Study</title>
-        <meta name="description" content={caseStudy.subheadline} />
-        <link rel="canonical" href={`https://avorria.com/case-studies/${slug}`} />
-      </Helmet>
+      <SEOHead
+        title={`${caseStudy.title} | Avorria Case Study`}
+        description={caseStudy.subheadline}
+        canonical={`/case-studies/${slug}`}
+        image={caseStudy.heroMedia?.src}
+        imageAlt={`${caseStudy.client} case study`}
+        keywords={[caseStudy.sector, ...caseStudy.services, "case study", "digital marketing results"]}
+      >
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "CreativeWork",
+            name: caseStudy.title,
+            description: caseStudy.subheadline,
+            url: `https://avorria.com/case-studies/${slug}`,
+            image: caseStudy.heroMedia?.src,
+            author: { "@type": "Organization", name: "Avorria", url: "https://avorria.com" },
+            publisher: { "@type": "Organization", name: "Avorria", url: "https://avorria.com", logo: { "@type": "ImageObject", url: "https://avorria.com/logo.png" } },
+            about: { "@type": "Thing", name: caseStudy.sector },
+            genre: "Case Study",
+          })}
+        </script>
+      </SEOHead>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Case Studies", url: "https://avorria.com/case-studies" },
+        { name: caseStudy.client, url: `https://avorria.com/case-studies/${slug}` },
+      ]} />
 
       <div className="min-h-screen bg-slate-950 scroll-smooth snap-y snap-mandatory overflow-y-auto">
         {/* Hero */}

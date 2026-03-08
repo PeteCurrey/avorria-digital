@@ -68,27 +68,25 @@ const ResourceDetail = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{resource.metaTitle}</title>
-        <meta name="description" content={resource.metaDescription} />
-        <meta name="keywords" content={resource.targetKeyword} />
-        <link rel="canonical" href={currentUrl} />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Article",
-            headline: resource.title,
-            description: resource.summary,
-            datePublished: resource.publishedDate,
-            author: { "@type": "Organization", name: "Avorria" },
-            publisher: {
-              "@type": "Organization",
-              name: "Avorria",
-              logo: { "@type": "ImageObject", url: "https://avorria.com/logo.png" },
-            },
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title={resource.metaTitle}
+        description={resource.metaDescription}
+        canonical={`/resources/${resource.slug}`}
+        type="article"
+        keywords={[resource.targetKeyword, resource.category]}
+        publishedTime={resource.publishedDate}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Resources", url: "https://avorria.com/resources" },
+        { name: resource.title, url: currentUrl },
+      ]} />
+      <ArticleSchema
+        headline={resource.title}
+        description={resource.summary}
+        url={currentUrl}
+        datePublished={resource.publishedDate}
+      />
 
       {/* Reading Progress Bar */}
       <div className="fixed top-0 left-0 right-0 z-50">

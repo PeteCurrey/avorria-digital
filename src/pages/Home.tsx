@@ -437,7 +437,9 @@ const Home = () => {
           }
         })}
         </script>
-      </Helmet>
+      </SEOHead>
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }]} />
+      <FAQSchema faqs={faqs} />
 
 
 
