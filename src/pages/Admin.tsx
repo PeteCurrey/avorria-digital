@@ -292,6 +292,7 @@ const Admin = () => {
                     </motion.p>
                   )}
                   <p className="text-sm text-muted-foreground">Conversions</p>
+                  <KPISparkline data={(analyticsHistory || []).slice(0, 7).reverse().map(s => Object.values((s.conversions as Record<string, number>) || {}).reduce((a, b) => a + (b || 0), 0))} color="hsl(142, 71%, 45%)" />
                 </CardContent>
               </BeamBorder>
 
