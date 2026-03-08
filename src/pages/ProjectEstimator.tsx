@@ -964,6 +964,7 @@ const ProjectEstimator = () => {
           </p>
         </div>
       </section>
+    </div>
     </>
   );
 };
