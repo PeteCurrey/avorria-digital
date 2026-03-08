@@ -388,32 +388,14 @@ const Home = () => {
   // FAQSchema is now handled by the FAQSchema component below
 
   return <>
-      <Helmet>
-        <title>Avorria – Digital Marketing, SEO & Web Design Agency | Sheffield & London</title>
-        <meta name="description" content="Avorria is a performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses generate qualified leads and grow revenue." />
-        <meta name="keywords" content="digital marketing agency, SEO agency Sheffield, web design agency, paid media, B2B marketing, lead generation, Google Ads management, content marketing" />
-        
-        <meta property="og:title" content="Avorria – Digital Marketing, SEO & Web Design Agency" />
-        <meta property="og:description" content="Performance-first digital marketing that grows revenue, not vanity metrics. Strategic SEO, paid media, web design & analytics for serious businesses." />
-        <meta property="og:url" content="https://avorria.com" />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://avorria.com/og-image.jpg" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:locale" content="en_GB" />
-        <meta property="og:site_name" content="Avorria" />
-        
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:site" content="@avorria" />
-        <meta name="twitter:title" content="Avorria – Digital Marketing, SEO & Web Design Agency" />
-        <meta name="twitter:description" content="Performance-first digital marketing that grows revenue, not vanity metrics." />
-        <meta name="twitter:image" content="https://avorria.com/og-image.jpg" />
-        
-        <link rel="canonical" href="https://avorria.com" />
-        
+      <SEOHead
+        title="Avorria – Digital Marketing, SEO & Web Design Agency"
+        description="Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses generate qualified leads and grow revenue."
+        canonical="/"
+        keywords={["digital marketing agency", "SEO agency", "web design agency", "paid media", "B2B marketing", "lead generation", "Google Ads management", "content marketing"]}
+      >
         <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">
           {JSON.stringify({
           "@context": "https://schema.org",
