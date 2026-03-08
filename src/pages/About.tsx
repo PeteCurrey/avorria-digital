@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle, Users, Globe, Award, TrendingUp, Linkedin, Mail } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import SectionReveal from "@/components/SectionReveal";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroAboutTeam from "@/assets/hero-about-team.jpg";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 
@@ -65,17 +66,12 @@ const About = () => {
 
   return (
     <>
-      <Helmet>
-        <title>About Avorria – Your Operator-Level Growth Partner</title>
-        <meta name="description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
-        <meta property="og:title" content="About Avorria – Your Operator-Level Growth Partner" />
-        <meta property="og:description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
-        <meta property="og:url" content="https://avorria.com/about" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="About Avorria – Your Operator-Level Growth Partner" />
-        <meta name="twitter:description" content="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses." />
-        <link rel="canonical" href="https://avorria.com/about" />
+      <SEOHead
+        title="About Avorria – Your Operator-Level Growth Partner"
+        description="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses across the UK and USA."
+        canonical="/about"
+        keywords={["about avorria", "digital marketing team", "growth partner", "marketing agency UK", "marketing agency USA"]}
+      >
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -88,7 +84,8 @@ const About = () => {
             "sameAs": ["https://www.linkedin.com/company/avorria"]
           })}
         </script>
-      </Helmet>
+      </SEOHead>
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "About", url: "https://avorria.com/about" }]} />
 
       <div className="min-h-screen">
         {/* ─── Hero ─── */}
@@ -134,7 +131,7 @@ const About = () => {
                       <p>Before Avorria, we spent years working inside businesses — not agencies. We sat in the meetings where marketing budgets were questioned, where dashboards full of impressions meant nothing to the board, and where "the agency" was just another line item nobody could justify.</p>
                       <p>We watched good companies hand over five-figure monthly retainers to agencies that delivered activity reports instead of results. Agencies that confused being busy with being effective. That prioritised their own award entries over their client's pipeline.</p>
                       <p>So we built something different. Avorria is deliberately small. Every client works directly with senior people who've managed real P&Ls, fixed broken tracking stacks, rebuilt websites that weren't converting, and turned paid media from a cost centre into a growth engine.</p>
-                      <p>We don't do fluff. We don't do vanity metrics. We do the hard, unglamorous work that actually moves the numbers — and we're transparent about what's working and what isn't.</p>
+                      <p>We don't do filler. We don't do vanity metrics. We do the hard, unglamorous work that actually moves the numbers — and we're transparent about what's working and what isn't.</p>
                     </div>
                   </ScrollReveal>
                   <ScrollReveal variant="fade-up" delay={200} duration={500} className="md:col-span-2">

@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -11,6 +10,8 @@ import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseFeaturedCarousel } from "@/components/case-studies/CaseFeaturedCarousel";
 import { CaseFilterBar } from "@/components/case-studies/CaseFilterBar";
 import { CaseGrid } from "@/components/case-studies/CaseGrid";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 // Convert DB format to component format
 const dbToCaseStudy = (db: CaseStudyDB): CaseStudy => ({
@@ -138,22 +139,12 @@ const CaseStudies = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Digital Marketing Case Studies | Website Design Portfolio | Avorria</title>
-        <meta
-          name="description"
-          content="Explore Avorria's portfolio of digital marketing case studies. See real results from website redesigns, SEO campaigns, and AI marketing projects across facilities management, automotive, and specialist industries." />
-
-        <meta name="keywords" content="digital marketing case studies, website design portfolio, AI marketing projects, SEO case studies, web design results" />
-        <link rel="canonical" href="https://avorria.com/case-studies" />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content="Digital Marketing Case Studies | Avorria" />
-        <meta property="og:description" content="Real results for real businesses. Explore our portfolio of website redesigns, SEO campaigns, and digital transformations." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://avorria.com/case-studies" />
-        
-        {/* JSON-LD Structured Data */}
+      <SEOHead
+        title="Digital Marketing Case Studies | Website Design Portfolio"
+        description="Explore Avorria's portfolio of digital marketing case studies. See real results from website redesigns, SEO campaigns, and marketing projects across facilities management, automotive, and specialist industries."
+        canonical="/case-studies"
+        keywords={["digital marketing case studies", "website design portfolio", "SEO case studies", "web design results", "marketing portfolio"]}
+      >
         <script type="application/ld+json">
           {JSON.stringify({
             "@context": "https://schema.org",
@@ -162,7 +153,7 @@ const CaseStudies = () => {
             "description": "Portfolio of digital marketing case studies showcasing website design, SEO, and marketing results",
             "publisher": {
               "@type": "Organization",
-              "name": "Avorria Digital Marketing"
+              "name": "Avorria"
             },
             "mainEntity": {
               "@type": "ItemList",
@@ -175,7 +166,8 @@ const CaseStudies = () => {
             }
           })}
         </script>
-      </Helmet>
+      </SEOHead>
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Case Studies", url: "https://avorria.com/case-studies" }]} />
 
       <div className="min-h-screen bg-[hsl(220,25%,8%)]">
         {/* Hero */}

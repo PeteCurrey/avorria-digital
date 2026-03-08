@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -11,6 +10,8 @@ import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 import { useCreateLead } from "@/hooks/useLeads";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroContactOffice from "@/assets/hero-contact-office.jpg";
 const Contact = () => {
   const {
@@ -94,22 +95,21 @@ const Contact = () => {
     }
   };
   return <>
-      <Helmet>
-        <title>Contact Avorria – Book a Strategy Call | Avorria</title>
-        <meta name="description" content="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services." />
-        <link rel="canonical" href="https://avorria.com/contact" />
-      </Helmet>
+      <SEOHead
+        title="Contact Avorria – Book a Strategy Call"
+        description="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services across the UK and USA."
+        canonical="/contact"
+        keywords={["contact avorria", "book strategy call", "digital marketing consultation", "SEO consultation"]}
+      />
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Contact", url: "https://avorria.com/contact" }]} />
       
     <div className="min-h-screen">
       {/* Hero Section with Parallax - flows behind header */}
-      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20" style={{
-        backgroundImage: "url(\"/lovable-uploads/c9ffc2f2-d1f9-470d-ac01-636f9fbdba53.png\")",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundAttachment: "fixed"
-      }}>
-        {/* Dark overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/70" />
+      <section className="relative min-h-[50vh] flex items-center justify-center overflow-hidden -mt-20 pt-20">
+        <div className="absolute inset-0">
+          <img src={heroContactOffice} alt="" className="w-full h-full object-cover" loading="eager" />
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
         
         <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
           <h1 className="text-4xl sm:text-5xl font-light leading-tight mb-6 text-white animate-fade-in lg:text-5xl">
