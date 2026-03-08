@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -237,6 +239,17 @@ const ProjectEstimator = () => {
 
   if (showResults) {
     return (
+      <>
+      <SEOHead
+        title="Project Estimator – Get a Ballpark in Minutes"
+        description="Answer a few questions about your project and get a realistic budget estimate in minutes. No sales calls, no obligations."
+        canonical="/project-estimator"
+        keywords={["project estimator", "marketing budget", "web design cost", "SEO pricing", "agency pricing"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Project Estimator", url: "https://avorria.com/project-estimator" }
+      ]} />
       <div className="min-h-screen bg-background">
         <section className="pt-32 pb-20 px-6">
           <div className="container mx-auto max-w-4xl">
@@ -398,10 +411,22 @@ const ProjectEstimator = () => {
           </div>
         </section>
       </div>
+      </>
     );
   }
 
   return (
+    <>
+      <SEOHead
+        title="Project Estimator – Get a Ballpark in Minutes"
+        description="Answer a few questions about your project and get a realistic budget estimate in minutes. No sales calls, no obligations."
+        canonical="/project-estimator"
+        keywords={["project estimator", "marketing budget", "web design cost", "SEO pricing", "agency pricing"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Project Estimator", url: "https://avorria.com/project-estimator" }
+      ]} />
     <div className="min-h-screen bg-background">
       <section className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
@@ -940,6 +965,7 @@ const ProjectEstimator = () => {
         </div>
       </section>
     </div>
+    </>
   );
 };
 

@@ -1,15 +1,21 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { SectionBand } from "@/components/ContentBand";
 
 const Terms = () => {
   return (
     <>
-      <Helmet>
-        <title>Terms of Service | Avorria</title>
-        <meta name="description" content="Avorria's terms of service outline the rules and regulations for using our website and services." />
-        <link rel="canonical" href="https://avorria.com/terms" />
-      </Helmet>
+      <SEOHead
+        title="Terms of Service"
+        description="Avorria's terms of service outline the rules and regulations for using our website and services."
+        canonical="/terms"
+        noindex
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Terms of Service", url: "https://avorria.com/terms" }
+      ]} />
 
       <div className="min-h-screen pt-24">
         <SectionBand background="dark" padding="large">

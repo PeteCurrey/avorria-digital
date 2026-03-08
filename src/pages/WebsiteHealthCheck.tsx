@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -196,10 +197,16 @@ const WebsiteHealthCheck = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Website Health Check - See How Your Site Stacks Up | Avorria</title>
-        <meta name="description" content="Enter your URL and get a simple, honest summary of how your website is performing across SEO, performance and conversion basics." />
-      </Helmet>
+      <SEOHead
+        title="Free Website Health Check – See How Your Site Stacks Up"
+        description="Enter your URL and get a simple, honest summary of how your website is performing across SEO, performance and conversion basics."
+        canonical="/website-health-check"
+        keywords={["website health check", "SEO checker", "website audit", "site performance", "free SEO tool"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Website Health Check", url: "https://avorria.com/website-health-check" }
+      ]} />
 
       <div className="min-h-screen bg-background">
         {/* Hero */}

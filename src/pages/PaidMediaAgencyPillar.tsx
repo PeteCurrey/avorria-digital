@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -66,17 +66,12 @@ const PaidMediaAgencyPillar = () => {
         { name: "Home", url: "/" },
         { name: "Paid Media Agency", url: "/paid-media-agency" }
       ]} />
-      <Helmet>
-        <title>Paid Media Agency | Google Ads, Meta Ads & LinkedIn | Avorria</title>
-        <meta name="description" content="Paid media agency focused on leads and revenue. Google Ads, Meta Ads and LinkedIn campaigns with proper tracking and clear ROI reporting." />
-        <meta name="keywords" content="paid media agency, Google Ads agency, Meta Ads, Facebook Ads, LinkedIn Ads, PPC agency" />
-        <meta property="og:title" content="Paid Media Agency | Avorria" />
-        <meta property="og:description" content="Performance-focused paid media campaigns that deliver ROI, not just impressions." />
-        <meta property="og:url" content="https://avorria.com/paid-media-agency" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://avorria.com/paid-media-agency" />
-      </Helmet>
+      <SEOHead
+        title="Paid Media Agency | Google Ads, Meta Ads & LinkedIn"
+        description="Paid media agency focused on leads and revenue. Google Ads, Meta Ads and LinkedIn campaigns with proper tracking and clear ROI reporting."
+        canonical="/paid-media-agency"
+        keywords={["paid media agency", "Google Ads agency", "Meta Ads", "Facebook Ads", "LinkedIn Ads", "PPC agency"]}
+      />
 
       <div className="min-h-screen">
         <HeroBand

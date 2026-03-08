@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { trackCTAClick, trackAuditFunnelView } from "@/lib/tracking";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
@@ -27,26 +28,16 @@ export default function AuditFunnel() {
 
   return (
     <>
-      <Helmet>
-        <title>Free SEO & Website Audit - Instant Results | Avorria</title>
-        <meta name="description" content="Get an instant, AI-powered audit of your website. Clear, actionable recommendations delivered in under 60 seconds – completely free." />
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "SEO & Website Audit",
-            "provider": {
-              "@type": "Organization",
-              "name": "Avorria"
-            },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "GBP"
-            }
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title="Free SEO & Website Audit – Instant Results"
+        description="Get an instant, AI-powered audit of your website. Clear, actionable recommendations delivered in under 60 seconds – completely free."
+        canonical="/free-seo-website-audit"
+        keywords={["free SEO audit", "website audit", "SEO analysis", "site audit tool", "free website review"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Free SEO Audit", url: "https://avorria.com/free-seo-website-audit" }
+      ]} />
 
       <div className="min-h-screen bg-background">
 

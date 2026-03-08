@@ -1,4 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ServiceSchema from "@/components/seo/ServiceSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Settings, Zap, CheckCircle } from "lucide-react";
@@ -6,10 +8,23 @@ import { Settings, Zap, CheckCircle } from "lucide-react";
 const TechnicalSEO = () => {
   return (
     <>
-      <Helmet>
-        <title>Technical SEO Services - Fix What's Holding You Back | Avorria</title>
-        <meta name="description" content="Technical SEO that stops your site fighting itself. Fix crawl, speed, structure and duplication issues." />
-      </Helmet>
+      <SEOHead
+        title="Technical SEO Services – Fix What's Holding You Back"
+        description="Technical SEO that stops your site fighting itself. We fix crawl, speed, structure and duplication issues that quietly tax every campaign you run."
+        canonical="/services/seo/technical"
+        keywords={["technical SEO", "site speed", "crawl optimisation", "Core Web Vitals", "SEO audit", "site structure"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "SEO Services", url: "https://avorria.com/services/seo" },
+        { name: "Technical SEO", url: "https://avorria.com/services/seo/technical" }
+      ]} />
+      <ServiceSchema
+        name="Technical SEO Services"
+        description="Technical SEO audits and implementation. Crawl optimisation, Core Web Vitals, site structure and duplication fixes."
+        url="/services/seo/technical"
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 41 }}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero */}

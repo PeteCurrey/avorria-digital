@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -23,14 +24,16 @@ const Locations = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Service Locations | Digital Marketing Agency | Avorria</title>
-        <meta
-          name="description"
-          content="Avorria provides SEO, digital marketing, paid media, and web design services across the UK, USA, Australia, New Zealand, and Canada. Find expert marketing services in your city."
-        />
-        <link rel="canonical" href="https://avorria.com/locations" />
-      </Helmet>
+      <SEOHead
+        title="Service Locations | UK, USA, Australia & Canada"
+        description="Avorria provides SEO, digital marketing, paid media and web design services across the UK, USA, Australia, New Zealand and Canada. Find expert marketing in your city."
+        canonical="/locations"
+        keywords={["digital marketing agency locations", "SEO agency UK", "SEO agency USA", "marketing agency near me"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Locations", url: "https://avorria.com/locations" }
+      ]} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

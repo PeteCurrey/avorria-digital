@@ -1,4 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ServiceSchema from "@/components/seo/ServiceSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { BarChart3, CheckCircle, AlertCircle } from "lucide-react";
@@ -6,10 +8,22 @@ import { BarChart3, CheckCircle, AlertCircle } from "lucide-react";
 const AnalyticsTracking = () => {
   return (
     <>
-      <Helmet>
-        <title>Analytics & Tracking Setup - Fix Your Data Before You Spend | Avorria</title>
-        <meta name="description" content="Analytics & tracking clean-up before you spend another pound. Untangle GA, tags and events so you can trust the numbers." />
-      </Helmet>
+      <SEOHead
+        title="Analytics & Tracking Setup – Fix Your Data First"
+        description="Analytics and tracking clean-up before you spend another pound. We untangle GA4, tags and events so you can trust the numbers."
+        canonical="/services/seo/analytics-tracking"
+        keywords={["analytics setup", "GA4 audit", "tracking setup", "Google Tag Manager", "conversion tracking", "event tracking"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "SEO Services", url: "https://avorria.com/services/seo" },
+        { name: "Analytics & Tracking", url: "https://avorria.com/services/seo/analytics-tracking" }
+      ]} />
+      <ServiceSchema
+        name="Analytics & Tracking Setup"
+        description="GA4 audit, tag clean-up and conversion tracking implementation. Fix your data before you spend another pound on marketing."
+        url="/services/seo/analytics-tracking"
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero */}

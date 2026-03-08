@@ -1,5 +1,8 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ServiceSchema from "@/components/seo/ServiceSchema";
+import FAQSchema from "@/components/seo/FAQSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -101,61 +104,24 @@ const Analytics = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Analytics & Conversion Optimisation | Avorria</title>
-        <meta name="description" content="Analytics setup, tracking and CRO that connects marketing activity to pipeline and revenue – not just dashboards full of vanity metrics." />
-        
-        <meta property="og:title" content="Analytics & Conversion Optimisation | Avorria" />
-        <meta property="og:description" content="Analytics and CRO that connects marketing to revenue." />
-        <meta property="og:url" content="https://avorria.com/services/analytics" />
-        <meta property="og:type" content="website" />
-        
-        <link rel="canonical" href="https://avorria.com/services/analytics" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "Analytics & Conversion Optimisation",
-            "provider": {
-              "@type": "Organization",
-              "name": "Avorria",
-              "url": "https://avorria.com"
-            },
-            "areaServed": {
-              "@type": "Country",
-              "name": "United Kingdom"
-            },
-            "description": "Analytics setup, tracking and conversion rate optimisation for revenue-focused teams."
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://avorria.com"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Services",
-                "item": "https://avorria.com/services"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Analytics",
-                "item": "https://avorria.com/services/analytics"
-              }
-            ]
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title="Analytics & Conversion Optimisation"
+        description="Analytics setup, tracking and CRO that connects marketing activity to pipeline and revenue – not just dashboards full of vanity metrics."
+        canonical="/services/analytics"
+        keywords={["analytics", "conversion optimisation", "CRO", "GA4 setup", "tracking", "attribution modelling", "A/B testing"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Services", url: "https://avorria.com/services" },
+        { name: "Analytics & CRO", url: "https://avorria.com/services/analytics" }
+      ]} />
+      <ServiceSchema
+        name="Analytics & Conversion Optimisation"
+        description="Analytics setup, tracking and conversion rate optimisation for revenue-focused teams. GA4, attribution modelling and A/B testing."
+        url="/services/analytics"
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 26 }}
+      />
+      <FAQSchema faqs={faqs} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import SectionReveal from "@/components/SectionReveal";
 import SEOHead from "@/components/seo/SEOHead";
 import FAQSchema from "@/components/seo/FAQSchema";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -83,6 +84,10 @@ const Reporting = () => {
         canonical="https://avorria.com/reporting"
       />
       <FAQSchema faqs={faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Reporting", url: "https://avorria.com/reporting" }
+      ]} />
 
       <div className="min-h-screen">
         {/* Hero Section — Dark Cinematic */}

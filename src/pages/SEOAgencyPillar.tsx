@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -84,17 +84,12 @@ const SEOAgencyPillar = () => {
         { name: "Home", url: "/" },
         { name: "SEO Agency", url: "/seo-agency" }
       ]} />
-      <Helmet>
-        <title>SEO Agency | Performance-Focused SEO Services | Avorria</title>
-        <meta name="description" content="Expert SEO agency for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads." />
-        <meta name="keywords" content="SEO agency, SEO services, technical SEO, content strategy, local SEO, B2B SEO, organic search, keyword research" />
-        <meta property="og:title" content="SEO Agency | Avorria" />
-        <meta property="og:description" content="Technical SEO, content strategy and on-page optimisation focused on commercial keywords that drive qualified leads and revenue." />
-        <meta property="og:url" content="https://avorria.com/seo-agency" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://avorria.com/seo-agency" />
-      </Helmet>
+      <SEOHead
+        title="SEO Agency | Performance-Focused SEO Services"
+        description="Expert SEO agency for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads."
+        canonical="/seo-agency"
+        keywords={["SEO agency", "SEO services", "technical SEO", "content strategy", "local SEO", "B2B SEO", "organic search"]}
+      />
 
       <div className="min-h-screen">
         <HeroBand

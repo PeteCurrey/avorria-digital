@@ -1,4 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ServiceSchema from "@/components/seo/ServiceSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { AlertTriangle, Shield, CheckCircle } from "lucide-react";
@@ -6,10 +8,22 @@ import { AlertTriangle, Shield, CheckCircle } from "lucide-react";
 const WebsiteMigrations = () => {
   return (
     <>
-      <Helmet>
-        <title>SEO-Safe Website Migrations - Don't Torch Your Rankings | Avorria</title>
-        <meta name="description" content="SEO-safe website migrations. Plan and execute migrations without losing rankings, traffic and leads." />
-      </Helmet>
+      <SEOHead
+        title="SEO-Safe Website Migrations – Protect Your Rankings"
+        description="SEO-safe website migrations. We plan and execute migrations so you don't lose rankings, traffic and leads when you relaunch."
+        canonical="/services/seo/migrations"
+        keywords={["website migration", "SEO migration", "site relaunch", "URL mapping", "redirect strategy", "migration checklist"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "SEO Services", url: "https://avorria.com/services/seo" },
+        { name: "Website Migrations", url: "https://avorria.com/services/seo/migrations" }
+      ]} />
+      <ServiceSchema
+        name="SEO-Safe Website Migrations"
+        description="Plan and execute website migrations without losing rankings, traffic and leads. URL mapping, redirect strategy and post-launch monitoring."
+        url="/services/seo/migrations"
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero */}

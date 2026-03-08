@@ -8,6 +8,7 @@ import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import SectionReveal from "@/components/SectionReveal";
 import ServiceComparisonGrid from "@/components/services/ServiceComparisonGrid";
 import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const WhyAvorria = () => {
   const principles = [
@@ -81,6 +82,10 @@ const WhyAvorria = () => {
           })}
         </script>
       </SEOHead>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Why Avorria", url: "https://avorria.com/why-avorria" }
+      ]} />
 
       <div className="min-h-screen">
         {/* Hero — Cinematic Dark */}
