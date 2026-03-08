@@ -73,7 +73,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { StaticBeamBorder, BeamBorder } from "@/components/BeamBorder";
 import { useLeadsAdmin, useUpdateLead, useDeleteLead, useLeadStats } from "@/hooks/useLeads";
 import { useLatestAnalyticsSnapshot, useAnalyticsSnapshots } from "@/hooks/useAnalyticsSnapshots";
-import { useLatestAnalyticsSnapshot } from "@/hooks/useAnalyticsSnapshots";
 import { useClients } from "@/hooks/useClients";
 import { useAlerts } from "@/hooks/useAlerts";
 
