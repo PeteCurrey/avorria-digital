@@ -174,7 +174,7 @@ const Home = () => {
     name: "Avorria",
     description: "Performance-first digital marketing agency specialising in SEO, paid media, web design, and analytics for B2B and service businesses. Headquartered in Chesterfield, Derbyshire.",
     url: "https://avorria.com",
-    telephone: "+44 1246 123 4567",
+    telephone: "+44 1246 123456",
     email: "hello@avorria.com",
     image: "https://avorria.com/og-image.jpg",
     priceRange: "£££",
