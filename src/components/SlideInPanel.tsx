@@ -11,8 +11,12 @@ export function SlideInPanel({
   triggerAfterScroll = 50,
   triggerAfterSeconds = 30
 }: SlideInPanelProps) {
+  const { data: siteSettings } = useSiteSettings();
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  
+  // If disabled globally, don't show
+  const isEnabled = siteSettings?.popup_slide_in_enabled ?? true;
   useEffect(() => {
     if (isDismissed) return;
     let scrollTriggered = false;
