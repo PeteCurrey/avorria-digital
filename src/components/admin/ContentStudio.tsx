@@ -19,6 +19,7 @@ import {
   usePendingReviewContent,
   useApprovedContent,
   useScheduledContent,
+  useAIGeneratedContent,
   useApproveContent,
   useRejectContent,
   useUpdateContent,
@@ -60,9 +61,12 @@ import {
   Paintbrush,
   Box,
   X,
+  CheckCircle2,
+  Globe,
 } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 
 interface GeneratedContent {
   id: string;
@@ -80,6 +84,14 @@ const imageStyleOptions = [
   { value: "photographic", label: "Photographic", icon: Camera, desc: "Realistic stock-photo style" },
   { value: "illustrative", label: "Illustrative", icon: Paintbrush, desc: "Clean vector/abstract graphics" },
   { value: "3d-render", label: "3D Render", icon: Box, desc: "Modern 3D objects & scenes" },
+];
+
+const pipelineStages = [
+  { key: "generate", label: "Generate", icon: Wand2 },
+  { key: "queue", label: "Review", icon: Eye },
+  { key: "approved", label: "Approved", icon: Check },
+  { key: "scheduled", label: "Scheduled", icon: Calendar },
+  { key: "published", label: "Published", icon: Globe },
 ];
 
 const ContentStudio = () => {
@@ -112,12 +124,29 @@ const ContentStudio = () => {
   const { data: pendingContent, isLoading: loadingPending, refetch: refetchPending } = usePendingReviewContent();
   const { data: approvedContentDB, isLoading: loadingApproved, refetch: refetchApproved } = useApprovedContent();
   const { data: scheduledContent, isLoading: loadingScheduled, refetch: refetchScheduled } = useScheduledContent();
+  const { data: publishedContent, isLoading: loadingPublished } = useAIGeneratedContent("published");
   const approveContent = useApproveContent();
   const rejectContent = useRejectContent();
   const updateContent = useUpdateContent();
   const deleteContent = useDeleteContent();
   const saveContent = useSaveGeneratedContent();
   const markPublished = useMarkPublished();
+
+  // Real social connection status
+  const { data: socialConnections } = useQuery({
+    queryKey: ["social-integrations"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("seo_integrations" as any)
+        .select("integration_type, is_active")
+        .in("integration_type", ["twitter", "linkedin", "instagram"]);
+      if (error) return [] as { integration_type: string; is_active: boolean }[];
+      return (data as unknown as { integration_type: string; is_active: boolean }[]) || [];
+    },
+  });
+
+  const isConnected = (platform: string) =>
+    socialConnections?.some((c) => c.integration_type === platform && c.is_active) ?? false;
 
   const platformIcons: Record<string, React.ElementType> = {
     twitter: Twitter,
@@ -167,6 +196,16 @@ const ContentStudio = () => {
     }
   };
 
+  const getPlatformAspectHint = (plat: string) => {
+    switch (plat) {
+      case "instagram": return "Create a 1:1 square format image, optimised for Instagram feed.";
+      case "linkedin": return "Create a 1.91:1 landscape format image, optimised for LinkedIn posts.";
+      case "twitter": return "Create a 16:9 landscape format image, optimised for Twitter/X cards.";
+      case "facebook": return "Create a 1.91:1 landscape format image, optimised for Facebook posts.";
+      default: return "Create a 16:9 landscape format image.";
+    }
+  };
+
   const handleGenerateImage = async (content: GeneratedContent, customPrompt?: string) => {
     setGeneratedContent((prev) =>
       prev.map((c) => (c.id === content.id ? { ...c, isGeneratingImage: true } : c))
@@ -174,9 +213,10 @@ const ContentStudio = () => {
 
     try {
       const stylePrompt = getImageStylePrompt(imageStyle);
+      const aspectHint = getPlatformAspectHint(content.platform);
       const prompt = customPrompt
         ? customPrompt
-        : `Create a professional marketing visual for: ${content.title || topic}. ${stylePrompt} Suitable for ${content.platform} marketing. No text overlays.`;
+        : `Create a professional marketing visual for: ${content.title || topic}. ${stylePrompt} ${aspectHint} Brand colours: deep black backgrounds with vibrant pink/magenta accents (#e91e8c). No text overlays.`;
 
       const { data, error } = await supabase.functions.invoke("generate-image", {
         body: { prompt, contentId: content.id, imageStyle },
@@ -335,15 +375,26 @@ const ContentStudio = () => {
     refetchApproved();
   };
 
+  // Pipeline counts
+  const pipelineCounts: Record<string, number> = {
+    generate: generatedContent.length,
+    queue: pendingContent?.length || 0,
+    approved: approvedContentDB?.length || 0,
+    scheduled: scheduledContent?.length || 0,
+    published: publishedContent?.length || 0,
+  };
+
   // Shared content card renderer
   const ContentCard = ({
     item,
     actions,
     badge,
+    nextStepHint,
   }: {
-    item: { id: string; platform?: string | null; content_type?: string; content: string; title?: string | null; hashtags?: string[] | null; created_at?: string; auto_generated?: boolean | null; scheduled_for?: string | null; imageUrl?: string; isGeneratingImage?: boolean };
+    item: { id: string; platform?: string | null; content_type?: string; content: string; title?: string | null; hashtags?: string[] | null; created_at?: string; auto_generated?: boolean | null; scheduled_for?: string | null; published_at?: string | null; imageUrl?: string; isGeneratingImage?: boolean };
     actions: React.ReactNode;
     badge?: React.ReactNode;
+    nextStepHint?: string;
   }) => {
     const Icon = platformIcons[item.platform || ""] || FileText;
     return (
@@ -412,6 +463,13 @@ const ContentStudio = () => {
                     #{tag}
                   </Badge>
                 ))}
+              </div>
+            )}
+
+            {nextStepHint && (
+              <div className="mt-3 flex items-center gap-1.5 text-[10px] text-muted-foreground/50 bg-muted/20 rounded px-2 py-1">
+                <ArrowRight className="h-2.5 w-2.5" />
+                <span>Next: {nextStepHint}</span>
               </div>
             )}
 
@@ -493,17 +551,50 @@ const ContentStudio = () => {
             Content Studio
           </h2>
           <p className="text-muted-foreground text-xs mt-1 ml-10">
-            Generate, review, and schedule content across all channels
+            Generate, review, and publish content across all channels
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          {pendingContent && pendingContent.length > 0 && (
-            <Badge variant="secondary" className="gap-1 text-[10px]">
-              <Clock className="h-3 w-3" />
-              {pendingContent.length} pending
-            </Badge>
-          )}
-        </div>
+      </div>
+
+      {/* Visual Pipeline Strip */}
+      <div className="flex items-center gap-1 px-4 py-3 rounded-xl border border-border/20 bg-card/40 backdrop-blur-sm overflow-x-auto">
+        {pipelineStages.map((stage, idx) => {
+          const count = pipelineCounts[stage.key] || 0;
+          const isActive = activeTab === stage.key;
+          const StageIcon = stage.icon;
+          return (
+            <React.Fragment key={stage.key}>
+              {idx > 0 && (
+                <ArrowRight className="h-3 w-3 text-muted-foreground/30 flex-shrink-0 mx-0.5" />
+              )}
+              <button
+                onClick={() => setActiveTab(stage.key)}
+                className={`flex items-center gap-2 px-3 py-2 rounded-lg transition-all text-xs font-medium flex-shrink-0 ${
+                  isActive
+                    ? "bg-accent/10 border border-accent/30 text-accent shadow-sm"
+                    : "hover:bg-muted/30 text-muted-foreground"
+                }`}
+              >
+                <StageIcon className="h-3.5 w-3.5" />
+                <span className="hidden sm:inline">{stage.label}</span>
+                {count > 0 && (
+                  <motion.span
+                    key={count}
+                    initial={{ scale: 0.5 }}
+                    animate={{ scale: 1 }}
+                    className={`inline-flex items-center justify-center h-4 min-w-[16px] rounded-full text-[9px] font-bold px-1 ${
+                      isActive
+                        ? "bg-accent text-accent-foreground"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {count}
+                  </motion.span>
+                )}
+              </button>
+            </React.Fragment>
+          );
+        })}
       </div>
 
       {/* Social Accounts Status Bar */}
@@ -511,17 +602,28 @@ const ContentStudio = () => {
         <div className="flex items-center gap-2">
           <div className="flex -space-x-1.5">
             {[
-              { icon: Twitter, label: "X" },
-              { icon: Linkedin, label: "LI" },
-              { icon: Instagram, label: "IG" },
-            ].map(({ icon: SIcon, label }) => (
-              <div key={label} className="h-7 w-7 rounded-full bg-muted/60 flex items-center justify-center border border-background text-muted-foreground">
-                <SIcon className="h-3 w-3" />
-              </div>
-            ))}
+              { icon: Twitter, label: "twitter", name: "X" },
+              { icon: Linkedin, label: "linkedin", name: "LI" },
+              { icon: Instagram, label: "instagram", name: "IG" },
+            ].map(({ icon: SIcon, label, name }) => {
+              const connected = isConnected(label);
+              return (
+                <div
+                  key={name}
+                  className={`relative h-7 w-7 rounded-full flex items-center justify-center border border-background ${
+                    connected ? "bg-green-500/10 text-green-400" : "bg-muted/60 text-muted-foreground"
+                  }`}
+                >
+                  <SIcon className="h-3 w-3" />
+                  <span className={`absolute -bottom-0.5 -right-0.5 h-2 w-2 rounded-full border border-background ${connected ? "bg-green-500" : "bg-muted-foreground/40"}`} />
+                </div>
+              );
+            })}
           </div>
           <span className="text-xs text-muted-foreground">
-            Connect accounts for auto-publishing
+            {socialConnections && socialConnections.filter(c => c.is_active).length > 0
+              ? `${socialConnections.filter(c => c.is_active).length} account(s) connected`
+              : "Connect accounts for auto-publishing"}
           </span>
         </div>
         <Button
@@ -530,12 +632,12 @@ const ContentStudio = () => {
           className="gap-1 text-accent hover:text-accent ml-auto h-7 text-xs"
           onClick={() => navigate("/admin?tab=integrations")}
         >
-          Set up <ArrowRight className="h-3 w-3" />
+          Manage <ArrowRight className="h-3 w-3" />
         </Button>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-5">
-        <TabsList className="grid w-full grid-cols-5 lg:w-auto lg:grid-cols-5 bg-muted/30 backdrop-blur-sm border border-border/20 h-9">
+        <TabsList className="grid w-full grid-cols-6 lg:w-auto lg:grid-cols-6 bg-muted/30 backdrop-blur-sm border border-border/20 h-9">
           <TabsTrigger value="generate" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
             <Wand2 className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Generate</span>
@@ -561,6 +663,10 @@ const ContentStudio = () => {
           <TabsTrigger value="scheduled" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
             <Calendar className="h-3.5 w-3.5" />
             <span className="hidden sm:inline">Scheduled</span>
+          </TabsTrigger>
+          <TabsTrigger value="published" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
+            <Globe className="h-3.5 w-3.5" />
+            <span className="hidden sm:inline">Published</span>
           </TabsTrigger>
           <TabsTrigger value="automation" className="gap-1.5 data-[state=active]:bg-background data-[state=active]:shadow-sm text-xs">
             <Settings2 className="h-3.5 w-3.5" />
@@ -791,6 +897,7 @@ const ContentStudio = () => {
                           <ContentCard
                             key={content.id}
                             item={{ ...content, created_at: undefined }}
+                            nextStepHint="Send to Review queue for approval"
                             actions={
                               <>
                                 <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy(content)}>
@@ -875,6 +982,7 @@ const ContentStudio = () => {
                       <ContentCard
                         key={item.id}
                         item={item}
+                        nextStepHint="Approve → moves to Approved tab"
                         actions={
                           <>
                             <Button size="sm" className="h-7 text-[11px]" onClick={() => handleApproveDB(item.id)} disabled={approveContent.isPending}>
@@ -942,6 +1050,7 @@ const ContentStudio = () => {
                             Approved
                           </Badge>
                         }
+                        nextStepHint="Publish now → Published tab, or Schedule → Scheduled tab"
                         actions={
                           <>
                             <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy({ id: item.id, content: item.content })}>
@@ -1036,6 +1145,65 @@ const ContentStudio = () => {
                             </Button>
                             <Button size="sm" variant="ghost" className="h-7 text-[11px] text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
                               <Trash2 className="h-3 w-3 mr-1" /> Remove
+                            </Button>
+                          </>
+                        }
+                      />
+                    ))}
+                  </AnimatePresence>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* ====== PUBLISHED TAB ====== */}
+        <TabsContent value="published" className="space-y-5">
+          <Card className="border-border/20 bg-card/60 backdrop-blur-sm">
+            <CardHeader className="pb-3">
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle className="flex items-center gap-2 text-sm font-semibold tracking-tight">
+                    <Globe className="h-4 w-4 text-green-500" /> Published Content
+                  </CardTitle>
+                  <CardDescription className="text-[11px]">Content that has been published</CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {loadingPublished ? (
+                <div className="flex items-center justify-center py-16">
+                  <Loader2 className="h-6 w-6 animate-spin text-muted-foreground/40" />
+                </div>
+              ) : !publishedContent || publishedContent.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-16 text-center">
+                  <div className="h-12 w-12 rounded-2xl bg-muted/30 border border-border/20 flex items-center justify-center mb-3">
+                    <Globe className="h-5 w-5 text-muted-foreground/30" />
+                  </div>
+                  <p className="text-sm text-muted-foreground/60 font-medium">No published content yet</p>
+                  <p className="text-[11px] text-muted-foreground/40 mt-1">Published content will appear here</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  <AnimatePresence mode="popLayout">
+                    {publishedContent.map((item) => (
+                      <ContentCard
+                        key={item.id}
+                        item={item}
+                        badge={
+                          <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-[10px] px-1.5 py-0">
+                            <CheckCircle2 className="h-2.5 w-2.5 mr-0.5" /> Published
+                            {item.published_at && ` · ${format(new Date(item.published_at), "MMM d")}`}
+                          </Badge>
+                        }
+                        actions={
+                          <>
+                            <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy({ id: item.id, content: item.content })}>
+                              {copiedId === item.id ? <Check className="h-3 w-3 mr-1" /> : <Copy className="h-3 w-3 mr-1" />}
+                              Copy
+                            </Button>
+                            <Button size="sm" variant="ghost" className="h-7 text-[11px] text-destructive hover:text-destructive ml-auto" onClick={() => handleDeleteDB(item.id)}>
+                              <Trash2 className="h-3 w-3" />
                             </Button>
                           </>
                         }

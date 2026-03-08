@@ -21,7 +21,6 @@ serve(async (req) => {
   try {
     const { action, query, domain, keywords }: SerpAPIRequest = await req.json();
 
-    // Get credentials from database
     const supabaseUrl = Deno.env.get("SUPABASE_URL");
     const supabaseKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
 
@@ -40,10 +39,10 @@ serve(async (req) => {
       .single();
 
     if (integrationError || !integration?.config) {
-      // Return mock data if not configured
-      console.log("SerpAPI not configured, returning mock data");
+      // Return honest empty state — no mock data
+      console.log("SerpAPI not configured, returning empty state");
       return new Response(
-        JSON.stringify(getMockData(action)),
+        JSON.stringify({ configured: false, data: null, message: "SerpAPI not configured. Add your API key in Integrations." }),
         { headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
@@ -63,7 +62,7 @@ serve(async (req) => {
         result = { message: "Sync completed", timestamp: new Date().toISOString() };
         break;
       default:
-        result = getMockData(action);
+        result = { configured: true, data: null };
     }
 
     // Update last sync time
@@ -73,7 +72,7 @@ serve(async (req) => {
       .eq("integration_type", "serpapi");
 
     return new Response(
-      JSON.stringify(result),
+      JSON.stringify({ configured: true, ...result }),
       { headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   } catch (error: any) {
@@ -115,7 +114,7 @@ async function performSearch(query: string, apiKey: string) {
     };
   } catch (error) {
     console.error("Error performing search:", error);
-    return getMockData("search");
+    throw error;
   }
 }
 
@@ -137,7 +136,6 @@ async function trackRankings(domain: string, keywords: string[], apiKey: string,
 
       const data = await response.json();
       
-      // Find the domain's position
       const organicResults = data.organic_results || [];
       const position = organicResults.findIndex((r: any) => 
         r.link?.includes(domain)
@@ -153,7 +151,6 @@ async function trackRankings(domain: string, keywords: string[], apiKey: string,
 
       rankings.push(rankingData);
 
-      // Store in database
       await supabase.from("seo_rankings").insert(rankingData);
 
     } catch (error) {
@@ -162,32 +159,4 @@ async function trackRankings(domain: string, keywords: string[], apiKey: string,
   }
 
   return { domain, rankings, trackedAt: new Date().toISOString() };
-}
-
-function getMockData(action: string) {
-  switch (action) {
-    case "search":
-      return {
-        query: "sample query",
-        results: [
-          { position: 1, title: "Top Result", url: "https://example.com/page1", snippet: "This is the top result..." },
-          { position: 2, title: "Second Result", url: "https://example.com/page2", snippet: "This is the second result..." },
-          { position: 3, title: "Third Result", url: "https://example.com/page3", snippet: "This is the third result..." },
-        ],
-        relatedSearches: ["related term 1", "related term 2"],
-        peopleAlsoAsk: ["What is X?", "How does Y work?"],
-      };
-    case "rankings":
-      return {
-        domain: "example.com",
-        rankings: [
-          { keyword: "digital marketing", position: 5, change: "+2" },
-          { keyword: "seo services", position: 12, change: "-1" },
-          { keyword: "web design", position: 8, change: "+3" },
-        ],
-        trackedAt: new Date().toISOString(),
-      };
-    default:
-      return { message: "Mock data returned", configured: false };
-  }
 }

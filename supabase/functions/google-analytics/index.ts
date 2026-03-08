@@ -5,15 +5,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 };
 
-// Helper to get Google access token from service account
 async function getAccessToken(serviceAccountJson: string): Promise<string> {
   const serviceAccount = JSON.parse(serviceAccountJson);
   
-  const header = {
-    alg: 'RS256',
-    typ: 'JWT',
-  };
-  
+  const header = { alg: 'RS256', typ: 'JWT' };
   const now = Math.floor(Date.now() / 1000);
   const payload = {
     iss: serviceAccount.client_email,
@@ -80,7 +75,7 @@ serve(async (req) => {
       return new Response(JSON.stringify({
         error: 'Google Analytics not configured',
         configured: false,
-        mockData: getMockData()
+        data: null,
       }), {
         headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       });
@@ -95,7 +90,6 @@ serve(async (req) => {
 
     const accessToken = await getAccessToken(serviceAccountJson);
 
-    // Fetch main report
     const reportResponse = await fetch(
       `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
       {
@@ -128,7 +122,6 @@ serve(async (req) => {
 
     const reportData = await reportResponse.json();
 
-    // Fetch top pages
     const pagesResponse = await fetch(
       `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
       {
@@ -154,7 +147,6 @@ serve(async (req) => {
 
     const pagesData = pagesResponse.ok ? await pagesResponse.json() : null;
 
-    // Fetch traffic sources
     const sourcesResponse = await fetch(
       `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
       {
@@ -179,7 +171,6 @@ serve(async (req) => {
 
     const sourcesData = sourcesResponse.ok ? await sourcesResponse.json() : null;
 
-    // Fetch device breakdown
     const devicesResponse = await fetch(
       `https://analyticsdata.googleapis.com/v1beta/properties/${propertyId}:runReport`,
       {
@@ -198,7 +189,6 @@ serve(async (req) => {
 
     const devicesData = devicesResponse.ok ? await devicesResponse.json() : null;
 
-    // Parse and aggregate metrics
     const totals = parseReportTotals(reportData);
 
     return new Response(JSON.stringify({
@@ -220,7 +210,7 @@ serve(async (req) => {
     return new Response(JSON.stringify({ 
       error: errorMessage,
       configured: false,
-      mockData: getMockData()
+      data: null,
     }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -247,7 +237,6 @@ function parseReportTotals(data: any) {
     });
   });
 
-  // Calculate averages for rate metrics
   const rowCount = data.rows.length;
   if (totals.bounceRate) totals.bounceRate = totals.bounceRate / rowCount;
   if (totals.averageSessionDuration) totals.averageSessionDuration = totals.averageSessionDuration / rowCount;
@@ -305,37 +294,4 @@ function parseDevices(data: any) {
     sessions: parseInt(row.metricValues?.[0]?.value || '0'),
     users: parseInt(row.metricValues?.[1]?.value || '0'),
   }));
-}
-
-function getMockData() {
-  return {
-    totals: {
-      sessions: 45892,
-      totalUsers: 32145,
-      newUsers: 28934,
-      screenPageViews: 124532,
-      bounceRate: 0.423,
-      averageSessionDuration: 185.4,
-      conversions: 1247,
-    },
-    topPages: [
-      { page: '/', pageViews: 28340, sessions: 18920, bounceRate: 0.38, avgDuration: 145 },
-      { page: '/services/seo', pageViews: 12450, sessions: 8930, bounceRate: 0.42, avgDuration: 198 },
-      { page: '/services/web-design', pageViews: 9870, sessions: 7120, bounceRate: 0.45, avgDuration: 167 },
-      { page: '/case-studies', pageViews: 8920, sessions: 6340, bounceRate: 0.35, avgDuration: 234 },
-      { page: '/contact', pageViews: 7650, sessions: 5890, bounceRate: 0.28, avgDuration: 89 },
-    ],
-    trafficSources: [
-      { source: 'google', medium: 'organic', sessions: 18920, users: 14230, conversions: 523 },
-      { source: '(direct)', medium: '(none)', sessions: 12340, users: 9870, conversions: 312 },
-      { source: 'linkedin', medium: 'social', sessions: 5670, users: 4320, conversions: 178 },
-      { source: 'google', medium: 'cpc', sessions: 4890, users: 3980, conversions: 156 },
-      { source: 'bing', medium: 'organic', sessions: 2340, users: 1890, conversions: 78 },
-    ],
-    devices: [
-      { device: 'desktop', sessions: 28450, users: 21340 },
-      { device: 'mobile', sessions: 14230, users: 8920 },
-      { device: 'tablet', sessions: 3212, users: 1885 },
-    ],
-  };
 }

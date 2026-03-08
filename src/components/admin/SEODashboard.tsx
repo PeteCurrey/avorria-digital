@@ -1,31 +1,29 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Globe,
   Search,
   TrendingUp,
-  ExternalLink,
-  AlertTriangle,
-  CheckCircle,
-  XCircle,
-  Link as LinkIcon,
-  FileSearch,
-  Gauge,
   Target,
   BarChart3,
   ArrowUp,
   ArrowDown,
   Minus,
+  Plus,
+  Loader2,
+  Bell,
+  Trash2,
 } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StaticBeamBorder } from "@/components/BeamBorder";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 interface SeoRanking {
   id: string;
@@ -38,6 +36,14 @@ interface SeoRanking {
   recorded_at: string;
 }
 
+interface TargetKeyword {
+  id: string;
+  keyword: string;
+  target_url: string | null;
+  is_active: boolean;
+  created_at: string;
+}
+
 const getPositionChange = (current: number | null, previous: number | null) => {
   if (!current || !previous) return <Minus className="h-4 w-4 text-muted-foreground" />;
   if (current < previous) return <ArrowUp className="h-4 w-4 text-green-400" />;
@@ -45,8 +51,16 @@ const getPositionChange = (current: number | null, previous: number | null) => {
   return <Minus className="h-4 w-4 text-muted-foreground" />;
 };
 
+const getChangeValue = (current: number | null, previous: number | null) => {
+  if (!current || !previous) return null;
+  return previous - current; // positive = improved
+};
+
 export default function SEODashboard() {
   const [activeTab, setActiveTab] = useState("overview");
+  const [newKeyword, setNewKeyword] = useState("");
+  const [newTargetUrl, setNewTargetUrl] = useState("");
+  const queryClient = useQueryClient();
 
   // Fetch real keyword data from seo_rankings
   const { data: seoRankings, isLoading: rankingsLoading } = useQuery({
@@ -56,9 +70,55 @@ export default function SEODashboard() {
         .from("seo_rankings")
         .select("*")
         .order("recorded_at", { ascending: false })
-        .limit(50);
+        .limit(200);
       if (error) throw error;
       return data as SeoRanking[];
+    },
+  });
+
+  // Fetch target keywords
+  const { data: targetKeywords, isLoading: keywordsLoading } = useQuery({
+    queryKey: ["seo-target-keywords"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("seo_target_keywords" as any)
+        .select("*")
+        .eq("is_active", true)
+        .order("created_at", { ascending: false });
+      if (error) throw error;
+      return (data as unknown as TargetKeyword[]) || [];
+    },
+  });
+
+  // Add keyword mutation
+  const addKeyword = useMutation({
+    mutationFn: async ({ keyword, target_url }: { keyword: string; target_url?: string }) => {
+      const { error } = await supabase
+        .from("seo_target_keywords" as any)
+        .insert({ keyword, target_url: target_url || null });
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["seo-target-keywords"] });
+      setNewKeyword("");
+      setNewTargetUrl("");
+      toast.success("Keyword added for tracking");
+    },
+    onError: (e: Error) => toast.error(e.message),
+  });
+
+  // Remove keyword mutation
+  const removeKeyword = useMutation({
+    mutationFn: async (id: string) => {
+      const { error } = await supabase
+        .from("seo_target_keywords" as any)
+        .update({ is_active: false })
+        .eq("id", id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["seo-target-keywords"] });
+      toast.success("Keyword removed");
     },
   });
 
@@ -72,6 +132,18 @@ export default function SEODashboard() {
     return Array.from(seen.values());
   }, [seoRankings]);
 
+  // Rank changes — keywords with significant movement
+  const rankChanges = React.useMemo(() => {
+    return latestRankings
+      .filter(k => k.position && k.previous_position)
+      .map(k => ({
+        ...k,
+        change: getChangeValue(k.position, k.previous_position),
+      }))
+      .filter(k => k.change !== null && Math.abs(k.change!) >= 1)
+      .sort((a, b) => Math.abs(b.change!) - Math.abs(a.change!));
+  }, [latestRankings]);
+
   const hasKeywords = latestRankings.length > 0;
   const improvingCount = latestRankings.filter(k => k.position && k.previous_position && k.position < k.previous_position).length;
 
@@ -83,12 +155,17 @@ export default function SEODashboard() {
           <h3 className="text-xl font-semibold text-foreground mb-2">{title}</h3>
           <p className="text-muted-foreground max-w-md mb-4">{description}</p>
           <Badge variant="outline" className="text-xs">
-            Connect Search Console or add keywords manually to see data
+            Add keywords below or connect Search Console in Integrations
           </Badge>
         </div>
       </CardContent>
     </Card>
   );
+
+  const handleAddKeyword = () => {
+    if (!newKeyword.trim()) return;
+    addKeyword.mutate({ keyword: newKeyword.trim(), target_url: newTargetUrl.trim() || undefined });
+  };
 
   return (
     <div className="space-y-6">
@@ -150,6 +227,51 @@ export default function SEODashboard() {
         </Card>
       </div>
 
+      {/* Add Keywords Form */}
+      <Card className="bg-card/50 border-border/50">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-sm">
+            <Plus className="h-4 w-4" /> Add Target Keywords
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex gap-2">
+            <Input
+              placeholder="e.g., digital marketing agency UK"
+              value={newKeyword}
+              onChange={(e) => setNewKeyword(e.target.value)}
+              className="flex-1"
+              onKeyDown={(e) => e.key === "Enter" && handleAddKeyword()}
+            />
+            <Input
+              placeholder="Target URL (optional)"
+              value={newTargetUrl}
+              onChange={(e) => setNewTargetUrl(e.target.value)}
+              className="flex-1 max-w-xs"
+            />
+            <Button onClick={handleAddKeyword} disabled={addKeyword.isPending || !newKeyword.trim()}>
+              {addKeyword.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4 mr-1" />}
+              Add
+            </Button>
+          </div>
+          {targetKeywords && targetKeywords.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-3">
+              {targetKeywords.map((kw) => (
+                <Badge key={kw.id} variant="secondary" className="gap-1 text-xs pr-1">
+                  {kw.keyword}
+                  <button
+                    onClick={() => removeKeyword.mutate(kw.id)}
+                    className="ml-1 hover:text-destructive transition-colors"
+                  >
+                    <Trash2 className="h-2.5 w-2.5" />
+                  </button>
+                </Badge>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="bg-card/50 border border-border/50">
@@ -161,13 +283,22 @@ export default function SEODashboard() {
             <Target className="h-4 w-4 mr-2" />
             Keywords
           </TabsTrigger>
+          <TabsTrigger value="changes">
+            <Bell className="h-4 w-4 mr-2" />
+            Rank Changes
+            {rankChanges.length > 0 && (
+              <Badge variant="secondary" className="ml-1.5 h-4 min-w-[16px] text-[9px] px-1">
+                {rankChanges.length}
+              </Badge>
+            )}
+          </TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
           {!hasKeywords ? (
             <EmptyState
               title="No SEO data yet"
-              description="Track keyword rankings and backlinks by connecting Search Console or adding keywords manually via the Keywords tab."
+              description="Track keyword rankings by adding keywords above or connecting Search Console in Integrations."
             />
           ) : (
             <Card className="bg-card/50 border-border/50">
@@ -175,7 +306,7 @@ export default function SEODashboard() {
                 <CardTitle>Keyword Performance Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {latestRankings.slice(0, 5).map((kw, idx) => (
+                {latestRankings.slice(0, 10).map((kw, idx) => (
                   <motion.div
                     key={kw.id}
                     initial={{ opacity: 0, x: -10 }}
@@ -201,7 +332,7 @@ export default function SEODashboard() {
           {!hasKeywords ? (
             <EmptyState
               title="No keywords tracked"
-              description="Add keywords to start tracking their search rankings and performance over time."
+              description="Add keywords above to start tracking their search rankings and performance over time."
             />
           ) : (
             <Card className="bg-card/50 border-border/50">
@@ -239,9 +370,16 @@ export default function SEODashboard() {
                         <TableCell className="text-center">
                           <div className="flex items-center justify-center gap-1">
                             {getPositionChange(kw.position, kw.previous_position)}
-                            <span className="text-sm text-muted-foreground">
-                              {kw.previous_position || "–"}
-                            </span>
+                            {kw.previous_position && kw.position ? (
+                              <span className={`text-sm font-mono ${
+                                kw.position < kw.previous_position ? "text-green-400" :
+                                kw.position > kw.previous_position ? "text-red-400" : "text-muted-foreground"
+                              }`}>
+                                {kw.position < kw.previous_position ? "+" : ""}{(kw.previous_position - kw.position)}
+                              </span>
+                            ) : (
+                              <span className="text-sm text-muted-foreground">–</span>
+                            )}
                           </div>
                         </TableCell>
                         <TableCell className="text-center">
@@ -268,6 +406,66 @@ export default function SEODashboard() {
                     ))}
                   </TableBody>
                 </Table>
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        <TabsContent value="changes" className="space-y-6">
+          {rankChanges.length === 0 ? (
+            <EmptyState
+              title="No rank changes detected"
+              description="When keyword positions change, they'll appear here as notifications."
+            />
+          ) : (
+            <Card className="bg-card/50 border-border/50">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bell className="h-5 w-5" />
+                  Recent Rank Changes
+                </CardTitle>
+                <CardDescription>Keywords with position changes sorted by magnitude</CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {rankChanges.map((kw, idx) => {
+                  const isImproving = kw.change! > 0;
+                  return (
+                    <motion.div
+                      key={kw.id}
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.05 * idx }}
+                      className={`flex items-center justify-between p-4 rounded-lg border ${
+                        isImproving
+                          ? "bg-green-500/5 border-green-500/20"
+                          : "bg-red-500/5 border-red-500/20"
+                      }`}
+                    >
+                      <div className="flex items-center gap-3">
+                        {isImproving ? (
+                          <ArrowUp className="h-5 w-5 text-green-400" />
+                        ) : (
+                          <ArrowDown className="h-5 w-5 text-red-400" />
+                        )}
+                        <div>
+                          <p className="font-medium text-sm">{kw.keyword}</p>
+                          <p className="text-xs text-muted-foreground">
+                            #{kw.previous_position} → #{kw.position}
+                          </p>
+                        </div>
+                      </div>
+                      <Badge
+                        className={`font-mono text-sm ${
+                          isImproving
+                            ? "bg-green-500/10 text-green-400 border-green-500/30"
+                            : "bg-red-500/10 text-red-400 border-red-500/30"
+                        }`}
+                      >
+                        {isImproving ? "+" : ""}{kw.change}
+                      </Badge>
+                    </motion.div>
+                  );
+                })}
               </CardContent>
             </Card>
           )}
