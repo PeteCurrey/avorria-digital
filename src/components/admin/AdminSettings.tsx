@@ -69,6 +69,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSettings, useUpdateSiteSetting } from "@/hooks/useSiteSettings";
 
 interface TeamMember {
   id: string;
