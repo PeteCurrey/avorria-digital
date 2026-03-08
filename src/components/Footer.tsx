@@ -8,7 +8,9 @@ const Footer = () => {
   { name: "Paid Media", href: "/services/paid-media" },
   { name: "Web Design", href: "/web-design" },
   { name: "Content & Email", href: "/services/content-email" },
-  { name: "Social & Personal Brand", href: "/services/social-personal-brand" }];
+  { name: "Social & Personal Brand", href: "/services/social-personal-brand" },
+  { name: "Analytics & CRO", href: "/services/analytics" },
+  { name: "Reporting", href: "/reporting" }];
 
 
   const locations = [
