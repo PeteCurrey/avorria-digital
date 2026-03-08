@@ -11,6 +11,8 @@ import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import GradientMesh from "@/components/GradientMesh";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const categoryColors: Record<string, string> = {
   SEO: "border-l-emerald-500",
