@@ -51,6 +51,7 @@ export function ExitIntentPopover() {
     // Only add listener on desktop
     if (window.innerWidth < 768) return;
     if (hasShown) return;
+    if (!isEnabled) return;
 
     document.addEventListener("mousemove", handleMouseMove);
 
