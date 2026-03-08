@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
+import CommandPalette from "./CommandPalette";
 import { Button } from "@/components/ui/button";
-import { Menu, Bell, Search, User, Check } from "lucide-react";
+import { Menu, Bell, Search, User, Check, Command } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
