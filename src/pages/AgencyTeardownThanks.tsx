@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -68,13 +68,12 @@ const AgencyTeardownThanks = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Report Submitted - Agency Teardown | Avorria</title>
-        <meta 
-          name="description" 
-          content="We've received your report and will send you a plain-English breakdown within 3-5 working days." 
-        />
-      </Helmet>
+      <SEOHead
+        title="Report Submitted - Agency Teardown"
+        description="We've received your report and will send you a plain-English breakdown within 3-5 working days."
+        canonical="/agency-report-teardown/thanks"
+        noindex={true}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}

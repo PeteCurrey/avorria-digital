@@ -1,61 +1,106 @@
 
+## Enhance Paid Media and SEO Service Pages
 
-## SEO Implementation Status Report
+### Overview
+Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
 
-### What's Been Completed
+---
 
-The recent SEO overhaul successfully covered **35+ pages** with standardized components:
+### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
 
-| Component | Coverage |
-|-----------|----------|
-| `SEOHead` (meta title, description, OG, Twitter, canonical) | All core service, pillar, SEO sub-pages, About, Contact, Pricing, CaseStudies, Resources, FAQs, Reporting, WhyAvorria, Privacy, Terms, Locations, Industries, Glossary, WebsitesWeFire, AgencyTeardown, AuditFunnel, ProjectEstimator, WebsiteHealthCheck |
-| `BreadcrumbSchema` | Same coverage as above |
-| `ServiceSchema` | All service pages + SEO sub-pages |
-| `FAQSchema` | Pages with FAQ sections (Services, SEO, PaidMedia, WebDesign, FAQs, Reporting, ContentEmail, SocialPersonalBrand, Analytics, SEO sub-pages) |
-| XML Sitemaps | Main, geo, news, index — all functional via edge functions |
-| `index.html` Organization schema | Fixed to Chesterfield HQ, consistent with Home.tsx |
-| Footer internal linking | Expanded with Analytics, Reporting, Free SEO Audit |
-| Mobile hero optimization | Video on desktop, static image on mobile for all service pages |
+**Hero Section:**
+- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
+- Use the existing `service-paid-media.jpg` asset as the parallax background image
+- Keep the headline and copy but improve the subheadline badge
+- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
 
-### Remaining Gaps — Pages Still Using Raw `<Helmet>`
+**New Introduction Section (below hero):**
+- Two-column layout matching the Reporting page pattern
+- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
+- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
+- Wrapped in `SectionReveal` with staggered `motion` entrance animations
 
-These **7 public-facing pages** still use raw `<Helmet>` instead of `<SEOHead>`, meaning they're missing OG tags, Twitter cards, and canonical URLs:
+**Pain Points Section:**
+- Keep the content but enhance with `SectionReveal` animation
+- Add more descriptive intro paragraph above the pain point list
 
-1. **`Home.tsx`** — Uses raw `<Helmet>`. The homepage is the most important page on the site and lacks `<SEOHead>`, `<BreadcrumbSchema>`, and has no `FAQSchema` despite having an FAQ section.
-2. **`CaseStudyDetail.tsx`** — Dynamic case study pages use raw `<Helmet>`. Missing OG image, Article/CreativeWork schema, and BreadcrumbSchema.
-3. **`ResourceDetail.tsx`** — Blog/resource detail pages use raw `<Helmet>`. Missing Article schema, BreadcrumbSchema, and proper canonical URLs.
-4. **`Comparison.tsx`** — Comparison pages use raw `<Helmet>`. Missing OG tags, BreadcrumbSchema.
-5. **`Sitemap.tsx`** — HTML sitemap uses raw `<Helmet>`. Minor priority but should be consistent.
-6. **`AgencyTeardownThanks.tsx`** — Thank-you page uses raw `<Helmet>`. Should have `noindex` to prevent indexing thin content.
-7. **`DashboardDemo.tsx`** — No SEO tags at all. Should have `noindex`.
+**How We Approach Paid Media Section:**
+- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
 
-### Additional Technical SEO Opportunities
+**New "What You Get" Section:**
+- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
 
-Beyond fixing the remaining pages, here are strategies we can still implement:
+**New "Process Timeline" Section:**
+- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
 
-1. **Article Schema on ResourceDetail.tsx** — Every blog post/guide should output `Article` or `BlogPosting` schema with `datePublished`, `author`, `publisher`, `image`. This is critical for Google Discover and rich results.
+**Platforms Section:**
+- Keep but enrich with more descriptive content per platform
+- Add a brief intro paragraph
 
-2. **CreativeWork Schema on CaseStudyDetail.tsx** — Case studies should use `CreativeWork` schema to improve visibility for branded searches.
+**New FAQ Section:**
+- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
+- Add `FAQSchema` for SEO
+- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
 
-3. **Home Page FAQSchema** — The homepage has an FAQ accordion but no `FAQSchema` — free rich snippet opportunity on the most important page.
+**CTA Section:**
+- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
 
-4. **`noindex` on Utility Pages** — `AgencyTeardownThanks`, `DashboardDemo`, `MarketingAssets`, `Onboarding`, all auth/client portal pages should have `noindex` to prevent crawl budget waste.
+**SEO Enhancements:**
+- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
+- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
 
-5. **Phone Number Inconsistency** — `index.html` says `+44 1246 123456`, `Home.tsx` says `+44 114 123 4567`. These must match for NAP consistency (critical for Local SEO).
+---
 
-### Implementation Plan
+### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
 
-**Task 1: Upgrade Home.tsx** — Replace raw `<Helmet>` with `<SEOHead>`, add `FAQSchema` for the FAQ section, add `BreadcrumbSchema`. Fix phone number to match `index.html`.
+**New Introduction Section (below hero, before pain points):**
+- Same two-column layout as Reporting and Paid Media pages
+- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
+- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
+- Wrapped in `SectionReveal` with staggered `motion` entrance
 
-**Task 2: Upgrade CaseStudyDetail.tsx** — Replace `<Helmet>` with `<SEOHead>`, add `CreativeWork` schema with dynamic data (client, sector, metrics), add `BreadcrumbSchema`.
+**Content Enrichment:**
+- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
+- Enrich the case study teaser cards with slightly more descriptive content
 
-**Task 3: Upgrade ResourceDetail.tsx** — Replace `<Helmet>` with `<SEOHead>`, add `Article`/`BlogPosting` schema with `datePublished`, `author`, `publisher`, add `BreadcrumbSchema`.
+**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
 
-**Task 4: Upgrade Comparison.tsx** — Replace `<Helmet>` with `<SEOHead>`, add `BreadcrumbSchema`.
+---
 
-**Task 5: Add `noindex` to utility pages** — `Sitemap.tsx`, `AgencyTeardownThanks.tsx`, `DashboardDemo.tsx`, `MarketingAssets.tsx` — either via `<SEOHead noindex>` or raw meta tag.
+### Visual Rhythm
 
-**Task 6: Fix NAP consistency** — Standardize phone number across `index.html` and `Home.tsx` to one value.
+**Paid Media (top to bottom):**
+1. Hero — cinematic with `service-paid-media.jpg` parallax background
+2. Introduction — light background, two-column explainer
+3. Pain Points — gradient background, enhanced list
+4. How We Approach — dark background, 4-card grid + pull-quote
+5. What You Get — gradient background, deliverables checklist
+6. Process Timeline — mesh background, phased timeline
+7. Platforms — dark background, enriched 3-column cards
+8. FAQ — mesh background, accordion with schema
+9. CTA — gradient background, fixed buttons
 
-This will achieve **100% SEO component coverage** across every public page on the site.
+**SEO Services (top to bottom):**
+1. Hero (existing) — with `service-seo.jpg`
+2. **Introduction (NEW)** — light background, two-column explainer
+3. Pain Points (existing)
+4. What's Included (existing) + **pull-quote (NEW)**
+5. Process Timeline (existing)
+6. Deliverables (existing)
+7. SEO by Industry (existing)
+8. Case Studies (existing, enriched)
+9. SEO by Location (existing)
+10. FAQ (existing)
+11. CTA (existing)
 
+---
+
+### Files Modified
+- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
+- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+
+### New Imports
+- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
+- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
+
+### No new dependencies needed

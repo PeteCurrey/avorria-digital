@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
 import { Link } from "react-router-dom";
 import { ExternalLink, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import { locations } from "@/data/locations";
@@ -209,11 +209,12 @@ const Sitemap = () => {
 
   return (
     <>
-      <Helmet>
-        <title>XML Sitemap | Avorria.com</title>
-        <meta name="description" content="Complete sitemap of Avorria.com with all pages, services, locations, and resources for SEO and navigation." />
-        <meta name="robots" content="noindex, follow" />
-      </Helmet>
+      <SEOHead
+        title="XML Sitemap | Avorria.com"
+        description="Complete sitemap of Avorria.com with all pages, services, locations, and resources."
+        canonical="/sitemap"
+        noindex={true}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Header */}
