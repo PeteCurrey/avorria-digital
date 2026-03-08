@@ -18,41 +18,34 @@ interface ImageRequest {
 
 async function compositeWatermark(baseImageData: string): Promise<string> {
   try {
-    // Decode the base64 base image
     const base64 = baseImageData.split(",")[1];
     const baseBytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
     const baseImage = await Image.decode(baseBytes);
 
-    // Fetch and decode the watermark
     const wmResponse = await fetch(WATERMARK_URL);
     if (!wmResponse.ok) throw new Error("Failed to fetch watermark");
     const wmBytes = new Uint8Array(await wmResponse.arrayBuffer());
     let watermark = await Image.decode(wmBytes);
 
-    // Scale watermark to ~15% of the base image width
     const targetWidth = Math.round(baseImage.width * 0.15);
     const scale = targetWidth / watermark.width;
     const targetHeight = Math.round(watermark.height * scale);
     watermark = watermark.resize(targetWidth, targetHeight);
 
-    // Apply semi-transparency (40% opacity)
     watermark.opacity(0.4);
 
-    // Position in bottom-right with 3% margin
     const margin = Math.round(baseImage.width * 0.03);
     const x = baseImage.width - targetWidth - margin;
     const y = baseImage.height - targetHeight - margin;
 
-    // Composite
     baseImage.composite(watermark, x, y);
 
-    // Encode back to PNG base64
     const outputBytes = await baseImage.encode();
     const outputBase64 = btoa(String.fromCharCode(...outputBytes));
     return `data:image/png;base64,${outputBase64}`;
   } catch (err) {
     console.error("Watermark compositing error (non-fatal):", err);
-    return baseImageData; // Return original if watermarking fails
+    return baseImageData;
   }
 }
 
@@ -71,7 +64,7 @@ serve(async (req) => {
 
     console.log("Generating image with prompt:", prompt, "style:", imageStyle);
 
-    // Step 1: Generate the base image
+    // Use the higher-quality model for better images
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
@@ -79,7 +72,7 @@ serve(async (req) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.5-flash-image",
+        model: "google/gemini-3-pro-image-preview",
         messages: [
           {
             role: "user",
@@ -123,12 +116,12 @@ serve(async (req) => {
       );
     }
 
-    // Step 2: Programmatically composite the Avorria watermark
+    // Programmatically composite the Avorria watermark
     console.log("Compositing Avorria watermark...");
     const finalImageData = await compositeWatermark(imageData);
     console.log("Watermark composited successfully");
 
-    // Step 3: Upload to storage
+    // Upload to storage
     let imageUrl = finalImageData;
 
     if (finalImageData.startsWith("data:image")) {
