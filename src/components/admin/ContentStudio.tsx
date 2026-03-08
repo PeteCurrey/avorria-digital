@@ -140,8 +140,8 @@ const ContentStudio = () => {
         .from("seo_integrations" as any)
         .select("integration_type, is_active")
         .in("integration_type", ["twitter", "linkedin", "instagram"]);
-      if (error) return [];
-      return (data || []) as { integration_type: string; is_active: boolean }[];
+      if (error) return [] as { integration_type: string; is_active: boolean }[];
+      return (data as unknown as { integration_type: string; is_active: boolean }[]) || [];
     },
   });
 

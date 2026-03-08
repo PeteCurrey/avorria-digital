@@ -86,7 +86,7 @@ export default function SEODashboard() {
         .eq("is_active", true)
         .order("created_at", { ascending: false });
       if (error) throw error;
-      return (data || []) as TargetKeyword[];
+      return (data as unknown as TargetKeyword[]) || [];
     },
   });
 
