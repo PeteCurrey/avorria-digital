@@ -77,7 +77,7 @@ const Home = () => {
     },
     image: "https://avorria.com/og-image.jpg",
     email: "hello@avorria.com",
-    telephone: "+44 114 123 4567",
+    telephone: "+44 1246 123456",
     foundingDate: "2020",
     slogan: "Digital Marketing, SEO & Web Experiences that Actually Convert",
     knowsAbout: [
