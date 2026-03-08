@@ -1756,6 +1756,30 @@ export type Database = {
         }
         Relationships: []
       }
+      seo_target_keywords: {
+        Row: {
+          created_at: string | null
+          id: string
+          is_active: boolean | null
+          keyword: string
+          target_url: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          keyword: string
+          target_url?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          keyword?: string
+          target_url?: string | null
+        }
+        Relationships: []
+      }
       team_members: {
         Row: {
           bio: string
