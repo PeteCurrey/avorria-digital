@@ -67,6 +67,7 @@ import {
 import { formatDistanceToNow, format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import ContentKanbanBoard from "./ContentKanbanBoard";
 
 interface GeneratedContent {
   id: string;
@@ -97,6 +98,7 @@ const pipelineStages = [
 const ContentStudio = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("generate");
+  const [viewMode, setViewMode] = useState<"tabs" | "kanban">("tabs");
   const [contentType, setContentType] = useState<string>("social");
   const [platform, setPlatform] = useState<string>("linkedin");
   const [topic, setTopic] = useState("");
@@ -554,7 +556,24 @@ const ContentStudio = () => {
             Generate, review, and publish content across all channels
           </p>
         </div>
+        <div className="flex items-center gap-2">
+          <Button size="sm" variant={viewMode === "tabs" ? "default" : "outline"} className="h-7 text-xs" onClick={() => setViewMode("tabs")}>Pipeline</Button>
+          <Button size="sm" variant={viewMode === "kanban" ? "default" : "outline"} className="h-7 text-xs" onClick={() => setViewMode("kanban")}>Board</Button>
+        </div>
       </div>
+
+      {viewMode === "kanban" ? (
+        <ContentKanbanBoard
+          reviewItems={(pendingContent || []) as any}
+          approvedItems={(approvedContentDB || []) as any}
+          scheduledItems={(scheduledContent || []) as any}
+          publishedItems={(publishedContent || []) as any}
+          onApprove={handleApproveDB}
+          onReject={handleRejectDB}
+          onDelete={handleDeleteDB}
+        />
+      ) : (
+      <>
 
       {/* Visual Pipeline Strip */}
       <div className="flex items-center gap-1 px-4 py-3 rounded-xl border border-border/20 bg-card/40 backdrop-blur-sm overflow-x-auto">
@@ -1243,6 +1262,8 @@ const ContentStudio = () => {
           <ContentRecipeManager />
         </TabsContent>
       </Tabs>
+      </>
+      )}
     </div>
   );
 };

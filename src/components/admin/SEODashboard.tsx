@@ -29,6 +29,7 @@ import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { StaticBeamBorder } from "@/components/BeamBorder";
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -401,6 +402,7 @@ export default function SEODashboard() {
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
         <TabsList className="bg-card/50 border border-border/50 flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="overview" className="text-xs gap-1.5"><BarChart3 className="h-3.5 w-3.5" />Overview</TabsTrigger>
+          <TabsTrigger value="chart" className="text-xs gap-1.5"><TrendingUp className="h-3.5 w-3.5" />Position Chart</TabsTrigger>
           <TabsTrigger value="keywords" className="text-xs gap-1.5"><Target className="h-3.5 w-3.5" />Keywords</TabsTrigger>
           <TabsTrigger value="changes" className="text-xs gap-1.5 relative">
             <Bell className="h-3.5 w-3.5" />Changes
@@ -430,6 +432,58 @@ export default function SEODashboard() {
                     <Badge variant="outline" className="font-mono">#{kw.position || "–"}</Badge>
                   </motion.div>
                 ))}
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
+
+        {/* Position Chart */}
+        <TabsContent value="chart" className="space-y-6">
+          {!seoRankings || seoRankings.length === 0 ? (
+            <EmptyState title="No ranking data for chart" description="Add keywords and track rankings to see position trends." />
+          ) : (
+            <Card className="bg-card/50 border-border/50">
+              <CardHeader>
+                <CardTitle>Keyword Position Trends</CardTitle>
+                <CardDescription>Lower position = better ranking (1 is #1 on Google)</CardDescription>
+              </CardHeader>
+              <CardContent>
+                {(() => {
+                  // Build chart data: group by recorded_at date, one line per keyword
+                  const keywordSet = new Set(seoRankings.map(r => r.keyword));
+                  const keywords = Array.from(keywordSet).slice(0, 8); // max 8 keywords
+                  const dateMap = new Map<string, Record<string, number | null>>();
+                  for (const r of seoRankings) {
+                    const date = new Date(r.recorded_at).toLocaleDateString("en-GB", { day: "2-digit", month: "short" });
+                    if (!dateMap.has(date)) dateMap.set(date, {});
+                    dateMap.get(date)![r.keyword] = r.position;
+                  }
+                  const chartData = Array.from(dateMap.entries())
+                    .map(([date, kwData]) => ({ date, ...kwData }))
+                    .reverse()
+                    .slice(-30);
+
+                  const colors = ["hsl(var(--accent))", "#3b82f6", "#10b981", "#f59e0b", "#ef4444", "#8b5cf6", "#06b6d4", "#f97316"];
+
+                  return (
+                    <div className="h-80">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={chartData} margin={{ top: 5, right: 20, left: 0, bottom: 5 }}>
+                          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+                          <XAxis dataKey="date" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
+                          <YAxis reversed tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} domain={[1, "auto"]} />
+                          <Tooltip
+                            contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", borderRadius: 8, fontSize: 11 }}
+                            labelStyle={{ fontWeight: 600 }}
+                          />
+                          {keywords.map((kw, i) => (
+                            <Line key={kw} type="monotone" dataKey={kw} stroke={colors[i % colors.length]} strokeWidth={2} dot={false} connectNulls />
+                          ))}
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  );
+                })()}
               </CardContent>
             </Card>
           )}

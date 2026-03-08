@@ -22,6 +22,7 @@ import {
   Clock,
 } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import KPISparkline from "@/components/admin/KPISparkline";
 import PerformanceTab from "@/components/admin/PerformanceTab";
 import EnhancedSitemapManager from "@/components/admin/EnhancedSitemapManager";
 import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
@@ -71,7 +72,7 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { StaticBeamBorder, BeamBorder } from "@/components/BeamBorder";
 import { useLeadsAdmin, useUpdateLead, useDeleteLead, useLeadStats } from "@/hooks/useLeads";
-import { useLatestAnalyticsSnapshot } from "@/hooks/useAnalyticsSnapshots";
+import { useLatestAnalyticsSnapshot, useAnalyticsSnapshots } from "@/hooks/useAnalyticsSnapshots";
 import { useClients } from "@/hooks/useClients";
 import { useAlerts } from "@/hooks/useAlerts";
 
@@ -84,6 +85,7 @@ const Admin = () => {
   const { data: leads, isLoading: leadsLoading, refetch: refetchLeads } = useLeadsAdmin();
   const { data: leadStats } = useLeadStats();
   const { data: analyticsSnapshot, isLoading: analyticsLoading } = useLatestAnalyticsSnapshot();
+  const { data: analyticsHistory } = useAnalyticsSnapshots();
   const { data: clients } = useClients();
   const { data: alerts } = useAlerts({ unresolved: true });
   const updateLead = useUpdateLead();
@@ -247,6 +249,7 @@ const Admin = () => {
                     {leads?.length || 0}
                   </motion.p>
                   <p className="text-sm text-muted-foreground">Total Leads</p>
+                  <KPISparkline data={(analyticsHistory || []).slice(0, 7).reverse().map(s => s.unique_visitors || 0)} color="hsl(var(--accent))" />
                 </CardContent>
               </StaticBeamBorder>
 
@@ -267,6 +270,7 @@ const Admin = () => {
                     </motion.p>
                   )}
                   <p className="text-sm text-muted-foreground">Page Views</p>
+                  <KPISparkline data={(analyticsHistory || []).slice(0, 7).reverse().map(s => s.page_views || 0)} color="hsl(210, 100%, 55%)" />
                 </CardContent>
               </BeamBorder>
 
@@ -287,6 +291,7 @@ const Admin = () => {
                     </motion.p>
                   )}
                   <p className="text-sm text-muted-foreground">Conversions</p>
+                  <KPISparkline data={(analyticsHistory || []).slice(0, 7).reverse().map(s => Object.values((s.conversions as Record<string, number>) || {}).reduce((a, b) => a + (b || 0), 0))} color="hsl(142, 71%, 45%)" />
                 </CardContent>
               </BeamBorder>
 

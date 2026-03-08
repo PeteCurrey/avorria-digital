@@ -1,132 +1,106 @@
 
+## Enhance Paid Media and SEO Service Pages
 
-## Review of Recent Work
-
-Over the last few sessions, you've built out a substantial platform:
-
-**Admin Panel (Phase 1 + 2):**
-- Content Studio with visual pipeline (Generate → Review → Approved → Scheduled → Published), real social connection indicators, platform-aware image generation upgraded to `gemini-3-pro-image-preview`
-- SEO Dashboard with target keyword tracking, rank change history, competitor analysis (SWOT), and AI-generated SEO suggestions
-- Automated weekly newsletter via `send-weekly-newsletter` edge function
-- `pg_cron` jobs for daily rank tracking, weekly newsletters, weekly competitor analysis, Monday SEO optimization, and hourly content publishing
-- Removed all mock data fallbacks from `serpapi`, `google-analytics`, and `google-search-console` edge functions
-
-**SEO Coverage:**
-- 100% `SEOHead` + `BreadcrumbSchema` coverage across all public pages
-- Dynamic `CreativeWork` and `Article` schema on case study and resource detail pages
-- `noindex` on utility pages
-- NAP consistency fixed
-
-**Frontend:**
-- Lazy loading on 60+ routes, critical-path pages loaded eagerly
-- Premium design system with Lenis smooth scroll, page loader, custom cursor, section transitions
-- Hero video on desktop with mobile image fallbacks
+### Overview
+Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
 
 ---
 
-## Enhancement Plan
+### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
 
-### A. Admin Panel Enhancements
+**Hero Section:**
+- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
+- Use the existing `service-paid-media.jpg` asset as the parallax background image
+- Keep the headline and copy but improve the subheadline badge
+- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
 
-#### 1. Dashboard Overview — Real-Time KPI Sparklines
-The overview page shows KPI cards with static numbers. Add inline sparkline charts (tiny 7-day trend lines) inside each KPI card using Recharts `<Sparkline>`. Pull data from `analytics_snapshots` (already has historical data). This makes the dashboard feel alive and data-rich without clicking into Analytics.
+**New Introduction Section (below hero):**
+- Two-column layout matching the Reporting page pattern
+- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
+- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
+- Wrapped in `SectionReveal` with staggered `motion` entrance animations
 
-**Files:** `src/pages/Admin.tsx` (overview section), new `src/components/admin/KPISparkline.tsx`
+**Pain Points Section:**
+- Keep the content but enhance with `SectionReveal` animation
+- Add more descriptive intro paragraph above the pain point list
 
-#### 2. Content Studio — Kanban Board View
-Add an alternative "Board" view toggle alongside the current tab view. Render content cards in draggable columns (Review → Approved → Scheduled → Published) using `react-dnd` or a simple drag implementation. Each card shows platform icon, thumbnail, title, and scheduled date. This makes the pipeline visual and intuitive.
+**How We Approach Paid Media Section:**
+- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
 
-**Files:** `src/components/admin/ContentStudio.tsx`, new `src/components/admin/ContentKanbanBoard.tsx`
+**New "What You Get" Section:**
+- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
 
-#### 3. Content Studio — Post Preview Mockups
-When viewing approved/scheduled content, show a device-frame preview that matches the target platform (iPhone frame for Instagram, browser frame for LinkedIn, etc.). Use CSS-only device frames with the actual content rendered inside. Much more premium than plain text cards.
+**New "Process Timeline" Section:**
+- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
 
-**Files:** `src/components/admin/ContentStudio.tsx`, new `src/components/admin/SocialPreviewFrame.tsx`
+**Platforms Section:**
+- Keep but enrich with more descriptive content per platform
+- Add a brief intro paragraph
 
-#### 4. Newsletter Builder — Weekly Digest Preview
-Add a "Preview Digest" button that calls the `send-weekly-newsletter` function in preview mode (dry run), renders the HTML in an iframe, and lets the admin review before the cron fires. Add a "Send Now" override button.
+**New FAQ Section:**
+- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
+- Add `FAQSchema` for SEO
+- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
 
-**Files:** `src/components/admin/NewsletterBuilder.tsx`
+**CTA Section:**
+- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
 
-#### 5. SEO Dashboard — Keyword Position Chart
-Add a line chart showing position history over time for selected keywords (multi-line, one per keyword). Pull from `seo_rankings` table grouped by keyword. Currently rank changes are shown in a table — a visual chart makes trends obvious at a glance.
-
-**Files:** `src/components/admin/SEODashboard.tsx`
-
-#### 6. Global Command Palette
-Add a `Cmd+K` command palette (using `cmdk` — already installed) to the admin panel for quick navigation between tabs, triggering actions (generate content, run rank check, send newsletter), and searching leads/content. Premium UX pattern used by Linear, Vercel, etc.
-
-**Files:** New `src/components/admin/CommandPalette.tsx`, `src/components/admin/AdminLayout.tsx`
-
----
-
-### B. Frontend Website Enhancements
-
-#### 7. Route-Level Code Splitting for Home Page Assets
-`Home.tsx` eagerly imports 10+ heavy assets (videos, images, components). Move below-the-fold sections (case studies, testimonials, FAQ) into lazy-loaded sub-components with `React.lazy` + `Suspense`. This cuts initial bundle size significantly and improves LCP.
-
-**Files:** `src/pages/Home.tsx`, new `src/components/home/LazyHomeSections.tsx`
-
-#### 8. Image Optimization — WebP with Fallback
-Currently all images are imported as raw `.jpg`/`.png`. Add a reusable `<OptimizedImage>` component that uses `<picture>` with WebP `srcSet` where available, plus `loading="lazy"` and `decoding="async"` on all below-fold images. This alone can cut image payload by 30-50%.
-
-**Files:** New `src/components/OptimizedImage.tsx`, update image references across service pages
-
-#### 9. Font Loading Optimization
-Two Google Fonts are loaded via `@import` in CSS (render-blocking). Switch to `<link rel="preload">` in `index.html` with `font-display: swap` to eliminate FOIT (Flash of Invisible Text) and improve FCP.
-
-**Files:** `index.html`, `src/index.css`
-
-#### 10. Navigation — Active State + Micro-Interactions
-The main nav lacks active state indicators on the current page/section. Add an animated underline (Framer Motion `layoutId`) that slides between active nav items. Also add subtle hover scale on nav links for tactile feedback.
-
-**Files:** `src/components/Navigation.tsx`
-
-#### 11. Footer — Back-to-Top Smooth Animation
-The existing `BackToTop` component exists but should have a more polished entrance animation (slide up from bottom-right with spring physics) and integrate with the Lenis smooth scroll instance for buttery scrolling to top.
-
-**Files:** `src/components/BackToTop.tsx`
+**SEO Enhancements:**
+- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
+- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
 
 ---
 
-### Implementation Priority
+### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
 
-```text
-Priority  | Item                           | Impact
-----------|--------------------------------|--------
-HIGH      | 6. Command Palette (Cmd+K)     | Admin UX
-HIGH      | 1. KPI Sparklines              | Dashboard feel
-HIGH      | 9. Font Loading                | FCP/performance
-HIGH      | 7. Home lazy sections          | LCP/bundle size
-MEDIUM    | 5. Keyword Position Chart       | SEO Dashboard
-MEDIUM    | 2. Kanban Board View           | Content Studio
-MEDIUM    | 8. OptimizedImage component    | Performance
-MEDIUM    | 10. Nav Active States          | Frontend polish
-LOW       | 3. Social Preview Frames       | Content Studio
-LOW       | 4. Newsletter Digest Preview   | Newsletter
-LOW       | 11. Back-to-Top polish         | Minor UX
-```
+**New Introduction Section (below hero, before pain points):**
+- Same two-column layout as Reporting and Paid Media pages
+- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
+- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
+- Wrapped in `SectionReveal` with staggered `motion` entrance
 
-### Files Created
-- `src/components/admin/KPISparkline.tsx`
-- `src/components/admin/ContentKanbanBoard.tsx`
-- `src/components/admin/SocialPreviewFrame.tsx`
-- `src/components/admin/CommandPalette.tsx`
-- `src/components/home/LazyHomeSections.tsx`
-- `src/components/OptimizedImage.tsx`
+**Content Enrichment:**
+- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
+- Enrich the case study teaser cards with slightly more descriptive content
+
+**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+
+---
+
+### Visual Rhythm
+
+**Paid Media (top to bottom):**
+1. Hero — cinematic with `service-paid-media.jpg` parallax background
+2. Introduction — light background, two-column explainer
+3. Pain Points — gradient background, enhanced list
+4. How We Approach — dark background, 4-card grid + pull-quote
+5. What You Get — gradient background, deliverables checklist
+6. Process Timeline — mesh background, phased timeline
+7. Platforms — dark background, enriched 3-column cards
+8. FAQ — mesh background, accordion with schema
+9. CTA — gradient background, fixed buttons
+
+**SEO Services (top to bottom):**
+1. Hero (existing) — with `service-seo.jpg`
+2. **Introduction (NEW)** — light background, two-column explainer
+3. Pain Points (existing)
+4. What's Included (existing) + **pull-quote (NEW)**
+5. Process Timeline (existing)
+6. Deliverables (existing)
+7. SEO by Industry (existing)
+8. Case Studies (existing, enriched)
+9. SEO by Location (existing)
+10. FAQ (existing)
+11. CTA (existing)
+
+---
 
 ### Files Modified
-- `src/pages/Admin.tsx`
-- `src/components/admin/AdminLayout.tsx`
-- `src/components/admin/ContentStudio.tsx`
-- `src/components/admin/NewsletterBuilder.tsx`
-- `src/components/admin/SEODashboard.tsx`
-- `src/pages/Home.tsx`
-- `src/components/Navigation.tsx`
-- `src/components/BackToTop.tsx`
-- `src/index.css`
-- `index.html`
+- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
+- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+
+### New Imports
+- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
+- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
 
 ### No new dependencies needed
-`cmdk` is already installed. Recharts is already installed. No new packages required.
-
