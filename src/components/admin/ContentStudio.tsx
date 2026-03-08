@@ -98,6 +98,7 @@ const pipelineStages = [
 const ContentStudio = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("generate");
+  const [viewMode, setViewMode] = useState<"tabs" | "kanban">("tabs");
   const [contentType, setContentType] = useState<string>("social");
   const [platform, setPlatform] = useState<string>("linkedin");
   const [topic, setTopic] = useState("");
