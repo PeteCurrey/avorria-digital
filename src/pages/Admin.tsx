@@ -271,6 +271,7 @@ const Admin = () => {
                     </motion.p>
                   )}
                   <p className="text-sm text-muted-foreground">Page Views</p>
+                  <KPISparkline data={(analyticsHistory || []).slice(0, 7).reverse().map(s => s.page_views || 0)} color="hsl(210, 100%, 55%)" />
                 </CardContent>
               </BeamBorder>
 
