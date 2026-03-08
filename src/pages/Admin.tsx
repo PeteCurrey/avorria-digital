@@ -250,6 +250,7 @@ const Admin = () => {
                     {leads?.length || 0}
                   </motion.p>
                   <p className="text-sm text-muted-foreground">Total Leads</p>
+                  <KPISparkline data={(analyticsHistory || []).slice(0, 7).reverse().map(s => s.unique_visitors || 0)} color="hsl(var(--accent))" />
                 </CardContent>
               </StaticBeamBorder>
 
