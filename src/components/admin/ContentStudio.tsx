@@ -67,6 +67,7 @@ import {
 import { formatDistanceToNow, format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import ContentKanbanBoard from "./ContentKanbanBoard";
 
 interface GeneratedContent {
   id: string;
