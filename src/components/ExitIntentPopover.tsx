@@ -5,6 +5,7 @@ import { X, Clock } from "lucide-react";
 import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 export function ExitIntentPopover() {
+  const { data: siteSettings } = useSiteSettings();
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -12,6 +13,9 @@ export function ExitIntentPopover() {
   const [email, setEmail] = useState("");
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
   const lastMouseY = useRef(0);
+  
+  // If disabled globally, don't activate
+  const isEnabled = siteSettings?.popup_exit_intent_enabled ?? true;
 
   // Don't activate exit intent for first 5 seconds
   useEffect(() => {
