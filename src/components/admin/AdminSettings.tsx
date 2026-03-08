@@ -69,6 +69,7 @@ import {
 } from "@/components/ui/accordion";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useSiteSettings, useUpdateSiteSetting } from "@/hooks/useSiteSettings";
 
 interface TeamMember {
   id: string;
@@ -136,6 +137,9 @@ export default function AdminSettings() {
   const [newMemberRole, setNewMemberRole] = useState("client");
   const [isAddingMember, setIsAddingMember] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  
+  const { data: siteSettings } = useSiteSettings();
+  const updateSiteSetting = useUpdateSiteSetting();
 
   const [notifications, setNotifications] = useState<NotificationPrefs>({
     emailDigest: true,
@@ -532,6 +536,13 @@ export default function AdminSettings() {
           >
             <Shield className="h-4 w-4 mr-2" />
             Roles
+          </TabsTrigger>
+          <TabsTrigger
+            value="site"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Globe className="h-4 w-4 mr-2" />
+            Site Features
           </TabsTrigger>
           <TabsTrigger
             value="api"
@@ -1147,6 +1158,51 @@ export default function AdminSettings() {
                     . Add the required DNS records (SPF, DKIM, DMARC) and wait for verification.
                   </p>
                 </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Site Settings Tab */}
+        <TabsContent value="site" className="space-y-4">
+          <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+            <CardHeader>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Globe className="h-5 w-5 text-primary" />
+                Site Features
+              </CardTitle>
+              <CardDescription>
+                Toggle global website features on or off
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Slide-in Audit Panel</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the free audit offer panel when users scroll halfway down the page
+                  </p>
+                </div>
+                <Switch
+                  checked={siteSettings?.popup_slide_in_enabled ?? true}
+                  onCheckedChange={(checked) => 
+                    updateSiteSetting.mutate({ key: "popup_slide_in_enabled", value: checked })
+                  }
+                />
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="space-y-0.5">
+                  <Label>Exit-Intent Popover</Label>
+                  <p className="text-sm text-muted-foreground">
+                    Show the free audit offer when users move their mouse to leave the site
+                  </p>
+                </div>
+                <Switch
+                  checked={siteSettings?.popup_exit_intent_enabled ?? true}
+                  onCheckedChange={(checked) => 
+                    updateSiteSetting.mutate({ key: "popup_exit_intent_enabled", value: checked })
+                  }
+                />
               </div>
             </CardContent>
           </Card>

@@ -2,8 +2,10 @@ import React, { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Clock } from "lucide-react";
+import { useSiteSettings } from "@/hooks/useSiteSettings";
 
 export function ExitIntentPopover() {
+  const { data: siteSettings } = useSiteSettings();
   const [isOpen, setIsOpen] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const [isActive, setIsActive] = useState(false);
@@ -11,21 +13,27 @@ export function ExitIntentPopover() {
   const [email, setEmail] = useState("");
   const [timeLeft, setTimeLeft] = useState(600); // 10 minutes in seconds
   const lastMouseY = useRef(0);
+  
+  // If disabled globally, don't activate
+  const isEnabled = siteSettings?.popup_exit_intent_enabled ?? true;
 
   // Don't activate exit intent for first 5 seconds
   useEffect(() => {
+    if (!isEnabled) return;
+    
     const activationTimer = setTimeout(() => {
       setIsActive(true);
     }, 5000);
     
     return () => clearTimeout(activationTimer);
-  }, []);
+  }, [isEnabled]);
 
   const handleMouseMove = useCallback((e: MouseEvent) => {
     // Only show on desktop (768px+)
     if (window.innerWidth < 768) return;
     if (hasShown) return;
     if (!isActive) return; // Wait for activation delay
+    if (!isEnabled) return; // Check if enabled
     
     // Only trigger if mouse is moving UPWARD (exiting)
     const isMovingUp = e.clientY < lastMouseY.current;
@@ -37,19 +45,20 @@ export function ExitIntentPopover() {
       setIsOpen(true);
       setHasShown(true);
     }
-  }, [hasShown, isActive]);
+  }, [hasShown, isActive, isEnabled]);
 
   useEffect(() => {
     // Only add listener on desktop
     if (window.innerWidth < 768) return;
     if (hasShown) return;
+    if (!isEnabled) return;
 
     document.addEventListener("mousemove", handleMouseMove);
 
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [hasShown, handleMouseMove]);
+  }, [hasShown, handleMouseMove, isEnabled]);
 
   // Escape key to close
   useEffect(() => {
@@ -98,6 +107,9 @@ export function ExitIntentPopover() {
   };
 
   const isFormValid = websiteUrl.trim().length > 0;
+
+  // If disabled, don't render anything
+  if (!isEnabled) return null;
 
   return createPortal(
     <AnimatePresence>
