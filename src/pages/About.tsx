@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle, Users, Globe, Award, TrendingUp, Linkedin, Mail } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import SectionReveal from "@/components/SectionReveal";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import heroAboutTeam from "@/assets/hero-about-team.jpg";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 
