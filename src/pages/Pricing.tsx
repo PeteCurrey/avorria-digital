@@ -11,6 +11,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const Pricing = () => {
   // Track pricing page view on mount
