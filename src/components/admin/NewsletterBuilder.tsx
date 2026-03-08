@@ -562,7 +562,7 @@ const NewsletterBuilder = () => {
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3 lg:w-auto lg:grid-cols-3">
+        <TabsList className="grid w-full grid-cols-4 lg:w-auto lg:grid-cols-4">
           <TabsTrigger value="builder" className="gap-2">
             <Mail className="h-4 w-4" />
             Builder
@@ -570,6 +570,10 @@ const NewsletterBuilder = () => {
           <TabsTrigger value="preview" className="gap-2">
             <Eye className="h-4 w-4" />
             Preview
+          </TabsTrigger>
+          <TabsTrigger value="digest" className="gap-2">
+            <Sparkles className="h-4 w-4" />
+            Weekly Digest
           </TabsTrigger>
           <TabsTrigger value="history" className="gap-2">
             <Clock className="h-4 w-4" />
