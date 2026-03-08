@@ -1066,6 +1066,28 @@ const ContentStudio = () => {
                               {markPublished.isPending ? <Loader2 className="h-3 w-3 mr-1 animate-spin" /> : <Send className="h-3 w-3 mr-1" />}
                               Publish
                             </Button>
+                            {socialConnections && socialConnections.filter(c => c.is_active).length > 0 && (
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 text-[11px] border-accent/30 text-accent hover:text-accent"
+                                onClick={async () => {
+                                  try {
+                                    const activePlatforms = socialConnections.filter(c => c.is_active).map(c => c.integration_type);
+                                    const { error } = await supabase.functions.invoke("publish-content", {
+                                      body: { contentId: item.id, platforms: activePlatforms },
+                                    });
+                                    if (error) throw error;
+                                    toast.success("Publishing to social accounts...");
+                                    refetchApproved();
+                                  } catch (e: any) {
+                                    toast.error(e.message || "Failed to publish to social");
+                                  }
+                                }}
+                              >
+                                <Link2 className="h-3 w-3 mr-1" /> Publish to Social
+                              </Button>
+                            )}
                             <Button
                               size="sm"
                               variant="outline"
