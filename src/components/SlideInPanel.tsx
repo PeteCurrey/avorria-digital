@@ -46,7 +46,7 @@ export function SlideInPanel({
       window.removeEventListener("scroll", handleScroll);
       clearTimeout(timer);
     };
-  }, [triggerAfterScroll, triggerAfterSeconds, isDismissed]);
+  }, [triggerAfterScroll, triggerAfterSeconds, isDismissed, isEnabled]);
   const handleClose = () => {
     console.log("Event: lead_slidein_closed");
     setIsVisible(false);
