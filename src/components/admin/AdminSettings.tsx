@@ -137,6 +137,9 @@ export default function AdminSettings() {
   const [newMemberRole, setNewMemberRole] = useState("client");
   const [isAddingMember, setIsAddingMember] = useState(false);
   const [dialogOpen, setDialogOpen] = useState(false);
+  
+  const { data: siteSettings } = useSiteSettings();
+  const updateSiteSetting = useUpdateSiteSetting();
 
   const [notifications, setNotifications] = useState<NotificationPrefs>({
     emailDigest: true,
