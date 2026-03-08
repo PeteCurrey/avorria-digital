@@ -1,6 +1,8 @@
 // Cache buster v4 - forces Vite HMR to serve fresh module
 import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import FAQSchema from "@/components/seo/FAQSchema";
 import { motion } from "framer-motion";
 import { trackCTAClick } from "@/lib/tracking";
 import { Button } from "@/components/ui/button";
