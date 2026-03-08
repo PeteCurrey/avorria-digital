@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
 import { Link } from "react-router-dom";
 import { ExternalLink, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import { locations } from "@/data/locations";
