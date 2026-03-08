@@ -35,14 +35,16 @@ const Industries = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Industry-Specific Marketing Solutions | Avorria</title>
-        <meta
-          name="description"
-          content="Tailored digital marketing, SEO, web design, and paid media solutions for your industry. We understand the unique challenges of trades, professional services, SaaS, e-commerce, and multi-location businesses."
-        />
-        <link rel="canonical" href="https://avorria.com/industries" />
-      </Helmet>
+      <SEOHead
+        title="Industry-Specific Marketing Solutions"
+        description="Tailored digital marketing, SEO, web design and paid media for trades, professional services, SaaS, e-commerce and multi-location businesses."
+        canonical="/industries"
+        keywords={["industry marketing", "trades marketing", "SaaS marketing", "B2B marketing", "e-commerce marketing"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Industries", url: "https://avorria.com/industries" }
+      ]} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

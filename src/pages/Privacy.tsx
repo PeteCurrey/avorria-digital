@@ -6,11 +6,16 @@ import { SectionBand } from "@/components/ContentBand";
 const Privacy = () => {
   return (
     <>
-      <Helmet>
-        <title>Privacy Policy | Avorria</title>
-        <meta name="description" content="Avorria's privacy policy explains how we collect, use, and protect your personal information." />
-        <link rel="canonical" href="https://avorria.com/privacy" />
-      </Helmet>
+      <SEOHead
+        title="Privacy Policy"
+        description="Avorria's privacy policy explains how we collect, use and protect your personal information."
+        canonical="/privacy"
+        noindex
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Privacy Policy", url: "https://avorria.com/privacy" }
+      ]} />
 
       <div className="min-h-screen pt-24">
         <SectionBand background="dark" padding="large">

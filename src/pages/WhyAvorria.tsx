@@ -82,6 +82,10 @@ const WhyAvorria = () => {
           })}
         </script>
       </SEOHead>
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Why Avorria", url: "https://avorria.com/why-avorria" }
+      ]} />
 
       <div className="min-h-screen">
         {/* Hero — Cinematic Dark */}

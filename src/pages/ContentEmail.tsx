@@ -47,57 +47,24 @@ const ContentEmail = () => {
     answer: "It depends on your audience and offer. We'll help you find the right cadence that keeps you top of mind without burning your list."
   }];
   return <>
-      <Helmet>
-        <title>Content & Email Marketing That Drives Pipeline | Avorria</title>
-        <meta name="description" content="Strategic content marketing and email automation that attracts the right people and moves them through your funnel – not just blog posts and newsletters." />
-        
-        <meta property="og:title" content="Content & Email Marketing That Drives Pipeline | Avorria" />
-        <meta property="og:description" content="Strategic content marketing and email automation that attracts the right people and moves them through your funnel." />
-        <meta property="og:url" content="https://avorria.com/services/content-email" />
-        <meta property="og:type" content="website" />
-        
-        <link rel="canonical" href="https://avorria.com/services/content-email" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "serviceType": "Content & Email Marketing",
-          "provider": {
-            "@type": "Organization",
-            "name": "Avorria",
-            "url": "https://avorria.com"
-          },
-          "areaServed": {
-            "@type": "Country",
-            "name": "United Kingdom"
-          },
-          "description": "Strategic content marketing and email automation that drives qualified leads and pipeline."
-        })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          "itemListElement": [{
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://avorria.com"
-          }, {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Services",
-            "item": "https://avorria.com/services"
-          }, {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Content & Email",
-            "item": "https://avorria.com/services/content-email"
-          }]
-        })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title="Content & Email Marketing That Drives Pipeline"
+        description="Strategic content marketing and email automation that attracts the right people and moves them through your funnel – not just blog posts and newsletters."
+        canonical="/services/content-email"
+        keywords={["content marketing", "email marketing", "email automation", "content strategy", "lead nurture", "B2B content"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Services", url: "https://avorria.com/services" },
+        { name: "Content & Email", url: "https://avorria.com/services/content-email" }
+      ]} />
+      <ServiceSchema
+        name="Content & Email Marketing"
+        description="Strategic content marketing and email automation that drives qualified leads and pipeline for B2B and service businesses."
+        url="/services/content-email"
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 31 }}
+      />
+      <FAQSchema faqs={faqs} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

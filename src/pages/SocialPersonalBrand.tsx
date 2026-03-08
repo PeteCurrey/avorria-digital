@@ -103,61 +103,24 @@ const SocialPersonalBrand = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Social & Personal Brand for Founders | Avorria</title>
-        <meta name="description" content="Done-for-you personal brand and social content for founders who want to be the obvious choice in their market – without spending hours on LinkedIn." />
-        
-        <meta property="og:title" content="Social & Personal Brand for Founders | Avorria" />
-        <meta property="og:description" content="Done-for-you personal brand and social content for founders who want to be visible." />
-        <meta property="og:url" content="https://avorria.com/services/social-personal-brand" />
-        <meta property="og:type" content="website" />
-        
-        <link rel="canonical" href="https://avorria.com/services/social-personal-brand" />
-        
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "Personal Brand & Social Media Management",
-            "provider": {
-              "@type": "Organization",
-              "name": "Avorria",
-              "url": "https://avorria.com"
-            },
-            "areaServed": {
-              "@type": "Country",
-              "name": "United Kingdom"
-            },
-            "description": "Done-for-you personal brand building and social content for founders and executives."
-          })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-              {
-                "@type": "ListItem",
-                "position": 1,
-                "name": "Home",
-                "item": "https://avorria.com"
-              },
-              {
-                "@type": "ListItem",
-                "position": 2,
-                "name": "Services",
-                "item": "https://avorria.com/services"
-              },
-              {
-                "@type": "ListItem",
-                "position": 3,
-                "name": "Social & Personal Brand",
-                "item": "https://avorria.com/services/social-personal-brand"
-              }
-            ]
-          })}
-        </script>
-      </Helmet>
+      <SEOHead
+        title="Social & Personal Brand for Founders"
+        description="Done-for-you personal brand and social content for founders who want to be the obvious choice in their market – without spending hours on LinkedIn."
+        canonical="/services/social-personal-brand"
+        keywords={["personal branding", "LinkedIn content", "founder branding", "social media management", "thought leadership", "B2B social"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Services", url: "https://avorria.com/services" },
+        { name: "Social & Personal Brand", url: "https://avorria.com/services/social-personal-brand" }
+      ]} />
+      <ServiceSchema
+        name="Social & Personal Brand Management"
+        description="Done-for-you personal brand building and social content for founders and executives who want visibility without the daily grind."
+        url="/services/social-personal-brand"
+        aggregateRating={{ ratingValue: 4.8, reviewCount: 22 }}
+      />
+      <FAQSchema faqs={faqs} />
 
       <div className="min-h-screen">
         {/* Hero Section */}

@@ -84,6 +84,10 @@ const Reporting = () => {
         canonical="https://avorria.com/reporting"
       />
       <FAQSchema faqs={faqs} />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Reporting", url: "https://avorria.com/reporting" }
+      ]} />
 
       <div className="min-h-screen">
         {/* Hero Section — Dark Cinematic */}

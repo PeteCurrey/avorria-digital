@@ -108,13 +108,16 @@ const AgencyTeardown = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Agency Report Teardown - Get a Blunt Assessment | Avorria</title>
-        <meta 
-          name="description" 
-          content="Upload your agency's report and we'll tell you if it's worth what you're paying. Plain-English breakdown of what's solid, what's filler, and where you're being short-changed." 
-        />
-      </Helmet>
+      <SEOHead
+        title="Agency Report Teardown – Get a Blunt Assessment"
+        description="Upload your agency's report and we'll tell you if it's worth what you're paying. Plain-English breakdown of what's solid, what's filler, and where you're being short-changed."
+        canonical="/agency-teardown"
+        keywords={["agency report review", "marketing agency audit", "agency teardown", "agency assessment"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "Agency Teardown", url: "https://avorria.com/agency-teardown" }
+      ]} />
 
       <div className="min-h-screen bg-background pt-24 pb-16">
         {/* Hero Section */}

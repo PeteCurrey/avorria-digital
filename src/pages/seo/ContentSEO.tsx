@@ -1,4 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ServiceSchema from "@/components/seo/ServiceSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileText, Target, TrendingUp } from "lucide-react";
@@ -6,10 +8,23 @@ import { FileText, Target, TrendingUp } from "lucide-react";
 const ContentSEO = () => {
   return (
     <>
-      <Helmet>
-        <title>Content SEO Services - Content That Ranks & Converts | Avorria</title>
-        <meta name="description" content="Content that ranks, reads well and feeds your funnel. Strategic content systems built around topics and intent." />
-      </Helmet>
+      <SEOHead
+        title="Content SEO Services – Content That Ranks & Converts"
+        description="Content that ranks, reads well and feeds your funnel. Strategic content systems built around topics and intent, not random blog posts."
+        canonical="/services/seo/content"
+        keywords={["content SEO", "content strategy", "topic clusters", "pillar content", "SEO content", "content marketing"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "SEO Services", url: "https://avorria.com/services/seo" },
+        { name: "Content SEO", url: "https://avorria.com/services/seo/content" }
+      ]} />
+      <ServiceSchema
+        name="Content SEO Services"
+        description="Strategic content systems built around topics and intent. Topic clustering, pillar content and ongoing optimisation that drives pipeline."
+        url="/services/seo/content"
+        aggregateRating={{ ratingValue: 4.8, reviewCount: 29 }}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero */}

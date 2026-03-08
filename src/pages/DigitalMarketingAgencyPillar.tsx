@@ -67,17 +67,12 @@ const DigitalMarketingAgencyPillar = () => {
         { name: "Home", url: "/" },
         { name: "Digital Marketing Agency", url: "/digital-marketing-agency" }
       ]} />
-      <Helmet>
-        <title>Digital Marketing Agency | Full-Funnel Growth | Avorria</title>
-        <meta name="description" content="Integrated digital marketing agency for B2B and service businesses. SEO, paid media, web design and content strategy under one roof with clear tracking." />
-        <meta name="keywords" content="digital marketing agency, integrated marketing, SEO, paid media, content marketing, B2B marketing" />
-        <meta property="og:title" content="Digital Marketing Agency | Avorria" />
-        <meta property="og:description" content="Integrated digital marketing for teams who want pipeline, not noise. SEO, paid media, web and content under one roof." />
-        <meta property="og:url" content="https://avorria.com/digital-marketing-agency" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <link rel="canonical" href="https://avorria.com/digital-marketing-agency" />
-      </Helmet>
+      <SEOHead
+        title="Digital Marketing Agency | Full-Funnel Growth"
+        description="Integrated digital marketing agency for B2B and service businesses. SEO, paid media, web design and content strategy under one roof with clear tracking."
+        canonical="/digital-marketing-agency"
+        keywords={["digital marketing agency", "integrated marketing", "SEO", "paid media", "content marketing", "B2B marketing"]}
+      />
 
       <div className="min-h-screen">
         <HeroBand

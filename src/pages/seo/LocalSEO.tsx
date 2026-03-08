@@ -1,4 +1,6 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
+import ServiceSchema from "@/components/seo/ServiceSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Phone, TrendingUp } from "lucide-react";
@@ -6,10 +8,23 @@ import { MapPin, Phone, TrendingUp } from "lucide-react";
 const LocalSEO = () => {
   return (
     <>
-      <Helmet>
-        <title>Local SEO Services - Get the Phone Ringing | Avorria</title>
-        <meta name="description" content="Local SEO that actually gets the phone ringing. Show up in local results with optimised profiles and landing pages that convert." />
-      </Helmet>
+      <SEOHead
+        title="Local SEO Services – Get the Phone Ringing"
+        description="Local SEO that actually gets the phone ringing. Show up in local results with optimised profiles and landing pages that convert."
+        canonical="/services/seo/local"
+        keywords={["local SEO", "Google Business Profile", "local search", "near me SEO", "local landing pages", "map pack"]}
+      />
+      <BreadcrumbSchema items={[
+        { name: "Home", url: "https://avorria.com" },
+        { name: "SEO Services", url: "https://avorria.com/services/seo" },
+        { name: "Local SEO", url: "https://avorria.com/services/seo/local" }
+      ]} />
+      <ServiceSchema
+        name="Local SEO Services"
+        description="Local SEO that gets the phone ringing. Google Business Profile optimisation, local landing pages and review strategy for multi-location brands."
+        url="/services/seo/local"
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 33 }}
+      />
 
       <div className="min-h-screen bg-background">
         {/* Hero */}
