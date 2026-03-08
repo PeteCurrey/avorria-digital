@@ -750,6 +750,67 @@ const NewsletterBuilder = () => {
           </Card>
         </TabsContent>
 
+        <TabsContent value="digest" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <div className="flex items-center justify-between">
+                <div>
+                  <CardTitle>Weekly Digest Preview</CardTitle>
+                  <CardDescription>Preview the automated weekly digest before it sends on Monday at 9am</CardDescription>
+                </div>
+                <div className="flex gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={async () => {
+                      setIsLoading(true);
+                      try {
+                        const { data, error } = await supabase.functions.invoke("send-weekly-newsletter", { body: { preview: true } });
+                        if (error) throw error;
+                        toast.success("Digest preview generated — check your email");
+                      } catch (e: any) {
+                        toast.error(e.message || "Failed to generate preview");
+                      } finally {
+                        setIsLoading(false);
+                      }
+                    }}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Eye className="h-4 w-4 mr-2" />}
+                    Preview Digest
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={async () => {
+                      setIsSending(true);
+                      try {
+                        const { error } = await supabase.functions.invoke("send-weekly-newsletter");
+                        if (error) throw error;
+                        toast.success("Weekly digest sent to all subscribers!");
+                      } catch (e: any) {
+                        toast.error(e.message || "Failed to send digest");
+                      } finally {
+                        setIsSending(false);
+                      }
+                    }}
+                    disabled={isSending}
+                  >
+                    {isSending ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Send className="h-4 w-4 mr-2" />}
+                    Send Now
+                  </Button>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <div className="text-center py-12 text-muted-foreground">
+                <Sparkles className="h-12 w-12 mx-auto mb-4 text-muted-foreground/30" />
+                <p>Click "Preview Digest" to generate this week's automated newsletter</p>
+                <p className="text-sm mt-1 text-muted-foreground/60">Pulls from recently published content and resources</p>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         <TabsContent value="history" className="space-y-6">
           <Card>
             <CardHeader>
