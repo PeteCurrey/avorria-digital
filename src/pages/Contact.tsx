@@ -95,11 +95,13 @@ const Contact = () => {
     }
   };
   return <>
-      <Helmet>
-        <title>Contact Avorria – Book a Strategy Call | Avorria</title>
-        <meta name="description" content="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services." />
-        <link rel="canonical" href="https://avorria.com/contact" />
-      </Helmet>
+      <SEOHead
+        title="Contact Avorria – Book a Strategy Call"
+        description="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services across the UK and USA."
+        canonical="/contact"
+        keywords={["contact avorria", "book strategy call", "digital marketing consultation", "SEO consultation"]}
+      />
+      <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Contact", url: "https://avorria.com/contact" }]} />
       
     <div className="min-h-screen">
       {/* Hero Section with Parallax - flows behind header */}
