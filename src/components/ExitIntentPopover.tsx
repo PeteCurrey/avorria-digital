@@ -33,6 +33,7 @@ export function ExitIntentPopover() {
     if (window.innerWidth < 768) return;
     if (hasShown) return;
     if (!isActive) return; // Wait for activation delay
+    if (!isEnabled) return; // Check if enabled
     
     // Only trigger if mouse is moving UPWARD (exiting)
     const isMovingUp = e.clientY < lastMouseY.current;
