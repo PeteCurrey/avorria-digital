@@ -12,6 +12,7 @@ import { motion } from "framer-motion";
 import SectionReveal from "@/components/SectionReveal";
 import SEOHead from "@/components/seo/SEOHead";
 import FAQSchema from "@/components/seo/FAQSchema";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
