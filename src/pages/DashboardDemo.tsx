@@ -1,6 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { ArrowLeft, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Helmet } from "react-helmet-async";
 import AppShell from "@/components/app/AppShell";
 import OverviewTab from "@/components/dashboard/OverviewTab";
 import SEOTab from "@/components/dashboard/SEOTab";
