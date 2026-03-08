@@ -22,6 +22,7 @@ import {
   Clock,
 } from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
+import KPISparkline from "@/components/admin/KPISparkline";
 import PerformanceTab from "@/components/admin/PerformanceTab";
 import EnhancedSitemapManager from "@/components/admin/EnhancedSitemapManager";
 import AnalyticsCharts from "@/components/admin/AnalyticsCharts";
