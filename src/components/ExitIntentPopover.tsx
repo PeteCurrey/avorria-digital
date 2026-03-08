@@ -45,7 +45,7 @@ export function ExitIntentPopover() {
       setIsOpen(true);
       setHasShown(true);
     }
-  }, [hasShown, isActive]);
+  }, [hasShown, isActive, isEnabled]);
 
   useEffect(() => {
     // Only add listener on desktop
