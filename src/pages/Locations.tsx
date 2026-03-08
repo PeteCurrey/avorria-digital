@@ -1,4 +1,5 @@
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Link } from "react-router-dom";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
