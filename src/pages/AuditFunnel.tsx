@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import { Helmet } from "react-helmet-async";
+import SEOHead from "@/components/seo/SEOHead";
+import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { trackCTAClick, trackAuditFunnelView } from "@/lib/tracking";
 import { InlineLeadForm } from "@/components/InlineLeadForm";
 import { Button } from "@/components/ui/button";
