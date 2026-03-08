@@ -56,7 +56,8 @@ export function SlideInPanel({
     console.log("Event: lead_slidein_opened");
     window.location.href = "/free-seo-website-audit?source=slidein";
   };
-  if (!isVisible || isDismissed) return null;
+  
+  if (!isEnabled || !isVisible || isDismissed) return null;
   return <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 animate-slide-in-right max-w-[calc(100vw-2rem)] sm:max-w-none">
       <Card className="w-full sm:w-80 p-4 sm:p-6 shadow-lg bg-card border-border rounded-sm opacity-75">
         <button onClick={handleClose} className="absolute top-2 right-2 sm:top-3 sm:right-3 text-muted-foreground hover:text-foreground transition-colors p-1" aria-label="Close">

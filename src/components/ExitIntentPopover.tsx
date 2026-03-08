@@ -108,6 +108,9 @@ export function ExitIntentPopover() {
 
   const isFormValid = websiteUrl.trim().length > 0;
 
+  // If disabled, don't render anything
+  if (!isEnabled) return null;
+
   return createPortal(
     <AnimatePresence>
       {isOpen && (

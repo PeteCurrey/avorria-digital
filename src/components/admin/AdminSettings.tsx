@@ -538,6 +538,13 @@ export default function AdminSettings() {
             Roles
           </TabsTrigger>
           <TabsTrigger
+            value="site"
+            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
+          >
+            <Globe className="h-4 w-4 mr-2" />
+            Site Features
+          </TabsTrigger>
+          <TabsTrigger
             value="api"
             className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
           >
