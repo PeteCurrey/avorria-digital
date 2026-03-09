@@ -676,6 +676,9 @@ const Admin = () => {
       case "team-members":
         return <TeamMembersManager />;
 
+      case "google-ads":
+        return <GoogleAdsTab />;
+
       default:
         return (
           <div className="text-center py-12">
