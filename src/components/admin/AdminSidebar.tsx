@@ -100,6 +100,12 @@ const navSections: NavSection[] = [
     ],
   },
   {
+    title: "Paid Advertising",
+    items: [
+      { name: "Google Ads", icon: TrendingUp, tab: "google-ads" },
+    ],
+  },
+  {
     title: "Analytics & Reports",
     items: [
       { name: "Analytics", icon: BarChart3, tab: "analytics" },
