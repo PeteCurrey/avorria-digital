@@ -279,4 +279,34 @@ All colors MUST be HSL.
   .animate-beam {
     animation: beam 3s linear infinite;
   }
+
+  /* Shimmer animation for premium effects */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s infinite;
+  }
+
+  /* Admin dark theme card styles */
+  .admin-card {
+    @apply bg-white/[0.025] border border-white/[0.06] backdrop-blur-sm rounded-xl;
+    @apply hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300;
+  }
+
+  .admin-card-glow {
+    @apply admin-card relative overflow-hidden;
+  }
+
+  .admin-card-glow::before {
+    content: '';
+    @apply absolute inset-0 opacity-0 transition-opacity duration-500;
+    background: radial-gradient(600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), hsla(320, 85%, 55%, 0.06), transparent 40%);
+  }
+
+  .admin-card-glow:hover::before {
+    @apply opacity-100;
+  }
 }
