@@ -157,6 +157,7 @@ const Admin = () => {
   const getPageTitle = () => {
     switch (activeTab) {
       case "overview": return "Dashboard Overview";
+      case "client-portals": return "Client Portals";
       case "clients": return "Client Management";
       case "projects": return "Projects";
       case "client-projects": return "Client Projects";
