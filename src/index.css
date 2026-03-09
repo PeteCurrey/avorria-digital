@@ -124,9 +124,12 @@ All colors MUST be HSL.
     --gradient-mesh: radial-gradient(at 27% 37%, hsla(320, 85%, 55%, 0.12) 0px, transparent 50%),
                       radial-gradient(at 97% 21%, hsla(260, 75%, 60%, 0.12) 0px, transparent 50%),
                       radial-gradient(at 52% 99%, hsla(250, 75%, 60%, 0.08) 0px, transparent 50%);
+  }
 
-
-    /* Admin-scoped card overrides */
+  /* Admin dark theme token overrides */
+  .admin-theme {
+    --background: 220 25% 6%;
+    --foreground: 0 0% 95%;
     --card: 220 25% 9%;
     --card-foreground: 0 0% 95%;
     --border: 220 20% 16%;
@@ -135,6 +138,10 @@ All colors MUST be HSL.
     --popover: 220 25% 10%;
     --popover-foreground: 0 0% 95%;
     --input: 220 20% 14%;
+    --secondary: 220 20% 14%;
+    --secondary-foreground: 0 0% 95%;
+    --accent: 320 85% 55%;
+    --accent-foreground: 0 0% 100%;
   }
 }
 
