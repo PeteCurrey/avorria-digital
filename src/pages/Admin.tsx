@@ -182,6 +182,7 @@ const Admin = () => {
       case "team-members": return "Team Members";
       case "google-ads": return "Google Ads Management";
       case "meta-ads": return "Meta Ads Management";
+      case "linkedin-ads": return "LinkedIn Ads Management";
       default: return "Admin Dashboard";
     }
   };
