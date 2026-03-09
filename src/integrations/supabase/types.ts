@@ -530,6 +530,62 @@ export type Database = {
           },
         ]
       }
+      client_integrations: {
+        Row: {
+          client_id: string
+          config: Json | null
+          created_at: string
+          credentials: Json | null
+          display_name: string | null
+          error_message: string | null
+          id: string
+          integration_type: string
+          is_active: boolean
+          last_synced_at: string | null
+          platform: string
+          sync_status: string | null
+          updated_at: string
+        }
+        Insert: {
+          client_id: string
+          config?: Json | null
+          created_at?: string
+          credentials?: Json | null
+          display_name?: string | null
+          error_message?: string | null
+          id?: string
+          integration_type: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          platform: string
+          sync_status?: string | null
+          updated_at?: string
+        }
+        Update: {
+          client_id?: string
+          config?: Json | null
+          created_at?: string
+          credentials?: Json | null
+          display_name?: string | null
+          error_message?: string | null
+          id?: string
+          integration_type?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          platform?: string
+          sync_status?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "client_integrations_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       client_logos: {
         Row: {
           created_at: string

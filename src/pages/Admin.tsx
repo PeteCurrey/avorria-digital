@@ -52,6 +52,7 @@ import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab"
 import ClientsManager from "@/components/admin/ClientsManager";
 import GoogleAdsTab from "@/components/admin/tabs/GoogleAdsTab";
 import MetaAdsTab from "@/components/admin/tabs/MetaAdsTab";
+import ClientPortalManager from "@/components/admin/ClientPortalManager";
 import LinkedInAdsTab from "@/components/admin/tabs/LinkedInAdsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -156,6 +157,7 @@ const Admin = () => {
   const getPageTitle = () => {
     switch (activeTab) {
       case "overview": return "Dashboard Overview";
+      case "client-portals": return "Client Portals";
       case "clients": return "Client Management";
       case "projects": return "Projects";
       case "client-projects": return "Client Projects";
@@ -190,6 +192,7 @@ const Admin = () => {
   const getPageSubtitle = () => {
     switch (activeTab) {
       case "overview": return "Monitor your key metrics and recent activity";
+      case "client-portals": return "Manage client portal integrations, automations, and configurations";
       case "clients": return "Create and manage clients, link user accounts, and test client portal";
       case "projects": return "Manage website design projects from the studio";
       case "client-projects": return "Manage client projects, URLs, and status";
@@ -629,6 +632,9 @@ const Admin = () => {
 
       case "client-logos":
         return <ClientLogosTab />;
+
+      case "client-portals":
+        return <ClientPortalManager />;
 
       case "clients":
         return <ClientsManager />;
