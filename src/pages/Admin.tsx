@@ -50,6 +50,7 @@ import ResourcesManager from "@/components/admin/ResourcesManager";
 import TeamMembersManager from "@/components/admin/TeamMembersManager";
 import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab";
 import ClientsManager from "@/components/admin/ClientsManager";
+import GoogleAdsTab from "@/components/admin/tabs/GoogleAdsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -177,6 +178,7 @@ const Admin = () => {
       case "landing-pages": return "SEO Landing Pages";
       case "resources": return "Resources";
       case "team-members": return "Team Members";
+      case "google-ads": return "Google Ads Management";
       default: return "Admin Dashboard";
     }
   };
@@ -208,6 +210,7 @@ const Admin = () => {
       case "landing-pages": return "Create and manage SEO landing pages";
       case "resources": return "Manage and generate resource guides";
       case "team-members": return "Manage team members on the About page";
+      case "google-ads": return "Campaign performance and optimization";
       default: return "";
     }
   };
@@ -673,6 +676,9 @@ const Admin = () => {
 
       case "team-members":
         return <TeamMembersManager />;
+
+      case "google-ads":
+        return <GoogleAdsTab />;
 
       default:
         return (
