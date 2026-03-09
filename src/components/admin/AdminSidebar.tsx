@@ -104,6 +104,7 @@ const navSections: NavSection[] = [
     items: [
       { name: "Google Ads", icon: TrendingUp, tab: "google-ads" },
       { name: "Meta Ads", icon: Zap, tab: "meta-ads" },
+      { name: "LinkedIn Ads", icon: BarChart3, tab: "linkedin-ads" },
     ],
   },
   {
