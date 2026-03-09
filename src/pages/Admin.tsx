@@ -52,6 +52,7 @@ import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab"
 import ClientsManager from "@/components/admin/ClientsManager";
 import GoogleAdsTab from "@/components/admin/tabs/GoogleAdsTab";
 import MetaAdsTab from "@/components/admin/tabs/MetaAdsTab";
+import ClientPortalManager from "@/components/admin/ClientPortalManager";
 import LinkedInAdsTab from "@/components/admin/tabs/LinkedInAdsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
