@@ -130,6 +130,27 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
   const [searchParams] = useSearchParams();
   const currentTab = searchParams.get("tab") || "overview";
 
+  // Auto-expand section containing active tab, collapse others by default
+  const getDefaultExpanded = useCallback(() => {
+    const expanded: Record<string, boolean> = {};
+    navSections.forEach((section) => {
+      const hasActive = section.items.some((item) => item.tab === currentTab);
+      expanded[section.title] = hasActive;
+    });
+    return expanded;
+  }, [currentTab]);
+
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(() => {
+    // Start with all expanded
+    const all: Record<string, boolean> = {};
+    navSections.forEach((s) => (all[s.title] = true));
+    return all;
+  });
+
+  const toggleSection = (title: string) => {
+    setExpandedSections((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
+
   return (
     <TooltipProvider>
       <motion.aside
