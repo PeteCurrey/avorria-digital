@@ -180,6 +180,7 @@ const Admin = () => {
       case "resources": return "Resources";
       case "team-members": return "Team Members";
       case "google-ads": return "Google Ads Management";
+      case "meta-ads": return "Meta Ads Management";
       default: return "Admin Dashboard";
     }
   };
@@ -212,6 +213,7 @@ const Admin = () => {
       case "resources": return "Manage and generate resource guides";
       case "team-members": return "Manage team members on the About page";
       case "google-ads": return "Campaign performance and optimization";
+      case "meta-ads": return "Instagram and Facebook advertising campaigns";
       default: return "";
     }
   };

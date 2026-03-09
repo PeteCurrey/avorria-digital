@@ -385,7 +385,7 @@ const MetaAdsTab = () => {
         </Card>
       )}
 
-      {!accounts || accounts.length === 0 && (
+      {(!accounts || accounts.length === 0) && (
         <Card>
           <CardContent className="flex items-center justify-center py-12">
             <div className="text-center">
