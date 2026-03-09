@@ -192,6 +192,7 @@ const Admin = () => {
   const getPageSubtitle = () => {
     switch (activeTab) {
       case "overview": return "Monitor your key metrics and recent activity";
+      case "client-portals": return "Manage client portal integrations, automations, and configurations";
       case "clients": return "Create and manage clients, link user accounts, and test client portal";
       case "projects": return "Manage website design projects from the studio";
       case "client-projects": return "Manage client projects, URLs, and status";
