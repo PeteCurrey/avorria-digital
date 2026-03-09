@@ -118,40 +118,28 @@ const GoogleAdsTab = () => {
       ) : (
         <>
           {/* KPI Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-            <KPICard
-              label="Total Spend"
-              value={`£${metrics?.spend.toLocaleString() || "0"}`}
-              format="currency"
-              isLoading={metricsLoading}
-            />
-            <KPICard
-              label="Impressions"
-              value={metrics?.impressions || 0}
-              isLoading={metricsLoading}
-            />
-            <KPICard
-              label="Clicks"
-              value={metrics?.clicks || 0}
-              isLoading={metricsLoading}
-            />
-            <KPICard
-              label="Conversions"
-              value={metrics?.conversions || 0}
-              isLoading={metricsLoading}
-            />
-            <KPICard
-              label="Cost per Lead"
-              value={`£${metrics?.cpl.toFixed(2) || "0"}`}
-              format="currency"
-              isLoading={metricsLoading}
-            />
-            <KPICard
-              label="ROAS"
-              value={`${metrics?.roas.toFixed(1) || "0"}x`}
-              isLoading={metricsLoading}
-            />
-          </div>
+          {metricsLoading ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-8 w-8 animate-spin text-accent" />
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+              <KPICard
+                label="Total Spend"
+                value={`£${metrics?.spend.toLocaleString() || "0"}`}
+                format="currency"
+              />
+              <KPICard label="Impressions" value={metrics?.impressions || 0} />
+              <KPICard label="Clicks" value={metrics?.clicks || 0} />
+              <KPICard label="Conversions" value={metrics?.conversions || 0} />
+              <KPICard
+                label="Cost per Lead"
+                value={`£${metrics?.cpl.toFixed(2) || "0"}`}
+                format="currency"
+              />
+              <KPICard label="ROAS" value={`${metrics?.roas.toFixed(1) || "0"}x`} />
+            </div>
+          )}
 
           {/* Campaigns Table */}
           <Card className="border-border">
