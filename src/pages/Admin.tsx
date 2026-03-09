@@ -209,6 +209,7 @@ const Admin = () => {
       case "landing-pages": return "Create and manage SEO landing pages";
       case "resources": return "Manage and generate resource guides";
       case "team-members": return "Manage team members on the About page";
+      case "google-ads": return "Campaign performance and optimization";
       default: return "";
     }
   };
