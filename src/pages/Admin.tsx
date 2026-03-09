@@ -51,6 +51,7 @@ import TeamMembersManager from "@/components/admin/TeamMembersManager";
 import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab";
 import ClientsManager from "@/components/admin/ClientsManager";
 import GoogleAdsTab from "@/components/admin/tabs/GoogleAdsTab";
+import MetaAdsTab from "@/components/admin/tabs/MetaAdsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
