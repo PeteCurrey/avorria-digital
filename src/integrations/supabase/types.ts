@@ -1006,6 +1006,361 @@ export type Database = {
           },
         ]
       }
+      google_ads_accounts: {
+        Row: {
+          access_token: string | null
+          account_type: string
+          created_at: string
+          currency: string
+          customer_id: string
+          id: string
+          is_active: boolean
+          last_synced_at: string | null
+          name: string
+          parent_mcc_id: string | null
+          refresh_token: string | null
+          timezone: string
+          token_expires_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          access_token?: string | null
+          account_type?: string
+          created_at?: string
+          currency?: string
+          customer_id: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name: string
+          parent_mcc_id?: string | null
+          refresh_token?: string | null
+          timezone?: string
+          token_expires_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string | null
+          account_type?: string
+          created_at?: string
+          currency?: string
+          customer_id?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name?: string
+          parent_mcc_id?: string | null
+          refresh_token?: string | null
+          timezone?: string
+          token_expires_at?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_ads_accounts_parent_mcc_id_fkey"
+            columns: ["parent_mcc_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      google_ads_alerts: {
+        Row: {
+          account_id: string | null
+          alert_type: string
+          campaign_id: string | null
+          created_at: string
+          current_value: number | null
+          id: string
+          is_resolved: boolean
+          message: string
+          resolved_at: string | null
+          severity: string
+          threshold_value: number | null
+        }
+        Insert: {
+          account_id?: string | null
+          alert_type: string
+          campaign_id?: string | null
+          created_at?: string
+          current_value?: number | null
+          id?: string
+          is_resolved?: boolean
+          message: string
+          resolved_at?: string | null
+          severity?: string
+          threshold_value?: number | null
+        }
+        Update: {
+          account_id?: string | null
+          alert_type?: string
+          campaign_id?: string | null
+          created_at?: string
+          current_value?: number | null
+          id?: string
+          is_resolved?: boolean
+          message?: string
+          resolved_at?: string | null
+          severity?: string
+          threshold_value?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_ads_alerts_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "google_ads_alerts_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      google_ads_bulk_operations: {
+        Row: {
+          account_id: string
+          completed_at: string | null
+          completed_operations: number
+          created_at: string
+          created_by: string | null
+          errors: Json | null
+          failed_operations: number
+          id: string
+          operation_type: string
+          operations: Json
+          status: string
+          total_operations: number
+        }
+        Insert: {
+          account_id: string
+          completed_at?: string | null
+          completed_operations?: number
+          created_at?: string
+          created_by?: string | null
+          errors?: Json | null
+          failed_operations?: number
+          id?: string
+          operation_type: string
+          operations: Json
+          status?: string
+          total_operations: number
+        }
+        Update: {
+          account_id?: string
+          completed_at?: string | null
+          completed_operations?: number
+          created_at?: string
+          created_by?: string | null
+          errors?: Json | null
+          failed_operations?: number
+          id?: string
+          operation_type?: string
+          operations?: Json
+          status?: string
+          total_operations?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_ads_bulk_operations_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      google_ads_campaigns: {
+        Row: {
+          account_id: string
+          advertising_channel: string
+          bidding_strategy: string | null
+          budget_amount: number | null
+          budget_type: string | null
+          campaign_id: string
+          campaign_type: string
+          created_at: string
+          end_date: string | null
+          id: string
+          labels: string[] | null
+          name: string
+          start_date: string | null
+          status: string
+          target_cpa: number | null
+          target_roas: number | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          advertising_channel: string
+          bidding_strategy?: string | null
+          budget_amount?: number | null
+          budget_type?: string | null
+          campaign_id: string
+          campaign_type: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          labels?: string[] | null
+          name: string
+          start_date?: string | null
+          status: string
+          target_cpa?: number | null
+          target_roas?: number | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          advertising_channel?: string
+          bidding_strategy?: string | null
+          budget_amount?: number | null
+          budget_type?: string | null
+          campaign_id?: string
+          campaign_type?: string
+          created_at?: string
+          end_date?: string | null
+          id?: string
+          labels?: string[] | null
+          name?: string
+          start_date?: string | null
+          status?: string
+          target_cpa?: number | null
+          target_roas?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_ads_campaigns_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      google_ads_experiments: {
+        Row: {
+          campaign_id: string
+          control_variant: Json
+          created_at: string
+          end_date: string | null
+          experiment_name: string
+          experiment_type: string
+          id: string
+          results: Json | null
+          start_date: string
+          statistical_significance: number | null
+          status: string
+          test_variants: Json
+          updated_at: string
+          winner_variant_id: string | null
+        }
+        Insert: {
+          campaign_id: string
+          control_variant: Json
+          created_at?: string
+          end_date?: string | null
+          experiment_name: string
+          experiment_type: string
+          id?: string
+          results?: Json | null
+          start_date: string
+          statistical_significance?: number | null
+          status?: string
+          test_variants: Json
+          updated_at?: string
+          winner_variant_id?: string | null
+        }
+        Update: {
+          campaign_id?: string
+          control_variant?: Json
+          created_at?: string
+          end_date?: string | null
+          experiment_name?: string
+          experiment_type?: string
+          id?: string
+          results?: Json | null
+          start_date?: string
+          statistical_significance?: number | null
+          status?: string
+          test_variants?: Json
+          updated_at?: string
+          winner_variant_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_ads_experiments_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      google_ads_metrics: {
+        Row: {
+          campaign_id: string
+          clicks: number
+          conversion_value: number
+          conversions: number
+          cost: number
+          cpa: number | null
+          cpc: number | null
+          cpm: number | null
+          created_at: string
+          ctr: number | null
+          date: string
+          id: string
+          impressions: number
+          roas: number | null
+        }
+        Insert: {
+          campaign_id: string
+          clicks?: number
+          conversion_value?: number
+          conversions?: number
+          cost?: number
+          cpa?: number | null
+          cpc?: number | null
+          cpm?: number | null
+          created_at?: string
+          ctr?: number | null
+          date: string
+          id?: string
+          impressions?: number
+          roas?: number | null
+        }
+        Update: {
+          campaign_id?: string
+          clicks?: number
+          conversion_value?: number
+          conversions?: number
+          cost?: number
+          cpa?: number | null
+          cpc?: number | null
+          cpm?: number | null
+          created_at?: string
+          ctr?: number | null
+          date?: string
+          id?: string
+          impressions?: number
+          roas?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "google_ads_metrics_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "google_ads_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       invoices: {
         Row: {
           amount: number
