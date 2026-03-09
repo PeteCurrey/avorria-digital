@@ -689,6 +689,9 @@ const Admin = () => {
       case "meta-ads":
         return <MetaAdsTab />;
 
+      case "linkedin-ads":
+        return <LinkedInAdsTab />;
+
       default:
         return (
           <div className="text-center py-12">
