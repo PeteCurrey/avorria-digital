@@ -180,6 +180,7 @@ const Admin = () => {
       case "resources": return "Resources";
       case "team-members": return "Team Members";
       case "google-ads": return "Google Ads Management";
+      case "meta-ads": return "Meta Ads Management";
       default: return "Admin Dashboard";
     }
   };
