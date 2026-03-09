@@ -292,8 +292,14 @@ All colors MUST be HSL.
 
   /* Admin dark theme card styles */
   .admin-card {
-    @apply bg-white/[0.025] border border-white/[0.06] backdrop-blur-sm rounded-xl;
-    @apply hover:bg-white/[0.04] hover:border-white/[0.1] transition-all duration-300;
+    @apply rounded-xl border transition-all duration-300;
+    background: hsl(220 25% 9%);
+    border-color: hsl(220 20% 16%);
+  }
+
+  .admin-card:hover {
+    background: hsl(220 25% 11%);
+    border-color: hsl(220 20% 20%);
   }
 
   .admin-card-glow {
@@ -308,5 +314,17 @@ All colors MUST be HSL.
 
   .admin-card-glow:hover::before {
     @apply opacity-100;
+  }
+
+  /* Admin KPI / stat cards */
+  .admin-stat-card {
+    @apply rounded-xl border transition-all duration-300;
+    background: linear-gradient(145deg, hsl(220 25% 10%) 0%, hsl(220 25% 8%) 100%);
+    border-color: hsl(220 20% 15%);
+  }
+
+  .admin-stat-card:hover {
+    border-color: hsl(320 85% 55% / 0.25);
+    box-shadow: 0 0 30px -8px hsl(320 85% 55% / 0.08);
   }
 }
