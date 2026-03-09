@@ -177,6 +177,7 @@ const Admin = () => {
       case "landing-pages": return "SEO Landing Pages";
       case "resources": return "Resources";
       case "team-members": return "Team Members";
+      case "google-ads": return "Google Ads Management";
       default: return "Admin Dashboard";
     }
   };
