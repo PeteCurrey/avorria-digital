@@ -17,6 +17,7 @@ import {
   Mail,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   TrendingUp,
   Zap,
   Calendar,
