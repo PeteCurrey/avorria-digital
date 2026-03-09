@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
@@ -16,6 +17,7 @@ import {
   Mail,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   TrendingUp,
   Zap,
   Calendar,
@@ -127,6 +129,27 @@ const navSections: NavSection[] = [
 const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
   const [searchParams] = useSearchParams();
   const currentTab = searchParams.get("tab") || "overview";
+
+  // Auto-expand section containing active tab, collapse others by default
+  const getDefaultExpanded = useCallback(() => {
+    const expanded: Record<string, boolean> = {};
+    navSections.forEach((section) => {
+      const hasActive = section.items.some((item) => item.tab === currentTab);
+      expanded[section.title] = hasActive;
+    });
+    return expanded;
+  }, [currentTab]);
+
+  const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(() => {
+    // Start with all expanded
+    const all: Record<string, boolean> = {};
+    navSections.forEach((s) => (all[s.title] = true));
+    return all;
+  });
+
+  const toggleSection = (title: string) => {
+    setExpandedSections((prev) => ({ ...prev, [title]: !prev[title] }));
+  };
 
   return (
     <TooltipProvider>
@@ -242,78 +265,99 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 >
                   <AnimatePresence mode="wait">
                     {!collapsed && (
-                      <motion.h3
+                      <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/30"
+                        onClick={() => toggleSection(section.title)}
+                        className="mb-1 w-full flex items-center justify-between px-3 py-1 group/section cursor-pointer"
                       >
-                        {section.title}
-                      </motion.h3>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/30 group-hover/section:text-white/50 transition-colors">
+                          {section.title}
+                        </span>
+                        <motion.div
+                          animate={{ rotate: expandedSections[section.title] ? 0 : -90 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronDown className="h-3 w-3 text-white/20 group-hover/section:text-white/40 transition-colors" />
+                        </motion.div>
+                      </motion.button>
                     )}
                   </AnimatePresence>
-                  <div className="space-y-0.5">
-                    {section.items.map((item) => {
-                      const isActive = currentTab === item.tab;
-                      const NavContent = (
-                        <Link
-                          key={item.tab}
-                          to={`/admin?tab=${item.tab}`}
-                          className={cn(
-                            "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
-                            isActive
-                              ? "text-accent"
-                              : "text-white/50 hover:bg-white/[0.06] hover:text-white",
-                            collapsed && "justify-center px-2"
-                          )}
-                        >
-                          {isActive && (
-                            <motion.div
-                              layoutId="activeTab"
-                              className="absolute inset-0 rounded-lg bg-accent/15"
-                              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                            />
-                          )}
-                          {isActive && (
-                            <motion.span 
-                              layoutId="activeIndicator"
-                              className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r bg-accent"
-                              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                            />
-                          )}
-                          <item.icon className="relative h-5 w-5 shrink-0 transition-colors" />
-                          {!collapsed && (
-                            <>
-                              <span className="relative flex-1">{item.name}</span>
-                              {item.badge && (
-                                <span className="relative rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </Link>
-                      );
+                  <AnimatePresence initial={false}>
+                    {(collapsed || expandedSections[section.title]) && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-0.5">
+                          {section.items.map((item) => {
+                            const isActive = currentTab === item.tab;
+                            const NavContent = (
+                              <Link
+                                key={item.tab}
+                                to={`/admin?tab=${item.tab}`}
+                                className={cn(
+                                  "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
+                                  isActive
+                                    ? "text-accent"
+                                    : "text-white/50 hover:bg-white/[0.06] hover:text-white",
+                                  collapsed && "justify-center px-2"
+                                )}
+                              >
+                                {isActive && (
+                                  <motion.div
+                                    layoutId="activeTab"
+                                    className="absolute inset-0 rounded-lg bg-accent/15"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                  />
+                                )}
+                                {isActive && (
+                                  <motion.span
+                                    layoutId="activeIndicator"
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r bg-accent"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                  />
+                                )}
+                                <item.icon className="relative h-5 w-5 shrink-0 transition-colors" />
+                                {!collapsed && (
+                                  <>
+                                    <span className="relative flex-1">{item.name}</span>
+                                    {item.badge && (
+                                      <span className="relative rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </>
+                                )}
+                              </Link>
+                            );
 
-                      if (collapsed) {
-                        return (
-                          <Tooltip key={item.tab}>
-                            <TooltipTrigger asChild>{NavContent}</TooltipTrigger>
-                            <TooltipContent side="right" className="bg-[hsl(220,25%,12%)] border-white/10 text-white flex items-center gap-2">
-                              {item.name}
-                              {item.badge && (
-                                <span className="rounded-full bg-accent/20 px-1.5 py-0.5 text-xs text-accent">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </TooltipContent>
-                          </Tooltip>
-                        );
-                      }
+                            if (collapsed) {
+                              return (
+                                <Tooltip key={item.tab}>
+                                  <TooltipTrigger asChild>{NavContent}</TooltipTrigger>
+                                  <TooltipContent side="right" className="bg-[hsl(220,25%,12%)] border-white/10 text-white flex items-center gap-2">
+                                    {item.name}
+                                    {item.badge && (
+                                      <span className="rounded-full bg-accent/20 px-1.5 py-0.5 text-xs text-accent">
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </TooltipContent>
+                                </Tooltip>
+                              );
+                            }
 
-                      return NavContent;
-                    })}
-                  </div>
+                            return NavContent;
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   {!collapsed && sectionIdx < navSections.length - 1 && (
                     <div className="mt-4 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
                   )}
