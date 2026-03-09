@@ -1572,6 +1572,275 @@ export type Database = {
         }
         Relationships: []
       }
+      linkedin_ads_accounts: {
+        Row: {
+          access_token: string | null
+          account_id: string
+          account_status: string
+          created_at: string
+          currency: string
+          id: string
+          is_active: boolean
+          last_synced_at: string | null
+          name: string
+          refresh_token: string | null
+          timezone: string
+          token_expires_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          access_token?: string | null
+          account_id: string
+          account_status?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name: string
+          refresh_token?: string | null
+          timezone?: string
+          token_expires_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string | null
+          account_id?: string
+          account_status?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name?: string
+          refresh_token?: string | null
+          timezone?: string
+          token_expires_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      linkedin_ads_campaigns: {
+        Row: {
+          account_id: string
+          audience_targeting: Json | null
+          bid_type: string | null
+          campaign_id: string
+          campaign_type: string
+          created_at: string
+          daily_budget: number | null
+          end_date: string | null
+          id: string
+          name: string
+          objective: string
+          start_date: string | null
+          status: string
+          total_budget: number | null
+          unit_cost: number | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          audience_targeting?: Json | null
+          bid_type?: string | null
+          campaign_id: string
+          campaign_type?: string
+          created_at?: string
+          daily_budget?: number | null
+          end_date?: string | null
+          id?: string
+          name: string
+          objective: string
+          start_date?: string | null
+          status?: string
+          total_budget?: number | null
+          unit_cost?: number | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          audience_targeting?: Json | null
+          bid_type?: string | null
+          campaign_id?: string
+          campaign_type?: string
+          created_at?: string
+          daily_budget?: number | null
+          end_date?: string | null
+          id?: string
+          name?: string
+          objective?: string
+          start_date?: string | null
+          status?: string
+          total_budget?: number | null
+          unit_cost?: number | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "linkedin_ads_campaigns_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "linkedin_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      linkedin_ads_creatives: {
+        Row: {
+          account_id: string
+          body: string | null
+          call_to_action: string | null
+          campaign_id: string | null
+          created_at: string
+          creative_id: string
+          creative_type: string
+          destination_url: string | null
+          headline: string | null
+          id: string
+          image_url: string | null
+          name: string | null
+          status: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          account_id: string
+          body?: string | null
+          call_to_action?: string | null
+          campaign_id?: string | null
+          created_at?: string
+          creative_id: string
+          creative_type?: string
+          destination_url?: string | null
+          headline?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string | null
+          status?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          account_id?: string
+          body?: string | null
+          call_to_action?: string | null
+          campaign_id?: string | null
+          created_at?: string
+          creative_id?: string
+          creative_type?: string
+          destination_url?: string | null
+          headline?: string | null
+          id?: string
+          image_url?: string | null
+          name?: string | null
+          status?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "linkedin_ads_creatives_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "linkedin_ads_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "linkedin_ads_creatives_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "linkedin_ads_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      linkedin_ads_metrics: {
+        Row: {
+          account_id: string
+          campaign_id: string | null
+          clicks: number
+          comments: number | null
+          conversion_value: number
+          conversions: number
+          cpc: number | null
+          cpl: number | null
+          cpm: number | null
+          created_at: string
+          ctr: number | null
+          date: string
+          follows: number | null
+          id: string
+          impressions: number
+          leads: number
+          reactions: number | null
+          roas: number | null
+          shares: number | null
+          spend: number
+          video_views: number | null
+        }
+        Insert: {
+          account_id: string
+          campaign_id?: string | null
+          clicks?: number
+          comments?: number | null
+          conversion_value?: number
+          conversions?: number
+          cpc?: number | null
+          cpl?: number | null
+          cpm?: number | null
+          created_at?: string
+          ctr?: number | null
+          date: string
+          follows?: number | null
+          id?: string
+          impressions?: number
+          leads?: number
+          reactions?: number | null
+          roas?: number | null
+          shares?: number | null
+          spend?: number
+          video_views?: number | null
+        }
+        Update: {
+          account_id?: string
+          campaign_id?: string | null
+          clicks?: number
+          comments?: number | null
+          conversion_value?: number
+          conversions?: number
+          cpc?: number | null
+          cpl?: number | null
+          cpm?: number | null
+          created_at?: string
+          ctr?: number | null
+          date?: string
+          follows?: number | null
+          id?: string
+          impressions?: number
+          leads?: number
+          reactions?: number | null
+          roas?: number | null
+          shares?: number | null
+          spend?: number
+          video_views?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "linkedin_ads_metrics_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "linkedin_ads_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "linkedin_ads_metrics_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "linkedin_ads_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       meta_ads_accounts: {
         Row: {
           access_token: string | null
