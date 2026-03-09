@@ -1572,6 +1572,371 @@ export type Database = {
         }
         Relationships: []
       }
+      meta_ads_accounts: {
+        Row: {
+          access_token: string | null
+          account_id: string
+          account_status: string
+          created_at: string
+          currency: string
+          id: string
+          is_active: boolean
+          last_synced_at: string | null
+          name: string
+          timezone: string
+          token_expires_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          access_token?: string | null
+          account_id: string
+          account_status?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name: string
+          timezone?: string
+          token_expires_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          access_token?: string | null
+          account_id?: string
+          account_status?: string
+          created_at?: string
+          currency?: string
+          id?: string
+          is_active?: boolean
+          last_synced_at?: string | null
+          name?: string
+          timezone?: string
+          token_expires_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      meta_ads_ads: {
+        Row: {
+          ad_id: string
+          adset_id: string
+          created_at: string
+          creative_id: string | null
+          id: string
+          name: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          ad_id: string
+          adset_id: string
+          created_at?: string
+          creative_id?: string | null
+          id?: string
+          name: string
+          status: string
+          updated_at?: string
+        }
+        Update: {
+          ad_id?: string
+          adset_id?: string
+          created_at?: string
+          creative_id?: string | null
+          id?: string
+          name?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meta_ads_ads_adset_id_fkey"
+            columns: ["adset_id"]
+            isOneToOne: false
+            referencedRelation: "meta_ads_adsets"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "meta_ads_ads_creative_id_fkey"
+            columns: ["creative_id"]
+            isOneToOne: false
+            referencedRelation: "meta_ads_creatives"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meta_ads_adsets: {
+        Row: {
+          adset_id: string
+          bid_amount: number | null
+          billing_event: string | null
+          campaign_id: string
+          created_at: string
+          daily_budget: number | null
+          end_time: string | null
+          id: string
+          lifetime_budget: number | null
+          name: string
+          optimization_goal: string | null
+          placements: Json | null
+          start_time: string | null
+          status: string
+          targeting: Json | null
+          updated_at: string
+        }
+        Insert: {
+          adset_id: string
+          bid_amount?: number | null
+          billing_event?: string | null
+          campaign_id: string
+          created_at?: string
+          daily_budget?: number | null
+          end_time?: string | null
+          id?: string
+          lifetime_budget?: number | null
+          name: string
+          optimization_goal?: string | null
+          placements?: Json | null
+          start_time?: string | null
+          status: string
+          targeting?: Json | null
+          updated_at?: string
+        }
+        Update: {
+          adset_id?: string
+          bid_amount?: number | null
+          billing_event?: string | null
+          campaign_id?: string
+          created_at?: string
+          daily_budget?: number | null
+          end_time?: string | null
+          id?: string
+          lifetime_budget?: number | null
+          name?: string
+          optimization_goal?: string | null
+          placements?: Json | null
+          start_time?: string | null
+          status?: string
+          targeting?: Json | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meta_ads_adsets_campaign_id_fkey"
+            columns: ["campaign_id"]
+            isOneToOne: false
+            referencedRelation: "meta_ads_campaigns"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meta_ads_campaigns: {
+        Row: {
+          account_id: string
+          budget_type: string | null
+          campaign_id: string
+          created_at: string
+          daily_budget: number | null
+          id: string
+          lifetime_budget: number | null
+          name: string
+          objective: string
+          special_ad_categories: string[] | null
+          start_time: string | null
+          status: string
+          stop_time: string | null
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          budget_type?: string | null
+          campaign_id: string
+          created_at?: string
+          daily_budget?: number | null
+          id?: string
+          lifetime_budget?: number | null
+          name: string
+          objective: string
+          special_ad_categories?: string[] | null
+          start_time?: string | null
+          status: string
+          stop_time?: string | null
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          budget_type?: string | null
+          campaign_id?: string
+          created_at?: string
+          daily_budget?: number | null
+          id?: string
+          lifetime_budget?: number | null
+          name?: string
+          objective?: string
+          special_ad_categories?: string[] | null
+          start_time?: string | null
+          status?: string
+          stop_time?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meta_ads_campaigns_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "meta_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meta_ads_creatives: {
+        Row: {
+          account_id: string
+          asset_feed_spec: Json | null
+          body: string | null
+          call_to_action_type: string | null
+          created_at: string
+          creative_id: string
+          creative_type: string
+          id: string
+          image_url: string | null
+          link_url: string | null
+          name: string | null
+          thumbnail_url: string | null
+          title: string | null
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          account_id: string
+          asset_feed_spec?: Json | null
+          body?: string | null
+          call_to_action_type?: string | null
+          created_at?: string
+          creative_id: string
+          creative_type?: string
+          id?: string
+          image_url?: string | null
+          link_url?: string | null
+          name?: string | null
+          thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          account_id?: string
+          asset_feed_spec?: Json | null
+          body?: string | null
+          call_to_action_type?: string | null
+          created_at?: string
+          creative_id?: string
+          creative_type?: string
+          id?: string
+          image_url?: string | null
+          link_url?: string | null
+          name?: string | null
+          thumbnail_url?: string | null
+          title?: string | null
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meta_ads_creatives_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "meta_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      meta_ads_metrics: {
+        Row: {
+          account_id: string
+          clicks: number
+          conversion_value: number
+          conversions: number
+          cpa: number | null
+          cpc: number | null
+          cpm: number | null
+          cpp: number | null
+          created_at: string
+          ctr: number | null
+          date: string
+          entity_id: string
+          entity_type: string
+          frequency: number | null
+          id: string
+          impressions: number
+          link_clicks: number | null
+          post_engagement: number | null
+          reach: number
+          roas: number | null
+          spend: number
+          video_avg_watch_time: number | null
+          video_views: number | null
+        }
+        Insert: {
+          account_id: string
+          clicks?: number
+          conversion_value?: number
+          conversions?: number
+          cpa?: number | null
+          cpc?: number | null
+          cpm?: number | null
+          cpp?: number | null
+          created_at?: string
+          ctr?: number | null
+          date: string
+          entity_id: string
+          entity_type: string
+          frequency?: number | null
+          id?: string
+          impressions?: number
+          link_clicks?: number | null
+          post_engagement?: number | null
+          reach?: number
+          roas?: number | null
+          spend?: number
+          video_avg_watch_time?: number | null
+          video_views?: number | null
+        }
+        Update: {
+          account_id?: string
+          clicks?: number
+          conversion_value?: number
+          conversions?: number
+          cpa?: number | null
+          cpc?: number | null
+          cpm?: number | null
+          cpp?: number | null
+          created_at?: string
+          ctr?: number | null
+          date?: string
+          entity_id?: string
+          entity_type?: string
+          frequency?: number | null
+          id?: string
+          impressions?: number
+          link_clicks?: number | null
+          post_engagement?: number | null
+          reach?: number
+          roas?: number | null
+          spend?: number
+          video_avg_watch_time?: number | null
+          video_views?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "meta_ads_metrics_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "meta_ads_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       newsletter_subscribers: {
         Row: {
           created_at: string

@@ -103,6 +103,7 @@ const navSections: NavSection[] = [
     title: "Paid Advertising",
     items: [
       { name: "Google Ads", icon: TrendingUp, tab: "google-ads" },
+      { name: "Meta Ads", icon: Zap, tab: "meta-ads" },
     ],
   },
   {
