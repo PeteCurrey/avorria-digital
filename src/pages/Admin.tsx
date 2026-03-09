@@ -633,6 +633,9 @@ const Admin = () => {
       case "client-logos":
         return <ClientLogosTab />;
 
+      case "client-portals":
+        return <ClientPortalManager />;
+
       case "clients":
         return <ClientsManager />;
 
