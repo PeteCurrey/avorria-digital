@@ -265,22 +265,35 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 >
                   <AnimatePresence mode="wait">
                     {!collapsed && (
-                      <motion.h3
+                      <motion.button
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="mb-2 px-3 text-[10px] font-semibold uppercase tracking-[0.15em] text-white/30"
+                        onClick={() => toggleSection(section.title)}
+                        className="mb-1 w-full flex items-center justify-between px-3 py-1 group/section cursor-pointer"
                       >
-                        {section.title}
-                      </motion.h3>
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/30 group-hover/section:text-white/50 transition-colors">
+                          {section.title}
+                        </span>
+                        <motion.div
+                          animate={{ rotate: expandedSections[section.title] ? 0 : -90 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          <ChevronDown className="h-3 w-3 text-white/20 group-hover/section:text-white/40 transition-colors" />
+                        </motion.div>
+                      </motion.button>
                     )}
                   </AnimatePresence>
-                  <div className="space-y-0.5">
-                    {section.items.map((item) => {
-                      const isActive = currentTab === item.tab;
-                      const NavContent = (
-                        <Link
-                          key={item.tab}
+                  <AnimatePresence initial={false}>
+                    {(collapsed || expandedSections[section.title]) && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-0.5">
                           to={`/admin?tab=${item.tab}`}
                           className={cn(
                             "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
