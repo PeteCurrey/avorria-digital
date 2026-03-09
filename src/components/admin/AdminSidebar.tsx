@@ -294,62 +294,70 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                         className="overflow-hidden"
                       >
                         <div className="space-y-0.5">
-                          to={`/admin?tab=${item.tab}`}
-                          className={cn(
-                            "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
-                            isActive
-                              ? "text-accent"
-                              : "text-white/50 hover:bg-white/[0.06] hover:text-white",
-                            collapsed && "justify-center px-2"
-                          )}
-                        >
-                          {isActive && (
-                            <motion.div
-                              layoutId="activeTab"
-                              className="absolute inset-0 rounded-lg bg-accent/15"
-                              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                            />
-                          )}
-                          {isActive && (
-                            <motion.span 
-                              layoutId="activeIndicator"
-                              className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r bg-accent"
-                              transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                            />
-                          )}
-                          <item.icon className="relative h-5 w-5 shrink-0 transition-colors" />
-                          {!collapsed && (
-                            <>
-                              <span className="relative flex-1">{item.name}</span>
-                              {item.badge && (
-                                <span className="relative rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </Link>
-                      );
+                          {section.items.map((item) => {
+                            const isActive = currentTab === item.tab;
+                            const NavContent = (
+                              <Link
+                                key={item.tab}
+                                to={`/admin?tab=${item.tab}`}
+                                className={cn(
+                                  "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
+                                  isActive
+                                    ? "text-accent"
+                                    : "text-white/50 hover:bg-white/[0.06] hover:text-white",
+                                  collapsed && "justify-center px-2"
+                                )}
+                              >
+                                {isActive && (
+                                  <motion.div
+                                    layoutId="activeTab"
+                                    className="absolute inset-0 rounded-lg bg-accent/15"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                  />
+                                )}
+                                {isActive && (
+                                  <motion.span
+                                    layoutId="activeIndicator"
+                                    className="absolute left-0 top-1/2 -translate-y-1/2 h-5 w-0.5 rounded-r bg-accent"
+                                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                  />
+                                )}
+                                <item.icon className="relative h-5 w-5 shrink-0 transition-colors" />
+                                {!collapsed && (
+                                  <>
+                                    <span className="relative flex-1">{item.name}</span>
+                                    {item.badge && (
+                                      <span className="relative rounded-full bg-accent/20 px-2 py-0.5 text-xs font-medium text-accent">
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </>
+                                )}
+                              </Link>
+                            );
 
-                      if (collapsed) {
-                        return (
-                          <Tooltip key={item.tab}>
-                            <TooltipTrigger asChild>{NavContent}</TooltipTrigger>
-                            <TooltipContent side="right" className="bg-[hsl(220,25%,12%)] border-white/10 text-white flex items-center gap-2">
-                              {item.name}
-                              {item.badge && (
-                                <span className="rounded-full bg-accent/20 px-1.5 py-0.5 text-xs text-accent">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </TooltipContent>
-                          </Tooltip>
-                        );
-                      }
+                            if (collapsed) {
+                              return (
+                                <Tooltip key={item.tab}>
+                                  <TooltipTrigger asChild>{NavContent}</TooltipTrigger>
+                                  <TooltipContent side="right" className="bg-[hsl(220,25%,12%)] border-white/10 text-white flex items-center gap-2">
+                                    {item.name}
+                                    {item.badge && (
+                                      <span className="rounded-full bg-accent/20 px-1.5 py-0.5 text-xs text-accent">
+                                        {item.badge}
+                                      </span>
+                                    )}
+                                  </TooltipContent>
+                                </Tooltip>
+                              );
+                            }
 
-                      return NavContent;
-                    })}
-                  </div>
+                            return NavContent;
+                          })}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                   {!collapsed && sectionIdx < navSections.length - 1 && (
                     <div className="mt-4 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
                   )}
