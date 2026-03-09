@@ -52,6 +52,7 @@ import AnalyticsConnectionsTab from "@/components/admin/AnalyticsConnectionsTab"
 import ClientsManager from "@/components/admin/ClientsManager";
 import GoogleAdsTab from "@/components/admin/tabs/GoogleAdsTab";
 import MetaAdsTab from "@/components/admin/tabs/MetaAdsTab";
+import LinkedInAdsTab from "@/components/admin/tabs/LinkedInAdsTab";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -181,6 +182,7 @@ const Admin = () => {
       case "team-members": return "Team Members";
       case "google-ads": return "Google Ads Management";
       case "meta-ads": return "Meta Ads Management";
+      case "linkedin-ads": return "LinkedIn Ads Management";
       default: return "Admin Dashboard";
     }
   };
@@ -214,6 +216,7 @@ const Admin = () => {
       case "team-members": return "Manage team members on the About page";
       case "google-ads": return "Campaign performance and optimization";
       case "meta-ads": return "Instagram and Facebook advertising campaigns";
+      case "linkedin-ads": return "B2B campaign performance and lead generation";
       default: return "";
     }
   };
@@ -685,6 +688,9 @@ const Admin = () => {
 
       case "meta-ads":
         return <MetaAdsTab />;
+
+      case "linkedin-ads":
+        return <LinkedInAdsTab />;
 
       default:
         return (
