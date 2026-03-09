@@ -25,7 +25,7 @@ const KPICard = ({ label, value, delta, deltaLabel, format = "number" }: KPICard
   };
 
   return (
-    <Card className="border-border/50 bg-card shadow-soft hover:shadow-elevated hover:-translate-y-1 transition-all duration-[var(--duration-normal)]">
+    <Card className="admin-stat-card border-0 shadow-none">
       <CardContent className="p-6">
         <p className="text-sm text-muted-foreground mb-2">{label}</p>
         <p className="text-3xl font-light text-foreground mb-2">
