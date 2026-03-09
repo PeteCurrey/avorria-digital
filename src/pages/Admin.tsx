@@ -216,6 +216,7 @@ const Admin = () => {
       case "team-members": return "Manage team members on the About page";
       case "google-ads": return "Campaign performance and optimization";
       case "meta-ads": return "Instagram and Facebook advertising campaigns";
+      case "linkedin-ads": return "B2B campaign performance and lead generation";
       default: return "";
     }
   };
