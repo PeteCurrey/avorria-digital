@@ -231,7 +231,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
           </div>
 
           {/* Navigation */}
-          <ScrollArea className="flex-1 px-3 py-4">
+          <ScrollArea className="flex-1 px-3 py-4" type="scroll">
             <nav className="space-y-6">
               {navSections.map((section, sectionIdx) => (
                 <motion.div 

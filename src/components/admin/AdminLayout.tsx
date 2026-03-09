@@ -56,7 +56,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-[hsl(220,25%,6%)] text-white">
+    <div className="admin-theme min-h-screen bg-[hsl(220,25%,6%)] text-white">
       {/* Ambient background effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
         {/* Gradient mesh */}
