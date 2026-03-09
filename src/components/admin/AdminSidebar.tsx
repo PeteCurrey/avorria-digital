@@ -61,6 +61,7 @@ const navSections: NavSection[] = [
     title: "Clients & Projects",
     items: [
       { name: "Clients", icon: UserPlus, tab: "clients" },
+      { name: "Client Portals", icon: Settings, tab: "client-portals" },
       { name: "Projects", icon: FolderKanban, tab: "projects" },
       { name: "Client Projects", icon: Building2, tab: "client-projects" },
       { name: "Assets", icon: Image, tab: "assets" },
