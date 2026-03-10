@@ -191,17 +191,32 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
     }
     setIsGenerating(true);
     try {
-      const { data, error } = await supabase.functions.invoke("generate-case-study", {
-        body: {
+      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+      const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      
+      const response = await fetch(`${supabaseUrl}/functions/v1/generate-case-study`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${supabaseKey}`,
+          "apikey": supabaseKey,
+        },
+        body: JSON.stringify({
           client: formData.client,
           sector: formData.sector,
           services: formData.services,
           outcome: formData.outcome,
           timeframe: formData.timeframe || "6 months",
           year: formData.year,
-        },
+        }),
       });
-      if (error) throw error;
+      
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Request failed with status ${response.status}`);
+      }
+      
+      const data = await response.json();
       if (data?.error) throw new Error(data.error);
 
       // Only populate empty fields
