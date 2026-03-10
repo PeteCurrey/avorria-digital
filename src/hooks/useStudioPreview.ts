@@ -23,7 +23,7 @@ export function useStudioPreview(): UseStudioPreviewResult {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
-  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Generate cache key from config
   const getCacheKey = (config: PreviewConfig): string => {
