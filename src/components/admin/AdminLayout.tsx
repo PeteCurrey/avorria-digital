@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import AdminSidebar from "./AdminSidebar";
 import CommandPalette from "./CommandPalette";
 import { Button } from "@/components/ui/button";
-import { Menu, Bell, Search, User, Check, Command, ExternalLink } from "lucide-react";
+import { Menu, Bell, Search, User, Check, Command, ExternalLink, Sun, Moon } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
   DropdownMenu,
@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useNotifications, useUnreadNotificationCount, useMarkNotificationRead, useMarkAllNotificationsRead } from "@/hooks/useNotifications";
 import { formatDistanceToNow } from "date-fns";
+import { useAdminTheme } from "@/hooks/useAdminTheme";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -28,6 +29,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
+  const { theme, toggle, isDark } = useAdminTheme();
   
   const { data: notifications } = useNotifications(10);
   const { data: unreadCount } = useUnreadNotificationCount();
@@ -56,20 +58,19 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
   };
 
   return (
-    <div className="admin-theme min-h-screen bg-[hsl(220,25%,6%)] text-white">
+    <div className={cn("admin-theme min-h-screen bg-background text-foreground", !isDark && "admin-light")}>
       {/* Ambient background effects */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        {/* Gradient mesh */}
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full bg-accent/[0.03] blur-[120px]" />
-        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full bg-primary/[0.02] blur-[100px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-accent/[0.02] blur-[150px]" />
+        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[120px]" style={{ background: "var(--admin-glow-accent)" }} />
+        <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[100px]" style={{ background: "var(--admin-glow-primary)" }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full blur-[150px]" style={{ background: "var(--admin-glow-accent)" }} />
         
-        {/* Subtle grid pattern */}
         <div 
-          className="absolute inset-0 opacity-[0.015]"
+          className="absolute inset-0"
           style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px)`,
+            opacity: "var(--admin-grid-opacity)",
+            backgroundImage: `linear-gradient(var(--admin-grid-line) 1px, transparent 1px),
+                             linear-gradient(90deg, var(--admin-grid-line) 1px, transparent 1px)`,
             backgroundSize: '60px 60px'
           }}
         />
@@ -80,6 +81,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
         <AdminSidebar
           collapsed={sidebarCollapsed}
           onToggle={() => setSidebarCollapsed(!sidebarCollapsed)}
+          isDark={isDark}
         />
       </div>
 
@@ -106,7 +108,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
             transition={{ type: "spring", damping: 25, stiffness: 200 }}
             className="fixed inset-y-0 left-0 z-40 w-64 lg:hidden"
           >
-            <AdminSidebar collapsed={false} onToggle={() => setMobileMenuOpen(false)} />
+            <AdminSidebar collapsed={false} onToggle={() => setMobileMenuOpen(false)} isDark={isDark} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -119,9 +121,9 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
         className="min-h-screen relative hidden lg:block"
       >
         {/* Top Bar */}
-        <header className="sticky top-0 z-20 flex h-14 items-center justify-between px-6 bg-[hsl(220,25%,6%)]/80 backdrop-blur-xl border-b border-white/[0.06]">
+        <header className="sticky top-0 z-20 flex h-14 items-center justify-between px-6 backdrop-blur-xl border-b" style={{ background: "var(--admin-bg-overlay)", borderColor: "var(--admin-border-subtle)" }}>
           {/* Shimmer gradient line */}
-          <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent/20 to-transparent" />
+          <div className="absolute bottom-0 left-0 right-0 h-px" style={{ background: `linear-gradient(to right, transparent, var(--admin-shimmer), transparent)` }} />
           
           <div className="flex items-center gap-4">
             {/* Search / Cmd+K trigger */}
@@ -129,22 +131,50 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => setCmdOpen(true)}
-              className="flex items-center gap-2 w-64 px-3 py-2 rounded-lg bg-white/[0.04] border border-white/[0.08] text-sm text-white/50 hover:bg-white/[0.06] hover:border-white/[0.12] hover:text-white/70 transition-all duration-200"
+              className="flex items-center gap-2 w-64 px-3 py-2 rounded-lg text-sm transition-all duration-200"
+              style={{
+                background: "var(--admin-overlay-subtle)",
+                borderWidth: 1,
+                borderStyle: "solid",
+                borderColor: "var(--admin-border-subtle)",
+                color: "var(--admin-text-secondary)",
+              }}
             >
               <Search className="h-4 w-4" />
               <span className="flex-1 text-left">Search commands...</span>
-              <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border border-white/[0.1] bg-white/[0.05] px-1.5 font-mono text-[10px] text-white/40">
+              <kbd className="pointer-events-none inline-flex h-5 items-center gap-1 rounded border px-1.5 font-mono text-[10px]" style={{ borderColor: "var(--admin-border-subtle)", background: "var(--admin-overlay-subtle)", color: "var(--admin-text-tertiary)" }}>
                 <Command className="h-2.5 w-2.5" />K
               </kbd>
             </motion.button>
           </div>
 
           <div className="flex items-center gap-3">
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={toggle}
+              className="text-muted-foreground hover:text-foreground hover:bg-secondary"
+              title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {isDark ? (
+                  <motion.div key="sun" initial={{ rotate: -90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Sun className="h-5 w-5" />
+                  </motion.div>
+                ) : (
+                  <motion.div key="moon" initial={{ rotate: 90, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -90, opacity: 0 }} transition={{ duration: 0.2 }}>
+                    <Moon className="h-5 w-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </Button>
+
             {/* View Site Link */}
             <Button
               variant="ghost"
               size="sm"
-              className="text-white/50 hover:text-white hover:bg-white/[0.06] gap-2"
+              className="text-muted-foreground hover:text-foreground hover:bg-secondary gap-2"
               asChild
             >
               <Link to="/" target="_blank">
@@ -156,27 +186,27 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
             {/* Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative text-white/50 hover:text-white hover:bg-white/[0.06]">
+                <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground hover:bg-secondary">
                   <Bell className="h-5 w-5" />
                   {(unreadCount || 0) > 0 && (
                     <motion.span
                       initial={{ scale: 0 }}
                       animate={{ scale: 1 }}
-                      className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-medium text-white"
+                      className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-medium text-accent-foreground"
                     >
                       {unreadCount}
                     </motion.span>
                   )}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-80 bg-[hsl(220,25%,10%)] border-white/[0.08] text-white">
+              <DropdownMenuContent align="end" className="w-80 bg-popover border-border text-popover-foreground">
                 <div className="flex items-center justify-between px-2">
-                  <DropdownMenuLabel className="text-white">Notifications</DropdownMenuLabel>
+                  <DropdownMenuLabel>Notifications</DropdownMenuLabel>
                   {(unreadCount || 0) > 0 && (
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      className="text-xs h-7 text-white/50 hover:text-white hover:bg-white/[0.06]"
+                      className="text-xs h-7 text-muted-foreground hover:text-foreground hover:bg-secondary"
                       onClick={() => markAllAsRead.mutate()}
                     >
                       <Check className="h-3 w-3 mr-1" />
@@ -184,9 +214,9 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
                     </Button>
                   )}
                 </div>
-                <DropdownMenuSeparator className="bg-white/[0.06]" />
+                <DropdownMenuSeparator />
                 {!notifications || notifications.length === 0 ? (
-                  <div className="py-6 text-center text-sm text-white/40">
+                  <div className="py-6 text-center text-sm text-muted-foreground">
                     No notifications yet
                   </div>
                 ) : (
@@ -194,18 +224,18 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
                     <DropdownMenuItem 
                       key={notification.id}
                       className={cn(
-                        "flex flex-col items-start gap-1 py-3 cursor-pointer hover:bg-white/[0.06] focus:bg-white/[0.06]",
+                        "flex flex-col items-start gap-1 py-3 cursor-pointer",
                         !notification.is_read && "bg-accent/10"
                       )}
                       onClick={() => handleNotificationClick(notification)}
                     >
-                      <span className="font-medium text-white">{notification.title}</span>
+                      <span className="font-medium text-foreground">{notification.title}</span>
                       {notification.message && (
-                        <span className="text-xs text-white/50 line-clamp-2">
+                        <span className="text-xs text-muted-foreground line-clamp-2">
                           {notification.message}
                         </span>
                       )}
-                      <span className="text-xs text-white/30">
+                      <span className="text-xs" style={{ color: "var(--admin-text-tertiary)" }}>
                         {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
                       </span>
                     </DropdownMenuItem>
@@ -217,23 +247,23 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
             {/* User Menu */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/[0.06]">
+                <Button variant="ghost" size="icon" className="rounded-full hover:bg-secondary">
                   <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent/60 ring-2 ring-accent/20">
-                    <User className="h-4 w-4 text-white" />
+                    <User className="h-4 w-4 text-accent-foreground" />
                   </div>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="bg-[hsl(220,25%,10%)] border-white/[0.08] text-white">
-                <DropdownMenuLabel className="text-white">My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-white/[0.06]" />
-                <DropdownMenuItem asChild className="hover:bg-white/[0.06] focus:bg-white/[0.06] cursor-pointer">
+              <DropdownMenuContent align="end" className="bg-popover border-border text-popover-foreground">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild className="cursor-pointer">
                   <Link to="/admin?tab=settings">Settings</Link>
                 </DropdownMenuItem>
-                <DropdownMenuItem asChild className="hover:bg-white/[0.06] focus:bg-white/[0.06] cursor-pointer">
+                <DropdownMenuItem asChild className="cursor-pointer">
                   <Link to="/">View Site</Link>
                 </DropdownMenuItem>
-                <DropdownMenuSeparator className="bg-white/[0.06]" />
-                <DropdownMenuItem className="text-red-400 hover:bg-white/[0.06] focus:bg-white/[0.06] cursor-pointer">
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="text-destructive cursor-pointer">
                   Sign Out
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -251,12 +281,12 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
               className="mb-6"
             >
               {title && (
-                <h1 className="text-2xl font-light tracking-tight lg:text-3xl text-white">
+                <h1 className="text-2xl font-light tracking-tight lg:text-3xl text-foreground">
                   {title}
                 </h1>
               )}
               {subtitle && (
-                <p className="mt-1 text-white/50">{subtitle}</p>
+                <p className="mt-1 text-muted-foreground">{subtitle}</p>
               )}
             </motion.div>
           )}
@@ -273,21 +303,31 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
       {/* Mobile Layout */}
       <div className="lg:hidden min-h-screen relative">
         {/* Mobile Top Bar */}
-        <header className="sticky top-0 z-20 flex h-14 items-center justify-between px-4 bg-[hsl(220,25%,6%)]/80 backdrop-blur-xl border-b border-white/[0.06]">
+        <header className="sticky top-0 z-20 flex h-14 items-center justify-between px-4 backdrop-blur-xl border-b" style={{ background: "var(--admin-bg-overlay)", borderColor: "var(--admin-border-subtle)" }}>
           <Button
             variant="ghost"
             size="icon"
-            className="text-white/50 hover:text-white hover:bg-white/[0.06]"
+            className="text-muted-foreground hover:text-foreground hover:bg-secondary"
             onClick={() => setMobileMenuOpen(true)}
           >
             <Menu className="h-5 w-5" />
           </Button>
 
           <div className="flex items-center gap-2">
+            {/* Mobile Theme Toggle */}
             <Button
               variant="ghost"
               size="icon"
-              className="text-white/50 hover:text-white hover:bg-white/[0.06]"
+              onClick={toggle}
+              className="text-muted-foreground hover:text-foreground hover:bg-secondary"
+            >
+              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="text-muted-foreground hover:text-foreground hover:bg-secondary"
               onClick={() => setCmdOpen(true)}
             >
               <Search className="h-5 w-5" />
@@ -296,31 +336,31 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
             {/* Mobile Notifications */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative text-white/50 hover:text-white hover:bg-white/[0.06]">
+                <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground hover:bg-secondary">
                   <Bell className="h-5 w-5" />
                   {(unreadCount || 0) > 0 && (
-                    <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-medium text-white">
+                    <span className="absolute -right-0.5 -top-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[10px] font-medium text-accent-foreground">
                       {unreadCount}
                     </span>
                   )}
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-72 bg-[hsl(220,25%,10%)] border-white/[0.08] text-white">
-                <DropdownMenuLabel className="text-white">Notifications</DropdownMenuLabel>
-                <DropdownMenuSeparator className="bg-white/[0.06]" />
+              <DropdownMenuContent align="end" className="w-72 bg-popover border-border text-popover-foreground">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
                 {!notifications || notifications.length === 0 ? (
-                  <div className="py-6 text-center text-sm text-white/40">
+                  <div className="py-6 text-center text-sm text-muted-foreground">
                     No notifications yet
                   </div>
                 ) : (
                   notifications.slice(0, 5).map((notification) => (
                     <DropdownMenuItem 
                       key={notification.id}
-                      className="flex flex-col items-start gap-1 py-3 cursor-pointer hover:bg-white/[0.06]"
+                      className="flex flex-col items-start gap-1 py-3 cursor-pointer"
                       onClick={() => handleNotificationClick(notification)}
                     >
-                      <span className="font-medium text-white">{notification.title}</span>
-                      <span className="text-xs text-white/30">
+                      <span className="font-medium text-foreground">{notification.title}</span>
+                      <span className="text-xs" style={{ color: "var(--admin-text-tertiary)" }}>
                         {formatDistanceToNow(new Date(notification.created_at), { addSuffix: true })}
                       </span>
                     </DropdownMenuItem>
@@ -330,9 +370,9 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
             </DropdownMenu>
 
             {/* Mobile User */}
-            <Button variant="ghost" size="icon" className="rounded-full hover:bg-white/[0.06]">
+            <Button variant="ghost" size="icon" className="rounded-full hover:bg-secondary">
               <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-accent to-accent/60">
-                <User className="h-4 w-4 text-white" />
+                <User className="h-4 w-4 text-accent-foreground" />
               </div>
             </Button>
           </div>
@@ -343,12 +383,12 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
           {(title || subtitle) && (
             <div className="mb-6">
               {title && (
-                <h1 className="text-xl font-light tracking-tight text-white">
+                <h1 className="text-xl font-light tracking-tight text-foreground">
                   {title}
                 </h1>
               )}
               {subtitle && (
-                <p className="mt-1 text-sm text-white/50">{subtitle}</p>
+                <p className="mt-1 text-sm text-muted-foreground">{subtitle}</p>
               )}
             </div>
           )}
