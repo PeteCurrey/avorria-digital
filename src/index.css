@@ -126,7 +126,7 @@ All colors MUST be HSL.
                       radial-gradient(at 52% 99%, hsla(250, 75%, 60%, 0.08) 0px, transparent 50%);
   }
 
-  /* Admin dark theme token overrides */
+  /* Admin dark theme token overrides (default) */
   .admin-theme {
     --background: 220 25% 6%;
     --foreground: 0 0% 95%;
@@ -142,6 +142,59 @@ All colors MUST be HSL.
     --secondary-foreground: 0 0% 95%;
     --accent: 320 85% 55%;
     --accent-foreground: 0 0% 100%;
+
+    /* Admin-specific overlay & surface tokens */
+    --admin-overlay-subtle: hsla(0, 0%, 100%, 0.04);
+    --admin-overlay-hover: hsla(0, 0%, 100%, 0.06);
+    --admin-overlay-active: hsla(0, 0%, 100%, 0.08);
+    --admin-border-subtle: hsla(0, 0%, 100%, 0.06);
+    --admin-border-hover: hsla(0, 0%, 100%, 0.12);
+    --admin-text-primary: hsla(0, 0%, 100%, 1);
+    --admin-text-secondary: hsla(0, 0%, 100%, 0.5);
+    --admin-text-tertiary: hsla(0, 0%, 100%, 0.3);
+    --admin-glow-accent: hsla(320, 85%, 55%, 0.03);
+    --admin-glow-primary: hsla(0, 0%, 100%, 0.02);
+    --admin-grid-line: rgba(255, 255, 255, 0.03);
+    --admin-grid-opacity: 0.015;
+    --admin-bg-surface: hsl(220, 25%, 6%);
+    --admin-bg-elevated: hsl(220, 25%, 10%);
+    --admin-bg-overlay: hsla(220, 25%, 6%, 0.8);
+    --admin-shimmer: hsla(320, 85%, 55%, 0.2);
+  }
+
+  /* Admin light theme overrides */
+  .admin-theme.admin-light {
+    --background: 220 15% 97%;
+    --foreground: 220 25% 12%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 25% 12%;
+    --border: 220 15% 88%;
+    --muted: 220 15% 93%;
+    --muted-foreground: 220 10% 45%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 25% 12%;
+    --input: 220 15% 90%;
+    --secondary: 220 15% 93%;
+    --secondary-foreground: 220 25% 12%;
+    --accent: 320 85% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --admin-overlay-subtle: hsla(220, 25%, 12%, 0.03);
+    --admin-overlay-hover: hsla(220, 25%, 12%, 0.05);
+    --admin-overlay-active: hsla(220, 25%, 12%, 0.08);
+    --admin-border-subtle: hsla(220, 25%, 12%, 0.08);
+    --admin-border-hover: hsla(220, 25%, 12%, 0.15);
+    --admin-text-primary: hsl(220, 25%, 12%);
+    --admin-text-secondary: hsla(220, 25%, 12%, 0.6);
+    --admin-text-tertiary: hsla(220, 25%, 12%, 0.35);
+    --admin-glow-accent: hsla(320, 85%, 55%, 0.04);
+    --admin-glow-primary: hsla(220, 25%, 12%, 0.02);
+    --admin-grid-line: rgba(0, 0, 0, 0.04);
+    --admin-grid-opacity: 0.03;
+    --admin-bg-surface: hsl(220, 15%, 97%);
+    --admin-bg-elevated: hsl(0, 0%, 100%);
+    --admin-bg-overlay: hsla(220, 15%, 97%, 0.85);
+    --admin-shimmer: hsla(320, 85%, 55%, 0.15);
   }
 }
 
@@ -308,16 +361,17 @@ All colors MUST be HSL.
     animation: shimmer 3s infinite;
   }
 
-  /* Admin dark theme card styles */
+  /* Admin card styles - uses admin theme tokens */
   .admin-card {
     @apply rounded-xl border transition-all duration-300;
-    background: hsl(220 25% 9%);
-    border-color: hsl(220 20% 16%);
+    background: hsl(var(--card));
+    border-color: hsl(var(--border));
   }
 
   .admin-card:hover {
-    background: hsl(220 25% 11%);
-    border-color: hsl(220 20% 20%);
+    background: hsl(var(--muted));
+    border-color: hsl(var(--border));
+    filter: brightness(1.08);
   }
 
   .admin-card-glow {
@@ -337,8 +391,8 @@ All colors MUST be HSL.
   /* Admin KPI / stat cards */
   .admin-stat-card {
     @apply rounded-xl border transition-all duration-300;
-    background: linear-gradient(145deg, hsl(220 25% 10%) 0%, hsl(220 25% 8%) 100%);
-    border-color: hsl(220 20% 15%);
+    background: linear-gradient(145deg, hsl(var(--card)) 0%, hsl(var(--background)) 100%);
+    border-color: hsl(var(--border));
   }
 
   .admin-stat-card:hover {

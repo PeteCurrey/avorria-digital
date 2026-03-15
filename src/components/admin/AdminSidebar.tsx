@@ -42,6 +42,7 @@ import {
 interface AdminSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  isDark?: boolean;
 }
 
 interface NavItem {
@@ -127,11 +128,10 @@ const navSections: NavSection[] = [
   },
 ];
 
-const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
+const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps) => {
   const [searchParams] = useSearchParams();
   const currentTab = searchParams.get("tab") || "overview";
 
-  // Auto-expand section containing active tab, collapse others by default
   const getDefaultExpanded = useCallback(() => {
     const expanded: Record<string, boolean> = {};
     navSections.forEach((section) => {
@@ -142,7 +142,6 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
   }, [currentTab]);
 
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>(() => {
-    // Start with all expanded
     const all: Record<string, boolean> = {};
     navSections.forEach((s) => (all[s.title] = true));
     return all;
@@ -160,19 +159,19 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
         transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
         className={cn(
           "fixed left-0 top-0 z-40 h-screen overflow-hidden",
-          "bg-[hsl(220,25%,6%)] border-r border-white/[0.06]"
+          "bg-background border-r border-border"
         )}
       >
         {/* Ambient glow orbs */}
         <div className="pointer-events-none absolute inset-0 overflow-hidden">
           <div className="absolute -left-20 top-1/4 h-40 w-40 rounded-full bg-accent/10 blur-[80px]" />
-          <div className="absolute -right-10 top-2/3 h-32 w-32 rounded-full bg-primary/8 blur-[60px]" />
+          <div className="absolute -right-10 top-2/3 h-32 w-32 rounded-full blur-[60px]" style={{ background: "var(--admin-glow-primary)" }} />
           <div className="absolute left-1/2 bottom-20 h-24 w-24 rounded-full bg-accent/5 blur-[50px]" />
         </div>
 
         <div className="relative flex h-full flex-col">
           {/* Header */}
-          <div className="flex h-16 items-center justify-between border-b border-white/[0.06] px-4">
+          <div className="flex h-16 items-center justify-between border-b border-border px-4">
             <AnimatePresence mode="wait">
               {!collapsed && (
                 <motion.div
@@ -190,7 +189,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
               size="icon"
               onClick={onToggle}
               className={cn(
-                "h-8 w-8 shrink-0 text-white/60 hover:text-white hover:bg-white/[0.06] transition-all duration-200",
+                "h-8 w-8 shrink-0 text-muted-foreground hover:text-foreground hover:bg-secondary transition-all duration-200",
                 collapsed && "mx-auto"
               )}
             >
@@ -214,7 +213,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                       "group relative flex items-center justify-center rounded-lg p-2.5 text-sm font-medium transition-all duration-200",
                       currentTab === "overview"
                         ? "bg-accent/15 text-accent"
-                        : "text-white/50 hover:bg-white/[0.06] hover:text-white"
+                        : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                     )}
                   >
                     {currentTab === "overview" && (
@@ -227,7 +226,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                     <LayoutDashboard className="relative h-5 w-5 shrink-0" />
                   </Link>
                 </TooltipTrigger>
-                <TooltipContent side="right" className="bg-[hsl(220,25%,12%)] border-white/10 text-white">
+                <TooltipContent side="right" className="bg-popover border-border text-popover-foreground">
                   Overview
                 </TooltipContent>
               </Tooltip>
@@ -238,7 +237,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                   "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   currentTab === "overview"
                     ? "text-accent"
-                    : "text-white/50 hover:bg-white/[0.06] hover:text-white"
+                    : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                 )}
               >
                 {currentTab === "overview" && (
@@ -273,14 +272,14 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                         onClick={() => toggleSection(section.title)}
                         className="mb-1 w-full flex items-center justify-between px-3 py-1 group/section cursor-pointer"
                       >
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em] text-white/30 group-hover/section:text-white/50 transition-colors">
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.15em]" style={{ color: "var(--admin-text-tertiary)" }}>
                           {section.title}
                         </span>
                         <motion.div
                           animate={{ rotate: expandedSections[section.title] ? 0 : -90 }}
                           transition={{ duration: 0.2 }}
                         >
-                          <ChevronDown className="h-3 w-3 text-white/20 group-hover/section:text-white/40 transition-colors" />
+                          <ChevronDown className="h-3 w-3" style={{ color: "var(--admin-text-tertiary)" }} />
                         </motion.div>
                       </motion.button>
                     )}
@@ -305,7 +304,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                                   "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
                                   isActive
                                     ? "text-accent"
-                                    : "text-white/50 hover:bg-white/[0.06] hover:text-white",
+                                    : "text-muted-foreground hover:bg-secondary hover:text-foreground",
                                   collapsed && "justify-center px-2"
                                 )}
                               >
@@ -341,7 +340,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                               return (
                                 <Tooltip key={item.tab}>
                                   <TooltipTrigger asChild>{NavContent}</TooltipTrigger>
-                                  <TooltipContent side="right" className="bg-[hsl(220,25%,12%)] border-white/10 text-white flex items-center gap-2">
+                                  <TooltipContent side="right" className="bg-popover border-border text-popover-foreground flex items-center gap-2">
                                     {item.name}
                                     {item.badge && (
                                       <span className="rounded-full bg-accent/20 px-1.5 py-0.5 text-xs text-accent">
@@ -360,7 +359,7 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                     )}
                   </AnimatePresence>
                   {!collapsed && sectionIdx < navSections.length - 1 && (
-                    <div className="mt-4 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+                    <div className="mt-4 h-px" style={{ background: `linear-gradient(to right, transparent, var(--admin-border-subtle), transparent)` }} />
                   )}
                 </motion.div>
               ))}
@@ -375,19 +374,18 @@ const AdminSidebar = ({ collapsed, onToggle }: AdminSidebarProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 20 }}
                 transition={{ duration: 0.3 }}
-                className="border-t border-white/[0.06] p-4"
+                className="border-t border-border p-4"
               >
                 <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-accent/15 via-accent/5 to-transparent p-4 backdrop-blur-sm">
-                  {/* Shimmer effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-foreground/[0.03] to-transparent -translate-x-full animate-[shimmer_3s_infinite]" />
                   
                   <div className="relative flex items-center gap-3">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 ring-1 ring-accent/30">
                       <Sparkles className="h-5 w-5 text-accent" />
                     </div>
                     <div>
-                      <p className="text-sm font-medium text-white">AI Content Studio</p>
-                      <p className="text-xs text-white/50">
+                      <p className="text-sm font-medium text-foreground">AI Content Studio</p>
+                      <p className="text-xs text-muted-foreground">
                         Generate content at scale
                       </p>
                     </div>
