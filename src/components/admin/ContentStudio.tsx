@@ -400,6 +400,7 @@ const ContentStudio = () => {
     nextStepHint?: string;
   }) => {
     const Icon = platformIcons[item.platform || ""] || FileText;
+    const displayImageUrl = item.imageUrl || (item.media_urls && item.media_urls.length > 0 ? item.media_urls[0] : undefined);
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
