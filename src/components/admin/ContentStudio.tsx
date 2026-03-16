@@ -394,7 +394,7 @@ const ContentStudio = () => {
     badge,
     nextStepHint,
   }: {
-    item: { id: string; platform?: string | null; content_type?: string; content: string; title?: string | null; hashtags?: string[] | null; created_at?: string; auto_generated?: boolean | null; scheduled_for?: string | null; published_at?: string | null; imageUrl?: string; isGeneratingImage?: boolean };
+    item: { id: string; platform?: string | null; content_type?: string; content: string; title?: string | null; hashtags?: string[] | null; created_at?: string; auto_generated?: boolean | null; scheduled_for?: string | null; published_at?: string | null; imageUrl?: string; isGeneratingImage?: boolean; media_urls?: string[] | null };
     actions: React.ReactNode;
     badge?: React.ReactNode;
     nextStepHint?: string;
