@@ -8,7 +8,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const WATERMARK_URL = "https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/watermark%2Favorria-watermark.png";
+const WATERMARK_URL = "https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/watermark%2Favorria-watermark-dark.png";
 
 interface ImageRequest {
   prompt: string;
@@ -18,27 +18,36 @@ interface ImageRequest {
 
 async function compositeWatermark(baseImageData: string): Promise<string> {
   try {
-    const base64 = baseImageData.split(",")[1];
+    // Handle both raw base64 and data URI formats
+    const base64 = baseImageData.includes(",") ? baseImageData.split(",")[1] : baseImageData;
     const baseBytes = Uint8Array.from(atob(base64), c => c.charCodeAt(0));
+    console.log("Base image size:", baseBytes.length, "bytes");
     const baseImage = await Image.decode(baseBytes);
+    console.log("Base image decoded:", baseImage.width, "x", baseImage.height);
 
     const wmResponse = await fetch(WATERMARK_URL);
-    if (!wmResponse.ok) throw new Error("Failed to fetch watermark");
+    if (!wmResponse.ok) throw new Error(`Failed to fetch watermark: ${wmResponse.status}`);
     const wmBytes = new Uint8Array(await wmResponse.arrayBuffer());
+    console.log("Watermark fetched:", wmBytes.length, "bytes");
     let watermark = await Image.decode(wmBytes);
+    console.log("Watermark decoded:", watermark.width, "x", watermark.height);
 
+    // Scale watermark to 15% of base image width
     const targetWidth = Math.round(baseImage.width * 0.15);
     const scale = targetWidth / watermark.width;
     const targetHeight = Math.round(watermark.height * scale);
     watermark = watermark.resize(targetWidth, targetHeight);
 
-    watermark.opacity(0.4);
+    // Semi-transparent overlay - 60% opacity for visibility
+    watermark.opacity(0.6);
 
+    // Position in bottom-right with margin
     const margin = Math.round(baseImage.width * 0.03);
     const x = baseImage.width - targetWidth - margin;
     const y = baseImage.height - targetHeight - margin;
 
     baseImage.composite(watermark, x, y);
+    console.log("Watermark composited at", x, y);
 
     const outputBytes = await baseImage.encode();
     const outputBase64 = btoa(String.fromCharCode(...outputBytes));
