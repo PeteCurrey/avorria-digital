@@ -443,13 +443,13 @@ const ContentStudio = () => {
                 <span className="text-xs text-muted-foreground">Generating image...</span>
               </div>
             )}
-            {item.imageUrl && !item.isGeneratingImage && (
+            {displayImageUrl && !item.isGeneratingImage && (
               <div className="mt-3 rounded-lg overflow-hidden border border-border/30 relative group">
                 <img
-                  src={item.imageUrl}
+                  src={displayImageUrl}
                   alt={item.title || "AI generated image"}
                   className="w-full h-48 object-cover cursor-pointer transition-transform duration-200 group-hover:scale-[1.02]"
-                  onClick={() => setLightboxImage(item.imageUrl!)}
+                  onClick={() => setLightboxImage(displayImageUrl)}
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}
