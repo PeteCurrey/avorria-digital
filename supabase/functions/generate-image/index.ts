@@ -8,7 +8,7 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
-const WATERMARK_URL = "https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/watermark%2Favorria-watermark.png";
+const WATERMARK_URL = "https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/watermark%2Favorria-watermark-dark.png";
 
 interface ImageRequest {
   prompt: string;
