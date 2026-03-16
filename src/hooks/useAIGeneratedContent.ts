@@ -218,6 +218,7 @@ export function useSaveGeneratedContent() {
       scheduled_for?: string;
       auto_generated?: boolean;
       recipe_id?: string;
+      media_urls?: string[];
     }) => {
       const { data, error } = await supabase
         .from("ai_generated_content")
@@ -233,6 +234,7 @@ export function useSaveGeneratedContent() {
           scheduled_for: content.scheduled_for || null,
           auto_generated: content.auto_generated || false,
           recipe_id: content.recipe_id || null,
+          media_urls: content.media_urls || null,
         })
         .select()
         .single();
