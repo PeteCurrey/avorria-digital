@@ -354,6 +354,7 @@ const ContentStudio = () => {
       tone,
       ai_prompt: topic,
       status: "review",
+      media_urls: content.imageUrl ? [content.imageUrl] : undefined,
     });
     setGeneratedContent((prev) => prev.filter((c) => c.id !== content.id));
     refetchPending();
