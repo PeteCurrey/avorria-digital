@@ -354,6 +354,7 @@ const ContentStudio = () => {
       tone,
       ai_prompt: topic,
       status: "review",
+      media_urls: content.imageUrl ? [content.imageUrl] : undefined,
     });
     setGeneratedContent((prev) => prev.filter((c) => c.id !== content.id));
     refetchPending();
@@ -393,12 +394,13 @@ const ContentStudio = () => {
     badge,
     nextStepHint,
   }: {
-    item: { id: string; platform?: string | null; content_type?: string; content: string; title?: string | null; hashtags?: string[] | null; created_at?: string; auto_generated?: boolean | null; scheduled_for?: string | null; published_at?: string | null; imageUrl?: string; isGeneratingImage?: boolean };
+    item: { id: string; platform?: string | null; content_type?: string; content: string; title?: string | null; hashtags?: string[] | null; created_at?: string; auto_generated?: boolean | null; scheduled_for?: string | null; published_at?: string | null; imageUrl?: string; isGeneratingImage?: boolean; media_urls?: string[] | null };
     actions: React.ReactNode;
     badge?: React.ReactNode;
     nextStepHint?: string;
   }) => {
     const Icon = platformIcons[item.platform || ""] || FileText;
+    const displayImageUrl = item.imageUrl || (item.media_urls && item.media_urls.length > 0 ? item.media_urls[0] : undefined);
     return (
       <motion.div
         initial={{ opacity: 0, y: 12 }}
@@ -441,13 +443,13 @@ const ContentStudio = () => {
                 <span className="text-xs text-muted-foreground">Generating image...</span>
               </div>
             )}
-            {item.imageUrl && !item.isGeneratingImage && (
+            {displayImageUrl && !item.isGeneratingImage && (
               <div className="mt-3 rounded-lg overflow-hidden border border-border/30 relative group">
                 <img
-                  src={item.imageUrl}
+                  src={displayImageUrl}
                   alt={item.title || "AI generated image"}
                   className="w-full h-48 object-cover cursor-pointer transition-transform duration-200 group-hover:scale-[1.02]"
-                  onClick={() => setLightboxImage(item.imageUrl!)}
+                  onClick={() => setLightboxImage(displayImageUrl)}
                   onError={(e) => {
                     (e.target as HTMLImageElement).style.display = "none";
                   }}
