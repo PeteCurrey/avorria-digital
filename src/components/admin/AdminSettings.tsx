@@ -327,6 +327,25 @@ export default function AdminSettings() {
 
   useEffect(() => {
     fetchTeamMembers();
+    // Load configured API keys from seo_integrations
+    const loadConfiguredKeys = async () => {
+      try {
+        const { data } = await supabase
+          .from("seo_integrations")
+          .select("integration_type, is_active")
+          .eq("is_active", true);
+        if (data) {
+          const keys: Record<string, boolean> = {};
+          data.forEach((item: any) => {
+            keys[item.integration_type] = true;
+          });
+          setConfiguredKeys(keys);
+        }
+      } catch (e) {
+        console.error("Failed to load configured keys:", e);
+      }
+    };
+    loadConfiguredKeys();
   }, []);
 
   const fetchTeamMembers = async () => {
