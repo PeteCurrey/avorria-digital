@@ -432,7 +432,7 @@ const ContentStudio = () => {
 
             {item.title && <h4 className="font-semibold text-sm mb-2 tracking-tight">{item.title}</h4>}
 
-            <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
+            <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed select-text cursor-text">
               {item.content}
             </p>
 

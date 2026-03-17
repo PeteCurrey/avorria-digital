@@ -451,17 +451,33 @@ export default function AdminSettings() {
   };
 
   const handleTestApiKey = async (configId: string) => {
+    const config = apiKeyConfigs.find(c => c.id === configId);
+    if (!config) return;
+    
     setTestingApiKey(configId);
     try {
-      // Simulate API key test
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("API key is valid and working!");
+      // Check if there's a saved key in the DB
+      const { data } = await supabase
+        .from("seo_integrations")
+        .select("config, is_active")
+        .eq("integration_type", configId)
+        .maybeSingle();
+
+      if (data?.is_active && data?.config) {
+        toast.success(`${config.name} is configured and active!`);
+      } else if (apiKeyValues[configId]) {
+        toast.info("Key entered but not saved yet. Click Save Key first.");
+      } else {
+        toast.warning(`${config.name} is not configured yet.`);
+      }
     } catch (error) {
-      toast.error("API key test failed");
+      toast.error("Failed to test connection");
     } finally {
       setTestingApiKey(null);
     }
   };
+
+  const [savingApiKey, setSavingApiKey] = useState<string | null>(null);
 
   const handleSaveApiKey = async (configId: string, secretName: string) => {
     const value = apiKeyValues[configId];
@@ -470,12 +486,50 @@ export default function AdminSettings() {
       return;
     }
 
+    setSavingApiKey(configId);
     try {
-      // In production, this would save to Supabase secrets
+      // Upsert into seo_integrations table
+      const { data: existing } = await supabase
+        .from("seo_integrations")
+        .select("id")
+        .eq("integration_type", configId)
+        .maybeSingle();
+
+      if (existing) {
+        const { error } = await supabase
+          .from("seo_integrations")
+          .update({
+            config: { apiKey: value } as any,
+            is_active: true,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", existing.id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from("seo_integrations")
+          .insert({
+            integration_type: configId,
+            config: { apiKey: value } as any,
+            is_active: true,
+          });
+        if (error) throw error;
+      }
+
       toast.success(`${secretName} saved successfully`);
       setApiKeyValues((prev) => ({ ...prev, [configId]: "" }));
-    } catch (error) {
-      toast.error("Failed to save API key");
+      
+      // Update the config's isConfigured status
+      const updatedConfigs = apiKeyConfigs.map(c => 
+        c.id === configId ? { ...c, isConfigured: true } : c
+      );
+      // Force re-render by updating state
+      setApiKeyValues(prev => ({ ...prev }));
+    } catch (error: any) {
+      console.error("Failed to save API key:", error);
+      toast.error("Failed to save API key: " + (error.message || "Unknown error"));
+    } finally {
+      setSavingApiKey(null);
     }
   };
 
