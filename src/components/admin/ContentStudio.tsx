@@ -362,8 +362,9 @@ const ContentStudio = () => {
 
   const handleApproveDB = async (id: string) => {
     await approveContent.mutateAsync({ id });
-    refetchPending();
-    refetchApproved();
+    await refetchPending();
+    await refetchApproved();
+    setActiveTab("approved");
   };
 
   const handleRejectDB = async (id: string) => {
