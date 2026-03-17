@@ -160,7 +160,7 @@ export default function AdminSettings() {
       name: "Google Analytics",
       description: "Pull traffic and conversion data for client reporting",
       secretName: "GOOGLE_ANALYTICS_KEY",
-      isConfigured: false,
+      isConfigured: configuredKeys["google-analytics"] ?? false,
       docUrl: "https://console.cloud.google.com/apis/credentials",
       icon: BarChart3,
       instructions: [
@@ -175,7 +175,7 @@ export default function AdminSettings() {
       name: "Google Search Console",
       description: "Access search performance and indexing data",
       secretName: "GOOGLE_SEARCH_CONSOLE_KEY",
-      isConfigured: false,
+      isConfigured: configuredKeys["google-search-console"] ?? false,
       docUrl: "https://console.cloud.google.com/apis/credentials",
       icon: Search,
       instructions: [
@@ -189,7 +189,7 @@ export default function AdminSettings() {
       name: "DataForSEO",
       description: "Keyword research and SERP tracking",
       secretName: "DATAFORSEO_LOGIN",
-      isConfigured: false,
+      isConfigured: configuredKeys["dataforseo"] ?? false,
       docUrl: "https://dataforseo.com/apis",
       icon: Database,
       instructions: [
@@ -204,7 +204,7 @@ export default function AdminSettings() {
       name: "SerpAPI",
       description: "Real-time SERP data and competitor analysis",
       secretName: "SERPAPI_KEY",
-      isConfigured: false,
+      isConfigured: configuredKeys["serpapi"] ?? false,
       docUrl: "https://serpapi.com/manage-api-key",
       icon: Globe,
       instructions: [
@@ -218,7 +218,7 @@ export default function AdminSettings() {
       name: "Resend (Email)",
       description: "Send transactional and marketing emails",
       secretName: "RESEND_API_KEY",
-      isConfigured: true,
+      isConfigured: configuredKeys["resend"] ?? true,
       docUrl: "https://resend.com/api-keys",
       icon: Send,
       instructions: [
