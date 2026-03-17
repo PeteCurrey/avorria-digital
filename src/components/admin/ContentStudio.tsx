@@ -275,18 +275,40 @@ const ContentStudio = () => {
     try {
       const prompt = buildPrompt();
 
-      const { data, error } = await supabase.functions.invoke("generate-content", {
-        body: { prompt, contentType, platform, tone, includeHashtags, count: bulkCount },
-      });
+      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
+      const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      const session = (await supabase.auth.getSession()).data.session;
 
-      if (error) throw error;
+      const response = await fetch(
+        `https://${projectId}.supabase.co/functions/v1/generate-content`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${session?.access_token || anonKey}`,
+            "apikey": anonKey,
+          },
+          body: JSON.stringify({ prompt, contentType, platform, tone, includeHashtags, count: bulkCount }),
+        }
+      );
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Generation failed (${response.status})`);
+      }
+
+      const data = await response.json();
+
+      if (!data.content || !Array.isArray(data.content) || data.content.length === 0) {
+        throw new Error("No content was generated. Please try again with a different topic.");
+      }
 
       const newContent: GeneratedContent[] = data.content.map((item: any, index: number) => ({
         id: `${Date.now()}-${index}`,
         type: contentType,
         platform,
-        content: item.content,
-        title: item.title,
+        content: item.content || "",
+        title: item.title || "",
         hashtags: item.hashtags || [],
         status: "draft" as const,
       }));
@@ -301,7 +323,7 @@ const ContentStudio = () => {
       }
     } catch (error: any) {
       console.error("Error generating content:", error);
-      toast.error("Failed to generate content. Please try again.");
+      toast.error(error.message || "Failed to generate content. Please try again.");
     } finally {
       setIsGenerating(false);
     }
