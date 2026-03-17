@@ -479,8 +479,6 @@ export default function AdminSettings() {
     }
   };
 
-  const [savingApiKey, setSavingApiKey] = useState<string | null>(null);
-
   const handleSaveApiKey = async (configId: string, secretName: string) => {
     const value = apiKeyValues[configId];
     if (!value) {
