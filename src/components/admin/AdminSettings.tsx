@@ -133,6 +133,8 @@ export default function AdminSettings() {
   const [showApiKey, setShowApiKey] = useState<Record<string, boolean>>({});
   const [apiKeyValues, setApiKeyValues] = useState<Record<string, string>>({});
   const [testingApiKey, setTestingApiKey] = useState<string | null>(null);
+  const [savingApiKey, setSavingApiKey] = useState<string | null>(null);
+  const [configuredKeys, setConfiguredKeys] = useState<Record<string, boolean>>({});
   const [newMemberEmail, setNewMemberEmail] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("client");
   const [isAddingMember, setIsAddingMember] = useState(false);
