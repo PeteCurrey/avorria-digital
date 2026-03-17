@@ -1183,10 +1183,19 @@ export default function AdminSettings() {
                           <Button
                             size="sm"
                             onClick={() => handleSaveApiKey(config.id, config.secretName)}
-                            disabled={!apiKeyValues[config.id]}
+                            disabled={!apiKeyValues[config.id] || savingApiKey === config.id}
                           >
-                            <Save className="h-4 w-4 mr-2" />
-                            Save Key
+                            {savingApiKey === config.id ? (
+                              <>
+                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                                Saving...
+                              </>
+                            ) : (
+                              <>
+                                <Save className="h-4 w-4 mr-2" />
+                                Save Key
+                              </>
+                            )}
                           </Button>
                         </div>
                       </div>
