@@ -133,6 +133,8 @@ export default function AdminSettings() {
   const [showApiKey, setShowApiKey] = useState<Record<string, boolean>>({});
   const [apiKeyValues, setApiKeyValues] = useState<Record<string, string>>({});
   const [testingApiKey, setTestingApiKey] = useState<string | null>(null);
+  const [savingApiKey, setSavingApiKey] = useState<string | null>(null);
+  const [configuredKeys, setConfiguredKeys] = useState<Record<string, boolean>>({});
   const [newMemberEmail, setNewMemberEmail] = useState("");
   const [newMemberRole, setNewMemberRole] = useState("client");
   const [isAddingMember, setIsAddingMember] = useState(false);
@@ -158,7 +160,7 @@ export default function AdminSettings() {
       name: "Google Analytics",
       description: "Pull traffic and conversion data for client reporting",
       secretName: "GOOGLE_ANALYTICS_KEY",
-      isConfigured: false,
+      isConfigured: configuredKeys["google-analytics"] ?? false,
       docUrl: "https://console.cloud.google.com/apis/credentials",
       icon: BarChart3,
       instructions: [
@@ -173,7 +175,7 @@ export default function AdminSettings() {
       name: "Google Search Console",
       description: "Access search performance and indexing data",
       secretName: "GOOGLE_SEARCH_CONSOLE_KEY",
-      isConfigured: false,
+      isConfigured: configuredKeys["google-search-console"] ?? false,
       docUrl: "https://console.cloud.google.com/apis/credentials",
       icon: Search,
       instructions: [
@@ -187,7 +189,7 @@ export default function AdminSettings() {
       name: "DataForSEO",
       description: "Keyword research and SERP tracking",
       secretName: "DATAFORSEO_LOGIN",
-      isConfigured: false,
+      isConfigured: configuredKeys["dataforseo"] ?? false,
       docUrl: "https://dataforseo.com/apis",
       icon: Database,
       instructions: [
@@ -202,7 +204,7 @@ export default function AdminSettings() {
       name: "SerpAPI",
       description: "Real-time SERP data and competitor analysis",
       secretName: "SERPAPI_KEY",
-      isConfigured: false,
+      isConfigured: configuredKeys["serpapi"] ?? false,
       docUrl: "https://serpapi.com/manage-api-key",
       icon: Globe,
       instructions: [
@@ -216,7 +218,7 @@ export default function AdminSettings() {
       name: "Resend (Email)",
       description: "Send transactional and marketing emails",
       secretName: "RESEND_API_KEY",
-      isConfigured: true,
+      isConfigured: configuredKeys["resend"] ?? true,
       docUrl: "https://resend.com/api-keys",
       icon: Send,
       instructions: [
@@ -325,6 +327,25 @@ export default function AdminSettings() {
 
   useEffect(() => {
     fetchTeamMembers();
+    // Load configured API keys from seo_integrations
+    const loadConfiguredKeys = async () => {
+      try {
+        const { data } = await supabase
+          .from("seo_integrations")
+          .select("integration_type, is_active")
+          .eq("is_active", true);
+        if (data) {
+          const keys: Record<string, boolean> = {};
+          data.forEach((item: any) => {
+            keys[item.integration_type] = true;
+          });
+          setConfiguredKeys(keys);
+        }
+      } catch (e) {
+        console.error("Failed to load configured keys:", e);
+      }
+    };
+    loadConfiguredKeys();
   }, []);
 
   const fetchTeamMembers = async () => {
@@ -451,13 +472,27 @@ export default function AdminSettings() {
   };
 
   const handleTestApiKey = async (configId: string) => {
+    const config = apiKeyConfigs.find(c => c.id === configId);
+    if (!config) return;
+    
     setTestingApiKey(configId);
     try {
-      // Simulate API key test
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      toast.success("API key is valid and working!");
+      // Check if there's a saved key in the DB
+      const { data } = await supabase
+        .from("seo_integrations")
+        .select("config, is_active")
+        .eq("integration_type", configId)
+        .maybeSingle();
+
+      if (data?.is_active && data?.config) {
+        toast.success(`${config.name} is configured and active!`);
+      } else if (apiKeyValues[configId]) {
+        toast.info("Key entered but not saved yet. Click Save Key first.");
+      } else {
+        toast.warning(`${config.name} is not configured yet.`);
+      }
     } catch (error) {
-      toast.error("API key test failed");
+      toast.error("Failed to test connection");
     } finally {
       setTestingApiKey(null);
     }
@@ -470,12 +505,44 @@ export default function AdminSettings() {
       return;
     }
 
+    setSavingApiKey(configId);
     try {
-      // In production, this would save to Supabase secrets
+      // Upsert into seo_integrations table
+      const { data: existing } = await supabase
+        .from("seo_integrations")
+        .select("id")
+        .eq("integration_type", configId)
+        .maybeSingle();
+
+      if (existing) {
+        const { error } = await supabase
+          .from("seo_integrations")
+          .update({
+            config: { apiKey: value } as any,
+            is_active: true,
+            updated_at: new Date().toISOString(),
+          })
+          .eq("id", existing.id);
+        if (error) throw error;
+      } else {
+        const { error } = await supabase
+          .from("seo_integrations")
+          .insert({
+            integration_type: configId,
+            config: { apiKey: value } as any,
+            is_active: true,
+          });
+        if (error) throw error;
+      }
+
       toast.success(`${secretName} saved successfully`);
       setApiKeyValues((prev) => ({ ...prev, [configId]: "" }));
-    } catch (error) {
-      toast.error("Failed to save API key");
+      setConfiguredKeys(prev => ({ ...prev, [configId]: true }));
+    } catch (error: any) {
+      console.error("Failed to save API key:", error);
+      toast.error("Failed to save API key: " + (error.message || "Unknown error"));
+    } finally {
+      setSavingApiKey(null);
     }
   };
 
@@ -1129,10 +1196,19 @@ export default function AdminSettings() {
                           <Button
                             size="sm"
                             onClick={() => handleSaveApiKey(config.id, config.secretName)}
-                            disabled={!apiKeyValues[config.id]}
+                            disabled={!apiKeyValues[config.id] || savingApiKey === config.id}
                           >
-                            <Save className="h-4 w-4 mr-2" />
-                            Save Key
+                            {savingApiKey === config.id ? (
+                              <>
+                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                                Saving...
+                              </>
+                            ) : (
+                              <>
+                                <Save className="h-4 w-4 mr-2" />
+                                Save Key
+                              </>
+                            )}
                           </Button>
                         </div>
                       </div>
