@@ -537,13 +537,7 @@ export default function AdminSettings() {
 
       toast.success(`${secretName} saved successfully`);
       setApiKeyValues((prev) => ({ ...prev, [configId]: "" }));
-      
-      // Update the config's isConfigured status
-      const updatedConfigs = apiKeyConfigs.map(c => 
-        c.id === configId ? { ...c, isConfigured: true } : c
-      );
-      // Force re-render by updating state
-      setApiKeyValues(prev => ({ ...prev }));
+      setConfiguredKeys(prev => ({ ...prev, [configId]: true }));
     } catch (error: any) {
       console.error("Failed to save API key:", error);
       toast.error("Failed to save API key: " + (error.message || "Unknown error"));
