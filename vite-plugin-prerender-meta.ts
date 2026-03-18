@@ -24,7 +24,7 @@ const TWITTER_HANDLE = "@avorria";
 function buildHeadTags(meta: RouteMetadata): string {
   const ogImage = meta.ogImage || DEFAULT_OG_IMAGE;
   return `
-    <title>${escapeHtml(meta.title)}</title>
+    <meta name="title" content="${escapeAttr(meta.title)}" />
     <meta name="title" content="${escapeAttr(meta.title)}" />
     <meta name="description" content="${escapeAttr(meta.description)}" />
     <link rel="canonical" href="${escapeAttr(meta.canonical)}" />
