@@ -1,106 +1,101 @@
 
-## Enhance Paid Media and SEO Service Pages
 
-### Overview
-Both service pages need the same treatment: cinematic hero with real imagery, an introduction section explaining the service, button contrast fixes, and richer, more thoughtful content throughout. The SEO page is already ahead (has a background image hero, more sections) but still needs an intro section and content enrichment. The Paid Media page needs much more work.
+# Fix: SPA Rendering and Duplicate Meta Tags for SEO
 
----
+## The Problem
 
-### 1. Paid Media Page (`src/pages/PaidMedia.tsx`) — Major Overhaul
+Avorria is a pure client-side SPA. Every URL returns the same `index.html` with:
+- An empty `<div id="root"></div>` (no content for crawlers)
+- Identical homepage meta tags (title, description, canonical, OG) on every page
 
-**Hero Section:**
-- Replace the current `HeroGradient`-based hero with the `HeroBand` component (same as SEO page uses)
-- Use the existing `service-paid-media.jpg` asset as the parallax background image
-- Keep the headline and copy but improve the subheadline badge
-- Fix the secondary CTA button: change `variant="outline"` to `variant="outline-dark"`
+The `SEOHead` component using `react-helmet-async` only modifies the DOM after JavaScript executes. Google's crawler *can* render JavaScript, but it's delayed, deprioritised, and unreliable -- especially for 179+ landing pages. This is a fundamental architectural limitation.
 
-**New Introduction Section (below hero):**
-- Two-column layout matching the Reporting page pattern
-- Left column: heading "What paid media should actually do for your business" with 2-3 paragraphs explaining the service definition — what it is, why most businesses get it wrong, and what Avorria does differently
-- Right column: 4 icon-led feature highlights (e.g. "Offer-led campaigns, not keyword spam", "Full-funnel tracking from click to close", "Weekly optimisation based on pipeline data", "Unified strategy across Google, Meta and LinkedIn")
-- Wrapped in `SectionReveal` with staggered `motion` entrance animations
+## Constraints
 
-**Pain Points Section:**
-- Keep the content but enhance with `SectionReveal` animation
-- Add more descriptive intro paragraph above the pain point list
+This is a Lovable-hosted Vite SPA. We cannot add SSR (Next.js), and the build environment doesn't support headless Chrome for puppeteer-based prerendering. What we *can* do:
 
-**How We Approach Paid Media Section:**
-- Keep the 4-card grid but add an `OpinionatedQuote` pull-quote block after it (e.g. a strong opinion about vanity metrics)
+1. **Build-time static HTML generation** -- a custom Vite plugin that outputs individual `.html` files per route with correct meta tags and lightweight semantic content
+2. **Dynamic bot-rendering via edge function** -- a backend function that returns fully-formed HTML to search engine crawlers
 
-**New "What You Get" Section:**
-- Add a deliverables section (similar to SEO page's "What you see as a client") listing: campaign strategy document, weekly performance snapshots, monthly reviews with pipeline attribution, quarterly budget recommendations, access to the live reporting dashboard
-
-**New "Process Timeline" Section:**
-- Add a phased timeline (matching SEO page pattern): Month 1 (Audit and setup), Months 2-3 (Launch and test), Months 4-6 (Optimise and scale), Month 6+ (Expand and compound)
-
-**Platforms Section:**
-- Keep but enrich with more descriptive content per platform
-- Add a brief intro paragraph
-
-**New FAQ Section:**
-- Add 4-5 FAQs with `Accordion` component (matching SEO page pattern)
-- Add `FAQSchema` for SEO
-- Questions like: "How quickly will we see results?", "What's your minimum ad spend?", "Do you handle creative?", "How do you report on performance?"
-
-**CTA Section:**
-- Fix secondary button: `variant="outline"` to `variant="outline-dark"`
-
-**SEO Enhancements:**
-- Add `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema` components (matching SEO page)
-- Replace raw `Helmet` with the schema components plus `Helmet` for remaining meta
+The plan combines both for maximum coverage.
 
 ---
 
-### 2. SEO Services Page (`src/pages/SEOServices.tsx`) — Introduction Section + Content Enrichment
+## Approach
 
-**New Introduction Section (below hero, before pain points):**
-- Same two-column layout as Reporting and Paid Media pages
-- Left column: heading "What SEO actually means for your business" with 2-3 paragraphs — plain-English explanation of SEO as a revenue channel, not a technical black box
-- Right column: 4 icon-led highlights (e.g. "Commercial keyword targeting", "Technical foundations that compound", "Content that ranks and converts", "Transparent reporting tied to pipeline")
-- Wrapped in `SectionReveal` with staggered `motion` entrance
+### 1. Build-time Pre-rendering Plugin (Primary Fix)
 
-**Content Enrichment:**
-- Add an `OpinionatedQuote` pull-quote after the "What's Included" section
-- Enrich the case study teaser cards with slightly more descriptive content
+Create a custom Vite plugin (`vite-plugin-prerender-meta.ts`) that runs at build time and generates a standalone `.html` file for every known route. Each file will contain:
 
-**No button fixes needed** — already uses `variant="outline-dark"` throughout (fixed in previous session)
+- Correct `<title>`, `<meta description>`, `<link rel="canonical">`
+- Correct Open Graph and Twitter Card tags
+- JSON-LD structured data (Organization, Service, FAQPage, BreadcrumbList as appropriate)
+- A lightweight `<noscript>` content block with the page's H1 and introductory paragraph for crawlers
+- The standard SPA `<script>` tags so the React app hydrates on top
+
+**Data source**: A new `src/data/prerender-routes.ts` file that maps every route to its meta title, description, canonical, OG image, and a summary paragraph. This draws from the existing data in `sitemapUrls.ts`, `landingPages.ts`, `serviceLocationLandingPages.ts`, and the `SEOHead` props already defined in each page component.
+
+**Output**: ~60+ individual HTML files (e.g., `dist/services/seo/index.html`, `dist/about/index.html`, `dist/seo-agency/chesterfield/index.html`) each with unique, correct meta tags.
+
+### 2. Route Meta Data Registry
+
+Create `src/data/routeMetadata.ts` -- a single source of truth mapping every public route to its SEO metadata:
+
+```text
+Route Path → { title, description, canonical, ogImage, h1, introText, schemaType }
+```
+
+This registry will be used by:
+- The build-time plugin (for static HTML generation)
+- The existing `SEOHead` component (optional refactor to pull from registry)
+- The sitemap edge function (for consistency)
+
+Categories:
+- **Core pages** (~30): Hardcoded metadata from existing `SEOHead` usage
+- **Service-location pages** (~100+): Generated from `locations.ts` × `services.ts`
+- **Service-industry pages** (~50+): Generated from `landingPages.ts`
+- **Resource/guide pages** (~15): Generated from `resources.ts`
+
+### 3. Index.html Cleanup
+
+Strip the hardcoded homepage-specific meta tags from `index.html` (the duplicate `og:title`, `og:description`, `twitter:title`, `twitter:description` at the bottom). These will be injected per-page by the plugin. Keep only universal tags (charset, viewport, fonts, structured data for Organization/WebSite).
+
+### 4. Fallback: Dynamic Rendering Edge Function (Belt-and-Suspenders)
+
+Create a `prerender` edge function that:
+- Accepts a URL path
+- Looks up the route in the metadata registry (duplicated server-side)
+- Returns a full HTML document with correct meta tags and semantic content
+
+This provides coverage for any dynamically-added routes that haven't been built yet. It can be wired via `_redirects` or `vercel.json` for bot user-agents if the hosting supports it, or used as a fallback.
 
 ---
 
-### Visual Rhythm
+## Files to Create/Modify
 
-**Paid Media (top to bottom):**
-1. Hero — cinematic with `service-paid-media.jpg` parallax background
-2. Introduction — light background, two-column explainer
-3. Pain Points — gradient background, enhanced list
-4. How We Approach — dark background, 4-card grid + pull-quote
-5. What You Get — gradient background, deliverables checklist
-6. Process Timeline — mesh background, phased timeline
-7. Platforms — dark background, enriched 3-column cards
-8. FAQ — mesh background, accordion with schema
-9. CTA — gradient background, fixed buttons
-
-**SEO Services (top to bottom):**
-1. Hero (existing) — with `service-seo.jpg`
-2. **Introduction (NEW)** — light background, two-column explainer
-3. Pain Points (existing)
-4. What's Included (existing) + **pull-quote (NEW)**
-5. Process Timeline (existing)
-6. Deliverables (existing)
-7. SEO by Industry (existing)
-8. Case Studies (existing, enriched)
-9. SEO by Location (existing)
-10. FAQ (existing)
-11. CTA (existing)
+| File | Action | Purpose |
+|------|--------|---------|
+| `src/data/routeMetadata.ts` | Create | Central SEO metadata registry for all public routes |
+| `vite-plugin-prerender-meta.ts` | Create | Build-time plugin generating per-route HTML files |
+| `vite.config.ts` | Modify | Register the prerender plugin |
+| `index.html` | Modify | Remove duplicate homepage-only meta tags |
+| `supabase/functions/prerender/index.ts` | Create | Edge function returning bot-friendly HTML for any route |
+| `public/_redirects` | Modify | Add prerender proxy rules |
+| `vercel.json` | Modify | Add prerender rewrite rules |
 
 ---
 
-### Files Modified
-- `src/pages/PaidMedia.tsx` — major rewrite: HeroBand hero, intro section, deliverables, timeline, FAQ, button fixes, SEO schema components
-- `src/pages/SEOServices.tsx` — add intro section below hero, add OpinionatedQuote, minor content enrichment
+## Technical Detail
 
-### New Imports
-- **PaidMedia.tsx**: `HeroBand`, `SectionBand` (already imported), `SectionReveal`, `motion`, `OpinionatedQuote`, `Accordion` components, `ServiceSchema`, `FAQSchema`, `BreadcrumbSchema`, `CheckCircle2`, `Globe`, `FileText`, `Link2`, `Clock` icons, `service-paid-media.jpg` asset
-- **SEOServices.tsx**: `SectionReveal`, `motion`, `Globe`, `FileText`, `Link2`, `Clock` icons
+**Build plugin flow**:
+1. After Vite's standard build completes (`closeBundle` hook)
+2. Read `routeMetadata.ts` to get all routes and their metadata
+3. For each route, read the base `dist/index.html` as a template
+4. Replace the `<head>` section with route-specific meta tags
+5. Inject a `<noscript>` block inside `<div id="root">` with semantic HTML (h1, p)
+6. Write to `dist/[route-path]/index.html`
 
-### No new dependencies needed
+**Meta tag injection** replaces the generic homepage tags with per-page values, ensuring Google sees unique `<title>`, `<meta name="description">`, `<link rel="canonical">`, and OG/Twitter tags in the raw HTML source -- before any JavaScript executes.
+
+This approach requires no infrastructure changes, works within Lovable's build system, and immediately resolves both the empty-HTML and duplicate-meta-tags problems across all ~200 pages.
+
