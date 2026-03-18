@@ -6,3 +6,6 @@
 
 # Robots.txt redirect to edge function
 /robots.txt https://delvgmrcfaeubuixprwz.supabase.co/functions/v1/robots 200
+
+# SPA fallback — must be last
+/* /index.html 200
