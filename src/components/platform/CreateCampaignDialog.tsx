@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -253,7 +254,7 @@ export function CreateCampaignDialog({ trigger, defaultClientId }: CreateCampaig
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Budget (£)</FormLabel>
+                  <FormLabel>Budget (Â£)</FormLabel>
                   <FormControl>
                     <Input 
                       type="number" 
@@ -321,4 +322,5 @@ export function CreateCampaignDialog({ trigger, defaultClientId }: CreateCampaig
     </Dialog>
   );
 }
+
 

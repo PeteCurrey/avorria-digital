@@ -5,7 +5,7 @@ import { Shell } from "./shell";
 
 export const metadata: Metadata = {
   title: {
-    default: "Avorria Digital — Performance Digital Marketing Agency",
+    default: "Avorria Digital â€” Performance Digital Marketing Agency",
     template: "%s | Avorria Digital",
   },
   description:

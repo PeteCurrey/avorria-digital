@@ -43,3 +43,4 @@ const AIConsultantTrigger = () => {
 
 export default AIConsultantTrigger;
 
+

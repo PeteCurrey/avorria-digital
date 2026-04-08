@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
@@ -13,3 +13,4 @@ const ScrollToTop = () => {
 };
 
 export default ScrollToTop;
+

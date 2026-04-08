@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/Privacy';
+﻿'use client';
+export { default } from '@/views/Privacy';
+

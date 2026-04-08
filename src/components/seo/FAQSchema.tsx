@@ -1,5 +1,4 @@
-'use client';
-
+﻿'use client';
 interface FAQItem {
   question: string;
   answer: string;
@@ -24,3 +23,4 @@ export const FAQSchema = ({ faqs }: FAQSchemaProps) => {
 };
 
 export default FAQSchema;
+

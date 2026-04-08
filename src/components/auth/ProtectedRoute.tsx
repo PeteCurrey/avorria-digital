@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { ReactNode, useEffect } from "react";
 import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
@@ -65,3 +65,4 @@ const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo
 };
 
 export default ProtectedRoute;
+

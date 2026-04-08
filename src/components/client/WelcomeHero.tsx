@@ -1,7 +1,7 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
 import { ArrowRight, Sparkles, Eye, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -117,7 +117,7 @@ export const WelcomeHero = ({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
               <span className="text-xs text-white/40 tracking-widest uppercase">
-                {clientName} · Client Portal
+                {clientName} Â· Client Portal
               </span>
             </motion.div>
 
@@ -213,4 +213,5 @@ export const WelcomeHero = ({
 };
 
 export default WelcomeHero;
+
 

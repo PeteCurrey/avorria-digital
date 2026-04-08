@@ -1,6 +1,6 @@
 ﻿'use client';
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import type { CaseStudy } from "@/data/caseStudies";
 
@@ -39,7 +39,7 @@ export const RelatedProjects = ({ projects, onProjectClick }: RelatedProjectsPro
               transition={{ delay: index * 0.1 }}
             >
               <Link
-                to={`/case-studies/${project.slug}`}
+                href={`/case-studies/${project.slug}`}
                 onClick={() => onProjectClick?.(project.slug)}
                 className="group block"
               >
@@ -88,4 +88,5 @@ export const RelatedProjects = ({ projects, onProjectClick }: RelatedProjectsPro
     </section>
   );
 };
+
 

@@ -36,7 +36,7 @@ const questions: QuizQuestion[] = [
     id: 2,
     question: "Can visitors understand what you do within 5 seconds?",
     options: [
-      { label: "Absolutely – it's crystal clear", riskScore: 0 },
+      { label: "Absolutely â€“ it's crystal clear", riskScore: 0 },
       { label: "Probably, if they read carefully", riskScore: 10 },
       { label: "Honestly, it's a bit vague", riskScore: 20 },
     ],
@@ -54,7 +54,7 @@ const questions: QuizQuestion[] = [
     id: 4,
     question: "Do you have social proof within the first 2 scrolls?",
     options: [
-      { label: "Yes – logos, testimonials, or case studies", riskScore: 0 },
+      { label: "Yes â€“ logos, testimonials, or case studies", riskScore: 0 },
       { label: "Some, but buried lower", riskScore: 10 },
       { label: "Not really", riskScore: 15 },
     ],
@@ -133,7 +133,7 @@ const riskConfig: Record<RiskLevel, {
     color: "text-destructive",
     bgColor: "bg-destructive/10 border-destructive/30",
     icon: Flame,
-    title: "Your Site Should Be Fired 🔥",
+    title: "Your Site Should Be Fired ??",
     message: "Your website has multiple major issues that are actively hurting your business. It's time for a complete rebuild.",
     cta: "Book a Rebuild Strategy Call",
   },
@@ -370,4 +370,5 @@ const FireRiskQuiz: React.FC = () => {
 };
 
 export default FireRiskQuiz;
+
 

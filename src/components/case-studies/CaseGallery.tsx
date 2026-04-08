@@ -151,3 +151,4 @@ export const CaseGallery = ({ media }: CaseGalleryProps) => {
   );
 };
 
+

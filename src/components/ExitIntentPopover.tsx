@@ -109,8 +109,14 @@ export function ExitIntentPopover() {
 
   const isFormValid = websiteUrl.trim().length > 0;
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   // If disabled, don't render anything
-  if (!isEnabled) return null;
+  if (!isEnabled || !mounted) return null;
 
   return createPortal(
     <AnimatePresence>
@@ -158,7 +164,7 @@ export function ExitIntentPopover() {
 
                 <div className="space-y-2 pr-6">
                   <h2 className="text-lg font-medium text-white">
-                    Before you go – want a free website audit?
+                    Before you go Ã¢â‚¬â€œ want a free website audit?
                   </h2>
                   <p className="text-sm text-white/60">
                     We'll analyze your site and send you a clear breakdown of what's working and what's holding you back.
@@ -219,4 +225,5 @@ export function ExitIntentPopover() {
     document.body
   );
 }
+
 

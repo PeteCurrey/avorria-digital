@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/AgencyTeardown';
+﻿'use client';
+export { default } from '@/views/AgencyTeardown';
+

@@ -1,7 +1,7 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Link from "next/link";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import type { CaseStudy } from "@/data/caseStudies";
@@ -74,7 +74,7 @@ export const CaseFeaturedCarousel = ({
 
               {/* Image */}
               <Link
-                to={`/case-studies/${currentCase.slug}`}
+                href={`/case-studies/${currentCase.slug}`}
                 onClick={() => onCaseClick?.(currentCase.slug)}
                 className="relative aspect-[4/3] rounded-2xl overflow-hidden group">
 
@@ -126,7 +126,7 @@ export const CaseFeaturedCarousel = ({
 
                 <Button variant="accent" asChild className="group">
                   <Link
-                    to={`/case-studies/${currentCase.slug}`}
+                    href={`/case-studies/${currentCase.slug}`}
                     onClick={() => onCaseClick?.(currentCase.slug)}>
 
                     View Case Study
@@ -176,3 +176,4 @@ export const CaseFeaturedCarousel = ({
     </section>);
 
 };
+

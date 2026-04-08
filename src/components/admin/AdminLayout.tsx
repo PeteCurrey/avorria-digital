@@ -1,7 +1,7 @@
-'use client';
-import Navigate from '@/components/Navigate';
+﻿'use client';
+import Link from "next/link";import Navigate from '@/components/Navigate';
 import React, { useState, useEffect } from "react";
-import { Link, use  , useRouter} from "next/navigation";
+import {useRouter} from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminSidebar from "./AdminSidebar";
 import CommandPalette from "./CommandPalette";
@@ -14,8 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  DropdownMenuTrigger} from "@/components/ui/dropdown-menu";
 import { useNotifications, useUnreadNotificationCount, useMarkNotificationRead, useMarkAllNotificationsRead } from "@/hooks/useNotifications";
 import { formatDistanceToNow } from "date-fns";
 import { useAdminTheme } from "@/hooks/useAdminTheme";
@@ -139,8 +138,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
                 borderWidth: 1,
                 borderStyle: "solid",
                 borderColor: "var(--admin-border-subtle)",
-                color: "var(--admin-text-secondary)",
-              }}
+                color: "var(--admin-text-secondary)"}}
             >
               <Search className="h-4 w-4" />
               <span className="flex-1 text-left">Search commands...</span>
@@ -404,4 +402,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
 };
 
 export default AdminLayout;
+
+
+
 

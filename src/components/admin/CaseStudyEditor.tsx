@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -186,8 +186,17 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
   const canGenerate = formData.client.trim() && formData.sector.trim();
 
   const handleAIGenerate = async () => {
-          "Authorization": `Bearer ${supabaseKey}`,
-          "apikey": supabaseKey,
+    setIsGenerating(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      
+      const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/generate-case-study`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${session?.access_token || supabaseKey}`,
+          "apikey": supabaseKey || "",
         },
         body: JSON.stringify({
           client: formData.client,
@@ -989,4 +998,5 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
 };
 
 export default CaseStudyEditor;
+
 

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import Navigate from '@/components/Navigate';
 import { motion } from "framer-motion";
 import { ArrowLeft, X } from "lucide-react";
@@ -88,4 +88,5 @@ export const StudioNav = ({ currentStep, totalSteps, onExit }: StudioNavProps) =
 };
 
 export default StudioNav;
+
 

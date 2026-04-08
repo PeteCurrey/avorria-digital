@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 import KPICard from "./KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -108,7 +109,7 @@ const SEOTab = () => {
                       ) : row.change < 0 ? (
                         <span className="text-red-500 font-medium">{row.change}</span>
                       ) : (
-                        <span className="text-muted-foreground">—</span>
+                        <span className="text-muted-foreground">Ã¢â‚¬â€</span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-sm text-muted-foreground">{row.url}</td>
@@ -207,3 +208,4 @@ const SEOTab = () => {
 };
 
 export default SEOTab;
+

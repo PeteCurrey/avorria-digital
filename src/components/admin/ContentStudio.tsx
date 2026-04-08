@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -1028,7 +1029,7 @@ const ContentStudio = () => {
                       <ContentCard
                         key={item.id}
                         item={item}
-                        nextStepHint="Approve → moves to Approved tab"
+                        nextStepHint="Approve Ã¢â€ â€™ moves to Approved tab"
                         actions={
                           <>
                             <Button size="sm" className="h-7 text-[11px]" onClick={() => handleApproveDB(item.id)} disabled={approveContent.isPending}>
@@ -1096,7 +1097,7 @@ const ContentStudio = () => {
                             Approved
                           </Badge>
                         }
-                        nextStepHint="Publish now → Published tab, or Schedule → Scheduled tab"
+                        nextStepHint="Publish now Ã¢â€ â€™ Published tab, or Schedule Ã¢â€ â€™ Scheduled tab"
                         actions={
                           <>
                             <Button size="sm" variant="outline" className="h-7 text-[11px] border-border/30" onClick={() => handleCopy({ id: item.id, content: item.content })}>
@@ -1261,7 +1262,7 @@ const ContentStudio = () => {
                         badge={
                           <Badge className="bg-green-500/10 text-green-400 border-green-500/20 text-[10px] px-1.5 py-0">
                             <CheckCircle2 className="h-2.5 w-2.5 mr-0.5" /> Published
-                            {item.published_at && ` · ${format(new Date(item.published_at), "MMM d")}`}
+                            {item.published_at && ` Ã‚Â· ${format(new Date(item.published_at), "MMM d")}`}
                           </Badge>
                         }
                         actions={
@@ -1296,4 +1297,5 @@ const ContentStudio = () => {
 };
 
 export default ContentStudio;
+
 

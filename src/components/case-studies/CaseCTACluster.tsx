@@ -1,6 +1,6 @@
 ﻿'use client';
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import { ArrowRight, FileText, MessageSquare, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -35,7 +35,7 @@ export const CaseCTACluster = ({ onDownloadPDF, relatedSlugs }: CaseCTAClusterPr
               transition={{ delay: 0.1 }}
             >
               <Link
-                to="/agency-teardown"
+                href="/agency-teardown"
                 className="group block p-6 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl hover:border-accent/30 transition-all h-full"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-accent/20 transition-colors">
@@ -60,7 +60,7 @@ export const CaseCTACluster = ({ onDownloadPDF, relatedSlugs }: CaseCTAClusterPr
               transition={{ delay: 0.2 }}
             >
               <Link
-                to="/contact"
+                href="/contact"
                 className="group block p-6 bg-accent/10 backdrop-blur-sm border border-accent/30 rounded-xl hover:bg-accent/20 transition-all h-full"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent/20 flex items-center justify-center mb-4 mx-auto">
@@ -85,7 +85,7 @@ export const CaseCTACluster = ({ onDownloadPDF, relatedSlugs }: CaseCTAClusterPr
               transition={{ delay: 0.3 }}
             >
               <Link
-                to="/case-studies"
+                href="/case-studies"
                 className="group block p-6 bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl hover:border-accent/30 transition-all h-full"
               >
                 <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center mb-4 mx-auto group-hover:bg-accent/20 transition-colors">
@@ -126,4 +126,5 @@ export const CaseCTACluster = ({ onDownloadPDF, relatedSlugs }: CaseCTAClusterPr
     </section>
   );
 };
+
 

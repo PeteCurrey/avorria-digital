@@ -23,8 +23,8 @@ const OverviewTab = () => {
       sessions: 12847,
       leads: 198,
       qualified: 67,
-      cost: "—",
-      cpl: "—",
+      cost: "â€”",
+      cpl: "â€”",
       notes: "Strong growth in non-branded",
     },
     {
@@ -32,8 +32,8 @@ const OverviewTab = () => {
       sessions: 6284,
       leads: 134,
       qualified: 42,
-      cost: "£8,240",
-      cpl: "£196",
+      cost: "Â£8,240",
+      cpl: "Â£196",
       notes: "Scaled last month",
     },
     {
@@ -41,8 +41,8 @@ const OverviewTab = () => {
       sessions: 3127,
       leads: 58,
       qualified: 18,
-      cost: "£4,120",
-      cpl: "£229",
+      cost: "Â£4,120",
+      cpl: "Â£229",
       notes: "Testing new creative",
     },
     {
@@ -50,8 +50,8 @@ const OverviewTab = () => {
       sessions: 1486,
       leads: 15,
       qualified: 7,
-      cost: "—",
-      cpl: "—",
+      cost: "â€”",
+      cpl: "â€”",
       notes: "Brand strength indicator",
     },
     {
@@ -59,8 +59,8 @@ const OverviewTab = () => {
       sessions: 574,
       leads: 7,
       qualified: 3,
-      cost: "—",
-      cpl: "—",
+      cost: "â€”",
+      cpl: "â€”",
       notes: "Partner content driving traffic",
     },
   ];
@@ -123,15 +123,15 @@ const OverviewTab = () => {
         <KPICard label="Monthly Sessions" value={24318} delta={18} deltaLabel="vs prev" />
         <KPICard label="Leads" value={412} delta={27} deltaLabel="vs prev" />
         <KPICard label="Qualified Leads" value={137} delta={19} deltaLabel="vs prev" />
-        <KPICard label="Est. Pipeline Value" value="£486,000" delta={22} deltaLabel="vs prev" format="currency" />
+        <KPICard label="Est. Pipeline Value" value="Â£486,000" delta={22} deltaLabel="vs prev" format="currency" />
       </div>
       </ScrollRevealGrid>
 
-      {/* Traffic → Leads Time Series */}
+      {/* Traffic â†’ Leads Time Series */}
       <ScrollReveal>
       <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
         <CardHeader>
-          <CardTitle className="text-xl font-light">Traffic → Leads Trend</CardTitle>
+          <CardTitle className="text-xl font-light">Traffic â†’ Leads Trend</CardTitle>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={300}>
@@ -236,7 +236,7 @@ const OverviewTab = () => {
             <ul className="space-y-3">
               {actions.map((action, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-sm text-foreground">
-                  <span className="text-accent mt-0.5">✓</span>
+                  <span className="text-accent mt-0.5">âœ“</span>
                   <span>{action}</span>
                 </li>
               ))}

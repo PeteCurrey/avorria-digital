@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -401,7 +402,7 @@ const ClientsManager = () => {
                   <Input
                     value={formData.monthly_value}
                     onChange={(e) => setFormData({ ...formData, monthly_value: e.target.value })}
-                    placeholder="e.g., £5,000"
+                    placeholder="e.g., Ã‚Â£5,000"
                   />
                 </div>
               </div>
@@ -530,10 +531,10 @@ const ClientsManager = () => {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {client.monthly_value || "—"}
+                        {client.monthly_value || "Ã¢â‚¬â€"}
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {client.owner_name || (client.owner_id ? "User linked" : "—")}
+                        {client.owner_name || (client.owner_id ? "User linked" : "Ã¢â‚¬â€")}
                       </TableCell>
                       <TableCell className="text-muted-foreground">
                         {format(new Date(client.created_at), "MMM d, yyyy")}
@@ -603,4 +604,5 @@ const ClientsManager = () => {
 };
 
 export default ClientsManager;
+
 

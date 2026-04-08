@@ -1,11 +1,11 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import Link from "next/link";
 import { trackEvent } from "@/lib/tracking";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -303,7 +303,7 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
         >
           <span className="text-[10px] uppercase tracking-[0.2em] text-slate-500">Aesthetic</span>
           <p className="mt-2 text-sm text-white font-medium capitalize">
-            {state.energy} · {state.palette}
+            {state.energy} Â· {state.palette}
           </p>
         </motion.div>
 
@@ -485,10 +485,10 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
                 <SelectValue placeholder="Select budget" />
               </SelectTrigger>
               <SelectContent className="bg-slate-900 border-slate-700">
-                <SelectItem value="<10k">Under £10k</SelectItem>
-                <SelectItem value="10k-25k">£10k - £25k</SelectItem>
-                <SelectItem value="25k-50k">£25k - £50k</SelectItem>
-                <SelectItem value="50k+">£50k+</SelectItem>
+                <SelectItem value="<10k">Under Â£10k</SelectItem>
+                <SelectItem value="10k-25k">Â£10k - Â£25k</SelectItem>
+                <SelectItem value="25k-50k">Â£25k - Â£50k</SelectItem>
+                <SelectItem value="50k+">Â£50k+</SelectItem>
               </SelectContent>
             </Select>
             {errors.budget && <p className="text-[10px] text-red-400">{errors.budget}</p>}
@@ -533,4 +533,5 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
     </div>
   );
 };
+
 

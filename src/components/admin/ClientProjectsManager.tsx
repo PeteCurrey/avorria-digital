@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -331,7 +332,7 @@ const ClientProjectsManager = () => {
                         {project.description && <p className="text-sm text-muted-foreground line-clamp-1">{project.description}</p>}
                       </div>
                     </TableCell>
-                    <TableCell>{project.client?.name || "—"}</TableCell>
+                    <TableCell>{project.client?.name || "Ã¢â‚¬â€"}</TableCell>
                     <TableCell><Badge variant="outline">{typeConfig[project.project_type]}</Badge></TableCell>
                     <TableCell><Badge className={statusConfig[project.status].color}>{statusConfig[project.status].label}</Badge></TableCell>
                     <TableCell>
@@ -374,4 +375,5 @@ const ClientProjectsManager = () => {
 };
 
 export default ClientProjectsManager;
+
 

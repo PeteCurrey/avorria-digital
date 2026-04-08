@@ -1,5 +1,6 @@
-'use client';
-import DynamicLanding from '@/pages/DynamicLanding';
+﻿'use client';
+import DynamicLanding from '@/views/DynamicLanding';
 export default function PaidMediaLocationPage() {
   return <DynamicLanding />;
 }
+

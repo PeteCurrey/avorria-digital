@@ -1,5 +1,4 @@
-'use client';
-
+﻿'use client';
 interface ArticleSchemaProps {
   headline: string;
   description: string;
@@ -32,3 +31,4 @@ export const ArticleSchema = ({
 };
 
 export default ArticleSchema;
+

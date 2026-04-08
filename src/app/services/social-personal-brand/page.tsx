@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/SocialPersonalBrand';
+﻿'use client';
+export { default } from '@/views/SocialPersonalBrand';
+

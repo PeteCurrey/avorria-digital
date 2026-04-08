@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 /**
  * Analytics Tracking Utility
  * 
@@ -256,3 +256,4 @@ export function trackAuditCTAClick(ctaLabel: string, destination: string) {
     cta_destination: destination,
   });
 }
+

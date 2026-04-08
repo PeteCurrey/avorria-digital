@@ -310,7 +310,7 @@ export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanv
 
         {/* Bottom info */}
         <div className="mt-4 flex items-center justify-between text-[10px] text-slate-500">
-          <span>Real-time visualization · Drag to rotate</span>
+          <span>Real-time visualization Â· Drag to rotate</span>
           <span className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
             Auto-updating
@@ -320,4 +320,5 @@ export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanv
     </div>
   );
 };
+
 

@@ -85,7 +85,7 @@ const Footer = () => {
               {services.map((link) =>
               <li key={link.href}>
                   <Link
-                  to={link.href}
+                  href={link.href}
                   onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
                   className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
 
@@ -102,7 +102,7 @@ const Footer = () => {
               {locations.map((link) =>
               <li key={link.href}>
                   <Link
-                  to={link.href}
+                  href={link.href}
                   onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
                   className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
 
@@ -119,7 +119,7 @@ const Footer = () => {
               {industries.map((link) =>
               <li key={link.href}>
                   <Link
-                  to={link.href}
+                  href={link.href}
                   className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
 
                     {link.name}
@@ -135,7 +135,7 @@ const Footer = () => {
               {company.map((link) =>
               <li key={link.href}>
                   <Link
-                  to={link.href}
+                  href={link.href}
                   onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'footer')}
                   className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
 
@@ -149,7 +149,7 @@ const Footer = () => {
 
         <div className="pt-6 sm:pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
-            © {new Date().getFullYear()} Avorria. All rights reserved.
+            Ã‚Â© {new Date().getFullYear()} Avorria. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <Link href="/privacy" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
@@ -169,3 +169,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

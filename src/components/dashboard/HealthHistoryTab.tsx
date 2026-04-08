@@ -88,7 +88,7 @@ const HealthHistoryTab = () => {
         <CardContent className="p-6">
           <h3 className="text-lg font-medium mb-2 text-foreground">How health scores work</h3>
           <p className="text-muted-foreground text-sm">
-            Health scores are calculated automatically based on technical checks across SEO, performance, conversion and tracking. These are directional indicators – for actionable recommendations and context, refer to your full audits.
+            Health scores are calculated automatically based on technical checks across SEO, performance, conversion and tracking. These are directional indicators â€“ for actionable recommendations and context, refer to your full audits.
           </p>
         </CardContent>
       </Card>

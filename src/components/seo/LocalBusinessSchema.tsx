@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 
 interface LocalBusinessSchemaProps {
   name?: string;
@@ -42,7 +43,7 @@ const defaultData: LocalBusinessSchemaProps = {
   openingHours: [
     "Mo-Fr 09:00-17:30",
   ],
-  priceRange: "££££",
+  priceRange: "Ã‚Â£Ã‚Â£Ã‚Â£Ã‚Â£",
   image: "https://avorria.com/og-image.jpg",
   sameAs: [
     "https://www.linkedin.com/company/avorria",
@@ -193,3 +194,4 @@ export const LocalBusinessSchema = (props: LocalBusinessSchemaProps = {}) => {
 };
 
 export default LocalBusinessSchema;
+

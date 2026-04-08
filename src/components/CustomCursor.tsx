@@ -1,8 +1,9 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 // Module version: v16 - zero-lag cursor via direct DOM manipulation
 import React, { useEffect, useState, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useLocation , usePathname} from "next/navigation";
+import { usePathname } from "next/navigation";
 
 type CursorVariant = "default" | "hover" | "click" | "text" | "hidden" | "view" | "cta";
 
@@ -12,7 +13,7 @@ export const CustomCursor = () => {
  const [isMobile, setIsMobile] = useState(false);
  const pathname = usePathname();
 
- const isAdminPage = pathname.startsWith("/admin");
+ const isAdminPage = pathname && pathname.startsWith("/admin");
 
  // Refs for direct DOM manipulation (bypasses framer-motion for position)
  const cursorRef = useRef<HTMLDivElement>(null);
@@ -42,7 +43,7 @@ export const CustomCursor = () => {
   mousePos.current.x = e.clientX;
   mousePos.current.y = e.clientY;
 
-  // Instant cursor update — write directly to the DOM element's transform
+  // Instant cursor update ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â write directly to the DOM element's transform
   if (cursorRef.current) {
   cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
   }
@@ -192,7 +193,7 @@ export const CustomCursor = () => {
 
  return (
  <>
-  {/* Main cursor — positioned via ref, size/style animated by framer-motion */}
+  {/* Main cursor ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â positioned via ref, size/style animated by framer-motion */}
   <motion.div
   ref={cursorRef}
   className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center will-change-transform"
@@ -242,7 +243,7 @@ export const CustomCursor = () => {
   )}
   </motion.div>
 
-  {/* Trailing ring — positioned via ref + rAF lerp */}
+  {/* Trailing ring ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â positioned via ref + rAF lerp */}
   <motion.div
   ref={trailRef}
   className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-white/20 will-change-transform"
@@ -262,4 +263,5 @@ export const CustomCursor = () => {
 };
 
 export default CustomCursor;
+
 

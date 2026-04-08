@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/AuditFunnel';
+﻿'use client';
+export { default } from '@/views/AuditFunnel';
+

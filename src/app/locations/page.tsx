@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/Locations';
+﻿'use client';
+export { default } from '@/views/Locations';
+

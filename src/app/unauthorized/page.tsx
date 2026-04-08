@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/Unauthorized';
+﻿'use client';
+export { default } from '@/views/Unauthorized';
+

@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/PaidMedia';
+﻿'use client';
+export { default } from '@/views/PaidMedia';
+

@@ -139,3 +139,4 @@ export const DeviceMockup = ({ children, className = "" }: DeviceMockupProps) =>
 
 export default DeviceMockup;
 
+

@@ -206,10 +206,10 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
                   <SelectValue placeholder="Select budget" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="under-2500">Under £2,500/month</SelectItem>
-                  <SelectItem value="2500-5000">£2,500 - £5,000/month</SelectItem>
-                  <SelectItem value="5000-10000">£5,000 - £10,000/month</SelectItem>
-                  <SelectItem value="10000+">£10,000+/month</SelectItem>
+                  <SelectItem value="under-2500">Under Â£2,500/month</SelectItem>
+                  <SelectItem value="2500-5000">Â£2,500 - Â£5,000/month</SelectItem>
+                  <SelectItem value="5000-10000">Â£5,000 - Â£10,000/month</SelectItem>
+                  <SelectItem value="10000+">Â£10,000+/month</SelectItem>
                   <SelectItem value="project">One-off project</SelectItem>
                   <SelectItem value="unsure">Not sure yet</SelectItem>
                 </SelectContent>
@@ -277,4 +277,5 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
 };
 
 export default LandingPageForm;
+
 

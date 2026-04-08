@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/WebsiteHealthCheck';
+﻿'use client';
+export { default } from '@/views/WebsiteHealthCheck';
+

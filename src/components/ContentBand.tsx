@@ -1,8 +1,8 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -301,3 +301,4 @@ export const ImageSectionBand = ({
 };
 
 export default ContentBand;
+

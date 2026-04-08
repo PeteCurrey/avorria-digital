@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/SEOAgencyPillar';
+﻿'use client';
+export { default } from '@/views/SEOAgencyPillar';
+

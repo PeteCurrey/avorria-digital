@@ -1,6 +1,6 @@
 ﻿'use client';
-import { motion } from "framer-motion";
 import Link from "next/link";
+import { motion } from "framer-motion";
 import type { CaseStudy } from "@/data/caseStudies";
 
 interface CaseTileProps {
@@ -25,7 +25,7 @@ export const CaseTile = ({ caseStudy, index = 0, onClick }: CaseTileProps) => {
       }}
     >
       <Link
-        to={`/case-studies/${caseStudy.slug}`}
+        href={`/case-studies/${caseStudy.slug}`}
         onClick={onClick}
         className="group block overflow-hidden rounded-2xl"
       >
@@ -51,4 +51,5 @@ export const CaseTile = ({ caseStudy, index = 0, onClick }: CaseTileProps) => {
     </motion.div>
   );
 };
+
 

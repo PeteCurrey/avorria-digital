@@ -1,5 +1,6 @@
-'use client';
-import CaseStudyDetail from '@/pages/CaseStudyDetail';
+﻿'use client';
+import CaseStudyDetail from '@/views/CaseStudyDetail';
 export default function CaseStudyDetailPage() {
   return <CaseStudyDetail />;
 }
+

@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -344,11 +345,11 @@ export function LandingPageManager() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Countries</SelectItem>
-            <SelectItem value="GB">🇬🇧 UK</SelectItem>
-            <SelectItem value="US">🇺🇸 USA</SelectItem>
-            <SelectItem value="AU">🇦🇺 Australia</SelectItem>
-            <SelectItem value="NZ">🇳🇿 New Zealand</SelectItem>
-            <SelectItem value="CA">🇨🇦 Canada</SelectItem>
+            <SelectItem value="GB">???? UK</SelectItem>
+            <SelectItem value="US">???? USA</SelectItem>
+            <SelectItem value="AU">???? Australia</SelectItem>
+            <SelectItem value="NZ">???? New Zealand</SelectItem>
+            <SelectItem value="CA">???? Canada</SelectItem>
           </SelectContent>
         </Select>
         <Select value={filterService} onValueChange={setFilterService}>
@@ -808,4 +809,5 @@ export function LandingPageManager() {
     </div>
   );
 }
+
 

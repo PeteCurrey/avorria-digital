@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/WhyAvorria';
+﻿'use client';
+export { default } from '@/views/WhyAvorria';
+

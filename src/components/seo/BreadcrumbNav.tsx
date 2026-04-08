@@ -21,7 +21,7 @@ export const BreadcrumbNav = ({ items, className = "" }: BreadcrumbNavProps) => 
       <ol className="flex items-center flex-wrap gap-1">
         <li className="flex items-center">
           <Link 
-            to="/" 
+            href="/" 
             className="hover:text-foreground transition-colors flex items-center gap-1"
             aria-label="Home"
           >
@@ -34,7 +34,7 @@ export const BreadcrumbNav = ({ items, className = "" }: BreadcrumbNavProps) => 
             <ChevronRight size={14} className="mx-1 text-muted-foreground/50" />
             {item.href && index !== items.length - 1 ? (
               <Link 
-                to={item.href} 
+                href={item.href} 
                 className="hover:text-foreground transition-colors"
               >
                 {item.name}
@@ -52,4 +52,5 @@ export const BreadcrumbNav = ({ items, className = "" }: BreadcrumbNavProps) => 
 };
 
 export default BreadcrumbNav;
+
 

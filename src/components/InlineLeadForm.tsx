@@ -1,6 +1,6 @@
 ﻿'use client';
 import React, { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -37,11 +37,11 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const budgetRanges = [
-  "Under £2,000/month",
-  "£2,000 - £5,000/month",
-  "£5,000 - £10,000/month",
-  "£10,000 - £25,000/month",
-  "£25,000+/month",
+  "Under Ã‚Â£2,000/month",
+  "Ã‚Â£2,000 - Ã‚Â£5,000/month",
+  "Ã‚Â£5,000 - Ã‚Â£10,000/month",
+  "Ã‚Â£10,000 - Ã‚Â£25,000/month",
+  "Ã‚Â£25,000+/month",
 ];
 
 const priorities = [
@@ -73,7 +73,8 @@ interface AuditResult {
 }
 
 export function InlineLeadForm({ source = "inline", variant = "default" }: InlineLeadFormProps) {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
   const [status, setStatus] = useState<FormStatus>("idle");
   const [auditResult, setAuditResult] = useState<AuditResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -112,7 +113,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
   const handleFirstInteraction = () => {
     if (!formStarted) {
       setFormStarted(true);
-      trackFormStart('audit', window.pathname, prefillSource);
+      trackFormStart('audit', pathname || "", prefillSource);
     }
   };
 
@@ -151,7 +152,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
 
       // Track successful lead capture
       trackEvent(EVENTS.AUDIT_FORM_SUBMITTED, {
-        source_page: window.pathname,
+        source_page: pathname || "",
         form_variant: prefillSource,
         has_website_url: !!data.website,
         budget_band: data.budget,
@@ -210,7 +211,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
       setStatus("error");
       
       trackEvent(EVENTS.AUDIT_FORM_ERROR, {
-        source_page: window.pathname,
+        source_page: pathname || "",
         form_variant: prefillSource,
         error_type: 'submission',
       });
@@ -300,10 +301,10 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
           </div>
 
           <div className="space-y-2 text-sm text-muted-foreground">
-            <p>✓ Checking technical health</p>
-            <p>✓ Analyzing SEO factors</p>
-            <p>✓ Evaluating page performance</p>
-            <p className="animate-pulse">→ Generating recommendations...</p>
+            <p>Ã¢Å“â€œ Checking technical health</p>
+            <p>Ã¢Å“â€œ Analyzing SEO factors</p>
+            <p>Ã¢Å“â€œ Evaluating page performance</p>
+            <p className="animate-pulse">Ã¢â€ â€™ Generating recommendations...</p>
           </div>
         </div>
       </Card>
@@ -485,7 +486,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
               )}
             </Button>
             <p className="text-xs text-muted-foreground">
-              ⚡ Instant results • 🔒 Your data is safe
+              Ã¢Å¡Â¡ Instant results Ã¢â‚¬Â¢ Ã°Å¸â€â€™ Your data is safe
             </p>
           </div>
         </form>
@@ -493,3 +494,4 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     </Card>
   );
 }
+

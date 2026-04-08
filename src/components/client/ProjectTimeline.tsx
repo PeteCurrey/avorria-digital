@@ -177,7 +177,7 @@ export const ProjectTimeline = ({
                   )}
                   {isCurrent && stage.id === "launched" && launchedAt && (
                     <p className="text-xs text-green-600">
-                      Launched {format(new Date(launchedAt), "MMM d, yyyy")} 🎉
+                      Launched {format(new Date(launchedAt), "MMM d, yyyy")} ??
                     </p>
                   )}
                 </div>
@@ -295,7 +295,7 @@ export const ProjectTimeline = ({
                       animate={{ scale: 1 }}
                       className="text-xs text-green-500 mt-1 font-medium"
                     >
-                      {format(new Date(launchedAt), "MMM d")} 🎉
+                      {format(new Date(launchedAt), "MMM d")} ??
                     </motion.p>
                   )}
 
@@ -338,4 +338,5 @@ export const ProjectTimeline = ({
 };
 
 export default ProjectTimeline;
+
 

@@ -13,9 +13,22 @@ serve(async (req) => {
 
   try {
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
-    }
+    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.38.4");
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Try to get user-provided Claude key
+    const { data: claudeRecord } = await supabaseAdmin
+      .from("seo_integrations")
+      .select("config, is_active")
+      .eq("integration_type", "claude")
+      .eq("is_active", true)
+      .maybeSingle();
+
+    const userClaudeKey = claudeRecord?.config?.apiKey;
+    
+    // ... later in the code we'll use userClaudeKey if it exists
 
     const { client, sector, services, outcome, timeframe, year } = await req.json();
 
@@ -38,139 +51,216 @@ serve(async (req) => {
 
 Generate all content fields using the generate_case_study_content tool.`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: userPrompt },
-        ],
-        tools: [
-          {
-            type: "function",
-            function: {
+    let content: any;
+    
+    if (userClaudeKey) {
+      console.log("Using user-provided Claude API key for case study generation...");
+      const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": userClaudeKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+          tools: [
+            {
               name: "generate_case_study_content",
               description: "Generate structured case study content fields",
-              parameters: {
+              input_schema: {
                 type: "object",
                 properties: {
-                  headline: {
-                    type: "string",
-                    description: "A bold, outcome-led headline (8-12 words). E.g. 'From invisible to industry leader in 6 months'",
-                  },
-                  subheadline: {
-                    type: "string",
-                    description: "A supporting sentence expanding on the headline (15-25 words)",
-                  },
-                  problem: {
-                    type: "string",
-                    description: "2-3 paragraphs describing the client's challenge before working with us. Be specific and paint a picture of the pain points.",
-                  },
+                  headline: { type: "string" },
+                  subheadline: { type: "string" },
+                  problem: { type: "string" },
                   approach: {
                     type: "array",
                     items: {
                       type: "object",
                       properties: {
-                        phase: { type: "string", description: "Phase name e.g. Discovery, Strategy, Execution, Optimisation" },
-                        title: { type: "string", description: "Short title for this phase" },
-                        description: { type: "string", description: "2-3 sentences describing what was done" },
-                        duration: { type: "string", description: "e.g. '2 weeks', '1 month'" },
+                        phase: { type: "string" },
+                        title: { type: "string" },
+                        description: { type: "string" },
+                        duration: { type: "string" },
                       },
                       required: ["phase", "title", "description", "duration"],
-                      additionalProperties: false,
                     },
-                    description: "3-4 approach phases",
                   },
                   kpi_badges: {
                     type: "array",
                     items: {
                       type: "object",
                       properties: {
-                        label: { type: "string", description: "Metric name e.g. 'Organic Traffic', 'Lead Volume'" },
-                        value: { type: "string", description: "The result value e.g. '+340%', '£125k'" },
+                        label: { type: "string" },
+                        value: { type: "string" },
                         highlight: { type: "boolean" },
                       },
                       required: ["label", "value", "highlight"],
-                      additionalProperties: false,
                     },
-                    description: "3-4 headline KPI badges",
                   },
                   outcomes: {
                     type: "array",
                     items: {
                       type: "object",
                       properties: {
-                        label: { type: "string", description: "Metric name" },
-                        value: { type: "string", description: "Final value" },
-                        baseline: { type: "string", description: "Starting value before engagement" },
+                        label: { type: "string" },
+                        value: { type: "string" },
+                        baseline: { type: "string" },
                         highlight: { type: "boolean" },
                       },
                       required: ["label", "value", "baseline", "highlight"],
-                      additionalProperties: false,
                     },
-                    description: "3-4 detailed outcome metrics with baselines",
                   },
                   quote: {
                     type: "object",
                     properties: {
-                      text: { type: "string", description: "A realistic client testimonial quote (2-3 sentences)" },
-                      name: { type: "string", description: "A realistic first and last name" },
-                      role: { type: "string", description: "Job title e.g. 'Managing Director', 'Head of Marketing'" },
-                      company: { type: "string", description: "The client company name" },
+                      text: { type: "string" },
+                      name: { type: "string" },
+                      role: { type: "string" },
+                      company: { type: "string" },
                     },
                     required: ["text", "name", "role", "company"],
-                    additionalProperties: false,
                   },
-                  title: {
-                    type: "string",
-                    description: "Internal title for the case study (client name + key result)",
-                  },
-                  slug: {
-                    type: "string",
-                    description: "URL-friendly slug derived from client name, lowercase with hyphens",
-                  },
+                  title: { type: "string" },
+                  slug: { type: "string" },
                 },
                 required: ["headline", "subheadline", "problem", "approach", "kpi_badges", "outcomes", "quote", "title", "slug"],
-                additionalProperties: false,
               },
             },
-          },
-        ],
-        tool_choice: { type: "function", function: { name: "generate_case_study_content" } },
-      }),
-    });
+          ],
+          tool_choice: { type: "tool", name: "generate_case_study_content" },
+        }),
+      });
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }), {
-          status: 429,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+      if (!anthropicResponse.ok) {
+        const errorText = await anthropicResponse.text();
+        console.error("Claude API error:", anthropicResponse.status, errorText);
+        throw new Error(`Claude API error: ${anthropicResponse.status}`);
       }
-      if (response.status === 402) {
-        return new Response(JSON.stringify({ error: "AI credits exhausted. Please top up in Settings → Workspace → Usage." }), {
-          status: 402,
-          headers: { ...corsHeaders, "Content-Type": "application/json" },
-        });
+
+      const anthropicData = await anthropicResponse.json();
+      const toolUse = anthropicData.content.find((c: any) => c.type === "tool_use");
+      
+      if (!toolUse?.input) {
+        throw new Error("No structured output received from Claude");
       }
-      const text = await response.text();
-      console.error("AI gateway error:", response.status, text);
-      throw new Error(`AI gateway error: ${response.status}`);
+      
+      content = toolUse.input;
+    } else {
+      console.log("No Claude key found, falling back to default Gemini...");
+      if (!LOVABLE_API_KEY) {
+        throw new Error("No AI key (Claude or Lovable) is configured");
+      }
+
+      const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${LOVABLE_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-exp",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userPrompt },
+          ],
+          tools: [
+            {
+              type: "function",
+              function: {
+                name: "generate_case_study_content",
+                description: "Generate structured case study content fields",
+                parameters: {
+                  type: "object",
+                  properties: {
+                    headline: { type: "string" },
+                    subheadline: { type: "string" },
+                    problem: { type: "string" },
+                    approach: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          phase: { type: "string" },
+                          title: { type: "string" },
+                          description: { type: "string" },
+                          duration: { type: "string" },
+                        },
+                        required: ["phase", "title", "description", "duration"],
+                      },
+                    },
+                    kpi_badges: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          label: { type: "string" },
+                          value: { type: "string" },
+                          highlight: { type: "boolean" },
+                        },
+                        required: ["label", "value", "highlight"],
+                      },
+                    },
+                    outcomes: {
+                      type: "array",
+                      items: {
+                        type: "object",
+                        properties: {
+                          label: { type: "string" },
+                          value: { type: "string" },
+                          baseline: { type: "string" },
+                          highlight: { type: "boolean" },
+                        },
+                        required: ["label", "value", "baseline", "highlight"],
+                      },
+                    },
+                    quote: {
+                      type: "object",
+                      properties: {
+                        text: { type: "string" },
+                        name: { type: "string" },
+                        role: { type: "string" },
+                        company: { type: "string" },
+                      },
+                      required: ["text", "name", "role", "company"],
+                    },
+                    title: { type: "string" },
+                    slug: { type: "string" },
+                  },
+                  required: ["headline", "subheadline", "problem", "approach", "kpi_badges", "outcomes", "quote", "title", "slug"],
+                },
+              },
+            },
+          ],
+          tool_choice: { type: "function", function: { name: "generate_case_study_content" } },
+        }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          return new Response(JSON.stringify({ error: "Rate limit exceeded. Please try again in a moment." }), {
+            status: 429,
+            headers: { ...corsHeaders, "Content-Type": "application/json" },
+          });
+        }
+        const text = await response.text();
+        console.error("AI gateway error:", response.status, text);
+        throw new Error(`AI gateway error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const toolCall = data.choices?.[0]?.message?.tool_calls?.[0];
+
+      if (!toolCall?.function?.arguments) {
+        throw new Error("No structured output received from AI");
+      }
+
+      content = JSON.parse(toolCall.function.arguments);
     }
-
-    const data = await response.json();
-    const toolCall = data.choices?.[0]?.message?.tool_calls?.[0];
-
-    if (!toolCall?.function?.arguments) {
-      throw new Error("No structured output received from AI");
-    }
-
-    const content = JSON.parse(toolCall.function.arguments);
 
     return new Response(JSON.stringify(content), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

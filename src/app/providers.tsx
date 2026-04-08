@@ -1,6 +1,5 @@
-'use client';
-
-import React, { useState, useCallback } from "react";
+﻿'use client';
+import React, { useState, useCallback, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -40,10 +39,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <CookieConsent />
             <AIConsultantTrigger />
             <CustomCursor />
-            {children}
+            <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-background text-foreground animate-pulse">Loading Avorria...</div>}>
+              {children}
+            </Suspense>
           </SmoothScrollProvider>
         </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
 }
+

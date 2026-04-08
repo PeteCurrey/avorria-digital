@@ -1,5 +1,4 @@
-'use client';
-
+﻿'use client';
 import React from "react";
 import { usePathname } from "next/navigation";
 import Navigation from "@/components/Navigation";
@@ -53,3 +52,4 @@ export function Shell({ children }: { children: React.ReactNode }) {
     </>
   );
 }
+

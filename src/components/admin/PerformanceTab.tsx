@@ -119,7 +119,7 @@ const PerformanceTab = () => {
                 Click "Measure" to capture real Core Web Vitals from the current page, or connect Google PageSpeed Insights API for historical data.
               </p>
               <Badge variant="outline" className="text-xs">
-                Configure PageSpeed API in Settings → Integrations for automated monitoring
+                Configure PageSpeed API in Settings ? Integrations for automated monitoring
               </Badge>
             </div>
           </CardContent>
@@ -154,13 +154,13 @@ const PerformanceTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-foreground">
-              {metrics.ttfb !== null ? `${metrics.ttfb}ms` : "—"}
+              {metrics.ttfb !== null ? `${metrics.ttfb}ms` : "â€”"}
             </p>
             <p className="text-xs text-muted-foreground mt-1">Time to First Byte</p>
             <div className="mt-3 flex items-center gap-2 text-xs">
-              <span className="text-green-400">≤800ms good</span>
+              <span className="text-green-400">=800ms good</span>
               <span className="text-muted-foreground">|</span>
-              <span className="text-yellow-400">≤1800ms needs work</span>
+              <span className="text-yellow-400">=1800ms needs work</span>
             </div>
           </CardContent>
         </Card>
@@ -175,13 +175,13 @@ const PerformanceTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-foreground">
-              {metrics.fcp !== null ? `${(metrics.fcp / 1000).toFixed(2)}s` : "—"}
+              {metrics.fcp !== null ? `${(metrics.fcp / 1000).toFixed(2)}s` : "â€”"}
             </p>
             <p className="text-xs text-muted-foreground mt-1">First Contentful Paint</p>
             <div className="mt-3 flex items-center gap-2 text-xs">
-              <span className="text-green-400">≤1.8s good</span>
+              <span className="text-green-400">=1.8s good</span>
               <span className="text-muted-foreground">|</span>
-              <span className="text-yellow-400">≤3s needs work</span>
+              <span className="text-yellow-400">=3s needs work</span>
             </div>
           </CardContent>
         </Card>
@@ -196,13 +196,13 @@ const PerformanceTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-foreground">
-              {metrics.lcp !== null ? `${(metrics.lcp / 1000).toFixed(2)}s` : "—"}
+              {metrics.lcp !== null ? `${(metrics.lcp / 1000).toFixed(2)}s` : "â€”"}
             </p>
             <p className="text-xs text-muted-foreground mt-1">Full Page Load Time</p>
             <div className="mt-3 flex items-center gap-2 text-xs">
-              <span className="text-green-400">≤2.5s good</span>
+              <span className="text-green-400">=2.5s good</span>
               <span className="text-muted-foreground">|</span>
-              <span className="text-yellow-400">≤4s needs work</span>
+              <span className="text-yellow-400">=4s needs work</span>
             </div>
           </CardContent>
         </Card>
@@ -215,7 +215,7 @@ const PerformanceTab = () => {
             <BarChart3 className="h-10 w-10 text-muted-foreground/30 mb-4" />
             <h3 className="text-base font-semibold text-foreground mb-2">Historical trends & page-by-page breakdown</h3>
             <p className="text-sm text-muted-foreground max-w-md">
-              Connect the Google PageSpeed Insights API in Settings → Integrations to enable automated performance monitoring, historical trend charts, and per-page breakdowns.
+              Connect the Google PageSpeed Insights API in Settings ? Integrations to enable automated performance monitoring, historical trend charts, and per-page breakdowns.
             </p>
           </div>
         </CardContent>
@@ -225,4 +225,5 @@ const PerformanceTab = () => {
 };
 
 export default PerformanceTab;
+
 

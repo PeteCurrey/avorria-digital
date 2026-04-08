@@ -1,6 +1,7 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
-import { Link, useLocation , usePathname} from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { 
  LayoutDashboard, 
@@ -21,6 +22,7 @@ interface DashboardLayoutProps {
 
 const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLayoutProps) => {
  const pathname = usePathname();
+ const searchParams = useSearchParams();
  const [sidebarOpen, setSidebarOpen] = useState(true);
  const basePath = isDemoMode ? "/reporting/demo" : "/client";
 
@@ -36,7 +38,6 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
  ];
 
  const isActive = (path: string) => {
- const searchParams = new URLSearchParams();
  const currentTab = searchParams.get("tab") || "overview";
  const pathTab = new URLSearchParams(path.split("?")[1]).get("tab") || "overview";
  return currentTab === pathTab;
@@ -74,7 +75,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
    {navItems.map((item) => (
     <Link
     key={item.path}
-    to={item.path}
+    href={item.path}
     className={`group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-[var(--duration-fast)] ${
      isActive(item.path)
      ? "bg-gradient-to-r from-accent/10 to-primary/5 text-accent font-medium shadow-sm"
@@ -116,12 +117,12 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
      <h1 className="text-lg font-semibold text-foreground">
      Avorria Client Dashboard
      </h1>
-     <p className="text-xs text-muted-foreground">Demo Mode · Last updated 2 hours ago</p>
+     <p className="text-xs text-muted-foreground">Demo Mode Ã‚Â· Last updated 2 hours ago</p>
     </div>
     ) : (
     <div>
      <h1 className="text-lg font-semibold text-foreground">
-     {userName || "Client"} · Client Area
+     {userName || "Client"} Ã‚Â· Client Area
      </h1>
      <p className="text-xs text-muted-foreground">
      Last updated 2 hours ago

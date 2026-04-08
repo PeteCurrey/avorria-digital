@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/WebDesign';
+﻿'use client';
+export { default } from '@/views/WebDesign';
+

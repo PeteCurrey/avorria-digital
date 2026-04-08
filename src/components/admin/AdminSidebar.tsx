@@ -1,6 +1,7 @@
 ﻿'use client';
+import Link from "next/link";
 import { useState, useCallback } from "react";
-import { Link, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import AnimatedLogo from "@/components/AnimatedLogo";
@@ -209,7 +210,7 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
               <Tooltip>
                 <TooltipTrigger asChild>
                   <Link
-                    to="/admin?tab=overview"
+                    href="/admin?tab=overview"
                     className={cn(
                       "group relative flex items-center justify-center rounded-lg p-2.5 text-sm font-medium transition-all duration-200",
                       currentTab === "overview"
@@ -233,7 +234,7 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
               </Tooltip>
             ) : (
               <Link
-                to="/admin?tab=overview"
+                href="/admin?tab=overview"
                 className={cn(
                   "group relative flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200",
                   currentTab === "overview"
@@ -300,7 +301,7 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
                             const NavContent = (
                               <Link
                                 key={item.tab}
-                                to={`/admin?tab=${item.tab}`}
+                                href={`/admin?tab=${item.tab}`}
                                 className={cn(
                                   "group relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-all duration-200",
                                   isActive
@@ -413,4 +414,5 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
 };
 
 export default AdminSidebar;
+
 

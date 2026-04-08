@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // Step soundscape configurations
@@ -293,3 +293,4 @@ export function useStepBasedAudio(
     currentMood: getCurrentMood(),
   };
 }
+

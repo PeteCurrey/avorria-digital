@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/Industries';
+﻿'use client';
+export { default } from '@/views/Industries';
+

@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useEffect, useState } from "react";
 import { useSearchParams , useRouter} from "next/navigation";
@@ -84,4 +85,5 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
 };
 
 export default CommandPalette;
+
 

@@ -393,3 +393,4 @@ export const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", classN
   );
 };
 
+

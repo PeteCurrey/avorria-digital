@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -94,3 +95,4 @@ export const useDeleteTeamMember = () => {
     onSuccess: () => qc.invalidateQueries({ queryKey: QUERY_KEY }),
   });
 };
+

@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 import { LandingPage, Service, Location } from "@/types/landingPage";
 import { services, getServiceBySlug } from "./services";
 import { locations, getLocationBySlug } from "./locations";
@@ -20,7 +21,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Richardson & Cole Solicitors",
     },
     "web-design": {
-      quote: "Our old site looked fine but did nothing for leads. The new site converts visitors properly – enquiries are up 140% and we can finally track what's working.",
+      quote: "Our old site looked fine but did nothing for leads. The new site converts visitors properly Ã¢â‚¬â€œ enquiries are up 140% and we can finally track what's working.",
       author: "Sophie Chen",
       role: "Marketing Director",
       company: "Canary Wharf Financial Advisors",
@@ -46,7 +47,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Northern Property Group",
     },
     "web-design": {
-      quote: "The site Avorria built us is head and shoulders above anything else in our sector locally. More importantly, it actually converts – enquiries doubled in the first quarter.",
+      quote: "The site Avorria built us is head and shoulders above anything else in our sector locally. More importantly, it actually converts Ã¢â‚¬â€œ enquiries doubled in the first quarter.",
       author: "Emma Whitfield",
       role: "Operations Director",
       company: "Manchester Business Consulting",
@@ -92,7 +93,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
   },
   leeds: {
     seo: {
-      quote: "We serve Yorkshire businesses and needed to rank locally. Avorria built location pages that actually work – we now dominate the searches that matter.",
+      quote: "We serve Yorkshire businesses and needed to rank locally. Avorria built location pages that actually work Ã¢â‚¬â€œ we now dominate the searches that matter.",
       author: "James Hartley",
       role: "Managing Partner",
       company: "Hartley & Associates Accountants",
@@ -104,13 +105,13 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Yorkshire Architecture Studio",
     },
     "digital-marketing": {
-      quote: "Having one team handle everything from SEO to ads makes life so much simpler. And the results speak for themselves – pipeline is up 85%.",
+      quote: "Having one team handle everything from SEO to ads makes life so much simpler. And the results speak for themselves Ã¢â‚¬â€œ pipeline is up 85%.",
       author: "Robert Walsh",
       role: "Commercial Director",
       company: "Walsh Industrial Services",
     },
     "paid-media": {
-      quote: "We'd been wasting money on ads that generated clicks but not leads. Avorria fixed our tracking and targeting – now every pound is accountable.",
+      quote: "We'd been wasting money on ads that generated clicks but not leads. Avorria fixed our tracking and targeting Ã¢â‚¬â€œ now every pound is accountable.",
       author: "Jennifer Brown",
       role: "Operations Director",
       company: "Leeds Business Solutions",
@@ -176,7 +177,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Robertson & Sons Builders",
     },
     "web-design": {
-      quote: "The site reflects our business properly now. It's not just pretty – it converts. Best investment we've made in marketing.",
+      quote: "The site reflects our business properly now. It's not just pretty Ã¢â‚¬â€œ it converts. Best investment we've made in marketing.",
       author: "Nicola Fraser",
       role: "Director",
       company: "Glasgow Design Consultancy",
@@ -188,7 +189,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Paterson Technology Group",
     },
     "paid-media": {
-      quote: "Our LinkedIn ads were expensive and ineffective. Avorria rebuilt the targeting and creative – now we get qualified leads at half the cost.",
+      quote: "Our LinkedIn ads were expensive and ineffective. Avorria rebuilt the targeting and creative Ã¢â‚¬â€œ now we get qualified leads at half the cost.",
       author: "Eileen Murray",
       role: "Business Development Director",
       company: "Murray HR Consulting",
@@ -470,7 +471,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "Walsh Capital Partners",
     },
     "digital-marketing": {
-      quote: "We'd been doing random marketing with no coherent strategy. Avorria brought discipline and focus – ROI improved immediately.",
+      quote: "We'd been doing random marketing with no coherent strategy. Avorria brought discipline and focus Ã¢â‚¬â€œ ROI improved immediately.",
       author: "David Kim",
       role: "CEO",
       company: "Kim Technology Ventures",
@@ -490,7 +491,7 @@ const locationTestimonials: Record<string, LocationTestimonial> = {
       company: "LA Home Services Pro",
     },
     "web-design": {
-      quote: "The site they built captures LA perfectly – it's modern, fast, and converts visitors into consultations consistently.",
+      quote: "The site they built captures LA perfectly Ã¢â‚¬â€œ it's modern, fast, and converts visitors into consultations consistently.",
       author: "Amanda Foster",
       role: "Director",
       company: "Foster Creative Agency LA",
@@ -725,7 +726,7 @@ const generateFallbackTestimonial = (
 ): { quote: string; author: string; role: string; company: string } => {
   const templates: Record<string, { quote: string; author: string; role: string; company: string }> = {
     seo: {
-      quote: `We'd tried various SEO approaches in ${city} with mixed results. Avorria brought structure and accountability – we now know exactly what organic search contributes to our pipeline.`,
+      quote: `We'd tried various SEO approaches in ${city} with mixed results. Avorria brought structure and accountability Ã¢â‚¬â€œ we now know exactly what organic search contributes to our pipeline.`,
       author: "Alex Thompson",
       role: "Managing Director",
       company: `${city} Business Solutions`,
@@ -778,7 +779,7 @@ const getCurrency = (countryCode: string): { symbol: string; code: string } => {
     case "CA":
       return { symbol: "C$", code: "CAD" };
     default:
-      return { symbol: "£", code: "GBP" };
+      return { symbol: "Ã‚Â£", code: "GBP" };
   }
 };
 
@@ -814,9 +815,9 @@ const seoTemplate: ServiceTemplate = {
   solutionBullets: (city, region) => [
     `Local and regional SEO strategy focused on the services and areas in ${region} that actually make you money.`,
     `Technical and on-page clean-up so Google understands what you do and who you do it for.`,
-    `Service and location pages for ${city} built for conversion – clear offers, proof and CTAs.`,
+    `Service and location pages for ${city} built for conversion Ã¢â‚¬â€œ clear offers, proof and CTAs.`,
     `Tracking wired into calls, forms and enquiries so you can see what came from where.`,
-    `Simple dashboards showing organic leads and pipeline – not just 'visibility'.`,
+    `Simple dashboards showing organic leads and pipeline Ã¢â‚¬â€œ not just 'visibility'.`,
   ],
   keyMetrics: [
     {
@@ -884,7 +885,7 @@ const seoTemplate: ServiceTemplate = {
 const webDesignTemplate: ServiceTemplate = {
   problemBullets: (city, region) => [
     `Your current website looks dated compared to competitors in ${city}.`,
-    `Visitors browse but don't enquire – your site isn't converting.`,
+    `Visitors browse but don't enquire Ã¢â‚¬â€œ your site isn't converting.`,
     `The site is slow, awkward on mobile, or hard to update.`,
     `You've had agencies redesign before but it didn't move the needle on leads.`,
     `There's no clear tracking to show which pages or channels drive business.`,
@@ -893,7 +894,7 @@ const webDesignTemplate: ServiceTemplate = {
     `Modern, fast websites designed to convert ${city} visitors into enquiries.`,
     `Mobile-first design that works beautifully on every device.`,
     `Clear conversion paths with prominent CTAs and easy contact options.`,
-    `Built for SEO from day one – structure, speed and content that ranks.`,
+    `Built for SEO from day one Ã¢â‚¬â€œ structure, speed and content that ranks.`,
     `Tracking wired in so you can see exactly what's driving business.`,
   ],
   keyMetrics: [
@@ -963,12 +964,12 @@ const digitalMarketingTemplate: ServiceTemplate = {
   problemBullets: (city, region) => [
     `You're spending on marketing but can't clearly connect it to revenue.`,
     `Multiple agencies, tools and channels but no coherent strategy.`,
-    `SEO says one thing, ads say another – nobody owns the full picture.`,
+    `SEO says one thing, ads say another Ã¢â‚¬â€œ nobody owns the full picture.`,
     `Reports focus on vanity metrics instead of pipeline and sales.`,
     `You suspect you're wasting budget but can't prove where.`,
   ],
   solutionBullets: (city, region) => [
-    `Integrated digital strategy across SEO, paid, content and web – one team, one plan.`,
+    `Integrated digital strategy across SEO, paid, content and web Ã¢â‚¬â€œ one team, one plan.`,
     `Clear focus on the channels and tactics that drive results for ${city} businesses.`,
     `Proper tracking and attribution so you can see what's actually working.`,
     `Regular strategy reviews and adjustments based on real performance data.`,
@@ -1041,9 +1042,9 @@ const paidMediaTemplate: ServiceTemplate = {
   problemBullets: (city, region) => [
     `You're spending on Google or Meta ads but can't clearly tie it to revenue.`,
     `Previous agencies focused on clicks and impressions, not leads and sales.`,
-    `Landing pages don't convert – you're paying for traffic that goes nowhere.`,
+    `Landing pages don't convert Ã¢â‚¬â€œ you're paying for traffic that goes nowhere.`,
     `Campaigns haven't been properly reviewed or optimised in months.`,
-    `Attribution is a mess – you don't know what's really working.`,
+    `Attribution is a mess Ã¢â‚¬â€œ you don't know what's really working.`,
   ],
   solutionBullets: (city, region) => [
     `Paid campaigns built around your commercial goals, not vanity metrics.`,
@@ -1076,11 +1077,11 @@ const paidMediaTemplate: ServiceTemplate = {
     },
     {
       question: "What's the minimum ad spend you work with?",
-      answer: "We typically work with clients spending £2,000/month or more on ads. Below that, the economics often don't justify agency management.",
+      answer: "We typically work with clients spending Ã‚Â£2,000/month or more on ads. Below that, the economics often don't justify agency management.",
     },
     {
       question: "Do you manage landing pages too?",
-      answer: "Yes. Ads are only half the story – we can build or optimise landing pages to improve conversion and make your spend work harder.",
+      answer: "Yes. Ads are only half the story Ã¢â‚¬â€œ we can build or optimise landing pages to improve conversion and make your spend work harder.",
     },
     {
       question: "How do you handle attribution?",
@@ -1088,7 +1089,7 @@ const paidMediaTemplate: ServiceTemplate = {
     },
     {
       question: "What reporting do we get?",
-      answer: "Monthly reporting focused on leads, cost per lead, and revenue impact – not just impressions and clicks. Plus a strategy call to review performance and next steps.",
+      answer: "Monthly reporting focused on leads, cost per lead, and revenue impact Ã¢â‚¬â€œ not just impressions and clicks. Plus a strategy call to review performance and next steps.",
     },
   ],
   processSteps: [
@@ -1145,8 +1146,8 @@ function generateServiceLocationPage(
 
   // Service-specific subheadlines
   const subheadlinePatterns: Record<string, string> = {
-    seo: `Avorria is a performance-focused SEO partner for ${location.city} businesses. We sort your site, content and tracking so you can see – in hard numbers – what organic search is doing for enquiries and revenue.`,
-    "web-design": `We design and build websites for ${location.city} businesses that look sharp and convert visitors into enquiries, bookings and orders – with tracking to prove it.`,
+    seo: `Avorria is a performance-focused SEO partner for ${location.city} businesses. We sort your site, content and tracking so you can see Ã¢â‚¬â€œ in hard numbers Ã¢â‚¬â€œ what organic search is doing for enquiries and revenue.`,
+    "web-design": `We design and build websites for ${location.city} businesses that look sharp and convert visitors into enquiries, bookings and orders Ã¢â‚¬â€œ with tracking to prove it.`,
     "digital-marketing": `Integrated digital marketing for ${location.city} businesses who want growth, not noise. SEO, paid media, web and content under one roof with proper tracking.`,
     "paid-media": `We run paid campaigns for ${location.city} businesses that focus on leads and revenue, not clicks and impressions. Proper tracking, real results.`,
   };
@@ -1240,3 +1241,4 @@ export const getPagesByService = (serviceSlug: string): LandingPage[] => {
     (lp) => lp.service.slug === serviceSlug
   );
 };
+

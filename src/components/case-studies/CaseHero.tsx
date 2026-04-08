@@ -1,8 +1,8 @@
 ﻿'use client';
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import Link from "next/link";
 import React, { useRef } from "react";
 import type { CaseMetric } from "@/data/caseStudies";
 
@@ -289,3 +289,4 @@ export const CaseHeroImage = ({ src, alt = "Project screenshot" }: CaseHeroImage
     </section>);
 
 };
+

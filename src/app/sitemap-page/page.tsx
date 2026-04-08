@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/Sitemap';
+﻿'use client';
+export { default } from '@/views/Sitemap';
+

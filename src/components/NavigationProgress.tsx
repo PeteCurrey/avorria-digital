@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { motion, useScroll, useSpring } from "framer-motion";
 
 const NavigationProgress = () => {
@@ -18,3 +18,4 @@ const NavigationProgress = () => {
 };
 
 export default NavigationProgress;
+

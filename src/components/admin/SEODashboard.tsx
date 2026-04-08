@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -430,7 +431,7 @@ export default function SEODashboard() {
                       {getPositionChange(kw.position, kw.previous_position)}
                       <span className="font-medium text-sm">{kw.keyword}</span>
                     </div>
-                    <Badge variant="outline" className="font-mono">#{kw.position || "–"}</Badge>
+                    <Badge variant="outline" className="font-mono">#{kw.position || "â€“"}</Badge>
                   </motion.div>
                 ))}
               </CardContent>
@@ -516,7 +517,7 @@ export default function SEODashboard() {
                     {latestRankings.map((kw, idx) => (
                       <motion.tr key={kw.id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.03 * idx }} className="border-border/30">
                         <TableCell className="font-medium">{kw.keyword}</TableCell>
-                        <TableCell className="text-center"><Badge variant="outline" className="font-mono">#{kw.position || "–"}</Badge></TableCell>
+                        <TableCell className="text-center"><Badge variant="outline" className="font-mono">#{kw.position || "â€“"}</Badge></TableCell>
                         <TableCell className="text-center">
                           <div className="flex items-center justify-center gap-1">
                             {getPositionChange(kw.position, kw.previous_position)}
@@ -524,17 +525,17 @@ export default function SEODashboard() {
                               <span className={`text-sm font-mono ${kw.position < kw.previous_position ? "text-green-400" : kw.position > kw.previous_position ? "text-red-400" : "text-muted-foreground"}`}>
                                 {kw.position < kw.previous_position ? "+" : ""}{(kw.previous_position - kw.position)}
                               </span>
-                            ) : <span className="text-sm text-muted-foreground">–</span>}
+                            ) : <span className="text-sm text-muted-foreground">â€“</span>}
                           </div>
                         </TableCell>
-                        <TableCell className="text-center">{kw.search_volume?.toLocaleString() || "–"}</TableCell>
+                        <TableCell className="text-center">{kw.search_volume?.toLocaleString() || "â€“"}</TableCell>
                         <TableCell className="text-center">
                           {kw.difficulty ? (
                             <div className="flex items-center justify-center gap-2">
                               <Progress value={Number(kw.difficulty)} className="w-16 h-2" />
                               <span className="text-xs text-muted-foreground">{kw.difficulty}</span>
                             </div>
-                          ) : "–"}
+                          ) : "â€“"}
                         </TableCell>
                         <TableCell className="text-right">
                           <Button variant="ghost" size="sm" onClick={() => window.open(`https://www.google.com/search?q=${encodeURIComponent(kw.keyword)}`, "_blank")}>
@@ -570,7 +571,7 @@ export default function SEODashboard() {
                         {isImproving ? <ArrowUp className="h-5 w-5 text-green-400" /> : <ArrowDown className="h-5 w-5 text-red-400" />}
                         <div>
                           <p className="font-medium text-sm">{kw.keyword}</p>
-                          <p className="text-xs text-muted-foreground">#{kw.previous_position} → #{kw.position}</p>
+                          <p className="text-xs text-muted-foreground">#{kw.previous_position} ? #{kw.position}</p>
                         </div>
                       </div>
                       <Badge className={`font-mono text-sm ${isImproving ? "bg-green-500/10 text-green-400 border-green-500/30" : "bg-red-500/10 text-red-400 border-red-500/30"}`}>
@@ -646,7 +647,7 @@ export default function SEODashboard() {
                         <h4 className="text-xs font-semibold mb-2 text-green-400 flex items-center gap-1"><ArrowUp className="h-3 w-3" /> Strengths</h4>
                         <div className="space-y-1">
                           {(snapshot.strengths || []).slice(0, 3).map((s: any, i: number) => (
-                            <p key={i} className="text-[11px] text-muted-foreground">• {s.area || s.description || String(s)}</p>
+                            <p key={i} className="text-[11px] text-muted-foreground">â€¢ {s.area || s.description || String(s)}</p>
                           ))}
                         </div>
                       </div>
@@ -654,7 +655,7 @@ export default function SEODashboard() {
                         <h4 className="text-xs font-semibold mb-2 text-red-400 flex items-center gap-1"><ArrowDown className="h-3 w-3" /> Weaknesses</h4>
                         <div className="space-y-1">
                           {(snapshot.weaknesses || []).slice(0, 3).map((w: any, i: number) => (
-                            <p key={i} className="text-[11px] text-muted-foreground">• {w.area || w.opportunity || String(w)}</p>
+                            <p key={i} className="text-[11px] text-muted-foreground">â€¢ {w.area || w.opportunity || String(w)}</p>
                           ))}
                         </div>
                       </div>
@@ -662,7 +663,7 @@ export default function SEODashboard() {
                         <h4 className="text-xs font-semibold mb-2 text-accent flex items-center gap-1"><Lightbulb className="h-3 w-3" /> Opportunities</h4>
                         <div className="space-y-1">
                           {(snapshot.opportunities || []).slice(0, 3).map((o: any, i: number) => (
-                            <p key={i} className="text-[11px] text-muted-foreground">• {o.title || o.action || String(o)}</p>
+                            <p key={i} className="text-[11px] text-muted-foreground">â€¢ {o.title || o.action || String(o)}</p>
                           ))}
                         </div>
                       </div>
@@ -762,4 +763,5 @@ export default function SEODashboard() {
     </div>
   );
 }
+
 

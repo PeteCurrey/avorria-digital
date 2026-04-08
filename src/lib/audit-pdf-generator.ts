@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import { jsPDF } from "jspdf";
 
 interface AuditSection {
@@ -76,7 +77,7 @@ function grade(s: number): string {
   return "F";
 }
 
-// ── WATERMARK: faint, full diagonal, "AVORRIA." with pink dot ──
+// -- WATERMARK: faint, full diagonal, "AVORRIA." with pink dot --
 function watermark(pdf: jsPDF): void {
   pdf.saveGraphicsState();
   // Main text in very light grey
@@ -120,7 +121,7 @@ function space(pdf: jsPDF, y: number, need: number): number {
   return y;
 }
 
-// ── DECORATIVE: corner accent dots ──
+// -- DECORATIVE: corner accent dots --
 function cornerAccents(pdf: jsPDF): void {
   pdf.setFillColor(...C.accent);
   pdf.setGState(new (pdf as any).GState({ opacity: 0.08 }));
@@ -129,7 +130,7 @@ function cornerAccents(pdf: jsPDF): void {
   pdf.setGState(new (pdf as any).GState({ opacity: 1 }));
 }
 
-// ── RADAR CHART (pentagon) ──
+// -- RADAR CHART (pentagon) --
 function drawRadar(pdf: jsPDF, cx: number, cy: number, r: number, scores: number[], labels: string[]): void {
   const n = scores.length;
   const angleStep = (2 * Math.PI) / n;
@@ -196,7 +197,7 @@ function drawRadar(pdf: jsPDF, cx: number, cy: number, r: number, scores: number
   }
 }
 
-// ── DONUT CHART ──
+// -- DONUT CHART --
 function drawDonut(pdf: jsPDF, cx: number, cy: number, r: number, score: number): void {
   const segments = 60;
   for (let i = 0; i < segments; i++) {
@@ -227,7 +228,7 @@ function drawDonut(pdf: jsPDF, cx: number, cy: number, r: number, score: number)
   pdf.text(grade(score), cx, cy + 9, { align: "center" });
 }
 
-// ── PROGRESS BAR ──
+// -- PROGRESS BAR --
 function progressBar(pdf: jsPDF, x: number, y: number, w: number, score: number, label: string): number {
   const color = sc(score);
   pdf.setTextColor(...C.text);
@@ -250,7 +251,7 @@ function progressBar(pdf: jsPDF, x: number, y: number, w: number, score: number,
   return y + 4;
 }
 
-// ── SECTION HEADER (light font, thinner accent line) ──
+// -- SECTION HEADER (light font, thinner accent line) --
 function sectionTitle(pdf: jsPDF, y: number, title: string): number {
   pdf.setTextColor(...C.navy);
   pdf.setFontSize(18);
@@ -264,7 +265,7 @@ function sectionTitle(pdf: jsPDF, y: number, title: string): number {
   return y + 8;
 }
 
-// ── BENCHMARK BAR ──
+// -- BENCHMARK BAR --
 function benchmarkBar(pdf: jsPDF, x: number, y: number, w: number, score: number, avg: number): number {
   pdf.setFillColor(240, 241, 246);
   pdf.roundedRect(x, y, w, 6, 3, 3, "F");
@@ -286,7 +287,7 @@ function benchmarkBar(pdf: jsPDF, x: number, y: number, w: number, score: number
   return y + 16;
 }
 
-// ── CARD BOX (thinner top accent) ──
+// -- CARD BOX (thinner top accent) --
 function cardBox(pdf: jsPDF, x: number, y: number, w: number, h: number): void {
   pdf.setFillColor(0, 0, 0);
   pdf.setGState(new (pdf as any).GState({ opacity: 0.04 }));
@@ -300,7 +301,7 @@ function cardBox(pdf: jsPDF, x: number, y: number, w: number, h: number): void {
   pdf.setGState(new (pdf as any).GState({ opacity: 1 }));
 }
 
-// ── BROWSER MOCKUP ──
+// -- BROWSER MOCKUP --
 function drawBrowserMockup(pdf: jsPDF, x: number, y: number, w: number, h: number, url: string): void {
   // Window frame
   pdf.setFillColor(240, 241, 246);
@@ -357,14 +358,14 @@ function drawBrowserMockup(pdf: jsPDF, x: number, y: number, w: number, h: numbe
   pdf.line(x + 2, y + 18, x + w - 2, y + 18);
 }
 
-// ═══════════════════════════════════════
+// ---------------------------------------
 // MAIN GENERATOR
-// ═══════════════════════════════════════
+// ---------------------------------------
 export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   const pdf = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
   let y = 0;
 
-  // ── Load hero image ──
+  // -- Load hero image --
   let heroImg: string | null = null;
   try {
     const { default: src } = await import("@/assets/hero-penthouse.png");
@@ -389,9 +390,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     heroImg = canvas.toDataURL("image/jpeg", 0.92);
   } catch { /* fallback */ }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 1: COVER
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   if (heroImg) {
     pdf.addImage(heroImg, "JPEG", 0, 0, PW, PH);
   }
@@ -422,7 +423,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.setTextColor(180, 185, 200);
   pdf.text("DIGITAL MARKETING", M, 34);
 
-  // Main title — light font
+  // Main title â€” light font
   y = 110;
   pdf.setTextColor(...C.white);
   pdf.setFontSize(42);
@@ -448,7 +449,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   const dateStr = new Date().toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
   pdf.setFontSize(8.5);
   pdf.setTextColor(150, 155, 172);
-  pdf.text(`Prepared for ${data.userName}  ·  ${dateStr}`, M, y + 19);
+  pdf.text(`Prepared for ${data.userName}  Â·  ${dateStr}`, M, y + 19);
 
   // Score card (frosted glass)
   const scX = PW - M - 65;
@@ -494,9 +495,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.setFillColor(...C.accent);
   pdf.rect(0, PH - 1.5, PW, 1.5, "F");
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 2: WEBSITE SCREENSHOT / BROWSER MOCKUP
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
 
@@ -512,7 +513,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.setTextColor(...C.textSoft);
   pdf.setFontSize(9);
   pdf.setFont("helvetica", "normal");
-  pdf.text(`Homepage at time of audit  ·  ${dateStr}`, M, y);
+  pdf.text(`Homepage at time of audit  Â·  ${dateStr}`, M, y);
   y += 10;
 
   drawBrowserMockup(pdf, M, y, CW, 160, data.websiteUrl);
@@ -525,9 +526,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.text("The analysis that follows is based on a comprehensive review of this website's", M, y);
   pdf.text("structure, content, technical configuration, and conversion pathways.", M, y + 5);
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 3: TABLE OF CONTENTS
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
 
@@ -576,9 +577,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 10;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 4: EXECUTIVE SUMMARY
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
   y = sectionTitle(pdf, y, "Executive Summary");
@@ -625,9 +626,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     pdf.text(metrics[i].sub, mx + mw / 2, y + 22, { align: "center" });
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 5: SCORE OVERVIEW + RADAR
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
   y = sectionTitle(pdf, y, "Score Overview");
@@ -655,9 +656,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 20;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGES 6-10: DETAILED SECTION PAGES (FIX: card first, text once)
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   for (let si = 0; si < sectionOrder.length; si++) {
     const sec = data.sections[sectionOrder[si]];
     y = newPage(pdf);
@@ -687,7 +688,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     pdf.setTextColor(...C.white);
     pdf.setFontSize(8);
     pdf.setFont("helvetica", "normal");
-    pdf.text(`${sec.score}/100  ·  ${sl(sec.score)}`, M + 21, y + 6.5, { align: "center" });
+    pdf.text(`${sec.score}/100  Â·  ${sl(sec.score)}`, M + 21, y + 6.5, { align: "center" });
     y += 16;
 
     // Mini donut
@@ -705,7 +706,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     pdf.setFontSize(8.5);
     pdf.setFont("helvetica", "normal");
     for (const f of sec.findings) {
-      const lines = pdf.splitTextToSize(`•  ${f}`, CW - 55);
+      const lines = pdf.splitTextToSize(`â€¢  ${f}`, CW - 55);
       for (const line of lines) {
         y = space(pdf, y, 5);
         pdf.text(line, M + 4, y);
@@ -716,7 +717,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
 
     y += 6;
 
-    // Recommendations — FIXED: draw bg card FIRST, then text ONCE
+    // Recommendations â€” FIXED: draw bg card FIRST, then text ONCE
     y = space(pdf, y, 16);
     const recY = y;
 
@@ -761,9 +762,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     }
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 11: QUICK WINS
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
 
@@ -808,9 +809,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 4;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 12: 90-DAY ROADMAP
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y += 6;
   y = space(pdf, y, 30);
   y = sectionTitle(pdf, y, "90-Day Roadmap");
@@ -821,7 +822,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.text("Prioritised actions over the next quarter:", M, y);
   y += 8;
 
-  const phases = ["Weeks 1–2", "Weeks 3–6", "Weeks 7–10", "Weeks 11–13"];
+  const phases = ["Weeks 1â€“2", "Weeks 3â€“6", "Weeks 7â€“10", "Weeks 11â€“13"];
 
   for (let i = 0; i < data.roadmap90Days.length; i++) {
     y = space(pdf, y, 18);
@@ -853,9 +854,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 5;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 13: ABOUT AVORRIA
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
 
@@ -874,7 +875,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.setTextColor(...C.text);
   pdf.setFontSize(9.5);
   pdf.setFont("helvetica", "normal");
-  const aboutText = "Avorria is a performance-focused digital marketing agency built for ambitious businesses that want growth — not vanity metrics. We combine deep technical expertise with creative strategy to deliver measurable results across SEO, paid media, web design, and content marketing.\n\nOur team is made up exclusively of senior specialists — no juniors learning on your account. Every engagement is led by people who have spent years in the trenches, building and optimising campaigns that generate real pipeline and revenue.\n\nWe don't believe in long lock-in contracts or opaque reporting. You'll always know exactly what we're doing, why we're doing it, and what impact it's having on your bottom line.";
+  const aboutText = "Avorria is a performance-focused digital marketing agency built for ambitious businesses that want growth â€” not vanity metrics. We combine deep technical expertise with creative strategy to deliver measurable results across SEO, paid media, web design, and content marketing.\n\nOur team is made up exclusively of senior specialists â€” no juniors learning on your account. Every engagement is led by people who have spent years in the trenches, building and optimising campaigns that generate real pipeline and revenue.\n\nWe don't believe in long lock-in contracts or opaque reporting. You'll always know exactly what we're doing, why we're doing it, and what impact it's having on your bottom line.";
   const aboutLines = pdf.splitTextToSize(aboutText, CW - 8);
   for (const line of aboutLines) {
     y = space(pdf, y, 5);
@@ -883,7 +884,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   }
   y += 10;
 
-  // Why Avorria — differentiators
+  // Why Avorria â€” differentiators
   y = space(pdf, y, 80);
   y = sectionTitle(pdf, y, "Why Avorria");
 
@@ -925,9 +926,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 38;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 14: OUR SERVICES
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
   y = sectionTitle(pdf, y, "Our Services");
@@ -941,23 +942,23 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   const services = [
     {
       name: "SEO & Organic Growth",
-      desc: "Technical SEO, content strategy, and link building engineered for revenue growth — not just rankings and reports. We focus on the keywords and pages that actually drive pipeline.",
-      icon: "🔍",
+      desc: "Technical SEO, content strategy, and link building engineered for revenue growth â€” not just rankings and reports. We focus on the keywords and pages that actually drive pipeline.",
+      icon: "??",
     },
     {
       name: "Web Design & Development",
       desc: "Modern, fast, conversion-optimised websites that blend premium design with technical excellence. Built to convert visitors into leads and customers.",
-      icon: "🎨",
+      icon: "??",
     },
     {
       name: "Paid Media & PPC",
-      desc: "Performance campaigns across Google Ads, Meta, and LinkedIn. We optimise for pipeline, not vanity metrics — every pound of spend is tracked to revenue.",
-      icon: "📈",
+      desc: "Performance campaigns across Google Ads, Meta, and LinkedIn. We optimise for pipeline, not vanity metrics â€” every pound of spend is tracked to revenue.",
+      icon: "??",
     },
     {
       name: "Content & Email Marketing",
       desc: "Long-form SEO content and automated email sequences that nurture leads through your funnel. Strategy tied directly to your sales process.",
-      icon: "✉️",
+      icon: "??",
     },
   ];
 
@@ -992,9 +993,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 42;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 15: RECOMMENDED PACKAGE & PRICING
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
 
@@ -1070,9 +1071,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   y = sectionTitle(pdf, y, "Engagement Models");
 
   const pricingModels = [
-    { model: "Ongoing Growth Retainer", range: "£4,000 – £12,000+ /month", desc: "Full-stack SEO, Paid Media, Web, Analytics. Ideal for businesses ready to scale with a dedicated growth partner.", best: "Sustained growth" },
-    { model: "Fixed-Scope Project", range: "£8,000 – £40,000", desc: "Website rebuilds, migrations, tracking overhauls, and one-off strategic projects with clear deliverables.", best: "Defined outcomes" },
-    { model: "Strategy & Advisory", range: "£1,500 – £4,000 /month", desc: "Expert guidance for internal teams. We provide the strategy and roadmap, your team executes.", best: "Internal teams" },
+    { model: "Ongoing Growth Retainer", range: "Â£4,000 â€“ Â£12,000+ /month", desc: "Full-stack SEO, Paid Media, Web, Analytics. Ideal for businesses ready to scale with a dedicated growth partner.", best: "Sustained growth" },
+    { model: "Fixed-Scope Project", range: "Â£8,000 â€“ Â£40,000", desc: "Website rebuilds, migrations, tracking overhauls, and one-off strategic projects with clear deliverables.", best: "Defined outcomes" },
+    { model: "Strategy & Advisory", range: "Â£1,500 â€“ Â£4,000 /month", desc: "Expert guidance for internal teams. We provide the strategy and roadmap, your team executes.", best: "Internal teams" },
   ];
 
   for (let i = 0; i < pricingModels.length; i++) {
@@ -1121,9 +1122,9 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     y += 34;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 16: INVESTMENT & TIMELINE
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   y = newPage(pdf);
   cornerAccents(pdf);
   y = sectionTitle(pdf, y, "Suggested Timeline");
@@ -1137,8 +1138,8 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   const timeline = [
     { phase: "Month 1", title: "Foundation & Quick Wins", items: ["Implement all quick-win recommendations", "Technical SEO fixes and site health improvements", "Analytics & tracking audit and setup"] },
     { phase: "Month 2", title: "Strategy & Content", items: ["Develop comprehensive keyword strategy", "Begin content calendar and production", "Set up conversion tracking and goals"] },
-    { phase: "Month 3–4", title: "Growth Acceleration", items: ["Launch paid media campaigns (if applicable)", "Scale content production and outreach", "On-page optimisation across key landing pages"] },
-    { phase: "Month 5–6", title: "Optimise & Scale", items: ["Analyse results and refine strategies", "Expand to new keyword clusters and markets", "Quarterly business review and roadmap refresh"] },
+    { phase: "Month 3â€“4", title: "Growth Acceleration", items: ["Launch paid media campaigns (if applicable)", "Scale content production and outreach", "On-page optimisation across key landing pages"] },
+    { phase: "Month 5â€“6", title: "Optimise & Scale", items: ["Analyse results and refine strategies", "Expand to new keyword clusters and markets", "Quarterly business review and roadmap refresh"] },
   ];
 
   for (let i = 0; i < timeline.length; i++) {
@@ -1177,7 +1178,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
     pdf.setFontSize(8);
     let iy = y + 14;
     for (const item of t.items) {
-      pdf.text(`•  ${item}`, M + 16, iy);
+      pdf.text(`â€¢  ${item}`, M + 16, iy);
       iy += 5;
     }
     y = iy + 6;
@@ -1190,7 +1191,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.setTextColor(...C.textSoft);
   pdf.setFontSize(9);
   pdf.setFont("helvetica", "normal");
-  const investText = "Your investment will depend on the scope and scale of the services you choose. We tailor every engagement to your specific needs, goals, and budget — there are no off-the-shelf packages here. The pricing models on the previous page give you a transparent guide to what to expect.";
+  const investText = "Your investment will depend on the scope and scale of the services you choose. We tailor every engagement to your specific needs, goals, and budget â€” there are no off-the-shelf packages here. The pricing models on the previous page give you a transparent guide to what to expect.";
   const investLines = pdf.splitTextToSize(investText, CW - 8);
   for (const il of investLines) {
     y = space(pdf, y, 5);
@@ -1217,13 +1218,13 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   ];
   let oy = y + 14;
   for (const oc of outcomes) {
-    pdf.text(`✓  ${oc}`, M + 8, oy);
+    pdf.text(`?  ${oc}`, M + 8, oy);
     oy += 5;
   }
 
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   // PAGE 17: CTA / NEXT STEPS
-  // ═══════════════════════════════════════
+  // ---------------------------------------
   pdf.addPage();
 
   // Full dark bg
@@ -1297,10 +1298,11 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   pdf.setTextColor(140, 145, 165);
   pdf.setFontSize(9);
   pdf.setFont("helvetica", "normal");
-  pdf.text("hello@avorria.com  ·  avorria.com", PW / 2, y, { align: "center" });
+  pdf.text("hello@avorria.com  Â·  avorria.com", PW / 2, y, { align: "center" });
 
-  // ── SAVE ──
+  // -- SAVE --
   const safe = data.companyName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-");
   pdf.save(`avorria-audit-${safe}.pdf`);
 }
+
 

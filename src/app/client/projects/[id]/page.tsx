@@ -1,5 +1,6 @@
-'use client';
-import ClientProjectDetail from '@/pages/client/ClientProjectDetail';
+﻿'use client';
+import ClientProjectDetail from '@/views/client/ClientProjectDetail';
 export default function ClientProjectDetailPage() {
   return <ClientProjectDetail />;
 }
+

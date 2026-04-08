@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -141,7 +142,7 @@ const LinkedInAdsTab = () => {
                     onChange={(e) => setNewAccount({ ...newAccount, account_id: e.target.value })}
                   />
                   <p className="text-xs text-muted-foreground">
-                    Find this in LinkedIn Campaign Manager → Account Settings
+                    Find this in LinkedIn Campaign Manager ? Account Settings
                   </p>
                 </div>
                 <div className="space-y-2">
@@ -232,7 +233,7 @@ const LinkedInAdsTab = () => {
                   <TrendingUp className="h-4 w-4 text-accent" />
                   <span className="text-xs text-muted-foreground uppercase tracking-wider">ROAS</span>
                 </div>
-                <p className="text-2xl font-light text-foreground">{(metrics?.roas || 0).toFixed(2)}×</p>
+                <p className="text-2xl font-light text-foreground">{(metrics?.roas || 0).toFixed(2)}Ã—</p>
               </CardContent>
             </Card>
             <Card className="border-border">
@@ -329,7 +330,7 @@ const LinkedInAdsTab = () => {
                               ? `${fmt(Number(campaign.daily_budget))}/day`
                               : campaign.total_budget
                               ? fmt(Number(campaign.total_budget))
-                              : "—"}
+                              : "â€”"}
                           </TableCell>
                           <TableCell className="text-center">
                             <Button
@@ -407,4 +408,5 @@ const LinkedInAdsTab = () => {
 };
 
 export default LinkedInAdsTab;
+
 

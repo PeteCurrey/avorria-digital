@@ -147,3 +147,4 @@ export const RotatingTypewriter: React.FC<RotatingTypewriterProps> = ({
 
 export default TypewriterText;
 
+

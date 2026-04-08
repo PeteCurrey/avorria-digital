@@ -19,7 +19,7 @@ export const ServiceSchema = ({
   url,
   provider = "Avorria",
   areaServed = ["United Kingdom", "London", "Sheffield", "Manchester"],
-  priceRange = "££££",
+  priceRange = "Â£Â£Â£Â£",
   image,
   aggregateRating,
 }: ServiceSchemaProps) => {

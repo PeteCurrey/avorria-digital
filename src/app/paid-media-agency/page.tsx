@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/PaidMediaAgencyPillar';
+﻿'use client';
+export { default } from '@/views/PaidMediaAgencyPillar';
+

@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle2, Circle, Clock } from "lucide-react";
@@ -14,7 +15,7 @@ const NotesTab = () => {
   ];
 
   const questions = [
-    "Clarify if the 'Enterprise Plan' offer is still active — we want to feature it in the next email campaign.",
+    "Clarify if the 'Enterprise Plan' offer is still active Ã¢â‚¬â€ we want to feature it in the next email campaign.",
     "Confirm budget flexibility for Q4 scale-up. Current ROAS suggests we could profitably increase spend by 40-50%.",
     "Do you want us to prioritize video content (testimonials, explainer videos) or stick with written content for now?",
   ];
@@ -43,8 +44,8 @@ const NotesTab = () => {
           <div>
             <h3 className="text-sm font-semibold text-foreground mb-2">What Didn't</h3>
             <p className="text-sm text-foreground leading-relaxed">
-              Meta Ads performance plateaued — we're testing new creative and audience segments to break through. 
-              LinkedIn campaigns are expensive (£165 CPL) but lead quality is high; we're cautiously optimizing rather than scaling aggressively yet.
+              Meta Ads performance plateaued Ã¢â‚¬â€ we're testing new creative and audience segments to break through. 
+              LinkedIn campaigns are expensive (Ã‚Â£165 CPL) but lead quality is high; we're cautiously optimizing rather than scaling aggressively yet.
             </p>
           </div>
           <div>
@@ -128,3 +129,4 @@ const NotesTab = () => {
 };
 
 export default NotesTab;
+

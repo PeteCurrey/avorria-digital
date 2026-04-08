@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState, useRef } from "react";
 import { useProjectAssets, useCreateAsset, useDeleteAsset, uploadAssetFile, type AssetType } from "@/hooks/useProjectAssets";
 import { useAllProjects } from "@/hooks/useClientProjects";
@@ -683,4 +684,5 @@ const AssetManager = () => {
 };
 
 export default AssetManager;
+
 

@@ -149,3 +149,4 @@ export const HeroCanvas: React.FC<HeroCanvasProps> = ({ className }) => {
   );
 };
 
+

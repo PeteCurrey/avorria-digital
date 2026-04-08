@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 import KPICard from "./KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -39,11 +40,11 @@ const PaidMediaTab = () => {
 
       {/* Top KPIs */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
-        <KPICard label="Total Spend" value="£15,180" format="currency" />
+        <KPICard label="Total Spend" value="Ã‚Â£15,180" format="currency" />
         <KPICard label="Impressions" value={1847234} delta={14} deltaLabel="vs prev" />
         <KPICard label="Clicks" value={18472} delta={11} deltaLabel="vs prev" />
         <KPICard label="Leads from Paid" value={207} delta={19} deltaLabel="vs prev" />
-        <KPICard label="Avg Cost per Lead" value="£73.33" format="currency" delta={-8} deltaLabel="vs prev" />
+        <KPICard label="Avg Cost per Lead" value="Ã‚Â£73.33" format="currency" delta={-8} deltaLabel="vs prev" />
         <KPICard label="ROAS" value="4.8x" delta={12} deltaLabel="vs prev" />
       </div>
 
@@ -72,9 +73,9 @@ const PaidMediaTab = () => {
                   <tr key={idx} className="border-b border-border/50 hover:bg-secondary/50 transition-colors">
                     <td className="py-3 px-4 text-sm font-medium text-foreground">{row.name}</td>
                     <td className="py-3 px-4 text-sm text-muted-foreground text-center">{row.channel}</td>
-                    <td className="py-3 px-4 text-sm text-foreground text-right">£{row.spend.toLocaleString()}</td>
+                    <td className="py-3 px-4 text-sm text-foreground text-right">Ã‚Â£{row.spend.toLocaleString()}</td>
                     <td className="py-3 px-4 text-sm text-foreground text-right">{row.leads}</td>
-                    <td className="py-3 px-4 text-sm text-foreground text-right">£{row.cpl.toFixed(2)}</td>
+                    <td className="py-3 px-4 text-sm text-foreground text-right">Ã‚Â£{row.cpl.toFixed(2)}</td>
                     <td className="py-3 px-4 text-sm text-foreground text-right">{row.convRate}%</td>
                     <td className="py-3 px-4 text-sm text-foreground text-right">{row.roas}x</td>
                     <td className="py-3 px-4 text-center">
@@ -109,7 +110,7 @@ const PaidMediaTab = () => {
             <BarChart data={roasData}>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="campaign" stroke="hsl(var(--muted-foreground))" />
-              <YAxis yAxisId="left" orientation="left" stroke="hsl(var(--muted-foreground))" label={{ value: 'CPL (£)', angle: -90, position: 'insideLeft' }} />
+              <YAxis yAxisId="left" orientation="left" stroke="hsl(var(--muted-foreground))" label={{ value: 'CPL (Ã‚Â£)', angle: -90, position: 'insideLeft' }} />
               <YAxis yAxisId="right" orientation="right" stroke="hsl(var(--muted-foreground))" label={{ value: 'ROAS (x)', angle: 90, position: 'insideRight' }} />
               <Tooltip
                 contentStyle={{
@@ -119,7 +120,7 @@ const PaidMediaTab = () => {
                 }}
               />
               <Legend />
-              <Bar yAxisId="left" dataKey="cpl" fill="hsl(var(--accent))" name="Cost per Lead (£)" />
+              <Bar yAxisId="left" dataKey="cpl" fill="hsl(var(--accent))" name="Cost per Lead (Ã‚Â£)" />
               <Bar yAxisId="right" dataKey="roas" fill="hsl(220, 70%, 50%)" name="ROAS (x)" />
             </BarChart>
           </ResponsiveContainer>
@@ -136,7 +137,7 @@ const PaidMediaTab = () => {
             {experiments.map((exp, idx) => (
               <div key={idx} className="p-4 rounded-lg border border-border bg-background">
                 <p className="text-sm font-medium text-foreground mb-2">{exp.test}</p>
-                <p className="text-sm text-muted-foreground mb-2">→ {exp.result}</p>
+                <p className="text-sm text-muted-foreground mb-2">Ã¢â€ â€™ {exp.result}</p>
                 <Badge variant="secondary" className="text-xs">
                   {exp.outcome}
                 </Badge>
@@ -150,3 +151,4 @@ const PaidMediaTab = () => {
 };
 
 export default PaidMediaTab;
+

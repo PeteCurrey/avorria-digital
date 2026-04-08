@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/WebsitesWeFire';
+﻿'use client';
+export { default } from '@/views/WebsitesWeFire';
+

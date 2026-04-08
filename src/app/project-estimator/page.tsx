@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/ProjectEstimator';
+﻿'use client';
+export { default } from '@/views/ProjectEstimator';
+

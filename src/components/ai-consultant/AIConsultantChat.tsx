@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Loader2, Mic, MicOff, Volume2, VolumeX, Bot } from "lucide-react";
@@ -26,11 +26,11 @@ const TTS_URL = `${SUPABASE_URL}/functions/v1/elevenlabs-tts`;
 const OPENING_MESSAGES: Message[] = [
   {
     role: "assistant",
-    content: "Hey — thanks for stopping by."
+    content: "Hey Ã¢â‚¬â€ thanks for stopping by."
   },
   {
     role: "assistant",
-    content: "I'm here to help you think through your digital marketing — no forms, no pressure. Whether it's SEO, website performance, or just getting more from your online presence, I've got time."
+    content: "I'm here to help you think through your digital marketing Ã¢â‚¬â€ no forms, no pressure. Whether it's SEO, website performance, or just getting more from your online presence, I've got time."
   },
   {
     role: "assistant",
@@ -517,3 +517,4 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
 };
 
 export default AIConsultantChat;
+

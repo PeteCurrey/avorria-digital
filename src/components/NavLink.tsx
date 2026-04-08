@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { forwardRef } from "react";
@@ -32,3 +32,4 @@ const NavLink = forwardRef<HTMLAnchorElement, NavLinkCompatProps>(
 NavLink.displayName = "NavLink";
 
 export { NavLink };
+

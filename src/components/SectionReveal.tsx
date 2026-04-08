@@ -85,3 +85,4 @@ const SectionReveal: React.FC<SectionRevealProps> = ({
 
 export default SectionReveal;
 
+

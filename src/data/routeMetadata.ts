@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 /**
  * Central SEO metadata registry for all public routes.
  * Used by:
@@ -19,10 +20,10 @@ export interface RouteMetadata {
 const SITE_URL = "https://avorria.com";
 const DEFAULT_OG_IMAGE = "https://storage.googleapis.com/gpt-engineer-file-uploads/7MJD8mgRihYZLAUga3hIuKQHE2u2/social-images/social-1765645939140-20250710_1857_image (1).png";
 
-// ─── Core Pages ───────────────────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Core Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 const coreRoutes: Record<string, RouteMetadata> = {
   "/": {
-    title: "Avorria – Digital Marketing, SEO & Web Design Agency | UK & USA",
+    title: "Avorria Ã¢â‚¬â€œ Digital Marketing, SEO & Web Design Agency | UK & USA",
     description: "Avorria is a performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses grow revenue, not vanity metrics.",
     canonical: `${SITE_URL}/`,
     h1: "Digital Growth Systems for Serious Teams",
@@ -39,7 +40,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
   },
   "/services/seo": {
     title: "SEO Services | Technical SEO, Content & Link Building | Avorria",
-    description: "SEO services that drive revenue and qualified leads—not just rankings and reports. Technical SEO, content strategy, and link building for B2B and service businesses.",
+    description: "SEO services that drive revenue and qualified leadsÃ¢â‚¬â€not just rankings and reports. Technical SEO, content strategy, and link building for B2B and service businesses.",
     canonical: `${SITE_URL}/services/seo`,
     h1: "SEO Services That Drive Revenue",
     introText: "Avorria's SEO services combine technical foundations, commercial content strategy, and authority building to deliver qualified leads and measurable revenue growth.",
@@ -50,7 +51,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Paid media campaigns engineered for pipeline, not vanity metrics. Google Ads, Meta Ads and LinkedIn advertising managed by a performance-first agency.",
     canonical: `${SITE_URL}/services/paid-media`,
     h1: "Paid Media That Delivers Pipeline",
-    introText: "Performance campaigns across Google Ads, Meta, and LinkedIn—built around your commercial goals with full-funnel tracking from click to close.",
+    introText: "Performance campaigns across Google Ads, Meta, and LinkedInÃ¢â‚¬â€built around your commercial goals with full-funnel tracking from click to close.",
     schemaType: "service",
   },
   "/services/web-design": {
@@ -58,7 +59,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Modern, fast, conversion-optimized websites that blend premium design with technical excellence. Web design for B2B and service businesses.",
     canonical: `${SITE_URL}/services/web-design`,
     h1: "Web Design That Converts",
-    introText: "High-converting websites that look like top agencies built them—but are tuned for business results, speed, and search visibility.",
+    introText: "High-converting websites that look like top agencies built themÃ¢â‚¬â€but are tuned for business results, speed, and search visibility.",
     schemaType: "service",
   },
   "/services/content-email": {
@@ -66,7 +67,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Long-form SEO content and automated email sequences that convert. Content and email marketing tied directly to your sales process.",
     canonical: `${SITE_URL}/services/content-email`,
     h1: "Content & Email Marketing",
-    introText: "Content strategy and email automation designed to nurture prospects through your pipeline—not just fill your blog with filler.",
+    introText: "Content strategy and email automation designed to nurture prospects through your pipelineÃ¢â‚¬â€not just fill your blog with filler.",
     schemaType: "service",
   },
   "/services/social-personal-brand": {
@@ -98,7 +99,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Technical SEO audits and implementation. Site speed, Core Web Vitals, indexing, schema markup, and website migrations handled by experienced specialists.",
     canonical: `${SITE_URL}/services/seo/technical`,
     h1: "Technical SEO Services",
-    introText: "Technical SEO that ensures your site is crawlable, indexable, and fast—covering Core Web Vitals, schema markup, and complex migrations.",
+    introText: "Technical SEO that ensures your site is crawlable, indexable, and fastÃ¢â‚¬â€covering Core Web Vitals, schema markup, and complex migrations.",
     schemaType: "service",
   },
   "/services/seo/content": {
@@ -106,7 +107,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Content SEO strategy built around commercial intent. Keyword mapping, topic clusters, pillar pages, and content that ranks and converts.",
     canonical: `${SITE_URL}/services/seo/content`,
     h1: "Content SEO Services",
-    introText: "Content strategy mapped to commercial intent—keyword research, topic clusters, and pillar content that drives qualified organic traffic.",
+    introText: "Content strategy mapped to commercial intentÃ¢â‚¬â€keyword research, topic clusters, and pillar content that drives qualified organic traffic.",
     schemaType: "service",
   },
   "/services/seo/analytics-tracking": {
@@ -146,12 +147,12 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Transparent pricing for SEO, paid media, web design and digital marketing services. No hidden fees, no lock-in contracts. See our packages.",
     canonical: `${SITE_URL}/pricing`,
     h1: "Pricing",
-    introText: "Transparent, no-nonsense pricing for businesses that want clarity. No hidden fees, no 12-month lock-ins—just results-driven packages.",
+    introText: "Transparent, no-nonsense pricing for businesses that want clarity. No hidden fees, no 12-month lock-insÃ¢â‚¬â€just results-driven packages.",
     schemaType: "website",
   },
   "/about": {
     title: "About Avorria | Performance-First Digital Marketing Agency",
-    description: "Learn about Avorria—a performance-first digital marketing agency built for B2B and service businesses who want revenue, not vanity metrics.",
+    description: "Learn about AvorriaÃ¢â‚¬â€a performance-first digital marketing agency built for B2B and service businesses who want revenue, not vanity metrics.",
     canonical: `${SITE_URL}/about`,
     h1: "About Avorria",
     introText: "Avorria is a performance-first digital marketing agency built by practitioners who got tired of the agency model. We focus on pipeline and revenue.",
@@ -159,23 +160,23 @@ const coreRoutes: Record<string, RouteMetadata> = {
   },
   "/resources": {
     title: "Resources & Guides | Marketing Knowledge Base | Avorria",
-    description: "Free marketing resources, guides and frameworks for B2B and service businesses. SEO, paid media, web design, analytics—no fluff, just practical advice.",
+    description: "Free marketing resources, guides and frameworks for B2B and service businesses. SEO, paid media, web design, analyticsÃ¢â‚¬â€no fluff, just practical advice.",
     canonical: `${SITE_URL}/resources`,
     h1: "Resources & Guides",
-    introText: "Practical marketing guides and frameworks written for business owners and marketing leaders. No filler—just strategies that drive results.",
+    introText: "Practical marketing guides and frameworks written for business owners and marketing leaders. No fillerÃ¢â‚¬â€just strategies that drive results.",
     schemaType: "website",
   },
   "/resources/seo-glossary": {
     title: "SEO Glossary | Plain-English SEO Definitions | Avorria",
-    description: "SEO glossary with plain-English definitions. Understand SEO terminology without the jargon—from backlinks to Core Web Vitals.",
+    description: "SEO glossary with plain-English definitions. Understand SEO terminology without the jargonÃ¢â‚¬â€from backlinks to Core Web Vitals.",
     canonical: `${SITE_URL}/resources/seo-glossary`,
     h1: "SEO Glossary",
-    introText: "Plain-English definitions for every SEO term you need to know. No jargon, no complexity theatre—just clear explanations.",
+    introText: "Plain-English definitions for every SEO term you need to know. No jargon, no complexity theatreÃ¢â‚¬â€just clear explanations.",
     schemaType: "faq",
   },
   "/faqs": {
     title: "Frequently Asked Questions | Avorria",
-    description: "Answers to common questions about working with Avorria—pricing, process, SEO, paid media, web design, reporting, and what to expect.",
+    description: "Answers to common questions about working with AvorriaÃ¢â‚¬â€pricing, process, SEO, paid media, web design, reporting, and what to expect.",
     canonical: `${SITE_URL}/faqs`,
     h1: "Frequently Asked Questions",
     introText: "Common questions about working with Avorria, our services, pricing, and what results to expect.",
@@ -186,7 +187,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Why businesses choose Avorria over traditional agencies. Performance-first approach, transparent reporting, and senior-led strategy.",
     canonical: `${SITE_URL}/why-avorria`,
     h1: "Why Avorria",
-    introText: "Built by practitioners who got tired of the agency model. Here's what makes Avorria different—and why it matters for your business.",
+    introText: "Built by practitioners who got tired of the agency model. Here's what makes Avorria differentÃ¢â‚¬â€and why it matters for your business.",
     schemaType: "website",
   },
   "/reporting": {
@@ -215,7 +216,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
   },
   "/websites-we-fire": {
     title: "Websites We'd Fire | Common Website Mistakes | Avorria",
-    description: "The most common website mistakes that kill conversions. See if your site is guilty—and what to do about it.",
+    description: "The most common website mistakes that kill conversions. See if your site is guiltyÃ¢â‚¬â€and what to do about it.",
     canonical: `${SITE_URL}/websites-we-fire`,
     h1: "Websites We'd Fire",
     introText: "A brutally honest look at the most common website mistakes that kill conversions, credibility, and search rankings.",
@@ -230,7 +231,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     schemaType: "website",
   },
 
-  // ─── Pillar Pages ───────────────────────────────────────────────
+  // Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Pillar Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
   "/seo-agency": {
     title: "SEO Agency | Performance-Focused SEO Services | Avorria",
     description: "Avorria is a performance-focused SEO agency for B2B and service businesses. Technical SEO, content strategy, and link building engineered for revenue.",
@@ -244,7 +245,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Paid media agency managing Google Ads, Meta Ads, and LinkedIn campaigns for B2B and service businesses. ROI-focused, not impression-obsessed.",
     canonical: `${SITE_URL}/paid-media-agency`,
     h1: "Paid Media Agency",
-    introText: "A paid media agency that manages Google Ads, Meta, and LinkedIn campaigns around pipeline and revenue—not vanity metrics.",
+    introText: "A paid media agency that manages Google Ads, Meta, and LinkedIn campaigns around pipeline and revenueÃ¢â‚¬â€not vanity metrics.",
     schemaType: "service",
   },
   "/digital-marketing-agency": {
@@ -256,13 +257,13 @@ const coreRoutes: Record<string, RouteMetadata> = {
     schemaType: "service",
   },
 
-  // ─── Tool Pages ───────────────────────────────────────────────
+  // Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Tool Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
   "/tools": {
     title: "Free Marketing Tools | Website Audit & Estimator | Avorria",
     description: "Free digital marketing tools including website health checks, SEO audits, and project estimators. No sign-up required.",
     canonical: `${SITE_URL}/tools`,
     h1: "Free Marketing Tools",
-    introText: "Practical marketing tools to assess your website health, estimate project scope, and audit your SEO—completely free.",
+    introText: "Practical marketing tools to assess your website health, estimate project scope, and audit your SEOÃ¢â‚¬â€completely free.",
     schemaType: "website",
   },
   "/website-health-check": {
@@ -278,7 +279,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     description: "Estimate your digital marketing project costs. Get ballpark pricing for SEO, web design, paid media and content marketing projects.",
     canonical: `${SITE_URL}/project-estimator`,
     h1: "Project Estimator",
-    introText: "Get a ballpark estimate for your digital marketing project. SEO, web design, paid media—scoped to your needs.",
+    introText: "Get a ballpark estimate for your digital marketing project. SEO, web design, paid mediaÃ¢â‚¬â€scoped to your needs.",
     schemaType: "website",
   },
   "/free-seo-website-audit": {
@@ -306,7 +307,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
     schemaType: "website",
   },
 
-  // ─── Legal Pages ───────────────────────────────────────────────
+  // Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Legal Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
   "/privacy": {
     title: "Privacy Policy | Avorria",
     description: "Avorria's privacy policy. How we collect, use, and protect your personal data.",
@@ -333,7 +334,7 @@ const coreRoutes: Record<string, RouteMetadata> = {
   },
 };
 
-// ─── Resource Pages (generated from data) ───────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Resource Pages (generated from data) Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 interface ResourceMeta {
   slug: string;
   metaTitle: string;
@@ -345,10 +346,10 @@ interface ResourceMeta {
 
 const resourcesMeta: ResourceMeta[] = [
   { slug: "seo-for-real-businesses", metaTitle: "The No-Bullshit Guide to SEO for Real Businesses | Avorria", metaDescription: "SEO explained for business owners who are tired of agency noise. Learn what actually drives leads and revenue, and how to spot when you're being sold snake oil.", title: "The No-Bullshit Guide to SEO for Real Businesses", summary: "SEO explained without the smoke and mirrors. What actually works, what's a waste of budget, and how to know if your current agency is delivering.", isPillar: true },
-  { slug: "high-converting-websites-service-businesses", metaTitle: "High-Converting Websites: A Practical Playbook | Avorria", metaDescription: "How to build a service business website that actually converts visitors into leads. No filler, no awards—just structure, copy and design that drives pipeline.", title: "High-Converting Websites: A Practical Playbook", summary: "How to build a service business website that actually converts visitors into leads.", isPillar: true },
-  { slug: "marketing-analytics-that-drive-decisions", metaTitle: "Marketing Analytics That Actually Drive Decisions | Avorria", metaDescription: "How to set up marketing analytics that drive real business decisions. GA4, attribution, dashboards, and reporting—without the complexity theatre.", title: "Marketing Analytics That Actually Drive Decisions", summary: "How to set up marketing analytics that drive real business decisions.", isPillar: true },
+  { slug: "high-converting-websites-service-businesses", metaTitle: "High-Converting Websites: A Practical Playbook | Avorria", metaDescription: "How to build a service business website that actually converts visitors into leads. No filler, no awardsÃ¢â‚¬â€just structure, copy and design that drives pipeline.", title: "High-Converting Websites: A Practical Playbook", summary: "How to build a service business website that actually converts visitors into leads.", isPillar: true },
+  { slug: "marketing-analytics-that-drive-decisions", metaTitle: "Marketing Analytics That Actually Drive Decisions | Avorria", metaDescription: "How to set up marketing analytics that drive real business decisions. GA4, attribution, dashboards, and reportingÃ¢â‚¬â€without the complexity theatre.", title: "Marketing Analytics That Actually Drive Decisions", summary: "How to set up marketing analytics that drive real business decisions.", isPillar: true },
   { slug: "local-seo-dominate-your-city", metaTitle: "Local SEO: How to Dominate Your City | Avorria", metaDescription: "A practical guide to local SEO for service businesses. Google Business Profile, local citations, reviews, and location pages that actually drive enquiries.", title: "Local SEO: How to Dominate Your City", summary: "A practical guide to local SEO for service businesses.", isPillar: true },
-  { slug: "technical-seo-checklist-non-developers", metaTitle: "Technical SEO Checklist for Non-Developers | Avorria", metaDescription: "A plain-English technical SEO checklist for business owners. Site speed, indexing, mobile, schema—what to check and what to brief your developer to fix.", title: "Technical SEO Checklist for Non-Developers", summary: "A plain-English technical SEO checklist for business owners.", isPillar: false },
+  { slug: "technical-seo-checklist-non-developers", metaTitle: "Technical SEO Checklist for Non-Developers | Avorria", metaDescription: "A plain-English technical SEO checklist for business owners. Site speed, indexing, mobile, schemaÃ¢â‚¬â€what to check and what to brief your developer to fix.", title: "Technical SEO Checklist for Non-Developers", summary: "A plain-English technical SEO checklist for business owners.", isPillar: false },
   { slug: "landing-page-anatomy", metaTitle: "Landing Page Anatomy: What Goes Where and Why | Avorria", metaDescription: "The exact landing page structure that converts at 5-12% for service businesses. Every section explained with examples and common mistakes to avoid.", title: "Landing Page Anatomy: What Goes Where and Why", summary: "The exact landing page structure that converts for service businesses.", isPillar: false },
   { slug: "website-redesign-vs-optimisation", metaTitle: "Website Redesign vs Optimisation: A Decision Framework | Avorria", metaDescription: "Should you redesign your website or optimise what you have? A practical framework for making the right call based on data, not gut feeling.", title: "Website Redesign vs Optimisation: A Decision Framework", summary: "Should you redesign your website or optimise what you have?", isPillar: false },
   { slug: "google-ads-service-businesses", metaTitle: "Google Ads for Service Businesses: A Straight-Talk Starter Guide | Avorria", metaDescription: "How to set up Google Ads that actually generate leads for service businesses. Campaign structure, keyword strategy, landing pages, and budget allocation explained.", title: "Google Ads for Service Businesses", summary: "How to set up Google Ads that actually generate leads for service businesses.", isPillar: false },
@@ -372,7 +373,7 @@ function generateResourceRoutes(): Record<string, RouteMetadata> {
   return routes;
 }
 
-// ─── Service-Industry Landing Pages ───────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Service-Industry Landing Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 interface IndustryPageMeta {
   slug: string;
   title: string;
@@ -415,7 +416,7 @@ function generateIndustryRoutes(): Record<string, RouteMetadata> {
   return routes;
 }
 
-// ─── Service-Location (Geo) Pages ───────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Service-Location (Geo) Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
 // Location data (standalone, no TS imports from @/ at build-time)
 const locationList = [
@@ -496,7 +497,7 @@ function generateGeoRoutes(): Record<string, RouteMetadata> {
   return routes;
 }
 
-// ─── Build Complete Registry ───────────────────────────────────
+// Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Build Complete Registry Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
 export function getAllRouteMetadata(): Record<string, RouteMetadata> {
   return {
@@ -510,3 +511,4 @@ export function getAllRouteMetadata(): Record<string, RouteMetadata> {
 // Export for quick access
 export const routeMetadata = getAllRouteMetadata();
 export { SITE_URL, DEFAULT_OG_IMAGE };
+

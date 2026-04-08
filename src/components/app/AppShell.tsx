@@ -1,7 +1,8 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { ReactNode, useState } from "react";
-import { Link, useLocation, use , useRouter, usePathname} from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
@@ -39,11 +40,6 @@ import {
  BarChart3,
  BookOpen,
  Settings,
- Search,
- Menu,
- X,
- FileCheck,
- Activity,
  Library,
  LogOut,
  Eye,
@@ -53,6 +49,11 @@ import {
  UserPlus,
  TrendingUp,
  ChevronRight,
+ Search,
+ Menu,
+ X,
+ FileCheck,
+ Activity,
 } from "lucide-react";
 
 interface AppShellProps {
@@ -133,7 +134,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
  if (path === "/platform" || path === "/client") {
   return pathname === path;
  }
- return pathname.startsWith(path);
+ return pathname && pathname.startsWith(path);
  };
 
  const getInitials = (name: string) => {
@@ -201,7 +202,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
      transition={{ delay: idx * 0.04, duration: 0.3 }}
     >
      <Link
-     to={item.path}
+     href={item.path}
      className={cn(
       "relative flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all duration-200 group",
       active
@@ -323,7 +324,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
    </DropdownMenu>
    </header>
 
-   {/* Page content — dark background with scroll */}
+   {/* Page content Ã¢â‚¬â€ dark background with scroll */}
    <main className="flex-1 overflow-y-auto bg-[hsl(220,25%,7%)] p-6 pt-7">
    <motion.div
     key={pathname}
@@ -367,7 +368,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
    return (
     <Link
     key={item.path}
-    to={item.path}
+    href={item.path}
     className={cn(
      "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors",
      active ? "bg-primary/10 text-primary font-medium" : "text-muted-foreground hover:bg-muted hover:text-foreground"

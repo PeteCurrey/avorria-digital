@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/client/ClientProjects';
+﻿'use client';
+export { default } from '@/views/client/ClientProjects';
+

@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { format } from "date-fns";
 import {
@@ -189,7 +190,7 @@ export default function SitemapManager() {
               <div>
                 <p className="text-sm text-muted-foreground">Case Studies</p>
                 <p className="text-2xl font-bold text-foreground">
-                  {caseStudyCount ?? "—"}
+                  {caseStudyCount ?? "â€”"}
                 </p>
               </div>
               <Database className="h-8 w-8 text-primary/50" />
@@ -213,7 +214,7 @@ export default function SitemapManager() {
               <div>
                 <p className="text-sm text-muted-foreground">Geo Pages</p>
                 <p className="text-2xl font-bold text-foreground">{geoPageCount}</p>
-                <p className="text-xs text-muted-foreground">{locations.length} locations × 4 services</p>
+                <p className="text-xs text-muted-foreground">{locations.length} locations Ã— 4 services</p>
               </div>
               <MapPin className="h-8 w-8 text-primary/50" />
             </div>
@@ -370,4 +371,5 @@ export default function SitemapManager() {
     </div>
   );
 }
+
 

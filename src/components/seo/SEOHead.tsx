@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import React from "react";
 
 interface SEOHeadProps {
@@ -24,3 +24,4 @@ export const SEOHead = ({ children }: SEOHeadProps) => {
 };
 
 export default SEOHead;
+

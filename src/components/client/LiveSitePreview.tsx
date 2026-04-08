@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
@@ -58,7 +59,7 @@ export const LiveSitePreview = ({
 
           {/* URL bar */}
           <div className="hidden sm:flex items-center gap-2 bg-muted rounded-md px-3 py-1.5 min-w-[200px]">
-            <span className="text-xs text-green-600">🔒</span>
+            <span className="text-xs text-green-600">??</span>
             <span className="text-xs text-muted-foreground truncate">
               {normalizedUrl.replace(/^https?:\/\//, "")}
             </span>
@@ -148,7 +149,7 @@ export const LiveSitePreview = ({
       <div className="p-2 bg-card border-t border-border flex items-center justify-center">
         <span className="text-xs text-muted-foreground">
           <Icon className="inline-block h-3 w-3 mr-1" />
-          {config.label} view • {config.width}
+          {config.label} view â€¢ {config.width}
         </span>
       </div>
     </div>
@@ -175,4 +176,5 @@ export const LiveSitePreview = ({
 };
 
 export default LiveSitePreview;
+
 

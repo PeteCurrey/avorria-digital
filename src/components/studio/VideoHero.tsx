@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
@@ -187,7 +188,7 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
           href="/web-design"
           className="mt-6 text-sm text-white/40 transition-colors hover:text-white/60"
         >
-          ← Back to Web Design
+          Ã¢â€ Â Back to Web Design
         </motion.a>
       </motion.div>
 
@@ -220,4 +221,5 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
 };
 
 export default VideoHero;
+
 

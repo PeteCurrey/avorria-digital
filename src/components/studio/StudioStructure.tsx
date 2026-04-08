@@ -12,12 +12,12 @@ export const StudioStructure = ({ config, setConfig }: StudioStructureProps) => 
     {
       value: "lean" as const,
       label: "Lean",
-      description: "Home + 3–5 key pages",
+      description: "Home + 3â€“5 key pages",
     },
     {
       value: "standard" as const,
       label: "Standard",
-      description: "6–10 pages",
+      description: "6â€“10 pages",
     },
     {
       value: "expanded" as const,

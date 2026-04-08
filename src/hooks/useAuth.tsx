@@ -52,7 +52,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     let hasInitialized = false;
 
     // Set up auth state listener for ONGOING changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+    const { data: authData } = supabase.auth.onAuthStateChange(
       async (event, currentSession) => {
         if (!isMounted) return;
         
@@ -69,6 +69,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
+    const subscription = authData?.subscription;
+
     // INITIAL load - controls loading state with failsafe timeout
     const initializeAuth = async () => {
       // Failsafe: ensure loading is set to false after 5 seconds max
@@ -77,7 +79,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }, 5000);
       
       try {
-        const { data: { session: currentSession } } = await supabase.auth.getSession();
+        const { data: authData } = await supabase.auth.getSession();
+        const currentSession = authData?.session;
         if (!isMounted) return;
 
         setSession(currentSession);
@@ -105,7 +108,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     return () => {
       isMounted = false;
-      subscription.unsubscribe();
+      subscription?.unsubscribe();
     };
   }, []);
 
@@ -188,3 +191,4 @@ export const useAuth = () => {
   }
   return context;
 };
+

@@ -27,3 +27,4 @@ const ScrollIndicator = () => {
 
 export default ScrollIndicator;
 
+

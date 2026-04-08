@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Flame, Sparkles } from "lucide-react";
@@ -86,7 +87,7 @@ const ThemeToggle: React.FC = () => {
     
     trackEvent("theme_toggle_clicked", { mode: "fired" });
 
-    toast.warning("🔥 You're now experiencing a 'Fired' website!", {
+    toast.warning("?? You're now experiencing a 'Fired' website!", {
       description: "This is what your visitors might be suffering through.",
       duration: 3000,
     });
@@ -99,7 +100,7 @@ const ThemeToggle: React.FC = () => {
 
     trackEvent("theme_toggle_reverted", { duration_seconds: 10 - timeRemaining });
 
-    toast.success("Phew! Back to normal 😅", {
+    toast.success("Phew! Back to normal ??", {
       description: "Premium design matters, doesn't it?",
       duration: 3000,
     });
@@ -137,14 +138,14 @@ const ThemeToggle: React.FC = () => {
           <style>{badStyles}</style>
           {/* Visitor Counter */}
           <div className="fired-visitor-counter">
-            <span className="blink">●</span> You are visitor #
+            <span className="blink">?</span> You are visitor #
             {Math.floor(Math.random() * 1000) + 12345}
           </div>
           {/* Marquee */}
           <div className="fired-marquee">
             <span>
-              🚧 WELCOME TO OUR WEBSITE 🚧 BEST PRICES GUARANTEED 🚧 CLICK HERE FOR AMAZING DEALS 🚧 
-              UNDER CONSTRUCTION - CHECK BACK SOON 🚧 WE DO EVERYTHING FOR EVERYONE 🚧
+              ?? WELCOME TO OUR WEBSITE ?? BEST PRICES GUARANTEED ?? CLICK HERE FOR AMAZING DEALS ?? 
+              UNDER CONSTRUCTION - CHECK BACK SOON ?? WE DO EVERYTHING FOR EVERYONE ??
             </span>
           </div>
         </>
@@ -211,4 +212,5 @@ const ThemeToggle: React.FC = () => {
 };
 
 export default ThemeToggle;
+
 

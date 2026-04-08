@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 export interface FAQ {
   question: string;
   answer: string;
@@ -8,7 +9,7 @@ export const faqs: FAQ[] = [
   // Working with Avorria
   {
     question: "Do you work with early-stage startups?",
-    answer: "Sometimes. If you're pre-revenue or pre-product-market fit, we're probably not the right partner yet. We work best with businesses that have some traction, a clear offer and budget to invest in growth. If you're spending £3–5k+/month on marketing already (or planning to), let's talk.",
+    answer: "Sometimes. If you're pre-revenue or pre-product-market fit, we're probably not the right partner yet. We work best with businesses that have some traction, a clear offer and budget to invest in growth. If you're spending Ã‚Â£3Ã¢â‚¬â€œ5k+/month on marketing already (or planning to), let's talk.",
     category: "working-with-avorria"
   },
   {
@@ -18,12 +19,12 @@ export const faqs: FAQ[] = [
   },
   {
     question: "How quickly can we start?",
-    answer: "Usually 1–2 weeks from decision to kick-off, depending on onboarding requirements and our current capacity. If you need something faster, tell us – we'll see what we can do.",
+    answer: "Usually 1Ã¢â‚¬â€œ2 weeks from decision to kick-off, depending on onboarding requirements and our current capacity. If you need something faster, tell us Ã¢â‚¬â€œ we'll see what we can do.",
     category: "working-with-avorria"
   },
   {
     question: "What does onboarding look like?",
-    answer: "We start with a structured onboarding process: access setup (analytics, ad accounts, CMS), stakeholder interviews, competitive and keyword research, baseline benchmarking, and a 90-day roadmap. This usually takes 1–2 weeks before active execution starts.",
+    answer: "We start with a structured onboarding process: access setup (analytics, ad accounts, CMS), stakeholder interviews, competitive and keyword research, baseline benchmarking, and a 90-day roadmap. This usually takes 1Ã¢â‚¬â€œ2 weeks before active execution starts.",
     category: "working-with-avorria"
   },
   {
@@ -33,19 +34,19 @@ export const faqs: FAQ[] = [
   },
   {
     question: "What if we already have an in-house marketing team?",
-    answer: "We work alongside in-house teams all the time. We can own execution on specific channels (SEO, paid, web) while your team handles brand, content or product marketing. We're not precious about who does what – just about clarity and results.",
+    answer: "We work alongside in-house teams all the time. We can own execution on specific channels (SEO, paid, web) while your team handles brand, content or product marketing. We're not precious about who does what Ã¢â‚¬â€œ just about clarity and results.",
     category: "working-with-avorria"
   },
 
   // Pricing & Budgets
   {
     question: "How much does it cost to work with Avorria?",
-    answer: "It depends on scope and engagement model. Most clients land in £3–10k/month for retainers (SEO, paid media, or integrated growth), or £10–50k for one-off projects (website rebuilds, funnel builds, migrations). Use our project estimator or book a call for a realistic range.",
+    answer: "It depends on scope and engagement model. Most clients land in Ã‚Â£3Ã¢â‚¬â€œ10k/month for retainers (SEO, paid media, or integrated growth), or Ã‚Â£10Ã¢â‚¬â€œ50k for one-off projects (website rebuilds, funnel builds, migrations). Use our project estimator or book a call for a realistic range.",
     category: "pricing-budgets"
   },
   {
     question: "Do you have minimum budgets?",
-    answer: "Yes. For retainers, we typically work with businesses investing at least £3k/month in marketing. For one-off projects, minimum engagement is usually around £10k. Below that, the economics don't work for either of us.",
+    answer: "Yes. For retainers, we typically work with businesses investing at least Ã‚Â£3k/month in marketing. For one-off projects, minimum engagement is usually around Ã‚Â£10k. Below that, the economics don't work for either of us.",
     category: "pricing-budgets"
   },
   {
@@ -60,14 +61,14 @@ export const faqs: FAQ[] = [
   },
   {
     question: "Do you offer payment plans?",
-    answer: "For larger one-off projects, yes – usually split across key milestones (e.g., 50% upfront, 50% on completion). For retainers, payment is monthly in advance.",
+    answer: "For larger one-off projects, yes Ã¢â‚¬â€œ usually split across key milestones (e.g., 50% upfront, 50% on completion). For retainers, payment is monthly in advance.",
     category: "pricing-budgets"
   },
 
   // SEO-specific
   {
     question: "How long does SEO take to show results?",
-    answer: "Honest answer: 3–6 months for meaningful movement, 6–12 months for compounding results. Anyone promising page-one rankings in 30 days is lying or targeting irrelevant keywords. SEO is a medium-term play, not a quick win.",
+    answer: "Honest answer: 3Ã¢â‚¬â€œ6 months for meaningful movement, 6Ã¢â‚¬â€œ12 months for compounding results. Anyone promising page-one rankings in 30 days is lying or targeting irrelevant keywords. SEO is a medium-term play, not a quick win.",
     category: "seo"
   },
   {
@@ -87,14 +88,14 @@ export const faqs: FAQ[] = [
   },
   {
     question: "Do you do link building?",
-    answer: "Yes, but not the spammy kind. We focus on editorial links, digital PR and strategic partnerships – not bulk directory submissions or PBN nonsense. Link building is one part of a broader SEO strategy, not the whole thing.",
+    answer: "Yes, but not the spammy kind. We focus on editorial links, digital PR and strategic partnerships Ã¢â‚¬â€œ not bulk directory submissions or PBN nonsense. Link building is one part of a broader SEO strategy, not the whole thing.",
     category: "seo"
   },
 
   // Web & Funnels
   {
     question: "Do you build websites from scratch?",
-    answer: "Yes. We design and build high-converting websites on modern platforms (Webflow, WordPress, Shopify, or custom if needed). We focus on sites that look premium and convert hard – not just portfolio pieces.",
+    answer: "Yes. We design and build high-converting websites on modern platforms (Webflow, WordPress, Shopify, or custom if needed). We focus on sites that look premium and convert hard Ã¢â‚¬â€œ not just portfolio pieces.",
     category: "web-funnels"
   },
   {
@@ -104,12 +105,12 @@ export const faqs: FAQ[] = [
   },
   {
     question: "What platforms do you work with?",
-    answer: "Most commonly: Webflow (our preference for marketing sites), WordPress, Shopify (for e-commerce), and custom builds where needed. We're platform-agnostic – we pick based on your needs, not our preferences.",
+    answer: "Most commonly: Webflow (our preference for marketing sites), WordPress, Shopify (for e-commerce), and custom builds where needed. We're platform-agnostic Ã¢â‚¬â€œ we pick based on your needs, not our preferences.",
     category: "web-funnels"
   },
   {
     question: "How long does a website project take?",
-    answer: "Depends on scope. A focused rebuild or new site is usually 6–12 weeks from kick-off to launch. Complex sites with custom functionality, integrations or heavy content can take 3–4 months.",
+    answer: "Depends on scope. A focused rebuild or new site is usually 6Ã¢â‚¬â€œ12 weeks from kick-off to launch. Complex sites with custom functionality, integrations or heavy content can take 3Ã¢â‚¬â€œ4 months.",
     category: "web-funnels"
   },
   {
@@ -157,3 +158,4 @@ export const categoryLabels: Record<FAQ['category'], string> = {
   "web-funnels": "Web & Funnels",
   "reporting-data": "Reporting & Data"
 };
+

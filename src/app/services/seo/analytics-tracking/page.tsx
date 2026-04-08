@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/seo/AnalyticsTracking';
+﻿'use client';
+export { default } from '@/views/seo/AnalyticsTracking';
+

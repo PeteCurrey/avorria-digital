@@ -79,7 +79,7 @@ export const PersonalityStep = ({ config, setConfig, onSliderCommit }: Personali
 
         {/* Personality Sliders */}
         <div className="space-y-10">
-          {/* Straight-talking ↔ Polished */}
+          {/* Straight-talking â†” Polished */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -106,7 +106,7 @@ export const PersonalityStep = ({ config, setConfig, onSliderCommit }: Personali
             />
           </motion.div>
 
-          {/* Analytical ↔ Story-led */}
+          {/* Analytical â†” Story-led */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -133,7 +133,7 @@ export const PersonalityStep = ({ config, setConfig, onSliderCommit }: Personali
             />
           </motion.div>
 
-          {/* Understated ↔ Showpiece */}
+          {/* Understated â†” Showpiece */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}

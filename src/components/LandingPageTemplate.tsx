@@ -1,6 +1,7 @@
-'use client';
-import React, { useEffect, useMemo } from "react";
+﻿'use client';
 import Link from "next/link";
+import React, { useEffect, useMemo } from "react";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -95,7 +96,7 @@ const NearbyLocationsSection = ({
           {nearbyLocations.map((loc) => (
             <Link
               key={loc.slug}
-              to={`${serviceUrlPrefix}/${loc.slug}`}
+              href={`${serviceUrlPrefix}/${loc.slug}`}
               className="group p-4 bg-secondary rounded-lg hover:bg-accent/10 transition-colors text-center"
             >
               <p className="font-medium text-foreground group-hover:text-accent transition-colors">
@@ -109,7 +110,7 @@ const NearbyLocationsSection = ({
         </div>
         <div className="mt-6 text-center">
           <Link
-            to="/locations"
+            href="/locations"
             className="text-accent hover:text-accent/80 text-sm font-medium inline-flex items-center"
           >
             View all locations
@@ -143,7 +144,7 @@ const RelatedServicesSection = ({
             return (
               <Link
                 key={s.slug}
-                to={`${urlPrefix}/${location.slug}`}
+                href={`${urlPrefix}/${location.slug}`}
                 className="group p-6 bg-background rounded-lg border border-border hover:border-accent transition-colors"
               >
                 <p className="font-semibold text-foreground group-hover:text-accent transition-colors mb-2">
@@ -158,7 +159,7 @@ const RelatedServicesSection = ({
         </div>
         <div className="mt-6 text-center">
           <Link
-            to="/industries"
+            href="/industries"
             className="text-accent hover:text-accent/80 text-sm font-medium inline-flex items-center"
           >
             Browse by industry
@@ -175,6 +176,7 @@ interface LandingPageTemplateProps {
 }
 
 const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
+  const pathname = usePathname();
   const {
     heroHeadline,
     heroSubheadline,
@@ -202,10 +204,10 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "page_view", {
         page_title: metaTitle,
-        page_path: window.pathname,
+        page_path: pathname || "",
       });
     }
-  }, [metaTitle]);
+  }, [metaTitle, pathname]);
 
   const contextLine = (() => {
     if (industry && location) {
@@ -267,7 +269,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
       items.push({ name: service.name, url: `https://avorria.com${service.pillarPageUrl}` });
     }
 
-    items.push({ name: metaTitle, url: `https://avorria.com${window.pathname}` });
+    items.push({ name: metaTitle, url: `https://avorria.com${pathname || ""}` });
 
     return {
       "@context": "https://schema.org",
@@ -283,29 +285,27 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
 
   return (
     <>
+      <title>{metaTitle}</title>
+      <meta name="description" content={metaDescription} />
+      <link rel="canonical" href={`https://avorria.com${pathname || ""}`} />
       
-        <title>{metaTitle}</title>
-        <meta name="description" content={metaDescription} />
-        <link rel="canonical" href={`https://avorria.com${window.pathname}`} />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content={metaTitle} />
-        <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={`https://avorria.com${window.pathname}`} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://avorria.com/og-image.jpg" />
-        
-        {/* Twitter Card */}
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content={metaTitle} />
-        <meta name="twitter:description" content={metaDescription} />
-        <meta name="twitter:image" content="https://avorria.com/og-image.jpg" />
-        
-        {/* JSON-LD Schema */}
-        <script type="application/ld+json">{JSON.stringify(generateFAQSchema())}</script>
-        <script type="application/ld+json">{JSON.stringify(generateServiceSchema())}</script>
-        <script type="application/ld+json">{JSON.stringify(generateBreadcrumbSchema())}</script>
+      {/* Open Graph */}
+      <meta property="og:title" content={metaTitle} />
+      <meta property="og:description" content={metaDescription} />
+      <meta property="og:url" content={`https://avorria.com${pathname || ""}`} />
+      <meta property="og:type" content="website" />
+      <meta property="og:image" content="https://avorria.com/og-image.jpg" />
       
+      {/* Twitter Card */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={metaTitle} />
+      <meta name="twitter:description" content={metaDescription} />
+      <meta name="twitter:image" content="https://avorria.com/og-image.jpg" />
+      
+      {/* JSON-LD Schema */}
+      <script type="application/ld+json">{JSON.stringify(generateFAQSchema())}</script>
+      <script type="application/ld+json">{JSON.stringify(generateServiceSchema())}</script>
+      <script type="application/ld+json">{JSON.stringify(generateBreadcrumbSchema())}</script>
 
       <div className="min-h-screen">
         {/* Hero Section with City/Industry Background */}
@@ -412,7 +412,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
                 <ul className="space-y-4">
                   {problemBullets.map((problem, index) => (
                     <li key={index} className="flex items-start text-muted-foreground">
-                      <span className="text-accent mr-3 mt-1 font-bold">✗</span>
+                      <span className="text-accent mr-3 mt-1 font-bold">Ã¢Å“â€”</span>
                       <span className="text-lg">{problem}</span>
                     </li>
                   ))}
@@ -453,7 +453,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
             <div className="text-center mb-16">
               <h2 className="text-4xl font-light mb-4 text-foreground">Real results, real impact</h2>
               <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                These aren't theoretical—they're actual outcomes from clients like you.
+                These aren't theoreticalÃ¢â‚¬â€they're actual outcomes from clients like you.
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
@@ -554,7 +554,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
                   <p className="text-lg text-muted-foreground leading-relaxed">{pricingSnapshot}</p>
                   <div className="mt-6 pt-6 border-t border-border">
                     <Link
-                      to="/pricing"
+                      href="/pricing"
                       className="inline-flex items-center text-accent hover:text-accent/80 font-medium"
                     >
                       View full pricing & packages
@@ -638,35 +638,35 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
             <div className="grid md:grid-cols-4 gap-8 text-center">
               <div>
                 <Link
-                  to={service.pillarPageUrl}
+                  href={service.pillarPageUrl}
                   className="text-accent hover:text-accent/80 font-medium text-lg block"
                 >
-                  All {service.name} Services →
+                  All {service.name} Services Ã¢â€ â€™
                 </Link>
               </div>
               <div>
                 <Link
-                  to="/free-seo-website-audit"
+                  href="/free-seo-website-audit"
                   className="text-accent hover:text-accent/80 font-medium text-lg block"
                 >
-                  Free SEO & Website Audit →
+                  Free SEO & Website Audit Ã¢â€ â€™
                 </Link>
               </div>
               <div>
                 <Link
-                  to="/project-estimator"
+                  href="/project-estimator"
                   className="text-accent hover:text-accent/80 font-medium text-lg block"
                 >
-                  Project Estimator →
+                  Project Estimator Ã¢â€ â€™
                 </Link>
                 <p className="text-xs text-muted-foreground mt-1">Not sure scope or budget?</p>
               </div>
               <div>
                 <Link
-                  to="/case-studies"
+                  href="/case-studies"
                   className="text-accent hover:text-accent/80 font-medium text-lg block"
                 >
-                  View Case Studies →
+                  View Case Studies Ã¢â€ â€™
                 </Link>
               </div>
             </div>

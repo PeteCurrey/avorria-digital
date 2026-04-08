@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/ContentEmail';
+﻿'use client';
+export { default } from '@/views/ContentEmail';
+

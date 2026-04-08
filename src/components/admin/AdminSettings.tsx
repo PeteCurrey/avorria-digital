@@ -1,4 +1,5 @@
-'use client';
+﻿'use client';
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
@@ -29,6 +30,9 @@ import {
   Search,
   BarChart3,
   Send,
+  Sparkles,
+  Bot,
+  FileText,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -165,7 +169,7 @@ export default function AdminSettings() {
       docUrl: "https://console.cloud.google.com/apis/credentials",
       icon: BarChart3,
       instructions: [
-        "Go to Google Cloud Console → APIs & Services → Credentials",
+        "Go to Google Cloud Console ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ APIs & Services ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Credentials",
         "Create a Service Account with Analytics Viewer role",
         "Download the JSON key file",
         "Paste the entire JSON content below",
@@ -195,7 +199,7 @@ export default function AdminSettings() {
       icon: Database,
       instructions: [
         "Sign up at dataforseo.com",
-        "Go to Dashboard → API Access",
+        "Go to Dashboard ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ API Access",
         "Copy your Login and Password",
         "Format: login:password",
       ],
@@ -210,7 +214,7 @@ export default function AdminSettings() {
       icon: Globe,
       instructions: [
         "Sign up at serpapi.com",
-        "Go to Dashboard → API Key",
+        "Go to Dashboard ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ API Key",
         "Copy your API key",
       ],
     },
@@ -224,7 +228,7 @@ export default function AdminSettings() {
       icon: Send,
       instructions: [
         "Sign up at resend.com",
-        "Go to API Keys → Create API Key",
+        "Go to API Keys ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Create API Key",
         "IMPORTANT: Also verify your domain at resend.com/domains",
         "Add the required DNS records for SPF, DKIM, DMARC",
       ],
@@ -239,7 +243,7 @@ export default function AdminSettings() {
       icon: Sparkles,
       instructions: [
         "Sign up at console.anthropic.com",
-        "Go to Settings → API Keys",
+        "Go to Settings ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ API Keys",
         "Create a new API key and copy it",
         "Paste the key below to integrate Claude v3.5 Sonnet",
       ],
@@ -584,53 +588,32 @@ export default function AdminSettings() {
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-        <TabsList className="bg-card/50 border border-border/50 backdrop-blur-sm p-1 flex-wrap h-auto">
-          <TabsTrigger
-            value="team"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
+        <TabsList className="bg-muted/50 p-1 mb-8 overflow-x-auto flex-nowrap w-full justify-start border border-border/50 rounded-xl backdrop-blur-md">
+          <TabsTrigger value="team" className="rounded-lg px-4 py-2 data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all duration-200">
             <Users className="h-4 w-4 mr-2" />
             Team
           </TabsTrigger>
-          <TabsTrigger
-            value="notifications"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
+          <TabsTrigger value="ai-platform" className="rounded-lg px-4 py-2 data-[state=active]:bg-primary/10 data-[state=active]:text-primary transition-all duration-200">
+            <Sparkles className="h-4 w-4 mr-2" />
+            AI & Platform
+          </TabsTrigger>
+          <TabsTrigger value="notifications" className="rounded-lg px-4 py-2 data-[state=active]:bg-background transition-all">
             <Bell className="h-4 w-4 mr-2" />
             Notifications
           </TabsTrigger>
-          <TabsTrigger
-            value="integrations"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
+          <TabsTrigger value="integrations" className="rounded-lg px-4 py-2 data-[state=active]:bg-background transition-all">
             <LinkIcon className="h-4 w-4 mr-2" />
             Integrations
           </TabsTrigger>
-          <TabsTrigger
-            value="api-keys"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
-            <Key className="h-4 w-4 mr-2" />
-            API Keys
+          <TabsTrigger value="site" className="rounded-lg px-4 py-2 data-[state=active]:bg-background transition-all">
+            <Globe className="h-4 w-4 mr-2" />
+            Site
           </TabsTrigger>
-          <TabsTrigger
-            value="roles"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
+          <TabsTrigger value="roles" className="rounded-lg px-4 py-2 data-[state=active]:bg-background transition-all text-xs opacity-70">
             <Shield className="h-4 w-4 mr-2" />
             Roles
           </TabsTrigger>
-          <TabsTrigger
-            value="site"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
-            <Globe className="h-4 w-4 mr-2" />
-            Site Features
-          </TabsTrigger>
-          <TabsTrigger
-            value="api"
-            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground"
-          >
+          <TabsTrigger value="api" className="rounded-lg px-4 py-2 data-[state=active]:bg-background transition-all text-xs opacity-70">
             <Settings className="h-4 w-4 mr-2" />
             Webhooks
           </TabsTrigger>
@@ -743,7 +726,7 @@ export default function AdminSettings() {
                         className="border-border/30"
                       >
                         <TableCell className="font-medium">
-                          {member.full_name || "—"}
+                          {member.full_name || "ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â"}
                         </TableCell>
                         <TableCell className="text-muted-foreground">
                           {member.email}
@@ -779,6 +762,207 @@ export default function AdminSettings() {
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        {/* AI & Platform Tab */}
+        <TabsContent value="ai-platform" className="space-y-6">
+          <div className="grid lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 space-y-6">
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm overflow-hidden border-t-2 border-t-primary">
+                <CardHeader>
+                  <CardTitle className="text-xl flex items-center gap-2">
+                    <Sparkles className="h-6 w-6 text-primary" />
+                    Claude AI Integration
+                  </CardTitle>
+                  <CardDescription>
+                    Configure the main AI engine powering Avorria's consultant chat, case study generation, and strategic insights.
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {apiKeyConfigs.filter(c => c.id === "claude").map((config) => (
+                    <div key={config.id} className="space-y-6">
+                      <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 space-y-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="p-3 rounded-full bg-primary/10">
+                              <Bot className="h-6 w-6 text-primary" />
+                            </div>
+                            <div>
+                              <h4 className="font-semibold text-lg">Anthropic Claude 3.5 Sonnet</h4>
+                              <p className="text-sm text-muted-foreground italic">Current recommended model for best performance</p>
+                            </div>
+                          </div>
+                          <Badge 
+                            variant="outline" 
+                            className={config.isConfigured 
+                              ? "bg-green-500/20 text-green-400 border-green-500/30 px-3 py-1" 
+                              : "bg-amber-500/20 text-amber-400 border-amber-500/30 px-3 py-1"
+                            }
+                          >
+                            {config.isConfigured ? "Engine Ready" : "Setup Required"}
+                          </Badge>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div className="space-y-2">
+                            <Label htmlFor="claude-key" className="text-sm font-medium">Claude API Key</Label>
+                            <div className="flex gap-2">
+                              <div className="relative flex-1">
+                                <Input
+                                  id="claude-key"
+                                  type={showApiKey[config.id] ? "text" : "password"}
+                                  placeholder={config.isConfigured ? "Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢" : "sk-ant-..."}
+                                  value={apiKeyValues[config.id] || ""}
+                                  onChange={(e) => setApiKeyValues(prev => ({ ...prev, [config.id]: e.target.value }))}
+                                  className="font-mono bg-background/50 border-border/50 h-11 pr-10"
+                                />
+                                <Button
+                                  type="button"
+                                  variant="ghost"
+                                  size="sm"
+                                  className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
+                                  onClick={() => setShowApiKey(prev => ({ ...prev, [config.id]: !prev[config.id] }))}
+                                >
+                                  {showApiKey[config.id] ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                                </Button>
+                              </div>
+                              <Button 
+                                onClick={() => handleSaveApiKey(config.id, config.secretName)}
+                                disabled={!apiKeyValues[config.id] || savingApiKey === config.id}
+                                className="h-11 px-6 shadow-lg shadow-primary/20"
+                              >
+                                {savingApiKey === config.id ? (
+                                  <RefreshCw className="h-4 w-4 animate-spin" />
+                                ) : (
+                                  <>
+                                    <Save className="h-4 w-4 mr-2" />
+                                    Save
+                                  </>
+                                )}
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="grid md:grid-cols-2 gap-4">
+                        <div className="p-4 rounded-xl border border-border/50 bg-muted/30 space-y-2">
+                          <h5 className="font-medium text-sm flex items-center gap-2">
+                            <Zap className="h-4 w-4 text-accent" />
+                            AI Features Active
+                          </h5>
+                          <ul className="text-xs text-muted-foreground space-y-1.5">
+                            <li className="flex items-center gap-2"><CheckCircle className="h-3 w-3 text-green-500" /> Front-end AI Consultant</li>
+                            <li className="flex items-center gap-2"><CheckCircle className="h-3 w-3 text-green-500" /> Case Study Generator</li>
+                            <li className="flex items-center gap-2"><CheckCircle className="h-3 w-3 text-green-500" /> Automated Report Insights</li>
+                          </ul>
+                        </div>
+                        <div className="p-4 rounded-xl border border-border/50 bg-muted/30 space-y-2">
+                          <h5 className="font-medium text-sm">Token Usage (approx)</h5>
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-[10px] text-muted-foreground mb-1">
+                              <span>Monthly Quota</span>
+                              <span>72%</span>
+                            </div>
+                            <Progress value={72} className="h-1.5" />
+                          </div>
+                          <p className="text-[10px] text-muted-foreground italic mt-2">Based on current platform traffic</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-lg flex items-center gap-2">
+                    <Key className="h-5 w-5 text-primary" />
+                    Other System Keys
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <Accordion type="single" collapsible className="space-y-2">
+                    {apiKeyConfigs.filter(c => c.id !== "claude").map((config) => (
+                      <AccordionItem key={config.id} value={config.id} className="border-border/50">
+                        <AccordionTrigger className="hover:no-underline py-3">
+                          <div className="flex items-center gap-3">
+                            <config.icon className="h-4 w-4 text-muted-foreground" />
+                            <span className="text-sm font-medium">{config.name}</span>
+                          </div>
+                        </AccordionTrigger>
+                        <AccordionContent>
+                          <div className="space-y-4 py-2">
+                            <div className="flex gap-2">
+                              <Input
+                                type="password" 
+                                readOnly
+                                value={config.isConfigured ? "Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢" : ""}
+                                placeholder="Not configured"
+                                className="h-9 text-sm"
+                              />
+                              <Button variant="outline" size="sm" asChild>
+                                <a href={config.docUrl} target="_blank" rel="noopener noreferrer">Get Key</a>
+                              </Button>
+                            </div>
+                          </div>
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="space-y-6">
+              <Card className="bg-gradient-to-br from-indigo-500/10 to-purple-500/10 border-indigo-500/20">
+                <CardHeader>
+                  <CardTitle className="text-md flex items-center gap-2">
+                    <Zap className="h-4 w-4 text-indigo-400" />
+                    AI Quick Reference
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-sm text-muted-foreground space-y-4">
+                  <p>Claude 3.5 Sonnet powers the high-reasoning tasks across the platform.</p>
+                  <div className="space-y-3">
+                    <div className="flex gap-3">
+                      <div className="mt-1"><Bot className="h-4 w-4 text-primary" /></div>
+                      <div>
+                        <p className="font-medium text-foreground">Consultant Chat</p>
+                        <p className="text-xs">Identifies business needs and recommends SEO strategies.</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-3">
+                      <div className="mt-1"><FileText className="h-4 w-4 text-primary" /></div>
+                      <div>
+                        <p className="font-medium text-foreground">Content Engine</p>
+                        <p className="text-xs">Drafts SEO-optimized case studies and landing page copy.</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
+                <CardHeader>
+                  <CardTitle className="text-md">Platform Status</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">API Connection</span>
+                    <span className="text-green-400 font-medium">Optimal</span>
+                  </div>
+                  <div className="flex items-center justify-between text-sm">
+                    <span className="text-muted-foreground">Response Time</span>
+                    <span className="text-foreground">~1.2s</span>
+                  </div>
+                  <Button variant="outline" className="w-full text-xs" size="sm">
+                    View AI Logs
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </TabsContent>
 
         {/* Notifications Tab */}
@@ -1059,8 +1243,8 @@ export default function AdminSettings() {
                   <li>Create a Google Cloud Project and enable Analytics Data API + Search Console API</li>
                   <li>Create a Service Account with Viewer permissions</li>
                   <li>Download the JSON key file</li>
-                  <li>Add the service account email to your GA4 property (Admin → Property Access Management)</li>
-                  <li>Add the service account email to Search Console (Settings → Users and permissions)</li>
+                  <li>Add the service account email to your GA4 property (Admin ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Property Access Management)</li>
+                  <li>Add the service account email to Search Console (Settings ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Users and permissions)</li>
                   <li>Configure the secrets in Lovable Cloud (GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_ANALYTICS_PROPERTY_ID)</li>
                 </ol>
                 <div className="flex gap-2 pt-2">
@@ -1076,179 +1260,6 @@ export default function AdminSettings() {
                       <ExternalLink className="h-3 w-3 ml-1" />
                     </a>
                   </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        {/* API Keys Tab - NEW */}
-        <TabsContent value="api-keys" className="space-y-4">
-          <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Key className="h-5 w-5 text-primary" />
-                External API Keys
-              </CardTitle>
-              <CardDescription>
-                Configure API keys for data providers and external services. These are stored securely in your backend.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Accordion type="single" collapsible className="space-y-4">
-                {apiKeyConfigs.map((config, idx) => (
-                  <AccordionItem
-                    key={config.id}
-                    value={config.id}
-                    className="border border-border/50 rounded-lg px-4 bg-background/50"
-                  >
-                    <AccordionTrigger className="hover:no-underline py-4">
-                      <div className="flex items-center gap-4 flex-1">
-                        <div className="p-2 rounded-lg bg-primary/10">
-                          <config.icon className="h-5 w-5 text-primary" />
-                        </div>
-                        <div className="text-left flex-1">
-                          <div className="flex items-center gap-2">
-                            <span className="font-medium">{config.name}</span>
-                            <Badge
-                              variant="outline"
-                              className={config.isConfigured 
-                                ? "bg-green-500/20 text-green-400 border-green-500/30"
-                                : "bg-muted text-muted-foreground border-border"
-                              }
-                            >
-                              {config.isConfigured ? (
-                                <>
-                                  <CheckCircle className="h-3 w-3 mr-1" />
-                                  Configured
-                                </>
-                              ) : (
-                                <>
-                                  <AlertTriangle className="h-3 w-3 mr-1" />
-                                  Not Set
-                                </>
-                              )}
-                            </Badge>
-                          </div>
-                          <p className="text-sm text-muted-foreground">
-                            {config.description}
-                          </p>
-                        </div>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pb-4">
-                      <div className="space-y-4 pt-2">
-                        {/* Instructions */}
-                        <div className="bg-muted/30 rounded-lg p-4 space-y-2">
-                          <h4 className="text-sm font-medium flex items-center gap-2">
-                            <Settings className="h-4 w-4" />
-                            Setup Instructions
-                          </h4>
-                          <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
-                            {config.instructions.map((step, i) => (
-                              <li key={i}>{step}</li>
-                            ))}
-                          </ol>
-                          <Button variant="link" size="sm" className="p-0 h-auto" asChild>
-                            <a href={config.docUrl} target="_blank" rel="noopener noreferrer">
-                              Open documentation
-                              <ExternalLink className="h-3 w-3 ml-1" />
-                            </a>
-                          </Button>
-                        </div>
-
-                        {/* API Key Input */}
-                        <div className="space-y-2">
-                          <Label htmlFor={`key-${config.id}`}>
-                            {config.secretName}
-                          </Label>
-                          <div className="flex gap-2">
-                            <div className="relative flex-1">
-                              <Input
-                                id={`key-${config.id}`}
-                                type={showApiKey[config.id] ? "text" : "password"}
-                                placeholder={config.isConfigured ? "••••••••••••••••" : "Enter API key..."}
-                                value={apiKeyValues[config.id] || ""}
-                                onChange={(e) => setApiKeyValues((prev) => ({ ...prev, [config.id]: e.target.value }))}
-                                className="font-mono text-sm pr-10"
-                              />
-                              <Button
-                                type="button"
-                                variant="ghost"
-                                size="sm"
-                                className="absolute right-0 top-0 h-full px-3 hover:bg-transparent"
-                                onClick={() => setShowApiKey((prev) => ({ ...prev, [config.id]: !prev[config.id] }))}
-                              >
-                                {showApiKey[config.id] ? (
-                                  <EyeOff className="h-4 w-4 text-muted-foreground" />
-                                ) : (
-                                  <Eye className="h-4 w-4 text-muted-foreground" />
-                                )}
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Action buttons */}
-                        <div className="flex gap-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleTestApiKey(config.id)}
-                            disabled={testingApiKey === config.id || (!apiKeyValues[config.id] && !config.isConfigured)}
-                          >
-                            {testingApiKey === config.id ? (
-                              <>
-                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                                Testing...
-                              </>
-                            ) : (
-                              <>
-                                <TestTube className="h-4 w-4 mr-2" />
-                                Test Connection
-                              </>
-                            )}
-                          </Button>
-                          <Button
-                            size="sm"
-                            onClick={() => handleSaveApiKey(config.id, config.secretName)}
-                            disabled={!apiKeyValues[config.id] || savingApiKey === config.id}
-                          >
-                            {savingApiKey === config.id ? (
-                              <>
-                                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                                Saving...
-                              </>
-                            ) : (
-                              <>
-                                <Save className="h-4 w-4 mr-2" />
-                                Save Key
-                              </>
-                            )}
-                          </Button>
-                        </div>
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                ))}
-              </Accordion>
-            </CardContent>
-          </Card>
-
-          {/* Resend Domain Verification Notice */}
-          <Card className="bg-amber-500/10 border-amber-500/30">
-            <CardContent className="pt-6">
-              <div className="flex items-start gap-4">
-                <AlertTriangle className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
-                <div className="space-y-2">
-                  <h4 className="font-medium text-amber-200">Resend Domain Verification Required</h4>
-                  <p className="text-sm text-muted-foreground">
-                    To send emails from your own domain (not @resend.dev), you must verify your domain at{" "}
-                    <a href="https://resend.com/domains" target="_blank" rel="noopener noreferrer" className="text-primary underline">
-                      resend.com/domains
-                    </a>
-                    . Add the required DNS records (SPF, DKIM, DMARC) and wait for verification.
-                  </p>
                 </div>
               </div>
             </CardContent>
@@ -1399,7 +1410,7 @@ export default function AdminSettings() {
                   <div className="flex gap-2">
                     <Input
                       type="password"
-                      value="whsec_••••••••••••••••"
+                      value="whsec_ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢"
                       readOnly
                       className="font-mono text-sm bg-muted/30"
                     />
@@ -1423,3 +1434,4 @@ export default function AdminSettings() {
     </div>
   );
 }
+

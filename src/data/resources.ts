@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 import { Resource } from "@/types/resource";
 
 export const resources: Resource[] = [
@@ -18,7 +19,7 @@ export const resources: Resource[] = [
 
 SEO is not about ranking #1 for your brand name. It's not about appearing in Google for keywords nobody searches. And it's definitely not about three-page monthly reports full of graphs you don't understand.
 
-SEO, done properly, is a distribution system for your business. It means that when someone in your market searches for what you sell, they find you—not your competitor. And when they land on your site, they're educated, qualified, and ready to take the next step.
+SEO, done properly, is a distribution system for your business. It means that when someone in your market searches for what you sell, they find youÃ¢â‚¬â€not your competitor. And when they land on your site, they're educated, qualified, and ready to take the next step.
 
 Most businesses waste five figures a year on "SEO" that achieves none of this. Here's what you actually need to know.
 
@@ -74,7 +75,7 @@ If your monthly report shows "rankings up" but enquiries haven't moved, somethin
 SEO agencies love to stop at traffic. But traffic that doesn't convert is just a vanity metric. A good provider cares about your cost-per-lead and conversion rate.
 
 **Red Flag #3: No Technical Audit or Fixes**
-If they haven't found (and fixed) technical issues in the first three months, they're not doing SEO—they're writing blog posts and hoping for the best.
+If they haven't found (and fixed) technical issues in the first three months, they're not doing SEOÃ¢â‚¬â€they're writing blog posts and hoping for the best.
 
 **Red Flag #4: Generic, Templated Content**
 If your "service pages" look identical to 200 other sites in your industry, Google knows. Templated content doesn't rank.
@@ -105,7 +106,7 @@ The best programmes run both, with shared tracking so you can see the full journ
 Most agency relationships fail because the brief was vague or the goals were misaligned. Here's how to set up an SEO project for success:
 
 **1. Define Success in Business Terms**
-Not "improve rankings." Instead: "Generate 30 qualified enquiries per month from organic at under £X per lead."
+Not "improve rankings." Instead: "Generate 30 qualified enquiries per month from organic at under Ã‚Â£X per lead."
 
 **2. Share Access to Everything**
 Analytics, Search Console, CRM, existing reports. If you hide data, the agency is guessing.
@@ -114,7 +115,7 @@ Analytics, Search Console, CRM, existing reports. If you hide data, the agency i
 If you're not willing to redesign pages, fix site speed, or publish weekly content, say so upfront. Some SEO programmes require these things.
 
 **4. Set Expectations on Timelines**
-SEO is not fast. Expect 3–6 months to see meaningful movement, 9–12 months for compounding returns. Anyone promising page-one rankings in 60 days is selling snake oil.
+SEO is not fast. Expect 3Ã¢â‚¬â€œ6 months to see meaningful movement, 9Ã¢â‚¬â€œ12 months for compounding returns. Anyone promising page-one rankings in 60 days is selling snake oil.
 
 ## What "Good" SEO Reporting Looks Like
 
@@ -135,13 +136,13 @@ If your report is 80% graphs and 20% actions, flip it.
 
 ## Realistic Timelines and Expectations
 
-**Months 0–3: Foundation**
+**Months 0Ã¢â‚¬â€œ3: Foundation**
 Technical audit, fixes, keyword research, initial content optimisation. Don't expect dramatic traffic growth. You're building the machine.
 
-**Months 4–6: Early Wins**
+**Months 4Ã¢â‚¬â€œ6: Early Wins**
 Rankings start moving for lower-competition terms. Traffic to optimised pages increases. You should see some uplift in organic leads.
 
-**Months 7–12: Compounding Returns**
+**Months 7Ã¢â‚¬â€œ12: Compounding Returns**
 Authority builds, content clusters start ranking, traffic and leads grow month-on-month. This is where SEO starts paying for itself.
 
 **Month 12+: Maintenance and Scaling**
@@ -204,7 +205,7 @@ No 47-page PDFs. No jargon. Just a clear breakdown of what's worth fixing and wh
     isPillar: true,
     targetKeyword: "high converting website design",
     metaTitle: "High-Converting Websites: A Practical Playbook | Avorria",
-    metaDescription: "How to build a service business website that actually converts visitors into leads. No filler, no awards—just structure, copy and design that drives pipeline.",
+    metaDescription: "How to build a service business website that actually converts visitors into leads. No filler, no awardsÃ¢â‚¬â€just structure, copy and design that drives pipeline.",
     publishedDate: "2025-01-20",
     content: `## Why Most Agency-Built Sites Don't Convert
 
@@ -253,7 +254,7 @@ Immediately below the hero, add a trust bar:
 
 This reassures visitors they're in the right place.
 
-### Value Propositions (3–4 Blocks)
+### Value Propositions (3Ã¢â‚¬â€œ4 Blocks)
 Use cards or icon blocks to explain:
 - What you do differently
 - Why it matters
@@ -262,12 +263,12 @@ Use cards or icon blocks to explain:
 Keep copy benefit-focused, not feature-focused. "Conversion-first design" beats "We use Figma and Webflow."
 
 ### Services Overview
-Grid of 3–6 core services with short descriptions and links to dedicated service pages.
+Grid of 3Ã¢â‚¬â€œ6 core services with short descriptions and links to dedicated service pages.
 
-Don't try to explain everything here—just enough to direct people to the right next page.
+Don't try to explain everything hereÃ¢â‚¬â€just enough to direct people to the right next page.
 
 ### Case Study Highlights
-Show 2–3 mini case studies with:
+Show 2Ã¢â‚¬â€œ3 mini case studies with:
 - Client name or industry
 - Problem they faced
 - Metric-driven result
@@ -291,7 +292,7 @@ State the outcome, not the process.
 - Good: "SEO that drives qualified leads, not vanity traffic"
 
 ### 2. Problem / Pain Section
-List 3–5 pain points your prospects experience:
+List 3Ã¢â‚¬â€œ5 pain points your prospects experience:
 - "You've tried SEO before and saw no impact on revenue"
 - "Your current provider sends reports you don't understand"
 - "You're ranking but not converting"
@@ -299,7 +300,7 @@ List 3–5 pain points your prospects experience:
 This shows you understand their world.
 
 ### 3. Solution Breakdown
-Explain your approach in 3–5 steps:
+Explain your approach in 3Ã¢â‚¬â€œ5 steps:
 - Audit and roadmap
 - Implement fixes and optimisations
 - Track, report, and iterate
@@ -316,7 +317,7 @@ Not:
 - "World-class support"
 
 ### 5. Proof (Case Studies or Testimonials)
-Pull in 1–2 relevant case studies or testimonials with metrics.
+Pull in 1Ã¢â‚¬â€œ2 relevant case studies or testimonials with metrics.
 
 ### 6. FAQ Section
 Address common objections:
@@ -325,17 +326,17 @@ Address common objections:
 - Process ("What do you need from us?")
 
 ### 7. Strong CTA
-Book a call, get a quote, request an audit—whatever fits your sales process.
+Book a call, get a quote, request an auditÃ¢â‚¬â€whatever fits your sales process.
 
 ## How to Use Social Proof (Without Looking Desperate)
 
 Bad social proof:
-- "★★★★★ Excellent service!"—Anonymous
+- "Ã¢Ëœâ€¦Ã¢Ëœâ€¦Ã¢Ëœâ€¦Ã¢Ëœâ€¦Ã¢Ëœâ€¦ Excellent service!"Ã¢â‚¬â€Anonymous
 - Generic badges ("Top Agency 2023")
 - Screenshots of old tweets
 
 Good social proof:
-- "We saw a 34% increase in qualified leads in Q1, and the tracking finally makes sense."—Name, Role, Company
+- "We saw a 34% increase in qualified leads in Q1, and the tracking finally makes sense."Ã¢â‚¬â€Name, Role, Company
 - Logos of recognisable clients
 - Video testimonials with faces and names
 
@@ -368,7 +369,7 @@ Pages should load in under 2.5 seconds. Slower than that and you're losing prosp
 - Forms that don't require zooming
 
 ### Accessibility
-This isn't just good ethics—it's good business. Accessible sites rank better and convert better.
+This isn't just good ethicsÃ¢â‚¬â€it's good business. Accessible sites rank better and convert better.
 
 **Basics:**
 - Alt text on images
@@ -390,9 +391,9 @@ Use Google Analytics 4 and Google Tag Manager. Set up goals so you can see which
 
 ## Landing Pages vs Websites: When to Use Each
 
-Your main website is broad—it needs to serve multiple audiences and use cases.
+Your main website is broadÃ¢â‚¬â€it needs to serve multiple audiences and use cases.
 
-Landing pages are narrow—they're built for a single campaign, audience, or offer.
+Landing pages are narrowÃ¢â‚¬â€they're built for a single campaign, audience, or offer.
 
 **Use a landing page when:**
 - Running a paid campaign (Google Ads, Meta, LinkedIn)
@@ -404,7 +405,7 @@ Landing pages are narrow—they're built for a single campaign, audience, or off
 - Serving multiple customer types
 - Explaining your full service range
 
-Both are necessary. Don't send paid traffic to a generic homepage—build dedicated landing pages with one clear CTA.
+Both are necessary. Don't send paid traffic to a generic homepageÃ¢â‚¬â€build dedicated landing pages with one clear CTA.
 
 ## Essential Website Tests to Run Before Scaling Traffic
 
@@ -429,7 +430,7 @@ Use a tool like Hotjar or Microsoft Clarity (free) to see where people click, ho
 
 Your website is either your best salesperson or your biggest liability. There's no in-between.
 
-At Avorria, we build websites for service businesses that are optimised for conversion from day one—not just pretty pages that sit there looking nice.
+At Avorria, we build websites for service businesses that are optimised for conversion from day oneÃ¢â‚¬â€not just pretty pages that sit there looking nice.
 
 If your current site isn't generating the leads it should be, or if you're planning a redesign, start with a conversion review:
 - We'll analyse your homepage, key service pages, and conversion funnel
@@ -450,7 +451,7 @@ If your current site isn't generating the leads it should be, or if you're plann
     isPillar: true,
     targetKeyword: "marketing analytics guide",
     metaTitle: "Marketing Analytics That Actually Drive Decisions | Avorria",
-    metaDescription: "How to set up marketing analytics that drive real business decisions. GA4, attribution, dashboards, and reporting—without the complexity theatre.",
+    metaDescription: "How to set up marketing analytics that drive real business decisions. GA4, attribution, dashboards, and reportingÃ¢â‚¬â€without the complexity theatre.",
     publishedDate: "2025-01-25",
     content: `## The Analytics Problem Most Businesses Have
 
@@ -460,7 +461,7 @@ Here's what we hear from most new clients:
 "Our agency sends monthly reports, but we don't know what any of it means."
 "We can't tell which marketing channels are actually driving leads."
 
-If any of that sounds familiar, you don't have a data problem—you have a decision-making problem. You're collecting data, but it's not structured to answer the questions that actually matter.
+If any of that sounds familiar, you don't have a data problemÃ¢â‚¬â€you have a decision-making problem. You're collecting data, but it's not structured to answer the questions that actually matter.
 
 ## What Should Marketing Analytics Actually Tell You?
 
@@ -472,7 +473,7 @@ Every piece of tracking, every dashboard, every report should answer one or more
 4. **Where are prospects dropping off?** (Funnel analysis)
 5. **What should we do differently next month?** (Actionable insight)
 
-If your current analytics setup doesn't answer these, it's theatre—not intelligence.
+If your current analytics setup doesn't answer these, it's theatreÃ¢â‚¬â€not intelligence.
 
 ## The GA4 Setup Most Businesses Get Wrong
 
@@ -507,7 +508,7 @@ A prospect might:
 3. Get retargeted on Instagram (paid social)
 4. Come back directly and fill in your contact form (direct)
 
-In a last-click model, "direct" gets all the credit. But Google Ads started the journey. Without multi-touch attribution, you'd cut your ad spend—and watch leads dry up.
+In a last-click model, "direct" gets all the credit. But Google Ads started the journey. Without multi-touch attribution, you'd cut your ad spendÃ¢â‚¬â€and watch leads dry up.
 
 ### Practical Attribution for SMBs:
 - **Use GA4's data-driven attribution model** (it's the default and uses machine learning)
@@ -519,7 +520,7 @@ You don't need enterprise attribution tools. You need consistent tagging and a C
 
 ## Building Dashboards That People Actually Use
 
-Most dashboards fail because they try to show everything. A good dashboard is opinionated—it shows what matters and hides what doesn't.
+Most dashboards fail because they try to show everything. A good dashboard is opinionatedÃ¢â‚¬â€it shows what matters and hides what doesn't.
 
 ### Dashboard Principles:
 1. **One dashboard per audience**: Marketing team sees campaign metrics. Sales sees lead quality. Leadership sees cost per acquisition and ROI.
@@ -542,7 +543,7 @@ A report should never be a data dump. It should answer: "What did we learn, and 
 3. **Recommendations**: Specific actions for the next period
 
 ### Reporting Cadence:
-1. **Daily quick-check** (ad spend, lead count—takes 2 minutes)
+1. **Daily quick-check** (ad spend, lead countÃ¢â‚¬â€takes 2 minutes)
 2. **Weekly tactical review** (campaign performance, content metrics)
 3. **Weekly automated summary** (emailed snapshot of key metrics)
 4. **Monthly strategy call** (30 minutes: what worked, what didn't, what's next)
@@ -561,7 +562,7 @@ Clients can see live data anytime. No waiting for end-of-month reports.
 - You need to add new campaigns or channels
 - Dashboards exist but need tweaking
 
-**Effort:** 1–2 weeks.
+**Effort:** 1Ã¢â‚¬â€œ2 weeks.
 
 ### Overhaul Everything If:
 - You have no idea which channels are working
@@ -569,7 +570,7 @@ Clients can see live data anytime. No waiting for end-of-month reports.
 - CRM and marketing tools aren't integrated
 - Your team doesn't trust the data
 
-**Effort:** 4–8 weeks.
+**Effort:** 4Ã¢â‚¬â€œ8 weeks.
 
 Most businesses fall into the "overhaul" category because tracking was set up poorly (or never) at the start.
 
@@ -582,7 +583,7 @@ At Avorria, we offer:
 - **Tracking overhauls** (clean implementation from scratch)
 - **Custom dashboard builds** (one source of truth, no filler)
 
-We don't do this as an upsell—it's often the first thing we do, because you can't optimise what you can't measure.
+We don't do this as an upsellÃ¢â‚¬â€it's often the first thing we do, because you can't optimise what you can't measure.
 
 **[Book a Strategy Call](#)** or **[Request a Free Analytics Audit](#)**
 `,
@@ -603,7 +604,7 @@ We don't do this as an upsell—it's often the first thing we do, because you ca
     publishedDate: "2025-02-05",
     content: `## Why Local SEO Is Different
 
-If you're a plumber in Leeds or a law firm in Manchester, you don't need to rank nationally. You need to own the searches happening within your service area—and that's a completely different game to "traditional" SEO.
+If you're a plumber in Leeds or a law firm in Manchester, you don't need to rank nationally. You need to own the searches happening within your service areaÃ¢â‚¬â€and that's a completely different game to "traditional" SEO.
 
 Local SEO focuses on three things:
 1. **Google Business Profile** (the map pack)
@@ -614,7 +615,7 @@ Get these three right and you'll dominate your city. Get them wrong and you're i
 
 ## Google Business Profile: Your Most Important Asset
 
-Your Google Business Profile (GBP) is the single most important ranking factor for local search. It controls whether you appear in the map pack—the three businesses Google shows at the top of local results.
+Your Google Business Profile (GBP) is the single most important ranking factor for local search. It controls whether you appear in the map packÃ¢â‚¬â€the three businesses Google shows at the top of local results.
 
 ### Optimisation Checklist:
 - **Complete every field**: Business name, address, phone, hours, website, services, description
@@ -634,7 +635,7 @@ Your Google Business Profile (GBP) is the single most important ranking factor f
 If you serve multiple areas, you need dedicated landing pages for each. But there's a right way and a wrong way to do this.
 
 ### The Right Way:
-- **Unique content per page**: Each location page should have genuinely different content—local case studies, area-specific service details, team members who cover that area
+- **Unique content per page**: Each location page should have genuinely different contentÃ¢â‚¬â€local case studies, area-specific service details, team members who cover that area
 - **Clear H1 structure**: "Plumbing Services in Leeds" not "Our Services"
 - **Embedded Google Map**: Shows Google this page is genuinely relevant to that location
 - **Local schema markup**: LocalBusiness or Service schema with the specific area
@@ -664,7 +665,7 @@ Reviews are the second most important local ranking factor after GBP optimisatio
 
 ## Local Citations: Consistency Is Everything
 
-A citation is any mention of your business name, address, and phone number (NAP) on another website. Directories, industry listings, chamber of commerce sites—these all count.
+A citation is any mention of your business name, address, and phone number (NAP) on another website. Directories, industry listings, chamber of commerce sitesÃ¢â‚¬â€these all count.
 
 ### Key Directories:
 - Google Business Profile
@@ -693,7 +694,7 @@ Track these metrics monthly:
 
 Local SEO is the fastest ROI channel for most service businesses. If you're not showing up in the map pack for your core services, you're losing leads to competitors who are.
 
-We run local SEO audits that show you exactly where you stand—and what to fix first.
+We run local SEO audits that show you exactly where you standÃ¢â‚¬â€and what to fix first.
 
 **[Book a Strategy Call](/contact)** or **[Request a Local SEO Audit](/contact)**
 `,
@@ -702,14 +703,14 @@ We run local SEO audits that show you exactly where you stand—and what to fix 
     id: "technical-seo-checklist",
     title: "Technical SEO Checklist for Non-Developers",
     slug: "technical-seo-checklist-non-developers",
-    summary: "You don't need to be a developer to understand technical SEO. This checklist covers the essentials every business owner should check—and know how to brief a dev to fix.",
+    summary: "You don't need to be a developer to understand technical SEO. This checklist covers the essentials every business owner should checkÃ¢â‚¬â€and know how to brief a dev to fix.",
     category: "SEO",
     readingTime: 8,
     serviceRelation: "seo",
     isPillar: false,
     targetKeyword: "technical SEO checklist",
     metaTitle: "Technical SEO Checklist for Non-Developers | Avorria",
-    metaDescription: "A plain-English technical SEO checklist for business owners. Site speed, indexing, mobile, schema—what to check and what to brief your developer to fix.",
+    metaDescription: "A plain-English technical SEO checklist for business owners. Site speed, indexing, mobile, schemaÃ¢â‚¬â€what to check and what to brief your developer to fix.",
     publishedDate: "2025-02-10",
     content: `## Why Technical SEO Matters (Even If You're Not Technical)
 
@@ -808,12 +809,12 @@ The good news: you don't need to fix these things yourself. You just need to kno
 - One H1 per page (the main title)
 - H2s for major sections
 - H3s for subsections
-- Never skip levels (H1 → H3 without H2)
+- Never skip levels (H1 Ã¢â€ â€™ H3 without H2)
 
-**Fix brief:** "Audit all pages for heading hierarchy. Ensure single H1 per page. Restructure headings to follow logical H1 → H2 → H3 order."
+**Fix brief:** "Audit all pages for heading hierarchy. Ensure single H1 per page. Restructure headings to follow logical H1 Ã¢â€ â€™ H2 Ã¢â€ â€™ H3 order."
 
 ### 9. Are Your Images Optimised?
-**Check:** Open DevTools (F12) → Network → Images. Look at file sizes.
+**Check:** Open DevTools (F12) Ã¢â€ â€™ Network Ã¢â€ â€™ Images. Look at file sizes.
 
 **Targets:**
 - Hero images: under 200KB
@@ -839,7 +840,7 @@ The good news: you don't need to fix these things yourself. You just need to kno
 3. Send the "Fix brief" for each failing item to your developer or agency
 4. Re-check in 2 weeks after fixes are implemented
 
-If more than 3 items are failing, consider a full technical SEO audit. The fixes compound—sorting out speed AND indexing AND structure together has a bigger impact than fixing them one at a time.
+If more than 3 items are failing, consider a full technical SEO audit. The fixes compoundÃ¢â‚¬â€sorting out speed AND indexing AND structure together has a bigger impact than fixing them one at a time.
 
 **[Request a Technical SEO Audit](/contact)**
 `,
@@ -861,7 +862,7 @@ If more than 3 items are failing, consider a full technical SEO audit. The fixes
 
 The biggest myth in web design is that beautiful pages convert better. They don't. Structured pages convert better.
 
-A well-structured landing page with average design will outperform a beautifully designed page with poor structure every single time. Why? Because structure controls the story—and the story controls the conversion.
+A well-structured landing page with average design will outperform a beautifully designed page with poor structure every single time. Why? Because structure controls the storyÃ¢â‚¬â€and the story controls the conversion.
 
 ## The 8-Section Landing Page Formula
 
@@ -872,7 +873,7 @@ A well-structured landing page with average design will outperform a beautifully
 - Headline focused on the outcome (not your service name)
 - Subheadline with specificity (who, what, result)
 - Primary CTA button (contrasting colour, action-oriented text)
-- Supporting visual (mockup, dashboard, or relevant image—not stock photos)
+- Supporting visual (mockup, dashboard, or relevant imageÃ¢â‚¬â€not stock photos)
 
 **Example headline:** "Get 3x More Qualified Leads Without Increasing Your Ad Spend"
 **Not:** "Welcome to Our Digital Marketing Agency"
@@ -913,7 +914,7 @@ A well-structured landing page with average design will outperform a beautifully
 **Include:**
 - Before and after metrics ("+127% leads in 90 days")
 - Client name or industry (with permission)
-- Brief narrative: problem → approach → result
+- Brief narrative: problem Ã¢â€ â€™ approach Ã¢â€ â€™ result
 - Optional: pull quote from the client
 
 **One strong case study beats ten generic testimonials.**
@@ -986,7 +987,7 @@ Then launch, drive traffic, and measure. Optimise based on data, not opinions.
 
 Most businesses default to "we need a new website" when their current one isn't performing. Sometimes that's right. But often, a targeted optimisation programme gets better results in half the time at a quarter of the cost.
 
-The question isn't "do we need a new site?"—it's "what specifically is broken, and what's the fastest way to fix it?"
+The question isn't "do we need a new site?"Ã¢â‚¬â€it's "what specifically is broken, and what's the fastest way to fix it?"
 
 ## When to Optimise (Not Redesign)
 
@@ -1006,7 +1007,7 @@ Optimisation is the right move when:
 
 ### Budget or Timeline Is Tight
 - You need results in 4-8 weeks, not 4-8 months
-- Budget is under £10k
+- Budget is under Ã‚Â£10k
 - You can't afford the traffic dip that redesigns often cause
 
 **Optimisation scope:** Typically involves copy rewrites, CTA restructuring, adding social proof, speed improvements, and A/B testing key pages.
@@ -1039,11 +1040,11 @@ Ask these five questions:
 
 | Question | Optimise | Redesign |
 |----------|----------|----------|
-| Is the tech stack modern? | ✅ Yes | ❌ No |
-| Is the site mobile-responsive? | ✅ Yes | ❌ No |
-| Can you make content changes easily? | ✅ Yes | ❌ No |
-| Is the brand still relevant? | ✅ Yes | ❌ No |
-| Are problems isolated to specific pages? | ✅ Yes | ❌ Problems are systemic |
+| Is the tech stack modern? | Ã¢Å“â€¦ Yes | Ã¢ÂÅ’ No |
+| Is the site mobile-responsive? | Ã¢Å“â€¦ Yes | Ã¢ÂÅ’ No |
+| Can you make content changes easily? | Ã¢Å“â€¦ Yes | Ã¢ÂÅ’ No |
+| Is the brand still relevant? | Ã¢Å“â€¦ Yes | Ã¢ÂÅ’ No |
+| Are problems isolated to specific pages? | Ã¢Å“â€¦ Yes | Ã¢ÂÅ’ Problems are systemic |
 
 **3+ "Optimise" answers:** Start with targeted optimisation.
 **3+ "Redesign" answers:** Invest in a proper rebuild.
@@ -1066,7 +1067,7 @@ This approach reduces risk, maintains traffic, and delivers results faster than 
 
 ## SEO Considerations
 
-⚠️ **The biggest risk of a redesign is losing organic traffic.**
+Ã¢Å¡Â Ã¯Â¸Â **The biggest risk of a redesign is losing organic traffic.**
 
 Common SEO mistakes during redesigns:
 - Changing URLs without setting up 301 redirects
@@ -1098,7 +1099,7 @@ Common SEO mistakes during redesigns:
     id: "google-ads-service-businesses",
     title: "Google Ads for Service Businesses: A Straight-Talk Starter Guide",
     slug: "google-ads-service-businesses",
-    summary: "Google Ads can be the fastest path to leads—or the fastest way to burn cash. Here's how service businesses should set up, structure, and optimise campaigns that actually convert.",
+    summary: "Google Ads can be the fastest path to leadsÃ¢â‚¬â€or the fastest way to burn cash. Here's how service businesses should set up, structure, and optimise campaigns that actually convert.",
     category: "Paid Media",
     readingTime: 11,
     serviceRelation: "paid-media",
@@ -1111,7 +1112,7 @@ Common SEO mistakes during redesigns:
 
 Google Ads puts you in front of people at the exact moment they're searching for what you sell. Unlike social media advertising (where you're interrupting people), Google Ads captures existing demand.
 
-For service businesses—plumbers, accountants, agencies, consultants—this is incredibly powerful. Someone searching "accountant near me" or "commercial cleaning company London" is ready to buy. They're not browsing. They're comparing.
+For service businessesÃ¢â‚¬â€plumbers, accountants, agencies, consultantsÃ¢â‚¬â€this is incredibly powerful. Someone searching "accountant near me" or "commercial cleaning company London" is ready to buy. They're not browsing. They're comparing.
 
 ## Campaign Structure That Actually Works
 
@@ -1121,7 +1122,7 @@ Most service businesses make the mistake of throwing everything into one campaig
 
 **Campaign 1: Brand**
 - Keywords: Your business name and variations
-- Budget: Small (£5-10/day)
+- Budget: Small (Ã‚Â£5-10/day)
 - Purpose: Protect your brand from competitors bidding on your name
 
 **Campaign 2: Core Services (High Intent)**
@@ -1153,7 +1154,7 @@ Most service businesses make the mistake of throwing everything into one campaig
 - Address a pain point: "Tired of agencies that overpromise?"
 - State your differentiator: "No contracts. No filler. Just results."
 - Include a CTA: "Book a Free Strategy Call Today"
-- Add proof: "4.9★ from 80+ Google Reviews"
+- Add proof: "4.9Ã¢Ëœâ€¦ from 80+ Google Reviews"
 
 ### Ad Extensions (Now Called Assets):
 - **Sitelinks**: Link to specific service pages, case studies, contact page
@@ -1168,7 +1169,7 @@ Use all available extensions. They increase your ad's real estate and click-thro
 
 Here's a stat that should terrify you: **sending Google Ads traffic to your homepage reduces conversion rates by 60-80%** compared to a dedicated landing page.
 
-### Why Homepage ≠ Landing Page:
+### Why Homepage Ã¢â€°Â  Landing Page:
 - Homepages serve multiple audiences. Landing pages serve one.
 - Homepages have navigation (distractions). Landing pages have one CTA.
 - Homepages talk about your business. Landing pages talk about the prospect's problem.
@@ -1177,13 +1178,13 @@ Here's a stat that should terrify you: **sending Google Ads traffic to your home
 1. Headline matching the ad (message match)
 2. Clear description of what they get
 3. Social proof (testimonial, logos, reviews)
-4. Simple form (name, email, phone—nothing more)
+4. Simple form (name, email, phoneÃ¢â‚¬â€nothing more)
 5. No navigation menu (remove escape routes)
 
 ## Budget Allocation
 
 ### Starting Budget:
-For most UK service businesses, **£1,500-3,000/month** is a realistic starting point. Less than that and you won't get enough data to optimise.
+For most UK service businesses, **Ã‚Â£1,500-3,000/month** is a realistic starting point. Less than that and you won't get enough data to optimise.
 
 ### How to Allocate:
 - 60% on high-intent, core service campaigns
@@ -1237,7 +1238,7 @@ We run Google Ads campaigns for service businesses across the UK. We'll set up y
     id: "meta-ads-vs-google-ads",
     title: "Meta Ads vs Google Ads: Where to Spend First",
     slug: "meta-ads-vs-google-ads",
-    summary: "Both platforms can generate leads, but they work very differently. Here's a practical breakdown of when to use Meta Ads, when to use Google Ads, and how to decide where your first £1,000 should go.",
+    summary: "Both platforms can generate leads, but they work very differently. Here's a practical breakdown of when to use Meta Ads, when to use Google Ads, and how to decide where your first Ã‚Â£1,000 should go.",
     category: "Paid Media",
     readingTime: 8,
     serviceRelation: "paid-media",
@@ -1250,7 +1251,7 @@ We run Google Ads campaigns for service businesses across the UK. We'll set up y
 
 **Google Ads** captures existing demand. People are actively searching for what you sell.
 
-**Meta Ads** (Facebook + Instagram) creates demand. People aren't searching—you're interrupting their feed with something they didn't know they needed.
+**Meta Ads** (Facebook + Instagram) creates demand. People aren't searchingÃ¢â‚¬â€you're interrupting their feed with something they didn't know they needed.
 
 Both work. But they work differently, and knowing which to use first can save you thousands in wasted spend.
 
@@ -1265,13 +1266,13 @@ Google Ads should be your first channel if:
 
 ### You Need Leads Now
 - Google Ads can generate leads within 48 hours of launch
-- No brand awareness needed—you're meeting existing demand
+- No brand awareness neededÃ¢â‚¬â€you're meeting existing demand
 - Results are predictable and scalable
 
 ### Your Service Is Easy to Explain
 - People already understand what you do
 - They're comparing providers, not learning about the category
-- The buying journey is short (search → compare → enquire)
+- The buying journey is short (search Ã¢â€ â€™ compare Ã¢â€ â€™ enquire)
 
 **Best for:** Service businesses with clear commercial intent keywords and urgent customer needs.
 
@@ -1313,7 +1314,7 @@ Meta Ads should be your first channel if:
 
 ## The Smart Approach: Test Both, Then Double Down
 
-If your budget allows (£3,000+/month), run both simultaneously for 60-90 days.
+If your budget allows (Ã‚Â£3,000+/month), run both simultaneously for 60-90 days.
 
 ### Month 1-2: Test Phase
 - Google Ads: 60% of budget on high-intent keywords
@@ -1332,13 +1333,13 @@ If your budget allows (£3,000+/month), run both simultaneously for 60-90 days.
 
 ## Budget Recommendations
 
-### Under £1,500/month:
+### Under Ã‚Â£1,500/month:
 Pick one channel. Use the comparison above to decide which fits your business better.
 
-### £1,500-3,000/month:
+### Ã‚Â£1,500-3,000/month:
 Start with your primary channel. Add the second channel after 30 days if results are positive.
 
-### £3,000+/month:
+### Ã‚Â£3,000+/month:
 Run both from day one with the 60/40 split described above.
 
 ## Common Mistakes
@@ -1366,7 +1367,7 @@ For most UK service businesses starting from zero:
     id: "ga4-setup-guide",
     title: "GA4 Setup Guide: What to Track From Day One",
     slug: "ga4-setup-guide",
-    summary: "Most GA4 setups are either incomplete or wrong. Here's a practical guide to setting up Google Analytics 4 properly—so you can actually use the data to make decisions.",
+    summary: "Most GA4 setups are either incomplete or wrong. Here's a practical guide to setting up Google Analytics 4 properlyÃ¢â‚¬â€so you can actually use the data to make decisions.",
     category: "Analytics",
     readingTime: 9,
     serviceRelation: "analytics",
@@ -1377,7 +1378,7 @@ For most UK service businesses starting from zero:
     publishedDate: "2025-03-01",
     content: `## Why Your GA4 Setup Matters
 
-Google Analytics 4 is free, powerful, and—for most businesses—badly configured.
+Google Analytics 4 is free, powerful, andÃ¢â‚¬â€for most businessesÃ¢â‚¬â€badly configured.
 
 A proper GA4 setup takes about a day. A bad one costs you months of unreliable data and bad decisions. Here's how to get it right from the start.
 
@@ -1385,12 +1386,12 @@ A proper GA4 setup takes about a day. A bad one costs you months of unreliable d
 
 ### Basic Setup:
 1. Go to [analytics.google.com](https://analytics.google.com)
-2. Create a new GA4 property (not Universal Analytics—that's been sunset)
+2. Create a new GA4 property (not Universal AnalyticsÃ¢â‚¬â€that's been sunset)
 3. Set your time zone and currency correctly (these can't be changed later without creating a new property)
 4. Create a web data stream for your domain
 
 ### Data Stream Settings:
-- Enable Enhanced Measurement (but customise it—see below)
+- Enable Enhanced Measurement (but customise itÃ¢â‚¬â€see below)
 - Turn ON: Page views, Scrolls, Outbound clicks, Site search, Form interactions
 - Turn OFF: Video engagement (unless you have videos on-site), File downloads (unless relevant)
 
@@ -1415,12 +1416,12 @@ GA4 doesn't track conversions by default. You need to tell it what matters.
 
 **1. Form Submissions**
 - Track every contact form, quote request, and enquiry form
-- In GTM: Create a trigger for form submission → fire a GA4 event called "form_submit"
+- In GTM: Create a trigger for form submission Ã¢â€ â€™ fire a GA4 event called "form_submit"
 - In GA4: Mark "form_submit" as a conversion
 
 **2. Phone Calls**
 - Track clicks on phone number links (\`tel:\` links)
-- In GTM: Create a trigger for clicks on links containing "tel:" → fire "phone_click" event
+- In GTM: Create a trigger for clicks on links containing "tel:" Ã¢â€ â€™ fire "phone_click" event
 - Consider adding a call tracking service for actual call attribution
 
 **3. CTA Button Clicks**
@@ -1437,7 +1438,7 @@ GA4 doesn't track conversions by default. You need to tell it what matters.
 Your team visiting the site every day pollutes your data. Filter it out.
 
 ### Method 1: IP Address Filter
-1. In GA4, go to Admin → Data Streams → your stream → Configure tag settings
+1. In GA4, go to Admin Ã¢â€ â€™ Data Streams Ã¢â€ â€™ your stream Ã¢â€ â€™ Configure tag settings
 2. Define internal traffic by adding your office IP address(es)
 3. Create a data filter to exclude internal traffic
 
@@ -1446,11 +1447,11 @@ Use a GTM variable to detect internal users (e.g., a cookie set on an internal p
 
 ## Step 5: Link Google Search Console
 
-This gives you organic search data inside GA4—keywords, impressions, click-through rates.
+This gives you organic search data inside GA4Ã¢â‚¬â€keywords, impressions, click-through rates.
 
-1. In GA4: Admin → Product Links → Search Console Links
+1. In GA4: Admin Ã¢â€ â€™ Product Links Ã¢â€ â€™ Search Console Links
 2. Connect your verified Search Console property
-3. Data appears in GA4 under Reports → Search Console
+3. Data appears in GA4 under Reports Ã¢â€ â€™ Search Console
 
 **This is free and takes 2 minutes. There's no reason not to do it.**
 
@@ -1488,7 +1489,7 @@ Export these audiences to Google Ads for remarketing campaigns.
 3. **Not using UTM parameters**: Tag every campaign, email, and ad with UTM parameters so GA4 can attribute traffic correctly
 4. **Ignoring the Realtime report**: Use it to verify your tracking is working correctly after setup
 5. **Not setting up cross-domain tracking**: If your site spans multiple domains, configure cross-domain tracking or your user journeys will break
-6. **Forgetting to check data retention settings**: GA4 defaults to 2 months. Set it to 14 months under Admin → Data Settings → Data Retention
+6. **Forgetting to check data retention settings**: GA4 defaults to 2 months. Set it to 14 months under Admin Ã¢â€ â€™ Data Settings Ã¢â€ â€™ Data Retention
 
 ## Maintenance Checklist (Monthly)
 
@@ -1539,7 +1540,7 @@ Tell the agency who you are and where you stand:
 - What's your current market position? (Market leader? Challenger? New entrant?)
 - Who are your main competitors?
 
-**Why this matters:** Without context, the agency can't tailor their approach. "We're an accounting firm" tells them nothing. "We're a mid-size accountancy practice in Manchester targeting owner-managed businesses with £1-10M turnover" tells them everything.
+**Why this matters:** Without context, the agency can't tailor their approach. "We're an accounting firm" tells them nothing. "We're a mid-size accountancy practice in Manchester targeting owner-managed businesses with Ã‚Â£1-10M turnover" tells them everything.
 
 ### 2. The Problem You're Trying to Solve
 Be specific about what's not working:
@@ -1547,19 +1548,19 @@ Be specific about what's not working:
 - "We're getting traffic but not from the right keywords."
 - "We've never run paid ads and don't know where to start."
 
-**Avoid:** "We want to grow." That's not a brief—it's a wish. Define the specific growth you need and the barrier you're hitting.
+**Avoid:** "We want to grow." That's not a briefÃ¢â‚¬â€it's a wish. Define the specific growth you need and the barrier you're hitting.
 
 ### 3. Goals and Success Metrics
 Tell the agency how you'll measure success:
 - **Specific:** "Generate 30 qualified leads per month from organic search"
-- **Measurable:** "Reduce cost per lead from £80 to £40"
+- **Measurable:** "Reduce cost per lead from Ã‚Â£80 to Ã‚Â£40"
 - **Time-bound:** "Achieve this within 6 months"
 
 **Don't say:** "Improve our online presence." That means different things to different people.
 
 ### 4. Scope and Constraints
 Be honest about boundaries:
-- **Budget:** Give a realistic range. "£2,000-3,000/month" is infinitely more useful than "competitive rates."
+- **Budget:** Give a realistic range. "Ã‚Â£2,000-3,000/month" is infinitely more useful than "competitive rates."
 - **Timeline:** When do you need to see results? What's your deadline?
 - **Internal resources:** What can you do in-house? (Content writing, design, development)
 - **Approval process:** How many people need to sign off? How long does that take?
@@ -1617,10 +1618,10 @@ Here's a stripped-down template you can copy:
 "We want more leads" gives the agency nothing to work with. How many? What kind? From where? At what cost?
 
 ### 2. Not Sharing Budget
-Agencies can't scope work without a budget. Saying "what would you recommend?" without a budget is like asking an architect to design a house without telling them whether you have £200k or £2M.
+Agencies can't scope work without a budget. Saying "what would you recommend?" without a budget is like asking an architect to design a house without telling them whether you have Ã‚Â£200k or Ã‚Â£2M.
 
 ### 3. Briefing Tactics, Not Outcomes
-"We need a Facebook campaign" is a tactic. "We need 20 qualified leads per month from paid media" is an outcome. Let the agency recommend the tactic—that's what you're paying them for.
+"We need a Facebook campaign" is a tactic. "We need 20 qualified leads per month from paid media" is an outcome. Let the agency recommend the tacticÃ¢â‚¬â€that's what you're paying them for.
 
 ### 4. Too Many Stakeholders
 If five people need to approve the brief, the brief will be a compromise that says nothing. One person should own the brief. Others can input, but one person decides.
@@ -1636,7 +1637,7 @@ A good agency will respond to your brief with:
 3. **A clear scope and timeline**
 4. **Pricing tied to deliverables** (not vague "ongoing support" packages)
 
-If the proposal doesn't address your specific goals, doesn't reference your brief, or looks like a template—it probably is. Move on.
+If the proposal doesn't address your specific goals, doesn't reference your brief, or looks like a templateÃ¢â‚¬â€it probably is. Move on.
 
 **[Need Help Choosing the Right Agency Approach?](/contact)**
 `,
@@ -1658,3 +1659,4 @@ export const getPillarResources = (): Resource[] => {
 export const getResourceCategories = (): string[] => {
   return Array.from(new Set(resources.map((r) => r.category)));
 };
+

@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/SEOGlossary';
+﻿'use client';
+export { default } from '@/views/SEOGlossary';
+

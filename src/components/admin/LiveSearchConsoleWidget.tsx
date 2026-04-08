@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
@@ -355,4 +356,5 @@ export default function LiveSearchConsoleWidget() {
     </Card>
   );
 }
+
 

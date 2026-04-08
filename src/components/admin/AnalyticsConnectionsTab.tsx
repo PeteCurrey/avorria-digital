@@ -1,4 +1,5 @@
 ﻿'use client';
+import Link from "next/link";
 import React, { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import {
@@ -195,7 +196,7 @@ const AnalyticsConnectionsTab = () => {
                   onChange={(e) => setGa4PropertyId(e.target.value)}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Found in GA4 Admin → Property Settings
+                  Found in GA4 Admin ? Property Settings
                 </p>
               </div>
 
@@ -347,7 +348,7 @@ const AnalyticsConnectionsTab = () => {
                     </TableCell>
                     <TableCell>
                       {connection.project?.name || (
-                        <span className="text-muted-foreground">—</span>
+                        <span className="text-muted-foreground">â€”</span>
                       )}
                     </TableCell>
                     <TableCell>
@@ -460,4 +461,5 @@ const AnalyticsConnectionsTab = () => {
 };
 
 export default AnalyticsConnectionsTab;
+
 

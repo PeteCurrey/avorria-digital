@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 export type Json =
   | string
   | number
@@ -3541,3 +3542,4 @@ export const Constants = {
     },
   },
 } as const
+

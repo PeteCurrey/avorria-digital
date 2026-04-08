@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import { useState, useRef, useCallback } from "react";
 
 interface UseGeneratedAmbientAudioReturn {
@@ -22,6 +22,30 @@ export function useGeneratedAmbientAudio(volume = 0.4): UseGeneratedAmbientAudio
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioUrlRef = useRef<string | null>(null);
 
+  const generateAudio = async (): Promise<string> => {
+    if (audioUrlRef.current) return audioUrlRef.current;
+    
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    
+    if (!supabaseUrl || !supabaseKey) {
+      throw new Error("Supabase environment variables are missing");
+    }
+
+    const response = await fetch(`${supabaseUrl}/functions/v1/studio-ambient-music`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "apikey": supabaseKey,
+        "Authorization": `Bearer ${supabaseKey}`,
+      },
+      body: JSON.stringify({
+        prompt: "Deep cinematic ambient technology atmosphere, futuristic floating textures, high-end professional digital agency background music, subtle movement",
+        duration: 30
+      }),
+    });
+
+    if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Audio generation failed: ${response.status} - ${errorText}`);
     }
@@ -94,4 +118,5 @@ export function useGeneratedAmbientAudio(volume = 0.4): UseGeneratedAmbientAudio
 }
 
 export default useGeneratedAmbientAudio;
+
 

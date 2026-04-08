@@ -19,6 +19,20 @@ serve(async (req) => {
 
   try {
     const { service, location, industry }: GenerateRequest = await req.json();
+    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.38.4");
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Try to get user-provided Claude key
+    const { data: claudeRecord } = await supabaseAdmin
+      .from("seo_integrations")
+      .select("config, is_active")
+      .eq("integration_type", "claude")
+      .eq("is_active", true)
+      .maybeSingle();
+
+    const userClaudeKey = claudeRecord?.config?.apiKey;
 
     const contextParts: string[] = [];
     if (location) contextParts.push(`in ${location}`);
@@ -64,30 +78,60 @@ Guidelines:
 ${location ? `- Include local references to ${location} where natural` : ""}
 ${industry ? `- Use ${industry}-specific language and concerns` : ""}`;
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-2.5-flash",
-        messages: [
-          {
-            role: "system",
-            content: "You are an expert marketing copywriter specializing in B2B services. Generate compelling, trustworthy landing page content that converts. Always return valid JSON only, no markdown formatting.",
-          },
-          { role: "user", content: prompt },
-        ],
-      }),
-    });
+    let rawContent = "";
+    
+    if (userClaudeKey) {
+      console.log("Using user-provided Claude API key for landing page generation...");
+      const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": userClaudeKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 4096,
+          system: "You are an expert marketing copywriter specializing in B2B services. Generate compelling, trustworthy landing page content that converts. Always return valid JSON only, no markdown formatting.",
+          messages: [{ role: "user", content: prompt }],
+        }),
+      });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`AI API error: ${response.status} - ${errorText}`);
+      if (!anthropicResponse.ok) {
+        const errorText = await anthropicResponse.text();
+        console.error("Claude API error:", anthropicResponse.status, errorText);
+        throw new Error(`Claude API error: ${anthropicResponse.status}`);
+      }
+
+      const anthropicData = await anthropicResponse.json();
+      rawContent = anthropicData.content[0].text;
+    } else {
+      console.log("No Claude key found, falling back to default AI gateway...");
+      const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-2.0-flash-exp",
+          messages: [
+            {
+              role: "system",
+              content: "You are an expert marketing copywriter specializing in B2B services. Generate compelling, trustworthy landing page content that converts. Always return valid JSON only, no markdown formatting.",
+            },
+            { role: "user", content: prompt },
+          ],
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`AI API error: ${response.status} - ${errorText}`);
+      }
+
+      const data = await response.json();
+      rawContent = data.choices?.[0]?.message?.content || "";
     }
-
-    const data = await response.json();
-    const rawContent = data.choices?.[0]?.message?.content || "";
 
     // Parse the JSON response
     let parsedContent;

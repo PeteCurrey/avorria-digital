@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 import Navigate from '@/components/Navigate';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
@@ -339,4 +339,5 @@ End with a call to action to book a strategy call.`,
 };
 
 export default ResourcesManager;
+
 

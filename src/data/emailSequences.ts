@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 /**
  * Email Sequences for Avorria Marketing Automation
  * 
@@ -14,30 +15,30 @@ export const emailSequences = {
         sequence: 1,
         timing: "Immediately on submission",
         subject: [
-          "Got your audit request 👌",
-          "We're on it – your SEO & website audit",
+          "Got your audit request Ã°Å¸â€˜Å’",
+          "We're on it Ã¢â‚¬â€œ your SEO & website audit",
           "Your Avorria audit is in the queue"
         ],
         body: `Hi [First name],
 
-Nice one – we've got your request for a free SEO & website audit.
+Nice one Ã¢â‚¬â€œ we've got your request for a free SEO & website audit.
 
 Here's what happens next:
 
-• We review your site, key pages and tracking.
-• We sanity-check your SEO and structure.
-• We put together a short, plain-English teardown with a prioritised fix list.
+Ã¢â‚¬Â¢ We review your site, key pages and tracking.
+Ã¢â‚¬Â¢ We sanity-check your SEO and structure.
+Ã¢â‚¬Â¢ We put together a short, plain-English teardown with a prioritised fix list.
 
 You won't get a 40-page PDF. You'll get:
 
-• What's obviously broken or holding you back.
-• Where you're leaving money on the table.
-• What we'd do in the next 90 days if this was our budget.
+Ã¢â‚¬Â¢ What's obviously broken or holding you back.
+Ã¢â‚¬Â¢ Where you're leaving money on the table.
+Ã¢â‚¬Â¢ What we'd do in the next 90 days if this was our budget.
 
-Turnaround: 2–3 working days.
+Turnaround: 2Ã¢â‚¬â€œ3 working days.
 
 If you want to skip the queue and walk through it live, you can grab a slot here:
-[Book a strategy call →]
+[Book a strategy call Ã¢â€ â€™]
 
 Talk soon,
 Avorria`
@@ -56,7 +57,7 @@ We've gone through your site and SEO setup.
 
 Headline view:
 
-[1–2 lines with the blunt truth – dev/ops will paste this in per lead.]
+[1Ã¢â‚¬â€œ2 lines with the blunt truth Ã¢â‚¬â€œ dev/ops will paste this in per lead.]
 
 Here are the key points we found:
 
@@ -73,11 +74,11 @@ What we'd do in the next 90 days
 [Short bullet(s) here.]
 
 We've attached / linked your audit here:
-[View my audit →]
+[View my audit Ã¢â€ â€™]
 
 If you want us to translate this into a concrete plan (and what it would cost), grab a slot here and we'll walk it through together:
 
-[Book a strategy call →]
+[Book a strategy call Ã¢â€ â€™]
 
 If you'd rather implement with your existing team/agency, use this as your checklist and push them on the gaps.
 
@@ -87,20 +88,20 @@ Avorria`
       },
       {
         sequence: 3,
-        timing: "3–5 days after audit sent (if no call booked)",
+        timing: "3Ã¢â‚¬â€œ5 days after audit sent (if no call booked)",
         condition: "No strategy call booked",
         subject: [
           "What you do with that audit is where the money is",
           "Quick one on your audit",
-          "If you ignore that audit, this will probably happen…"
+          "If you ignore that audit, this will probably happenÃ¢â‚¬Â¦"
         ],
         body: `Hi [First name],
 
 You've now got a clearer view than most of your competitors on:
 
-• What's actually working.
-• What's blocking growth.
-• What to fix first.
+Ã¢â‚¬Â¢ What's actually working.
+Ã¢â‚¬Â¢ What's blocking growth.
+Ã¢â‚¬Â¢ What to fix first.
 
 There are basically three options from here:
 
@@ -115,15 +116,15 @@ We turn that list into a 90-day plan, then design, build and optimise so it actu
 
 If you want option 3, hit this and we'll talk like adults about budget, scope and timelines:
 
-[Book a strategy call →]
+[Book a strategy call Ã¢â€ â€™]
 
-If not, no drama – just don't let the audit gather dust. You're literally looking at opportunities in plain sight.
+If not, no drama Ã¢â‚¬â€œ just don't let the audit gather dust. You're literally looking at opportunities in plain sight.
 
 Avorria`
       },
       {
         sequence: 4,
-        timing: "7–10 days after audit (if still no movement)",
+        timing: "7Ã¢â‚¬â€œ10 days after audit (if still no movement)",
         condition: "No strategy call booked",
         subject: [
           "Two resources to make that audit actually pay off",
@@ -138,15 +139,15 @@ Whether you work with us or not, these two resources will help you execute it pr
 
 High-converting websites playbook
 How to structure pages so they actually generate enquiries.
-→ [Link to your website pillar]
+Ã¢â€ â€™ [Link to your website pillar]
 
 No-bullshit SEO guide for real businesses
 How to think about SEO without getting lost in jargon.
-→ [Link to SEO pillar]
+Ã¢â€ â€™ [Link to SEO pillar]
 
 If at any point you decide you'd rather have a team own this for you, you know where we are:
 
-[Book a strategy call →]
+[Book a strategy call Ã¢â€ â€™]
 
 We'll leave it with you.
 
@@ -173,28 +174,28 @@ Thanks for taking the time to run through the project estimator.
 
 Based on what you told us, you're in roughly this bucket:
 
-• Project type(s): [SEO / Paid / Web / Funnel etc.]
-• Objective: [e.g. more qualified leads, better ROAS, rebuild]
-• Timeline: [e.g. 1–3 months, 3–6 months]
+Ã¢â‚¬Â¢ Project type(s): [SEO / Paid / Web / Funnel etc.]
+Ã¢â‚¬Â¢ Objective: [e.g. more qualified leads, better ROAS, rebuild]
+Ã¢â‚¬Â¢ Timeline: [e.g. 1Ã¢â‚¬â€œ3 months, 3Ã¢â‚¬â€œ6 months]
 
 For projects like this, most of our clients land in a range of:
 
-• £X–£Y/month for retainers, or
-• £A–£B one-off for defined build projects.
+Ã¢â‚¬Â¢ Ã‚Â£XÃ¢â‚¬â€œÃ‚Â£Y/month for retainers, or
+Ã¢â‚¬Â¢ Ã‚Â£AÃ¢â‚¬â€œÃ‚Â£B one-off for defined build projects.
 
 It's not a quote. It's a reality check based on similar work and outcomes.
 
 If that feels in the right universe, next step is simple:
 
-[Book a strategy call to firm this up →]
+[Book a strategy call to firm this up Ã¢â€ â€™]
 
 On that call, we'll:
 
-• Validate the assumptions behind the range.
-• Talk through what's in-scope vs out-of-scope.
-• Give you a concrete path forward (including "you're not ready yet" if that's the truth).
+Ã¢â‚¬Â¢ Validate the assumptions behind the range.
+Ã¢â‚¬Â¢ Talk through what's in-scope vs out-of-scope.
+Ã¢â‚¬Â¢ Give you a concrete path forward (including "you're not ready yet" if that's the truth).
 
-If that range is miles away from where your head's at, that's useful data too – it means you may want to simplify scope or keep things in-house for now.
+If that range is miles away from where your head's at, that's useful data too Ã¢â‚¬â€œ it means you may want to simplify scope or keep things in-house for now.
 
 Either way, you've just saved yourself weeks of vague back-and-forth.
 
@@ -202,7 +203,7 @@ Avorria`
       },
       {
         sequence: 2,
-        timing: "2–3 days later",
+        timing: "2Ã¢â‚¬â€œ3 days later",
         subject: [
           "Are you actually going to move on this?",
           "Gut check on your project",
@@ -212,8 +213,8 @@ Avorria`
 
 Most teams stall at exactly the point you've reached:
 
-• They know roughly what they want.
-• They know roughly what it costs.
+Ã¢â‚¬Â¢ They know roughly what they want.
+Ã¢â‚¬Â¢ They know roughly what it costs.
 
 Then it sits in "we should do something" mode for six months.
 
@@ -227,7 +228,7 @@ Remove it from the mental backlog. Stop half-thinking about it.
 
 If you want help making that decision, jump on a call and we'll give you a straight recommendation based on where you are:
 
-[Book a strategy call →]
+[Book a strategy call Ã¢â€ â€™]
 
 No theatre, no pitch deck. Just adults talking about numbers, risk and upside.
 
@@ -235,7 +236,7 @@ Avorria`
       },
       {
         sequence: 3,
-        timing: "7–10 days later",
+        timing: "7Ã¢â‚¬â€œ10 days later",
         subject: [
           "If timing isn't right, here's how to prepare",
           "Parking the project? Do it properly",
@@ -243,22 +244,22 @@ Avorria`
         ],
         body: `Hi [First name],
 
-If you're not moving forward right now, that's completely fine – provided it's a decision, not just drift.
+If you're not moving forward right now, that's completely fine Ã¢â‚¬â€œ provided it's a decision, not just drift.
 
 If you're pausing, here's how to use the time well:
 
-• Tighten your positioning and messaging internally.
-• Get your tracking and CRM cleaned up.
-• Collect more proof (testimonials, cases, outcomes).
+Ã¢â‚¬Â¢ Tighten your positioning and messaging internally.
+Ã¢â‚¬Â¢ Get your tracking and CRM cleaned up.
+Ã¢â‚¬Â¢ Collect more proof (testimonials, cases, outcomes).
 
 We've put together a couple of resources that will help:
 
-[Link: Why Avorria page] – how we think about growth.
-[Link: Reporting explainer] – what good reporting looks like.
+[Link: Why Avorria page] Ã¢â‚¬â€œ how we think about growth.
+[Link: Reporting explainer] Ã¢â‚¬â€œ what good reporting looks like.
 
 Whenever you're ready to turn this project back on, we'll be here:
 
-[Book a strategy call →]
+[Book a strategy call Ã¢â€ â€™]
 
 Avorria`
       }
@@ -273,7 +274,7 @@ Avorria`
         sequence: 1,
         timing: "Immediately on submission",
         subject: [
-          "Got your agency report 👍",
+          "Got your agency report Ã°Å¸â€˜Â",
           "We'll tear this down and tell you the truth",
           "Your agency teardown is in the queue"
         ],
@@ -283,16 +284,16 @@ We've received your agency report/proposal and the context you shared. Appreciat
 
 Here's what we'll do:
 
-• Read the report like operators, not vendors.
-• Assess whether the work and results justify the fees.
-• Translate the charts and jargon into normal language.
-• Give you 3–5 clear recommendations.
+Ã¢â‚¬Â¢ Read the report like operators, not vendors.
+Ã¢â‚¬Â¢ Assess whether the work and results justify the fees.
+Ã¢â‚¬Â¢ Translate the charts and jargon into normal language.
+Ã¢â‚¬Â¢ Give you 3Ã¢â‚¬â€œ5 clear recommendations.
 
-You'll get a straight answer within 3–5 working days. If your agency is solid, we'll say so. If not, you'll know exactly why.
+You'll get a straight answer within 3Ã¢â‚¬â€œ5 working days. If your agency is solid, we'll say so. If not, you'll know exactly why.
 
 If you'd prefer to walk through it live, you can book a teardown call here:
 
-[Book a live teardown call →]
+[Book a live teardown call Ã¢â€ â€™]
 
 Avorria`
       },
@@ -310,29 +311,29 @@ We've gone through your report/proposal.
 
 Short version:
 
-[1–2 blunt lines – to be filled in per client.]
+[1Ã¢â‚¬â€œ2 blunt lines Ã¢â‚¬â€œ to be filled in per client.]
 
 In the teardown, you'll see:
 
-• Where the reporting is strong vs weak.
-• Whether the work matches the spend.
-• What's missing, misaligned or just wasted.
-• What we'd change in the next 90 days.
+Ã¢â‚¬Â¢ Where the reporting is strong vs weak.
+Ã¢â‚¬Â¢ Whether the work matches the spend.
+Ã¢â‚¬Â¢ What's missing, misaligned or just wasted.
+Ã¢â‚¬Â¢ What we'd change in the next 90 days.
 
 You can read it here:
-[View my teardown →]
+[View my teardown Ã¢â€ â€™]
 
 If you want an honest conversation about options (tightening up the current setup vs switching), grab a slot and we'll talk like grown-ups:
 
-[Book a call to walk through it →]
+[Book a call to walk through it Ã¢â€ â€™]
 
-No drama, no agency politics – just commercial reality.
+No drama, no agency politics Ã¢â‚¬â€œ just commercial reality.
 
 Avorria`
       },
       {
         sequence: 3,
-        timing: "3–5 days after teardown sent",
+        timing: "3Ã¢â‚¬â€œ5 days after teardown sent",
         subject: [
           "You basically have three options with that agency",
           "What you do next matters more than what we said",
@@ -353,14 +354,15 @@ Use a structured handover, protect your data and assets, and avoid a messy exit.
 3. Bring in a partner who behaves like an in-house growth team.
 We own the numbers, the execution and the uncomfortable conversations.
 
-If you want help planning any of those options – even if you don't work with us – book a call and we'll map it out:
+If you want help planning any of those options Ã¢â‚¬â€œ even if you don't work with us Ã¢â‚¬â€œ book a call and we'll map it out:
 
-[Book a call →]
+[Book a call Ã¢â€ â€™]
 
-Sitting on a bad setup for another 6–12 months is usually the most expensive option on the table.
+Sitting on a bad setup for another 6Ã¢â‚¬â€œ12 months is usually the most expensive option on the table.
 
 Avorria`
       }
     ]
   }
 };
+

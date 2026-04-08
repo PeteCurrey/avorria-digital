@@ -1,2 +1,3 @@
-'use client';
-export { default } from '@/pages/seo/LocalSEO';
+﻿'use client';
+export { default } from '@/views/seo/LocalSEO';
+

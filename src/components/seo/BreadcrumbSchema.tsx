@@ -1,5 +1,4 @@
-'use client';
-
+﻿'use client';
 interface BreadcrumbItem {
   name: string;
   url: string;
@@ -30,3 +29,4 @@ export const BreadcrumbSchema = ({ items }: BreadcrumbSchemaProps) => {
 };
 
 export default BreadcrumbSchema;
+

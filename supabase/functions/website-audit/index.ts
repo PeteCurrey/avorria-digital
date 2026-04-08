@@ -21,9 +21,20 @@ serve(async (req) => {
     }
 
     const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY is not configured');
-    }
+    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.38.4");
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
+
+    // Try to get user-provided Claude key
+    const { data: claudeRecord } = await supabaseAdmin
+      .from("seo_integrations")
+      .select("config, is_active")
+      .eq("integration_type", "claude")
+      .eq("is_active", true)
+      .maybeSingle();
+
+    const userClaudeKey = claudeRecord?.config?.apiKey;
 
     console.log(`Analyzing website: ${url}`);
 
@@ -70,42 +81,64 @@ Analyze:
 
 Be thorough but practical. Focus on high-impact improvements.`;
 
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: 'google/gemini-2.5-flash',
-        messages: [
-          { role: 'system', content: systemPrompt },
-          { role: 'user', content: userPrompt }
-        ],
-        temperature: 0.7,
-      }),
-    });
+    let content = "";
+    
+    if (userClaudeKey) {
+      console.log("Using user-provided Claude API key for website audit...");
+      const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": userClaudeKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [{ role: "user", content: userPrompt }],
+        }),
+      });
 
-    if (!response.ok) {
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: 'Rate limit exceeded. Please try again later.' }),
-          { status: 429, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
+      if (!anthropicResponse.ok) {
+        const errorText = await anthropicResponse.text();
+        console.error("Claude API error:", anthropicResponse.status, errorText);
+        throw new Error(`Claude API error: ${anthropicResponse.status}`);
       }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: 'Usage limit reached. Please add credits.' }),
-          { status: 402, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
+
+      const anthropicData = await anthropicResponse.json();
+      content = anthropicData.content[0].text;
+    } else {
+      console.log("No Claude key found, falling back to default AI gateway...");
+      if (!LOVABLE_API_KEY) {
+        throw new Error("No AI key (Claude or Lovable) is configured");
       }
-      const errorText = await response.text();
-      console.error('AI Gateway error:', response.status, errorText);
-      throw new Error(`AI Gateway error: ${response.status}`);
+
+      const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          model: 'google/gemini-2.0-flash-exp',
+          messages: [
+            { role: 'system', content: systemPrompt },
+            { role: 'user', content: userPrompt }
+          ],
+          temperature: 0.7,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('AI Gateway error:', response.status, errorText);
+        throw new Error(`AI Gateway error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      content = data.choices?.[0]?.message?.content;
     }
-
-    const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
     
     if (!content) {
       throw new Error('No content in AI response');

@@ -1,7 +1,6 @@
 ﻿'use client';
-import { motion } from "framer-motion";
 import Link from "next/link";
-
+import { motion } from "framer-motion";
 interface AnimatedLogoProps {
   isTransparent?: boolean;
 }
@@ -54,4 +53,5 @@ const AnimatedLogo = ({ isTransparent = false }: AnimatedLogoProps) => {
 };
 
 export default AnimatedLogo;
+
 

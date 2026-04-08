@@ -1,3 +1,4 @@
+﻿import Link from "next/link";
 /**
  * Ad Creative Bank for Avorria Campaigns
  * 
@@ -14,19 +15,19 @@ export const adCreative = {
   seoAudit: {
     hookAngle: "You've got traffic, but not enough pipeline",
     headlines: [
-      "Free SEO & website audit – straight talk only",
-      "Your SEO report says 'up' – your pipeline doesn't",
+      "Free SEO & website audit Ã¢â‚¬â€œ straight talk only",
+      "Your SEO report says 'up' Ã¢â‚¬â€œ your pipeline doesn't",
       "If SEO doesn't touch revenue, why bother?"
     ],
     primaryText: [
       {
         variant: 1,
         text: `You don't need another 40-page SEO report.
-You need someone to look at your site, your structure and your tracking, then tell you – in plain English – what's actually holding you back.
+You need someone to look at your site, your structure and your tracking, then tell you Ã¢â‚¬â€œ in plain English Ã¢â‚¬â€œ what's actually holding you back.
 
 We'll do that, for free. No filler, no junior "specialist", no 6-month pitch.
 
-👉 Request a free SEO & website audit.`
+Ã°Å¸â€˜â€° Request a free SEO & website audit.`
       },
       {
         variant: 2,
@@ -36,7 +37,7 @@ We run a blunt review of your site, SEO and tracking and send you a prioritised 
 
 Keep your agency and push them harder, or ask us to own it. Either way, you get clarity.
 
-👉 Get your audit.`
+Ã°Å¸â€˜â€° Get your audit.`
       },
       {
         variant: 3,
@@ -44,7 +45,7 @@ Keep your agency and push them harder, or ask us to own it. Either way, you get 
 
 We'll review your setup, translate the noise and show you where the money is actually leaking.
 
-👉 Request your free audit.`
+Ã°Å¸â€˜â€° Request your free audit.`
       }
     ],
     cta: [
@@ -67,13 +68,13 @@ We'll review your setup, translate the noise and show you where the money is act
     primaryText: [
       {
         variant: 1,
-        text: `If your site looks good but your enquiries are flat, you don't have a design problem – you have a conversion problem.
+        text: `If your site looks good but your enquiries are flat, you don't have a design problem Ã¢â‚¬â€œ you have a conversion problem.
 
 We rebuild homepages, service pages and funnels so they look sharp and sell hard.
 
 Same traffic, better structure, more qualified leads.
 
-👉 See the 'Websites We'd Fire' gallery.`
+Ã°Å¸â€˜â€° See the 'Websites We'd Fire' gallery.`
       },
       {
         variant: 2,
@@ -82,7 +83,7 @@ If that sounds like your homepage, it's taxing your pipeline every day.
 
 We'll rip it apart (nicely), redesign it for conversions and wire it into your tracking so you can see the lift.
 
-👉 Request a website & funnel teardown.`
+Ã°Å¸â€˜â€° Request a website & funnel teardown.`
       },
       {
         variant: 3,
@@ -90,7 +91,7 @@ We'll rip it apart (nicely), redesign it for conversions and wire it into your t
 
 We fix the bucket. Then we scale the spend.
 
-👉 Talk to Avorria about a rebuild.`
+Ã°Å¸â€˜â€° Talk to Avorria about a rebuild.`
       }
     ],
     cta: [
@@ -117,7 +118,7 @@ We fix the bucket. Then we scale the spend.
 
 Upload their latest report. We'll tell you what's solid, what's fluff and whether the work matches the invoice.
 
-👉 Get an honest teardown.`
+Ã°Å¸â€˜â€° Get an honest teardown.`
       },
       {
         variant: 2,
@@ -126,15 +127,15 @@ You need someone to read your current report like a CFO and a CMO, then tell you
 
 We do exactly that. Quietly, confidentially, and with zero obligation.
 
-👉 Submit your agency report for teardown.`
+Ã°Å¸â€˜â€° Submit your agency report for teardown.`
       },
       {
         variant: 3,
-        text: `Most teams stay with underperforming agencies 6–12 months longer than they should.
+        text: `Most teams stay with underperforming agencies 6Ã¢â‚¬â€œ12 months longer than they should.
 
-We'll accelerate that decision with a blunt report teardown and 3–5 clear recommendations.
+We'll accelerate that decision with a blunt report teardown and 3Ã¢â‚¬â€œ5 clear recommendations.
 
-👉 Start the teardown.`
+Ã°Å¸â€˜â€° Start the teardown.`
       }
     ],
     cta: [
@@ -194,3 +195,4 @@ export const campaignNotes = {
     ]
   }
 };
+

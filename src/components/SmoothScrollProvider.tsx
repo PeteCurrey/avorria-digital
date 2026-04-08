@@ -51,3 +51,4 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
 
 export default SmoothScrollProvider;
 
+

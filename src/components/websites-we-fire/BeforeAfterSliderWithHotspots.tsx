@@ -221,7 +221,7 @@ const BeforeAfterSliderWithHotspots: React.FC<BeforeAfterSliderWithHotspotsProps
             exit={{ opacity: 0 }}
             className="absolute bottom-4 left-4 px-3 py-1.5 bg-black/70 text-white text-xs rounded-full z-10"
           >
-            👆 Click the red dots to see issues
+            ?? Click the red dots to see issues
           </motion.div>
         )}
       </AnimatePresence>
@@ -230,4 +230,5 @@ const BeforeAfterSliderWithHotspots: React.FC<BeforeAfterSliderWithHotspotsProps
 };
 
 export default BeforeAfterSliderWithHotspots;
+
 
