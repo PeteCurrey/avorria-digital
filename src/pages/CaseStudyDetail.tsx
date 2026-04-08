@@ -1,4 +1,5 @@
-import { useParams, Link } from "react-router-dom";
+﻿'use client';
+import { useParams, Link } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -93,7 +94,7 @@ const CaseStudyDetail = () => {
         <div className="text-center">
           <h1 className="text-3xl font-light text-white mb-4">Case Study Not Found</h1>
           <Button asChild>
-            <Link to="/case-studies">View All Case Studies</Link>
+            <Link href="/case-studies">View All Case Studies</Link>
           </Button>
         </div>
       </div>
@@ -265,7 +266,7 @@ const CaseStudyDetail = () => {
           <section className="py-12 px-6 section-dark border-t border-white/5">
             <div className="container mx-auto">
               <Button variant="ghost" asChild className="text-white/60 hover:text-white">
-                <Link to="/case-studies"><ArrowLeft className="mr-2" size={18} />All Case Studies</Link>
+                <Link href="/case-studies"><ArrowLeft className="mr-2" size={18} />All Case Studies</Link>
               </Button>
             </div>
           </section>
@@ -276,3 +277,4 @@ const CaseStudyDetail = () => {
 };
 
 export default CaseStudyDetail;
+

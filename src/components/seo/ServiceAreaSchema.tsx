@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 
 interface ServiceArea {
   name: string;
@@ -71,9 +70,9 @@ export const ServiceAreaSchema = ({
   };
 
   return (
-    <Helmet>
+    
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    
   );
 };
 

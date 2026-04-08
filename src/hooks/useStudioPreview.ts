@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -106,3 +107,4 @@ export function useStudioPreview(): UseStudioPreviewResult {
     generatePreview,
   };
 }
+

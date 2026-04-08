@@ -24,12 +24,16 @@ export function useAuditReports() {
   return useQuery({
     queryKey: ["audit-reports"],
     queryFn: async () => {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      
+      const session = await supabase.auth.getSession();
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/audit_reports?select=*&order=created_at.desc`,
+        `${supabaseUrl}/rest/v1/audit_reports?select=*&order=created_at.desc`,
         {
           headers: {
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            Authorization: `Bearer ${(await supabase.auth.getSession()).data.session?.access_token}`,
+            apikey: supabaseKey || "",
+            Authorization: `Bearer ${session.data.session?.access_token || ""}`,
           },
         }
       );
@@ -43,14 +47,17 @@ export function useDeleteAuditReport() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      
       const session = await supabase.auth.getSession();
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/audit_reports?id=eq.${id}`,
+        `${supabaseUrl}/rest/v1/audit_reports?id=eq.${id}`,
         {
           method: "DELETE",
           headers: {
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            Authorization: `Bearer ${session.data.session?.access_token}`,
+            apikey: supabaseKey || "",
+            Authorization: `Bearer ${session.data.session?.access_token || ""}`,
             "Content-Type": "application/json",
           },
         }
@@ -67,13 +74,16 @@ export function useAuditReportStats() {
   return useQuery({
     queryKey: ["audit-report-stats"],
     queryFn: async () => {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      
       const session = await supabase.auth.getSession();
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/audit_reports?select=overall_score,email_sent,created_at`,
+        `${supabaseUrl}/rest/v1/audit_reports?select=overall_score,email_sent,created_at`,
         {
           headers: {
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            Authorization: `Bearer ${session.data.session?.access_token}`,
+            apikey: supabaseKey || "",
+            Authorization: `Bearer ${session.data.session?.access_token || ""}`,
           },
         }
       );

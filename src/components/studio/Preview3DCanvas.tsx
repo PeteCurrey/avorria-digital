@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { RoundedBox, Float, Environment, ContactShadows } from "@react-three/drei";
@@ -168,3 +169,4 @@ export function Preview3DCanvas({ config }: Preview3DCanvasProps) {
 }
 
 export default Preview3DCanvas;
+

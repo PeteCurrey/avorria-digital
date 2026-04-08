@@ -1,23 +1,24 @@
-import { Link, useNavigate } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+'use client';
+import Navigate from '@/components/Navigate';
+import { Link, use  , useRouter} from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ShieldAlert, ArrowLeft, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 
 const Unauthorized = () => {
   const { user, signOut } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleSignOutAndLogin = async () => {
     await signOut();
-    navigate("/auth/login?returnTo=/admin");
+    router.push("/auth/login?returnTo=/admin");
   };
 
   return (
     <>
-      <Helmet>
+      
         <title>Unauthorized - Avorria</title>
-      </Helmet>
+      
 
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-accent/5 p-4">
         <div className="text-center space-y-6 max-w-md">
@@ -45,13 +46,13 @@ const Unauthorized = () => {
               Sign Out &amp; Sign In
             </Button>
             <Button asChild variant="outline">
-              <Link to="/">
+              <Link href="/">
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Go Home
               </Link>
             </Button>
             <Button asChild variant="outline">
-              <Link to="/contact">Contact Support</Link>
+              <Link href="/contact">Contact Support</Link>
             </Button>
           </div>
         </div>

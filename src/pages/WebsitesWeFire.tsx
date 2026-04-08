@@ -1,3 +1,4 @@
+﻿'use client';
 // Enhanced Websites We'd Fire page v2 - All 10 UX Enhancements
 import React, { useState, useEffect } from "react";
 import SEOHead from "@/components/seo/SEOHead";
@@ -1082,3 +1083,4 @@ const WebsitesWeFire = () => {
 };
 
 export default WebsitesWeFire;
+

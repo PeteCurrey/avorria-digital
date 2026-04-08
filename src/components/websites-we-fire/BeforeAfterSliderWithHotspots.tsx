@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
@@ -229,3 +230,4 @@ const BeforeAfterSliderWithHotspots: React.FC<BeforeAfterSliderWithHotspotsProps
 };
 
 export default BeforeAfterSliderWithHotspots;
+

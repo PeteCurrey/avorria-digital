@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -136,13 +137,13 @@ const WhyAvorria = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button variant="accent" size="lg" asChild>
-                <Link to="/contact">
+                <Link href="/contact">
                   Book a strategy call
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button size="lg" asChild className="border border-white/20 bg-white/[0.06] text-white hover:bg-white/10 backdrop-blur-sm">
-                <Link to="#how-we-think">
+                <Link href="#how-we-think">
                   Our approach
                 </Link>
               </Button>
@@ -235,13 +236,13 @@ const WhyAvorria = () => {
           {/* Secondary navigation links */}
           <div className="max-w-3xl mx-auto px-6 pb-24 flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="outline" asChild>
-              <Link to="/reporting">
+              <Link href="/reporting">
                 See how we report
                 <ArrowRight className="ml-2" size={18} />
               </Link>
             </Button>
             <Button variant="outline" asChild>
-              <Link to="/websites-we-would-fire">
+              <Link href="/websites-we-would-fire">
                 Websites We'd Fire gallery
                 <ArrowRight className="ml-2" size={18} />
               </Link>
@@ -285,7 +286,7 @@ const WhyAvorria = () => {
                       <h3 className="text-xl font-semibold text-foreground mb-4">{item.title}</h3>
                       <p className="text-muted-foreground mb-6">{item.description}</p>
                       <Button variant="outline" asChild className="w-full">
-                        <Link to={item.link}>
+                        <Link href={item.link}>
                           {item.label}
                           <ArrowRight className="ml-2" size={18} />
                         </Link>
@@ -331,13 +332,13 @@ const WhyAvorria = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button variant="accent" size="lg" asChild>
-                <Link to="/free-seo-website-audit">
+                <Link href="/free-seo-website-audit">
                   Get a free audit
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button size="lg" asChild className="border border-white/20 bg-white/[0.06] text-white hover:bg-white/10 backdrop-blur-sm">
-                <Link to="/contact">
+                <Link href="/contact">
                   Book a strategy call
                 </Link>
               </Button>
@@ -350,3 +351,4 @@ const WhyAvorria = () => {
 };
 
 export default WhyAvorria;
+

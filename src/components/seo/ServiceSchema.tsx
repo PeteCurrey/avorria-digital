@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 
 interface ServiceSchemaProps {
   name: string;
@@ -57,9 +56,9 @@ export const ServiceSchema = ({
   }
 
   return (
-    <Helmet>
+    
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    
   );
 };
 

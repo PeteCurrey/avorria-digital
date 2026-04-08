@@ -1,7 +1,9 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Volume2, VolumeX, Loader2 } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import heroCityscape from "@/assets/hero-cityscape.jpg";
 import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
 import { useGeneratedAmbientAudio } from "@/hooks/useGeneratedAmbientAudio";
@@ -11,7 +13,7 @@ interface VideoHeroProps {
 }
 
 export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [isTransitioning, setIsTransitioning] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   
@@ -31,7 +33,7 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
       if (onEnterStudio) {
         onEnterStudio();
       } else {
-        navigate("/web-design/studio/build");
+        router.push("/web-design/studio/build");
       }
     }, 800);
   };
@@ -218,3 +220,4 @@ export const VideoHero = ({ onEnterStudio }: VideoHeroProps) => {
 };
 
 export default VideoHero;
+

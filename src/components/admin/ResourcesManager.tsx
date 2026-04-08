@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -54,7 +56,7 @@ const emptyResource = {
 };
 
 const ResourcesManager = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { data: resources, isLoading } = useResources();
   const createResource = useCreateResource();
   const updateResource = useUpdateResource();
@@ -148,7 +150,7 @@ End with a call to action to book a strategy call.`,
   };
 
   const handleSendAsNewsletter = (resource: any) => {
-    navigate(`/admin?tab=newsletter`, {
+    router.push(`/admin?tab=newsletter`, {
       state: {
         prefill: {
           subject: `New Guide: ${resource.title}`,
@@ -337,3 +339,4 @@ End with a call to action to book a strategy call.`,
 };
 
 export default ResourcesManager;
+

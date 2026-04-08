@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, animate } from 'framer-motion';
 
@@ -141,3 +142,4 @@ const GradientMesh: React.FC<GradientMeshProps> = ({
 };
 
 export default GradientMesh;
+

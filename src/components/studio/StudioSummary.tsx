@@ -1,10 +1,11 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { trackEvent } from "@/lib/tracking";
 import type { StudioConfig } from "@/types/studio";
 import { toast } from "sonner";
@@ -121,12 +122,12 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
         </p>
 
         <div className="flex flex-col gap-4 sm:flex-row">
-          <Link to="/contact">
+          <Link href="/contact">
             <Button size="lg" className="font-extralight">
               Book a strategy call
             </Button>
           </Link>
-          <Link to="/services/web-design">
+          <Link href="/services/web-design">
             <Button variant="outline" size="lg" className="font-extralight">
               Back to Web Design Services
             </Button>
@@ -292,3 +293,4 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
     </div>
   );
 };
+

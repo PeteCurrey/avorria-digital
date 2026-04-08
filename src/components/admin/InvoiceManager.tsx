@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { useAllInvoices, useCreateInvoice, useUpdateInvoice, useDeleteInvoice, useInvoiceStats, generateInvoiceNumber } from "@/hooks/useInvoices";
 import { useAllProjects } from "@/hooks/useClientProjects";
@@ -449,3 +450,4 @@ const InvoiceManager = () => {
 };
 
 export default InvoiceManager;
+

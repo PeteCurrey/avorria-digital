@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+'use client';
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Activity, FileCheck, Calculator, ArrowRight } from "lucide-react";
@@ -31,7 +31,7 @@ const Tools = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Free Tools & Calculators | Avorria</title>
         <meta
           name="description"
@@ -55,7 +55,7 @@ const Tools = () => {
           name="twitter:description"
           content="Use Avorria's free tools to check your website health, get a custom SEO audit, or estimate project costs. Straight talk, actionable insights."
         />
-      </Helmet>
+      
 
       <main className="min-h-screen pt-24 pb-16 bg-background">
         <div className="container max-w-7xl mx-auto px-4">
@@ -89,7 +89,7 @@ const Tools = () => {
                     <p className="text-xs text-muted-foreground italic mb-4 pb-4 border-b border-border">
                       {tool.targetUser}
                     </p>
-                    <Link to={tool.path}>
+                    <Link href={tool.path}>
                       <Button className="w-full">
                         Use this tool
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -112,10 +112,10 @@ const Tools = () => {
                 book a call with us.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link to="/contact">
+                <Link href="/contact">
                   <Button size="lg">Book a strategy call</Button>
                 </Link>
-                <Link to="/reporting/demo">
+                <Link href="/reporting/demo">
                   <Button size="lg" variant="outline">
                     See how we report
                   </Button>
@@ -130,3 +130,4 @@ const Tools = () => {
 };
 
 export default Tools;
+

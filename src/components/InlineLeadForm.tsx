@@ -1,5 +1,6 @@
+﻿'use client';
 import React, { useState, useEffect, useCallback } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -111,7 +112,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
   const handleFirstInteraction = () => {
     if (!formStarted) {
       setFormStarted(true);
-      trackFormStart('audit', window.location.pathname, prefillSource);
+      trackFormStart('audit', window.pathname, prefillSource);
     }
   };
 
@@ -150,7 +151,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
 
       // Track successful lead capture
       trackEvent(EVENTS.AUDIT_FORM_SUBMITTED, {
-        source_page: window.location.pathname,
+        source_page: window.pathname,
         form_variant: prefillSource,
         has_website_url: !!data.website,
         budget_band: data.budget,
@@ -209,7 +210,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
       setStatus("error");
       
       trackEvent(EVENTS.AUDIT_FORM_ERROR, {
-        source_page: window.location.pathname,
+        source_page: window.pathname,
         form_variant: prefillSource,
         error_type: 'submission',
       });

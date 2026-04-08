@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { format } from "date-fns";
 import {
@@ -369,3 +370,4 @@ export default function SitemapManager() {
     </div>
   );
 }
+

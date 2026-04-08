@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { createContext, useContext, useEffect, useRef } from 'react';
 import Lenis from 'lenis';
 
@@ -49,3 +50,4 @@ export const SmoothScrollProvider: React.FC<SmoothScrollProviderProps> = ({ chil
 };
 
 export default SmoothScrollProvider;
+

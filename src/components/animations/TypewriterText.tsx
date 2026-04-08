@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -145,3 +146,4 @@ export const RotatingTypewriter: React.FC<RotatingTypewriterProps> = ({
 };
 
 export default TypewriterText;
+

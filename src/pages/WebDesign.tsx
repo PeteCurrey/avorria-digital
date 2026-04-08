@@ -1,5 +1,6 @@
+﻿'use client';
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -241,13 +242,13 @@ const WebDesign = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Talk About a Rebuild
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/web-design/studio">
+                  <Link href="/web-design/studio">
                     <Sparkles className="mr-2" size={18} />
                     Build Your Brief
                   </Link>
@@ -607,7 +608,7 @@ const WebDesign = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Button variant="accent" size="lg" asChild>
-                        <Link to="/web-design/studio">
+                        <Link href="/web-design/studio">
                           <Sparkles className="mr-2" size={18} />
                           Launch the Studio
                           <ArrowRight className="ml-2" size={20} />
@@ -672,12 +673,12 @@ const WebDesign = () => {
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
-                <Link to="/case-studies">
+                <Link href="/case-studies">
                   View Case Studies <ArrowRight className="ml-2" size={18} />
                 </Link>
               </Button>
               <Button variant="outline-dark" size="lg" asChild>
-                <Link to="/websites-we-would-fire">View 'Websites We'd Fire'</Link>
+                <Link href="/websites-we-would-fire">View 'Websites We'd Fire'</Link>
               </Button>
             </div>
           </div>
@@ -827,13 +828,13 @@ const WebDesign = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button variant="accent" size="lg" asChild>
-                      <Link to="/contact">
+                      <Link href="/contact">
                         Talk About a Rebuild
                         <ArrowRight className="ml-2" size={20} />
                       </Link>
                     </Button>
                     <Button variant="outline-dark" size="lg" asChild>
-                      <Link to="/web-design/studio">
+                      <Link href="/web-design/studio">
                         <Sparkles className="mr-2" size={18} />
                         Build Your Brief
                       </Link>
@@ -850,3 +851,4 @@ const WebDesign = () => {
 };
 
 export default WebDesign;
+

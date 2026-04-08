@@ -1,10 +1,11 @@
+﻿'use client';
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { BarChart3, Users, Globe, Search, TrendingUp, FileText, ArrowRight, X } from 'lucide-react';
 import TiltCard from '@/components/TiltCard';
 import { BeamBorder } from '@/components/BeamBorder';
 import { Button } from '@/components/ui/button';
-import { Link } from 'react-router-dom';
+import Link from "next/link";
 import { cn } from '@/lib/utils';
 
 interface Challenge {
@@ -231,14 +232,14 @@ const ServiceChallengePicker: React.FC = () => {
                       <div className="flex flex-wrap gap-3 pt-4">
                         {selectedChallenge.serviceLinks.map((link) => (
                           <Button key={link.href} variant="outline-dark" asChild>
-                            <Link to={link.href}>
+                            <Link href={link.href}>
                               {link.name}
                               <ArrowRight className="ml-2" size={16} />
                             </Link>
                           </Button>
                         ))}
                         <Button variant="accent" asChild>
-                          <Link to="/contact">
+                          <Link href="/contact">
                             Book Strategy Call
                             <ArrowRight className="ml-2" size={16} />
                           </Link>
@@ -266,3 +267,4 @@ const ServiceChallengePicker: React.FC = () => {
 };
 
 export default ServiceChallengePicker;
+

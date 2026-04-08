@@ -1,3 +1,4 @@
+'use client';
 import React, { Component, ErrorInfo, ReactNode } from "react";
 
 interface Props {
@@ -24,7 +25,9 @@ class ErrorBoundary extends Component<Props, State> {
   }
 
   handleReload = () => {
-    window.location.reload();
+    if (typeof window !== 'undefined') {
+      window.location.reload();
+    }
   };
 
   render() {
@@ -59,7 +62,7 @@ class ErrorBoundary extends Component<Props, State> {
             >
               Refresh Page
             </button>
-            {import.meta.env.DEV && this.state.error && (
+            {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mt-6 text-left">
                 <summary className="text-sm text-gray-500 cursor-pointer hover:text-gray-700">
                   Error details

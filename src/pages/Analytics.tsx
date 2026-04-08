@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ServiceSchema from "@/components/seo/ServiceSchema";
@@ -289,12 +290,12 @@ const Analytics = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book a tracking review <ArrowRight className="ml-2" size={18} />
                   </Link>
                 </Button>
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/services">View all services</Link>
+                  <Link href="/services">View all services</Link>
                 </Button>
               </div>
             </ScrollReveal>

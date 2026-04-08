@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useEffect } from "react";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -17,7 +18,7 @@ import {
 } from "@/components/ui/select";
 import EstimatorProgress from "@/components/EstimatorProgress";
 import { ArrowLeft, ArrowRight, Download, Calendar, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, getUserType } from "@/lib/tracking";
 import { useCreateLead } from "@/hooks/useLeads";
@@ -364,7 +365,7 @@ const ProjectEstimator = () => {
                       asChild
                       onClick={() => console.log("estimator_book_call_clicked")}
                     >
-                      <Link to="/contact">
+                      <Link href="/contact">
                         <Calendar className="mr-2" size={20} />
                         Book Strategy Call
                       </Link>
@@ -960,7 +961,7 @@ const ProjectEstimator = () => {
           </Card>
 
           <p className="text-center text-sm text-muted-foreground mt-8">
-            Need help? <Link to="/contact" className="text-accent hover:underline">Contact us directly</Link>
+            Need help? <Link href="/contact" className="text-accent hover:underline">Contact us directly</Link>
           </p>
         </div>
       </section>
@@ -970,3 +971,4 @@ const ProjectEstimator = () => {
 };
 
 export default ProjectEstimator;
+

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ArrowRight, BarChart3, TrendingUp, Target, Eye, MessageSquare, Zap, Globe, FileText, Link2, Clock } from "lucide-react";
@@ -134,7 +135,7 @@ const Reporting = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button variant="accent" size="lg" asChild>
-                <Link to="/reporting/demo">
+                <Link href="/reporting/demo">
                   View Live Dashboard Demo
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
@@ -148,7 +149,7 @@ const Reporting = () => {
                   className="relative bg-white/[0.06] border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
                   asChild
                 >
-                  <Link to="/contact">Book a Strategy Call</Link>
+                  <Link href="/contact">Book a Strategy Call</Link>
                 </Button>
               </div>
             </motion.div>
@@ -330,7 +331,7 @@ const Reporting = () => {
               </div>
               <div className="text-center">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/reporting/demo">View dashboard demo</Link>
+                  <Link href="/reporting/demo">View dashboard demo</Link>
                 </Button>
               </div>
             </div>
@@ -389,7 +390,7 @@ const Reporting = () => {
               className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button variant="accent" size="lg" asChild>
-                <Link to="/reporting/demo">
+                <Link href="/reporting/demo">
                   View live dashboard demo
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
@@ -403,7 +404,7 @@ const Reporting = () => {
                   className="relative bg-white/[0.06] border-white/20 text-white hover:bg-white/10 backdrop-blur-sm"
                   asChild
                 >
-                  <Link to="/contact">Book a strategy call</Link>
+                  <Link href="/contact">Book a strategy call</Link>
                 </Button>
               </div>
             </motion.div>
@@ -415,3 +416,4 @@ const Reporting = () => {
 };
 
 export default Reporting;
+

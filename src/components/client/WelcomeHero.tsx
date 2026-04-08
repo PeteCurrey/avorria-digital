@@ -1,6 +1,7 @@
+﻿'use client';
 import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight, Sparkles, Eye, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -156,7 +157,7 @@ export const WelcomeHero = ({
               )}
 
               {featuredProject && hasWebsiteProject ? (
-                <Link to={`/client/projects/${featuredProject.id}`}>
+                <Link href={`/client/projects/${featuredProject.id}`}>
                   <Button
                     size="sm"
                     className="group bg-accent/10 hover:bg-accent/20 text-accent border border-accent/30 hover:border-accent/50 transition-all"
@@ -167,7 +168,7 @@ export const WelcomeHero = ({
                   </Button>
                 </Link>
               ) : (
-                <Link to="/client/analytics">
+                <Link href="/client/analytics">
                   <Button
                     size="sm"
                     className="group bg-white/[0.05] hover:bg-white/[0.08] text-white/60 hover:text-white border border-white/[0.08] transition-all"
@@ -212,3 +213,4 @@ export const WelcomeHero = ({
 };
 
 export default WelcomeHero;
+

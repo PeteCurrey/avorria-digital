@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { useMyInvoices } from "@/hooks/useInvoices";
 import AppShell from "@/components/app/AppShell";
@@ -46,9 +45,9 @@ const ClientBilling = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Billing - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"

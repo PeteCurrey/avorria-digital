@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 
 interface HowToStep {
   name: string;
@@ -51,9 +50,9 @@ export const HowToSchema = ({
   }
 
   return (
-    <Helmet>
+    
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    
   );
 };
 

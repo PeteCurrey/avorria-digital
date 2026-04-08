@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useProjects, useProjectsByStage, useProjectStats, useUpdateProject, useDeleteProject, Project } from "@/hooks/useProjects";
@@ -548,3 +549,4 @@ export const ProjectsTab = () => {
     </div>
   );
 };
+

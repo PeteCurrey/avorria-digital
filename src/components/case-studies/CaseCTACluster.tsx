@@ -1,5 +1,6 @@
+﻿'use client';
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight, FileText, MessageSquare, Layers } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -125,3 +126,4 @@ export const CaseCTACluster = ({ onDownloadPDF, relatedSlugs }: CaseCTAClusterPr
     </section>
   );
 };
+

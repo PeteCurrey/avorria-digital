@@ -1,6 +1,8 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { 
   Target, 
   Palette, 
@@ -44,7 +46,7 @@ const sizeLabels = {
 };
 
 export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -228,7 +230,7 @@ export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
             Download Blueprint PDF
           </Button>
           <Button
-            onClick={() => navigate("/web-design")}
+            onClick={() => router.push("/web-design")}
             className="bg-accent text-accent-foreground hover:bg-accent/90"
           >
             Back to Web Design
@@ -434,3 +436,4 @@ export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
 };
 
 export default SummaryStep;
+

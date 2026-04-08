@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
@@ -52,7 +53,7 @@ export default function SystemHealthMonitor() {
       // Check edge functions
       const edgeStart = Date.now();
       try {
-        await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/sitemap`, {
+        await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/sitemap`, {
           method: "HEAD",
         });
       } catch {}
@@ -107,7 +108,7 @@ export default function SystemHealthMonitor() {
       setSystems(systemChecks);
       setLastUpdated(new Date());
       
-      // Storage usage not available without admin API â€” leave at 0
+      // Storage usage not available without admin API — leave at 0
       setStorage({
         used: 0,
         total: 0,
@@ -256,3 +257,5 @@ export default function SystemHealthMonitor() {
     </Card>
   );
 }
+
+

@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useClients, useCreateClient, useUpdateClient, useDeleteClient, useClientStats, type Client, type ClientInsert, type ClientUpdate } from "@/hooks/useClients";
 import { useProfiles } from "@/hooks/useProfiles";
 import { useAuth } from "@/hooks/useAuth";
@@ -93,7 +95,7 @@ const industryOptions = [
 ];
 
 const ClientsManager = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { setImpersonatedClient } = useAuth();
   const { data: clients, isLoading } = useClients();
   const { data: stats } = useClientStats();
@@ -205,7 +207,7 @@ const ClientsManager = () => {
 
   const handleViewAsClient = (client: Client) => {
     setImpersonatedClient(client.id);
-    navigate("/client");
+    router.push("/client");
   };
 
   const handleServiceToggle = (service: string) => {
@@ -601,3 +603,4 @@ const ClientsManager = () => {
 };
 
 export default ClientsManager;
+

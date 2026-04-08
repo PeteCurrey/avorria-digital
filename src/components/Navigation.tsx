@@ -1,6 +1,7 @@
-// Module version: v12 - standardized imports
+'use client';
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { 
   Menu, X, ChevronRight, ArrowRight, ExternalLink,
@@ -22,7 +23,7 @@ const Navigation = ({
 }: NavigationProps) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const location = useLocation();
+  const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -190,7 +191,7 @@ const Navigation = ({
                                 return (
                                   <li key={link.href}>
                                     <Link 
-                                      to={link.href} 
+                                      href={link.href} 
                                       onClick={() => trackNavClick(link.name.toLowerCase().replace(/ /g, '_'), 'header')} 
                                       className={`group relative flex items-center gap-2 md:gap-3 py-2 px-2 md:px-3 rounded-r-lg transition-all duration-200 border-l-2 hover:translate-x-1 ${
                                         link.highlight 
@@ -235,7 +236,7 @@ const Navigation = ({
                               </p>
                             </div>
                             <Link 
-                              to="/contact"
+                              href="/contact"
                               onClick={() => trackNavClick('book_call_menu', 'header')}
                               className="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors"
                             >
@@ -248,7 +249,7 @@ const Navigation = ({
                           
                           {/* Mobile CTA */}
                           <Link 
-                            to="/contact"
+                            href="/contact"
                             onClick={() => trackNavClick('book_call_menu', 'header')}
                             className="sm:hidden inline-flex items-center justify-center gap-2 text-sm font-medium text-accent hover:text-accent/80 transition-colors pt-2"
                           >
@@ -273,7 +274,7 @@ const Navigation = ({
                   : "bg-primary text-primary-foreground hover:bg-primary/90"
               }`}
             >
-              <Link to="/contact" onClick={() => trackNavClick('get_in_touch', 'header')}>
+              <Link href="/contact" onClick={() => trackNavClick('get_in_touch', 'header')}>
                 Get in Touch
               </Link>
             </Button>
@@ -305,7 +306,7 @@ const Navigation = ({
                     return (
                       <Link 
                         key={link.href} 
-                        to={link.href} 
+                        href={link.href} 
                         className={`flex items-center gap-3 py-2.5 px-3 rounded-r-lg transition-all duration-200 border-l-2 hover:translate-x-1 ${
                           link.highlight 
                             ? "border-l-accent bg-accent/5 translate-x-1" 
@@ -335,12 +336,12 @@ const Navigation = ({
               
               <div className="pt-4 space-y-3 px-2">
                 <Button variant="outline" className="w-full h-12 text-base rounded-lg" asChild>
-                  <Link to="/contact" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link href="/contact" onClick={() => setIsMobileMenuOpen(false)}>
                     Get in Touch
                   </Link>
                 </Button>
                 <Button variant="default" className="w-full h-12 text-base rounded-lg" asChild>
-                  <Link to="/free-seo-website-audit" onClick={() => setIsMobileMenuOpen(false)}>
+                  <Link href="/free-seo-website-audit" onClick={() => setIsMobileMenuOpen(false)}>
                     Free Website Audit
                   </Link>
                 </Button>

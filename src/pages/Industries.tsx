@@ -1,6 +1,7 @@
+﻿'use client';
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Building2, ShoppingBag, Wrench, MapPin, Monitor } from "lucide-react";
@@ -62,7 +63,7 @@ const Industries = () => {
                 that address the specific pain points and opportunities in your sector.
               </p>
               <Button variant="accent" size="lg" asChild>
-                <Link to="/contact">
+                <Link href="/contact">
                   Discuss Your Industry
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
@@ -190,13 +191,13 @@ const Industries = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
-                <Link to="/contact">
+                <Link href="/contact">
                   Book a Strategy Call
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/case-studies">View Case Studies</Link>
+                <Link href="/case-studies">View Case Studies</Link>
               </Button>
             </div>
           </div>
@@ -207,3 +208,4 @@ const Industries = () => {
 };
 
 export default Industries;
+

@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, use  , useRouter} from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import AdminSidebar from "./AdminSidebar";
 import CommandPalette from "./CommandPalette";
@@ -25,7 +27,7 @@ interface AdminLayoutProps {
 }
 
 const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [cmdOpen, setCmdOpen] = useState(false);
@@ -53,7 +55,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
       markAsRead.mutate(notification.id);
     }
     if (notification.link) {
-      navigate(notification.link);
+      router.push(notification.link);
     }
   };
 
@@ -177,7 +179,7 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
               className="text-muted-foreground hover:text-foreground hover:bg-secondary gap-2"
               asChild
             >
-              <Link to="/" target="_blank">
+              <Link href="/" target="_blank">
                 <ExternalLink className="h-4 w-4" />
                 <span className="hidden md:inline">View Site</span>
               </Link>
@@ -257,10 +259,10 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem asChild className="cursor-pointer">
-                  <Link to="/admin?tab=settings">Settings</Link>
+                  <Link href="/admin?tab=settings">Settings</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild className="cursor-pointer">
-                  <Link to="/">View Site</Link>
+                  <Link href="/">View Site</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem className="text-destructive cursor-pointer">
@@ -402,3 +404,4 @@ const AdminLayout = ({ children, title, subtitle }: AdminLayoutProps) => {
 };
 
 export default AdminLayout;
+

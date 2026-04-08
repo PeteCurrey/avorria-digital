@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Button } from "@/components/ui/button";
@@ -13,7 +15,7 @@ import { Upload, FileText, BarChart3, TrendingDown, MessagesSquare } from "lucid
 import { useCreateLead } from "@/hooks/useLeads";
 
 const AgencyTeardown = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const createLead = useCreateLead();
   const [formData, setFormData] = useState({
     name: "",
@@ -98,7 +100,7 @@ const AgencyTeardown = () => {
         });
       }
 
-      navigate("/agency-report-teardown/thanks");
+      router.push("/agency-report-teardown/thanks");
     } catch (error) {
       console.error('Error submitting teardown form:', error);
     } finally {
@@ -145,7 +147,7 @@ const AgencyTeardown = () => {
                   if (typeof window !== 'undefined' && (window as any).gtag) {
                     (window as any).gtag('event', 'teardown_cta_view_reporting_clicked');
                   }
-                  navigate('/reporting/demo');
+                  router.push('/reporting/demo');
                 }}
               >
                 See how we report instead
@@ -454,7 +456,7 @@ const AgencyTeardown = () => {
                     if (typeof window !== 'undefined' && (window as any).gtag) {
                       (window as any).gtag('event', 'teardown_cta_view_reporting_clicked');
                     }
-                    navigate('/reporting/demo');
+                    router.push('/reporting/demo');
                   }}
                 >
                   See how we report instead
@@ -522,3 +524,4 @@ const AgencyTeardown = () => {
 };
 
 export default AgencyTeardown;
+

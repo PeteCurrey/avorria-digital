@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect, useRef, useCallback } from "react";
 
 // Step soundscape configurations
@@ -99,14 +100,17 @@ export function useStepBasedAudio(
     isGeneratingRef.current.add(step);
 
     try {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      
       const response = await fetch(
-        `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/studio-ambient-music`,
+        `${supabaseUrl}/functions/v1/studio-ambient-music`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-            Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+            apikey: supabaseKey || "",
+            Authorization: `Bearer ${supabaseKey || ""}`,
           },
           body: JSON.stringify({ 
             prompt: soundscape.prompt,
@@ -160,7 +164,9 @@ export function useStepBasedAudio(
     newAudio.currentTime = 0;
     
     try {
-      await newAudio.play();
+      if (typeof window !== 'undefined') {
+        await newAudio.play();
+      }
     } catch (error) {
       console.error("Failed to play audio:", error);
       return;
@@ -253,7 +259,9 @@ export function useStepBasedAudio(
         cached.audioElement.volume = volumeRef.current;
         cached.audioElement.currentTime = 0;
         try {
-          await cached.audioElement.play();
+          if (typeof window !== 'undefined') {
+            await cached.audioElement.play();
+          }
           currentAudioRef.current = cached.audioElement;
           setActiveStep(currentStep);
           setIsPlaying(true);

@@ -1,5 +1,6 @@
+﻿'use client';
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import type { CaseStudy } from "@/data/caseStudies";
 
 interface CaseTileProps {
@@ -50,3 +51,4 @@ export const CaseTile = ({ caseStudy, index = 0, onClick }: CaseTileProps) => {
     </motion.div>
   );
 };
+

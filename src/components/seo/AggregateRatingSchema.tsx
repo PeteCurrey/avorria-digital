@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 
 interface AggregateRatingSchemaProps {
   ratingValue?: number;
@@ -38,9 +37,9 @@ export const AggregateRatingSchema = ({
   };
 
   return (
-    <Helmet>
+    
       <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
+    
   );
 };
 

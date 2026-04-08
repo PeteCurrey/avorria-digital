@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare, Loader2 } from "lucide-react";
@@ -523,3 +524,4 @@ const WebDesignStudioBuild = () => {
 };
 
 export default WebDesignStudioBuild;
+

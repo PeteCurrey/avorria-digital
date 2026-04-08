@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import OverviewTab from "@/components/dashboard/OverviewTab";
@@ -11,9 +10,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 const ClientReporting = () => {
   return (
     <>
-      <Helmet>
+      
         <title>Reporting - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"

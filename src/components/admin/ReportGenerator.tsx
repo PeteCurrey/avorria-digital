@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { format, subDays } from "date-fns";
@@ -471,3 +472,4 @@ const ReportGenerator = () => {
 };
 
 export default ReportGenerator;
+

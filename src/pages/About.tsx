@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle, Users, Globe, Award, TrendingUp, Linkedin, Mail } from "lucide-react";
@@ -106,7 +107,7 @@ const About = () => {
               </motion.p>
               <motion.div className="flex flex-col sm:flex-row gap-3" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 1.0 }}>
                 <Button variant="accent" size="default" className="text-sm sm:text-base px-6 py-5 shadow-lg" asChild>
-                  <Link to="/contact">Meet the team on a call<ArrowRight className="ml-2" size={18} /></Link>
+                  <Link href="/contact">Meet the team on a call<ArrowRight className="ml-2" size={18} /></Link>
                 </Button>
                 <Button size="default" className="text-sm sm:text-base px-6 py-5 bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 shadow-lg" asChild>
                   <a href="#our-approach">Our approach</a>
@@ -318,10 +319,10 @@ const About = () => {
                 <p className="text-lg text-white/60 mb-10 max-w-xl mx-auto">Book a strategy call to discuss your goals, challenges, and where the biggest opportunities are hiding.</p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
-                    <Link to="/contact">Get a free audit<ArrowRight className="ml-2" size={20} /></Link>
+                    <Link href="/contact">Get a free audit<ArrowRight className="ml-2" size={20} /></Link>
                   </Button>
                   <Button size="lg" asChild className="w-full sm:w-auto border border-white/30 bg-white/[0.08] text-white hover:bg-white/15 backdrop-blur-sm">
-                    <Link to="/contact">Book a strategy call</Link>
+                    <Link href="/contact">Book a strategy call</Link>
                   </Button>
                 </div>
               </div>
@@ -334,3 +335,4 @@ const About = () => {
 };
 
 export default About;
+

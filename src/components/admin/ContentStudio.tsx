@@ -1,3 +1,5 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -65,7 +67,7 @@ import {
   Globe,
 } from "lucide-react";
 import { formatDistanceToNow, format } from "date-fns";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import ContentKanbanBoard from "./ContentKanbanBoard";
 
@@ -96,7 +98,7 @@ const pipelineStages = [
 ];
 
 const ContentStudio = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [activeTab, setActiveTab] = useState("generate");
   const [viewMode, setViewMode] = useState<"tabs" | "kanban">("tabs");
   const [contentType, setContentType] = useState<string>("social");
@@ -275,12 +277,12 @@ const ContentStudio = () => {
     try {
       const prompt = buildPrompt();
 
-      const projectId = import.meta.env.VITE_SUPABASE_PROJECT_ID;
-      const anonKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+      const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
       const session = (await supabase.auth.getSession()).data.session;
 
       const response = await fetch(
-        `https://${projectId}.supabase.co/functions/v1/generate-content`,
+        `${supabaseUrl}/functions/v1/generate-content`,
         {
           method: "POST",
           headers: {
@@ -460,7 +462,7 @@ const ContentStudio = () => {
             </p>
 
             {/* AI Generated Image */}
-            {item.isGeneratingImage && (
+            {process.env.NODE_ENV === 'development' && item.isGeneratingImage && (
               <div className="mt-3 rounded-lg border border-dashed border-accent/20 bg-accent/5 p-8 flex flex-col items-center gap-2">
                 <Loader2 className="h-6 w-6 animate-spin text-accent" />
                 <span className="text-xs text-muted-foreground">Generating image...</span>
@@ -674,7 +676,7 @@ const ContentStudio = () => {
           variant="ghost"
           size="sm"
           className="gap-1 text-accent hover:text-accent ml-auto h-7 text-xs"
-          onClick={() => navigate("/admin?tab=integrations")}
+          onClick={() => router.push("/admin?tab=integrations")}
         >
           Manage <ArrowRight className="h-3 w-3" />
         </Button>
@@ -1294,3 +1296,4 @@ const ContentStudio = () => {
 };
 
 export default ContentStudio;
+

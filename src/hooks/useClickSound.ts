@@ -1,3 +1,4 @@
+﻿'use client';
 import { useRef, useCallback } from "react";
 
 export type SoundType = 
@@ -277,3 +278,4 @@ function playCelebration(ctx: AudioContext, destination: GainNode) {
 }
 
 export default useClickSound;
+

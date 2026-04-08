@@ -1,6 +1,6 @@
+'use client';
 import React, { useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -202,7 +202,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
     if (typeof window !== "undefined" && (window as any).gtag) {
       (window as any).gtag("event", "page_view", {
         page_title: metaTitle,
-        page_path: window.location.pathname,
+        page_path: window.pathname,
       });
     }
   }, [metaTitle]);
@@ -267,7 +267,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
       items.push({ name: service.name, url: `https://avorria.com${service.pillarPageUrl}` });
     }
 
-    items.push({ name: metaTitle, url: `https://avorria.com${window.location.pathname}` });
+    items.push({ name: metaTitle, url: `https://avorria.com${window.pathname}` });
 
     return {
       "@context": "https://schema.org",
@@ -283,15 +283,15 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
 
   return (
     <>
-      <Helmet>
+      
         <title>{metaTitle}</title>
         <meta name="description" content={metaDescription} />
-        <link rel="canonical" href={`https://avorria.com${window.location.pathname}`} />
+        <link rel="canonical" href={`https://avorria.com${window.pathname}`} />
         
         {/* Open Graph */}
         <meta property="og:title" content={metaTitle} />
         <meta property="og:description" content={metaDescription} />
-        <meta property="og:url" content={`https://avorria.com${window.location.pathname}`} />
+        <meta property="og:url" content={`https://avorria.com${window.pathname}`} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content="https://avorria.com/og-image.jpg" />
         
@@ -305,7 +305,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
         <script type="application/ld+json">{JSON.stringify(generateFAQSchema())}</script>
         <script type="application/ld+json">{JSON.stringify(generateServiceSchema())}</script>
         <script type="application/ld+json">{JSON.stringify(generateBreadcrumbSchema())}</script>
-      </Helmet>
+      
 
       <div className="min-h-screen">
         {/* Hero Section with City/Industry Background */}
@@ -355,7 +355,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
                         }
                       }}
                     >
-                      <Link to="/contact">
+                      <Link href="/contact">
                         {primaryCTA}
                         <ArrowRight className="ml-2" size={20} />
                       </Link>
@@ -365,7 +365,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
                       asChild
                       className="text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20"
                     >
-                      <Link to="/contact">{secondaryCTA}</Link>
+                      <Link href="/contact">{secondaryCTA}</Link>
                     </Button>
                   </div>
                 </div>
@@ -678,3 +678,4 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
 };
 
 export default LandingPageTemplate;
+

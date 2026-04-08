@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -149,7 +150,7 @@ const Pricing = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact" onClick={() => {
+                  <Link href="/contact" onClick={() => {
                     trackEvent(EVENTS.PRICING_CTA_CLICK, {
                       cta_label: 'talk_budget_scope',
                       destination: '/contact',
@@ -160,7 +161,7 @@ const Pricing = () => {
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <Link to="/project-estimator" onClick={() => {
+                  <Link href="/project-estimator" onClick={() => {
                     trackEvent(EVENTS.PRICING_ESTIMATOR_LAUNCH, {
                       entry_source: 'pricing_page',
                     });
@@ -339,13 +340,13 @@ const Pricing = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book Strategy Call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <Link to="/project-estimator">Use Project Estimator</Link>
+                  <Link href="/project-estimator">Use Project Estimator</Link>
                 </Button>
               </div>
             </div>
@@ -357,3 +358,4 @@ const Pricing = () => {
 };
 
 export default Pricing;
+

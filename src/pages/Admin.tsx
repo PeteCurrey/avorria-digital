@@ -1,6 +1,6 @@
+'use client';
 import React, { useState } from "react";
-import { useSearchParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useSearchParams, Link } from "next/navigation";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { 
@@ -709,10 +709,10 @@ const Admin = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>{getPageTitle()} | Avorria Admin</title>
         <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      
 
       <AdminLayout title={getPageTitle()} subtitle={getPageSubtitle()}>
         {renderContent()}
@@ -722,3 +722,4 @@ const Admin = () => {
 };
 
 export default Admin;
+

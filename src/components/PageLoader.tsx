@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -154,3 +155,4 @@ const PageLoader: React.FC<PageLoaderProps> = ({ onComplete }) => {
 };
 
 export default PageLoader;
+

@@ -1,6 +1,7 @@
+﻿'use client';
 import React, { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
 import {
   ArrowRight,
@@ -279,13 +280,13 @@ const Services = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center">
                 
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book Strategy Call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/free-seo-website-audit">Get Free Audit</Link>
+                  <Link href="/free-seo-website-audit">Get Free Audit</Link>
                 </Button>
               </motion.div>
             </div>
@@ -593,13 +594,13 @@ const Services = () => {
                       clear, frictionless path to enquiry.
                     </p>
                     <Button variant="accent" asChild>
-                      <Link to="/services/web-design">
+                      <Link href="/services/web-design">
                         View Web Design Services <ArrowRight className="ml-2" size={18} />
                       </Link>
                     </Button>
                   </ScrollReveal>
                   <ScrollReveal delay={0.15}>
-                    <Link to="/case-study/entirefm-rebrand" className="block group">
+                    <Link href="/case-study/entirefm-rebrand" className="block group">
                       <img
                         src="https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/hero/1765529644769-8zabue.png"
                         alt="EntireFM website redesign – facilities management case study by Avorria"
@@ -720,13 +721,13 @@ const Services = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button variant="accent" size="lg" asChild>
-                      <Link to="/contact">
+                      <Link href="/contact">
                         Book Strategy Call
                         <ArrowRight className="ml-2" size={20} />
                       </Link>
                     </Button>
                     <Button variant="outline-dark" size="lg" asChild>
-                      <Link to="/free-seo-website-audit">Get Free SEO & Website Audit</Link>
+                      <Link href="/free-seo-website-audit">Get Free SEO & Website Audit</Link>
                     </Button>
                   </div>
                 </ScrollReveal>

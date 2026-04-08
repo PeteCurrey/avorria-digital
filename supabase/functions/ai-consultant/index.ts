@@ -202,16 +202,104 @@ serve(async (req) => {
 
   try {
     const { messages } = await req.json();
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
+    // 1. Initialize Supabase client
+    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.38.4");
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
-    if (!LOVABLE_API_KEY) {
-      throw new Error("LOVABLE_API_KEY is not configured");
+    // 2. Fetch Claude key
+    const { data: claudeRecord } = await supabaseAdmin
+      .from("seo_integrations")
+      .select("config, is_active")
+      .eq("integration_type", "claude")
+      .eq("is_active", true)
+      .maybeSingle();
+
+    const userClaudeKey = claudeRecord?.config?.apiKey;
+
+    if (userClaudeKey) {
+      console.log("Using Claude for AI Consultant...");
+      const response = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": userClaudeKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 1024,
+          system: SYSTEM_PROMPT,
+          messages: messages.map((m: any) => ({
+            role: m.role === "assistant" ? "assistant" : "user",
+            content: m.content
+          })),
+          stream: true,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Claude API error: ${response.status}`);
+      }
+
+      // Transform Claude stream to OpenAI-compatible format for the front-end
+      const { readable, writable } = new TransformStream();
+      const writer = writable.getWriter();
+      const reader = response.body?.getReader();
+      const encoder = new TextEncoder();
+      const decoder = new TextDecoder();
+
+      (async () => {
+        try {
+          while (true) {
+            const { done, value } = await reader!.read();
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split("\n");
+
+            for (const line of lines) {
+              if (line.startsWith("data: ")) {
+                const data = line.slice(6).trim();
+                if (data === "[DONE]") continue;
+
+                try {
+                  const parsed = JSON.parse(data);
+                  if (parsed.type === "content_block_delta" && parsed.delta?.text) {
+                    const openAiChunk = {
+                      choices: [{ delta: { content: parsed.delta.text } }]
+                    };
+                    await writer.write(encoder.encode(`data: ${JSON.stringify(openAiChunk)}\n\n`));
+                  }
+                } catch (e) {
+                  // Ignore non-json lines or incomplete chunks
+                }
+              }
+            }
+          }
+        } finally {
+          await writer.write(encoder.encode("data: [DONE]\n\n"));
+          writer.close();
+        }
+      })();
+
+      return new Response(readable, {
+        headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
+      });
+    }
+
+    // Fallback to Gemini
+    console.log("Using Gemini for AI Consultant...");
+    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+    if (!lovableApiKey) {
+      throw new Error("No AI key (Claude or Lovable) is configured");
     }
 
     const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${LOVABLE_API_KEY}`,
+        Authorization: `Bearer ${lovableApiKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
@@ -233,18 +321,9 @@ serve(async (req) => {
           { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "Service temporarily unavailable." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
-      }
       const errorText = await response.text();
       console.error("AI Gateway error:", response.status, errorText);
-      return new Response(
-        JSON.stringify({ error: "Unable to process request" }),
-        { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-      );
+      throw new Error(`AI Gateway error: ${response.status}`);
     }
 
     return new Response(response.body, {

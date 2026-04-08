@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import { useAllProjects, useCreateProject, useUpdateProject, useDeleteProject } from "@/hooks/useClientProjects";
 import { useClients } from "@/hooks/useClients";
 import { useAuth } from "@/hooks/useAuth";
@@ -59,7 +61,7 @@ const defaultPortalConfig: PortalConfig = {
 };
 
 const ClientProjectsManager = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { setImpersonatedClient } = useAuth();
   const { data: projects, isLoading } = useAllProjects();
   const { data: clients } = useClients();
@@ -151,7 +153,7 @@ const ClientProjectsManager = () => {
     if (setImpersonatedClient) {
       setImpersonatedClient(clientName);
     }
-    navigate(`/client/projects/${project.id}`);
+    router.push(`/client/projects/${project.id}`);
   };
 
   const filteredProjects = projects?.filter(project =>
@@ -372,3 +374,4 @@ const ClientProjectsManager = () => {
 };
 
 export default ClientProjectsManager;
+

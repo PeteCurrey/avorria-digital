@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
@@ -9,9 +8,9 @@ import { adCreative, campaignNotes } from "@/data/adCreative";
 const MarketingAssets = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Helmet>
+      
         <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
+      
       <div className="container mx-auto px-4 py-12">
         <div className="max-w-6xl mx-auto">
           <div className="mb-8">

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { format, formatDistanceToNow } from "date-fns";
 import {
@@ -459,3 +460,4 @@ const AnalyticsConnectionsTab = () => {
 };
 
 export default AnalyticsConnectionsTab;
+

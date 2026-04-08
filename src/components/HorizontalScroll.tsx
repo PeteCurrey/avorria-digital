@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
@@ -111,3 +112,4 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
 };
 
 export default HorizontalScroll;
+

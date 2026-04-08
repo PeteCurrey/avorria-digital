@@ -1,5 +1,6 @@
+﻿'use client';
 // Cache buster v4 - forces Vite HMR to serve fresh module
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
@@ -496,13 +497,13 @@ const Home = () => {
                 {/* CTAs */}
                 <div className="flex flex-col sm:flex-row gap-3 pt-3">
                   <Button variant="accent" size="default" className="text-sm sm:text-base px-6 py-5 shadow-lg" asChild>
-                    <Link to="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')} className="bg-black/20">
+                    <Link href="/contact" onClick={() => trackCTAClick('book_strategy_call', '/contact', 'hero')} className="bg-black/20">
                       Book a strategy call
                       <ArrowRight className="ml-2" size={18} />
                     </Link>
                   </Button>
                   <Button size="default" className="text-sm sm:text-base px-6 py-5 bg-gray-900 text-white hover:bg-gray-800 shadow-lg" asChild>
-                    <Link to="/free-seo-website-audit" onClick={() => trackCTAClick('get_free_seo_website_audit', '/free-seo-website-audit', 'hero')}>
+                    <Link href="/free-seo-website-audit" onClick={() => trackCTAClick('get_free_seo_website_audit', '/free-seo-website-audit', 'hero')}>
                       Get a free audit
                     </Link>
                   </Button>
@@ -580,7 +581,7 @@ const Home = () => {
                       We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
                     </p>
                     <Button variant="outline-dark" size="lg" className="mt-4" asChild>
-                      <Link to="/about">
+                      <Link href="/about">
                         Learn more about us
                         <ArrowRight className="ml-2 w-4 h-4" />
                       </Link>
@@ -780,7 +781,7 @@ const Home = () => {
             <ScrollReveal delay={300} variant="fade-up">
               <div className="text-center mt-12 sm:mt-16">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/services">
+                  <Link href="/services">
                     View All Services
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
@@ -885,7 +886,7 @@ const Home = () => {
             <ScrollReveal delay={300} variant="fade-up">
               <div className="text-center mt-12 sm:mt-16">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/case-studies">
+                  <Link href="/case-studies">
                     View all case studies
                     <ArrowRight className="ml-2 w-4 h-4" />
                   </Link>
@@ -944,19 +945,19 @@ const Home = () => {
           <div className="container mx-auto max-w-4xl text-center">
             <p className="text-base text-gray-600">
               Prefer to work with a team who knows your patch? See our{" "}
-              <Link to="/seo-agency/sheffield" className="text-accent hover:text-accent/80 font-medium">
+              <Link href="/seo-agency/sheffield" className="text-accent hover:text-accent/80 font-medium">
                 SEO
               </Link>
               {" "}and{" "}
-              <Link to="/web-design/sheffield" className="text-accent hover:text-accent/80 font-medium">
+              <Link href="/web-design/sheffield" className="text-accent hover:text-accent/80 font-medium">
                 web design services in Sheffield
               </Link>
               ,{" "}
-              <Link to="/digital-marketing-agency/yorkshire" className="text-accent hover:text-accent/80 font-medium">
+              <Link href="/digital-marketing-agency/yorkshire" className="text-accent hover:text-accent/80 font-medium">
                 Yorkshire
               </Link>
               {" "}and{" "}
-              <Link to="/digital-marketing-agency/uk" className="text-accent hover:text-accent/80 font-medium">
+              <Link href="/digital-marketing-agency/uk" className="text-accent hover:text-accent/80 font-medium">
                 across the UK
               </Link>
               .
@@ -1039,13 +1040,13 @@ const Home = () => {
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Button variant="accent" size="lg" className="text-lg px-8 py-6" asChild>
-                    <Link to="/contact">
+                    <Link href="/contact">
                       Book a strategy call
                       <ArrowRight className="ml-2 w-5 h-5" />
                     </Link>
                   </Button>
                   <Button size="lg" className="text-lg px-8 py-6 bg-white/10 text-white border border-white/30 hover:bg-white/20" asChild>
-                    <Link to="/free-seo-website-audit">Request a free audit</Link>
+                    <Link href="/free-seo-website-audit">Request a free audit</Link>
                   </Button>
                 </div>
               </ScrollReveal>

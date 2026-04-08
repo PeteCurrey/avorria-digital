@@ -1,5 +1,6 @@
+﻿'use client';
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -35,7 +36,7 @@ const Contact = () => {
   const handleInputChange = (field: string, value: string) => {
     if (!formStarted) {
       setFormStarted(true);
-      trackFormStart('contact', window.location.pathname);
+      trackFormStart('contact', window.pathname);
     }
     setFormData(prev => ({
       ...prev,
@@ -231,7 +232,7 @@ const Contact = () => {
                   </form>
                   <p className="text-xs text-center text-muted-foreground mt-4">
                     Need help scoping this properly?{" "}
-                    <Link to="/project-estimator" className="text-accent hover:underline">
+                    <Link href="/project-estimator" className="text-accent hover:underline">
                       Try the project estimator
                     </Link>
                   </p>

@@ -1,6 +1,6 @@
-import { Helmet } from "react-helmet-async";
+'use client';
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent } from "@/components/ui/card";
@@ -95,9 +95,9 @@ const ClientAudits = () => {
 
     return (
       <>
-        <Helmet>
+        
           <title>{audit.name} - Client Portal</title>
-        </Helmet>
+        
 
         <AppShell
           type="client"
@@ -256,10 +256,10 @@ const ClientAudits = () => {
                   Let's prioritize these actions and build a 90-day roadmap.
                 </p>
                 <div className="flex gap-3 justify-center">
-                  <Link to="/contact">
+                  <Link href="/contact">
                     <Button>Book a call</Button>
                   </Link>
-                  <Link to="/project-estimator">
+                  <Link href="/project-estimator">
                     <Button variant="outline">Use project estimator</Button>
                   </Link>
                 </div>
@@ -273,9 +273,9 @@ const ClientAudits = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Audits - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"
@@ -349,3 +349,4 @@ const ClientAudits = () => {
 };
 
 export default ClientAudits;
+

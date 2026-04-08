@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -251,13 +252,13 @@ const SEOServices = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book an SEO Strategy Call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/free-seo-website-audit">Get a Free SEO Audit</Link>
+                  <Link href="/free-seo-website-audit">Get a Free SEO Audit</Link>
                 </Button>
               </motion.div>
             </div>
@@ -526,7 +527,7 @@ const SEOServices = () => {
                       <h3 className="text-xl font-semibold text-white mb-3">{industry.title}</h3>
                       <p className="text-white/60 mb-6">{industry.desc}</p>
                       <Button variant="link" asChild className="p-0 h-auto text-accent">
-                        <Link to={industry.href}>
+                        <Link href={industry.href}>
                           Learn more <ArrowRight className="ml-2" size={16} />
                         </Link>
                       </Button>
@@ -537,7 +538,7 @@ const SEOServices = () => {
                   <CardContent className="p-8 flex flex-col justify-center items-center text-center h-full">
                     <p className="text-white/60 mb-4">Don't see your industry? We work with many sectors.</p>
                     <Button variant="outline-dark" size="sm" asChild>
-                      <Link to="/contact">Discuss your industry</Link>
+                      <Link href="/contact">Discuss your industry</Link>
                     </Button>
                   </CardContent>
                 </Card>
@@ -569,10 +570,10 @@ const SEOServices = () => {
             <div className="text-center mt-12">
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/case-studies">View case studies</Link>
+                  <Link href="/case-studies">View case studies</Link>
                 </Button>
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">Book an SEO strategy call</Link>
+                  <Link href="/contact">Book an SEO strategy call</Link>
                 </Button>
               </div>
             </div>
@@ -649,7 +650,7 @@ const SEOServices = () => {
                     <h3 className="text-xl font-semibold mb-3 text-white">{loc.title}</h3>
                     <p className="text-white/60 mb-4">{loc.desc}</p>
                     <Button variant="outline-dark" size="sm" asChild>
-                      <Link to={loc.href}>
+                      <Link href={loc.href}>
                         Learn more <ArrowRight className="ml-2" size={16} />
                       </Link>
                     </Button>
@@ -706,13 +707,13 @@ const SEOServices = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button variant="accent" size="lg" asChild className="w-full sm:w-auto">
-                      <Link to="/free-seo-website-audit">
+                      <Link href="/free-seo-website-audit">
                         Get a free SEO audit
                         <ArrowRight className="ml-2" size={20} />
                       </Link>
                     </Button>
                     <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
-                      <Link to="/contact">Book an SEO strategy call</Link>
+                      <Link href="/contact">Book an SEO strategy call</Link>
                     </Button>
                   </div>
                 </ScrollReveal>
@@ -726,3 +727,4 @@ const SEOServices = () => {
 };
 
 export default SEOServices;
+

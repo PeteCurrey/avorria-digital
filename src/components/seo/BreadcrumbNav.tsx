@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
 
 interface BreadcrumbItem {
@@ -51,3 +52,4 @@ export const BreadcrumbNav = ({ items, className = "" }: BreadcrumbNavProps) => 
 };
 
 export default BreadcrumbNav;
+

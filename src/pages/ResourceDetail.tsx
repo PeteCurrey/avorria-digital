@@ -1,4 +1,6 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+'use client';
+import Navigate from '@/components/Navigate';
+import { useParams, Link,   } from "next/navigation";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ArticleSchema from "@/components/seo/ArticleSchema";
@@ -48,7 +50,7 @@ const ResourceDetail = () => {
   }, []);
 
   if (!resource) {
-    return <Navigate to="/resources" replace />;
+    return <Navigate href="/resources" replace />;
   }
 
   const relatedResources = getResourcesByCategory(resource.category)
@@ -148,14 +150,14 @@ const ResourceDetail = () => {
                   </p>
                   <div className="flex flex-wrap gap-3">
                     <Button variant="accent" size="sm" asChild>
-                      <Link to="/contact">
+                      <Link href="/contact">
                         Book Strategy Call
                         <ArrowRight className="ml-2" size={16} />
                       </Link>
                     </Button>
                     {resource.serviceRelation && (
                       <Button variant="outline" size="sm" asChild>
-                        <Link to={`/services/${resource.serviceRelation}`}>
+                        <Link href={`/services/${resource.serviceRelation}`}>
                           View {resource.category} Services
                         </Link>
                       </Button>
@@ -244,13 +246,13 @@ const ResourceDetail = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button variant="accent" size="lg" asChild>
-                      <Link to="/contact">
+                      <Link href="/contact">
                         Book a Strategy Call
                         <ArrowRight className="ml-2" size={20} />
                       </Link>
                     </Button>
                     <Button variant="outline" size="lg" asChild>
-                      <Link to="/services">View All Services</Link>
+                      <Link href="/services">View All Services</Link>
                     </Button>
                   </div>
                 </CardContent>
@@ -266,7 +268,7 @@ const ResourceDetail = () => {
                         <CardContent className="p-6">
                           <Badge variant="secondary" className="mb-3">{related.category}</Badge>
                           <h4 className="text-lg font-semibold text-foreground mb-3 group-hover:text-accent transition-colors">
-                            <Link to={`/resources/${related.slug}`}>{related.title}</Link>
+                            <Link href={`/resources/${related.slug}`}>{related.title}</Link>
                           </h4>
                           <p className="text-muted-foreground text-sm mb-4 line-clamp-2">{related.summary}</p>
                           <Link
@@ -345,3 +347,4 @@ const ResourceDetail = () => {
 };
 
 export default ResourceDetail;
+

@@ -23,53 +23,84 @@ serve(async (req) => {
   try {
     const { prompt, contentType, platform, tone, includeHashtags = true, count = 1 }: ContentRequest = await req.json();
 
-    const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
-    if (!lovableApiKey) {
-      throw new Error("LOVABLE_API_KEY is not configured");
-    }
+    // 1. Initialize Supabase client to fetch potential user API keys
+    const supabaseUrl = Deno.env.get("SUPABASE_URL") ?? "";
+    const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
+    const { createClient } = await import("https://esm.sh/@supabase/supabase-js@2.38.4");
+    const supabaseAdmin = createClient(supabaseUrl, supabaseServiceKey);
 
+    // 2. Try to get user-provided Claude key
+    const { data: claudeRecord } = await supabaseAdmin
+      .from("seo_integrations")
+      .select("config, is_active")
+      .eq("integration_type", "claude")
+      .eq("is_active", true)
+      .maybeSingle();
+
+    const userClaudeKey = claudeRecord?.config?.apiKey;
     const systemPrompt = buildSystemPrompt(contentType, platform, tone, includeHashtags, count);
 
-    console.log("Generating content with prompt:", prompt);
-    console.log("System prompt:", systemPrompt);
+    let generatedText = "";
 
-    const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${lovableApiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "google/gemini-3-flash-preview",
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: prompt },
-        ],
-        temperature: 0.8,
-      }),
-    });
+    if (userClaudeKey) {
+      console.log("Using user-provided Claude API key...");
+      const anthropicResponse = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: {
+          "x-api-key": userClaudeKey,
+          "anthropic-version": "2023-06-01",
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "claude-3-5-sonnet-20240620",
+          max_tokens: 4096,
+          system: systemPrompt,
+          messages: [
+            { role: "user", content: prompt },
+          ],
+        }),
+      });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("AI API error:", response.status, errorText);
-      
-      if (response.status === 429) {
-        return new Response(
-          JSON.stringify({ error: "Rate limit exceeded. Please wait a moment and try again." }),
-          { status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+      if (!anthropicResponse.ok) {
+        const error = await anthropicResponse.text();
+        console.error("Claude API error:", error);
+        throw new Error(`Claude API error: ${anthropicResponse.status}`);
       }
-      if (response.status === 402) {
-        return new Response(
-          JSON.stringify({ error: "AI credits exhausted. Please add credits to continue." }),
-          { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
-        );
+
+      const anthropicData = await anthropicResponse.json();
+      generatedText = anthropicData.content[0].text;
+    } else {
+      console.log("No Claude key found, falling back to default Gemini...");
+      const lovableApiKey = Deno.env.get("LOVABLE_API_KEY");
+      if (!lovableApiKey) {
+        throw new Error("No AI key (Claude or Lovable) is configured");
       }
-      throw new Error(`AI API error: ${response.status}`);
+
+      const response = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${lovableApiKey}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          model: "google/gemini-3-flash-preview",
+          messages: [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: prompt },
+          ],
+          temperature: 0.8,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error("AI API error:", response.status, errorText);
+        throw new Error(`AI API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      generatedText = data.choices?.[0]?.message?.content;
     }
-
-    const data = await response.json();
-    const generatedText = data.choices?.[0]?.message?.content;
 
     if (!generatedText) {
       throw new Error("No content generated");

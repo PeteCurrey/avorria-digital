@@ -1,3 +1,4 @@
+'use client';
 import { useState, useRef, useCallback } from "react";
 
 interface UseGeneratedAmbientAudioReturn {
@@ -21,29 +22,6 @@ export function useGeneratedAmbientAudio(volume = 0.4): UseGeneratedAmbientAudio
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioUrlRef = useRef<string | null>(null);
 
-  const generateAudio = async (): Promise<string> => {
-    // Return cached audio if available
-    if (audioUrlRef.current) {
-      return audioUrlRef.current;
-    }
-
-    const response = await fetch(
-      `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/studio-ambient-music`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
-        },
-        body: JSON.stringify({
-          prompt: "Ambient atmospheric sound, wind through city buildings, subtle electronic hum, futuristic cityscape ambience, soft and calming",
-          duration: 22,
-        }),
-      }
-    );
-
-    if (!response.ok) {
       const errorText = await response.text();
       throw new Error(`Audio generation failed: ${response.status} - ${errorText}`);
     }
@@ -116,3 +94,4 @@ export function useGeneratedAmbientAudio(volume = 0.4): UseGeneratedAmbientAudio
 }
 
 export default useGeneratedAmbientAudio;
+

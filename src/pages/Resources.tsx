@@ -1,5 +1,6 @@
+﻿'use client';
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -237,7 +238,7 @@ const Resources = () => {
                       </div>
                     </div>
                     <h3 className="text-xl font-semibold text-foreground mb-3 group-hover:text-accent transition-colors">
-                      <Link to={`/resources/${resource.slug}`}>{resource.title}</Link>
+                      <Link href={`/resources/${resource.slug}`}>{resource.title}</Link>
                     </h3>
                     <p className="text-muted-foreground text-sm mb-4 line-clamp-2">
                       {resource.summary}
@@ -272,13 +273,13 @@ const Resources = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
-                <Link to="/contact" onClick={() => trackCTAClick("book_strategy_call", "/contact", "resources_cta")}>
+                <Link href="/contact" onClick={() => trackCTAClick("book_strategy_call", "/contact", "resources_cta")}>
                   Book Strategy Call
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/services" onClick={() => trackCTAClick("view_services", "/services", "resources_cta")}>
+                <Link href="/services" onClick={() => trackCTAClick("view_services", "/services", "resources_cta")}>
                   View Services
                 </Link>
               </Button>
@@ -291,3 +292,4 @@ const Resources = () => {
 };
 
 export default Resources;
+

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useRef, useEffect } from "react";
 
 interface HeroCanvasProps {
@@ -147,3 +148,4 @@ export const HeroCanvas: React.FC<HeroCanvasProps> = ({ className }) => {
     />
   );
 };
+

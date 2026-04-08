@@ -1,6 +1,6 @@
+'use client';
 import React, { useState, useEffect } from "react";
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { useClientStats, useClientFocus } from "@/hooks/useClientStats";
@@ -84,9 +84,9 @@ const ClientOverview = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Overview - Client Portal</title>
-      </Helmet>
+      
 
       {showOnboarding && (
         <ClientOnboarding
@@ -137,7 +137,7 @@ const ClientOverview = () => {
                     </div>
                   </div>
                 )}
-                <Link to="/client/billing">
+                <Link href="/client/billing">
                   <Button size="sm" className="w-full bg-white/[0.05] hover:bg-white/[0.08] text-white/60 hover:text-white border border-white/[0.08]">
                     View Invoices <ArrowRight className="ml-2 h-3.5 w-3.5" />
                   </Button>
@@ -244,7 +244,7 @@ const ClientOverview = () => {
                   </div>
                   <h3 className="text-sm font-medium text-white/70 mb-1">Design Progress</h3>
                   <p className="text-xs text-white/30 mb-4">View before & after comparisons and leave feedback.</p>
-                  <Link to={`/client/projects/${websiteProject!.id}`}>
+                  <Link href={`/client/projects/${websiteProject!.id}`}>
                     <Button size="sm" className="w-full bg-white/[0.05] hover:bg-white/[0.08] text-white/50 hover:text-white border border-white/[0.08]">
                       View designs <ArrowRight className="ml-2 h-3 w-3" />
                     </Button>
@@ -260,7 +260,7 @@ const ClientOverview = () => {
                   </div>
                   <h3 className="text-sm font-medium text-white/70 mb-1">SEO Intelligence</h3>
                   <p className="text-xs text-white/30 mb-4">AI-powered website analysis & keyword research.</p>
-                  <Link to="/client/seo-intelligence">
+                  <Link href="/client/seo-intelligence">
                     <Button size="sm" className="w-full bg-white/[0.05] hover:bg-white/[0.08] text-white/50 hover:text-white border border-white/[0.08]">
                       Open tools <ArrowRight className="ml-2 h-3 w-3" />
                     </Button>
@@ -275,7 +275,7 @@ const ClientOverview = () => {
                 </div>
                 <h3 className="text-sm font-medium text-white/70 mb-1">Latest Audit</h3>
                 <p className="text-xs text-white/30 mb-4">SEO & website audit with priority actions.</p>
-                <Link to="/client/audits">
+                <Link href="/client/audits">
                   <Button size="sm" className="w-full bg-white/[0.05] hover:bg-white/[0.08] text-white/50 hover:text-white border border-white/[0.08]">
                     View audits <ArrowRight className="ml-2 h-3 w-3" />
                   </Button>
@@ -289,7 +289,7 @@ const ClientOverview = () => {
                 </div>
                 <h3 className="text-sm font-medium text-white/70 mb-1">Analytics</h3>
                 <p className="text-xs text-white/30 mb-4">Real-time website performance insights.</p>
-                <Link to="/client/analytics">
+                <Link href="/client/analytics">
                   <Button size="sm" className="w-full bg-white/[0.05] hover:bg-white/[0.08] text-white/50 hover:text-white border border-white/[0.08]">
                     View analytics <ArrowRight className="ml-2 h-3 w-3" />
                   </Button>
@@ -303,7 +303,7 @@ const ClientOverview = () => {
                 </div>
                 <h3 className="text-sm font-medium text-white/70 mb-1">Website Health</h3>
                 <p className="text-xs text-white/30 mb-4">Track your health score over time.</p>
-                <Link to="/client/website-health">
+                <Link href="/client/website-health">
                   <Button size="sm" className="w-full bg-white/[0.05] hover:bg-white/[0.08] text-white/50 hover:text-white border border-white/[0.08]">
                     View health <ArrowRight className="ml-2 h-3 w-3" />
                   </Button>
@@ -318,3 +318,4 @@ const ClientOverview = () => {
 };
 
 export default ClientOverview;
+

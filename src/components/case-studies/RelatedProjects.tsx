@@ -1,5 +1,6 @@
+﻿'use client';
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { CaseStudy } from "@/data/caseStudies";
 
@@ -87,3 +88,4 @@ export const RelatedProjects = ({ projects, onProjectClick }: RelatedProjectsPro
     </section>
   );
 };
+

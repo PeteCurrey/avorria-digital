@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useRef, useState } from "react";
 import { motion, useInView, animate } from "framer-motion";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -261,3 +262,4 @@ export const ClientSEODashboard = ({ websiteId }: ClientSEODashboardProps) => {
 };
 
 export default ClientSEODashboard;
+

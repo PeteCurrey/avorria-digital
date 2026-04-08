@@ -1,3 +1,4 @@
+﻿'use client';
 import { ChevronDown } from "lucide-react";
 
 const ScrollIndicator = () => {
@@ -25,3 +26,4 @@ const ScrollIndicator = () => {
 };
 
 export default ScrollIndicator;
+

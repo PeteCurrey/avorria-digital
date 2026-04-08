@@ -1,3 +1,4 @@
+﻿'use client';
 // Scroll-controlled day-to-night timelapse effect v9
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -82,3 +83,4 @@ export const ScrollTimelapse = ({
 };
 
 export default ScrollTimelapse;
+

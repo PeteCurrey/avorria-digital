@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, MotionValue } from 'framer-motion';
 
@@ -196,3 +197,4 @@ const FloatingElements: React.FC = () => {
 };
 
 export default FloatingElements;
+

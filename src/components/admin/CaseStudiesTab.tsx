@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Plus, Pencil, Trash2, Eye, EyeOff, Star, StarOff } from "lucide-react";
@@ -273,3 +274,4 @@ export const CaseStudiesTab = () => {
 };
 
 export default CaseStudiesTab;
+

@@ -1,5 +1,6 @@
+﻿'use client';
 import React, { useState, useEffect, useMemo } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles, Building2, Car, Truck, Loader2 } from "lucide-react";
@@ -277,13 +278,13 @@ const CaseStudies = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book a strategy call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/web-design/studio">Try the Studio</Link>
+                  <Link href="/web-design/studio">Try the Studio</Link>
                 </Button>
               </div>
             </motion.div>

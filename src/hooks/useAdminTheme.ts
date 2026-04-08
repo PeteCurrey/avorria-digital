@@ -1,3 +1,4 @@
+﻿'use client';
 import { useState, useEffect, useCallback } from "react";
 
 type AdminTheme = "dark" | "light";
@@ -27,3 +28,4 @@ export function useAdminTheme() {
   // No DOM side-effects here — the component applies the class
   return { theme, setTheme, toggle, isDark: theme === "dark" };
 }
+

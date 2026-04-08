@@ -1,6 +1,6 @@
+'use client';
 import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { useProject } from "@/hooks/useClientProjects";
 import { useProjectAssets } from "@/hooks/useProjectAssets";
@@ -158,7 +158,7 @@ const ClientProjectDetail = () => {
       <AppShell type="client" userName={userName} userRole="Marketing Director" clientName={clientName}>
         <div className="text-center py-12">
           <p className="text-muted-foreground">Project not found</p>
-          <Link to="/client/projects"><Button variant="link">Back to Projects</Button></Link>
+          <Link href="/client/projects"><Button variant="link">Back to Projects</Button></Link>
         </div>
       </AppShell>
     );
@@ -172,7 +172,7 @@ const ClientProjectDetail = () => {
 
   return (
     <>
-      <Helmet><title>{project.name} - Client Portal</title></Helmet>
+      <title>{project.name} - Client Portal</title>
 
       {showGallery && galleryImages.length > 0 && (
         <ProjectShowcase images={galleryImages} initialIndex={galleryIndex} onClose={() => setShowGallery(false)} />
@@ -187,7 +187,7 @@ const ClientProjectDetail = () => {
 
       <AppShell type="client" userName={userName} userRole="Marketing Director" clientName={clientName}>
         <div className="space-y-6">
-          <Link to="/client/projects">
+          <Link href="/client/projects">
             <Button variant="ghost" size="sm"><ArrowLeft className="mr-2 h-4 w-4" />Back to Projects</Button>
           </Link>
 
@@ -455,3 +455,4 @@ const ClientProjectDetail = () => {
 };
 
 export default ClientProjectDetail;
+

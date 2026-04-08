@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -185,19 +186,6 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
   const canGenerate = formData.client.trim() && formData.sector.trim();
 
   const handleAIGenerate = async () => {
-    if (!canGenerate) {
-      toast({ title: "Missing info", description: "Fill in at least the client name and sector before generating.", variant: "destructive" });
-      return;
-    }
-    setIsGenerating(true);
-    try {
-      const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-      const supabaseKey = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
-      
-      const response = await fetch(`${supabaseUrl}/functions/v1/generate-case-study`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
           "Authorization": `Bearer ${supabaseKey}`,
           "apikey": supabaseKey,
         },
@@ -1001,3 +989,4 @@ const CaseStudyEditor = ({ caseStudy, onClose }: CaseStudyEditorProps) => {
 };
 
 export default CaseStudyEditor;
+

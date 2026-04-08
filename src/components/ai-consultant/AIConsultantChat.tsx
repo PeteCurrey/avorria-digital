@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, Send, Loader2, Mic, MicOff, Volume2, VolumeX, Bot } from "lucide-react";
@@ -14,8 +15,12 @@ interface AIConsultantChatProps {
   onClose: () => void;
 }
 
-const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/ai-consultant`;
-const TTS_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/elevenlabs-tts`;
+// Next.js process.env instead of Vite import.meta.env
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+
+const CHAT_URL = `${SUPABASE_URL}/functions/v1/ai-consultant`;
+const TTS_URL = `${SUPABASE_URL}/functions/v1/elevenlabs-tts`;
 
 // Warm, human opening sequence
 const OPENING_MESSAGES: Message[] = [
@@ -141,7 +146,7 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ text }),
       });
@@ -176,7 +181,9 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
 
   const toggleListening = () => {
     if (!recognitionRef.current) {
-      alert('Speech recognition is not supported in your browser.');
+      if (typeof window !== 'undefined') {
+        alert('Speech recognition is not supported in your browser.');
+      }
       return;
     }
 
@@ -214,7 +221,7 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
         },
         body: JSON.stringify({ messages: newMessages }),
       });
@@ -340,7 +347,11 @@ const AIConsultantChat = ({ isOpen, onClose }: AIConsultantChatProps) => {
                 </div>
                 <div>
                   <h2 className="text-base font-medium tracking-tight">Avorria</h2>
-                  <p className="text-xs text-muted-foreground">Digital Strategy</p>
+                  <p className="text-xs text-muted-foreground flex items-center gap-1">
+                    Digital Strategy
+                    <span className="inline-flex h-1.5 w-1.5 rounded-full bg-accent/40" />
+                    <span className="text-[10px] font-mono opacity-70">Claude 3.5</span>
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-1">

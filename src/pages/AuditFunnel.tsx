@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect } from "react";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";

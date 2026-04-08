@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Home, FileText } from "lucide-react";
 
@@ -29,19 +30,19 @@ const NotFound = () => {
         {/* Action Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center pt-8">
           <Button variant="accent" size="lg" asChild>
-            <Link to="/">
+            <Link href="/">
               <Home className="mr-2" size={20} />
               Back to Home
             </Link>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <Link to="/services">
+            <Link href="/services">
               View Services
               <ArrowRight className="ml-2" size={20} />
             </Link>
           </Button>
           <Button variant="outline" size="lg" asChild>
-            <Link to="/resources">
+            <Link href="/resources">
               <FileText className="mr-2" size={20} />
               Browse Resources
             </Link>
@@ -51,7 +52,7 @@ const NotFound = () => {
         {/* Help Text */}
         <p className="text-sm text-muted-foreground pt-8">
           If you think this page should exist,{" "}
-          <Link to="/contact" className="text-accent hover:underline">
+          <Link href="/contact" className="text-accent hover:underline">
             let us know
           </Link>
           .
@@ -62,3 +63,4 @@ const NotFound = () => {
 };
 
 export default NotFound;
+

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Monitor, Laptop, Tablet, Smartphone, Columns2 } from "lucide-react";
@@ -210,3 +211,4 @@ export const DevicePreview = ({
 };
 
 export default DevicePreview;
+

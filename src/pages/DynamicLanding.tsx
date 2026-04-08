@@ -1,4 +1,6 @@
-import { useParams, Navigate } from "react-router-dom";
+'use client';
+import Navigate from '@/components/Navigate';
+import { useParams,   } from "next/navigation";
 import LandingPageTemplate from "@/components/LandingPageTemplate";
 import { getLandingPageBySlug } from "@/data/landingPages";
 import { getServiceBySlug } from "@/data/services";
@@ -10,7 +12,7 @@ const DynamicLanding = () => {
   const { locationSlug, industrySlug } = useParams();
   
   // Get service slug from URL path
-  const pathSegments = window.location.pathname.split('/').filter(Boolean);
+  const pathSegments = window.pathname.split('/').filter(Boolean);
   const urlServiceSlug = pathSegments[0];
 
   // Map URL service slugs to internal service slugs
@@ -53,11 +55,12 @@ const DynamicLanding = () => {
 
   // If components don't exist, show 404
   if (!service || (locationSlug && !location) || (industrySlug && !industry)) {
-    return <Navigate to="/404" replace />;
+    return <Navigate href="/404" replace />;
   }
 
   // Redirect to main service page
-  return <Navigate to={service.pillarPageUrl} replace />;
+  return <Navigate href={service.pillarPageUrl} replace />;
 };
 
 export default DynamicLanding;
+

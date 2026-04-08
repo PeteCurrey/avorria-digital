@@ -1,7 +1,8 @@
+﻿'use client';
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -95,13 +96,13 @@ export const ContentBand = ({
             {children}
             {(cta || secondaryCta) && <div className="flex flex-col sm:flex-row gap-4 pt-4">
                 {cta && <Button variant={cta.variant || "accent"} size="lg" asChild className="w-full sm:w-auto">
-                    <Link to={cta.href}>
+                    <Link href={cta.href}>
                       {cta.text}
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>}
                 {secondaryCta && <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
-                    <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
+                    <Link href={secondaryCta.href}>{secondaryCta.text}</Link>
                   </Button>}
               </div>}
           </div>
@@ -179,13 +180,13 @@ export const HeroBand = ({
           {(cta || secondaryCta) && <div className="inline-block p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 animate-fade-in-up">
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 {cta && <Button variant={cta.variant || "accent"} size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6">
-                    <Link to={cta.href}>
+                    <Link href={cta.href}>
                       {cta.text}
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
                   </Button>}
                 {secondaryCta && <Button size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/[0.06] backdrop-blur-sm text-white border border-white/20 hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98] transition-all">
-                    <Link to={secondaryCta.href}>{secondaryCta.text}</Link>
+                    <Link href={secondaryCta.href}>{secondaryCta.text}</Link>
                   </Button>}
               </div>
             </div>}

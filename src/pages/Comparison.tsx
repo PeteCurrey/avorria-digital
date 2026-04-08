@@ -1,4 +1,6 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+'use client';
+import Navigate from '@/components/Navigate';
+import { useParams, Link,   } from "next/navigation";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Button } from "@/components/ui/button";
@@ -11,7 +13,7 @@ const Comparison = () => {
   const comparison = slug ? getComparisonBySlug(slug) : undefined;
 
   if (!comparison) {
-    return <Navigate to="/" replace />;
+    return <Navigate href="/" replace />;
   }
 
   return (
@@ -159,13 +161,13 @@ const Comparison = () => {
                     </div>
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button variant="accent" size="lg" asChild>
-                        <Link to="/contact">
+                        <Link href="/contact">
                           {comparison.ctaText}
                           <ArrowRight className="ml-2" size={20} />
                         </Link>
                       </Button>
                       <Button variant="outline" size="lg" asChild>
-                        <Link to="/services">View Services</Link>
+                        <Link href="/services">View Services</Link>
                       </Button>
                     </div>
                   </CardContent>
@@ -182,3 +184,4 @@ const Comparison = () => {
 };
 
 export default Comparison;
+

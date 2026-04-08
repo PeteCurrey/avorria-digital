@@ -1,3 +1,4 @@
+﻿'use client';
 /**
  * Secure PDF generation utility using jspdf and html2canvas directly
  * Replaces vulnerable html2pdf.js dependency
@@ -164,3 +165,4 @@ export async function generatePDFFromElement(
     throw error;
   }
 }
+

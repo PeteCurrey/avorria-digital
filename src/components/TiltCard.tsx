@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
@@ -102,3 +103,4 @@ const TiltCard: React.FC<TiltCardProps> = ({
 };
 
 export default TiltCard;
+

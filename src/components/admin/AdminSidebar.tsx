@@ -1,5 +1,6 @@
+﻿'use client';
 import { useState, useCallback } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import AnimatedLogo from "@/components/AnimatedLogo";
@@ -396,7 +397,7 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
                     className="relative mt-3 w-full"
                     asChild
                   >
-                    <Link to="/admin?tab=content-studio">
+                    <Link href="/admin?tab=content-studio">
                       <PenTool className="mr-2 h-4 w-4" />
                       Create Content
                     </Link>
@@ -412,3 +413,4 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
 };
 
 export default AdminSidebar;
+

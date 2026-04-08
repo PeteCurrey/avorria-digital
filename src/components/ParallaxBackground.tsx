@@ -1,3 +1,4 @@
+﻿'use client';
 // Module version: v14 - standardized React imports
 import React, { useRef, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -102,3 +103,4 @@ export const ParallaxBackground = ({
 };
 
 export default ParallaxBackground;
+

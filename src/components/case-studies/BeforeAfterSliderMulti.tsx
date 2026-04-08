@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2, X, Download, Hand } from "lucide-react";
@@ -348,3 +349,4 @@ export const BeforeAfterSliderMulti = ({
 };
 
 export default BeforeAfterSliderMulti;
+

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -458,3 +459,4 @@ export const useTogglePublished = (): MutationResult<{ id: string; isPublished: 
 
   return { mutateAsync, mutate, isLoading, isPending: isLoading, error };
 };
+

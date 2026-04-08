@@ -1,3 +1,4 @@
+﻿'use client';
 import { useState } from "react";
 import KPICard from "@/components/dashboard/KPICard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -250,3 +251,4 @@ const GoogleAdsTab = () => {
 };
 
 export default GoogleAdsTab;
+

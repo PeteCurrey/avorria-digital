@@ -1,4 +1,3 @@
-import { Helmet } from "react-helmet-async";
 
 interface LocalBusinessSchemaProps {
   name?: string;
@@ -185,11 +184,11 @@ export const LocalBusinessSchema = (props: LocalBusinessSchemaProps = {}) => {
   };
 
   return (
-    <Helmet>
+    
       <script type="application/ld+json">
         {JSON.stringify(schema)}
       </script>
-    </Helmet>
+    
   );
 };
 

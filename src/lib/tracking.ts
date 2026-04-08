@@ -1,3 +1,4 @@
+'use client';
 /**
  * Analytics Tracking Utility
  * 
@@ -95,27 +96,31 @@ interface TrackingParams {
 }
 
 export function trackEvent(eventName: string, params: TrackingParams = {}) {
-  const isDev = import.meta.env.DEV;
+  // Use a safer dev check for Next.js
+  const isDev = process.env.NODE_ENV === 'development';
   
-  // Add common context
-  const enrichedParams = {
+  // Add common context safely for SSR
+  const enrichedParams: TrackingParams = {
     ...params,
-    page_path: window.location.pathname,
-    page_title: document.title,
     timestamp: new Date().toISOString(),
   };
   
-  // Log to console in dev mode
-  if (isDev) {
-    console.log('[Analytics Event]', eventName, enrichedParams);
-  }
-  
-  // Push to dataLayer if it exists
-  if (typeof window !== 'undefined' && window.dataLayer) {
-    window.dataLayer.push({
-      event: eventName,
-      ...enrichedParams,
-    });
+  if (typeof window !== 'undefined') {
+    enrichedParams.page_path = window.location.pathname;
+    enrichedParams.page_title = document.title;
+    
+    // Log to console in dev mode
+    if (isDev) {
+      console.log('[Analytics Event]', eventName, enrichedParams);
+    }
+    
+    // Push to dataLayer if it exists
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        event: eventName,
+        ...enrichedParams,
+      });
+    }
   }
 }
 
@@ -125,6 +130,7 @@ export function trackEvent(eventName: string, params: TrackingParams = {}) {
  * Get user type based on current route
  */
 export function getUserType(): 'anonymous' | 'client' | 'internal' {
+  if (typeof window === 'undefined') return 'anonymous';
   const path = window.location.pathname;
   
   if (path.startsWith('/client')) return 'client';
@@ -201,7 +207,7 @@ export function trackUIError(component: string, errorMessage: string) {
  */
 export function trackPageView(pageTitle?: string) {
   trackEvent('page_view', {
-    page_title: pageTitle || document.title,
+    page_title: pageTitle || (typeof document !== 'undefined' ? document.title : ''),
     user_type: getUserType(),
   });
 }
@@ -214,7 +220,7 @@ export function trackPageView(pageTitle?: string) {
 export function trackAuditFunnelView(source?: string) {
   trackEvent(EVENTS.AUDIT_FUNNEL_VIEWED, {
     source: source || 'direct',
-    referrer: document.referrer || 'none',
+    referrer: typeof document !== 'undefined' ? document.referrer : 'none',
   });
 }
 
@@ -222,10 +228,14 @@ export function trackAuditFunnelView(source?: string) {
  * Track audit report generation success
  */
 export function trackAuditReportGenerated(score: number, websiteUrl: string) {
-  trackEvent(EVENTS.AUDIT_REPORT_GENERATED, {
-    overall_score: score,
-    website_domain: new URL(websiteUrl).hostname,
-  });
+  try {
+    trackEvent(EVENTS.AUDIT_REPORT_GENERATED, {
+      overall_score: score,
+      website_domain: new URL(websiteUrl).hostname,
+    });
+  } catch (e) {
+    console.error("Tracking error:", e);
+  }
 }
 
 /**

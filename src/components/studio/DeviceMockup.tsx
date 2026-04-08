@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useRef, useState } from "react";
 import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 
@@ -137,3 +138,4 @@ export const DeviceMockup = ({ children, className = "" }: DeviceMockupProps) =>
 };
 
 export default DeviceMockup;
+

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { useCreateComment } from "@/hooks/useAssetComments";
@@ -85,3 +86,4 @@ export const AssetCommentForm = ({ assetId, assetTitle }: AssetCommentFormProps)
 };
 
 export default AssetCommentForm;
+

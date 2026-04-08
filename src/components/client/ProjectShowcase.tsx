@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useCallback, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
@@ -304,3 +305,4 @@ export const ProjectShowcase = ({
 };
 
 export default ProjectShowcase;
+

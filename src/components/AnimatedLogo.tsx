@@ -1,5 +1,6 @@
+﻿'use client';
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 interface AnimatedLogoProps {
   isTransparent?: boolean;
@@ -7,7 +8,7 @@ interface AnimatedLogoProps {
 
 const AnimatedLogo = ({ isTransparent = false }: AnimatedLogoProps) => {
   return (
-    <Link to="/" className="flex items-center flex-shrink-0">
+    <Link href="/" className="flex items-center flex-shrink-0">
       <span 
         className={`text-[1.75rem] font-extralight tracking-wider transition-colors flex items-baseline ${
           isTransparent ? "text-white" : "text-foreground"
@@ -53,3 +54,4 @@ const AnimatedLogo = ({ isTransparent = false }: AnimatedLogoProps) => {
 };
 
 export default AnimatedLogo;
+

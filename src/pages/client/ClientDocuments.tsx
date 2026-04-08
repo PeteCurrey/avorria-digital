@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { useMyProjects } from "@/hooks/useClientProjects";
 import { useProjectAssets } from "@/hooks/useProjectAssets";
@@ -93,9 +92,9 @@ const ClientDocuments = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Documents - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"

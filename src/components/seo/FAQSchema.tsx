@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+'use client';
 
 interface FAQItem {
   question: string;
@@ -16,18 +16,11 @@ export const FAQSchema = ({ faqs }: FAQSchemaProps) => {
     mainEntity: faqs.map((faq) => ({
       "@type": "Question",
       name: faq.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.answer,
-      },
+      acceptedAnswer: { "@type": "Answer", text: faq.answer },
     })),
   };
 
-  return (
-    <Helmet>
-      <script type="application/ld+json">{JSON.stringify(schema)}</script>
-    </Helmet>
-  );
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />;
 };
 
 export default FAQSchema;

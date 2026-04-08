@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+'use client';
+import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -53,9 +53,9 @@ const ClientWebsiteHealth = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Website Health - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"
@@ -242,7 +242,7 @@ const ClientWebsiteHealth = () => {
               <p className="text-sm text-muted-foreground mb-4">
                 View your latest comprehensive audit with detailed recommendations
               </p>
-              <Link to="/client/audits">
+              <Link href="/client/audits">
                 <Button>
                   View latest audit
                   <ArrowRight className="ml-2 h-4 w-4" />
@@ -257,3 +257,4 @@ const ClientWebsiteHealth = () => {
 };
 
 export default ClientWebsiteHealth;
+

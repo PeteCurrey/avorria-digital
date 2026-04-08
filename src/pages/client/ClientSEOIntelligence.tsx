@@ -1,5 +1,5 @@
+'use client';
 import React, { useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -171,10 +171,10 @@ const ClientSEOIntelligence = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>SEO Intelligence - Client Portal</title>
         <meta name="description" content="AI-powered SEO intelligence and analysis tools" />
-      </Helmet>
+      
 
       <AppShell
         type="client"
@@ -772,3 +772,4 @@ const ClientSEOIntelligence = () => {
 };
 
 export default ClientSEOIntelligence;
+

@@ -1,6 +1,7 @@
+﻿'use client';
 import React, { useState, useMemo } from "react";
 import SEOHead from "@/components/seo/SEOHead";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { ExternalLink, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import { locations } from "@/data/locations";
 import { industries } from "@/data/industries";
@@ -354,3 +355,4 @@ const Sitemap = () => {
 };
 
 export default Sitemap;
+

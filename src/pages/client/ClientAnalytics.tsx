@@ -1,5 +1,5 @@
+'use client';
 import React, { useEffect, useRef, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { useAuth } from "@/hooks/useAuth";
 import { useAnalyticsSnapshots } from "@/hooks/useAnalyticsSnapshots";
 import AppShell from "@/components/app/AppShell";
@@ -102,7 +102,7 @@ const ClientAnalytics = () => {
   if (!isLoading && !connection) {
     return (
       <>
-        <Helmet><title>Analytics - Client Portal</title></Helmet>
+        <title>Analytics - Client Portal</title>
         <AppShell type="client" userName="Sarah Mitchell" userRole="Marketing Director" clientName={clientName}>
           <div className="space-y-6">
             <div>
@@ -162,7 +162,7 @@ const ClientAnalytics = () => {
 
   return (
     <>
-      <Helmet><title>Analytics - Client Portal</title></Helmet>
+      <title>Analytics - Client Portal</title>
       <AppShell type="client" userName="Sarah Mitchell" userRole="Marketing Director" clientName={clientName}>
         <div className="space-y-6">
           {/* Header */}
@@ -341,3 +341,4 @@ const ClientAnalytics = () => {
 };
 
 export default ClientAnalytics;
+

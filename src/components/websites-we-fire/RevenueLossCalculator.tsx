@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card } from "@/components/ui/card";
@@ -422,3 +423,4 @@ const RevenueLossCalculator: React.FC = () => {
 };
 
 export default RevenueLossCalculator;
+

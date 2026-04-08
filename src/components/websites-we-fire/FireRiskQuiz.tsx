@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -369,3 +370,4 @@ const FireRiskQuiz: React.FC = () => {
 };
 
 export default FireRiskQuiz;
+

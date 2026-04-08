@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams , useRouter} from "next/navigation";
 import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import {
   LayoutDashboard, Users, BarChart3, Search, TrendingUp, Mail, Sparkles, FileText,
@@ -13,11 +15,11 @@ interface CommandPaletteProps {
 }
 
 const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
   const [, setSearchParams] = useSearchParams();
 
   const goTo = (tab: string) => {
-    navigate(`/admin?tab=${tab}`);
+    router.push(`/admin?tab=${tab}`);
     onOpenChange(false);
   };
 
@@ -82,3 +84,4 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
 };
 
 export default CommandPalette;
+

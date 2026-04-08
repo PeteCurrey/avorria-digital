@@ -1,4 +1,6 @@
-import { useParams, Navigate } from "react-router-dom";
+'use client';
+import Navigate from '@/components/Navigate';
+import { useParams,   } from "next/navigation";
 import LandingPageTemplate from "@/components/LandingPageTemplate";
 import { getLandingPageBySlug } from "@/data/landingPages";
 
@@ -10,7 +12,7 @@ const LandingPageDetail = () => {
   const { slug } = useParams<{ slug: string }>();
   
   if (!slug) {
-    return <Navigate to="/404" replace />;
+    return <Navigate href="/404" replace />;
   }
 
   // Try to find a landing page with this slug
@@ -18,10 +20,11 @@ const LandingPageDetail = () => {
 
   if (!landingPage) {
     // No matching landing page found
-    return <Navigate to="/404" replace />;
+    return <Navigate href="/404" replace />;
   }
 
   return <LandingPageTemplate page={landingPage} />;
 };
 
 export default LandingPageDetail;
+

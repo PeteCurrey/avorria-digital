@@ -1,3 +1,4 @@
+﻿'use client';
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import React, { useState } from "react";
@@ -7,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { glossaryTerms, alphabet, getTermsByLetter, searchTerms } from "@/data/glossary";
 import { Search } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import GradientMesh from "@/components/GradientMesh";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 
@@ -180,7 +181,7 @@ const SEOGlossary = () => {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="default">Book a strategy call</Button>
                 <Button size="lg" variant="outline" asChild>
-                  <Link to="/resources">Browse our guides</Link>
+                  <Link href="/resources">Browse our guides</Link>
                 </Button>
               </div>
             </ScrollReveal>
@@ -192,3 +193,4 @@ const SEOGlossary = () => {
 };
 
 export default SEOGlossary;
+

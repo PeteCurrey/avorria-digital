@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import type { CaseMetric } from "@/data/caseStudies";
@@ -93,3 +94,4 @@ export const CaseMetrics = ({ metrics }: CaseMetricsProps) => {
     </div>
   );
 };
+

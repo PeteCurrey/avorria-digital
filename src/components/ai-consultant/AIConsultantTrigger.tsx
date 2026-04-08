@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, lazy, Suspense } from "react";
 import { motion } from "framer-motion";
 import { MessageSquare } from "lucide-react";
@@ -41,3 +42,4 @@ const AIConsultantTrigger = () => {
 };
 
 export default AIConsultantTrigger;
+

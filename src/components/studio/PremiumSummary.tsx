@@ -1,10 +1,11 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { trackEvent } from "@/lib/tracking";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -242,14 +243,14 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
                 </>
               )}
             </Button>
-            <Link to="/contact">
+            <Link href="/contact">
               <Button size="lg" className="gap-2 bg-white text-slate-900 hover:bg-slate-100">
                 <Sparkles className="h-4 w-4" />
                 Book Strategy Call
                 <ArrowRight className="h-4 w-4" />
               </Button>
             </Link>
-            <Link to="/services/web-design">
+            <Link href="/services/web-design">
               <Button variant="outline" size="lg" className="border-slate-700 text-slate-300 hover:bg-slate-800">
                 Back to Services
               </Button>
@@ -532,3 +533,4 @@ export const PremiumSummary = ({ state }: PremiumSummaryProps) => {
     </div>
   );
 };
+

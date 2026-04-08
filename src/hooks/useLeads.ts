@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -275,3 +276,4 @@ export function useLeadStats(): QueryResult<{ total: number; byStatus: Record<st
 
   return { data, isLoading, error, refetch: fetchStats };
 }
+

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useRef, useState, ReactNode, CSSProperties } from "react";
 
 type AnimationVariant = "fade-up" | "fade-left" | "fade-right" | "scale" | "blur" | "slide-up";
@@ -391,3 +392,4 @@ export const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", classN
     </span>
   );
 };
+

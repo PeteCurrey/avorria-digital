@@ -1,4 +1,5 @@
-import { useLocation } from "react-router-dom";
+'use client';
+import { useLocation , usePathname} from "next/navigation";
 import DashboardLayout from "@/components/dashboard/DashboardLayout";
 import OverviewTab from "@/components/dashboard/OverviewTab";
 import SEOTab from "@/components/dashboard/SEOTab";
@@ -16,56 +17,57 @@ import { trackEvent, EVENTS } from "@/lib/tracking";
 // import { useClientData } from "@/hooks/useClientData";
 
 const ClientPortal = () => {
-  const location = useLocation();
-  const searchParams = new URLSearchParams(location.search);
-  const tab = searchParams.get("tab") || "overview";
+ const pathname = usePathname();
+ const searchParams = new URLSearchParams();
+ const tab = searchParams.get("tab") || "overview";
 
-  // Future: Auth check
-  // const { user, isAuthenticated } = useAuth();
-  // if (!isAuthenticated) {
-  //   return <Navigate to="/login" />;
-  // }
+ // Future: Auth check
+ // const { user, isAuthenticated } = useAuth();
+ // if (!isAuthenticated) {
+ // return <Navigate href="/login" />;
+ // }
 
-  // Future: Load client-specific data
-  // const { clientData, loading } = useClientData(user.clientId);
+ // Future: Load client-specific data
+ // const { clientData, loading } = useClientData(user.clientId);
 
-  // For now, use mock data and a placeholder user name
-  const userName = "Sarah"; // Future: user.firstName
+ // For now, use mock data and a placeholder user name
+ const userName = "Sarah"; // Future: user.firstName
 
-  // Track tab views
-  useEffect(() => {
-    trackEvent(EVENTS.CLIENT_TAB_VIEWED, {
-      client_id: 'demo', // Future: user.clientId
-      tab,
-    });
-  }, [tab]);
+ // Track tab views
+ useEffect(() => {
+ trackEvent(EVENTS.CLIENT_TAB_VIEWED, {
+  client_id: 'demo', // Future: user.clientId
+  tab,
+ });
+ }, [tab]);
 
-  const renderTab = () => {
-    switch (tab) {
-      case "seo":
-        return <SEOTab />;
-      case "paid":
-        return <PaidMediaTab />;
-      case "funnel":
-        return <FunnelTab />;
-      case "content":
-        return <ContentTab />;
-      case "notes":
-        return <NotesTab />;
-      case "audits":
-        return <AuditsTab />;
-      case "health":
-        return <HealthHistoryTab />;
-      default:
-        return <OverviewTab />;
-    }
-  };
+ const renderTab = () => {
+ switch (tab) {
+  case "seo":
+  return <SEOTab />;
+  case "paid":
+  return <PaidMediaTab />;
+  case "funnel":
+  return <FunnelTab />;
+  case "content":
+  return <ContentTab />;
+  case "notes":
+  return <NotesTab />;
+  case "audits":
+  return <AuditsTab />;
+  case "health":
+  return <HealthHistoryTab />;
+  default:
+  return <OverviewTab />;
+ }
+ };
 
-  return (
-    <DashboardLayout isDemoMode={false} userName={userName}>
-      {renderTab()}
-    </DashboardLayout>
-  );
+ return (
+ <DashboardLayout isDemoMode={false} userName={userName}>
+  {renderTab()}
+ </DashboardLayout>
+ );
 };
 
 export default ClientPortal;
+

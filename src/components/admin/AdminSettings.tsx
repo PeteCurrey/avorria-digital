@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
@@ -226,6 +227,21 @@ export default function AdminSettings() {
         "Go to API Keys → Create API Key",
         "IMPORTANT: Also verify your domain at resend.com/domains",
         "Add the required DNS records for SPF, DKIM, DMARC",
+      ],
+    },
+    {
+      id: "claude",
+      name: "Claude AI (Anthropic)",
+      description: "Power all AI features and front-end chat across the platform",
+      secretName: "CLAUDE_API_KEY",
+      isConfigured: configuredKeys["claude"] ?? false,
+      docUrl: "https://console.anthropic.com/settings/keys",
+      icon: Sparkles,
+      instructions: [
+        "Sign up at console.anthropic.com",
+        "Go to Settings → API Keys",
+        "Create a new API key and copy it",
+        "Paste the key below to integrate Claude v3.5 Sonnet",
       ],
     },
   ];

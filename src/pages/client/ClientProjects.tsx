@@ -1,6 +1,6 @@
+'use client';
 import React from "react";
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { useAuth } from "@/hooks/useAuth";
 import { useMyProjects } from "@/hooks/useClientProjects";
@@ -45,9 +45,9 @@ const ClientProjects = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Projects - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"
@@ -124,7 +124,7 @@ const ClientProjects = () => {
                   </div>
 
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <Link to="/contact">
+                    <Link href="/contact">
                       <Button variant="default">
                         Start a Project
                         <ArrowRight className="ml-2 h-4 w-4" />
@@ -212,7 +212,7 @@ const ClientProjects = () => {
                           )}
                         </div>
 
-                        <Link to={`/client/projects/${project.id}`} className="mt-auto">
+                        <Link href={`/client/projects/${project.id}`} className="mt-auto">
                           <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
                             View Details
                             <ArrowRight className="ml-2 h-4 w-4" />
@@ -232,3 +232,4 @@ const ClientProjects = () => {
 };
 
 export default ClientProjects;
+

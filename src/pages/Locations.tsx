@@ -1,6 +1,7 @@
+﻿'use client';
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, MapPin, Globe } from "lucide-react";
@@ -163,13 +164,13 @@ const Locations = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button variant="accent" size="lg" asChild>
-                <Link to="/contact">
+                <Link href="/contact">
                   Get in Touch
                   <ArrowRight className="ml-2" size={20} />
                 </Link>
               </Button>
               <Button variant="outline" size="lg" asChild>
-                <Link to="/industries">Browse by Industry</Link>
+                <Link href="/industries">Browse by Industry</Link>
               </Button>
             </div>
           </div>
@@ -180,3 +181,4 @@ const Locations = () => {
 };
 
 export default Locations;
+

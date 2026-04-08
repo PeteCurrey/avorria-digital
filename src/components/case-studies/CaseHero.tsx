@@ -1,7 +1,8 @@
+﻿'use client';
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import React, { useRef } from "react";
 import type { CaseMetric } from "@/data/caseStudies";
 
@@ -103,7 +104,7 @@ export const CaseHero = ({
               transition={{ duration: 0.6, delay: 0.4 }}>
 
               <Button variant="accent" size="lg" asChild className="group">
-                <Link to={ctaHref}>
+                <Link href={ctaHref}>
                   {ctaText}
                   <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
                 </Link>
@@ -224,7 +225,7 @@ export const CaseHero = ({
             transition={{ duration: 0.6, delay: 0.4 }}>
 
             <Button variant="accent" size="lg" asChild className="group">
-              <Link to={ctaHref}>
+              <Link href={ctaHref}>
                 {ctaText}
                 <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" size={20} />
               </Link>

@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { formatDistanceToNow } from "date-fns";
@@ -249,3 +250,4 @@ export default function RealTimeActivityFeed() {
     </Card>
   );
 }
+

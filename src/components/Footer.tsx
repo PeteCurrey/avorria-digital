@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { Linkedin, Twitter, Instagram } from "lucide-react";
 import { trackNavClick } from "@/lib/tracking";
 
@@ -44,7 +45,7 @@ const Footer = () => {
       <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-16">
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 sm:gap-12 mb-10 sm:mb-12">
           <div className="col-span-2 md:col-span-3 lg:col-span-1">
-            <Link to="/" className="inline-block mb-4 sm:mb-6">
+            <Link href="/" className="inline-block mb-4 sm:mb-6">
               <span className="text-[1.75rem] font-extralight tracking-wider text-foreground">
                 Avorria<span className="text-pink-500 font-bold">.</span>
               </span>
@@ -151,13 +152,13 @@ const Footer = () => {
             © {new Date().getFullYear()} Avorria. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <Link to="/privacy" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
+            <Link href="/privacy" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
               Privacy Policy
             </Link>
-            <Link to="/terms" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
+            <Link href="/terms" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
               Terms of Service
             </Link>
-            <Link to="/sitemap" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
+            <Link href="/sitemap" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">
               Sitemap
             </Link>
           </div>

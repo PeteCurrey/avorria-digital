@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useRef, useEffect, useCallback } from "react";
 
 interface UseAmbientAudioOptions {
@@ -111,3 +112,4 @@ export function useAmbientAudio({
 }
 
 export default useAmbientAudio;
+

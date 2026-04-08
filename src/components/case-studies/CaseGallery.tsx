@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
@@ -149,3 +150,4 @@ export const CaseGallery = ({ media }: CaseGalleryProps) => {
     </>
   );
 };
+

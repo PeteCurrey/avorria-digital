@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 
@@ -99,3 +100,4 @@ export const OptimizedImage = ({
 };
 
 export default OptimizedImage;
+

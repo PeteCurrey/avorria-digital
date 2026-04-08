@@ -1,5 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 import SEOHead from "@/components/seo/SEOHead";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -9,7 +11,7 @@ import heroContactOffice from "@/assets/hero-contact-office.jpg";
 import heroServicesDigital from "@/assets/hero-services-digital.jpg";
 
 const AgencyTeardownThanks = () => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== 'undefined' && (window as any).gtag) {
@@ -21,14 +23,14 @@ const AgencyTeardownThanks = () => {
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'teardown_cta_book_call_clicked');
     }
-    navigate('/contact');
+    router.push('/contact');
   };
 
   const handleViewReporting = () => {
     if (typeof window !== 'undefined' && (window as any).gtag) {
       (window as any).gtag('event', 'teardown_cta_view_reporting_clicked');
     }
-    navigate('/reporting/demo');
+    router.push('/reporting/demo');
   };
 
   const containerVariants = {
@@ -335,3 +337,4 @@ const AgencyTeardownThanks = () => {
 };
 
 export default AgencyTeardownThanks;
+

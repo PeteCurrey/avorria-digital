@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { 
@@ -174,3 +175,4 @@ export const LiveSitePreview = ({
 };
 
 export default LiveSitePreview;
+

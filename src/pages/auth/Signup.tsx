@@ -1,6 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { Link, useSearchParams , useRouter} from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -14,13 +15,13 @@ const Signup = () => {
   const [fullName, setFullName] = useState("");
   const [loading, setLoading] = useState(false);
   const { signUp, user } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [searchParams] = useSearchParams();
   const returnTo = searchParams.get("returnTo") || "/platform";
 
   useEffect(() => {
     if (user) {
-      navigate(returnTo);
+      router.push(returnTo);
     }
   }, [user, navigate, returnTo]);
 
@@ -33,7 +34,7 @@ const Signup = () => {
     const { error } = await signUp(email, password, fullName, userType);
 
     if (!error) {
-      navigate(`/onboarding?type=${userType}`);
+      router.push(`/onboarding?type=${userType}`);
     }
 
     setLoading(false);
@@ -41,13 +42,13 @@ const Signup = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Sign Up - Avorria</title>
-      </Helmet>
+      
 
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-accent/5 p-4">
         <div className="w-full max-w-md">
-          <Link to="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
+          <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-8 transition-colors">
             <ArrowLeft className="h-4 w-4" />
             Back to home
           </Link>
@@ -114,7 +115,7 @@ const Signup = () => {
             <CardFooter className="flex flex-col space-y-2">
               <div className="text-sm text-muted-foreground text-center">
                 Already have an account?{" "}
-                <Link to={`/auth/login?returnTo=${returnTo}`} className="text-primary hover:underline">
+                <Link href={`/auth/login?returnTo=${returnTo}`} className="text-primary hover:underline">
                   Sign in
                 </Link>
               </div>

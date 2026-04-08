@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useRef, useEffect, useState, useCallback } from 'react';
 import { motion, useInView, useSpring, useTransform } from 'framer-motion';
 import confetti from 'canvas-confetti';
@@ -262,3 +263,4 @@ export const ExplosiveCountUp: React.FC<ExplosiveCountUpProps> = ({
 };
 
 export default ScrollExplosion;
+

@@ -1,6 +1,8 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import { motion } from "framer-motion";
 import { ArrowLeft, X } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/navigation";
 
 interface StudioNavProps {
   currentStep: number;
@@ -9,13 +11,13 @@ interface StudioNavProps {
 }
 
 export const StudioNav = ({ currentStep, totalSteps, onExit }: StudioNavProps) => {
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const handleExit = () => {
     if (onExit) {
       onExit();
     } else {
-      navigate("/web-design/studio");
+      router.push("/web-design/studio");
     }
   };
 
@@ -86,3 +88,4 @@ export const StudioNav = ({ currentStep, totalSteps, onExit }: StudioNavProps) =
 };
 
 export default StudioNav;
+

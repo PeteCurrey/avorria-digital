@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useEffect } from "react";
 
 interface Section {
@@ -36,3 +37,4 @@ export const useScrollSpy = (sections: Section[], offset = 100) => {
 
   return activeId;
 };
+

@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { faqs, getFAQsByCategory, categoryLabels } from "@/data/faqs";
@@ -107,13 +108,13 @@ const FAQs = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button size="lg" variant="accent" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book a strategy call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button size="lg" asChild className="border border-white/20 bg-white/[0.06] text-white hover:bg-white/10 backdrop-blur-sm">
-                  <Link to="/free-seo-website-audit">
+                  <Link href="/free-seo-website-audit">
                     Request a free audit
                   </Link>
                 </Button>

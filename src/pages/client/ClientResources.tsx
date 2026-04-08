@@ -1,5 +1,5 @@
-import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
+'use client';
+import Link from "next/link";
 import { useAuth } from "@/hooks/useAuth";
 import AppShell from "@/components/app/AppShell";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -88,9 +88,9 @@ const ClientResources = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Resources - Client Portal</title>
-      </Helmet>
+      
 
       <AppShell
         type="client"
@@ -126,7 +126,7 @@ const ClientResources = () => {
                       </div>
                       <h3 className="font-medium text-foreground mb-2">{guide.title}</h3>
                       <p className="text-sm text-muted-foreground mb-4">{guide.description}</p>
-                      <Link to={guide.url}>
+                      <Link href={guide.url}>
                         <Button variant="outline" size="sm" className="w-full">
                           Read guide
                           <ExternalLink className="ml-2 h-3 w-3" />
@@ -223,10 +223,10 @@ const ClientResources = () => {
                 If you need a specific resource or have questions about any of these materials, just ask.
               </p>
               <div className="flex gap-3 justify-center">
-                <Link to="/contact">
+                <Link href="/contact">
                   <Button>Get in touch</Button>
                 </Link>
-                <Link to="/client/audits">
+                <Link href="/client/audits">
                   <Button variant="outline">View audits</Button>
                 </Link>
               </div>
@@ -239,3 +239,4 @@ const ClientResources = () => {
 };
 
 export default ClientResources;
+

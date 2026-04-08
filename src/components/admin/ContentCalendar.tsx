@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { format, startOfMonth, endOfMonth, eachDayOfInterval, isSameMonth, isSameDay, addMonths, subMonths, parseISO, isToday } from "date-fns";
@@ -784,3 +785,4 @@ const ContentCalendar = () => {
 };
 
 export default ContentCalendar;
+

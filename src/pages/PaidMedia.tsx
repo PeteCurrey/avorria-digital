@@ -1,5 +1,6 @@
+﻿'use client';
 import React from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -243,13 +244,13 @@ const PaidMedia = () => {
                 className="flex flex-col sm:flex-row gap-4 justify-center"
               >
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book Strategy Call
                     <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline-dark" size="lg" asChild>
-                  <Link to="/free-seo-website-audit">Get Free Audit</Link>
+                  <Link href="/free-seo-website-audit">Get Free Audit</Link>
                 </Button>
               </motion.div>
             </div>
@@ -699,13 +700,13 @@ const PaidMedia = () => {
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">
                     <Button variant="accent" size="lg" asChild>
-                      <Link to="/contact">
+                      <Link href="/contact">
                         Book Strategy Call
                         <ArrowRight className="ml-2" size={20} />
                       </Link>
                     </Button>
                     <Button variant="outline-dark" size="lg" asChild>
-                      <Link to="/pricing">View Pricing</Link>
+                      <Link href="/pricing">View Pricing</Link>
                     </Button>
                   </div>
                 </ScrollReveal>
@@ -719,3 +720,4 @@ const PaidMedia = () => {
 };
 
 export default PaidMedia;
+

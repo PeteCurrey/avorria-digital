@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useEffect, useMemo, useState } from "react";
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { useStudioPreview } from "@/hooks/useStudioPreview";
@@ -319,3 +320,4 @@ export const AIPreviewCanvas = ({ state, activeStep, totalSteps }: AIPreviewCanv
     </div>
   );
 };
+

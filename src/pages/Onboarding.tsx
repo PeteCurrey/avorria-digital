@@ -1,6 +1,7 @@
+'use client';
+import Navigate from '@/components/Navigate';
 import React, { useState, useEffect } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
+import { useSearchParams , useRouter} from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -16,7 +17,7 @@ const Onboarding = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const { user, userRole } = useAuth();
-  const navigate = useNavigate();
+  const router = useRouter();
   const [searchParams] = useSearchParams();
   const userType = searchParams.get("type") || "client";
   const { toast } = useToast();
@@ -29,7 +30,7 @@ const Onboarding = () => {
 
   useEffect(() => {
     if (!user) {
-      navigate("/auth/login");
+      router.push("/auth/login");
     }
   }, [user, navigate]);
 
@@ -63,7 +64,7 @@ const Onboarding = () => {
 
       // Redirect based on user role
       const redirectPath = userRole === "client" ? "/client" : "/platform";
-      navigate(redirectPath);
+      router.push(redirectPath);
     } catch (error: any) {
       toast({
         title: "Error",
@@ -256,9 +257,9 @@ const Onboarding = () => {
 
   return (
     <>
-      <Helmet>
+      
         <title>Welcome - Avorria</title>
-      </Helmet>
+      
 
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-background to-accent/5 p-4">
         <div className="w-full max-w-4xl">

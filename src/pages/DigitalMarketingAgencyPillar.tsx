@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+﻿'use client';
+import Link from "next/link";
 import SEOHead from "@/components/seo/SEOHead";
 import { Button } from "@/components/ui/button";
 import {
@@ -278,12 +279,12 @@ const DigitalMarketingAgencyPillar = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="accent" size="lg" asChild>
-                  <Link to="/contact">
+                  <Link href="/contact">
                     Book strategy call <ArrowRight className="ml-2" size={20} />
                   </Link>
                 </Button>
                 <Button variant="outline" size="lg" asChild>
-                  <Link to="/free-seo-website-audit">Get free audit</Link>
+                  <Link href="/free-seo-website-audit">Get free audit</Link>
                 </Button>
               </div>
             </ScrollReveal>
@@ -295,3 +296,4 @@ const DigitalMarketingAgencyPillar = () => {
 };
 
 export default DigitalMarketingAgencyPillar;
+

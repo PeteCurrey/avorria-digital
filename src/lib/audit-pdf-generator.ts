@@ -1,3 +1,4 @@
+﻿'use client';
 import { jsPDF } from "jspdf";
 
 interface AuditSection {
@@ -1302,3 +1303,4 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   const safe = data.companyName.toLowerCase().replace(/[^a-z0-9]/g, "-").replace(/-+/g, "-");
   pdf.save(`avorria-audit-${safe}.pdf`);
 }
+

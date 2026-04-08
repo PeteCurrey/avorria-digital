@@ -1,5 +1,6 @@
+'use client';
 import React, { ReactNode, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useAuth } from "@/hooks/useAuth";
 import { Loader2 } from "lucide-react";
 
@@ -12,20 +13,20 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo = "/auth/login" }: ProtectedRouteProps) => {
   const { user, userRole, loading } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   const staffRoles = ["admin", "strategist", "specialist"];
   const isStaff = userRole && staffRoles.includes(userRole);
 
-  // Wait for BOTH auth AND role to fully resolve before any decisions
   const isFullyLoaded = !loading && (!user || userRole !== null);
 
   useEffect(() => {
     if (!isFullyLoaded) return;
 
     if (!user) {
-      navigate(`${redirectTo}?returnTo=${encodeURIComponent(location.pathname + location.search)}`);
+      router.push(`${redirectTo}?returnTo=${encodeURIComponent(pathname + (searchParams.toString() ? '?' + searchParams.toString() : ''))}`);
     } else if (requiredRole) {
       if (userRole === "admin" || userRole === "strategist") {
         // Full access
@@ -34,14 +35,13 @@ const ProtectedRoute = ({ children, requiredRole, allowStaff = false, redirectTo
       } else if (requiredRole === "client" && (userRole === "client" || isStaff)) {
         // Client pages accessible to clients and staff
       } else if (userRole !== requiredRole) {
-        navigate("/unauthorized");
+        router.push("/unauthorized");
       }
     } else if (allowStaff && !isStaff) {
-      navigate("/unauthorized");
+      router.push("/unauthorized");
     }
-  }, [user, userRole, isFullyLoaded, navigate, requiredRole, redirectTo, isStaff, allowStaff, location.pathname, location.search]);
+  }, [user, userRole, isFullyLoaded, router, requiredRole, redirectTo, isStaff, allowStaff, pathname, searchParams]);
 
-  // Show loading while auth or role is resolving
   if (!isFullyLoaded) {
     return (
       <div className="min-h-screen flex items-center justify-center">

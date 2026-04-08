@@ -1,3 +1,4 @@
+﻿'use client';
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -218,3 +219,4 @@ export function ExitIntentPopover() {
     document.body
   );
 }
+
