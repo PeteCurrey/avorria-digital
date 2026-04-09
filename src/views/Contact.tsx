@@ -14,7 +14,7 @@ import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 import { useCreateLead } from "@/hooks/useLeads";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import heroContactOffice from "@/assets/hero-contact-office.jpg";
+const heroContactOffice = "/assets/hero-contact-office.jpg";
 
 const Contact = () => {
   const pathname = usePathname();

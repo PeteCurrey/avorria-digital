@@ -5,10 +5,10 @@ import { useStudioPreview } from "@/hooks/useStudioPreview";
 import { Loader2 } from "lucide-react";
 
 // Fallback concept images for each purpose type
-import leadGenFallback from "@/assets/studio-previews/lead-gen.jpg";
-import authorityFallback from "@/assets/studio-previews/authority.jpg";
-import saasFallback from "@/assets/studio-previews/saas.jpg";
-import platformFallback from "@/assets/studio-previews/platform.jpg";
+const leadGenFallback = "/assets/studio-previews/lead-gen.jpg";
+const authorityFallback = "/assets/studio-previews/authority.jpg";
+const saasFallback = "/assets/studio-previews/saas.jpg";
+const platformFallback = "/assets/studio-previews/platform.jpg";
 
 const fallbackImages: Record<string, string> = {
   lead_gen: leadGenFallback,

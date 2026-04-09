@@ -14,7 +14,7 @@ import { HeroBand, SectionBand } from "@/components/ContentBand";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import heroImage from "@/assets/hero-services-digital.jpg";
+const heroImage = "/assets/hero-services-digital.jpg";
 import { locations } from "@/data/locations";
 
 const DigitalMarketingAgencyPillar = () => {

@@ -11,7 +11,7 @@ import { ArrowRight, CheckCircle2, Mail, FileText, X } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { HeroBand, SectionBand } from "@/components/ContentBand";
-import heroContentEmail from "@/assets/service-content-email.jpg";
+const heroContentEmail = "/assets/service-content-email.jpg";
 const ContentEmail = () => {
   const painPoints = ["You've got a blog, but it's not driving any leads â€“ just random traffic that never converts.", "Your email list is gathering dust because nobody knows what to send or when.", "Content gets produced, but there's no strategy connecting it to your sales process.", "You're creating content for the sake of it, without clear commercial intent.", "Your email open rates are fine, but nothing actually happens after people read them."];
   const contentIncluded = ["Content strategy tied to your buyer journey and commercial goals.", "Keyword research focused on high-intent, bottom-of-funnel terms.", "Topic clusters and pillar content planning.", "Long-form SEO content that ranks and converts.", "Case studies, comparison pages and sales enablement assets.", "Content refresh and optimisation for existing assets."];

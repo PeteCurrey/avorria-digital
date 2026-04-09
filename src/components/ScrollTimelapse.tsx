@@ -5,10 +5,10 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 // Import timelapse images
-import heroPenthouseDay from "@/assets/hero-penthouse.png";
-import heroPenthouseSunset from "@/assets/hero-penthouse-sunset.jpg";
-import heroPenthouseDusk from "@/assets/hero-penthouse-dusk.jpg";
-import heroPenthouseNight from "@/assets/hero-penthouse-night.jpg";
+const heroPenthouseDay = "/assets/hero-penthouse.png";
+const heroPenthouseSunset = "/assets/hero-penthouse-sunset.jpg";
+const heroPenthouseDusk = "/assets/hero-penthouse-dusk.jpg";
+const heroPenthouseNight = "/assets/hero-penthouse-night.jpg";
 
 interface ScrollTimelapseProps {
   className?: string;

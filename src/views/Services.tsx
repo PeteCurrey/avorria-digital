@@ -36,14 +36,14 @@ import FloatingElements from "@/components/FloatingElements";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
-import serviceWebDesign from "@/assets/service-web-design.jpg";
-import heroServicesDigital from "@/assets/hero-services-digital.jpg";
-import serviceSeo from "@/assets/service-seo.jpg";
-import servicePaidMedia from "@/assets/service-paid-media.jpg";
-import serviceContentEmail from "@/assets/service-content-email.jpg";
-import serviceSocialBrand from "@/assets/service-social-brand.jpg";
-import cityTimelapse from "@/assets/city-timelapse.mp4";
+const heroCityscape = "/assets/hero-cityscape.jpg";
+const serviceWebDesign = "/assets/service-web-design.jpg";
+const heroServicesDigital = "/assets/hero-services-digital.jpg";
+const serviceSeo = "/assets/service-seo.jpg";
+const servicePaidMedia = "/assets/service-paid-media.jpg";
+const serviceContentEmail = "/assets/service-content-email.jpg";
+const serviceSocialBrand = "/assets/service-social-brand.jpg";
+const cityTimelapse = "/assets/city-timelapse.mp4";
 
 const serviceImages: Record<string, string> = {
   SEO: serviceSeo,

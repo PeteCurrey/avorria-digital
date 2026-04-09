@@ -7,8 +7,8 @@ import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Image backgrounds for visual variety
-import heroRaceCar from "@/assets/hero-race-car.jpg";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
+const heroRaceCar = "/assets/hero-race-car.jpg";
+const heroCityscape = "/assets/hero-cityscape.jpg";
 interface ContentBandProps {
   headline: string;
   subheadline?: string;

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import { jsPDF } from "jspdf";
 
@@ -368,7 +368,7 @@ export async function generateAuditPDF(data: AuditPDFData): Promise<void> {
   // -- Load hero image --
   let heroImg: string | null = null;
   try {
-    const { default: src } = await import("@/assets/hero-penthouse.png");
+    const src = "/assets/hero-penthouse.png";
     const img = new Image();
     img.crossOrigin = "anonymous";
     await new Promise<void>((res, rej) => { img.onload = () => res(); img.onerror = rej; img.src = src; });

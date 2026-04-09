@@ -6,8 +6,8 @@ import { getLocationBySlug } from "./locations";
 import { serviceLocationLandingPages, getServiceLocationPageBySlug } from "./serviceLocationLandingPages";
 
 // Hero images for industry pages
-import dpAutoRepairHero from "@/assets/case-studies/dp-auto-repair-hero.png";
-import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
+const dpAutoRepairHero = "/assets/case-studies/dp-auto-repair-hero.png";
+const entirefmHero = "/assets/case-studies/entirefm-hero.jpg";
 
 export const landingPages: LandingPage[] = [
   // SEO for Trades & Home Services

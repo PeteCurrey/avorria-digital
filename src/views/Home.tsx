@@ -28,18 +28,18 @@ import TiltCard from "@/components/TiltCard";
 import GradientMesh from "@/components/GradientMesh";
 import SectionNav from "@/components/SectionNav";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
-import serviceSeo from "@/assets/service-seo.jpg";
-import servicePaidMedia from "@/assets/service-paid-media.jpg";
-import serviceWebDesign from "@/assets/service-web-design.jpg";
-import serviceContentEmail from "@/assets/service-content-email.jpg";
-import serviceSocialBrand from "@/assets/service-social-brand.jpg";
-import bgDataAnalytics from "@/assets/bg-data-analytics.jpg";
-import ognCraneHero from "@/assets/case-studies/ogn-crane-hero.jpg";
-import entirefmHero from "@/assets/case-studies/entirefm-hero.jpg";
-import heroRaceCar from "@/assets/hero-race-car.jpg";
-import heroPenthouse from "@/assets/hero-penthouse.png";
-import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
-import bgRaceCar from "@/assets/bg-race-car.png";
+const serviceSeo = "/assets/service-seo.jpg";
+const servicePaidMedia = "/assets/service-paid-media.jpg";
+const serviceWebDesign = "/assets/service-web-design.jpg";
+const serviceContentEmail = "/assets/service-content-email.jpg";
+const serviceSocialBrand = "/assets/service-social-brand.jpg";
+const bgDataAnalytics = "/assets/bg-data-analytics.jpg";
+const ognCraneHero = "/assets/case-studies/ogn-crane-hero.jpg";
+const entirefmHero = "/assets/case-studies/entirefm-hero.jpg";
+const heroRaceCar = "/assets/hero-race-car.jpg";
+const heroPenthouse = "/assets/hero-penthouse.png";
+const cityTimelapseVideo = "/assets/city-timelapse.mp4";
+const bgRaceCar = "/assets/bg-race-car.png";
 
 // Section definitions for scroll spy navigation
 const homeSections = [

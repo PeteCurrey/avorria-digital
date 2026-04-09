@@ -16,7 +16,7 @@ import { ArrowRight, CheckCircle2, BarChart3, MousePointer2, X } from "lucide-re
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { HeroBand, SectionBand } from "@/components/ContentBand";
-import heroServicesDigital from "@/assets/hero-services-digital.jpg";
+const heroServicesDigital = "/assets/hero-services-digital.jpg";
 
 const Analytics = () => {
   const painPoints = [

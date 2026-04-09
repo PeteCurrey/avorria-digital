@@ -6,10 +6,10 @@ import * as THREE from "three";
 import type { StudioConfig } from "@/types/studio";
 
 // Import preview images
-import leadGenPreview from "@/assets/studio-previews/lead-gen.jpg";
-import authorityPreview from "@/assets/studio-previews/authority.jpg";
-import saasPreview from "@/assets/studio-previews/saas.jpg";
-import platformPreview from "@/assets/studio-previews/platform.jpg";
+const leadGenPreview = "/assets/studio-previews/lead-gen.jpg";
+const authorityPreview = "/assets/studio-previews/authority.jpg";
+const saasPreview = "/assets/studio-previews/saas.jpg";
+const platformPreview = "/assets/studio-previews/platform.jpg";
 
 const previewImages: Record<string, string> = {
   "lead-generation": leadGenPreview,

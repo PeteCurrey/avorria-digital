@@ -34,10 +34,10 @@ import SEOHead from "@/components/seo/SEOHead";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import serviceWebDesign from "@/assets/service-web-design.jpg";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
-import heroWebDesignVideo from "@/assets/hero-web-design.mp4";
-import heroServicesDigital from "@/assets/hero-services-digital.jpg";
+const serviceWebDesign = "/assets/service-web-design.jpg";
+const heroCityscape = "/assets/hero-cityscape.jpg";
+const heroWebDesignVideo = "/assets/hero-web-design.mp4";
+const heroServicesDigital = "/assets/hero-services-digital.jpg";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { locations } from "@/data/locations";
 

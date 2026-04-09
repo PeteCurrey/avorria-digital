@@ -34,10 +34,10 @@ import SEOHead from "@/components/seo/SEOHead";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import servicePaidMedia from "@/assets/service-paid-media.jpg";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
-import heroPaidMediaVideo from "@/assets/hero-paid-media.mp4";
-import heroServicesDigital from "@/assets/hero-services-digital.jpg";
+const servicePaidMedia = "/assets/service-paid-media.jpg";
+const heroCityscape = "/assets/hero-cityscape.jpg";
+const heroPaidMediaVideo = "/assets/hero-paid-media.mp4";
+const heroServicesDigital = "/assets/hero-services-digital.jpg";
 
 const faqs = [
   {

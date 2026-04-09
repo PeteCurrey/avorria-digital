@@ -3,10 +3,10 @@ import { Target, BookOpen, Rocket, Layers } from "lucide-react";
 import type { StudioConfig } from "@/types/studio";
 
 // Import purpose images
-import leadGenImage from "@/assets/studio-previews/lead-gen.jpg";
-import authorityImage from "@/assets/studio-previews/authority.jpg";
-import saasImage from "@/assets/studio-previews/saas.jpg";
-import platformImage from "@/assets/studio-previews/platform.jpg";
+const leadGenImage = "/assets/studio-previews/lead-gen.jpg";
+const authorityImage = "/assets/studio-previews/authority.jpg";
+const saasImage = "/assets/studio-previews/saas.jpg";
+const platformImage = "/assets/studio-previews/platform.jpg";
 
 interface PurposeStepProps {
   config: StudioConfig;

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import ScrollExplosion, { ExplosiveCountUp } from '@/components/websites-we-fire/ScrollExplosion';
 import ParallaxBackground from '@/components/ParallaxBackground';
-import heroRaceCar from '@/assets/hero-race-car.jpg';
+const heroRaceCar = "/assets/hero-race-car.jpg";
 
 interface StatItem {
   value: number;

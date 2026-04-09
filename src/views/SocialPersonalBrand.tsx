@@ -16,7 +16,7 @@ import { ArrowRight, CheckCircle2, Users, Sparkles, X } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { HeroBand, SectionBand } from "@/components/ContentBand";
-import heroSocialBrand from "@/assets/service-social-brand.jpg";
+const heroSocialBrand = "/assets/service-social-brand.jpg";
 
 const SocialPersonalBrand = () => {
   const painPoints = [

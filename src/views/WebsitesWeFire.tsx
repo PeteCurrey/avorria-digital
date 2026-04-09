@@ -56,13 +56,13 @@ import {
 } from "@/components/websites-we-fire";
 
 // Import images
-import bgOfficeWorkspace from "@/assets/bg-office-workspace.jpg";
-import cityTimelapseVideo from "@/assets/city-timelapse.mp4";
-import badHeroSlider from "@/assets/examples/bad-hero-slider-v2.jpg";
-import goodHeroFocused from "@/assets/examples/good-hero-focused-v2.jpg";
-import badGeneralistSite from "@/assets/examples/bad-generalist-site-v2.jpg";
-import badNoCta from "@/assets/examples/bad-no-cta-v2.jpg";
-import badWallOfText from "@/assets/examples/bad-wall-of-text-v2.jpg";
+const bgOfficeWorkspace = "/assets/bg-office-workspace.jpg";
+const cityTimelapseVideo = "/assets/city-timelapse.mp4";
+const badHeroSlider = "/assets/examples/bad-hero-slider-v2.jpg";
+const goodHeroFocused = "/assets/examples/good-hero-focused-v2.jpg";
+const badGeneralistSite = "/assets/examples/bad-generalist-site-v2.jpg";
+const badNoCta = "/assets/examples/bad-no-cta-v2.jpg";
+const badWallOfText = "/assets/examples/bad-wall-of-text-v2.jpg";
 
 const WebsitesWeFire = () => {
   const { toast } = useToast();

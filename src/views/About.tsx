@@ -7,7 +7,7 @@ import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations
 import SectionReveal from "@/components/SectionReveal";
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import heroAboutTeam from "@/assets/hero-about-team.jpg";
+const heroAboutTeam = "/assets/hero-about-team.jpg";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
 
 const principles = [

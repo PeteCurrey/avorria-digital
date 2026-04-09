@@ -8,8 +8,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { CheckCircle2, Calendar, BarChart3, Target, TrendingUp, Shield } from "lucide-react";
-import heroContactOffice from "@/assets/hero-contact-office.jpg";
-import heroServicesDigital from "@/assets/hero-services-digital.jpg";
+const heroContactOffice = "/assets/hero-contact-office.jpg";
+const heroServicesDigital = "/assets/hero-services-digital.jpg";
 
 const AgencyTeardownThanks = () => {
   const router = useRouter();

@@ -27,10 +27,10 @@ import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
 import { useIsMobile } from "@/hooks/use-mobile";
 import ParallaxBackground from "@/components/ParallaxBackground";
-import heroSeoImage from "@/assets/service-seo.jpg";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
-import bgDataAnalytics from "@/assets/bg-data-analytics.jpg";
-import heroSeoVideo from "@/assets/hero-seo-analytics.mp4";
+const heroSeoImage = "/assets/service-seo.jpg";
+const heroCityscape = "/assets/hero-cityscape.jpg";
+const bgDataAnalytics = "/assets/bg-data-analytics.jpg";
+const heroSeoVideo = "/assets/hero-seo-analytics.mp4";
 
 const sectionNavItems = [
   { id: "hero", label: "Overview" },

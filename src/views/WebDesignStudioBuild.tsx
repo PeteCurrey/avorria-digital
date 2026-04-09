@@ -16,62 +16,62 @@ import { DesignBriefChat } from "@/components/studio/DesignBriefChat";
 import { useStepBasedAudio } from "@/hooks/useStepBasedAudio";
 
 // Lead Generation previews by palette and size
-import leadGenDark from "@/assets/studio-previews/lead-gen-dark.jpg";
-import leadGenLight from "@/assets/studio-previews/lead-gen-light.jpg";
-import leadGenMono from "@/assets/studio-previews/lead-gen-mono.jpg";
-import leadGenGradient from "@/assets/studio-previews/lead-gen-gradient.jpg";
-import leadGenDarkCompact from "@/assets/studio-previews/lead-gen-dark-compact.jpg";
-import leadGenDarkExpansive from "@/assets/studio-previews/lead-gen-dark-expansive.jpg";
-import leadGenLightCompact from "@/assets/studio-previews/lead-gen-light-compact.jpg";
-import leadGenLightExpansive from "@/assets/studio-previews/lead-gen-light-expansive.jpg";
-import leadGenMonoCompact from "@/assets/studio-previews/lead-gen-mono-compact.jpg";
-import leadGenMonoExpansive from "@/assets/studio-previews/lead-gen-mono-expansive.jpg";
-import leadGenGradientCompact from "@/assets/studio-previews/lead-gen-gradient-compact.jpg";
-import leadGenGradientExpansive from "@/assets/studio-previews/lead-gen-gradient-expansive.jpg";
+const leadGenDark = "/assets/studio-previews/lead-gen-dark.jpg";
+const leadGenLight = "/assets/studio-previews/lead-gen-light.jpg";
+const leadGenMono = "/assets/studio-previews/lead-gen-mono.jpg";
+const leadGenGradient = "/assets/studio-previews/lead-gen-gradient.jpg";
+const leadGenDarkCompact = "/assets/studio-previews/lead-gen-dark-compact.jpg";
+const leadGenDarkExpansive = "/assets/studio-previews/lead-gen-dark-expansive.jpg";
+const leadGenLightCompact = "/assets/studio-previews/lead-gen-light-compact.jpg";
+const leadGenLightExpansive = "/assets/studio-previews/lead-gen-light-expansive.jpg";
+const leadGenMonoCompact = "/assets/studio-previews/lead-gen-mono-compact.jpg";
+const leadGenMonoExpansive = "/assets/studio-previews/lead-gen-mono-expansive.jpg";
+const leadGenGradientCompact = "/assets/studio-previews/lead-gen-gradient-compact.jpg";
+const leadGenGradientExpansive = "/assets/studio-previews/lead-gen-gradient-expansive.jpg";
 
 // Content Hub previews by palette and size
-import contentHubDark from "@/assets/studio-previews/content-hub-dark.jpg";
-import contentHubLight from "@/assets/studio-previews/content-hub-light.jpg";
-import contentHubMono from "@/assets/studio-previews/content-hub-mono.jpg";
-import contentHubGradient from "@/assets/studio-previews/content-hub-gradient.jpg";
-import contentHubDarkCompact from "@/assets/studio-previews/content-hub-dark-compact.jpg";
-import contentHubDarkExpansive from "@/assets/studio-previews/content-hub-dark-expansive.jpg";
-import contentHubLightCompact from "@/assets/studio-previews/content-hub-light-compact.jpg";
-import contentHubLightExpansive from "@/assets/studio-previews/content-hub-light-expansive.jpg";
-import contentHubMonoCompact from "@/assets/studio-previews/content-hub-mono-compact.jpg";
-import contentHubMonoExpansive from "@/assets/studio-previews/content-hub-mono-expansive.jpg";
-import contentHubGradientCompact from "@/assets/studio-previews/content-hub-gradient-compact.jpg";
-import contentHubGradientExpansive from "@/assets/studio-previews/content-hub-gradient-expansive.jpg";
+const contentHubDark = "/assets/studio-previews/content-hub-dark.jpg";
+const contentHubLight = "/assets/studio-previews/content-hub-light.jpg";
+const contentHubMono = "/assets/studio-previews/content-hub-mono.jpg";
+const contentHubGradient = "/assets/studio-previews/content-hub-gradient.jpg";
+const contentHubDarkCompact = "/assets/studio-previews/content-hub-dark-compact.jpg";
+const contentHubDarkExpansive = "/assets/studio-previews/content-hub-dark-expansive.jpg";
+const contentHubLightCompact = "/assets/studio-previews/content-hub-light-compact.jpg";
+const contentHubLightExpansive = "/assets/studio-previews/content-hub-light-expansive.jpg";
+const contentHubMonoCompact = "/assets/studio-previews/content-hub-mono-compact.jpg";
+const contentHubMonoExpansive = "/assets/studio-previews/content-hub-mono-expansive.jpg";
+const contentHubGradientCompact = "/assets/studio-previews/content-hub-gradient-compact.jpg";
+const contentHubGradientExpansive = "/assets/studio-previews/content-hub-gradient-expansive.jpg";
 
 // SaaS previews by palette and size
-import saasDark from "@/assets/studio-previews/saas-dark.jpg";
-import saasLight from "@/assets/studio-previews/saas-light.jpg";
-import saasMono from "@/assets/studio-previews/saas-mono.jpg";
-import saasGradient from "@/assets/studio-previews/saas-gradient.jpg";
-import saasDarkCompact from "@/assets/studio-previews/saas-dark-compact.jpg";
-import saasDarkExpansive from "@/assets/studio-previews/saas-dark-expansive.jpg";
-import saasLightCompact from "@/assets/studio-previews/saas-light-compact.jpg";
-import saasLightExpansive from "@/assets/studio-previews/saas-light-expansive.jpg";
-import saasMonoCompact from "@/assets/studio-previews/saas-mono-compact.jpg";
-import saasMonoExpansive from "@/assets/studio-previews/saas-mono-expansive.jpg";
-import saasGradientCompact from "@/assets/studio-previews/saas-gradient-compact.jpg";
-import saasGradientExpansive from "@/assets/studio-previews/saas-gradient-expansive.jpg";
+const saasDark = "/assets/studio-previews/saas-dark.jpg";
+const saasLight = "/assets/studio-previews/saas-light.jpg";
+const saasMono = "/assets/studio-previews/saas-mono.jpg";
+const saasGradient = "/assets/studio-previews/saas-gradient.jpg";
+const saasDarkCompact = "/assets/studio-previews/saas-dark-compact.jpg";
+const saasDarkExpansive = "/assets/studio-previews/saas-dark-expansive.jpg";
+const saasLightCompact = "/assets/studio-previews/saas-light-compact.jpg";
+const saasLightExpansive = "/assets/studio-previews/saas-light-expansive.jpg";
+const saasMonoCompact = "/assets/studio-previews/saas-mono-compact.jpg";
+const saasMonoExpansive = "/assets/studio-previews/saas-mono-expansive.jpg";
+const saasGradientCompact = "/assets/studio-previews/saas-gradient-compact.jpg";
+const saasGradientExpansive = "/assets/studio-previews/saas-gradient-expansive.jpg";
 
 // Service Portal previews by palette and size
-import serviceDark from "@/assets/studio-previews/service-dark.jpg";
-import serviceLight from "@/assets/studio-previews/service-light.jpg";
-import serviceMono from "@/assets/studio-previews/service-mono.jpg";
-import serviceGradient from "@/assets/studio-previews/service-gradient.jpg";
-import serviceDarkCompact from "@/assets/studio-previews/service-dark-compact.jpg";
-import serviceDarkExpansive from "@/assets/studio-previews/service-dark-expansive.jpg";
-import serviceLightCompact from "@/assets/studio-previews/service-light-compact.jpg";
-import serviceLightExpansive from "@/assets/studio-previews/service-light-expansive.jpg";
-import serviceMonoCompact from "@/assets/studio-previews/service-mono-compact.jpg";
-import serviceMonoExpansive from "@/assets/studio-previews/service-mono-expansive.jpg";
-import serviceGradientCompact from "@/assets/studio-previews/service-gradient-compact.jpg";
-import serviceGradientExpansive from "@/assets/studio-previews/service-gradient-expansive.jpg";
+const serviceDark = "/assets/studio-previews/service-dark.jpg";
+const serviceLight = "/assets/studio-previews/service-light.jpg";
+const serviceMono = "/assets/studio-previews/service-mono.jpg";
+const serviceGradient = "/assets/studio-previews/service-gradient.jpg";
+const serviceDarkCompact = "/assets/studio-previews/service-dark-compact.jpg";
+const serviceDarkExpansive = "/assets/studio-previews/service-dark-expansive.jpg";
+const serviceLightCompact = "/assets/studio-previews/service-light-compact.jpg";
+const serviceLightExpansive = "/assets/studio-previews/service-light-expansive.jpg";
+const serviceMonoCompact = "/assets/studio-previews/service-mono-compact.jpg";
+const serviceMonoExpansive = "/assets/studio-previews/service-mono-expansive.jpg";
+const serviceGradientCompact = "/assets/studio-previews/service-gradient-compact.jpg";
+const serviceGradientExpansive = "/assets/studio-previews/service-gradient-expansive.jpg";
 
-import studioBackground from "@/assets/studio-mockup-dark.jpg";
+const studioBackground = "/assets/studio-mockup-dark.jpg";
 import type { StudioConfig } from "@/types/studio";
 
 // 3D Preview matrix: purpose -> palette -> size -> image

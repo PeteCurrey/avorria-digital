@@ -14,7 +14,7 @@ import { HeroBand, SectionBand } from "@/components/ContentBand";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import heroImage from "@/assets/service-paid-media.jpg";
+const heroImage = "/assets/service-paid-media.jpg";
 import { locations } from "@/data/locations";
 
 const PaidMediaAgencyPillar = () => {

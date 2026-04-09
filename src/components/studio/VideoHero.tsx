@@ -5,8 +5,8 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Volume2, VolumeX, Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
-import heroCityscape from "@/assets/hero-cityscape.jpg";
-import studioCityscapeVideo from "@/assets/studio-cityscape.mp4";
+const heroCityscape = "/assets/hero-cityscape.jpg";
+const studioCityscapeVideo = "/assets/studio-cityscape.mp4";
 import { useGeneratedAmbientAudio } from "@/hooks/useGeneratedAmbientAudio";
 
 interface VideoHeroProps {

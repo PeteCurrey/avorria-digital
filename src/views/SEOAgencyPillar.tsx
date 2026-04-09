@@ -15,7 +15,7 @@ import { HeroBand, SectionBand } from "@/components/ContentBand";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
-import heroImage from "@/assets/service-seo.jpg";
+const heroImage = "/assets/service-seo.jpg";
 import { locations } from "@/data/locations";
 
 const SEOAgencyPillar = () => {
