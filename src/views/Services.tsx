@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React, { useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -59,7 +59,7 @@ const services = [
   icon: Search,
   title: "SEO",
   description:
-  "Technical SEO, site architecture and on-page optimisation for real businesses Ã¢â‚¬â€œ not bloggers. We fix what's broken, build the pages and content you're missing and target the keywords that attract qualified demand.",
+  "Technical SEO, site architecture and on-page optimisation for real businesses  not bloggers. We fix what's broken, build the pages and content you're missing and target the keywords that attract qualified demand.",
   href: "/services/seo",
   stat: "+132%",
   statLabel: "avg organic traffic"
@@ -86,7 +86,7 @@ const services = [
   icon: Mail,
   title: "Content & Email Marketing",
   description:
-  "Long-form content, playbooks and email sequences designed to educate buyers, warm up demand and support your sales team. No random blogs Ã¢â‚¬â€œ just assets that move people to ready-to-talk.",
+  "Long-form content, playbooks and email sequences designed to educate buyers, warm up demand and support your sales team. No random blogs  just assets that move people to ready-to-talk.",
   href: "/services/content-email",
   stat: "+312%",
   statLabel: "email revenue"
@@ -115,27 +115,27 @@ const faqs = [
 {
   question: "How do you decide which services a business needs?",
   answer:
-  "We start with a diagnostic Ã¢â‚¬â€œ a free audit of your website, analytics, SEO footprint and paid activity. From there we recommend only the channels that will move your pipeline in the next 90 days. We don't sell packages; we build a scope around what your business actually needs right now."
+  "We start with a diagnostic  a free audit of your website, analytics, SEO footprint and paid activity. From there we recommend only the channels that will move your pipeline in the next 90 days. We don't sell packages; we build a scope around what your business actually needs right now."
 },
 {
   question: "Do we have to commit to all services at once?",
   answer:
-  "No. Most clients start with one or two services Ã¢â‚¬â€œ usually SEO and web design or paid media and analytics. Once those channels are generating predictable results, we layer in additional services. You're never locked in; every engagement is month-to-month after the initial build phase."
+  "No. Most clients start with one or two services  usually SEO and web design or paid media and analytics. Once those channels are generating predictable results, we layer in additional services. You're never locked in; every engagement is month-to-month after the initial build phase."
 },
 {
   question: "How quickly will we see results?",
   answer:
-  "Paid media campaigns typically show meaningful data within 2Ã¢â‚¬â€œ4 weeks. SEO is a compounding channel Ã¢â‚¬â€œ expect early wins in months 2Ã¢â‚¬â€œ3 and significant traction by month 6. Web design projects launch in 6Ã¢â‚¬â€œ10 weeks depending on scope. We set realistic timelines upfront so there are no surprises."
+  "Paid media campaigns typically show meaningful data within 24 weeks. SEO is a compounding channel  expect early wins in months 23 and significant traction by month 6. Web design projects launch in 610 weeks depending on scope. We set realistic timelines upfront so there are no surprises."
 },
 {
   question: "What industries do you work with?",
   answer:
-  "We specialise in B2B and service businesses Ã¢â‚¬â€œ professional services, SaaS, construction, trades, healthcare and e-commerce. If you sell a considered purchase (not impulse buys), our approach is likely a strong fit. We've worked with businesses from Ã‚Â£500k to Ã‚Â£50M+ in revenue."
+  "We specialise in B2B and service businesses  professional services, SaaS, construction, trades, healthcare and e-commerce. If you sell a considered purchase (not impulse buys), our approach is likely a strong fit. We've worked with businesses from —500k to —50M+ in revenue."
 },
 {
   question: "How is Avorria different from other digital marketing agencies?",
   answer:
-  "Three things: we only take on work where we can demonstrably impact pipeline and revenue; we build and own the assets (sites, landing pages, dashboards) rather than outsourcing to freelancers; and we report on commercial outcomes Ã¢â‚¬â€œ leads, cost per acquisition, pipeline value Ã¢â‚¬â€œ not vanity metrics like impressions."
+  "Three things: we only take on work where we can demonstrably impact pipeline and revenue; we build and own the assets (sites, landing pages, dashboards) rather than outsourcing to freelancers; and we report on commercial outcomes  leads, cost per acquisition, pipeline value  not vanity metrics like impressions."
 },
 {
   question: "What does the onboarding process look like?",
@@ -146,19 +146,19 @@ const faqs = [
 
 const processSteps = [
 {
-  phase: "Week 1Ã¢â‚¬â€œ2",
+  phase: "Week 12",
   title: "Diagnostic & Discovery",
   description:
   "We audit your website, analytics, SEO footprint, ad accounts and competitor landscape. You get a blunt assessment of what's working, what isn't and where the biggest opportunities sit."
 },
 {
-  phase: "Week 3Ã¢â‚¬â€œ4",
+  phase: "Week 34",
   title: "Strategy & Roadmap",
   description:
-  "We build a prioritised 90-day plan with clear KPIs, channel recommendations and a phased timeline. No 40-page decks Ã¢â‚¬â€œ just the decisions that matter and the order to execute them."
+  "We build a prioritised 90-day plan with clear KPIs, channel recommendations and a phased timeline. No 40-page decks  just the decisions that matter and the order to execute them."
 },
 {
-  phase: "Month 2Ã¢â‚¬â€œ3",
+  phase: "Month 23",
   title: "Build & Launch",
   description:
   "We execute the highest-impact items first: landing pages, ad campaigns, technical SEO fixes, tracking setup. Every deliverable is reviewed with you before it goes live."
@@ -167,7 +167,7 @@ const processSteps = [
   phase: "Month 4+",
   title: "Optimise & Scale",
   description:
-  "With data flowing, we run weekly optimisation cycles Ã¢â‚¬â€œ adjusting bids, testing copy, publishing content, improving conversion rates. Monthly reviews tie everything back to pipeline and revenue."
+  "With data flowing, we run weekly optimisation cycles  adjusting bids, testing copy, publishing content, improving conversion rates. Monthly reviews tie everything back to pipeline and revenue."
 }];
 
 
@@ -191,7 +191,7 @@ const Services = () => {
     <>
       <SEOHead
         title="Digital Marketing Services | SEO, Paid Media & Web Design"
-        description="Full-service digital marketing for B2B and service businesses. SEO, paid media, web design, content marketing and analytics Ã¢â‚¬â€œ all tied to pipeline and revenue, not vanity metrics."
+        description="Full-service digital marketing for B2B and service businesses. SEO, paid media, web design, content marketing and analytics  all tied to pipeline and revenue, not vanity metrics."
         canonical="/services"
         keywords={[
         "digital marketing services",
@@ -221,7 +221,7 @@ const Services = () => {
       <SectionNav sections={sectionNavItems} activeId={activeSection} />
 
       <div className="min-h-screen">
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 1. HERO: Video Background Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 1. HERO: Video Background â———â——— */}
         <section id="hero" className="relative overflow-hidden" style={{ minHeight: "75vh" }}>
           {/* Video Background (desktop) / Image (mobile) */}
           <div className="absolute inset-0">
@@ -237,7 +237,7 @@ const Services = () => {
                 <source src={cityTimelapse} type="video/mp4" />
               </video> :
 
-            <img src={heroServicesDigital} alt="" className="w-full h-full object-cover" loading="eager" />
+            <img src={heroServicesDigital} alt="Full-stack digital marketing services for B2B and service businesses - Avorria Digital" className="w-full h-full object-cover" loading="eager" />
             }
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
@@ -293,14 +293,14 @@ const Services = () => {
           </div>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 2. LOGO WALL Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â â  2. LOGO WALL â â  */}
         <div className="bg-background border-b border-border">
           <div className="max-w-6xl mx-auto px-6">
             <LogoWall title="Trusted by growing businesses" />
           </div>
         </div>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 3. INTRODUCTION Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â â  3. INTRODUCTION â â  */}
         <section id="intro" className="relative">
           <FloatingElements />
           <SectionBand background="light">
@@ -312,7 +312,7 @@ const Services = () => {
                   </h2>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      Most agencies sell channels in silos Ã¢â‚¬â€œ an SEO team here, a PPC team there, a web
+                      Most agencies sell channels in silos   an SEO team here, a PPC team there, a web
                       designer somewhere else. The result? Disconnected tactics, duplicated effort and
                       no one owning the commercial outcome.
                     </p>
@@ -324,7 +324,7 @@ const Services = () => {
                     </p>
                     <p>
                       The goal isn't to run more campaigns. It's to build a marketing engine that
-                      generates qualified leads predictably Ã¢â‚¬â€œ one you can scale up when you're ready
+                      generates qualified leads predictably   one you can scale up when you're ready
                       and that compounds over time.
                     </p>
                   </div>
@@ -341,7 +341,7 @@ const Services = () => {
                     {
                       icon: Globe,
                       title: "Integrated channels",
-                      desc: "SEO, paid, web and content working as one system Ã¢â‚¬â€œ not competing for credit."
+                      desc: "SEO, paid, web and content working as one system   not competing for credit."
                     },
                     {
                       icon: Zap,
@@ -372,7 +372,7 @@ const Services = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 4. SERVICES GRID: Staggered with background images Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â â  4. SERVICES GRID: Staggered with background images â â  */}
         <section id="services">
           <SectionBand background="gradient">
             <div className="max-w-6xl mx-auto">
@@ -410,7 +410,7 @@ const Services = () => {
                         <div className="absolute inset-0">
                             <img
                             src={bgImage}
-                            alt=""
+                            alt={`${service.title} - Digital marketing service by Avorria`}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                             loading="lazy" />
                           
@@ -453,9 +453,9 @@ const Services = () => {
           </SectionBand>
         </section>
 
-        <OpinionatedQuote quote="If your agency reports on impressions and clicks but can't tell you cost per qualified lead, they're not a marketing partner Ã¢â‚¬â€œ they're a media buyer with a nice deck." />
+        <OpinionatedQuote quote="If your agency reports on impressions and clicks but can't tell you cost per qualified lead, they're not a marketing partner  they're a media buyer with a nice deck." />
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 5. PROCESS: Horizontal Scroll on Desktop Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 5. PROCESS: Horizontal Scroll on Desktop â———â——— */}
         <section id="process">
           <SectionBand background="dark">
             <div className="max-w-6xl mx-auto">
@@ -465,7 +465,7 @@ const Services = () => {
                     How we work
                   </h2>
                   <p className="text-lg text-white/70 max-w-2xl mx-auto">
-                    A clear, phased approach that gets to results fast Ã¢â‚¬â€œ no drawn-out discovery phases
+                    A clear, phased approach that gets to results fast  no drawn-out discovery phases
                     or months of "building foundations" before anything happens.
                   </p>
                 </div>
@@ -524,7 +524,7 @@ const Services = () => {
         {/* Stats */}
         <ServiceStatsExplosion />
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 6. DELIVERABLES Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 6. DELIVERABLES â———â——— */}
         <section id="deliverables">
           <SectionBand background="light">
             <div className="max-w-5xl mx-auto">
@@ -568,10 +568,10 @@ const Services = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 7. COMPARISON GRID Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 7. COMPARISON GRID â———â——— */}
         <ServiceComparisonGrid />
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 8. WEB DESIGN FEATURE: Sticky Image Parallax Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 8. WEB DESIGN FEATURE: Sticky Image Parallax â———â——— */}
         <section id="web-design">
           <StickyImageSection
             backgroundImage={serviceWebDesign}
@@ -603,12 +603,12 @@ const Services = () => {
                     <Link href="/case-study/entirefm-rebrand" className="block group">
                       <img
                         src="https://delvgmrcfaeubuixprwz.supabase.co/storage/v1/object/public/case-study-images/hero/1765529644769-8zabue.png"
-                        alt="EntireFM website redesign Ã¢â‚¬â€œ facilities management case study by Avorria"
+                        alt="EntireFM website redesign  facilities management case study by Avorria"
                         className="rounded-xl shadow-2xl w-full group-hover:shadow-accent/20 transition-shadow duration-300 border border-white/10"
                         loading="lazy" />
                       
                       <p className="text-sm text-white/50 mt-3 group-hover:text-accent transition-colors">
-                        Case Study: EntireFM Digital Transformation Ã¢â€ â€™
+                        Case Study: EntireFM Digital Transformation —
                       </p>
                     </Link>
                   </ScrollReveal>
@@ -618,7 +618,7 @@ const Services = () => {
           </StickyImageSection>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 9. TESTIMONIALS Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 9. TESTIMONIALS â———â——— */}
         {testimonials && testimonials.length > 0 &&
         <section id="testimonials">
             <SectionBand background="dark">
@@ -666,7 +666,7 @@ const Services = () => {
           </section>
         }
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 10. FAQ Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 10. FAQ â———â——— */}
         <section id="faq">
           <SectionBand background="gradient">
             <div className="max-w-3xl mx-auto">
@@ -701,7 +701,7 @@ const Services = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 11. FINAL CTA Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* â———â——— 11. FINAL CTA â———â——— */}
         <section>
           <ParallaxBackground
             backgroundImage={heroCityscape}
@@ -716,7 +716,7 @@ const Services = () => {
                     Ready to build a marketing engine that compounds?
                   </h2>
                   <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
-                    Book a strategy call or request a free audit and we'll tell you Ã¢â‚¬â€œ bluntly Ã¢â‚¬â€œ
+                    Book a strategy call or request a free audit and we'll tell you  bluntly 
                     where your next 90 days of effort should go.
                   </p>
                   <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -8,7 +8,7 @@ import type { CaseMetric } from "@/data/caseStudies";
 import Image from "next/image";
 
 interface CaseHeroProps {
-  // Lobby hero
+
   isLobby?: boolean;
   headline?: string;
   subheadline?: string;
@@ -20,7 +20,6 @@ interface CaseHeroProps {
     poster?: string;
   };
 
-  // Detail hero
   kpiBadges?: CaseMetric[];
   client?: string;
   sector?: string;
@@ -37,7 +36,7 @@ export const CaseHero = ({
   client,
   sector
 }: CaseHeroProps) => {
-  // For lobby pages, keep the original full background media hero
+
   if (isLobby) {
     return (
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
@@ -136,7 +135,6 @@ export const CaseHero = ({
     );
   }
 
-  // For detail pages, use half-page hero with solid background
   return (
     <section className="relative min-h-[50vh] flex items-center overflow-hidden">
       <div className="absolute inset-0 z-0 bg-slate-950">

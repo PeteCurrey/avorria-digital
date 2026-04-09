@@ -25,7 +25,7 @@ export function useAdminTheme() {
     setTheme(theme === "dark" ? "light" : "dark");
   }, [theme, setTheme]);
 
-  // No DOM side-effects here â€” the component applies the class
+  // No DOM side-effects here -- the component applies the class
   return { theme, setTheme, toggle, isDark: theme === "dark" };
 }
 

@@ -35,8 +35,6 @@ export interface CaseStudy {
   timeframe: string;
   year: number;
   outcome: 'leads' | 'revenue' | 'traffic' | 'efficiency';
-  
-  // Hero
   heroMedia: {
     type: 'image' | 'video';
     src: string;

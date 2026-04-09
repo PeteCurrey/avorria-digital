@@ -201,7 +201,7 @@ const WebsiteHealthCheck = () => {
   return (
     <>
       <SEOHead
-        title="Free Website Health Check Ã¢â‚¬â€œ See How Your Site Stacks Up"
+        title="Free Website Health Check – See How Your Site Stacks Up"
         description="Enter your URL and get a simple, honest summary of how your website is performing across SEO, performance and conversion basics."
         canonical="/website-health-check"
         keywords={["website health check", "SEO checker", "website audit", "site performance", "free SEO tool"]}
@@ -216,7 +216,7 @@ const WebsiteHealthCheck = () => {
         <section className="pt-32 pb-16 px-4">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl md:text-6xl font-light mb-6 text-foreground">
-              Website health check Ã¢â‚¬â€œ see how your site stacks up.
+              Website health check – see how your site stacks up.
             </h1>
             <p className="text-xl text-muted-foreground mb-8">
               Enter your URL and get a simple, honest summary of how your website is performing across SEO, performance and conversion basics.

@@ -12,7 +12,7 @@ export interface SitemapUrl {
   status?: "indexed" | "pending" | "error";
 }
 
-// Core pages - always included
+// ------------------------------ Core Pages ------------------------------
 export const corePages: SitemapUrl[] = [
   { path: "/", name: "Homepage", priority: 1.0, changeFreq: "daily", category: "Core", status: "indexed" },
   { path: "/services", name: "Services", priority: 0.9, changeFreq: "weekly", category: "Core", status: "indexed" },
@@ -43,7 +43,7 @@ export const corePages: SitemapUrl[] = [
   { path: "/sitemap", name: "HTML Sitemap", priority: 0.3, changeFreq: "monthly", category: "Core", status: "indexed" },
 ];
 
-// Service Industry landing pages - use /lp/ pattern to match routes
+// ------------------------------ Service-Industry Landing Pages ------------------------------
 export const getServiceIndustryPages = (): SitemapUrl[] => {
   return landingPages
     .filter(lp => lp.type === "service-industry")
@@ -57,7 +57,7 @@ export const getServiceIndustryPages = (): SitemapUrl[] => {
     }));
 };
 
-// Location-based geo pages (service x location combinations)
+// ------------------------------ Service-Location (Geo) Pages ------------------------------
 // Uses slash pattern to match actual routes: /seo-agency/london
 export const getGeoPages = (): SitemapUrl[] => {
   const services = [
@@ -91,14 +91,14 @@ export const getResourcePages = (): SitemapUrl[] => {
   }));
 };
 
-// Pillar pages
+  // ------------------------------ Pillar Pages ------------------------------
 export const pillarPages: SitemapUrl[] = [
   { path: "/seo-agency", name: "SEO Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
   { path: "/paid-media-agency", name: "Paid Media Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
   { path: "/digital-marketing-agency", name: "Digital Marketing Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
 ];
 
-// Tool pages - use correct route paths
+  // ------------------------------ Tool Pages ------------------------------
 export const toolPages: SitemapUrl[] = [
   { path: "/tools", name: "Free Tools", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
   { path: "/website-health-check", name: "Website Health Check", priority: 0.8, changeFreq: "monthly", category: "Tools", status: "indexed" },
@@ -108,7 +108,7 @@ export const toolPages: SitemapUrl[] = [
   { path: "/web-design/studio", name: "Web Design Studio", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
 ];
 
-// Legal pages
+  // ------------------------------ Legal Pages ------------------------------
 export const legalPages: SitemapUrl[] = [
   { path: "/privacy", name: "Privacy Policy", priority: 0.3, changeFreq: "yearly", category: "Legal", status: "indexed" },
   { path: "/terms", name: "Terms of Service", priority: 0.3, changeFreq: "yearly", category: "Legal", status: "indexed" },

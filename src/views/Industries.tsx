@@ -26,7 +26,7 @@ const Industries = () => {
     "multi-location": <MapPin className="h-8 w-8" />,
   };
 
-  // Services that have industry-specific landing pages
+// ------------------------------ Service-Industry Landing Pages ------------------------------
   const servicesWithIndustryPages = [
     { slug: "seo", name: "SEO", prefix: "/seo" },
     { slug: "web-design", name: "Web Design", prefix: "/web-design" },
@@ -101,7 +101,7 @@ const Industries = () => {
                       <ul className="space-y-1">
                         {industry.painPoints.slice(0, 3).map((point, idx) => (
                           <li key={idx} className="text-sm text-muted-foreground flex items-start">
-                            <span className="text-accent mr-2 mt-0.5">Ã¢â‚¬Â¢</span>
+                            <span className="text-accent mr-2 mt-0.5"> · </span>
                             <span className="line-clamp-1">{point}</span>
                           </li>
                         ))}

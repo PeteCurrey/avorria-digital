@@ -104,7 +104,7 @@ const Contact = () => {
 
   return <>
       <SEOHead
-        title="Contact Avorria Ã¢â‚¬â€œ Book a Strategy Call"
+        title="Contact Avorria – Book a Strategy Call"
         description="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services across the UK and USA."
         canonical="/contact"
         keywords={["contact avorria", "book strategy call", "digital marketing consultation", "SEO consultation"]}
@@ -175,10 +175,10 @@ const Contact = () => {
                               <SelectValue placeholder="Select range" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="0-2500">Ãƒâ€šÃ‚Â£0 - Ãƒâ€šÃ‚Â£2,500</SelectItem>
-                              <SelectItem value="2500-5000">Ãƒâ€šÃ‚Â£2,500 - Ãƒâ€šÃ‚Â£5,000</SelectItem>
-                              <SelectItem value="5000-10000">Ãƒâ€šÃ‚Â£5,000 - Ãƒâ€šÃ‚Â£10,000</SelectItem>
-                              <SelectItem value="10000+">Ãƒâ€šÃ‚Â£10,000+</SelectItem>
+                              <SelectItem value="0-2500">£0 - £2,500</SelectItem>
+                              <SelectItem value="2500-5000">£2,500 - £5,000</SelectItem>
+                              <SelectItem value="5000-10000">£5,000 - £10,000</SelectItem>
+                              <SelectItem value="10000+">£10,000+</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>

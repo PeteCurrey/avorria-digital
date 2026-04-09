@@ -204,7 +204,7 @@ const ClientWebsiteHealth = () => {
                   <ul className="space-y-3">
                     {whatsImproved.map((item, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <span className="text-green-600 mt-1">Ã¢Å“â€œ</span>
+                        <span className="text-green-600 mt-1">✅œ</span>
                         <span className="text-sm text-foreground">{item}</span>
                       </li>
                     ))}
@@ -223,7 +223,7 @@ const ClientWebsiteHealth = () => {
                   <ul className="space-y-3">
                     {stillNeeds.map((item, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <span className="text-orange-600 mt-1">Ã¢â‚¬Â¢</span>
+                        <span className="text-orange-600 mt-1"> · </span>
                         <span className="text-sm text-foreground">{item}</span>
                       </li>
                     ))}

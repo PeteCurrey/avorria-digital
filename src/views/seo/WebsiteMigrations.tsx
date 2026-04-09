@@ -10,7 +10,7 @@ const WebsiteMigrations = () => {
   return (
     <>
       <SEOHead
-        title="SEO-Safe Website Migrations Ã¢â‚¬â€œ Protect Your Rankings"
+        title="SEO-Safe Website Migrations – Protect Your Rankings"
         description="SEO-safe website migrations. We plan and execute migrations so you don't lose rankings, traffic and leads when you relaunch."
         canonical="/services/seo/migrations"
         keywords={["website migration", "SEO migration", "site relaunch", "URL mapping", "redirect strategy", "migration checklist"]}
@@ -48,7 +48,7 @@ const WebsiteMigrations = () => {
               <Card>
                 <CardContent className="p-6 flex items-start gap-3">
                   <AlertTriangle className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
-                  <p className="text-muted-foreground">Traffic drops 30Ã¢â‚¬â€œ50% overnight because redirects weren't mapped properly.</p>
+                  <p className="text-muted-foreground">Traffic drops 30–50% overnight because redirects weren't mapped properly.</p>
                 </CardContent>
               </Card>
               <Card>
@@ -97,7 +97,7 @@ const WebsiteMigrations = () => {
                 <CardContent className="p-8">
                   <Shield className="w-8 h-8 mb-4 text-primary" />
                   <h3 className="text-xl font-medium mb-3 text-foreground">Post-migration monitoring</h3>
-                  <p className="text-muted-foreground">30Ã¢â‚¬â€œ60 day monitoring and fixes as data comes in and patterns emerge.</p>
+                  <p className="text-muted-foreground">30–60 day monitoring and fixes as data comes in and patterns emerge.</p>
                 </CardContent>
               </Card>
             </div>
@@ -116,7 +116,7 @@ const WebsiteMigrations = () => {
                       <span className="text-lg font-medium text-primary">1</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium mb-2 text-foreground">Pre-launch (2Ã¢â‚¬â€œ4 weeks before)</h3>
+                      <h3 className="text-lg font-medium mb-2 text-foreground">Pre-launch (2–4 weeks before)</h3>
                       <p className="text-muted-foreground">Benchmark capture, URL mapping, redirect planning and technical audit of the new site.</p>
                     </div>
                   </div>
@@ -142,7 +142,7 @@ const WebsiteMigrations = () => {
                       <span className="text-lg font-medium text-primary">3</span>
                     </div>
                     <div>
-                      <h3 className="text-lg font-medium mb-2 text-foreground">Post-launch (30Ã¢â‚¬â€œ60 days)</h3>
+                      <h3 className="text-lg font-medium mb-2 text-foreground">Post-launch (30–60 days)</h3>
                       <p className="text-muted-foreground">Monitoring, 404 fixes, redirect adjustments and performance analysis to ensure traffic stabilises.</p>
                     </div>
                   </div>

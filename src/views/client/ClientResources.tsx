@@ -162,7 +162,7 @@ const ClientResources = () => {
                       <p className="text-sm text-muted-foreground mb-2">{video.description}</p>
                       <div className="flex items-center gap-3 text-xs text-muted-foreground">
                         <span>{video.duration}</span>
-                        <span>Ã¢â‚¬Â¢</span>
+                        <span> · </span>
                         <span>{video.date}</span>
                       </div>
                     </div>
@@ -199,7 +199,7 @@ const ClientResources = () => {
                       <p className="text-sm text-muted-foreground mb-2">{doc.description}</p>
                       <div className="flex items-center gap-3 text-xs text-muted-foreground">
                         <span>{doc.size}</span>
-                        <span>Ã¢â‚¬Â¢</span>
+                        <span> · </span>
                         <span>{doc.date}</span>
                       </div>
                     </div>

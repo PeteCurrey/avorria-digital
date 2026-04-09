@@ -311,7 +311,7 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
               <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
                 {keyMetrics.slice(0, 4).map((metric, index) => (
                   <div key={index}>
-                    <h4 className="text-sm text-muted-foreground mb-1 font-normal">{metric.label}</h4>
+                    <h3 className="text-sm text-muted-foreground mb-1 font-normal">{metric.label}</h3>
                     <p className="text-3xl font-semibold text-foreground">{metric.value}</p>
                     <p className="text-xs text-accent flex items-center mt-1">
                       <TrendingUp size={14} className="mr-1" /> Real result
@@ -384,9 +384,9 @@ const LandingPageTemplate = ({ page }: LandingPageTemplateProps) => {
               <Card key={index} className="border-border hover:shadow-xl transition-shadow">
                 <CardContent className="p-8 space-y-4 text-center">
                   <div className="text-5xl font-light text-accent mb-4">{metric.value}</div>
-                  <h4 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
+                  <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                     {metric.label}
-                  </h4>
+                  </h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">
                     {metric.description}
                   </p>

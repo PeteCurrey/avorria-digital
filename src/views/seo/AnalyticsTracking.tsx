@@ -9,7 +9,7 @@ const AnalyticsTracking = () => {
   return (
     <>
       <SEOHead
-        title="Analytics & Tracking Setup â€“ Fix Your Data First"
+        title="Analytics & Tracking Setup – Fix Your Data First"
         description="Analytics and tracking clean-up before you spend another pound. We untangle GA4, tags and events so you can trust the numbers."
         canonical="/services/seo/analytics-tracking"
         keywords={["analytics setup", "GA4 audit", "tracking setup", "Google Tag Manager", "conversion tracking", "event tracking"]}

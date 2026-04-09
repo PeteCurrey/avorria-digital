@@ -14,7 +14,7 @@ interface StatItem {
 
 const stats: StatItem[] = [
   { value: 50, prefix: '', suffix: '+', label: 'Active Clients' },
-  { value: 24, prefix: 'Â£', suffix: 'M', label: 'Pipeline Generated', decimals: true },
+  { value: 24, prefix: '£', suffix: 'M', label: 'Pipeline Generated', decimals: true },
   { value: 92, prefix: '', suffix: '%', label: 'Client Retention' },
   { value: 147, prefix: '+', suffix: '%', label: 'Avg Traffic Increase' },
 ];

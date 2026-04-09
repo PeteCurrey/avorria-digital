@@ -50,7 +50,7 @@ const Sitemap = () => {
 
   // Build all sitemap entries
   const entries: SitemapEntry[] = [
-    // Core pages
+// ------------------------------ Core Pages ------------------------------
     { url: '/', lastmod: today, changefreq: 'weekly', priority: '1.0' },
     { url: '/services', lastmod: today, changefreq: 'weekly', priority: '0.9' },
     { url: '/contact', lastmod: today, changefreq: 'monthly', priority: '0.9' },
@@ -63,7 +63,7 @@ const Sitemap = () => {
     { url: '/industries', lastmod: today, changefreq: 'weekly', priority: '0.9' },
     { url: '/locations', lastmod: today, changefreq: 'weekly', priority: '0.9' },
     
-    // Service pillar pages
+  // ------------------------------ Pillar Pages ------------------------------
     { url: '/services/seo', lastmod: today, changefreq: 'weekly', priority: '0.9' },
     { url: '/services/paid-media', lastmod: today, changefreq: 'weekly', priority: '0.9' },
     { url: '/services/web-design', lastmod: today, changefreq: 'weekly', priority: '0.9' },
@@ -112,7 +112,7 @@ const Sitemap = () => {
     { url: '/websites-we-would-fire', lastmod: today, changefreq: 'monthly', priority: '0.6' },
     { url: '/sitemap', lastmod: today, changefreq: 'weekly', priority: '0.5' },
     
-    // Legal pages
+  // ------------------------------ Legal Pages ------------------------------
     { url: '/privacy', lastmod: today, changefreq: 'yearly', priority: '0.3' },
     { url: '/terms', lastmod: today, changefreq: 'yearly', priority: '0.3' },
   ];
@@ -129,7 +129,7 @@ const Sitemap = () => {
     });
   });
 
-  // Add industry landing pages using /lp/ pattern (matches actual route)
+// ------------------------------ Service-Industry Landing Pages ------------------------------
   const industryLandingPages = [
     'seo-trades-home-services',
     'seo-professional-services',

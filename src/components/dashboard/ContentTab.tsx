@@ -19,7 +19,7 @@ const ContentTab = () => {
     replies: 18,
   };
 
-  const emailNarrative = `This month's nurture sequence focused on "Growth Marketing Fundamentals" Ã¢â‚¬â€ a 5-email series educating prospects on building a sustainable inbound engine. Open rates exceeded our benchmark by 12%, and we saw 18 direct replies from prospects asking about strategy calls. The series included case study highlights, practical frameworks, and clear CTAs to book consultations.`;
+  const emailNarrative = `This month's nurture sequence focused on "Growth Marketing Fundamentals" — a 5-email series educating prospects on building a sustainable inbound engine. Open rates exceeded our benchmark by 12%, and we saw 18 direct replies from prospects asking about strategy calls. The series included case study highlights, practical frameworks, and clear CTAs to book consultations.`;
 
   return (
     <div className="space-y-6">
@@ -108,30 +108,30 @@ const ContentTab = () => {
         <CardContent>
           <ul className="space-y-3">
             <li className="flex items-start gap-3 text-sm text-foreground">
-              <span className="text-accent mt-0.5">Ã¢Å“â€œ</span>
+              <span className="text-accent mt-0.5">✅œ</span>
               <span>
                 <strong>Top performer:</strong> "No-Bullshit SEO Guide" continues to drive high-quality organic leads. 
                 We're expanding this into a topic cluster with supporting articles on technical SEO, content strategy, and link building.
               </span>
             </li>
             <li className="flex items-start gap-3 text-sm text-foreground">
-              <span className="text-accent mt-0.5">Ã¢Å“â€œ</span>
+              <span className="text-accent mt-0.5">✅œ</span>
               <span>
-                <strong>Audit funnel optimization:</strong> The free audit page has a 6.6% conversion rate (sessions Ã¢â€ â€™ leads). 
+                <strong>Audit funnel optimization:</strong> The free audit page has a 6.6% conversion rate (sessions → leads). 
                 We're A/B testing a new form layout to push this above 8%.
               </span>
             </li>
             <li className="flex items-start gap-3 text-sm text-foreground">
-              <span className="text-accent mt-0.5">Ã¢Å“â€œ</span>
+              <span className="text-accent mt-0.5">✅œ</span>
               <span>
                 <strong>Case studies:</strong> Case study content is converting at a higher rate than expected. 
                 We're prioritizing 2 more detailed case studies for next month to capitalize on this.
               </span>
             </li>
             <li className="flex items-start gap-3 text-sm text-foreground">
-              <span className="text-accent mt-0.5">Ã¢Å“â€œ</span>
+              <span className="text-accent mt-0.5">✅œ</span>
               <span>
-                <strong>Email nurture:</strong> Next sequence will focus on "Paid Media vs Organic" Ã¢â‚¬â€ addressing common objections 
+                <strong>Email nurture:</strong> Next sequence will focus on "Paid Media vs Organic" — addressing common objections 
                 and positioning Avorria's multi-channel approach.
               </span>
             </li>

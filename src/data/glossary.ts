@@ -10,7 +10,7 @@ export interface GlossaryTerm {
 export const glossaryTerms: GlossaryTerm[] = [
   {
     term: "SEO",
-    definition: "Search Engine Optimization Ã¢â‚¬â€œ the practice of improving your website and content to rank higher in organic (unpaid) search results.",
+    definition: "Search Engine Optimization – the practice of improving your website and content to rank higher in organic (unpaid) search results.",
     whyItMatters: "Higher rankings mean more qualified traffic without paying for every click.",
     seeAlso: ["/services/seo", "/resources/seo-glossary"],
     category: "SEO"
@@ -43,14 +43,14 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     term: "SERP",
-    definition: "Search Engine Results Page Ã¢â‚¬â€œ the page Google (or another search engine) shows after you search for something.",
+    definition: "Search Engine Results Page – the page Google (or another search engine) shows after you search for something.",
     whyItMatters: "Understanding SERP features helps you target the right types of content and optimize for visibility.",
     category: "SEO"
   },
   {
     term: "CTR",
-    definition: "Click-Through Rate Ã¢â‚¬â€œ the percentage of people who see your link or ad and actually click it.",
-    whyItMatters: "High impressions with low CTR means you're visible but not compelling Ã¢â‚¬â€œ wasted opportunity.",
+    definition: "Click-Through Rate – the percentage of people who see your link or ad and actually click it.",
+    whyItMatters: "High impressions with low CTR means you're visible but not compelling – wasted opportunity.",
     category: "Analytics"
   },
   {
@@ -68,19 +68,19 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     term: "MQL",
-    definition: "Marketing Qualified Lead Ã¢â‚¬â€œ a lead that meets specific criteria indicating they're worth sales attention, based on behaviour, fit or engagement.",
+    definition: "Marketing Qualified Lead – a lead that meets specific criteria indicating they're worth sales attention, based on behaviour, fit or engagement.",
     whyItMatters: "Separating MQLs from noise helps sales focus on prospects that are actually ready to buy.",
     category: "Sales & Marketing"
   },
   {
     term: "CPC",
-    definition: "Cost Per Click Ã¢â‚¬â€œ the amount you pay each time someone clicks your paid ad.",
+    definition: "Cost Per Click – the amount you pay each time someone clicks your paid ad.",
     whyItMatters: "CPC determines how much budget you need to drive meaningful traffic from paid channels.",
     category: "Paid Media"
   },
   {
     term: "ROAS",
-    definition: "Return On Ad Spend Ã¢â‚¬â€œ revenue generated divided by ad spend (e.g., Ã‚Â£5 revenue for every Ã‚Â£1 spent = 5x ROAS).",
+    definition: "Return On Ad Spend – revenue generated divided by ad spend (e.g., £5 revenue for every £1 spent = 5x ROAS).",
     whyItMatters: "ROAS tells you whether paid campaigns are profitable or burning money.",
     seeAlso: ["/reporting"],
     category: "Paid Media"
@@ -94,7 +94,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     term: "Funnel",
-    definition: "The journey prospects take from awareness to purchase, typically narrowing at each stage (e.g., visitor Ã¢â€ â€™ lead Ã¢â€ â€™ MQL Ã¢â€ â€™ customer).",
+    definition: "The journey prospects take from awareness to purchase, typically narrowing at each stage (e.g., visitor → lead → MQL → customer).",
     whyItMatters: "Understanding where prospects drop off lets you fix leaks and improve conversion rates.",
     category: "Conversion"
   },
@@ -107,7 +107,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     term: "CTA",
-    definition: "Call To Action Ã¢â‚¬â€œ a button, link or prompt that tells visitors what to do next (e.g., 'Book a call', 'Get your audit').",
+    definition: "Call To Action – a button, link or prompt that tells visitors what to do next (e.g., 'Book a call', 'Get your audit').",
     whyItMatters: "Clear, compelling CTAs are the difference between passive browsers and active leads.",
     category: "Conversion"
   },
@@ -120,7 +120,7 @@ export const glossaryTerms: GlossaryTerm[] = [
   {
     term: "Core Web Vitals",
     definition: "Google's set of performance metrics measuring load speed, interactivity and visual stability of web pages.",
-    whyItMatters: "Poor Core Web Vitals hurt both rankings and user experience Ã¢â‚¬â€œ they're now a ranking factor.",
+    whyItMatters: "Poor Core Web Vitals hurt both rankings and user experience – they're now a ranking factor.",
     seeAlso: ["/services/seo/technical-seo"],
     category: "SEO"
   },
@@ -132,14 +132,14 @@ export const glossaryTerms: GlossaryTerm[] = [
   },
   {
     term: "UTM",
-    definition: "Urchin Tracking Module parameters Ã¢â‚¬â€œ tags added to URLs to track campaign performance in analytics (e.g., utm_source, utm_medium, utm_campaign).",
+    definition: "Urchin Tracking Module parameters – tags added to URLs to track campaign performance in analytics (e.g., utm_source, utm_medium, utm_campaign).",
     whyItMatters: "UTMs let you see exactly which campaigns, channels and creatives drive traffic and conversions.",
     seeAlso: ["/services/seo/analytics-tracking"],
     category: "Analytics"
   },
   {
     term: "GA4",
-    definition: "Google Analytics 4 Ã¢â‚¬â€œ the latest version of Google's web analytics platform, focused on event-based tracking and cross-platform measurement.",
+    definition: "Google Analytics 4 – the latest version of Google's web analytics platform, focused on event-based tracking and cross-platform measurement.",
     whyItMatters: "GA4 is the current standard for understanding user behaviour and measuring marketing performance.",
     seeAlso: ["/services/seo/analytics-tracking"],
     category: "Analytics"

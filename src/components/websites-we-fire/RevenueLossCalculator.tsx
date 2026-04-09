@@ -94,12 +94,12 @@ const RevenueLossCalculator: React.FC = () => {
 
   const formatAxisValue = (value: number) => {
     if (value >= 1000000) {
-      return `Â£${(value / 1000000).toFixed(1)}M`;
+      return `£${(value / 1000000).toFixed(1)}M`;
     }
     if (value >= 1000) {
-      return `Â£${(value / 1000).toFixed(0)}k`;
+      return `£${(value / 1000).toFixed(0)}k`;
     }
-    return `Â£${value}`;
+    return `£${value}`;
   };
 
   const CustomTooltip = ({ active, payload, label }: any) => {
@@ -198,7 +198,7 @@ const RevenueLossCalculator: React.FC = () => {
 
         {/* Average Deal Value Input */}
         <div className="space-y-4">
-          <Label className="text-foreground">Average Deal / Order Value (Â£)</Label>
+          <Label className="text-foreground">Average Deal / Order Value (£)</Label>
           <div className="relative">
             <PoundSterling className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
             <Input

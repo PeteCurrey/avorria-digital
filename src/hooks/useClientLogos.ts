@@ -29,8 +29,6 @@ export interface ClientLogoUpdate {
   is_published?: boolean;
   display_order?: number;
 }
-
-// Fetch published logos for public display
 export const useClientLogosPublic = () => {
   return useQuery({
     queryKey: ["client-logos-public"],
@@ -46,8 +44,6 @@ export const useClientLogosPublic = () => {
     },
   });
 };
-
-// Fetch all logos for admin
 export const useClientLogosAdmin = () => {
   return useQuery({
     queryKey: ["client-logos-admin"],
@@ -62,8 +58,6 @@ export const useClientLogosAdmin = () => {
     },
   });
 };
-
-// Create a new logo
 export const useCreateClientLogo = () => {
   const queryClient = useQueryClient();
 
@@ -88,8 +82,6 @@ export const useCreateClientLogo = () => {
     },
   });
 };
-
-// Update a logo
 export const useUpdateClientLogo = () => {
   const queryClient = useQueryClient();
 
@@ -115,8 +107,6 @@ export const useUpdateClientLogo = () => {
     },
   });
 };
-
-// Delete a logo
 export const useDeleteClientLogo = () => {
   const queryClient = useQueryClient();
 

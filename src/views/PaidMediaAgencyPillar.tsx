@@ -35,14 +35,14 @@ const PaidMediaAgencyPillar = () => {
 
   const approach = [
     { title: "Audit & Strategy", description: "We audit your current setup, tracking and creative. Then build a strategy aligned with your commercial goals." },
-    { title: "Tracking Setup", description: "Proper conversion tracking so we can actually measure what matters Ã¢â‚¬â€œ leads, pipeline, revenue." },
+    { title: "Tracking Setup", description: "Proper conversion tracking so we can actually measure what matters – leads, pipeline, revenue." },
     { title: "Campaign Build", description: "Campaigns structured for performance with clear audience targeting, ad creative and bidding strategies." },
     { title: "Optimisation", description: "Continuous testing and optimisation. We reallocate budget to what's working and kill what isn't." },
     { title: "Reporting", description: "Clear reporting that connects ad spend to business outcomes. No vanity metrics." },
   ];
 
   const faqs = [
-    { question: "What's your minimum ad spend requirement?", answer: "We typically work with clients spending Ã‚Â£3,000Ã¢â‚¬â€œÃ‚Â£50,000+ per month on ads. Below that, the management fees often don't make economic sense." },
+    { question: "What's your minimum ad spend requirement?", answer: "We typically work with clients spending £3,000–£50,000+ per month on ads. Below that, the management fees often don't make economic sense." },
     { question: "Do you charge a percentage of ad spend?", answer: "We offer both percentage-based and flat fee models. Happy to discuss what makes sense for your situation." },
     { question: "Can you work with our existing accounts?", answer: "Yes. We can audit and optimise existing campaigns or build new ones from scratch. Either way, you own the accounts." },
     { question: "How do you handle creative?", answer: "We can work with your existing creative team, provide briefs for designers, or handle creative production in-house depending on scope." },
@@ -170,7 +170,7 @@ const PaidMediaAgencyPillar = () => {
                       href={`/paid-media-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -185,7 +185,7 @@ const PaidMediaAgencyPillar = () => {
                       href={`/paid-media-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -200,7 +200,7 @@ const PaidMediaAgencyPillar = () => {
                       href={`/paid-media-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -215,7 +215,7 @@ const PaidMediaAgencyPillar = () => {
                       href={`/paid-media-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -230,7 +230,7 @@ const PaidMediaAgencyPillar = () => {
                       href={`/paid-media-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>

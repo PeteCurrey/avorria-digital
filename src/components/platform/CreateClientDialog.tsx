@@ -179,7 +179,7 @@ export function CreateClientDialog({ trigger }: CreateClientDialogProps) {
                 <FormItem>
                   <FormLabel>Monthly Value</FormLabel>
                   <FormControl>
-                    <Input placeholder="e.g. Â£5k-8k" {...field} />
+                    <Input placeholder="e.g. £5k-8k" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

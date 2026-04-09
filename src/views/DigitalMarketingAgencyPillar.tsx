@@ -175,7 +175,7 @@ const DigitalMarketingAgencyPillar = () => {
                       href={`/digital-marketing-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -190,7 +190,7 @@ const DigitalMarketingAgencyPillar = () => {
                       href={`/digital-marketing-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -205,7 +205,7 @@ const DigitalMarketingAgencyPillar = () => {
                       href={`/digital-marketing-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -220,7 +220,7 @@ const DigitalMarketingAgencyPillar = () => {
                       href={`/digital-marketing-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -235,7 +235,7 @@ const DigitalMarketingAgencyPillar = () => {
                       href={`/digital-marketing-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      {location.city} Ã¢â€ â€™
+                      {location.city} →
                     </Link>
                   ))}
                 </div>

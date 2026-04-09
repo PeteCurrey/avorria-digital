@@ -9,7 +9,7 @@ const LocalSEO = () => {
   return (
     <>
       <SEOHead
-        title="Local SEO Services â€“ Get the Phone Ringing"
+        title="Local SEO Services – Get the Phone Ringing"
         description="Local SEO that actually gets the phone ringing. Show up in local results with optimised profiles and landing pages that convert."
         canonical="/services/seo/local"
         keywords={["local SEO", "Google Business Profile", "local search", "near me SEO", "local landing pages", "map pack"]}
@@ -34,7 +34,7 @@ const LocalSEO = () => {
               Local SEO that actually gets the phone ringing.
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              We help your locations show up where it matters â€“ in the local results your customers actually click, with landing pages and profiles that convert, not just exist.
+              We help your locations show up where it matters – in the local results your customers actually click, with landing pages and profiles that convert, not just exist.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="default">Book a local SEO call</Button>
@@ -90,7 +90,7 @@ const LocalSEO = () => {
                 <CardContent className="p-8">
                   <TrendingUp className="w-8 h-8 mb-4 text-primary" />
                   <h3 className="text-xl font-medium mb-3 text-foreground">Unique location pages</h3>
-                  <p className="text-muted-foreground">Built-out, unique local landing pages with clear CTAs and proof â€“ not thin duplicate content.</p>
+                  <p className="text-muted-foreground">Built-out, unique local landing pages with clear CTAs and proof – not thin duplicate content.</p>
                 </CardContent>
               </Card>
               <Card>
@@ -108,7 +108,7 @@ const LocalSEO = () => {
         <section className="py-16 px-4 bg-secondary/30">
           <div className="max-w-4xl mx-auto text-center">
             <blockquote className="text-2xl font-light text-foreground mb-4">
-              "Multi-location service brand â†’ +74% local enquiries in 6 months after rebuilding location pages and profiles."
+              "Multi-location service brand †’ +74% local enquiries in 6 months after rebuilding location pages and profiles."
             </blockquote>
           </div>
         </section>

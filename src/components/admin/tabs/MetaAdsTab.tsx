@@ -230,7 +230,7 @@ const MetaAdsTab = () => {
                 <CardTitle className="text-sm font-medium">ROAS</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold">{metrics?.roas?.toFixed(2) || "0.00"}Ã—</div>
+                <div className="text-2xl font-bold">{metrics?.roas?.toFixed(2) || "0.00"}×</div>
                 <p className="text-xs text-muted-foreground">
                   Revenue: {formatCurrency(metrics?.conversionValue || 0)}
                 </p>
@@ -310,7 +310,7 @@ const MetaAdsTab = () => {
                             ? formatCurrency(Number(campaign.daily_budget)) + "/day"
                             : campaign.lifetime_budget
                             ? formatCurrency(Number(campaign.lifetime_budget)) + " lifetime"
-                            : "â€”"}
+                            : "€”"}
                         </TableCell>
                         <TableCell className="text-right">
                           <Button

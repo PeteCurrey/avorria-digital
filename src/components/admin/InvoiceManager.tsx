@@ -247,7 +247,7 @@ const InvoiceManager = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Amount (Â£)</Label>
+                  <Label>Amount (£)</Label>
                   <Input
                     type="number"
                     value={formData.amount}
@@ -316,7 +316,7 @@ const InvoiceManager = () => {
               <Receipt className="h-4 w-4 text-primary" />
               <span className="text-xs text-muted-foreground">Total</span>
             </div>
-            <p className="text-xl font-bold">Â£{(stats?.totalValue || 0).toLocaleString()}</p>
+            <p className="text-xl font-bold">£{(stats?.totalValue || 0).toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">{stats?.total || 0} invoices</p>
           </CardContent>
         </Card>
@@ -326,7 +326,7 @@ const InvoiceManager = () => {
               <CheckCircle2 className="h-4 w-4 text-green-500" />
               <span className="text-xs text-muted-foreground">Paid</span>
             </div>
-            <p className="text-xl font-bold text-green-500">Â£{(stats?.paidValue || 0).toLocaleString()}</p>
+            <p className="text-xl font-bold text-green-500">£{(stats?.paidValue || 0).toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">{stats?.paid || 0} invoices</p>
           </CardContent>
         </Card>
@@ -336,7 +336,7 @@ const InvoiceManager = () => {
               <Clock className="h-4 w-4 text-yellow-500" />
               <span className="text-xs text-muted-foreground">Outstanding</span>
             </div>
-            <p className="text-xl font-bold text-yellow-500">Â£{(stats?.outstandingValue || 0).toLocaleString()}</p>
+            <p className="text-xl font-bold text-yellow-500">£{(stats?.outstandingValue || 0).toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">{stats?.outstanding || 0} invoices</p>
           </CardContent>
         </Card>
@@ -346,7 +346,7 @@ const InvoiceManager = () => {
               <AlertTriangle className="h-4 w-4 text-red-500" />
               <span className="text-xs text-muted-foreground">Overdue</span>
             </div>
-            <p className="text-xl font-bold text-red-500">Â£{(stats?.overdueValue || 0).toLocaleString()}</p>
+            <p className="text-xl font-bold text-red-500">£{(stats?.overdueValue || 0).toLocaleString()}</p>
             <p className="text-xs text-muted-foreground">{stats?.overdue || 0} invoices</p>
           </CardContent>
         </Card>
@@ -381,8 +381,8 @@ const InvoiceManager = () => {
                       <TableCell className="font-mono text-sm">
                         {invoice.invoice_number}
                       </TableCell>
-                      <TableCell>{invoice.client?.name || "â€”"}</TableCell>
-                      <TableCell>{invoice.project?.name || "â€”"}</TableCell>
+                      <TableCell>{invoice.client?.name || "€”"}</TableCell>
+                      <TableCell>{invoice.project?.name || "€”"}</TableCell>
                       <TableCell>
                         <div className="flex items-center gap-1 font-medium">
                           <PoundSterling className="h-3 w-3" />

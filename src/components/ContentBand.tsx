@@ -154,7 +154,6 @@ export const ContentBand = ({
   );
 };
 
-// Full-width hero variant for page headers
 export const HeroBand = ({
   headline,
   subheadline,

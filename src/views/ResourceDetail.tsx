@@ -126,7 +126,7 @@ const ResourceDetail = () => {
                   <Clock size={16} />
                   <span>{minutesRead} of {resource.readingTime} min read</span>
                 </div>
-                <span>ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢</span>
+                <span>•</span>
                 <span>
                   {new Date(resource.publishedDate).toLocaleDateString("en-GB", {
                     year: "numeric",
@@ -147,7 +147,7 @@ const ResourceDetail = () => {
               <Card className="bg-accent/10 border-accent mb-12">
                 <CardContent className="p-6">
                   <p className="text-foreground mb-4">
-                    <strong>Want this implemented for you?</strong> We don't just write guidesÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Âwe execute them.
+                    <strong>Want this implemented for you?</strong> We don't just write guides—we execute them.
                   </p>
                   <div className="flex flex-wrap gap-3">
                     <Button variant="accent" size="sm" asChild>
@@ -222,7 +222,7 @@ const ResourceDetail = () => {
               {resource.serviceRelation === "web-design" && (
                 <ContentUpgrade
                   title="Want a conversion review of your website?"
-                  description="We'll review your homepage, key landing pages and funnel ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ then send you specific recommendations to improve your conversion rate."
+                  description="We'll review your homepage, key landing pages and funnel — then send you specific recommendations to improve your conversion rate."
                   buttonText="Get my website audit"
                   source="web-pillar"
                   variant="web"

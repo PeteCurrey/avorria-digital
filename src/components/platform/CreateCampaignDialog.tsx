@@ -254,7 +254,7 @@ export function CreateCampaignDialog({ trigger, defaultClientId }: CreateCampaig
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Budget (Â£)</FormLabel>
+                  <FormLabel>Budget (£)</FormLabel>
                   <FormControl>
                     <Input 
                       type="number" 

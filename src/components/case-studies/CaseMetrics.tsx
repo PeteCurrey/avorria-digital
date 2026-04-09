@@ -17,7 +17,7 @@ const AnimatedCounter = ({ value, highlight }: AnimatedCounterProps) => {
     if (!isInView) return;
 
     // Extract numeric part and suffix
-    const match = value.match(/^([+-]?)([Â£$â‚¬]?)(\d+(?:\.\d+)?)(x|%|k|M|s)?(.*)$/i);
+    const match = value.match(/^([+-]?)([£$‚¬]?)(\d+(?:\.\d+)?)(x|%|k|M|s)?(.*)$/i);
     if (!match) {
       setDisplayValue(value);
       return;

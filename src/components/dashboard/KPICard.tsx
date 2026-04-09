@@ -17,7 +17,7 @@ const KPICard = ({ label, value, delta, deltaLabel, format = "number" }: KPICard
     if (typeof val === "string") return val;
     
     if (format === "currency") {
-      return `Â£${val.toLocaleString()}`;
+      return `£${val.toLocaleString()}`;
     } else if (format === "percent") {
       return `${val}%`;
     }

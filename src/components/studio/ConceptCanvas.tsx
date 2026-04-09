@@ -220,9 +220,9 @@ export const ConceptCanvas = ({ config }: ConceptCanvasProps) => {
             <div className="space-y-1 text-xs font-extralight text-muted-foreground">
               <p>
                 {config.straightTalking > 50 ? "Straight-talking" : "Polished"}
-                {" Â· "}
+                {" · "}
                 {config.analytical > 50 ? "Analytical" : "Story-led"}
-                {" Â· "}
+                {" · "}
                 {config.understated > 50 ? "Understated" : "Showpiece"}
               </p>
             </div>

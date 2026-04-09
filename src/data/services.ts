@@ -7,7 +7,7 @@ export const services: Service[] = [
     name: "SEO",
     slug: "seo",
     shortDescription: "Technical SEO, content strategy, and link building engineered for revenue growth.",
-    longDescription: "SEO services that drive revenue and qualified leadsÃ¢â‚¬â€not just rankings and reports.",
+    longDescription: "SEO services that drive revenue and qualified leads—not just rankings and reports.",
     primaryCTA: "Book SEO Strategy Call",
     secondaryCTA: "Request Free SEO Audit",
     pillarPageUrl: "/services/seo",

@@ -59,7 +59,7 @@ const CaseStudies = () => {
     year: "all"
   });
 
-  // Fetch from database â€” this is now the sole data source
+  // Fetch from database -- this is now the sole data source
   const { data: dbCaseStudies, isLoading } = useCaseStudiesPublic();
 
   // Convert DB entries to component format
@@ -175,7 +175,7 @@ const CaseStudies = () => {
         <CaseHero
           isLobby
           headline="Our Work"
-          subheadline="Real results for real businesses. Every case study represents a partnership built on strategy, execution, and measurable outcomes â€” from facilities management to classic cars."
+          subheadline="Real results for real businesses. Every case study represents a partnership built on strategy, execution, and measurable outcomes €” from facilities management to classic cars."
           ctaText="Start your project"
           ctaHref="/contact"
           backgroundMedia={{
@@ -194,7 +194,7 @@ const CaseStudies = () => {
               className="text-center mb-12">
 
               <span className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Diverse Expertise</span>
-              <h2 className="text-2xl md:text-3xl text-white font-extralight">From Facilities Management to GPS Trackers â€” We Make Complex Simple</h2>
+              <h2 className="text-2xl md:text-3xl text-white font-extralight">From Facilities Management to GPS Trackers €” We Make Complex Simple</h2>
             </motion.div>
             
             <div className="grid md:grid-cols-3 gap-6">
@@ -246,17 +246,17 @@ const CaseStudies = () => {
               className="flex flex-wrap justify-center gap-4 text-sm text-white/50">
 
               <span className="flex items-center gap-2"><Sparkles className="w-4 h-4 text-accent" /> AI Integration</span>
-              <span className="px-2">â€¢</span>
+              <span className="px-2">€¢</span>
               <span>Website Redesign</span>
-              <span className="px-2">â€¢</span>
+              <span className="px-2">€¢</span>
               <span>Brand Development</span>
-              <span className="px-2">â€¢</span>
+              <span className="px-2">€¢</span>
               <span>SEO & Content</span>
-              <span className="px-2">â€¢</span>
+              <span className="px-2">€¢</span>
               <span>Local SEO</span>
-              <span className="px-2">â€¢</span>
+              <span className="px-2">€¢</span>
               <span>UX Optimisation</span>
-              <span className="px-2">â€¢</span>
+              <span className="px-2">€¢</span>
               <span>Paid Media</span>
             </motion.div>
           </div>

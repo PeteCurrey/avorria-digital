@@ -306,7 +306,7 @@ const WebDesignStudioBuild = () => {
             </div>
             {(musicPlaying || musicLoading) && (
               <span className="text-[10px] text-accent/70 font-light">
-                {musicLoading ? "Generating soundscape..." : `${steps[currentStep]?.label} â€” ${currentMood}`}
+                {musicLoading ? "Generating soundscape..." : `${steps[currentStep]?.label} €” ${currentMood}`}
               </span>
             )}
           </motion.button>
@@ -407,7 +407,7 @@ const WebDesignStudioBuild = () => {
                 >
                   <p className="text-sm text-white/60">
                     <span className="capitalize font-medium text-white/80">{config.palette}</span>
-                    {" "}theme â€¢ {" "}
+                    {" "}theme €¢ {" "}
                     <span className="capitalize font-medium text-white/80">{config.siteSize}</span>
                     {" "}site
                   </p>

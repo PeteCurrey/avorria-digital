@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -81,26 +81,26 @@ const SEOServices = () => {
     ],
     tracking: [
       "Clean analytics and goals setup.",
-      "Dashboards showing organic traffic, leads and pipeline â€“ not just rankings.",
+      "Dashboards showing organic traffic, leads and pipeline – not just rankings.",
       "Clear monthly commentary on what changed and why.",
     ],
   };
 
   const timeline = [
     {
-      period: "Month 0â€“1",
+      period: "Month 0–1",
       title: "Audit & foundations",
       description:
         "Technical and content audit. Tracking and analytics clean-up. Quick on-page wins on high-impact pages.",
     },
     {
-      period: "Months 2â€“3",
+      period: "Months 2–3",
       title: "Structure & content",
       description:
         "Implement core technical fixes. Roll out new information architecture and internal linking. Launch priority content and update existing assets.",
     },
     {
-      period: "Months 4â€“6",
+      period: "Months 4–6",
       title: "Compounding gains",
       description:
         "Expand content clusters. Strengthen ranking positions for core terms. Tune pages and CTAs based on real conversion data.",
@@ -138,7 +138,7 @@ const SEOServices = () => {
     {
       question: "How long until we see results?",
       answer:
-        "It depends where you're starting from, but most clients see early movement in 2â€“3 months and meaningful commercial impact in 4â€“6 months. We'll be clear about realistic timelines upfront.",
+        "It depends where you're starting from, but most clients see early movement in 2–3 months and meaningful commercial impact in 4–6 months. We'll be clear about realistic timelines upfront.",
     },
     {
       question: "Do you lock us into long contracts?",
@@ -153,7 +153,7 @@ const SEOServices = () => {
     {
       question: "Will SEO replace paid ads?",
       answer:
-        "Not usually. SEO and paid work best together â€“ SEO for compounding inbound demand, paid for speed and control. We'll help you balance both.",
+        "Not usually. SEO and paid work best together – SEO for compounding inbound demand, paid for speed and control. We'll help you balance both.",
     },
   ];
 
@@ -210,7 +210,7 @@ const SEOServices = () => {
                 <source src={heroSeoVideo} type="video/mp4" />
               </video>
             ) : (
-              <img src={heroSeoImage} alt="" className="w-full h-full object-cover" loading="eager" />
+              <img src={heroSeoImage} alt="Strategic SEO services for B2B and service businesses - Avorria Digital" className="w-full h-full object-cover" loading="eager" />
             )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
@@ -242,7 +242,7 @@ const SEOServices = () => {
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10"
               >
-                We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline â€“ then remove the friction that stops those visitors becoming customers.
+                We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline – then remove the friction that stops those visitors becoming customers.
               </motion.p>
 
               <motion.div
@@ -284,13 +284,13 @@ const SEOServices = () => {
                   </h2>
                   <div className="space-y-5 text-muted-foreground text-lg leading-relaxed">
                     <p>
-                      SEO isn't a technical mystery or a monthly report full of jargon. It's a revenue channel. When it's done properly, it means the right people find your business at the exact moment they're looking for what you sell â€“ and they keep finding you, month after month, without you paying per click.
+                      SEO isn't a technical mystery or a monthly report full of jargon. It's a revenue channel. When it's done properly, it means the right people find your business at the exact moment they're looking for what you sell – and they keep finding you, month after month, without you paying per click.
                     </p>
                     <p>
-                      The problem is that most SEO work focuses on the wrong things: vanity rankings for terms nobody searches, content that ticks a box but doesn't convert, and technical audits that gather dust. What's missing is a commercial strategy â€“ one that targets the searches your buyers actually make and builds the kind of authority that compounds over time.
+                      The problem is that most SEO work focuses on the wrong things: vanity rankings for terms nobody searches, content that ticks a box but doesn't convert, and technical audits that gather dust. What's missing is a commercial strategy – one that targets the searches your buyers actually make and builds the kind of authority that compounds over time.
                     </p>
                     <p>
-                      That's what we do. We treat SEO as a business growth lever, not a checkbox. Every keyword we target, every page we optimise and every piece of content we create is tied to a commercial outcome â€“ more qualified leads, better pipeline, stronger revenue.
+                      That's what we do. We treat SEO as a business growth lever, not a checkbox. Every keyword we target, every page we optimise and every piece of content we create is tied to a commercial outcome – more qualified leads, better pipeline, stronger revenue.
                     </p>
                   </div>
                 </ScrollReveal>
@@ -298,10 +298,10 @@ const SEOServices = () => {
                 <ScrollReveal delay={0.15}>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     {[
-                      { icon: Target, title: "Commercial keyword targeting", description: "We go after the searches your buyers actually make â€“ not vanity terms with no purchase intent." },
+                      { icon: Target, title: "Commercial keyword targeting", description: "We go after the searches your buyers actually make – not vanity terms with no purchase intent." },
                       { icon: TrendingUp, title: "Technical foundations that compound", description: "Site speed, structure and crawlability fixes that keep paying dividends for years." },
                       { icon: CheckCircle2, title: "Content that ranks and converts", description: "Strategic content built around buyer intent, not keyword volume." },
-                      { icon: LineChart, title: "Transparent reporting tied to pipeline", description: "Dashboards showing organic traffic, leads and revenue â€“ not just ranking positions." },
+                      { icon: LineChart, title: "Transparent reporting tied to pipeline", description: "Dashboards showing organic traffic, leads and revenue – not just ranking positions." },
                     ].map((feature, i) => (
                       <div key={feature.title} className="p-5 rounded-lg border border-border bg-card space-y-3">
                         <div className="w-10 h-10 rounded-lg bg-accent/10 flex items-center justify-center">
@@ -404,7 +404,7 @@ const SEOServices = () => {
                 </ScrollReveal>
               </div>
 
-              <OpinionatedQuote quote="Most SEO agencies optimise for rankings. We optimise for revenue. If a keyword ranks but doesn't convert, it's a vanity metric â€“ and we don't bill you for vanity." />
+              <OpinionatedQuote quote="Most SEO agencies optimise for rankings. We optimise for revenue. If a keyword ranks but doesn't convert, it's a vanity metric – and we don't bill you for vanity." />
             </div>
           </SectionBand>
         </section>
@@ -465,7 +465,7 @@ const SEOServices = () => {
               </div>
 
               <p className="text-center text-white/70 mt-12 max-w-3xl mx-auto text-lg">
-                SEO is compounding by nature. Our job is to shorten the time it takes to see commercial impact â€“ and to show you transparently what's happening along the way.
+                SEO is compounding by nature. Our job is to shorten the time it takes to see commercial impact – and to show you transparently what's happening along the way.
               </p>
             </div>
           </SectionBand>
@@ -519,7 +519,7 @@ const SEOServices = () => {
                   { title: "Trades & Home Services", desc: "Local SEO that fills your diary with the right jobs in the right locations.", href: "/seo/for/trades-home-services" },
                   { title: "Professional Services", desc: "SEO that attracts better-fit clients and feeds your pipeline with qualified enquiries.", href: "/seo/for/professional-services" },
                   { title: "B2B SaaS", desc: "SEO that feeds your pipeline with demos and trials, not just blog traffic.", href: "/seo/for/b2b-saas" },
-                  { title: "E-commerce Brands", desc: "SEO that moves revenue, not just rankings â€“ with clean structure and conversion focus.", href: "/seo/for/ecommerce-brands" },
+                  { title: "E-commerce Brands", desc: "SEO that moves revenue, not just rankings – with clean structure and conversion focus.", href: "/seo/for/ecommerce-brands" },
                   { title: "Multi-Location Brands", desc: "SEO that keeps every location and profile pulling its weight with structured local strategy.", href: "/seo/for/multi-location-brands" },
                 ].map((industry) => (
                   <Card key={industry.title} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">

@@ -20,7 +20,7 @@ export interface LandingPageAnalyticsDetail {
   avg_time_on_page: number;
 }
 
-// Get aggregated analytics for all landing pages (for the list view)
+// ------------------------------ Service-Industry Landing Pages ------------------------------
 export function useLandingPageAnalyticsSummary() {
   return useQuery({
     queryKey: ['landing-page-analytics', 'summary'],

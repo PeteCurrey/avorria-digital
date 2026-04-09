@@ -25,13 +25,13 @@ const Pricing = () => {
     {
       icon: Users,
       label: "Ongoing growth retainer",
-      description: "For teams who want us to behave like an in-house growth function â€“ SEO, paid, web and analytics working together.",
+      description: "For teams who want us to behave like an in-house growth function – SEO, paid, web and analytics working together.",
       scope: [
         "SEO + Paid + Web + Analytics combo",
         "Regular experimentation and optimisation loops",
         "Monthly/quarterly strategy reviews with leadership",
       ],
-      investment: "From Â£4kâ€“Â£12k+ / month depending on scope, footprint and velocity.",
+      investment: "From £4k–£12k+ / month depending on scope, footprint and velocity.",
     },
     {
       icon: Lightbulb,
@@ -43,7 +43,7 @@ const Pricing = () => {
         "SEO foundations or restructures",
         "Landing page & campaign build-outs",
       ],
-      investment: "Most projects land between Â£8kâ€“Â£40k depending on complexity.",
+      investment: "Most projects land between £8k–£40k depending on complexity.",
     },
     {
       icon: DollarSign,
@@ -54,7 +54,7 @@ const Pricing = () => {
         "Quarterly audits and optimisation plans",
         "Advisor role alongside your leadership/marketing team",
       ],
-      investment: "From Â£1.5kâ€“Â£4k / month, or session-based pricing for specific workshops.",
+      investment: "From £1.5k–£4k / month, or session-based pricing for specific workshops.",
     },
   ];
 
@@ -90,11 +90,11 @@ const Pricing = () => {
   const faqs = [
     {
       question: "Do you lock us into long contracts?",
-      answer: "No. We typically recommend a 6â€“12 month runway to do meaningful work, but we don't hide behind punitive terms. If it's not working, we'll be the first to tell you.",
+      answer: "No. We typically recommend a 6–12 month runway to do meaningful work, but we don't hide behind punitive terms. If it's not working, we'll be the first to tell you.",
     },
     {
       question: "Do you work with smaller budgets?",
-      answer: "It depends. If you're already spending and want to tighten things up, we can often find a starting point. If your total budget is tiny and you're hoping for miracles, a lighter DIY approach might make more sense â€“ and we'll tell you that honestly.",
+      answer: "It depends. If you're already spending and want to tighten things up, we can often find a starting point. If your total budget is tiny and you're hoping for miracles, a lighter DIY approach might make more sense – and we'll tell you that honestly.",
     },
     {
       question: "What if we need to pause?",
@@ -102,7 +102,7 @@ const Pricing = () => {
     },
     {
       question: "How do we know we'll see a return?",
-      answer: "We tie everything to commercial outcomes â€“ leads, pipeline, revenue. You'll see progress in dashboards and monthly summaries. If something isn't working, we'll recommend cutting it or pivoting fast.",
+      answer: "We tie everything to commercial outcomes – leads, pipeline, revenue. You'll see progress in dashboards and monthly summaries. If something isn't working, we'll recommend cutting it or pivoting fast.",
     },
     {
       question: "Can we start small and scale up?",
@@ -114,7 +114,7 @@ const Pricing = () => {
     <>
       <SEOHead
         title="Pricing & Engagement Models"
-        description="No Â£499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions."
+        description="No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions."
         canonical="/pricing"
         keywords={["digital marketing pricing", "SEO retainer pricing", "marketing agency costs", "web design pricing UK"]}
       >
@@ -123,7 +123,7 @@ const Pricing = () => {
             "@context": "https://schema.org",
             "@type": "WebPage",
             "name": "Pricing & Engagement Models",
-            "description": "No Â£499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions.",
+            "description": "No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions.",
             "url": "https://avorria.com/pricing",
             "about": {
               "@type": "Service",
@@ -146,7 +146,7 @@ const Pricing = () => {
                 </span>
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
-                We don't do "Â£499 SEO packages". We design retainers and projects around commercial targets, complexity and appetite for change. Below is how we typically work and the kind of investment that makes sense.
+                We don't do "£499 SEO packages". We design retainers and projects around commercial targets, complexity and appetite for change. Below is how we typically work and the kind of investment that makes sense.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button variant="accent" size="lg" asChild>

@@ -109,7 +109,7 @@ const SEOTab = () => {
                       ) : row.change < 0 ? (
                         <span className="text-red-500 font-medium">{row.change}</span>
                       ) : (
-                        <span className="text-muted-foreground">Ã¢â‚¬â€</span>
+                        <span className="text-muted-foreground">—</span>
                       )}
                     </td>
                     <td className="py-3 px-4 text-sm text-muted-foreground">{row.url}</td>

@@ -289,7 +289,7 @@ export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
               <div>
                 <p className="text-xs text-white/40">Aesthetic</p>
                 <p className="text-sm font-light text-white">
-                  {paletteLabels[config.palette]} Ã¢â‚¬Â¢ {config.minimal > 50 ? "Bold" : "Minimal"} Ã¢â‚¬Â¢ {config.bold > 50 ? "Energetic" : "Calm"}
+                  {paletteLabels[config.palette]}  ·  {config.minimal > 50 ? "Bold" : "Minimal"}  ·  {config.bold > 50 ? "Energetic" : "Calm"}
                 </p>
               </div>
             </div>
@@ -337,8 +337,8 @@ export const SummaryStep = ({ config, onSuccess }: SummaryStepProps) => {
               <div>
                 <p className="text-xs text-white/40">Personality</p>
                 <p className="text-sm font-light text-white">
-                  {config.straightTalking > 50 ? "Direct" : "Polished"} Ã¢â‚¬Â¢ 
-                  {config.analytical > 50 ? " Analytical" : " Story-led"} Ã¢â‚¬Â¢ 
+                  {config.straightTalking > 50 ? "Direct" : "Polished"}  ·  
+                  {config.analytical > 50 ? " Analytical" : " Story-led"}  ·  
                   {config.understated > 50 ? " Showpiece" : " Understated"}
                 </p>
               </div>

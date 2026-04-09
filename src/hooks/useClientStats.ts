@@ -55,7 +55,7 @@ export function useClientStats(clientId: string | null) {
         ? Math.round(((currentQualified - previousQualified) / previousQualified) * 100)
         : 0;
 
-      // Estimate pipeline value (Â£5k per qualified lead as baseline)
+      // Estimate pipeline value (--5k per qualified lead as baseline)
       const pipelineValue = currentQualified * 5000;
       const previousPipelineValue = previousQualified * 5000;
       const pipelineChange = previousPipelineValue > 0

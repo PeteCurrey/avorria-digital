@@ -53,17 +53,17 @@ const SEOAgencyPillar = () => {
   };
 
   const timeline = [
-    { period: "Month 0Ã¢â‚¬â€œ1", title: "Audit & foundations", description: "Technical and content audit. Tracking and analytics clean-up. Quick on-page wins on high-impact pages." },
-    { period: "Months 2Ã¢â‚¬â€œ3", title: "Structure & content", description: "Implement core technical fixes. Roll out new information architecture and internal linking. Launch priority content and update existing assets." },
-    { period: "Months 4Ã¢â‚¬â€œ6", title: "Compounding gains", description: "Expand content clusters. Strengthen ranking positions for core terms. Tune pages and CTAs based on real conversion data." },
+    { period: "Month 0–1", title: "Audit & foundations", description: "Technical and content audit. Tracking and analytics clean-up. Quick on-page wins on high-impact pages." },
+    { period: "Months 2–3", title: "Structure & content", description: "Implement core technical fixes. Roll out new information architecture and internal linking. Launch priority content and update existing assets." },
+    { period: "Months 4–6", title: "Compounding gains", description: "Expand content clusters. Strengthen ranking positions for core terms. Tune pages and CTAs based on real conversion data." },
     { period: "Month 6+", title: "Scale and refine", description: "Double down where we see strongest ROI. Explore new keyword sets and assets. Continually reallocate effort based on what the data actually shows." },
   ];
 
   const faqs = [
-    { question: "How long until we see results?", answer: "It depends where you're starting from, but most clients see early movement in 2Ã¢â‚¬â€œ3 months and meaningful commercial impact in 4Ã¢â‚¬â€œ6 months. We'll be clear about realistic timelines upfront." },
+    { question: "How long until we see results?", answer: "It depends where you're starting from, but most clients see early movement in 2–3 months and meaningful commercial impact in 4–6 months. We'll be clear about realistic timelines upfront." },
     { question: "Do you lock us into long contracts?", answer: "No. We normally recommend at least a 6-month runway for SEO, but we don't hide behind punitive long-term contracts." },
     { question: "Can you work with our in-house dev/content team?", answer: "Yes. We can either handle implementation end-to-end, or act as the strategic and technical layer that briefs your internal teams." },
-    { question: "Will SEO replace paid ads?", answer: "Not usually. SEO and paid work best together Ã¢â‚¬â€œ SEO for compounding inbound demand, paid for speed and control. We'll help you balance both." },
+    { question: "Will SEO replace paid ads?", answer: "Not usually. SEO and paid work best together – SEO for compounding inbound demand, paid for speed and control. We'll help you balance both." },
   ];
 
   const ukLocations = locations.filter(l => l.countryCode === "GB");
@@ -95,7 +95,7 @@ const SEOAgencyPillar = () => {
       <div className="min-h-screen">
         <HeroBand
           headline="SEO that connects rankings to revenue."
-          body="We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline Ã¢â‚¬â€œ then remove the friction that stops those visitors becoming customers."
+          body="We combine technical SEO, content strategy and on-site optimisation to win the searches that actually lead to pipeline – then remove the friction that stops those visitors becoming customers."
           backgroundImage={heroImage}
           cta={{ text: "Book an SEO strategy call", href: "/contact" }}
           secondaryCta={{ text: "Get a free SEO audit", href: "/free-seo-website-audit" }}
@@ -239,7 +239,7 @@ const SEOAgencyPillar = () => {
                       href={`/seo-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      SEO {location.city} Ã¢â€ â€™
+                      SEO {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -254,7 +254,7 @@ const SEOAgencyPillar = () => {
                       href={`/seo-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      SEO {location.city} Ã¢â€ â€™
+                      SEO {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -269,7 +269,7 @@ const SEOAgencyPillar = () => {
                       href={`/seo-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      SEO {location.city} Ã¢â€ â€™
+                      SEO {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -284,7 +284,7 @@ const SEOAgencyPillar = () => {
                       href={`/seo-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      SEO {location.city} Ã¢â€ â€™
+                      SEO {location.city} →
                     </Link>
                   ))}
                 </div>
@@ -299,7 +299,7 @@ const SEOAgencyPillar = () => {
                       href={`/seo-agency/${location.slug}`}
                       className="text-white/70 hover:text-accent transition-colors text-sm"
                     >
-                      SEO {location.city} Ã¢â€ â€™
+                      SEO {location.city} →
                     </Link>
                   ))}
                 </div>

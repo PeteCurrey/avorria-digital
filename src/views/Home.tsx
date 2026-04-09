@@ -178,7 +178,7 @@ const Home = () => {
     telephone: "+44 1246 123456",
     email: "hello@avorria.com",
     image: "https://avorria.com/og-image.jpg",
-    priceRange: "Ã‚Â£Ã‚Â£Ã‚Â£",
+    priceRange: "£££",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Innovation Centre",
@@ -237,7 +237,7 @@ const Home = () => {
     image: serviceSocialBrand
   }, {
     title: "Analytics & Reporting",
-    description: "Tracking, dashboards and data that show you what's actually driving revenue Ã¢â‚¬â€œ not just clicks.",
+    description: "Tracking, dashboards and data that show you what's actually driving revenue – not just clicks.",
     href: "/services/analytics",
     image: bgDataAnalytics
   }];
@@ -294,7 +294,7 @@ const Home = () => {
     metrics: [
     { label: "Lead Quality", value: "+187%" },
     { label: "Time on Site", value: "+142%" },
-    { label: "Avg Enquiry Value", value: "+Ã‚Â£48k" }],
+    { label: "Avg Enquiry Value", value: "+£48k" }],
 
     services: ["Brand Identity", "Web Design", "SEO"]
   }];
@@ -318,7 +318,7 @@ const Home = () => {
   const comparison = [{
     feature: "Reporting",
     typical: "Slide decks full of clicks and impressions.",
-    avorria: "Dashboards showing leads, pipeline and ROI Ã¢â‚¬â€œ plus a one-minute written summary."
+    avorria: "Dashboards showing leads, pipeline and ROI – plus a one-minute written summary."
   }, {
     feature: "Strategy",
     typical: "'We'll test some campaigns and see what happens.'",
@@ -339,7 +339,7 @@ const Home = () => {
 
   // Static fallback testimonials
   const staticTestimonials = [{
-    quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear Ã¢â‚¬â€œ in a good way.",
+    quote: "Within a couple of months we actually understood where our leads were coming from and what to double down on. The reporting is brutally clear – in a good way.",
     author: "James Harrison",
     role: "Managing Director",
     company: "Apex Professional Services",
@@ -374,10 +374,10 @@ const Home = () => {
     answer: "Mostly established service businesses, multi-location brands and B2B teams who are already investing in marketing and want to get more disciplined and effective with it."
   }, {
     question: "Do you only work on retainers?",
-    answer: "No. We do one-off rebuilds and projects where it makes sense, but most of our impact comes from ongoing work Ã¢â‚¬â€œ strategy, execution and optimisation over time."
+    answer: "No. We do one-off rebuilds and projects where it makes sense, but most of our impact comes from ongoing work – strategy, execution and optimisation over time."
   }, {
     question: "Is there a minimum budget?",
-    answer: "If you're spending less than Ã‚Â£2k/month in total on marketing, you're probably better off with lighter, DIY support. Above that, we can usually make a meaningful difference."
+    answer: "If you're spending less than £2k/month in total on marketing, you're probably better off with lighter, DIY support. Above that, we can usually make a meaningful difference."
   }, {
     question: "Do you tie into our CRM and internal reporting?",
     answer: "Yes. Wherever possible we build dashboards that connect marketing numbers to your sales pipeline and revenue, not just clicks and forms."
@@ -390,7 +390,7 @@ const Home = () => {
 
   return <>
       <SEOHead
-      title="Avorria Ã¢â‚¬â€œ Digital Marketing, SEO & Web Design Agency"
+      title="Avorria – Digital Marketing, SEO & Web Design Agency"
       description="Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses generate qualified leads and grow revenue."
       canonical="/"
       keywords={["digital marketing agency", "SEO agency", "web design agency", "paid media", "B2B marketing", "lead generation", "Google Ads management", "content marketing"]}>
@@ -419,7 +419,7 @@ const Home = () => {
           "@type": "WebPage",
           "@id": "https://avorria.com/#webpage",
           "url": "https://avorria.com",
-          "name": "Avorria Ã¢â‚¬â€œ Digital Marketing, SEO & Web Design Agency",
+          "name": "Avorria – Digital Marketing, SEO & Web Design Agency",
           "description": "Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics for B2B and service businesses.",
           "isPartOf": { "@id": "https://avorria.com/#website" },
           "about": { "@id": "https://avorria.com/#organization" },
@@ -491,7 +491,7 @@ const Home = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 1.2 }}>
 
-                  We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline Ã¢â‚¬â€œ not just prettier dashboards.
+                  We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline – not just prettier dashboards.
                 </motion.p>
 
                 {/* CTAs */}
@@ -518,7 +518,7 @@ const Home = () => {
                     <div className="text-xs text-white/60">Active clients</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-light text-white">Ã‚Â£16.4M+</div>
+                    <div className="text-2xl font-light text-white">£16.4M+</div>
                     <div className="text-xs text-white/60">Pipeline generated</div>
                   </div>
                   <div>
@@ -575,7 +575,7 @@ const Home = () => {
                       An established agency that behaves like your in-house team.
                     </h2>
                     <p className="text-lg text-white/80 leading-relaxed">
-                      Avorria was founded to be the opposite of the agencies we'd all worked at Ã¢â‚¬â€œ the ones with pretty decks, vague reports and no connection to actual business results.
+                      Avorria was founded to be the opposite of the agencies we'd all worked at – the ones with pretty decks, vague reports and no connection to actual business results.
                     </p>
                     <p className="text-lg text-white/80 leading-relaxed">
                       We're a senior team of strategists, developers and specialists who've spent years in-house and agency-side. We know what good looks like, and we know what gets in the way.
@@ -673,7 +673,7 @@ const Home = () => {
                       Technical firepower baked in
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      Tracking, analytics, technical SEO, CRO, tagging Ã¢â‚¬â€œ they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first.
+                      Tracking, analytics, technical SEO, CRO, tagging – they're not bolt-ons. They're the foundation. If your numbers are wrong or your site is slow, we fix that first.
                     </p>
                   </CardContent>
                 </Card>
@@ -701,7 +701,7 @@ const Home = () => {
                       Plain-English reporting
                     </h3>
                     <p className="text-gray-600 leading-relaxed">
-                      You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place Ã¢â‚¬â€œ with a short narrative.
+                      You'll never get a 40-page PDF that tells you nothing. Our dashboards show traffic, leads, pipeline and ROI in one place – with a short narrative.
                     </p>
                   </CardContent>
                 </Card>
@@ -735,7 +735,7 @@ const Home = () => {
                   What we actually do
                 </h2>
                 <p className="text-lg text-white/80 max-w-2xl mx-auto">
-                  One team that connects the dots Ã¢â‚¬â€œ from strategy through to execution and optimisation.
+                  One team that connects the dots – from strategy through to execution and optimisation.
                 </p>
               </div>
             </ScrollReveal>

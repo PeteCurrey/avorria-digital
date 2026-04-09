@@ -108,7 +108,7 @@ const ClientAudits = () => {
           <div className="space-y-6">
             {/* Back button */}
             <Button variant="ghost" onClick={() => setSelectedAudit(null)} className="mb-4">
-              Ã¢â€ Â Back to audits
+              ← Back to audits
             </Button>
 
             {/* Audit Header */}
@@ -118,7 +118,7 @@ const ClientAudits = () => {
                   <div>
                     <h1 className="text-2xl font-light text-foreground mb-2">{audit.name}</h1>
                     <p className="text-sm text-muted-foreground">
-                      {audit.type} Ã¢â‚¬Â¢ {audit.date}
+                      {audit.type}  ·  {audit.date}
                     </p>
                   </div>
                   <div className="flex gap-2">
@@ -181,7 +181,7 @@ const ClientAudits = () => {
                     <ul className="space-y-3">
                       {auditDetail.whatsWorking.map((item, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="text-green-600 mt-1">Ã¢Å“â€œ</span>
+                          <span className="text-green-600 mt-1">✅œ</span>
                           <span className="text-sm text-foreground">{item}</span>
                         </li>
                       ))}
@@ -236,7 +236,7 @@ const ClientAudits = () => {
                     <ul className="space-y-3">
                       {auditDetail.next90Days.map((item, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <span className="text-primary mt-1">Ã¢â‚¬Â¢</span>
+                          <span className="text-primary mt-1"> · </span>
                           <span className="text-sm text-foreground">{item}</span>
                         </li>
                       ))}
@@ -306,7 +306,7 @@ const ClientAudits = () => {
                         </Badge>
                       </div>
                       <p className="text-sm text-muted-foreground mb-4">
-                        {audit.type} Ã¢â‚¬Â¢ {audit.date}
+                        {audit.type}  ·  {audit.date}
                       </p>
                       <div className="flex gap-6">
                         {audit.seoScore && (

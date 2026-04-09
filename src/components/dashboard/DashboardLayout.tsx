@@ -117,12 +117,12 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
      <h1 className="text-lg font-semibold text-foreground">
      Avorria Client Dashboard
      </h1>
-     <p className="text-xs text-muted-foreground">Demo Mode Ã‚Â· Last updated 2 hours ago</p>
+     <p className="text-xs text-muted-foreground">Demo Mode · Last updated 2 hours ago</p>
     </div>
     ) : (
     <div>
      <h1 className="text-lg font-semibold text-foreground">
-     {userName || "Client"} Ã‚Â· Client Area
+     {userName || "Client"} · Client Area
      </h1>
      <p className="text-xs text-muted-foreground">
      Last updated 2 hours ago

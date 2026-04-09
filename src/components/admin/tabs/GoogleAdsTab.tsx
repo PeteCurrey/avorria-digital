@@ -128,7 +128,7 @@ const GoogleAdsTab = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
               <KPICard
                 label="Total Spend"
-                value={`Â£${metrics?.spend.toLocaleString() || "0"}`}
+                value={`£${metrics?.spend.toLocaleString() || "0"}`}
                 format="currency"
               />
               <KPICard label="Impressions" value={metrics?.impressions || 0} />
@@ -136,7 +136,7 @@ const GoogleAdsTab = () => {
               <KPICard label="Conversions" value={metrics?.conversions || 0} />
               <KPICard
                 label="Cost per Lead"
-                value={`Â£${metrics?.cpl.toFixed(2) || "0"}`}
+                value={`£${metrics?.cpl.toFixed(2) || "0"}`}
                 format="currency"
               />
               <KPICard label="ROAS" value={`${metrics?.roas.toFixed(1) || "0"}x`} />
@@ -215,11 +215,11 @@ const GoogleAdsTab = () => {
                           </td>
                           <td className="py-3 px-4 text-sm text-foreground text-right">
                             {campaign.budget_amount
-                              ? `Â£${Number(campaign.budget_amount).toLocaleString()}`
-                              : "â€”"}
+                              ? `£${Number(campaign.budget_amount).toLocaleString()}`
+                              : "€”"}
                           </td>
                           <td className="py-3 px-4 text-sm text-muted-foreground text-center">
-                            {campaign.bidding_strategy || "â€”"}
+                            {campaign.bidding_strategy || "€”"}
                           </td>
                           <td className="py-3 px-4 text-center">
                             <Button

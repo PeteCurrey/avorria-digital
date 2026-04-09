@@ -7,13 +7,13 @@ export const industries: Industry[] = [
     name: "Trades & Home Services",
     slug: "trades-home-services",
     painPoints: [
-      "Lead quality is inconsistentÃ¢â‚¬â€tire kickers instead of ready-to-buy customers",
+      "Lead quality is inconsistent—tire kickers instead of ready-to-buy customers",
       "Competitors dominate local search while you're invisible",
       "Your website doesn't convert calls or form fills",
       "Ad spend wastes budget on unqualified clicks",
       "No clear tracking from lead to job completion",
     ],
-    typicalDealSize: "Ã‚Â£500 - Ã‚Â£10,000 per job",
+    typicalDealSize: "£500 - £10,000 per job",
     idealChannels: ["Local SEO", "Google Ads", "GMB Optimization", "Review Management"],
   },
   {
@@ -21,13 +21,13 @@ export const industries: Industry[] = [
     name: "Trades & Home Services",
     slug: "trades",
     painPoints: [
-      "Lead quality is inconsistentÃ¢â‚¬â€tire kickers instead of ready-to-buy customers",
+      "Lead quality is inconsistent—tire kickers instead of ready-to-buy customers",
       "Competitors dominate local search while you're invisible",
       "Your website doesn't convert calls or form fills",
       "Ad spend wastes budget on unqualified clicks",
       "No clear tracking from lead to job completion",
     ],
-    typicalDealSize: "Ã‚Â£500 - Ã‚Â£10,000 per job",
+    typicalDealSize: "£500 - £10,000 per job",
     idealChannels: ["Local SEO", "Google Ads", "GMB Optimization", "Review Management"],
   },
   {
@@ -41,7 +41,7 @@ export const industries: Industry[] = [
       "Content exists but it's not bringing in qualified prospects",
       "Tracking gaps make attribution impossible",
     ],
-    typicalDealSize: "Ã‚Â£5,000 - Ã‚Â£100,000+ per client",
+    typicalDealSize: "£5,000 - £100,000+ per client",
     idealChannels: ["SEO", "Paid Media", "Content Marketing", "LinkedIn"],
   },
   {
@@ -55,7 +55,7 @@ export const industries: Industry[] = [
       "Product-led growth has hit a ceiling",
       "Competitors are outspending you in paid channels",
     ],
-    typicalDealSize: "MRR: Ã‚Â£50 - Ã‚Â£5,000+ per customer",
+    typicalDealSize: "MRR: £50 - £5,000+ per customer",
     idealChannels: ["SEO", "Paid Media", "Content Marketing", "CRO"],
   },
   {
@@ -69,7 +69,7 @@ export const industries: Industry[] = [
       "Product-led growth has hit a ceiling",
       "Competitors are outspending you in paid channels",
     ],
-    typicalDealSize: "MRR: Ã‚Â£50 - Ã‚Â£5,000+ per customer",
+    typicalDealSize: "MRR: £50 - £5,000+ per customer",
     idealChannels: ["SEO", "Paid Media", "Content Marketing", "CRO"],
   },
   {
@@ -126,7 +126,7 @@ export const industries: Industry[] = [
       "Trade show leads are drying up and digital isn't picking up the slack",
       "Decision-makers can't find you when researching suppliers",
     ],
-    typicalDealSize: "Ã‚Â£10,000 - Ã‚Â£500,000+ per contract",
+    typicalDealSize: "£10,000 - £500,000+ per contract",
     idealChannels: ["SEO", "Content Marketing", "LinkedIn", "Trade Publications"],
   },
   {
@@ -140,7 +140,7 @@ export const industries: Industry[] = [
       "Reviews are scattered and hard to manage across platforms",
       "Local events and attractions aren't driving traffic to your venue",
     ],
-    typicalDealSize: "Ã‚Â£50 - Ã‚Â£500 per booking / event",
+    typicalDealSize: "£50 - £500 per booking / event",
     idealChannels: ["Local SEO", "Google Ads", "Social Media", "Review Management"],
   },
   {
@@ -154,7 +154,7 @@ export const industries: Industry[] = [
       "Online booking isn't integrated or visible enough",
       "Reviews are negative or non-existent compared to other practices",
     ],
-    typicalDealSize: "Ã‚Â£100 - Ã‚Â£5,000+ per patient lifetime value",
+    typicalDealSize: "£100 - £5,000+ per patient lifetime value",
     idealChannels: ["Local SEO", "Google Ads", "Content Marketing", "Review Management"],
   },
   {
@@ -168,7 +168,7 @@ export const industries: Industry[] = [
       "Case studies and project portfolios aren't driving enquiries",
       "Competitors with worse work are ranking above you online",
     ],
-    typicalDealSize: "Ã‚Â£50,000 - Ã‚Â£5,000,000+ per project",
+    typicalDealSize: "£50,000 - £5,000,000+ per project",
     idealChannels: ["SEO", "Content Marketing", "LinkedIn", "Local SEO"],
   },
   {
@@ -196,7 +196,7 @@ export const industries: Industry[] = [
       "Mobile users can't navigate your site or find your phone number quickly",
       "No way to showcase your MOT pass rates, certifications or customer reviews",
     ],
-    typicalDealSize: "Ã‚Â£200 - Ã‚Â£2,000 per job",
+    typicalDealSize: "£200 - £2,000 per job",
     idealChannels: ["Local SEO", "Google Ads", "Web Design", "Review Management"],
   },
   {
@@ -210,7 +210,7 @@ export const industries: Industry[] = [
       "Mobile users can't navigate your site or find your phone number quickly",
       "No way to showcase your MOT pass rates, certifications or customer reviews",
     ],
-    typicalDealSize: "Ã‚Â£200 - Ã‚Â£2,000 per job",
+    typicalDealSize: "£200 - £2,000 per job",
     idealChannels: ["Local SEO", "Google Ads", "Web Design", "Review Management"],
   },
   {
@@ -218,13 +218,13 @@ export const industries: Industry[] = [
     name: "Facilities Management",
     slug: "facilities-management",
     painPoints: [
-      "Your website doesn't communicate what you actually do Ã¢â‚¬â€ services are buried under generic FM jargon",
+      "Your website doesn't communicate what you actually do — services are buried under generic FM jargon",
       "Competitors with worse service records outrank you because their websites convert better",
-      "No clear pathway from visitor to RFP Ã¢â‚¬â€ just a lonely contact form in the footer",
+      "No clear pathway from visitor to RFP — just a lonely contact form in the footer",
       "Your digital presence doesn't reflect the operational excellence you deliver on-site",
       "Complex service offerings (hard, soft, compliance, projects) aren't structured for different buyer journeys",
     ],
-    typicalDealSize: "Ã‚Â£10,000 - Ã‚Â£50,000 per website project",
+    typicalDealSize: "£10,000 - £50,000 per website project",
     idealChannels: ["SEO", "Web Design", "Content Marketing", "LinkedIn"],
   },
 ];

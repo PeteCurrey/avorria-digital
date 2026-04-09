@@ -144,7 +144,7 @@ export default function SitemapManager() {
     window.open(url, "_blank");
   };
 
-  // 4 services per location for geo pages
+// ------------------------------ Service-Location (Geo) Pages ------------------------------
   const geoPageCount = locations.length * 4;
   
   const totalUrls =
@@ -190,7 +190,7 @@ export default function SitemapManager() {
               <div>
                 <p className="text-sm text-muted-foreground">Case Studies</p>
                 <p className="text-2xl font-bold text-foreground">
-                  {caseStudyCount ?? "â€”"}
+                  {caseStudyCount ?? "€”"}
                 </p>
               </div>
               <Database className="h-8 w-8 text-primary/50" />
@@ -214,7 +214,7 @@ export default function SitemapManager() {
               <div>
                 <p className="text-sm text-muted-foreground">Geo Pages</p>
                 <p className="text-2xl font-bold text-foreground">{geoPageCount}</p>
-                <p className="text-xs text-muted-foreground">{locations.length} locations Ã— 4 services</p>
+                <p className="text-xs text-muted-foreground">{locations.length} locations × 4 services</p>
               </div>
               <MapPin className="h-8 w-8 text-primary/50" />
             </div>

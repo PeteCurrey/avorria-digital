@@ -29,8 +29,6 @@ export const LogoWall = ({ title, type = "clients", variant = "dark" }: LogoWall
   const getInitials = (name: string) => {
     return name.split(' ').map(word => word[0]).join('').slice(0, 3).toUpperCase();
   };
-
-  // Use database logos for clients, static for tools
   const logos = type === "clients" 
     ? (clientLogos || []).map(logo => ({ name: logo.name, logo_url: logo.logo_url }))
     : toolLogos;
@@ -55,8 +53,6 @@ export const LogoWall = ({ title, type = "clients", variant = "dark" }: LogoWall
       </div>
     );
   }
-
-  // Don't render if no logos
   if (type === "clients" && (!clientLogos || clientLogos.length === 0)) {
     return null;
   }

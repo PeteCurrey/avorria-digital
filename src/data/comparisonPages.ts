@@ -10,7 +10,7 @@ export const comparisonPages: ComparisonPage[] = [
     primarySubject: "Avorria",
     secondarySubject: "Typical Agency",
     audience: "Business owners and marketing leaders tired of agency noise",
-    summary: "If you've worked with agencies before, this comparison will sound familiar. Here's where we're differentÃ¢â‚¬â€and why it matters for your bottom line.",
+    summary: "If you've worked with agencies before, this comparison will sound familiar. Here's where we're different—and why it matters for your bottom line.",
     ctaText: "If you want grown-up marketing conversations, let's talk",
     metaTitle: "Avorria vs Typical Marketing Agency | Why We're Different",
     metaDescription: "Tired of agency noise and vague reporting? See how Avorria's performance-first approach differs from typical marketing agencies.",
@@ -40,7 +40,7 @@ export const comparisonPages: ComparisonPage[] = [
           },
           {
             criterion: "Technical Capability",
-            primaryValue: "Deep technical SEO, conversion tracking, and analytics as standardÃ¢â‚¬â€not upsells.",
+            primaryValue: "Deep technical SEO, conversion tracking, and analytics as standard—not upsells.",
             secondaryValue: "Basic SEO knowledge. Complex tracking is extra or outsourced.",
           },
           {
@@ -74,7 +74,7 @@ Most agencies optimise for metrics they control (traffic, rankings, impressions)
 
 If a campaign is driving traffic but not pipeline, we kill it. If a page is ranking but not converting, we fix it.
 
-### We Don't Sell You ChannelsÃ¢â‚¬â€We Build Systems
+### We Don't Sell You Channels—We Build Systems
 
 Typical agencies are structured by channel: the SEO team, the paid team, the social team. This creates silos.
 
@@ -111,7 +111,7 @@ Our senior team stays involved. You get the same people on strategy calls that y
       },
       {
         type: "cta",
-        content: "If you want grown-up marketing conversationsÃ¢â‚¬â€where we talk pipeline, not impressionsÃ¢â‚¬â€let's talk.\n\nWe'll assess your current situation, identify opportunities, and show you what a performance-first approach actually looks like.",
+        content: "If you want grown-up marketing conversations—where we talk pipeline, not impressions—let's talk.\n\nWe'll assess your current situation, identify opportunities, and show you what a performance-first approach actually looks like.",
       },
     ],
   },
@@ -126,11 +126,11 @@ Our senior team stays involved. You get the same people on strategy calls that y
     summary: "Should you DIY your marketing, hire internally, or work with an agency? Here's an honest breakdown of when each makes sense.",
     ctaText: "Keep your internal control, add external firepower",
     metaTitle: "Avorria vs DIY / In-House Marketing | When to Get Help",
-    metaDescription: "Doing your own marketing or building an in-house team? Here's when DIY makes senseÃ¢â‚¬â€and when it starts costing you more than it saves.",
+    metaDescription: "Doing your own marketing or building an in-house team? Here's when DIY makes sense—and when it starts costing you more than it saves.",
     sections: [
       {
         type: "intro",
-        content: "You're running your own Google Ads. You're writing blog posts at 11pm. You're Googling 'how to improve website conversion rate' for the third time this month.\n\nDIY marketing makes sense at the startÃ¢â‚¬â€budgets are tight, you know your business better than anyone, and agencies feel like an unnecessary expense.\n\nBut at some point, DIY stops being scrappy and starts destroying value.\n\nHere's how to know when you've crossed that line.",
+        content: "You're running your own Google Ads. You're writing blog posts at 11pm. You're Googling 'how to improve website conversion rate' for the third time this month.\n\nDIY marketing makes sense at the start—budgets are tight, you know your business better than anyone, and agencies feel like an unnecessary expense.\n\nBut at some point, DIY stops being scrappy and starts destroying value.\n\nHere's how to know when you've crossed that line.",
       },
       {
         type: "table",
@@ -154,7 +154,7 @@ Our senior team stays involved. You get the same people on strategy calls that y
           {
             criterion: "Risk of Costly Mistakes",
             primaryValue: "We've made (and fixed) the mistakes already. Your budget isn't our testing ground.",
-            secondaryValue: "Every mistake is a learning experienceÃ¢â‚¬â€paid for with your marketing budget.",
+            secondaryValue: "Every mistake is a learning experience—paid for with your marketing budget.",
           },
           {
             criterion: "Scalability",
@@ -173,16 +173,16 @@ Our senior team stays involved. You get the same people on strategy calls that y
         heading: "When Each Approach Makes Sense",
         useCases: {
           them: [
-            "You're pre-revenue or very early stage with under Ã‚Â£5k/month in marketing budget",
+            "You're pre-revenue or very early stage with under £5k/month in marketing budget",
             "You have deep marketing expertise yourself and just need execution time",
             "Your market is so niche that external agencies won't understand it",
             "You're hiring a strong internal marketing lead and can afford to build a full team",
           ],
           us: [
             "You're doing marketing because you have to, not because you're good at it",
-            "Your campaigns are working okay, but you know they could be 2Ã¢â‚¬â€œ3x more efficient",
+            "Your campaigns are working okay, but you know they could be 2–3x more efficient",
             "You've hired junior marketers who need senior strategic oversight",
-            "You're spending Ã‚Â£5k+/month on marketing and results are inconsistent",
+            "You're spending £5k+/month on marketing and results are inconsistent",
             "You need specific expertise (technical SEO, paid media, CRO) without hiring full-time",
           ],
         },
@@ -191,7 +191,7 @@ Our senior team stays involved. You get the same people on strategy calls that y
         type: "pros-cons",
         heading: "The Hidden Costs of DIY Marketing",
         content: `### Opportunity Cost
-Every hour you spend tweaking Google Ads is an hour not spent on sales, product, or operations. If your time is worth Ã‚Â£100/hour and you spend 10 hours/week on marketing, that's Ã‚Â£4,000/month in opportunity cost.
+Every hour you spend tweaking Google Ads is an hour not spent on sales, product, or operations. If your time is worth £100/hour and you spend 10 hours/week on marketing, that's £4,000/month in opportunity cost.
 
 ### Learning Curve Tax
 Mistakes are expensive. Launching a campaign with poor targeting, no conversion tracking, or a broken landing page can burn thousands before you realise what went wrong.
@@ -199,9 +199,9 @@ Mistakes are expensive. Launching a campaign with poor targeting, no conversion 
 We've already made those mistakes (on our own budget). You don't have to.
 
 ### Inconsistent Execution
-Marketing works when it compounds. SEO takes 6Ã¢â‚¬â€œ12 months to show results. Paid campaigns need constant optimisation. Content needs publishing weekly.
+Marketing works when it compounds. SEO takes 6–12 months to show results. Paid campaigns need constant optimisation. Content needs publishing weekly.
 
-When you're juggling ten other priorities, marketing is the first thing to slipÃ¢â‚¬â€and the compounding effect breaks.
+When you're juggling ten other priorities, marketing is the first thing to slip—and the compounding effect breaks.
 
 ### Limited Specialist Knowledge
 A generalist in-house hire can handle day-to-day execution, but they're not a technical SEO expert, a paid media specialist, a conversion rate optimiser, and a designer.
@@ -211,7 +211,7 @@ With Avorria, you get all of those without hiring four people.`,
       {
         type: "pros-cons",
         heading: "How Avorria Partners With Internal Teams",
-        content: `We don't replace your teamÃ¢â‚¬â€we extend it.
+        content: `We don't replace your team—we extend it.
 
 Many of our clients have internal marketers who handle brand, content, and day-to-day campaigns. We come in for:
 
@@ -223,7 +223,7 @@ This gives you the best of both worlds: internal control + external expertise.`,
       },
       {
         type: "cta",
-        content: "Not sure whether to DIY, hire, or partner with an agency?\n\nBook a strategy call and we'll talk through your specific situationÃ¢â‚¬â€no sales pitch, just honest advice on what makes sense for your business right now.",
+        content: "Not sure whether to DIY, hire, or partner with an agency?\n\nBook a strategy call and we'll talk through your specific situation—no sales pitch, just honest advice on what makes sense for your business right now.",
       },
     ],
   },

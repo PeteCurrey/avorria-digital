@@ -375,7 +375,7 @@ const NewsletterBuilder = () => {
           <div class="footer">
             <p>You're receiving this because you subscribed to our newsletter.</p>
             <p><a href="#" style="color: #94a3b8;">Unsubscribe</a> | <a href="#" style="color: #94a3b8;">View in browser</a></p>
-            <p style="margin-top: 15px;">Â© ${new Date().getFullYear()} Avorria. All rights reserved.</p>
+            <p style="margin-top: 15px;">·© ${new Date().getFullYear()} Avorria. All rights reserved.</p>
           </div>
         </div>
       </body>
@@ -769,7 +769,7 @@ const NewsletterBuilder = () => {
                       try {
                         const { data, error } = await supabase.functions.invoke("send-weekly-newsletter", { body: { preview: true } });
                         if (error) throw error;
-                        toast.success("Digest preview generated â€” check your email");
+                        toast.success("Digest preview generated €” check your email");
                       } catch (e: any) {
                         toast.error(e.message || "Failed to generate preview");
                       } finally {

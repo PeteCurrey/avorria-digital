@@ -402,7 +402,7 @@ const ClientsManager = () => {
                   <Input
                     value={formData.monthly_value}
                     onChange={(e) => setFormData({ ...formData, monthly_value: e.target.value })}
-                    placeholder="e.g., Ã‚Â£5,000"
+                    placeholder="e.g., £5,000"
                   />
                 </div>
               </div>
@@ -531,10 +531,10 @@ const ClientsManager = () => {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {client.monthly_value || "Ã¢â‚¬â€"}
+                        {client.monthly_value || "—"}
                       </TableCell>
                       <TableCell className="text-muted-foreground">
-                        {client.owner_name || (client.owner_id ? "User linked" : "Ã¢â‚¬â€")}
+                        {client.owner_name || (client.owner_id ? "User linked" : "—")}
                       </TableCell>
                       <TableCell className="text-muted-foreground">
                         {format(new Date(client.created_at), "MMM d, yyyy")}

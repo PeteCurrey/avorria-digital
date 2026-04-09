@@ -72,7 +72,7 @@ const ClientOverview = () => {
   const totalOutstanding = outstandingInvoices.reduce((sum, inv) => sum + inv.amount, 0);
   const nextDueInvoice = outstandingInvoices.sort((a, b) => new Date(a.due_date).getTime() - new Date(b.due_date).getTime())[0];
 
-  const fmt = (v: number) => (v >= 1000 ? `Ãƒâ€šÃ‚Â£${(v / 1000).toFixed(1)}k` : `Ãƒâ€šÃ‚Â£${v.toLocaleString()}`);
+  const fmt = (v: number) => (v >= 1000 ? `£${(v / 1000).toFixed(1)}k` : `£${v.toLocaleString()}`);
 
   const statItems = stats
     ? [
@@ -121,7 +121,7 @@ const ClientOverview = () => {
                   <CreditCard className="h-4 w-4 text-accent" />
                   <h3 className="text-sm font-medium text-white/70">Account Balance</h3>
                 </div>
-                <p className="text-3xl font-light text-white mb-1">{totalOutstanding > 0 ? fmt(totalOutstanding) : "Ãƒâ€šÃ‚Â£0"}</p>
+                <p className="text-3xl font-light text-white mb-1">{totalOutstanding > 0 ? fmt(totalOutstanding) : "£0"}</p>
                 <p className="text-xs text-white/30 mb-4">
                   {totalOutstanding > 0 ? `${outstandingInvoices.length} invoice${outstandingInvoices.length > 1 ? "s" : ""} outstanding` : "All invoices paid"}
                 </p>

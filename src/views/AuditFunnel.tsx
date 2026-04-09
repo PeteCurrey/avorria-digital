@@ -30,8 +30,8 @@ export default function AuditFunnel() {
   return (
     <>
       <SEOHead
-        title="Free SEO & Website Audit â€“ Instant Results"
-        description="Get an instant, AI-powered audit of your website. Clear, actionable recommendations delivered in under 60 seconds â€“ completely free."
+        title="Free SEO & Website Audit – Instant Results"
+        description="Get an instant, AI-powered audit of your website. Clear, actionable recommendations delivered in under 60 seconds – completely free."
         canonical="/free-seo-website-audit"
         keywords={["free SEO audit", "website audit", "SEO analysis", "site audit tool", "free website review"]}
       />
@@ -59,7 +59,7 @@ export default function AuditFunnel() {
                 </h1>
                 
                 <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-                  Our AI analyzes your site, SEO, and setup â€“ then delivers a comprehensive report with prioritized recommendations you can act on today.
+                  Our AI analyzes your site, SEO, and setup – then delivers a comprehensive report with prioritized recommendations you can act on today.
                 </p>
 
                 <div className="flex flex-wrap justify-center gap-6 pt-4">
@@ -130,7 +130,7 @@ export default function AuditFunnel() {
                       Content Quality Review
                     </h3>
                     <p className="text-muted-foreground">
-                      We analyze your content through the lens of "would this make me enquire?" â€“ honest feedback on what's working.
+                      We analyze your content through the lens of "would this make me enquire?" – honest feedback on what's working.
                     </p>
                   </div>
                 </BeamBorder>
@@ -144,7 +144,7 @@ export default function AuditFunnel() {
                       Performance Analysis
                     </h3>
                     <p className="text-muted-foreground">
-                      Speed, mobile experience, and Core Web Vitals â€“ the technical factors that impact both rankings and conversions.
+                      Speed, mobile experience, and Core Web Vitals – the technical factors that impact both rankings and conversions.
                     </p>
                   </div>
                 </BeamBorder>
@@ -158,7 +158,7 @@ export default function AuditFunnel() {
                       Prioritised Action List
                     </h3>
                     <p className="text-muted-foreground">
-                      A 90-day roadmap of what to fix first â€“ ordered by impact vs effort so you know exactly where to start.
+                      A 90-day roadmap of what to fix first – ordered by impact vs effort so you know exactly where to start.
                     </p>
                   </div>
                 </BeamBorder>
@@ -285,7 +285,7 @@ export default function AuditFunnel() {
                     Is this really free?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Yes, 100% free. You'll get a complete audit with actionable recommendations. If you want help implementing them, we can talk â€“ but there's zero obligation.
+                    Yes, 100% free. You'll get a complete audit with actionable recommendations. If you want help implementing them, we can talk – but there's zero obligation.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -294,7 +294,7 @@ export default function AuditFunnel() {
                     How is this different from other SEO audits?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Most free audits are generic reports with 100+ issues designed to scare you. Ours is AI-powered to give you specific, prioritized recommendations tailored to your site â€“ what matters most, ordered by impact.
+                    Most free audits are generic reports with 100+ issues designed to scare you. Ours is AI-powered to give you specific, prioritized recommendations tailored to your site – what matters most, ordered by impact.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -303,7 +303,7 @@ export default function AuditFunnel() {
                     How detailed is the audit?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Detailed enough to make decisions. You'll get scores across 5 key areas, specific findings, and a 90-day roadmap of prioritized actions â€“ typically 5-10 pages of actionable insights.
+                    Detailed enough to make decisions. You'll get scores across 5 key areas, specific findings, and a 90-day roadmap of prioritized actions – typically 5-10 pages of actionable insights.
                   </AccordionContent>
                 </AccordionItem>
 
@@ -312,7 +312,7 @@ export default function AuditFunnel() {
                     Do I have to jump on a sales call?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground">
-                    Nope. The audit is delivered instantly â€“ no calls required. If you want to discuss the findings, you can book a call, but it's completely optional.
+                    Nope. The audit is delivered instantly – no calls required. If you want to discuss the findings, you can book a call, but it's completely optional.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
@@ -329,7 +329,7 @@ export default function AuditFunnel() {
                 Ready for your reality check?
               </h2>
               <p className="text-xl text-soft">
-                Get instant, actionable insights about your website â€“ completely free.
+                Get instant, actionable insights about your website – completely free.
               </p>
               <Button size="lg" onClick={scrollToForm} className="text-lg px-8">
                 Get My Free Audit Now

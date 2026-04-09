@@ -75,8 +75,6 @@ const WebsitesWeFire = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [guiltyArchetypes, setGuiltyArchetypes] = useState<Record<number, boolean>>({});
   const [showTypewriter, setShowTypewriter] = useState(false);
-
-  // Delay typewriter start for hero animation
   useEffect(() => {
     const timer = setTimeout(() => setShowTypewriter(true), 800);
     return () => clearTimeout(timer);
@@ -106,7 +104,7 @@ const WebsitesWeFire = () => {
 
     setTimeout(() => {
       toast({
-        title: "Got it â€“ we'll take a look",
+        title: "Got it – we'll take a look",
         description: "We'll send you a plain-English teardown within 3 working days.",
       });
       setFormData({ name: "", email: "", website: "", concern: "" });
@@ -148,7 +146,7 @@ const WebsitesWeFire = () => {
       ],
       avorriaFix: [
         "Single, clear headline tied to a commercial outcome",
-        "One primary CTA, one secondary â€“ both high intent",
+        "One primary CTA, one secondary – both high intent",
         "Hero built as a sales message, not a slideshow",
       ],
     },
@@ -156,7 +154,7 @@ const WebsitesWeFire = () => {
       icon: Briefcase,
       number: 2,
       title: "The 'We Do Everything For Everyone' Agency Site",
-      tagline: "From blockchain to basket weaving â€“ we'll take any client with a pulse.",
+      tagline: "From blockchain to basket weaving – we'll take any client with a pulse.",
       image: badGeneralistSite,
       looksLike: [
         "Laundry list of 15+ services on the homepage",
@@ -237,7 +235,7 @@ const WebsitesWeFire = () => {
       avorriaFix: [
         "Premium aesthetics that enhance the message, not replace it",
         "Clear navigation, obvious CTAs, scannable hierarchy",
-        "Beautiful AND functional â€“ conversion and design are not enemies",
+        "Beautiful AND functional – conversion and design are not enemies",
       ],
     },
   ];
@@ -300,11 +298,11 @@ const WebsitesWeFire = () => {
     },
     {
       question: "Will you migrate tracking and SEO properly?",
-      answer: "Absolutely. We audit current tracking, set up GA4, tag manager and conversion events properly, handle 301 redirects, preserve link equity, and make sure nothing breaks. This isn't an afterthought â€“ it's core to the process.",
+      answer: "Absolutely. We audit current tracking, set up GA4, tag manager and conversion events properly, handle 301 redirects, preserve link equity, and make sure nothing breaks. This isn't an afterthought – it's core to the process.",
     },
     {
       question: "What kind of budget do we need to take this seriously?",
-      answer: "For a proper conversion-led rebuild with strategy, copy, design, dev and tracking: expect Â£15kâ€“Â£40k depending on scope. For landing page or funnel-specific work: Â£5kâ€“Â£15k. If those numbers feel high, DIY tools like Webflow or Squarespace might be a better fit.",
+      answer: "For a proper conversion-led rebuild with strategy, copy, design, dev and tracking: expect £15k–£40k depending on scope. For landing page or funnel-specific work: £5k–£15k. If those numbers feel high, DIY tools like Webflow or Squarespace might be a better fit.",
     },
   ];
 
@@ -633,7 +631,7 @@ const WebsitesWeFire = () => {
                                 <ul className="space-y-2">
                                   {archetype.whyFired.map((item, idx) => (
                                     <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                                      <span className="text-destructive shrink-0">â€¢</span>
+                                      <span className="text-destructive shrink-0">€¢</span>
                                       <span>{item}</span>
                                     </li>
                                   ))}

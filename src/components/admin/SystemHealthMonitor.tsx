@@ -108,7 +108,7 @@ export default function SystemHealthMonitor() {
       setSystems(systemChecks);
       setLastUpdated(new Date());
       
-      // Storage usage not available without admin API â€” leave at 0
+      // Storage usage not available without admin API -- leave at 0
       setStorage({
         used: 0,
         total: 0,

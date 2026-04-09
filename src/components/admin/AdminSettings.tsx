@@ -169,7 +169,7 @@ export default function AdminSettings() {
       docUrl: "https://console.cloud.google.com/apis/credentials",
       icon: BarChart3,
       instructions: [
-        "Go to Google Cloud Console ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ APIs & Services ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Credentials",
+        "Go to Google Cloud Console → APIs & Services → Credentials",
         "Create a Service Account with Analytics Viewer role",
         "Download the JSON key file",
         "Paste the entire JSON content below",
@@ -199,7 +199,7 @@ export default function AdminSettings() {
       icon: Database,
       instructions: [
         "Sign up at dataforseo.com",
-        "Go to Dashboard ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ API Access",
+        "Go to Dashboard → API Access",
         "Copy your Login and Password",
         "Format: login:password",
       ],
@@ -214,7 +214,7 @@ export default function AdminSettings() {
       icon: Globe,
       instructions: [
         "Sign up at serpapi.com",
-        "Go to Dashboard ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ API Key",
+        "Go to Dashboard → API Key",
         "Copy your API key",
       ],
     },
@@ -228,7 +228,7 @@ export default function AdminSettings() {
       icon: Send,
       instructions: [
         "Sign up at resend.com",
-        "Go to API Keys ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Create API Key",
+        "Go to API Keys → Create API Key",
         "IMPORTANT: Also verify your domain at resend.com/domains",
         "Add the required DNS records for SPF, DKIM, DMARC",
       ],
@@ -243,7 +243,7 @@ export default function AdminSettings() {
       icon: Sparkles,
       instructions: [
         "Sign up at console.anthropic.com",
-        "Go to Settings ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ API Keys",
+        "Go to Settings → API Keys",
         "Create a new API key and copy it",
         "Paste the key below to integrate Claude v3.5 Sonnet",
       ],
@@ -726,7 +726,7 @@ export default function AdminSettings() {
                         className="border-border/30"
                       >
                         <TableCell className="font-medium">
-                          {member.full_name || "ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â"}
+                          {member.full_name || "—"}
                         </TableCell>
                         <TableCell className="text-muted-foreground">
                           {member.email}
@@ -811,7 +811,7 @@ export default function AdminSettings() {
                                 <Input
                                   id="claude-key"
                                   type={showApiKey[config.id] ? "text" : "password"}
-                                  placeholder={config.isConfigured ? "Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢" : "sk-ant-..."}
+                                  placeholder={config.isConfigured ? " ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  · " : "sk-ant-..."}
                                   value={apiKeyValues[config.id] || ""}
                                   onChange={(e) => setApiKeyValues(prev => ({ ...prev, [config.id]: e.target.value }))}
                                   className="font-mono bg-background/50 border-border/50 h-11 pr-10"
@@ -897,7 +897,7 @@ export default function AdminSettings() {
                               <Input
                                 type="password" 
                                 readOnly
-                                value={config.isConfigured ? "Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢" : ""}
+                                value={config.isConfigured ? " ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  ·  · " : ""}
                                 placeholder="Not configured"
                                 className="h-9 text-sm"
                               />
@@ -1243,8 +1243,8 @@ export default function AdminSettings() {
                   <li>Create a Google Cloud Project and enable Analytics Data API + Search Console API</li>
                   <li>Create a Service Account with Viewer permissions</li>
                   <li>Download the JSON key file</li>
-                  <li>Add the service account email to your GA4 property (Admin ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Property Access Management)</li>
-                  <li>Add the service account email to Search Console (Settings ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Users and permissions)</li>
+                  <li>Add the service account email to your GA4 property (Admin → Property Access Management)</li>
+                  <li>Add the service account email to Search Console (Settings → Users and permissions)</li>
                   <li>Configure the secrets in Lovable Cloud (GOOGLE_SERVICE_ACCOUNT_JSON, GOOGLE_ANALYTICS_PROPERTY_ID)</li>
                 </ol>
                 <div className="flex gap-2 pt-2">
@@ -1410,7 +1410,7 @@ export default function AdminSettings() {
                   <div className="flex gap-2">
                     <Input
                       type="password"
-                      value="whsec_ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â¢"
+                      value="whsec_••••••••••••••••"
                       readOnly
                       className="font-mono text-sm bg-muted/30"
                     />

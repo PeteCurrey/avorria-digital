@@ -117,7 +117,7 @@ export const WelcomeHero = ({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-400" />
               </span>
               <span className="text-xs text-white/40 tracking-widest uppercase">
-                {clientName} Â· Client Portal
+                {clientName} · Client Portal
               </span>
             </motion.div>
 

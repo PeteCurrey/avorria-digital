@@ -332,7 +332,7 @@ const ClientProjectsManager = () => {
                         {project.description && <p className="text-sm text-muted-foreground line-clamp-1">{project.description}</p>}
                       </div>
                     </TableCell>
-                    <TableCell>{project.client?.name || "Ã¢â‚¬â€"}</TableCell>
+                    <TableCell>{project.client?.name || "—"}</TableCell>
                     <TableCell><Badge variant="outline">{typeConfig[project.project_type]}</Badge></TableCell>
                     <TableCell><Badge className={statusConfig[project.status].color}>{statusConfig[project.status].label}</Badge></TableCell>
                     <TableCell>

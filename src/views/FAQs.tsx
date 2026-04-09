@@ -25,8 +25,8 @@ const FAQs = () => {
   return (
     <>
       <SEOHead
-        title="FAQs â€“ All Your Questions Answered"
-        description="Everything we're asked most often about strategy, pricing, process and working with Avorria â€“ SEO, web design, paid media and analytics."
+        title="FAQs – All Your Questions Answered"
+        description="Everything we're asked most often about strategy, pricing, process and working with Avorria – SEO, web design, paid media and analytics."
         canonical="/faqs"
         keywords={["avorria FAQ", "digital marketing questions", "SEO FAQ", "marketing agency FAQ", "web design FAQ"]}
       />
@@ -52,7 +52,7 @@ const FAQs = () => {
                 </span>
               </h1>
               <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-                Everything we're asked most often about strategy, pricing, process and working with Avorria â€“ in one page.
+                Everything we're asked most often about strategy, pricing, process and working with Avorria – in one page.
               </p>
             </ScrollReveal>
           </div>

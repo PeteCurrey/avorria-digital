@@ -9,7 +9,7 @@ const TechnicalSEO = () => {
   return (
     <>
       <SEOHead
-        title="Technical SEO Services â€“ Fix What's Holding You Back"
+        title="Technical SEO Services – Fix What's Holding You Back"
         description="Technical SEO that stops your site fighting itself. We fix crawl, speed, structure and duplication issues that quietly tax every campaign you run."
         canonical="/services/seo/technical"
         keywords={["technical SEO", "site speed", "crawl optimisation", "Core Web Vitals", "SEO audit", "site structure"]}
@@ -80,7 +80,7 @@ const TechnicalSEO = () => {
                 <CardContent className="p-8">
                   <Zap className="w-8 h-8 mb-4 text-primary" />
                   <h3 className="text-xl font-medium mb-3 text-foreground">Crawl & indexation</h3>
-                  <p className="text-muted-foreground">Crawlability, indexation and sitemap hygiene â€“ making sure search engines can actually see your site.</p>
+                  <p className="text-muted-foreground">Crawlability, indexation and sitemap hygiene – making sure search engines can actually see your site.</p>
                 </CardContent>
               </Card>
               <Card>
@@ -101,7 +101,7 @@ const TechnicalSEO = () => {
                 <CardContent className="p-8">
                   <Settings className="w-8 h-8 mb-4 text-primary" />
                   <h3 className="text-xl font-medium mb-3 text-foreground">Implementation support</h3>
-                  <p className="text-muted-foreground">Dev-ready tickets or full implementation â€“ depending on your team setup.</p>
+                  <p className="text-muted-foreground">Dev-ready tickets or full implementation – depending on your team setup.</p>
                 </CardContent>
               </Card>
             </div>

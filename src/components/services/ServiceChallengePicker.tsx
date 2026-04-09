@@ -37,7 +37,7 @@ const challenges: Challenge[] = [
     icon: Users,
     title: 'We need more qualified leads',
     problem: "You're getting traffic but not the right kind. Form fills are low, and sales complains about lead quality.",
-    solution: 'We build demand through SEO and Paid Media, targeting buyers who are actually ready to talk â€“ not just browsing.',
+    solution: 'We build demand through SEO and Paid Media, targeting buyers who are actually ready to talk – not just browsing.',
     services: ['SEO', 'Paid Media'],
     serviceLinks: [
       { name: 'SEO', href: '/services/seo' },
@@ -62,7 +62,7 @@ const challenges: Challenge[] = [
     icon: Search,
     title: "We're invisible on Google",
     problem: "Your competitors outrank you for every term that matters. You're relying on paid ads to stay visible.",
-    solution: "We fix technical issues, build the pages you're missing and target keywords that attract qualified demand â€“ not just traffic.",
+    solution: "We fix technical issues, build the pages you're missing and target keywords that attract qualified demand – not just traffic.",
     services: ['SEO', 'Content'],
     serviceLinks: [
       { name: 'SEO', href: '/services/seo' },

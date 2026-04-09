@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
@@ -42,15 +42,15 @@ const heroServicesDigital = "/assets/hero-services-digital.jpg";
 const faqs = [
   {
     question: "How quickly will we see results from paid media?",
-    answer: "You'll see data from day one â€“ clicks, impressions, cost per click. Meaningful commercial results (qualified leads, pipeline) typically emerge within 4â€“6 weeks once we've tested offers, audiences and landing pages. We'll set clear expectations in the first strategy call.",
+    answer: "You'll see data from day one – clicks, impressions, cost per click. Meaningful commercial results (qualified leads, pipeline) typically emerge within 4–6 weeks once we've tested offers, audiences and landing pages. We'll set clear expectations in the first strategy call.",
   },
   {
     question: "What's your minimum ad spend recommendation?",
-    answer: "We typically recommend a minimum of Â£2,000â€“3,000/month in ad spend per platform to gather enough data to optimise effectively. Below that, you're guessing rather than learning. We'll advise on the right budget based on your market and goals.",
+    answer: "We typically recommend a minimum of £2,000–3,000/month in ad spend per platform to gather enough data to optimise effectively. Below that, you're guessing rather than learning. We'll advise on the right budget based on your market and goals.",
   },
   {
-    question: "Do you handle creative â€“ ads, landing pages, copy?",
-    answer: "Yes. We write ad copy, design creatives and build landing pages in-house. Paid media only works when the offer, the ad and the landing experience are aligned â€“ so we control the full chain rather than hoping a separate team delivers on time.",
+    question: "Do you handle creative – ads, landing pages, copy?",
+    answer: "Yes. We write ad copy, design creatives and build landing pages in-house. Paid media only works when the offer, the ad and the landing experience are aligned – so we control the full chain rather than hoping a separate team delivers on time.",
   },
   {
     question: "How do you report on performance?",
@@ -58,7 +58,7 @@ const faqs = [
   },
   {
     question: "Can you work alongside our in-house team?",
-    answer: "Absolutely. We often act as the strategic and execution layer while your team handles brand, content or CRM. We'll integrate with your existing tools and workflows â€“ no duplication, no stepping on toes.",
+    answer: "Absolutely. We often act as the strategic and execution layer while your team handles brand, content or CRM. We'll integrate with your existing tools and workflows – no duplication, no stepping on toes.",
   },
 ];
 
@@ -69,12 +69,12 @@ const processSteps = [
     description: "Audit current campaigns and tracking. Define offers, audiences and landing page strategy. Set up proper conversion tracking and attribution.",
   },
   {
-    phase: "Months 2â€“3",
+    phase: "Months 2–3",
     title: "Launch & Test",
-    description: "Launch initial campaigns across priority platforms. Test ad creative, audiences and offers. Rapid iteration based on early data â€“ cut what doesn't work, scale what does.",
+    description: "Launch initial campaigns across priority platforms. Test ad creative, audiences and offers. Rapid iteration based on early data – cut what doesn't work, scale what does.",
   },
   {
-    phase: "Months 4â€“6",
+    phase: "Months 4–6",
     title: "Optimise & Scale",
     description: "Refine targeting and creative based on pipeline data. Expand to additional platforms or audiences where the numbers support it. Tune landing pages and offers based on conversion data.",
   },
@@ -108,7 +108,7 @@ const paidMediaComparisons = [
   },
   {
     category: "Creative",
-    avorria: "In-house ads, copy and landing pages â€“ full chain",
+    avorria: "In-house ads, copy and landing pages – full chain",
     typical: "Outsourced creative with no conversion focus",
   },
   {
@@ -201,7 +201,7 @@ const PaidMedia = () => {
                 <source src={heroPaidMediaVideo} type="video/mp4" />
               </video>
             ) : (
-              <img src={servicePaidMedia} alt="" className="w-full h-full object-cover" loading="eager" />
+              <img src={servicePaidMedia} alt="Paid media management and PPC services for B2B businesses - Avorria Digital" className="w-full h-full object-cover" loading="eager" />
             )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
@@ -276,7 +276,7 @@ const PaidMedia = () => {
                   </h2>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      Paid media is the fastest way to put your offer in front of the right people â€“ but
+                      Paid media is the fastest way to put your offer in front of the right people – but
                       most businesses treat it like a tap they can't control. Money goes in, "impressions"
                       come out, and nobody can connect the dots between ad spend and actual revenue.
                     </p>
@@ -287,7 +287,7 @@ const PaidMedia = () => {
                     </p>
                     <p>
                       We build paid media campaigns the way a commercial team would: start with the offer,
-                      work backwards to the audience, and measure everything against pipeline â€“ not clicks.
+                      work backwards to the audience, and measure everything against pipeline – not clicks.
                     </p>
                   </div>
                 </ScrollReveal>
@@ -297,7 +297,7 @@ const PaidMedia = () => {
                     {[
                       { icon: Target, title: "Offer-led campaigns", desc: "Every campaign maps to a specific offer and commercial outcome." },
                       { icon: LineChart, title: "Full-funnel tracking", desc: "Connect ad spend to leads, opportunities and revenue." },
-                      { icon: Clock, title: "Weekly optimisation", desc: "We kill what doesn't work and scale what does â€“ fast." },
+                      { icon: Clock, title: "Weekly optimisation", desc: "We kill what doesn't work and scale what does – fast." },
                       { icon: Globe, title: "Unified cross-platform", desc: "Coordinated messaging, offers and landing pages across platforms." },
                     ].map((item, i) => (
                       <div
@@ -337,7 +337,7 @@ const PaidMedia = () => {
                       "Burning budget on \"awareness\" campaigns with no clear path to revenue",
                       "Agency optimising for CTR and CPM while cost per qualified lead quietly doubles",
                       "Disconnected channels running in silos with no unified strategy",
-                      "Attribution chaos â€“ can't prove which campaigns actually drive pipeline",
+                      "Attribution chaos – can't prove which campaigns actually drive pipeline",
                     ].map((item, i) => (
                       <li key={i} className="flex items-start text-white/80">
                         <span className="text-red-400 mr-4 mt-0.5 flex-shrink-0">
@@ -373,10 +373,10 @@ const PaidMedia = () => {
 
               <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
                 {[
-                  { icon: Target, title: "Offer-led campaign structure", description: "We build campaigns around what you're actually selling â€“ not generic \"brand awareness\". Every campaign maps to a specific offer, landing page, and commercial outcome." },
+                  { icon: Target, title: "Offer-led campaign structure", description: "We build campaigns around what you're actually selling – not generic \"brand awareness\". Every campaign maps to a specific offer, landing page, and commercial outcome." },
                   { icon: LineChart, title: "Pipeline-first tracking", description: "We connect ad spend to leads, opportunities and revenue using proper attribution. You'll know exactly which campaigns are worth scaling and which should be cut." },
                   { icon: TrendingUp, title: "Ruthless optimisation", description: "Weekly reviews of what's working and what's not. We kill underperforming campaigns fast and double down on winners. No emotional attachment to creative that doesn't convert." },
-                  { icon: Zap, title: "Multi-channel coordination", description: "Google Search, Meta, LinkedIn â€“ we run them as a coordinated system, not separate campaigns. Messaging, offers and landing pages stay consistent while tactics adapt to each platform." },
+                  { icon: Zap, title: "Multi-channel coordination", description: "Google Search, Meta, LinkedIn – we run them as a coordinated system, not separate campaigns. Messaging, offers and landing pages stay consistent while tactics adapt to each platform." },
                 ].map((item, i) => (
                   <motion.div
                     key={item.title}

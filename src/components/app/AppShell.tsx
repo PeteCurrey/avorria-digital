@@ -324,7 +324,7 @@ const AppShell = ({ children, type, userName = "User", userRole = "Team Member",
    </DropdownMenu>
    </header>
 
-   {/* Page content Ã¢â‚¬â€ dark background with scroll */}
+   {/* Page content — dark background with scroll */}
    <main className="flex-1 overflow-y-auto bg-[hsl(220,25%,7%)] p-6 pt-7">
    <motion.div
     key={pathname}

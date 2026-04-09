@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useState, useEffect, useCallback } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -37,11 +37,11 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 const budgetRanges = [
-  "Under Ã‚Â£2,000/month",
-  "Ã‚Â£2,000 - Ã‚Â£5,000/month",
-  "Ã‚Â£5,000 - Ã‚Â£10,000/month",
-  "Ã‚Â£10,000 - Ã‚Â£25,000/month",
-  "Ã‚Â£25,000+/month",
+  "Under —2,000/month",
+  "—2,000 - —5,000/month",
+  "—5,000 - —10,000/month",
+  "—10,000 - —25,000/month",
+  "—25,000+/month",
 ];
 
 const priorities = [
@@ -301,10 +301,10 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
           </div>
 
           <div className="space-y-2 text-sm text-muted-foreground">
-            <p>Ã¢Å“â€œ Checking technical health</p>
-            <p>Ã¢Å“â€œ Analyzing SEO factors</p>
-            <p>Ã¢Å“â€œ Evaluating page performance</p>
-            <p className="animate-pulse">Ã¢â€ â€™ Generating recommendations...</p>
+            <p>✅ Checking technical health</p>
+            <p>✅ Analyzing SEO factors</p>
+            <p>✅ Evaluating page performance</p>
+            <p className="animate-pulse">— Generating recommendations...</p>
           </div>
         </div>
       </Card>
@@ -486,7 +486,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
               )}
             </Button>
             <p className="text-xs text-muted-foreground">
-              Ã¢Å¡Â¡ Instant results Ã¢â‚¬Â¢ Ã°Å¸â€â€™ Your data is safe
+              ⚡ Instant results  ·  🛡️ Your data is safe
             </p>
           </div>
         </form>

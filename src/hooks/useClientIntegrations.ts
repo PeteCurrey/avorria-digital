@@ -1,4 +1,3 @@
-﻿import Link from "next/link";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -41,21 +40,21 @@ export const INTEGRATION_TYPES = {
 
 export const PLATFORMS = {
   // Analytics
-  GA4: { key: "ga4", label: "Google Analytics 4", type: INTEGRATION_TYPES.ANALYTICS, icon: "Ã°Å¸â€œÅ " },
-  GSC: { key: "gsc", label: "Google Search Console", type: INTEGRATION_TYPES.ANALYTICS, icon: "Ã°Å¸â€Â" },
+  GA4: { key: "ga4", label: "Google Analytics 4", type: INTEGRATION_TYPES.ANALYTICS, icon: "ChartBar" },
+  GSC: { key: "gsc", label: "Google Search Console", type: INTEGRATION_TYPES.ANALYTICS, icon: "Search" },
   // Social
-  TWITTER: { key: "twitter", label: "Twitter / X", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Ã°Ââ€¢Â" },
-  LINKEDIN: { key: "linkedin", label: "LinkedIn", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Ã°Å¸â€™Â¼" },
-  INSTAGRAM: { key: "instagram", label: "Instagram", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Ã°Å¸â€œÂ¸" },
-  FACEBOOK: { key: "facebook", label: "Facebook", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Ã°Å¸â€œËœ" },
+  TWITTER: { key: "twitter", label: "Twitter / X", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Twitter" },
+  LINKEDIN: { key: "linkedin", label: "LinkedIn", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Linkedin" },
+  INSTAGRAM: { key: "instagram", label: "Instagram", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Instagram" },
+  FACEBOOK: { key: "facebook", label: "Facebook", type: INTEGRATION_TYPES.SOCIAL_MEDIA, icon: "Facebook" },
   // Advertising
-  GOOGLE_ADS: { key: "google_ads", label: "Google Ads", type: INTEGRATION_TYPES.ADVERTISING, icon: "Ã°Å¸â€œË†" },
-  META_ADS: { key: "meta_ads", label: "Meta Ads", type: INTEGRATION_TYPES.ADVERTISING, icon: "Ã°Å¸Å½Â¯" },
-  LINKEDIN_ADS: { key: "linkedin_ads", label: "LinkedIn Ads", type: INTEGRATION_TYPES.ADVERTISING, icon: "Ã°Å¸â€™Â°" },
+  GOOGLE_ADS: { key: "google_ads", label: "Google Ads", type: INTEGRATION_TYPES.ADVERTISING, icon: "Goal" },
+  META_ADS: { key: "meta_ads", label: "Meta Ads", type: INTEGRATION_TYPES.ADVERTISING, icon: "Target" },
+  LINKEDIN_ADS: { key: "linkedin_ads", label: "LinkedIn Ads", type: INTEGRATION_TYPES.ADVERTISING, icon: "Users" },
   // Competitor
-  COMPETITOR_MONITOR: { key: "competitor_monitor", label: "Competitor Monitor", type: INTEGRATION_TYPES.COMPETITOR, icon: "Ã°Å¸â€Å½" },
+  COMPETITOR_MONITOR: { key: "competitor_monitor", label: "Competitor Monitor", type: INTEGRATION_TYPES.COMPETITOR, icon: "Eye" },
   // Content
-  CONTENT_AUTOMATION: { key: "content_automation", label: "Content Automation", type: INTEGRATION_TYPES.CONTENT, icon: "Ã¢Å“ÂÃ¯Â¸Â" },
+  CONTENT_AUTOMATION: { key: "content_automation", label: "Content Automation", type: INTEGRATION_TYPES.CONTENT, icon: "FileText" },
 } as const;
 
 export const ALL_PLATFORMS = Object.values(PLATFORMS);
@@ -155,4 +154,3 @@ export function useDeleteClientIntegration() {
     },
   });
 }
-

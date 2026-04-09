@@ -111,7 +111,7 @@ const AgencyTeardown = () => {
   return (
     <>
       <SEOHead
-        title="Agency Report Teardown Ã¢â‚¬â€œ Get a Blunt Assessment"
+        title="Agency Report Teardown – Get a Blunt Assessment"
         description="Upload your agency's report and we'll tell you if it's worth what you're paying. Plain-English breakdown of what's solid, what's filler, and where you're being short-changed."
         canonical="/agency-teardown"
         keywords={["agency report review", "marketing agency audit", "agency teardown", "agency assessment"]}
@@ -130,7 +130,7 @@ const AgencyTeardown = () => {
               <span className="text-accent">We'll Tell You If It's Worth What You're Paying.</span>
             </h1>
             <p className="text-lg text-muted-foreground mb-8 max-w-3xl mx-auto">
-              If your monthly PDF is 40 slides of charts and no clear plan, you're not alone. Send us your latest report or proposal and we'll break it down in plain English Ã¢â‚¬â€œ what's solid, what's filler, and where you're being short-changed.
+              If your monthly PDF is 40 slides of charts and no clear plan, you're not alone. Send us your latest report or proposal and we'll break it down in plain English – what's solid, what's filler, and where you're being short-changed.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button 
@@ -186,7 +186,7 @@ const AgencyTeardown = () => {
               <Card className="p-6 border-border bg-card">
                 <MessagesSquare className="w-10 h-10 text-accent mb-4" />
                 <h3 className="text-xl font-medium mb-3 text-foreground">
-                  No plan for the next 30Ã¢â‚¬â€œ90 days beyond "keep optimising".
+                  No plan for the next 30–90 days beyond "keep optimising".
                 </h3>
                 <p className="text-muted-foreground">
                   A retainer without a roadmap is just hope in a spreadsheet.
@@ -216,14 +216,14 @@ const AgencyTeardown = () => {
               <div>
                 <h3 className="text-xl font-medium mb-3 text-accent">Blunt assessment</h3>
                 <p className="text-muted-foreground">
-                  We'll tell you if the work matches the invoice Ã¢â‚¬â€œ or if it's smoke and mirrors.
+                  We'll tell you if the work matches the invoice – or if it's smoke and mirrors.
                 </p>
               </div>
               
               <div>
                 <h3 className="text-xl font-medium mb-3 text-accent">Decoded reporting</h3>
                 <p className="text-muted-foreground">
-                  We translate their charts into normal language Ã¢â‚¬â€œ what's working, what isn't, and what's missing.
+                  We translate their charts into normal language – what's working, what isn't, and what's missing.
                 </p>
               </div>
               
@@ -347,11 +347,11 @@ const AgencyTeardown = () => {
                     <SelectValue placeholder="Select a range" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="under-2k">&lt; Ã‚Â£2k</SelectItem>
-                    <SelectItem value="2k-5k">Ã‚Â£2k Ã¢â‚¬â€œ Ã‚Â£5k</SelectItem>
-                    <SelectItem value="5k-10k">Ã‚Â£5k Ã¢â‚¬â€œ Ã‚Â£10k</SelectItem>
-                    <SelectItem value="10k-25k">Ã‚Â£10k Ã¢â‚¬â€œ Ã‚Â£25k</SelectItem>
-                    <SelectItem value="25k-plus">Ã‚Â£25k+</SelectItem>
+                    <SelectItem value="under-2k">&lt; £2k</SelectItem>
+                    <SelectItem value="2k-5k">£2k – £5k</SelectItem>
+                    <SelectItem value="5k-10k">£5k – £10k</SelectItem>
+                    <SelectItem value="10k-25k">£10k – £25k</SelectItem>
+                    <SelectItem value="25k-plus">£25k+</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -365,8 +365,8 @@ const AgencyTeardown = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="under-3-months">&lt; 3 months</SelectItem>
-                    <SelectItem value="3-12-months">3Ã¢â‚¬â€œ12 months</SelectItem>
-                    <SelectItem value="1-2-years">1Ã¢â‚¬â€œ2 years</SelectItem>
+                    <SelectItem value="3-12-months">3–12 months</SelectItem>
+                    <SelectItem value="1-2-years">1–2 years</SelectItem>
                     <SelectItem value="2-plus-years">2+ years</SelectItem>
                   </SelectContent>
                 </Select>
@@ -424,13 +424,13 @@ const AgencyTeardown = () => {
             <Card className="p-8 border-border bg-card">
               <h2 className="text-2xl font-light mb-6 text-foreground">We've Seen Worse</h2>
               <p className="text-muted-foreground mb-6">
-                We see the same patterns across dozens of agencies Ã¢â‚¬â€œ bloated reports, fuzzy accountability, minimal strategy.
+                We see the same patterns across dozens of agencies – bloated reports, fuzzy accountability, minimal strategy.
               </p>
               
               <div className="space-y-4 mb-8">
                 <div className="border-l-2 border-accent pl-4">
                   <p className="text-foreground">
-                    <strong>Ã‚Â£6k/month</strong> on "full-funnel marketing" where 90% of budget went on low-intent display 
+                    <strong>£6k/month</strong> on "full-funnel marketing" where 90% of budget went on low-intent display 
                     and almost no tracking was in place.
                   </p>
                 </div>
@@ -485,7 +485,7 @@ const AgencyTeardown = () => {
               <Card className="p-6 border-border bg-card">
                 <h3 className="text-lg font-medium mb-2 text-foreground">What if my agency actually is doing a good job?</h3>
                 <p className="text-muted-foreground">
-                  We'll tell you. We're not here to throw stones for fun Ã¢â‚¬â€œ if your agency's solid, we'll tell you 
+                  We'll tell you. We're not here to throw stones for fun – if your agency's solid, we'll tell you 
                   and highlight what they're doing well.
                 </p>
               </Card>
@@ -494,7 +494,7 @@ const AgencyTeardown = () => {
                 <h3 className="text-lg font-medium mb-2 text-foreground">How detailed is the feedback?</h3>
                 <p className="text-muted-foreground">
                   You'll get a plain-English breakdown covering: what's working, what's missing, what's lazy or 
-                  misaligned, and 3Ã¢â‚¬â€œ5 key recommendations for improvement.
+                  misaligned, and 3–5 key recommendations for improvement.
                 </p>
               </Card>
 

@@ -154,7 +154,7 @@ const PerformanceTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-foreground">
-              {metrics.ttfb !== null ? `${metrics.ttfb}ms` : "â€”"}
+              {metrics.ttfb !== null ? `${metrics.ttfb}ms` : "€”"}
             </p>
             <p className="text-xs text-muted-foreground mt-1">Time to First Byte</p>
             <div className="mt-3 flex items-center gap-2 text-xs">
@@ -175,7 +175,7 @@ const PerformanceTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-foreground">
-              {metrics.fcp !== null ? `${(metrics.fcp / 1000).toFixed(2)}s` : "â€”"}
+              {metrics.fcp !== null ? `${(metrics.fcp / 1000).toFixed(2)}s` : "€”"}
             </p>
             <p className="text-xs text-muted-foreground mt-1">First Contentful Paint</p>
             <div className="mt-3 flex items-center gap-2 text-xs">
@@ -196,7 +196,7 @@ const PerformanceTab = () => {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-bold text-foreground">
-              {metrics.lcp !== null ? `${(metrics.lcp / 1000).toFixed(2)}s` : "â€”"}
+              {metrics.lcp !== null ? `${(metrics.lcp / 1000).toFixed(2)}s` : "€”"}
             </p>
             <p className="text-xs text-muted-foreground mt-1">Full Page Load Time</p>
             <div className="mt-3 flex items-center gap-2 text-xs">

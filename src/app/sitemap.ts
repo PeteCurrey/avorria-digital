@@ -3,7 +3,7 @@ import { routeMetadata, SITE_URL } from '@/data/routeMetadata';
 import { supabase } from '@/integrations/supabase/client';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // 1. Get all routes defined in our central registry
+// ------------------------------ Registry ------------------------------
   const registryRoutes = Object.keys(routeMetadata).map((path) => ({
     url: `${SITE_URL}${path}`,
     lastModified: new Date(),

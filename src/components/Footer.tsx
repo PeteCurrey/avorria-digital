@@ -149,7 +149,7 @@ const Footer = () => {
 
         <div className="pt-6 sm:pt-8 border-t border-border flex flex-col sm:flex-row justify-between items-center gap-4">
           <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
-            Ã‚Â© {new Date().getFullYear()} Avorria. All rights reserved.
+            © {new Date().getFullYear()} Avorria. All rights reserved.
           </p>
           <div className="flex space-x-6">
             <Link href="/privacy" className="text-xs sm:text-sm text-muted-foreground hover:text-accent transition-colors">

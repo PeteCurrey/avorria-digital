@@ -149,7 +149,7 @@ export const LiveSitePreview = ({
       <div className="p-2 bg-card border-t border-border flex items-center justify-center">
         <span className="text-xs text-muted-foreground">
           <Icon className="inline-block h-3 w-3 mr-1" />
-          {config.label} view â€¢ {config.width}
+          {config.label} view €¢ {config.width}
         </span>
       </div>
     </div>

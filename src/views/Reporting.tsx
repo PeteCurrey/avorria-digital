@@ -32,7 +32,7 @@ const Reporting = () => {
     },
     {
       title: "Monthly deep-dives",
-      description: "Channel performance, tests, learnings and decisions. We agree what to stop, start and scale â€“ and update the 90-day plan accordingly.",
+      description: "Channel performance, tests, learnings and decisions. We agree what to stop, start and scale – and update the 90-day plan accordingly.",
     },
     {
       title: "Quarterly strategy reviews",
@@ -48,7 +48,7 @@ const Reporting = () => {
     },
     {
       title: "What changed?",
-      description: "The movements that matter â€” traffic shifts, lead volume, conversion changes â€” with context, not just numbers.",
+      description: "The movements that matter €” traffic shifts, lead volume, conversion changes €” with context, not just numbers.",
       icon: MessageSquare,
     },
     {
@@ -61,7 +61,7 @@ const Reporting = () => {
   const faqs = [
     {
       question: "What tools do you use for reporting?",
-      answer: "It depends on the stack you already have. We're tool-agnostic â€“ we care that the numbers are right and visible. We can plug into GA4, ad platforms, your CRM and spreadsheets if we have to.",
+      answer: "It depends on the stack you already have. We're tool-agnostic – we care that the numbers are right and visible. We can plug into GA4, ad platforms, your CRM and spreadsheets if we have to.",
     },
     {
       question: "Can you integrate with our CRM?",
@@ -81,7 +81,7 @@ const Reporting = () => {
     <>
       <SEOHead
         title="Reporting & Dashboards that Treat You Like an Operator | Avorria"
-        description="Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place â€“ no 40-slide decks."
+        description="Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place – no 40-slide decks."
         canonical="https://avorria.com/reporting"
       />
       <FAQSchema faqs={faqs} />
@@ -91,7 +91,7 @@ const Reporting = () => {
       ]} />
 
       <div className="min-h-screen">
-        {/* Hero Section â€” Dark Cinematic */}
+        {/* Hero Section €” Dark Cinematic */}
         <section
           className="relative pt-36 pb-24 px-6 overflow-hidden"
           style={{
@@ -125,7 +125,7 @@ const Reporting = () => {
               animate="visible"
               className="text-xl text-white/60 leading-relaxed mb-10 max-w-2xl mx-auto"
             >
-              Every engagement comes with a plain-English dashboard that shows traffic, leads, pipeline and ROI in one place â€” plus a short narrative on what we did, what changed and what we're doing next.
+              Every engagement comes with a plain-English dashboard that shows traffic, leads, pipeline and ROI in one place €” plus a short narrative on what we did, what changed and what we're doing next.
             </motion.p>
             <motion.div
               custom={3}
@@ -169,13 +169,13 @@ const Reporting = () => {
                 >
                   <h2 className="text-4xl font-light mb-6 text-foreground">Your marketing data, finally in one place.</h2>
                   <p className="text-muted-foreground leading-relaxed mb-4">
-                    Most agencies send you a slide deck once a month and call it reporting. We don't think that's good enough. You need to see what's happening now â€” not what happened three weeks ago.
+                    Most agencies send you a slide deck once a month and call it reporting. We don't think that's good enough. You need to see what's happening now €” not what happened three weeks ago.
                   </p>
                   <p className="text-muted-foreground leading-relaxed mb-4">
                     Every Avorria engagement comes with a live dashboard and a short written summary that connects the dots between activity, results and next steps. No jargon, no vanity metrics, no 40-page PDFs.
                   </p>
                   <p className="text-muted-foreground leading-relaxed">
-                    Whether you check in daily or monthly, you'll always know where you stand â€” and what we're doing about it.
+                    Whether you check in daily or monthly, you'll always know where you stand €” and what we're doing about it.
                   </p>
                 </motion.div>
 
@@ -259,7 +259,7 @@ const Reporting = () => {
           </section>
         </SectionReveal>
 
-        {/* Reporting Cadence â€” Dark Section with Timeline */}
+        {/* Reporting Cadence €” Dark Section with Timeline */}
         <SectionReveal type="fade-blur">
           <section
             className="py-24 px-6"
@@ -365,7 +365,7 @@ const Reporting = () => {
           </section>
         </SectionReveal>
 
-        {/* CTA Section â€” Dark */}
+        {/* CTA Section €” Dark */}
         <section
           className="py-24 px-6"
           style={{

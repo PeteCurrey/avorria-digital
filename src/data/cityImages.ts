@@ -1,4 +1,4 @@
-// City hero images for location pages
+
 const londonImage = "/assets/cities/london.jpg";
 const manchesterImage = "/assets/cities/manchester.jpg";
 const birminghamImage = "/assets/cities/birmingham.jpg";

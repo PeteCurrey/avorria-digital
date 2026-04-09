@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import SEOHead from "@/components/seo/SEOHead";
@@ -207,29 +207,29 @@ const ProjectEstimator = () => {
     
     if (investmentLevel === "testing") {
       return {
-        range: "Â£1,500 - Â£5,000 one-off project or Â£1,000 - Â£2,500/month",
+        range: "£1,500 - £5,000 one-off project or £1,000 - £2,500/month",
         model: "Small Project or Growth Lite",
         fit: "possible",
       };
     } else if (investmentLevel === "ready") {
       return {
         range: engagementModel === "retainer" 
-          ? "Â£2,500 - Â£8,000/month" 
-          : "Â£10,000 - Â£40,000 project fee",
+          ? "£2,500 - £8,000/month" 
+          : "£10,000 - £40,000 project fee",
         model: engagementModel === "retainer" ? "Growth or Scale Retainer" : "Strategic Project",
         fit: "strong",
       };
     } else if (investmentLevel === "scale") {
       return {
         range: engagementModel === "retainer" 
-          ? "Â£8,000 - Â£20,000+/month" 
-          : "Â£40,000 - Â£100,000+ project",
+          ? "£8,000 - £20,000+/month" 
+          : "£40,000 - £100,000+ project",
         model: engagementModel === "retainer" ? "Scale or Partner Retainer" : "Enterprise Project",
         fit: "strong",
       };
     } else {
       return {
-        range: "Â£2,500 - Â£15,000/month or Â£10,000 - Â£50,000 project",
+        range: "£2,500 - £15,000/month or £10,000 - £50,000 project",
         model: "To be determined",
         fit: "needs-clarification",
       };
@@ -242,7 +242,7 @@ const ProjectEstimator = () => {
     return (
       <>
       <SEOHead
-        title="Project Estimator â€“ Get a Ballpark in Minutes"
+        title="Project Estimator – Get a Ballpark in Minutes"
         description="Answer a few questions about your project and get a realistic budget estimate in minutes. No sales calls, no obligations."
         canonical="/project-estimator"
         keywords={["project estimator", "marketing budget", "web design cost", "SEO pricing", "agency pricing"]}
@@ -394,7 +394,7 @@ const ProjectEstimator = () => {
                 <CardContent className="p-8 text-center space-y-4">
                   <h3 className="text-xl font-semibold text-foreground">Take this brief with you</h3>
                   <p className="text-muted-foreground">
-                    You can hand this to any agencyâ€”not just us. We'd like to be the ones who win it.
+                    You can hand this to any agency — not just us. We'd like to be the ones who win it.
                   </p>
                   <Button
                     variant="outline"
@@ -419,7 +419,7 @@ const ProjectEstimator = () => {
   return (
     <>
       <SEOHead
-        title="Project Estimator â€“ Get a Ballpark in Minutes"
+        title="Project Estimator – Get a Ballpark in Minutes"
         description="Answer a few questions about your project and get a realistic budget estimate in minutes. No sales calls, no obligations."
         canonical="/project-estimator"
         keywords={["project estimator", "marketing budget", "web design cost", "SEO pricing", "agency pricing"]}
@@ -436,7 +436,7 @@ const ProjectEstimator = () => {
               Project Estimator & <span className="font-semibold text-accent">Brief Builder</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Answer a few focused questions and we'll give you a realistic budget range and a structured brief our team can turn into a proposal â€“ no back-and-forth guesswork.
+              Answer a few focused questions and we'll give you a realistic budget range and a structured brief our team can turn into a proposal — no back-and-forth guesswork.
             </p>
             <p className="text-sm text-muted-foreground mt-4 italic">
               This is for serious projects and serious buyers. If you're just kicking tyres, start with a free audit instead.
@@ -581,7 +581,7 @@ const ProjectEstimator = () => {
                       id="dealValue"
                       value={formData.dealValue}
                       onChange={(e) => setFormData({ ...formData, dealValue: e.target.value })}
-                      placeholder="e.g. Â£500, Â£5,000, Â£50,000"
+                      placeholder="e.g. £500, £5,000, £50,000"
                       className="mt-2"
                     />
                   </div>
@@ -633,11 +633,11 @@ const ProjectEstimator = () => {
                         <SelectValue placeholder="Select range" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="<2k">Â£0 - Â£2k</SelectItem>
-                        <SelectItem value="2k-5k">Â£2k - Â£5k</SelectItem>
-                        <SelectItem value="5k-10k">Â£5k - Â£10k</SelectItem>
-                        <SelectItem value="10k-25k">Â£10k - Â£25k</SelectItem>
-                        <SelectItem value="25k+">Â£25k+</SelectItem>
+                        <SelectItem value="<2k">£0 - £2k</SelectItem>
+                        <SelectItem value="2k-5k">£2k - £5k</SelectItem>
+                        <SelectItem value="5k-10k">£5k - £10k</SelectItem>
+                        <SelectItem value="10k-25k">£10k - £25k</SelectItem>
+                        <SelectItem value="25k+">£25k+</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -665,7 +665,7 @@ const ProjectEstimator = () => {
                       value={formData.biggestFrustration}
                       onChange={(e) => setFormData({ ...formData, biggestFrustration: e.target.value })}
                       rows={4}
-                      placeholder="e.g. Low-quality leads, no idea what's working, agency not proactiveâ€¦"
+                      placeholder="e.g. Low-quality leads, no idea what's working, agency not proactive..."
                       className="mt-2"
                     />
                   </div>
@@ -735,7 +735,7 @@ const ProjectEstimator = () => {
                       value={formData.nonNegotiables}
                       onChange={(e) => setFormData({ ...formData, nonNegotiables: e.target.value })}
                       rows={3}
-                      placeholder="e.g. Must integrate with HubSpot, must launch before [date]â€¦"
+                      placeholder="e.g. Must integrate with HubSpot, must launch before [date]..."
                       className="mt-2"
                     />
                   </div>
@@ -775,7 +775,7 @@ const ProjectEstimator = () => {
                               "We're testing the waters"
                             </Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                              &lt;Â£2k / month or &lt;Â£10k project
+                              &lt;£2k / month or &lt;£10k project
                             </p>
                           </div>
                         </div>
@@ -786,7 +786,7 @@ const ProjectEstimator = () => {
                               "We're ready to invest properly"
                             </Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                              Roughly Â£2k-Â£8k / month or Â£10k-Â£40k project
+                              Roughly £2k-£8k / month or £10k-£40k project
                             </p>
                           </div>
                         </div>
@@ -797,7 +797,7 @@ const ProjectEstimator = () => {
                               "We want a serious scale partner"
                             </Label>
                             <p className="text-xs text-muted-foreground mt-1">
-                              Â£8k+ / month or Â£40k+ project
+                              £8k+ / month or £40k+ project
                             </p>
                           </div>
                         </div>
@@ -805,7 +805,7 @@ const ProjectEstimator = () => {
                           <RadioGroupItem value="unsure-budget" id="unsure-budget" />
                           <div className="flex-1">
                             <Label htmlFor="unsure-budget" className="cursor-pointer block font-medium">
-                              "Not sure â€“ I need guidance"
+                              "Not sure – I need guidance"
                             </Label>
                           </div>
                         </div>
@@ -820,7 +820,7 @@ const ProjectEstimator = () => {
                         <div className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-accent/50 transition-all">
                           <RadioGroupItem value="very" id="very" />
                           <Label htmlFor="very" className="cursor-pointer flex-1">
-                            Very involved â€“ collaboration and frequent check-ins
+                            Very involved – collaboration and frequent check-ins
                           </Label>
                         </div>
                         <div className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-accent/50 transition-all">
@@ -832,7 +832,7 @@ const ProjectEstimator = () => {
                         <div className="flex items-center space-x-3 p-4 rounded-lg border border-border hover:border-accent/50 transition-all">
                           <RadioGroupItem value="outcome" id="outcome" />
                           <Label htmlFor="outcome" className="cursor-pointer flex-1">
-                            Outcome-focused â€“ just show me the numbers
+                            Outcome-focused – just show me the numbers
                           </Label>
                         </div>
                       </div>

@@ -10,7 +10,7 @@ const ContentSEO = () => {
   return (
     <>
       <SEOHead
-        title="Content SEO Services Ã¢â‚¬â€œ Content That Ranks & Converts"
+        title="Content SEO Services – Content That Ranks & Converts"
         description="Content that ranks, reads well and feeds your funnel. Strategic content systems built around topics and intent, not random blog posts."
         canonical="/services/seo/content"
         keywords={["content SEO", "content strategy", "topic clusters", "pillar content", "SEO content", "content marketing"]}
@@ -35,7 +35,7 @@ const ContentSEO = () => {
               Content that ranks, reads well and feeds your funnel.
             </h1>
             <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              We design content systems around topics and intent Ã¢â‚¬â€œ not just random blog posts Ã¢â‚¬â€œ then tie them back to your offers and sales process.
+              We design content systems around topics and intent – not just random blog posts – then tie them back to your offers and sales process.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" variant="default">Talk content strategy</Button>
@@ -77,7 +77,7 @@ const ContentSEO = () => {
                 <CardContent className="p-8">
                   <Target className="w-8 h-8 mb-4 text-primary" />
                   <h3 className="text-xl font-medium mb-3 text-foreground">Commercial intent research</h3>
-                  <p className="text-muted-foreground">Keyword & topic research focused on commercial intent Ã¢â‚¬â€œ not just search volume.</p>
+                  <p className="text-muted-foreground">Keyword & topic research focused on commercial intent – not just search volume.</p>
                 </CardContent>
               </Card>
               <Card>
@@ -91,7 +91,7 @@ const ContentSEO = () => {
                 <CardContent className="p-8">
                   <TrendingUp className="w-8 h-8 mb-4 text-primary" />
                   <h3 className="text-xl font-medium mb-3 text-foreground">Production or briefs</h3>
-                  <p className="text-muted-foreground">Full production or detailed briefs Ã¢â‚¬â€œ depending on your engagement model and in-house capability.</p>
+                  <p className="text-muted-foreground">Full production or detailed briefs – depending on your engagement model and in-house capability.</p>
                 </CardContent>
               </Card>
               <Card>
@@ -103,7 +103,7 @@ const ContentSEO = () => {
               </Card>
             </div>
             <div className="mt-12 text-center">
-              <p className="text-muted-foreground">This plugs directly into the SEO strategy, resources pages and your sales funnel Ã¢â‚¬â€œ not a separate content island.</p>
+              <p className="text-muted-foreground">This plugs directly into the SEO strategy, resources pages and your sales funnel – not a separate content island.</p>
             </div>
           </div>
         </section>

@@ -29,7 +29,7 @@ const WhyAvorria = () => {
       icon: Palette,
       title: "Design that does a job",
       description:
-        "We love clean, modern interfaces â€” but only when they make it easier for the right people to say \"yes\". Aesthetics serve conversion.",
+        "We love clean, modern interfaces €” but only when they make it easier for the right people to say \"yes\". Aesthetics serve conversion.",
     },
     {
       icon: MessageSquare,
@@ -44,7 +44,7 @@ const WhyAvorria = () => {
       step: "01",
       title: "We start with your reality.",
       description:
-        "We look at your current numbers, team, constraints and appetite for change. Then we build a plan around that â€” not some generic full-funnel template.",
+        "We look at your current numbers, team, constraints and appetite for change. Then we build a plan around that €” not some generic full-funnel template.",
     },
     {
       step: "02",
@@ -56,7 +56,7 @@ const WhyAvorria = () => {
       step: "03",
       title: "We act like an internal growth function.",
       description:
-        "You get proactive ideas, honest pushback and clear recommendations â€” not just task updates. Weekly updates, monthly strategy calls, live dashboards.",
+        "You get proactive ideas, honest pushback and clear recommendations €” not just task updates. Weekly updates, monthly strategy calls, live dashboards.",
     },
   ];
 
@@ -89,7 +89,7 @@ const WhyAvorria = () => {
       ]} />
 
       <div className="min-h-screen">
-        {/* Hero â€” Cinematic Dark */}
+        {/* Hero €” Cinematic Dark */}
         <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden bg-[hsl(220,25%,8%)]">
           {/* Radial accent glow */}
           <div className="absolute inset-0 pointer-events-none">
@@ -188,7 +188,7 @@ const WhyAvorria = () => {
           </div>
         </section>
 
-        {/* How We Work â€” Horizontal Timeline */}
+        {/* How We Work €” Horizontal Timeline */}
         <SectionReveal type="wipe-up">
           <section id="how-we-work" className="py-24 md:py-32 px-6 bg-[hsl(220,25%,8%)]">
             <div className="container mx-auto max-w-6xl">
@@ -229,7 +229,7 @@ const WhyAvorria = () => {
           </section>
         </SectionReveal>
 
-        {/* Comparison Grid â€” Inline */}
+        {/* Comparison Grid €” Inline */}
         <section className="bg-background">
           <ServiceComparisonGrid />
 
@@ -262,7 +262,7 @@ const WhyAvorria = () => {
                   {
                     icon: Briefcase,
                     title: "Our Services",
-                    description: "SEO, paid media, web design, content, analytics â€” everything tied to pipeline and revenue.",
+                    description: "SEO, paid media, web design, content, analytics €” everything tied to pipeline and revenue.",
                     link: "/services",
                     label: "View Services",
                   },

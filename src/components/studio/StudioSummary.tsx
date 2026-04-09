@@ -157,8 +157,8 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
         <div>
           <span className="text-sm font-extralight text-muted-foreground">Look & Mood:</span>
           <p className="font-extralight text-foreground">
-            {config.minimal < 33 ? "Minimal" : config.minimal > 66 ? "Content-rich" : "Balanced"} Â·{" "}
-            {config.bold < 33 ? "Calm" : config.bold > 66 ? "Bold" : "Balanced"} Â·{" "}
+            {config.minimal < 33 ? "Minimal" : config.minimal > 66 ? "Content-rich" : "Balanced"} ·{" "}
+            {config.bold < 33 ? "Calm" : config.bold > 66 ? "Bold" : "Balanced"} ·{" "}
             {config.palette.charAt(0).toUpperCase() + config.palette.slice(1)} palette
           </p>
         </div>
@@ -178,8 +178,8 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
         <div>
           <span className="text-sm font-extralight text-muted-foreground">Personality:</span>
           <p className="font-extralight text-foreground">
-            {config.straightTalking > 50 ? "Straight-talking" : "Polished"} Â·{" "}
-            {config.analytical > 50 ? "Analytical" : "Story-led"} Â·{" "}
+            {config.straightTalking > 50 ? "Straight-talking" : "Polished"} ·{" "}
+            {config.analytical > 50 ? "Analytical" : "Story-led"} ·{" "}
             {config.understated > 50 ? "Understated" : "Showpiece"}
           </p>
         </div>
@@ -256,10 +256,10 @@ export const StudioSummary = ({ config }: StudioSummaryProps) => {
                 <SelectValue placeholder="Select budget" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="<10k">Under Â£10k</SelectItem>
-                <SelectItem value="10k-25k">Â£10k - Â£25k</SelectItem>
-                <SelectItem value="25k-50k">Â£25k - Â£50k</SelectItem>
-                <SelectItem value="50k+">Â£50k+</SelectItem>
+                <SelectItem value="<10k">Under £10k</SelectItem>
+                <SelectItem value="10k-25k">£10k - £25k</SelectItem>
+                <SelectItem value="25k-50k">£25k - £50k</SelectItem>
+                <SelectItem value="50k+">£50k+</SelectItem>
               </SelectContent>
             </Select>
             {errors.budget && <p className="mt-1 text-sm text-destructive">{errors.budget}</p>}

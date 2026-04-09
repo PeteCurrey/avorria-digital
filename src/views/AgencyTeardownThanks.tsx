@@ -51,20 +51,20 @@ const AgencyTeardownThanks = () => {
     { icon: Target, text: "We skim for structure: goals, KPIs, tracking." },
     { icon: BarChart3, text: "We assess whether reporting links to real business outcomes." },
     { icon: Shield, text: "We list what's missing, lazy or misaligned." },
-    { icon: TrendingUp, text: "We send you a short summary with 3Ã¢â‚¬â€œ5 key recommendations." }
+    { icon: TrendingUp, text: "We send you a short summary with 3–5 key recommendations." }
   ];
 
   const reportFeatures = [
     {
       title: "Clear link between spend and pipeline/revenue",
-      description: "Not just impressions and clicks Ã¢â‚¬â€œ real business outcomes."
+      description: "Not just impressions and clicks – real business outcomes."
     },
     {
       title: "Actions taken last month, and actions planned next",
       description: "You know exactly what was done and what's coming."
     },
     {
-      title: "Risks, issues and strategic decisions flagged Ã¢â‚¬â€œ not hidden",
+      title: "Risks, issues and strategic decisions flagged – not hidden",
       description: "Transparency, not theatre."
     }
   ];
@@ -107,13 +107,13 @@ const AgencyTeardownThanks = () => {
             </motion.div>
             
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white drop-shadow-lg">
-              Got it Ã¢â‚¬â€œ we'll tear this down and come back with the{" "}
+              Got it – we'll tear this down and come back with the{" "}
               <span className="font-semibold text-accent">truth</span>.
             </h1>
             
             <p className="text-lg sm:text-xl text-white/90 leading-relaxed max-w-2xl mx-auto">
               We'll review your report/proposal and send a plain-English breakdown within{" "}
-              <strong className="text-accent">3Ã¢â‚¬â€œ5 working days</strong>. If we think your agency is doing good work, we'll say so. If not, you'll know exactly why.
+              <strong className="text-accent">3–5 working days</strong>. If we think your agency is doing good work, we'll say so. If not, you'll know exactly why.
             </p>
           </motion.div>
         </section>
@@ -288,7 +288,7 @@ const AgencyTeardownThanks = () => {
                           className="text-accent p-0 h-auto"
                           onClick={handleViewReporting}
                         >
-                          See example Ã¢â€ â€™
+                          See example →
                         </Button>
                       </div>
                     </Card>

@@ -144,7 +144,7 @@ const ClientAnalytics = () => {
   const stats = [
     { label: "Page Views", value: latest?.page_views || 0, change: pvChange, icon: Eye, color: "text-purple-500" },
     { label: "Unique Visitors", value: latest?.unique_visitors || 0, change: uvChange, icon: Users, color: "text-blue-500" },
-    { label: "Avg. Session", value: latest?.avg_session_duration || "Ã¢â‚¬â€", change: 0, icon: Clock, color: "text-green-500", isText: true },
+    { label: "Avg. Session", value: latest?.avg_session_duration || "—", change: 0, icon: Clock, color: "text-green-500", isText: true },
     { label: "Bounce Rate", value: latest?.bounce_rate || 0, change: brChange, icon: MousePointerClick, color: "text-accent", suffix: "%", invertChange: true },
   ];
 

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React from "react";
 import { motion } from "framer-motion";
@@ -51,17 +51,17 @@ const painPoints = [
 
 const processSteps = [
   {
-    phase: "Week 1Ã¢â‚¬â€œ2",
+    phase: "Week 1-2",
     title: "Discovery & Diagnosis",
     description: "We review your current site, analytics and funnel. We map where visitors drop off, what they're missing and what needs to change to support your sales process.",
   },
   {
-    phase: "Week 3Ã¢â‚¬â€œ4",
+    phase: "Week 3-4",
     title: "Wireframes & Messaging",
     description: "We design the structure and messaging first: what goes where, which proof sits by which CTA, how we handle objections and educate different buyer types.",
   },
   {
-    phase: "Week 5Ã¢â‚¬â€œ8",
+    phase: "Week 5-8",
     title: "Visual Design & Build",
     description: "Once the bones are right, we apply your brand and build the site on a modern stack. Fast, responsive, SEO-ready and easy to extend.",
   },
@@ -100,7 +100,7 @@ const webDesignComparisons = [
   },
   {
     category: "Ownership",
-    avorria: "You own everything Ã¢â‚¬â€œ code, design, assets",
+    avorria: "You own everything - code, design, assets",
     typical: "Locked into proprietary platforms or builders",
   },
 ];
@@ -124,7 +124,7 @@ const faqs = [
   },
   {
     question: "Can I use the Web Design Studio to brief my project?",
-    answer: "Absolutely. Our interactive Studio tool walks you through purpose, structure, personality and features Ã¢â‚¬â€œ then generates a professional design brief you can share with us or use internally. It's the fastest way to get aligned before a strategy call.",
+    answer: "Absolutely. Our interactive Studio tool walks you through purpose, structure, personality and features - then generates a professional design brief you can share with us or use internally. It's the fastest way to get aligned before a strategy call.",
   },
 ];
 
@@ -184,7 +184,7 @@ const WebDesign = () => {
       <SectionNav sections={sectionNavItems} activeId={activeSection} />
 
       <div className="min-h-screen">
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 1. HERO: Video Background (desktop) / Image (mobile) Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 1. HERO: Video Background (desktop) / Image (mobile) */}
         <section id="hero" className="relative overflow-hidden" style={{ minHeight: "75vh" }}>
           <div className="absolute inset-0">
             {!isMobile ? (
@@ -199,7 +199,12 @@ const WebDesign = () => {
                 <source src={heroWebDesignVideo} type="video/mp4" />
               </video>
             ) : (
-              <img src={serviceWebDesign} alt="" className="w-full h-full object-cover" loading="eager" />
+              <img 
+                src={serviceWebDesign} 
+                alt="Conversion-focused web design and development for service businesses - Avorria Digital" 
+                className="w-full h-full object-cover" 
+                loading="eager" 
+              />
             )}
             <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-[hsl(var(--background))]" />
           </div>
@@ -258,14 +263,14 @@ const WebDesign = () => {
           </div>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 2. LOGO WALL Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 2. LOGO WALL */}
         <div className="bg-background border-b border-border">
           <div className="max-w-6xl mx-auto px-6">
             <LogoWall title="Trusted by growing businesses" />
           </div>
         </div>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 3. INTRODUCTION Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 3. INTRODUCTION */}
         <section id="intro" className="relative">
           <FloatingElements />
           <SectionBand background="light">
@@ -277,7 +282,7 @@ const WebDesign = () => {
                   </h2>
                   <div className="space-y-4 text-muted-foreground leading-relaxed">
                     <p>
-                      Most agency websites are designed to impress other designers Ã¢â‚¬â€œ not to convert
+                      Most agency websites are designed to impress other designers - not to convert
                       visitors into customers. The result? Sites that look premium but quietly tax
                       your pipeline because nobody knows what to do next.
                     </p>
@@ -288,7 +293,7 @@ const WebDesign = () => {
                     </p>
                     <p>
                       The result is a website that looks like top-tier agency work but performs like
-                      a sales tool Ã¢â‚¬â€œ because that's exactly what it is.
+                      a sales tool - because that's exactly what it is.
                     </p>
                   </div>
                 </ScrollReveal>
@@ -319,13 +324,13 @@ const WebDesign = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 4. PAIN POINTS Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 4. PAIN POINTS */}
         <section id="pain-points">
           <SectionBand background="gradient" padding="large">
             <div className="max-w-4xl mx-auto">
               <ScrollReveal>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-4 text-center">
-                  If your site looks good but converts badly, it's not "fine".
+                  If your site looks good but converts badly, it's not \"fine\".
                 </h2>
                 <p className="text-lg text-white/70 text-center mb-12 max-w-2xl mx-auto">
                   Pretty is optional. Clarity and conversion are not.
@@ -349,9 +354,9 @@ const WebDesign = () => {
           </SectionBand>
         </section>
 
-        <OpinionatedQuote quote="A beautiful website that doesn't convert is just an expensive business card. Your site should be your hardest-working salesperson Ã¢â‚¬â€œ available 24/7, never off-message, always closing." />
+        <OpinionatedQuote quote="A beautiful website that doesn't convert is just an expensive business card. Your site should be your hardest-working salesperson - available 24/7, never off-message, always closing." />
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 5. WHAT WE BUILD: Three-column Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 5. WHAT WE BUILD: Three-column */}
         <SectionBand background="light" padding="large">
           <div className="max-w-5xl mx-auto">
             <ScrollReveal>
@@ -416,7 +421,7 @@ const WebDesign = () => {
           </div>
         </SectionBand>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 6. PROCESS: Horizontal Scroll Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 6. PROCESS: Horizontal Scroll */}
         <section id="process">
           <SectionBand background="dark">
             <div className="max-w-6xl mx-auto">
@@ -477,7 +482,7 @@ const WebDesign = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 7. DELIVERABLES Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 7. DELIVERABLES */}
         <section id="deliverables">
           <SectionBand background="light">
             <div className="max-w-5xl mx-auto">
@@ -518,7 +523,7 @@ const WebDesign = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 8. COMPARISON GRID Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 8. COMPARISON GRID */}
         <section id="comparison" className="py-24 md:py-32 bg-background">
           <div className="max-w-5xl mx-auto px-6">
             <motion.div
@@ -581,7 +586,7 @@ const WebDesign = () => {
           </div>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 9. STUDIO CTA: Sticky Image Section Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 9. STUDIO CTA: Sticky Image Section */}
         <section id="studio">
           <StickyImageSection
             backgroundImage={serviceWebDesign}
@@ -599,12 +604,12 @@ const WebDesign = () => {
                       Build your design brief in minutes
                     </h2>
                     <p className="text-white/70 leading-relaxed mb-4">
-                      Our Web Design Studio walks you through purpose, structure, personality and features
-                      Ã¢â‚¬â€œ then generates a professional design brief you can share with us or use internally.
+                      Our Web Design Studio walks you through purpose, structure, personality and features -
+                      then generates a professional design brief you can share with us or use internally.
                     </p>
                     <p className="text-white/70 leading-relaxed mb-8">
                       It's the fastest way to get aligned on scope, style and objectives before a
-                      strategy call. No forms, no guesswork Ã¢â‚¬â€œ just a clear brief in under 10 minutes.
+                      strategy call. No forms, no guesswork - just a clear brief in under 10 minutes.
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <Button variant="accent" size="lg" asChild>
@@ -650,7 +655,7 @@ const WebDesign = () => {
           </StickyImageSection>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 10. CASE SNIPPETS Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 10. CASE SNIPPETS */}
         <SectionBand background="gradient" padding="large">
           <div className="max-w-4xl mx-auto">
             <ScrollReveal>
@@ -660,8 +665,8 @@ const WebDesign = () => {
             </ScrollReveal>
             <div className="space-y-6 mb-12">
               {[
-                "Rebuilt homepage, service pages and contact flow Ã¢â‚¬â€œ +63% increase in qualified enquiries in three months with the same traffic.",
-                "Simplified landing pages and added proof around the offer Ã¢â‚¬â€œ 34% drop in cost per lead from paid campaigns.",
+                "Rebuilt homepage, service pages and contact flow - +63% increase in qualified enquiries in three months with the same traffic.",
+                "Simplified landing pages and added proof around the offer - 34% drop in cost per lead from paid campaigns.",
               ].map((snippet, index) => (
                 <ScrollReveal key={index} delay={index * 0.1}>
                   <div className="flex items-start gap-5 p-8 rounded-xl bg-white/[0.04] border border-white/10">
@@ -684,7 +689,7 @@ const WebDesign = () => {
           </div>
         </SectionBand>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 11. TESTIMONIALS Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 11. TESTIMONIALS */}
         {testimonials && testimonials.length > 0 && (
           <section id="testimonials">
             <SectionBand background="dark">
@@ -709,7 +714,7 @@ const WebDesign = () => {
                     >
                       <Quote className="text-accent/30 mb-4" size={32} />
                       <blockquote className="text-white/80 leading-relaxed mb-6 text-sm">
-                        "{t.quote}"
+                        \"{t.quote}\"
                       </blockquote>
                       <div className="flex items-center gap-3">
                         {t.avatar_url ? (
@@ -732,7 +737,7 @@ const WebDesign = () => {
           </section>
         )}
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 12. LOCATIONS Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 12. LOCATIONS */}
         <section id="locations">
           <SectionBand background="gradient" padding="large">
             <div className="max-w-6xl mx-auto">
@@ -762,7 +767,7 @@ const WebDesign = () => {
                           href={`/web-design/${location.slug}`}
                           className="text-white/70 hover:text-accent transition-colors text-sm"
                         >
-                          {location.city} Ã¢â€ â€™
+                          {location.city} →
                         </Link>
                       ))}
                     </div>
@@ -773,7 +778,7 @@ const WebDesign = () => {
           </SectionBand>
         </section>
 
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 13. FAQ Ã¢â€â‚¬Ã¢â€â‚¬ */}
+        {/* 13. FAQ */}
         <section id="faq">
           <SectionBand background="dark">
             <div className="max-w-3xl mx-auto">
@@ -807,49 +812,9 @@ const WebDesign = () => {
             </div>
           </SectionBand>
         </section>
-
-        {/* Ã¢â€â‚¬Ã¢â€â‚¬ 14. FINAL CTA Ã¢â€â‚¬Ã¢â€â‚¬ */}
-        <section>
-          <ParallaxBackground
-            backgroundImage={heroCityscape}
-            overlay="dark"
-            speed={0.2}
-            minHeight="auto"
-          >
-            <div className="py-24 md:py-32">
-              <div className="max-w-3xl mx-auto px-6 text-center">
-                <ScrollReveal>
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl font-light mb-6 text-white">
-                    Need your website to behave like a sales asset?
-                  </h2>
-                  <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
-                    Send us your current site and we'll show you exactly what we'd change,
-                    in what order, and why Ã¢â‚¬â€œ no drama, no jargon.
-                  </p>
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                    <Button variant="accent" size="lg" asChild>
-                      <Link href="/contact">
-                        Talk About a Rebuild
-                        <ArrowRight className="ml-2" size={20} />
-                      </Link>
-                    </Button>
-                    <Button variant="outline-dark" size="lg" asChild>
-                      <Link href="/web-design/studio">
-                        <Sparkles className="mr-2" size={18} />
-                        Build Your Brief
-                      </Link>
-                    </Button>
-                  </div>
-                </ScrollReveal>
-              </div>
-            </div>
-          </ParallaxBackground>
-        </section>
       </div>
     </>
   );
 };
 
 export default WebDesign;
-
-

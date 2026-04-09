@@ -58,7 +58,7 @@ const SocialPreviewFrame = ({ platform, content, title, imageUrl, hashtags, clas
           <div className="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-primary flex items-center justify-center text-xs font-bold text-white">A</div>
           <div>
             <p className="text-xs font-semibold">Avorria</p>
-            <p className="text-[10px] text-muted-foreground">Digital Marketing Agency Ã‚Â· 1h</p>
+            <p className="text-[10px] text-muted-foreground">Digital Marketing Agency · 1h</p>
           </div>
         </div>
         {/* Content */}
@@ -86,7 +86,7 @@ const SocialPreviewFrame = ({ platform, content, title, imageUrl, hashtags, clas
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-1">
             <span className="text-xs font-semibold">Avorria</span>
-            <span className="text-[10px] text-muted-foreground">@avorria Ã‚Â· 1h</span>
+            <span className="text-[10px] text-muted-foreground">@avorria · 1h</span>
           </div>
           <p className="text-[11px] leading-relaxed mt-1 whitespace-pre-wrap">{content.slice(0, 280)}</p>
           {hashtagText && <p className="text-[10px] text-accent/70 mt-1">{hashtagText}</p>}

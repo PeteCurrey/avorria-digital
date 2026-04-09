@@ -233,7 +233,7 @@ const LinkedInAdsTab = () => {
                   <TrendingUp className="h-4 w-4 text-accent" />
                   <span className="text-xs text-muted-foreground uppercase tracking-wider">ROAS</span>
                 </div>
-                <p className="text-2xl font-light text-foreground">{(metrics?.roas || 0).toFixed(2)}Ã—</p>
+                <p className="text-2xl font-light text-foreground">{(metrics?.roas || 0).toFixed(2)}×</p>
               </CardContent>
             </Card>
             <Card className="border-border">
@@ -330,7 +330,7 @@ const LinkedInAdsTab = () => {
                               ? `${fmt(Number(campaign.daily_budget))}/day`
                               : campaign.total_budget
                               ? fmt(Number(campaign.total_budget))
-                              : "â€”"}
+                              : "€”"}
                           </TableCell>
                           <TableCell className="text-center">
                             <Button

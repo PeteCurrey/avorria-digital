@@ -53,7 +53,7 @@ const Analytics = () => {
         "We audit your current tracking setup, identify gaps and understand your key conversion points and business goals.",
     },
     {
-      period: "Weeks 2â€“3",
+      period: "Weeks 2–3",
       title: "Setup & implementation",
       description:
         "Clean implementation of tracking, event setup, and initial dashboard configuration.",
@@ -107,7 +107,7 @@ const Analytics = () => {
     <>
       <SEOHead
         title="Analytics & Conversion Optimisation"
-        description="Analytics setup, tracking and CRO that connects marketing activity to pipeline and revenue â€“ not just dashboards full of vanity metrics."
+        description="Analytics setup, tracking and CRO that connects marketing activity to pipeline and revenue – not just dashboards full of vanity metrics."
         canonical="/services/analytics"
         keywords={["analytics", "conversion optimisation", "CRO", "GA4 setup", "tracking", "attribution modelling", "A/B testing"]}
       />
@@ -128,7 +128,7 @@ const Analytics = () => {
         {/* Hero Section */}
         <HeroBand
           headline="Know what's working. Fix what isn't."
-          body="We set up analytics properly, build dashboards that matter, and run CRO programs that turn more visitors into customers â€“ so you can make decisions based on data, not guesswork."
+          body="We set up analytics properly, build dashboards that matter, and run CRO programs that turn more visitors into customers – so you can make decisions based on data, not guesswork."
           backgroundImage={heroServicesDigital}
           cta={{ text: "Book an analytics review", href: "/contact" }}
           secondaryCta={{ text: "Get a free tracking audit", href: "/free-seo-website-audit" }}
@@ -153,7 +153,7 @@ const Analytics = () => {
               </ul>
             </div>
             <p className="text-center text-xl text-white/90 mt-10 font-medium max-w-3xl mx-auto">
-              Good data isn't optional â€“ it's the foundation of every good marketing decision. Let us fix yours.
+              Good data isn't optional – it's the foundation of every good marketing decision. Let us fix yours.
             </p>
           </div>
         </SectionBand>

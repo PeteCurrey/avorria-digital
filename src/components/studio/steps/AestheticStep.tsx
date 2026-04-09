@@ -34,7 +34,7 @@ export const AestheticStep = ({ config, setConfig, onSliderCommit }: AestheticSt
       </motion.div>
 
       <div className="mx-auto w-full max-w-2xl space-y-12">
-        {/* Minimal â†” Bold Spectrum */}
+        {/* Minimal †” Bold Spectrum */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -93,7 +93,7 @@ export const AestheticStep = ({ config, setConfig, onSliderCommit }: AestheticSt
           </div>
         </motion.div>
 
-        {/* Calm â†” Energetic Spectrum */}
+        {/* Calm †” Energetic Spectrum */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

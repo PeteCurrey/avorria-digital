@@ -43,7 +43,7 @@ export const CustomCursor = () => {
   mousePos.current.x = e.clientX;
   mousePos.current.y = e.clientY;
 
-  // Instant cursor update ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â write directly to the DOM element's transform
+  // Instant cursor update -- write directly to the DOM element's transform
   if (cursorRef.current) {
   cursorRef.current.style.transform = `translate3d(${e.clientX}px, ${e.clientY}px, 0) translate(-50%, -50%)`;
   }
@@ -193,7 +193,7 @@ export const CustomCursor = () => {
 
  return (
  <>
-  {/* Main cursor ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â positioned via ref, size/style animated by framer-motion */}
+  {/* Main cursor — positioned via ref, size/style animated by framer-motion */}
   <motion.div
   ref={cursorRef}
   className="fixed top-0 left-0 pointer-events-none z-[9999] rounded-full flex items-center justify-center will-change-transform"
@@ -243,7 +243,7 @@ export const CustomCursor = () => {
   )}
   </motion.div>
 
-  {/* Trailing ring ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â positioned via ref + rAF lerp */}
+  {/* Trailing ring — positioned via ref + rAF lerp */}
   <motion.div
   ref={trailRef}
   className="fixed top-0 left-0 pointer-events-none z-[9998] rounded-full border border-white/20 will-change-transform"

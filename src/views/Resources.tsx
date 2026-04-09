@@ -104,7 +104,7 @@ const Resources = () => {
                 Playbooks, field notes<br className="hidden md:block" /> & deep dives.
               </h1>
               <p className="text-xl text-muted-foreground leading-relaxed mb-10 max-w-3xl mx-auto">
-                Operator-level guides on SEO, paid, web and analytics Ã¢â‚¬â€ built from doing this work every day, not theory.
+                Operator-level guides on SEO, paid, web and analytics — built from doing this work every day, not theory.
               </p>
             </ScrollReveal>
           </div>
@@ -120,7 +120,7 @@ const Resources = () => {
                 <Badge className="mb-4 bg-accent/10 text-accent border-accent/20 hover:bg-accent/20">Flagship Guides</Badge>
                 <h2 className="text-4xl lg:text-5xl font-light text-foreground mb-4">Core Playbooks</h2>
                 <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                  Everything you need to know about SEO, high-converting websites, and marketing analytics Ã¢â‚¬â€ without the waffle.
+                  Everything you need to know about SEO, high-converting websites, and marketing analytics — without the waffle.
                 </p>
               </div>
             </ScrollReveal>

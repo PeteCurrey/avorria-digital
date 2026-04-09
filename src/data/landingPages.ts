@@ -4,8 +4,6 @@ import { getServiceBySlug } from "./services";
 import { getIndustryBySlug } from "./industries";
 import { getLocationBySlug } from "./locations";
 import { serviceLocationLandingPages, getServiceLocationPageBySlug } from "./serviceLocationLandingPages";
-
-// Hero images for industry pages
 const dpAutoRepairHero = "/assets/case-studies/dp-auto-repair-hero.png";
 const entirefmHero = "/assets/case-studies/entirefm-hero.jpg";
 
@@ -19,7 +17,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     industry: getIndustryBySlug("trades-home-services")!,
     heroHeadline: "SEO for trades & home services that fills your diary, not just your rankings.",
-    heroSubheadline: "We help plumbers, electricians, HVAC, roofers and home services win the local searches that turn into actual jobs Ã¢â‚¬â€œ with pages and tracking set up to prove it.",
+    heroSubheadline: "We help plumbers, electricians, HVAC, roofers and home services win the local searches that turn into actual jobs – with pages and tracking set up to prove it.",
     primaryCTA: "Get a trades SEO strategy call",
     secondaryCTA: "Request a local SEO & website audit",
     problemBullets: [
@@ -54,14 +52,14 @@ export const landingPages: LandingPage[] = [
       },
     ],
     testimonialSnippet: {
-      quote: "We'd been relying on word of mouth and some random ads. Once the local pages and profiles were sorted, the phones picked up Ã¢â‚¬â€œ and we actually knew which jobs came from SEO vs everything else.",
+      quote: "We'd been relying on word of mouth and some random ads. Once the local pages and profiles were sorted, the phones picked up – and we actually knew which jobs came from SEO vs everything else.",
       author: "Mark Thompson",
       role: "Owner",
       company: "Thompson Heating & Plumbing",
     },
     faqList: [
       {
-        question: "We're a small team Ã¢â‚¬â€œ is SEO overkill for us?",
+        question: "We're a small team – is SEO overkill for us?",
         answer: "Not if you pick your battles. We focus on the services and areas that bring the best jobs, not trying to rank for every generic term in the country.",
       },
       {
@@ -70,7 +68,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "Can you handle multiple branches/areas?",
-        answer: "Yes. We build a sensible structure for multiple locations so Google Ã¢â‚¬â€œ and customers Ã¢â‚¬â€œ know who to call where.",
+        answer: "Yes. We build a sensible structure for multiple locations so Google – and customers – know who to call where.",
       },
       {
         question: "How do we know it's working?",
@@ -93,7 +91,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     industry: getIndustryBySlug("professional-services")!,
     heroHeadline: "SEO for professional services that attracts better-fit clients, not more tyre-kickers.",
-    heroSubheadline: "We design SEO around how serious buyers research firms like yours Ã¢â‚¬â€œ and connect organic visibility to qualified enquiries, not random traffic.",
+    heroSubheadline: "We design SEO around how serious buyers research firms like yours – and connect organic visibility to qualified enquiries, not random traffic.",
     primaryCTA: "Book a professional services SEO call",
     secondaryCTA: "Request an SEO & website audit",
     problemBullets: [
@@ -128,15 +126,15 @@ export const landingPages: LandingPage[] = [
       },
     ],
     testimonialSnippet: {
-      quote: "SEO used to feel like a black box. We now know exactly which topics and pages are driving decent enquiries Ã¢â‚¬â€œ and which to stop wasting time on.",
+      quote: "SEO used to feel like a black box. We now know exactly which topics and pages are driving decent enquiries – and which to stop wasting time on.",
       author: "Claire Barton",
       role: "Partner",
       company: "Barton Legal Partners",
     },
     faqList: [
       {
-        question: "We have a long sales cycle Ã¢â‚¬â€œ does SEO still help?",
-        answer: "Yes. SEO is perfect for educating buyers early and mid-funnel, then capturing them when they're ready to engage Ã¢â‚¬â€œ provided it's structured around your real buying journey.",
+        question: "We have a long sales cycle – does SEO still help?",
+        answer: "Yes. SEO is perfect for educating buyers early and mid-funnel, then capturing them when they're ready to engage – provided it's structured around your real buying journey.",
       },
       {
         question: "Are we going to have to write endless content?",
@@ -144,7 +142,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How do we avoid attracting the wrong type of client?",
-        answer: "Positioning and messaging. We shape topics, language and calls-to-action so your ideal client recognises themselves Ã¢â‚¬â€œ and the wrong ones self-select out.",
+        answer: "Positioning and messaging. We shape topics, language and calls-to-action so your ideal client recognises themselves – and the wrong ones self-select out.",
       },
       {
         question: "Can you work around compliance and brand guidelines?",
@@ -167,7 +165,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     industry: getIndustryBySlug("b2b-saas")!,
     heroHeadline: "B2B SaaS SEO that feeds your pipeline, not just your blog.",
-    heroSubheadline: "We build SEO strategies around your ICP, pain points and product, then tie them into demos, trials and opportunities Ã¢â‚¬â€œ not just 'traffic growth'.",
+    heroSubheadline: "We build SEO strategies around your ICP, pain points and product, then tie them into demos, trials and opportunities – not just 'traffic growth'.",
     primaryCTA: "Talk B2B SaaS SEO",
     secondaryCTA: "Request a SaaS SEO audit",
     problemBullets: [
@@ -182,7 +180,7 @@ export const landingPages: LandingPage[] = [
       "Product-led SEO pages that show the 'job to be done', not just features.",
       "Playbooks and use case hubs that link to demos and trials.",
       "Clean tracking from SEO entry points through to sign-ups and opportunities.",
-      "CRO on key pages (pricing, demo, sign-up) to improve trial Ã¢â€ â€™ SQL.",
+      "CRO on key pages (pricing, demo, sign-up) to improve trial → SQL.",
     ],
     keyMetrics: [
       {
@@ -210,7 +208,7 @@ export const landingPages: LandingPage[] = [
     faqList: [
       {
         question: "Do you do programmatic/at-scale pages?",
-        answer: "Where it makes sense, yes Ã¢â‚¬â€œ but only if it's aligned to demand and avoids thin, spammy duplication.",
+        answer: "Where it makes sense, yes – but only if it's aligned to demand and avoids thin, spammy duplication.",
       },
       {
         question: "Can you plug into HubSpot/Salesforce for attribution?",
@@ -222,7 +220,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How quickly can we see impact?",
-        answer: "Depending on your starting point, you'll typically see early movement in 2Ã¢â‚¬â€œ3 months and compounding gains beyond that.",
+        answer: "Depending on your starting point, you'll typically see early movement in 2–3 months and compounding gains beyond that.",
       },
     ],
     targetKeyword: "b2b saas seo",
@@ -241,7 +239,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     industry: getIndustryBySlug("ecommerce-brands")!,
     heroHeadline: "E-commerce SEO that moves revenue, not just rankings.",
-    heroSubheadline: "We fix structure, categories and on-site SEO so that more of your organic traffic turns into actual orders Ã¢â‚¬â€œ and we show you the uplift clearly.",
+    heroSubheadline: "We fix structure, categories and on-site SEO so that more of your organic traffic turns into actual orders – and we show you the uplift clearly.",
     primaryCTA: "Book an e-commerce SEO call",
     secondaryCTA: "Get an e-commerce SEO audit",
     problemBullets: [
@@ -288,7 +286,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "Can you handle large catalogues?",
-        answer: "Yes Ã¢â‚¬â€œ but we prioritise ruthlessly. Not every product needs bespoke SEO; categories and key SKUs come first.",
+        answer: "Yes – but we prioritise ruthlessly. Not every product needs bespoke SEO; categories and key SKUs come first.",
       },
       {
         question: "Do you handle content and dev changes?",
@@ -296,7 +294,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How do you measure success?",
-        answer: "Organic revenue, assisted revenue, and improvements in key conversion steps Ã¢â‚¬â€œ not just traffic volume.",
+        answer: "Organic revenue, assisted revenue, and improvements in key conversion steps – not just traffic volume.",
       },
     ],
     targetKeyword: "ecommerce seo",
@@ -315,7 +313,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     industry: getIndustryBySlug("multi-location-brands")!,
     heroHeadline: "SEO for multi-location brands that keeps every site and profile pulling its weight.",
-    heroSubheadline: "We bring order to the chaos of multiple locations, profiles and pages Ã¢â‚¬â€œ so customers find the right place, in the right city, with the right information, every time.",
+    heroSubheadline: "We bring order to the chaos of multiple locations, profiles and pages – so customers find the right place, in the right city, with the right information, every time.",
     primaryCTA: "Discuss multi-location SEO",
     secondaryCTA: "Request a multi-location SEO audit",
     problemBullets: [
@@ -350,14 +348,14 @@ export const landingPages: LandingPage[] = [
       },
     ],
     testimonialSnippet: {
-      quote: "Before, each location did its own thing. Now we have a system Ã¢â‚¬â€œ Google knows where to send people, and so do we.",
+      quote: "Before, each location did its own thing. Now we have a system – Google knows where to send people, and so do we.",
       author: "Rachel Foster",
       role: "Head of Marketing",
       company: "National Fitness Co.",
     },
     faqList: [
       {
-        question: "We already have a centralised CMS Ã¢â‚¬â€œ can you work with it?",
+        question: "We already have a centralised CMS – can you work with it?",
         answer: "Yes. We design location templates that scale inside your current stack, then handle the rollout.",
       },
       {
@@ -370,7 +368,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "Will this interfere with our paid campaigns?",
-        answer: "It should make them more effective Ã¢â‚¬â€œ clearer structure and profiles help both SEO and PPC.",
+        answer: "It should make them more effective – clearer structure and profiles help both SEO and PPC.",
       },
     ],
     targetKeyword: "multi location seo",
@@ -403,7 +401,7 @@ export const landingPages: LandingPage[] = [
     solutionBullets: [
       "Technical clean-up and site architecture for large, complex sites",
       "Content clusters mapped to commercial intent and London-specific queries",
-      "Conversion fixes on high-traffic pagesÃ¢â‚¬â€not just more traffic",
+      "Conversion fixes on high-traffic pages—not just more traffic",
       "Pipeline-focused dashboards your sales team actually uses",
       "Local SEO integration for multi-location London businesses",
     ],
@@ -414,7 +412,7 @@ export const landingPages: LandingPage[] = [
         description: "London professional services firm, 6-month engagement",
       },
       {
-        value: "Ã‚Â£180k",
+        value: "£180k",
         label: "Attributed Revenue",
         description: "Legal practice in Central London, 12 months",
       },
@@ -451,7 +449,7 @@ export const landingPages: LandingPage[] = [
     workingWithYou:
       "We know London is one of the most competitive markets globally for SEO. That's why we combine deep technical work with hyper-local content strategies. Whether you're competing in finance, legal, tech, or trades across London boroughs, we build SEO programs that account for high competition, sophisticated searchers, and the need for clear lead-to-revenue tracking.",
     pricingSnapshot:
-      "Typical investment for London SEO engagements: Ã‚Â£3,500Ã¢â‚¬â€œÃ‚Â£8,000/month depending on competitive intensity and scope. Includes strategy, technical SEO, content, link building, and conversion tracking. Minimum 3-month commitment.",
+      "Typical investment for London SEO engagements: £3,500–£8,000/month depending on competitive intensity and scope. Includes strategy, technical SEO, content, link building, and conversion tracking. Minimum 3-month commitment.",
     faqList: [
       {
         question: "How long until we see results from SEO in London?",
@@ -501,11 +499,11 @@ export const landingPages: LandingPage[] = [
     industry: getIndustryBySlug("trades")!,
     heroHeadline: "Websites for trades that convert calls, not just win design awards",
     heroSubheadline:
-      "Built for plumbers, electricians, builders, and home service pros who need more emergency calls and qualified leadsÃ¢â‚¬â€not another pretty site that doesn't ring the phone.",
+      "Built for plumbers, electricians, builders, and home service pros who need more emergency calls and qualified leads—not another pretty site that doesn't ring the phone.",
     primaryCTA: "Book Design Consultation",
     secondaryCTA: "See Trades Examples",
     problemBullets: [
-      "Your current site doesn't convertÃ¢â‚¬â€visitors leave without calling or booking",
+      "Your current site doesn't convert—visitors leave without calling or booking",
       "Mobile experience is clunky when most customers search on their phones",
       "No clear path for emergency calls or urgent jobs",
       "Forms are buried and calls-to-action are weak",
@@ -537,7 +535,7 @@ export const landingPages: LandingPage[] = [
     ],
     testimonialSnippet: {
       quote:
-        "The website redesign wasn't just prettyÃ¢â‚¬â€it fundamentally changed how customers interact with our business. Call volume doubled and lead quality improved.",
+        "The website redesign wasn't just pretty—it fundamentally changed how customers interact with our business. Call volume doubled and lead quality improved.",
       author: "Michael Reynolds",
       role: "Owner",
       company: "Reynolds Plumbing & Heating",
@@ -560,9 +558,9 @@ export const landingPages: LandingPage[] = [
       },
     ],
     workingWithYou:
-      "We understand trades businesses operate differently. You need calls and bookings, often urgently. Your customers are searching on mobile, comparing options fast, and want reassurance before they pick up the phone. We design sites that speak directly to this reality: clear service descriptions, visible phone numbers, trust signals front and center, and fast load times. Every element is conversion-focusedÃ¢â‚¬â€not award-focused.",
+      "We understand trades businesses operate differently. You need calls and bookings, often urgently. Your customers are searching on mobile, comparing options fast, and want reassurance before they pick up the phone. We design sites that speak directly to this reality: clear service descriptions, visible phone numbers, trust signals front and center, and fast load times. Every element is conversion-focused—not award-focused.",
     pricingSnapshot:
-      "Typical investment for trades website projects: Ã‚Â£4,500Ã¢â‚¬â€œÃ‚Â£12,000 one-off for design and build, or Ã‚Â£450Ã¢â‚¬â€œÃ‚Â£850/month for ongoing maintenance, content updates, and local SEO. Timelines: 4-8 weeks from kickoff to launch.",
+      "Typical investment for trades website projects: £4,500–£12,000 one-off for design and build, or £450–£850/month for ongoing maintenance, content updates, and local SEO. Timelines: 4-8 weeks from kickoff to launch.",
     faqList: [
       {
         question: "Do you understand how trades businesses actually get leads?",
@@ -587,13 +585,13 @@ export const landingPages: LandingPage[] = [
       {
         question: "How do you handle before/after galleries and reviews?",
         answer:
-          "We design custom galleries, integrate review widgets, and can automate review requests post-job. Social proof is critical for tradesÃ¢â‚¬â€we make it prominent and easy to manage.",
+          "We design custom galleries, integrate review widgets, and can automate review requests post-job. Social proof is critical for trades—we make it prominent and easy to manage.",
       },
     ],
     targetKeyword: "website design for trades",
     metaTitle: "Web Design for Trades & Home Services | Avorria",
     metaDescription:
-      "Websites for plumbers, electricians, and home service pros that convert calls and bookings. Mobile-first, local SEO optimized, designed for leadsÃ¢â‚¬â€not awards.",
+      "Websites for plumbers, electricians, and home service pros that convert calls and bookings. Mobile-first, local SEO optimized, designed for leads—not awards.",
     relatedCaseStudies: ["multi-location-web-design", "home-services-local-seo"],
     relatedArticles: ["website-conversion-tips-trades", "local-seo-home-services"],
   },
@@ -608,11 +606,11 @@ export const landingPages: LandingPage[] = [
     industry: getIndustryBySlug("professional-services")!,
     heroHeadline: "Paid media for professional services that delivers quality, not just volume",
     heroSubheadline:
-      "Google Ads, LinkedIn, and Meta campaigns engineered for high-ticket, longer-cycle leads. We optimize for deal size and lead qualityÃ¢â‚¬â€not vanity clicks.",
+      "Google Ads, LinkedIn, and Meta campaigns engineered for high-ticket, longer-cycle leads. We optimize for deal size and lead quality—not vanity clicks.",
     primaryCTA: "Book Paid Strategy Call",
     secondaryCTA: "Get Free Audit",
     problemBullets: [
-      "Lead volume looks good but quality is terribleÃ¢â‚¬â€wasting sales time on tire kickers",
+      "Lead volume looks good but quality is terrible—wasting sales time on tire kickers",
       "Cost per lead keeps climbing while conversion rates stagnate",
       "Current agency can't explain how paid leads translate to closed deals",
       "Landing pages are generic and don't pre-qualify prospects",
@@ -667,19 +665,19 @@ export const landingPages: LandingPage[] = [
       },
     ],
     workingWithYou:
-      "Professional services firms have complex sales cycles, high deal values, and low tolerance for unqualified leads. We design paid campaigns that respect that reality. Instead of flooding your CRM with junk, we use targeting, copy, and landing page friction to pre-qualify prospects. We track beyond the leadÃ¢â‚¬â€measuring pipeline contribution and closed revenue. Your sales team will thank you.",
+      "Professional services firms have complex sales cycles, high deal values, and low tolerance for unqualified leads. We design paid campaigns that respect that reality. Instead of flooding your CRM with junk, we use targeting, copy, and landing page friction to pre-qualify prospects. We track beyond the lead—measuring pipeline contribution and closed revenue. Your sales team will thank you.",
     pricingSnapshot:
-      "Typical investment for professional services paid media: Ã‚Â£2,500Ã¢â‚¬â€œÃ‚Â£6,000/month for management + ad spend (budget varies by firm size and market). Includes campaign setup, landing page optimization, conversion tracking, and monthly reporting tied to deal pipeline.",
+      "Typical investment for professional services paid media: £2,500–£6,000/month for management + ad spend (budget varies by firm size and market). Includes campaign setup, landing page optimization, conversion tracking, and monthly reporting tied to deal pipeline.",
     faqList: [
       {
         question: "How do you ensure lead quality, not just lead volume?",
         answer:
-          "We use audience targeting, pre-qualification questions in forms, and landing page copy that sets expectations. We optimize for cost per qualified leadÃ¢â‚¬â€not just cost per lead. Your sales team defines what 'qualified' means, and we build campaigns around that.",
+          "We use audience targeting, pre-qualification questions in forms, and landing page copy that sets expectations. We optimize for cost per qualified lead—not just cost per lead. Your sales team defines what 'qualified' means, and we build campaigns around that.",
       },
       {
         question: "Can you track paid leads through to closed deals?",
         answer:
-          "Yes, if your CRM allows API integration or manual lead tagging. We set up attribution so you can see which campaigns, keywords, and ads are driving actual revenueÃ¢â‚¬â€not just form fills.",
+          "Yes, if your CRM allows API integration or manual lead tagging. We set up attribution so you can see which campaigns, keywords, and ads are driving actual revenue—not just form fills.",
       },
       {
         question: "Which platform is best: Google Ads, LinkedIn, or Meta?",
@@ -689,7 +687,7 @@ export const landingPages: LandingPage[] = [
       {
         question: "What's a realistic timeline to see ROI?",
         answer:
-          "For professional services, expect 60-90 days to optimize campaigns and start seeing qualified leads. Full ROI (closed deals) depends on your sales cycleÃ¢â‚¬â€often 3-6 months. We focus on improving cost per qualified lead and pipeline contribution early.",
+          "For professional services, expect 60-90 days to optimize campaigns and start seeing qualified leads. Full ROI (closed deals) depends on your sales cycle—often 3-6 months. We focus on improving cost per qualified lead and pipeline contribution early.",
       },
       {
         question: "Do you create landing pages and ad creative?",
@@ -700,7 +698,7 @@ export const landingPages: LandingPage[] = [
     targetKeyword: "paid media for professional services",
     metaTitle: "Paid Media for Professional Services | Avorria",
     metaDescription:
-      "Google Ads, LinkedIn, and Meta campaigns for law firms, consultancies, and B2B services. Focused on lead quality, attribution, and deal pipelineÃ¢â‚¬â€not vanity metrics.",
+      "Google Ads, LinkedIn, and Meta campaigns for law firms, consultancies, and B2B services. Focused on lead quality, attribution, and deal pipeline—not vanity metrics.",
     relatedCaseStudies: ["saas-paid-media", "legal-services-seo-revenue"],
     relatedArticles: ["paid-media-lead-quality", "attribution-professional-services"],
   },
@@ -714,7 +712,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     location: getLocationBySlug("sheffield")!,
     heroHeadline: "SEO agency in Sheffield that actually brings in leads, not just rankings.",
-    heroSubheadline: "Avorria is a performance-focused SEO partner for Sheffield businesses. We sort your site, content and tracking so you can see Ã¢â‚¬â€œ in hard numbers Ã¢â‚¬â€œ what organic search is doing for enquiries and revenue.",
+    heroSubheadline: "Avorria is a performance-focused SEO partner for Sheffield businesses. We sort your site, content and tracking so you can see – in hard numbers – what organic search is doing for enquiries and revenue.",
     primaryCTA: "Book an SEO call (Sheffield)",
     secondaryCTA: "Get a free SEO & website audit",
     problemBullets: [
@@ -727,9 +725,9 @@ export const landingPages: LandingPage[] = [
     solutionBullets: [
       "Local and regional SEO strategy around the services and areas that actually make you money.",
       "Technical and on-page clean-up so Google understands what you do and who you do it for.",
-      "Service and location pages built for conversion Ã¢â‚¬â€œ clear offers, proof and CTAs.",
+      "Service and location pages built for conversion – clear offers, proof and CTAs.",
       "Tracking wired into calls, forms and enquiries so you can see what came from where.",
-      "Simple dashboards showing organic leads and pipeline Ã¢â‚¬â€œ not just 'visibility'.",
+      "Simple dashboards showing organic leads and pipeline – not just 'visibility'.",
     ],
     keyMetrics: [
       {
@@ -765,7 +763,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How long until we see results locally?",
-        answer: "You'll usually see early movement within 2Ã¢â‚¬â€œ3 months and meaningful impact in 4Ã¢â‚¬â€œ6, depending on how competitive your space is and where we're starting from.",
+        answer: "You'll usually see early movement within 2–3 months and meaningful impact in 4–6, depending on how competitive your space is and where we're starting from.",
       },
       {
         question: "Is this just about Google rankings?",
@@ -788,7 +786,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("seo")!,
     location: getLocationBySlug("london")!,
     heroHeadline: "SEO agency in London for teams who are done with vague reports.",
-    heroSubheadline: "We work with London-based businesses who want SEO tied directly to pipeline. No buzzword decks Ã¢â‚¬â€œ just a clear strategy, proper implementation and reporting you can actually run decisions from.",
+    heroSubheadline: "We work with London-based businesses who want SEO tied directly to pipeline. No buzzword decks – just a clear strategy, proper implementation and reporting you can actually run decisions from.",
     primaryCTA: "Talk to a London SEO strategist",
     secondaryCTA: "Request an SEO & website audit",
     problemBullets: [
@@ -830,7 +828,7 @@ export const landingPages: LandingPage[] = [
     },
     faqList: [
       {
-        question: "We already have a global SEO partner Ã¢â‚¬â€œ can you focus just on the UK/London side?",
+        question: "We already have a global SEO partner – can you focus just on the UK/London side?",
         answer: "Yes. We can operate as the local layer, aligning with global strategy but making sure UK and London performance is actually looked after.",
       },
       {
@@ -839,7 +837,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How do you report results?",
-        answer: "Via a live-style dashboard and short written summaries. You'll see traffic, leads, pipeline and key pages Ã¢â‚¬â€œ not just keyword tables.",
+        answer: "Via a live-style dashboard and short written summaries. You'll see traffic, leads, pipeline and key pages – not just keyword tables.",
       },
       {
         question: "Are you only for big budgets?",
@@ -862,7 +860,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("web-design")!,
     location: getLocationBySlug("sheffield")!,
     heroHeadline: "Web design in Sheffield that makes your site behave like a sales asset.",
-    heroSubheadline: "We design and build websites for Sheffield businesses that look sharp and convert visitors into enquiries, bookings and orders Ã¢â‚¬â€œ with tracking to prove it.",
+    heroSubheadline: "We design and build websites for Sheffield businesses that look sharp and convert visitors into enquiries, bookings and orders – with tracking to prove it.",
     primaryCTA: "Talk about a website rebuild (Sheffield)",
     secondaryCTA: "Request a website & funnel teardown",
     problemBullets: [
@@ -909,7 +907,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "Can you work on our existing platform?",
-        answer: "Usually yes. If your platform is genuinely holding you back, we'll recommend a sensible migration Ã¢â‚¬â€œ not a vanity rebuild.",
+        answer: "Usually yes. If your platform is genuinely holding you back, we'll recommend a sensible migration – not a vanity rebuild.",
       },
       {
         question: "Who writes the copy?",
@@ -940,11 +938,11 @@ export const landingPages: LandingPage[] = [
     primaryCTA: "Book a strategy call (Yorkshire)",
     secondaryCTA: "Request a free audit",
     problemBullets: [
-      "You've tried 'someone who does Facebook/Google' and a couple of agencies Ã¢â‚¬â€œ everybody talked big, nobody stuck around.",
+      "You've tried 'someone who does Facebook/Google' and a couple of agencies – everybody talked big, nobody stuck around.",
       "You're spread across multiple suppliers with no joined-up plan.",
       "Reports talk about impressions and clicks, not leads and revenue.",
       "Your website, SEO and ads all feel disconnected.",
-      "You're not against spending Ã¢â‚¬â€œ you just want to see it work.",
+      "You're not against spending – you just want to see it work.",
     ],
     solutionBullets: [
       "Joined-up strategy for SEO, paid media and web based on your real commercial targets.",
@@ -967,7 +965,7 @@ export const landingPages: LandingPage[] = [
       {
         value: "Board Buy-In",
         label: "Clear Impact",
-        description: "Board finally understood what digital was doing Ã¢â‚¬â€œ and funded more of it",
+        description: "Board finally understood what digital was doing – and funded more of it",
       },
     ],
     testimonialSnippet: {
@@ -1010,7 +1008,7 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("digital-marketing")!,
     location: getLocationBySlug("uk")!,
     heroHeadline: "UK digital marketing partner for businesses who want grown-up conversations about growth.",
-    heroSubheadline: "We work with UK-based businesses that are already investing in marketing and want to tighten everything up Ã¢â‚¬â€œ strategy, execution, tracking and reporting Ã¢â‚¬â€œ under one roof.",
+    heroSubheadline: "We work with UK-based businesses that are already investing in marketing and want to tighten everything up – strategy, execution, tracking and reporting – under one roof.",
     primaryCTA: "Book a UK strategy call",
     secondaryCTA: "Request a free SEO & website audit",
     problemBullets: [
@@ -1057,7 +1055,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "Do you lock us into long contracts?",
-        answer: "No. We usually recommend a 6Ã¢â‚¬â€œ12 month runway to do meaningful work, but we don't hide behind punitive terms.",
+        answer: "No. We usually recommend a 6–12 month runway to do meaningful work, but we don't hide behind punitive terms.",
       },
       {
         question: "Can you work with our existing in-house team?",
@@ -1085,7 +1083,7 @@ export const landingPages: LandingPage[] = [
     industry: getIndustryBySlug("automotive")!,
     heroHeadline: "Websites for garages that book jobs, not just look good",
     heroSubheadline:
-      "Built for MOT centres, auto repair shops, and specialist mechanics who need a professional online presence that converts visitors into booked appointmentsÃ¢â‚¬â€not another template that looks like every other garage.",
+      "Built for MOT centres, auto repair shops, and specialist mechanics who need a professional online presence that converts visitors into booked appointments—not another template that looks like every other garage.",
     primaryCTA: "Book Design Consultation",
     secondaryCTA: "View Our Automotive Portfolio",
     problemBullets: [
@@ -1111,7 +1109,7 @@ export const landingPages: LandingPage[] = [
         description: "Increase in online MOT and service bookings after website rebuild",
       },
       {
-        value: "3.2s Ã¢â€ â€™ 1.1s",
+        value: "3.2s → 1.1s",
         label: "Load Time",
         description: "Faster sites mean lower bounce rates and more enquiries",
       },
@@ -1145,9 +1143,9 @@ export const landingPages: LandingPage[] = [
       },
     ],
     workingWithYou:
-      "We've built websites for garages across Derbyshire and the East Midlands, from independent MOT centres to specialist performance shops. We know the automotive tradeÃ¢â‚¬â€your customers want to see trust signals, easy booking, and proof you know what you're doing. No jargon, no fluff, just a website that works as hard as you do.",
+      "We've built websites for garages across Derbyshire and the East Midlands, from independent MOT centres to specialist performance shops. We know the automotive trade—your customers want to see trust signals, easy booking, and proof you know what you're doing. No jargon, no fluff, just a website that works as hard as you do.",
     pricingSnapshot:
-      "Typical investment for a garage website: Ã‚Â£2,500Ã¢â‚¬â€œÃ‚Â£6,000 depending on features (booking integration, multiple locations, e-commerce for parts). Includes design, build, basic SEO setup, and training so you can update it yourself.",
+      "Typical investment for a garage website: £2,500–£6,000 depending on features (booking integration, multiple locations, e-commerce for parts). Includes design, build, basic SEO setup, and training so you can update it yourself.",
     faqList: [
       {
         question: "Can you integrate with our existing booking system?",
@@ -1188,7 +1186,7 @@ export const landingPages: LandingPage[] = [
     industry: getIndustryBySlug("garages")!,
     heroHeadline: "Garage websites that fill your bays, not just your inbox",
     heroSubheadline:
-      "From MOT centres to specialist repair shopsÃ¢â‚¬â€we build websites that look professional, book jobs online, and help you compete with the big chains without their marketing budgets.",
+      "From MOT centres to specialist repair shops—we build websites that look professional, book jobs online, and help you compete with the big chains without their marketing budgets.",
     primaryCTA: "Get a Free Website Review",
     secondaryCTA: "See Garage Websites We've Built",
     problemBullets: [
@@ -1196,12 +1194,12 @@ export const landingPages: LandingPage[] = [
       "Customers phone other garages because they can book online instantly",
       "You can't update prices, offers or availability without calling a developer",
       "Mobile visitors bounce because the site is impossible to navigate on a phone",
-      "No clear calls-to-actionÃ¢â‚¬â€just a contact form buried at the bottom",
+      "No clear calls-to-action—just a contact form buried at the bottom",
       "You're competing with franchises who spend thousands on marketing",
     ],
     solutionBullets: [
       "Clean, professional design that builds trust before they even call",
-      "Online booking for MOTs, servicing and repairsÃ¢â‚¬â€no more phone tag",
+      "Online booking for MOTs, servicing and repairs—no more phone tag",
       "Lightning-fast mobile experience with prominent call buttons",
       "Easy-to-manage CMS so you can update offers and news yourself",
       "Reviews and certifications displayed prominently to build credibility",
@@ -1248,12 +1246,12 @@ export const landingPages: LandingPage[] = [
       },
     ],
     workingWithYou:
-      "We've worked with garages like DP Auto Repair in Chesterfield and AES across the Midlands. We understand that you're experts at fixing cars, not building websites. That's our job. We handle the tech, the design, and the SEOÃ¢â‚¬â€you focus on keeping customers happy.",
+      "We've worked with garages like DP Auto Repair in Chesterfield and AES across the Midlands. We understand that you're experts at fixing cars, not building websites. That's our job. We handle the tech, the design, and the SEO—you focus on keeping customers happy.",
     pricingSnapshot:
-      "Garage websites typically run Ã‚Â£2,000Ã¢â‚¬â€œÃ‚Â£5,000 for a professional site with booking integration. Ongoing support and SEO packages available from Ã‚Â£250/month. No long contractsÃ¢â‚¬â€just results.",
+      "Garage websites typically run £2,000–£5,000 for a professional site with booking integration. Ongoing support and SEO packages available from £250/month. No long contracts—just results.",
     faqList: [
       {
-        question: "We're a small independent garageÃ¢â‚¬â€is this overkill for us?",
+        question: "We're a small independent garage—is this overkill for us?",
         answer: "Not at all. A professional website is often the difference between a customer choosing you or the garage down the road. We scale the project to fit your size and budget.",
       },
       {
@@ -1290,13 +1288,13 @@ export const landingPages: LandingPage[] = [
     service: getServiceBySlug("web-design")!,
     industry: getIndustryBySlug("facilities-management")!,
     heroHeadline: "Websites for facilities management that convert enquiries, not just look professional",
-    heroSubheadline: "We helped EntireFM increase enquiries by 156% and reduce bounce rate by 47%. We'll do the same for your FM companyÃ¢â‚¬â€with sector-specific architecture, CAFM integration, and AI-driven workflows.",
+    heroSubheadline: "We helped EntireFM increase enquiries by 156% and reduce bounce rate by 47%. We'll do the same for your FM company—with sector-specific architecture, CAFM integration, and AI-driven workflows.",
     primaryCTA: "Request an FM website consultation",
     secondaryCTA: "See the EntireFM case study",
     problemBullets: [
-      "Your website doesn't communicate what you actually do Ã¢â‚¬â€ services are buried under generic FM jargon",
+      "Your website doesn't communicate what you actually do — services are buried under generic FM jargon",
       "Competitors with worse service records outrank you because their websites convert better",
-      "No clear pathway from visitor to RFP Ã¢â‚¬â€ just a lonely contact form in the footer",
+      "No clear pathway from visitor to RFP — just a lonely contact form in the footer",
       "Your digital presence doesn't reflect the operational excellence you deliver on-site",
       "Complex service offerings (hard, soft, compliance, projects) aren't structured for different buyer journeys",
       "Property managers researching FM providers can't quickly assess your capabilities",
@@ -1332,7 +1330,7 @@ export const landingPages: LandingPage[] = [
       },
     ],
     testimonialSnippet: {
-      quote: "Avorria didn't just build us a website Ã¢â‚¬â€ they transformed how we present ourselves to the market. The AI automations alone have saved our team hours every week. Enquiries are up, the right prospects are finding us, and for the first time, our digital presence matches the quality of our service delivery.",
+      quote: "Avorria didn't just build us a website — they transformed how we present ourselves to the market. The AI automations alone have saved our team hours every week. Enquiries are up, the right prospects are finding us, and for the first time, our digital presence matches the quality of our service delivery.",
       author: "David Mitchell",
       role: "Operations Director",
       company: "EntireFM",
@@ -1355,12 +1353,12 @@ export const landingPages: LandingPage[] = [
         description: "Ongoing SEO, CRO sprints, and performance monitoring to continuously improve enquiry quality and conversion rates.",
       },
     ],
-    workingWithYou: "We understand the FM sector inside and outÃ¢â‚¬â€not just generic B2B templates. We know the difference between hard and soft services, understand PPM scheduling, CAFM systems, and compliance requirements. Our team has built websites for FM companies across commercial, industrial, retail, and residential sectors. We integrate with your existing helpdesk platforms, showcase your certifications properly, and build AI-driven workflows that qualify enquiries before they reach your team. When you work with Avorria, you're getting an agency that speaks FM fluently.",
-    pricingSnapshot: "FM website projects typically range from Ã‚Â£8,000Ã¢â‚¬â€œÃ‚Â£25,000 depending on scope, integrations, and sector coverage requirements. Ongoing SEO and optimisation packages available from Ã‚Â£800/month. We'll scope your specific requirements during the initial consultation.",
+    workingWithYou: "We understand the FM sector inside and out—not just generic B2B templates. We know the difference between hard and soft services, understand PPM scheduling, CAFM systems, and compliance requirements. Our team has built websites for FM companies across commercial, industrial, retail, and residential sectors. We integrate with your existing helpdesk platforms, showcase your certifications properly, and build AI-driven workflows that qualify enquiries before they reach your team. When you work with Avorria, you're getting an agency that speaks FM fluently.",
+    pricingSnapshot: "FM website projects typically range from £8,000–£25,000 depending on scope, integrations, and sector coverage requirements. Ongoing SEO and optimisation packages available from £800/month. We'll scope your specific requirements during the initial consultation.",
     faqList: [
       {
         question: "Do you understand the FM sector's complex service structure?",
-        answer: "Yes. We know the difference between hard services (M&E, HVAC, fire systems) and soft services (cleaning, security, catering). We understand PPM schedules, reactive maintenance, and compliance frameworks. Our FM websites are structured to communicate this complexity clearly to different buyer personasÃ¢â‚¬â€from property managers to procurement teams.",
+        answer: "Yes. We know the difference between hard services (M&E, HVAC, fire systems) and soft services (cleaning, security, catering). We understand PPM schedules, reactive maintenance, and compliance frameworks. Our FM websites are structured to communicate this complexity clearly to different buyer personas—from property managers to procurement teams.",
       },
       {
         question: "Can you integrate with our CAFM/helpdesk platform?",
@@ -1368,7 +1366,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How do you handle multi-sector targeting (offices vs industrial vs retail)?",
-        answer: "We build dedicated sector landing pages for each market you serve. Each page speaks the language of that sectorÃ¢â‚¬â€hospital compliance for healthcare, clean room requirements for manufacturing, footfall management for retail. This improves SEO targeting and conversion rates simultaneously.",
+        answer: "We build dedicated sector landing pages for each market you serve. Each page speaks the language of that sector—hospital compliance for healthcare, clean room requirements for manufacturing, footfall management for retail. This improves SEO targeting and conversion rates simultaneously.",
       },
       {
         question: "What about compliance documentation and certification showcases?",
@@ -1384,7 +1382,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "What's the typical investment for an FM website project?",
-        answer: "Projects range from Ã‚Â£8,000 for focused single-sector FM companies to Ã‚Â£25,000+ for multi-sector, multi-location operations requiring CAFM integration and comprehensive content. We scope precisely based on your requirementsÃ¢â‚¬â€no padding, no surprises.",
+        answer: "Projects range from £8,000 for focused single-sector FM companies to £25,000+ for multi-sector, multi-location operations requiring CAFM integration and comprehensive content. We scope precisely based on your requirements—no padding, no surprises.",
       },
       {
         question: "Do you handle ongoing SEO and content after launch?",
@@ -1396,7 +1394,7 @@ export const landingPages: LandingPage[] = [
       },
       {
         question: "How long does an FM website project take?",
-        answer: "Typically 8-12 weeks from kickoff to launch, depending on complexity and integrations. We work in structured phases with clear milestones. Content gathering and stakeholder input are usually the biggest variablesÃ¢â‚¬â€we'll help streamline this process.",
+        answer: "Typically 8-12 weeks from kickoff to launch, depending on complexity and integrations. We work in structured phases with clear milestones. Content gathering and stakeholder input are usually the biggest variables—we'll help streamline this process.",
       },
     ],
     targetKeyword: "facilities management website design",
@@ -1408,7 +1406,7 @@ export const landingPages: LandingPage[] = [
   },
 ];
 
-// Combined list of all landing pages (industry + location)
+// ------------------------------ Service-Industry Landing Pages ------------------------------
 export const allLandingPages: LandingPage[] = [
   ...landingPages,
   ...serviceLocationLandingPages,

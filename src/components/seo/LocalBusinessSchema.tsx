@@ -43,7 +43,7 @@ const defaultData: LocalBusinessSchemaProps = {
   openingHours: [
     "Mo-Fr 09:00-17:30",
   ],
-  priceRange: "Ã‚Â£Ã‚Â£Ã‚Â£Ã‚Â£",
+  priceRange: "££££",
   image: "https://avorria.com/og-image.jpg",
   sameAs: [
     "https://www.linkedin.com/company/avorria",

@@ -193,7 +193,7 @@ export const ClientLogosTab = () => {
                     </span>
                   </a>
                 ) : (
-                  <span className="text-muted-foreground text-sm">â€”</span>
+                  <span className="text-muted-foreground text-sm">€”</span>
                 )}
               </TableCell>
               <TableCell>

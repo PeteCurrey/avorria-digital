@@ -13,19 +13,19 @@ import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { HeroBand, SectionBand } from "@/components/ContentBand";
 const heroContentEmail = "/assets/service-content-email.jpg";
 const ContentEmail = () => {
-  const painPoints = ["You've got a blog, but it's not driving any leads â€“ just random traffic that never converts.", "Your email list is gathering dust because nobody knows what to send or when.", "Content gets produced, but there's no strategy connecting it to your sales process.", "You're creating content for the sake of it, without clear commercial intent.", "Your email open rates are fine, but nothing actually happens after people read them."];
+  const painPoints = ["You've got a blog, but it's not driving any leads – just random traffic that never converts.", "Your email list is gathering dust because nobody knows what to send or when.", "Content gets produced, but there's no strategy connecting it to your sales process.", "You're creating content for the sake of it, without clear commercial intent.", "Your email open rates are fine, but nothing actually happens after people read them."];
   const contentIncluded = ["Content strategy tied to your buyer journey and commercial goals.", "Keyword research focused on high-intent, bottom-of-funnel terms.", "Topic clusters and pillar content planning.", "Long-form SEO content that ranks and converts.", "Case studies, comparison pages and sales enablement assets.", "Content refresh and optimisation for existing assets."];
   const emailIncluded = ["Email strategy and sequence mapping.", "Welcome sequences that educate and qualify.", "Nurture sequences for leads not ready to buy.", "Re-engagement campaigns for cold lists.", "Newsletter strategy and execution.", "Integration with your CRM and sales process."];
   const timeline = [{
-    period: "Week 1â€“2",
+    period: "Week 1–2",
     title: "Audit & strategy",
     description: "We review your existing content and email setup, identify gaps and map out a plan tied to your sales process and commercial goals."
   }, {
-    period: "Weeks 3â€“6",
+    period: "Weeks 3–6",
     title: "Foundation content",
-    description: "Launch core content assets â€“ pillar pages, key blog posts, and foundational email sequences that work while you sleep."
+    description: "Launch core content assets – pillar pages, key blog posts, and foundational email sequences that work while you sleep."
   }, {
-    period: "Months 2â€“3",
+    period: "Months 2–3",
     title: "Scale & optimise",
     description: "Expand content clusters, refine email sequences based on data, and build out sales enablement materials."
   }, {
@@ -39,7 +39,7 @@ const ContentEmail = () => {
     answer: "Both. We can handle everything from strategy through to writing and publishing, or work alongside your in-house team to execute on our plans."
   }, {
     question: "What email platforms do you work with?",
-    answer: "Most of them â€“ HubSpot, ActiveCampaign, Mailchimp, ConvertKit, Klaviyo and more. We'll work with what you have or recommend alternatives if needed."
+    answer: "Most of them – HubSpot, ActiveCampaign, Mailchimp, ConvertKit, Klaviyo and more. We'll work with what you have or recommend alternatives if needed."
   }, {
     question: "How do you measure content success?",
     answer: "Traffic and rankings matter, but we focus on leads and pipeline. Every piece of content should have a clear role in moving people toward a conversion."
@@ -50,7 +50,7 @@ const ContentEmail = () => {
   return <>
       <SEOHead
         title="Content & Email Marketing That Drives Pipeline"
-        description="Strategic content marketing and email automation that attracts the right people and moves them through your funnel â€“ not just blog posts and newsletters."
+        description="Strategic content marketing and email automation that attracts the right people and moves them through your funnel – not just blog posts and newsletters."
         canonical="/services/content-email"
         keywords={["content marketing", "email marketing", "email automation", "content strategy", "lead nurture", "B2B content"]}
       />
@@ -69,7 +69,7 @@ const ContentEmail = () => {
 
       <div className="min-h-screen">
         {/* Hero Section */}
-        <HeroBand headline="Content and email that feed your pipeline." body="We create strategic content that attracts the right people and email sequences that move them through your funnel â€“ not just blog posts and newsletters that nobody reads." backgroundImage={heroContentEmail} cta={{
+        <HeroBand headline="Content and email that feed your pipeline." body="We create strategic content that attracts the right people and email sequences that move them through your funnel – not just blog posts and newsletters that nobody reads." backgroundImage={heroContentEmail} cta={{
         text: "Book a content strategy call",
         href: "/contact"
       }} secondaryCta={{

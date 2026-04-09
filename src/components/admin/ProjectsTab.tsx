@@ -147,7 +147,7 @@ export const ProjectsTab = () => {
 
         <div className="flex items-center gap-2 flex-wrap">
           <Badge variant="outline" className="text-[10px]">
-            {project.purpose?.replace(/_/g, " ") || "â€”"}
+            {project.purpose?.replace(/_/g, " ") || "€”"}
           </Badge>
           {project.budget && (
             <Badge variant="secondary" className="text-[10px]">
@@ -218,7 +218,7 @@ export const ProjectsTab = () => {
               </div>
               <div>
                 <p className="text-2xl font-bold">
-                  Â£{stats.totalValue.toLocaleString()}
+                  £{stats.totalValue.toLocaleString()}
                 </p>
                 <p className="text-xs text-muted-foreground">Pipeline Value</p>
               </div>
@@ -347,8 +347,8 @@ export const ProjectsTab = () => {
                           </SelectContent>
                         </Select>
                       </td>
-                      <td className="p-4 text-sm">{project.budget || "â€”"}</td>
-                      <td className="p-4 text-sm">{project.timeline || "â€”"}</td>
+                      <td className="p-4 text-sm">{project.budget || "€”"}</td>
+                      <td className="p-4 text-sm">{project.timeline || "€”"}</td>
                       <td className="p-4 text-sm text-muted-foreground">
                         {format(new Date(project.created_at), "MMM d, yyyy")}
                       </td>
@@ -396,7 +396,7 @@ export const ProjectsTab = () => {
                   <div className="grid grid-cols-2 gap-3 text-sm">
                     <div className="flex items-center gap-2">
                       <Building2 className="h-4 w-4 text-muted-foreground" />
-                      <span>{selectedProject.company || "â€”"}</span>
+                      <span>{selectedProject.company || "€”"}</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Mail className="h-4 w-4 text-muted-foreground" />
@@ -432,7 +432,7 @@ export const ProjectsTab = () => {
                     </div>
                     <div>
                       <p className="text-xs text-muted-foreground">Budget</p>
-                      <p>{selectedProject.budget || "â€”"}</p>
+                      <p>{selectedProject.budget || "€”"}</p>
                     </div>
                   </div>
                   {selectedProject.features && (selectedProject.features as string[]).length > 0 && (

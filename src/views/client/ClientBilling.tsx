@@ -73,7 +73,7 @@ const ClientBilling = () => {
                   <span className="text-sm text-muted-foreground">Total Paid</span>
                 </div>
                 <p className="text-2xl font-light text-foreground">
-                  Â£{totalPaid.toLocaleString()}
+                  £{totalPaid.toLocaleString()}
                 </p>
               </CardContent>
             </Card>
@@ -85,7 +85,7 @@ const ClientBilling = () => {
                   <span className="text-sm text-muted-foreground">Outstanding</span>
                 </div>
                 <p className="text-2xl font-light text-foreground">
-                  Â£{totalOutstanding.toLocaleString()}
+                  £{totalOutstanding.toLocaleString()}
                 </p>
               </CardContent>
             </Card>
@@ -148,7 +148,7 @@ const ClientBilling = () => {
                             {invoice.invoice_number}
                           </TableCell>
                           <TableCell>
-                            {invoice.project?.name || "â€”"}
+                            {invoice.project?.name || "€”"}
                           </TableCell>
                           <TableCell className="font-medium">
                             <div className="flex items-center gap-1">

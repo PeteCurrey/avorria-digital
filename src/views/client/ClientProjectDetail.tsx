@@ -177,7 +177,7 @@ const ClientProjectDetail = () => {
       {showLivePreview && project.live_url && (
         <div className="fixed inset-0 z-50">
           <LiveSitePreview url={project.live_url} title={project.name} className="h-full" />
-          <Button variant="ghost" size="icon" onClick={() => setShowLivePreview(false)} className="absolute top-4 right-4 z-50 bg-background/80 hover:bg-background">Ãƒâ€”</Button>
+          <Button variant="ghost" size="icon" onClick={() => setShowLivePreview(false)} className="absolute top-4 right-4 z-50 bg-background/80 hover:bg-background">×</Button>
         </div>
       )}
 

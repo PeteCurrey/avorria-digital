@@ -58,7 +58,7 @@ const SocialPersonalBrand = () => {
         "Content pillars, messaging framework, and profile optimisation. We build the foundation for consistent visibility.",
     },
     {
-      period: "Weeks 3â€“4",
+      period: "Weeks 3–4",
       title: "Launch & iterate",
       description:
         "First content goes live. We track engagement, refine the approach, and find what resonates with your audience.",
@@ -106,7 +106,7 @@ const SocialPersonalBrand = () => {
     <>
       <SEOHead
         title="Social & Personal Brand for Founders"
-        description="Done-for-you personal brand and social content for founders who want to be the obvious choice in their market â€“ without spending hours on LinkedIn."
+        description="Done-for-you personal brand and social content for founders who want to be the obvious choice in their market – without spending hours on LinkedIn."
         canonical="/services/social-personal-brand"
         keywords={["personal branding", "LinkedIn content", "founder branding", "social media management", "thought leadership", "B2B social"]}
       />
@@ -127,7 +127,7 @@ const SocialPersonalBrand = () => {
         {/* Hero Section */}
         <HeroBand
           headline="Be the obvious choice in your market."
-          body="Done-for-you personal brand and social content for founders who want to be visible without spending hours on LinkedIn. We handle everything â€“ you just approve and show up."
+          body="Done-for-you personal brand and social content for founders who want to be visible without spending hours on LinkedIn. We handle everything – you just approve and show up."
           backgroundImage={heroSocialBrand}
           cta={{ text: "Book a brand strategy call", href: "/contact" }}
           secondaryCta={{ text: "See how it works", href: "#how-it-works" }}

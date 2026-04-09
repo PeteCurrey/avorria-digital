@@ -348,7 +348,7 @@ const AnalyticsConnectionsTab = () => {
                     </TableCell>
                     <TableCell>
                       {connection.project?.name || (
-                        <span className="text-muted-foreground">â€”</span>
+                        <span className="text-muted-foreground">€”</span>
                       )}
                     </TableCell>
                     <TableCell>

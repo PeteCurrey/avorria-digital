@@ -92,7 +92,7 @@ const Signup = () => {
                   <Input
                     id="password"
                     type="password"
-                    placeholder="Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢Ã¢â‚¬Â¢"
+                    placeholder=" ·  ·  ·  ·  ·  ·  ·  · "
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required

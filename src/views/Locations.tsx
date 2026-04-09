@@ -9,11 +9,11 @@ import { locations, getLocationsByCountry } from "@/data/locations";
 
 const Locations = () => {
   const countries = [
-    { code: "GB", name: "United Kingdom", flag: "Ã°Å¸â€¡Â¬Ã°Å¸â€¡Â§" },
-    { code: "US", name: "United States", flag: "Ã°Å¸â€¡ÂºÃ°Å¸â€¡Â¸" },
-    { code: "AU", name: "Australia", flag: "Ã°Å¸â€¡Â¦Ã°Å¸â€¡Âº" },
-    { code: "NZ", name: "New Zealand", flag: "Ã°Å¸â€¡Â³Ã°Å¸â€¡Â¿" },
-    { code: "CA", name: "Canada", flag: "Ã°Å¸â€¡Â¨Ã°Å¸â€¡Â¦" },
+    { code: "GB", name: "United Kingdom", flag: "🇬🇧" },
+    { code: "US", name: "United States", flag: "🇺🇸" },
+    { code: "AU", name: "Australia", flag: "🇦🇺" },
+    { code: "NZ", name: "New Zealand", flag: "🇳🇿" },
+    { code: "CA", name: "Canada", flag: "🇨🇦" },
   ];
 
   const services = [
@@ -48,7 +48,7 @@ const Locations = () => {
                 Marketing services wherever you are
               </h1>
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-                From London to Sydney, New York to TorontoÃ¢â‚¬â€we deliver results-driven 
+                From London to Sydney, New York to Toronto—we deliver results-driven 
                 digital marketing, SEO, paid media, and web design services across 5 countries 
                 and 38+ cities.
               </p>
