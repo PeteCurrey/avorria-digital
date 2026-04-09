@@ -5,12 +5,12 @@ import { Shell } from "./shell";
 
 export const metadata: Metadata = {
   title: {
-    default: "Avorria Digital â€” Performance Digital Marketing Agency",
+    default: "Avorria Digital — Performance Digital Marketing Agency",
     template: "%s | Avorria Digital",
   },
   description:
     "Avorria Digital is a performance-driven digital marketing agency specialising in SEO, paid media, web design, and content marketing.",
-  metadataBase: new URL("https://avorria-digital.vercel.app"),
+  metadataBase: new URL("https://avorria.com"),
   openGraph: {
     type: "website",
     siteName: "Avorria Digital",

@@ -1,14 +1,16 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 // Image backgrounds for visual variety
 const heroRaceCar = "/assets/hero-race-car.jpg";
 const heroCityscape = "/assets/hero-cityscape.jpg";
+
 interface ContentBandProps {
   headline: string;
   subheadline?: string;
@@ -30,6 +32,7 @@ interface ContentBandProps {
   className?: string;
   children?: React.ReactNode;
 }
+
 export const ContentBand = ({
   headline,
   subheadline,
@@ -45,14 +48,13 @@ export const ContentBand = ({
   children
 }: ContentBandProps) => {
   const ref = useRef<HTMLElement>(null);
-  const {
-    scrollYProgress
-  } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"]
   });
   const y = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [0.8, 1, 1, 0.8]);
+
   const bgClasses = {
     dark: "bg-[hsl(220,25%,8%)] text-white",
     gradient: "bg-gradient-to-br from-[hsl(220,25%,8%)] via-[hsl(220,25%,12%)] to-[hsl(250,30%,15%)] text-white",
@@ -60,68 +62,96 @@ export const ContentBand = ({
     mesh: "bg-[hsl(220,25%,8%)] text-white relative overflow-hidden",
     image: "relative text-white"
   };
-  return <section ref={ref} className={cn("relative w-full py-24 md:py-32 lg:py-40 overflow-hidden", bgClasses[background], className)}>
+
+  return (
+    <section ref={ref} className={cn("relative w-full py-24 md:py-32 lg:py-40 overflow-hidden", bgClasses[background], className)}>
       {/* Background treatments */}
-      {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60" />}
+      {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60 z-0" />}
       
-      {background === "image" && backgroundImage && <>
-          <motion.div style={{
-        y
-      }} className="absolute inset-0 scale-110">
-            <img src={backgroundImage} alt="" className="w-full h-full object-cover" />
+      {background === "image" && backgroundImage && (
+        <>
+          <motion.div style={{ y }} className="absolute inset-0 scale-110 z-0">
+            <Image 
+              src={backgroundImage} 
+              alt={headline} 
+              fill 
+              className="object-cover" 
+              sizes="100vw"
+            />
           </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
-        </>}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 z-10" />
+        </>
+      )}
 
       {/* Subtle noise texture overlay for dark backgrounds */}
-      {(background === "dark" || background === "gradient" || background === "mesh") && <div className="absolute inset-0 opacity-[0.03]" style={{
-      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`
-    }} />}
+      {(background === "dark" || background === "gradient" || background === "mesh") && (
+        <div 
+          className="absolute inset-0 opacity-[0.03] z-10" 
+          style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)'/%3E%3C/svg%3E")`
+          }} 
+        />
+      )}
 
-      <motion.div style={{
-      opacity
-    }} className="container mx-auto px-4 sm:px-6 relative z-10">
+      <motion.div style={{ opacity }} className="container mx-auto px-4 sm:px-6 relative z-20">
         <div className={cn("grid lg:grid-cols-2 gap-12 lg:gap-20 items-center max-w-7xl mx-auto", reverse && "lg:[&>*:first-child]:order-2")}>
           {/* Text Content */}
           <div className="space-y-6 md:space-y-8">
-            {subheadline && <p className="text-sm md:text-base font-semibold uppercase tracking-widest text-accent">
+            {subheadline && (
+              <p className="text-sm md:text-base font-semibold uppercase tracking-widest text-accent">
                 {subheadline}
-              </p>}
+              </p>
+            )}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight">
               {headline}
             </h2>
-            {body && <p className="text-lg md:text-xl leading-relaxed text-white/80 max-w-xl">
+            {body && (
+              <p className="text-lg md:text-xl leading-relaxed text-white/80 max-w-xl">
                 {body}
-              </p>}
+              </p>
+            )}
             {children}
-            {(cta || secondaryCta) && <div className="flex flex-col sm:flex-row gap-4 pt-4">
-                {cta && <Button variant={cta.variant || "accent"} size="lg" asChild className="w-full sm:w-auto">
+            {(cta || secondaryCta) && (
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                {cta && (
+                  <Button variant={cta.variant || "accent"} size="lg" asChild className="w-full sm:w-auto">
                     <Link href={cta.href}>
                       {cta.text}
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
-                  </Button>}
-                {secondaryCta && <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
+                  </Button>
+                )}
+                {secondaryCta && (
+                  <Button variant="outline-dark" size="lg" asChild className="w-full sm:w-auto">
                     <Link href={secondaryCta.href}>{secondaryCta.text}</Link>
-                  </Button>}
-              </div>}
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
 
           {/* Image/Visual */}
-          {image && <motion.div style={{
-          y
-        }} className="relative">
-              <div className="relative overflow-hidden rounded-lg shadow-2xl">
-                <img src={image} alt={imageAlt} className="w-full h-auto object-cover" />
+          {image && (
+            <motion.div style={{ y }} className="relative">
+              <div className="relative overflow-hidden rounded-lg shadow-2xl aspect-video">
+                <Image 
+                  src={image} 
+                  alt={imageAlt || headline} 
+                  fill 
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
                 {/* Subtle gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/20 to-transparent" />
               </div>
               {/* Decorative glow */}
               <div className="absolute -inset-4 bg-accent/10 blur-3xl -z-10 opacity-50" />
-            </motion.div>}
+            </motion.div>
+          )}
         </div>
       </motion.div>
-    </section>;
+    </section>
+  );
 };
 
 // Full-width hero variant for page headers
@@ -139,60 +169,80 @@ export const HeroBand = ({
   minHeight?: string;
 }) => {
   const ref = useRef<HTMLElement>(null);
-  const {
-    scrollYProgress
-  } = useScroll({
+  const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"]
   });
   const y = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [1, 0.8, 0.5]);
-  return <section ref={ref} className={cn("relative w-full flex items-center justify-center overflow-hidden -mt-20 pt-20", className)} style={{
-    minHeight
-  }}>
+
+  return (
+    <section 
+      ref={ref} 
+      className={cn("relative w-full flex items-center justify-center overflow-hidden -mt-20 pt-20", className)} 
+      style={{ minHeight }}
+    >
       {/* Parallax background */}
-      {backgroundImage && <motion.div style={{
-      y
-    }} className="absolute inset-0 scale-110">
-          <img src={backgroundImage} alt="" className="w-full h-full object-cover" />
-        </motion.div>}
+      {backgroundImage && (
+        <motion.div style={{ y }} className="absolute inset-0 scale-110 z-0">
+          <Image 
+            src={backgroundImage} 
+            alt={headline} 
+            fill 
+            priority 
+            className="object-cover"
+            sizes="100vw"
+          />
+        </motion.div>
+      )}
 
       {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[hsl(220,25%,8%)]" />
+      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-[hsl(220,25%,8%)] z-10" />
 
       {/* Content */}
-      <motion.div style={{
-      y: textY,
-      opacity
-    }} className="container mx-auto px-4 sm:px-6 relative z-10 text-center py-24 md:py-32">
+      <motion.div 
+        style={{ y: textY, opacity }} 
+        className="container mx-auto px-4 sm:px-6 relative z-20 text-center py-24 md:py-32"
+      >
         <div className="max-w-4xl mx-auto space-y-6 md:space-y-8">
-          {subheadline && <p className="text-sm md:text-base font-semibold uppercase tracking-widest text-accent animate-fade-in">
+          {subheadline && (
+            <p className="text-sm md:text-base font-semibold uppercase tracking-widest text-accent animate-fade-in">
               {subheadline}
-            </p>}
+            </p>
+          )}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-light leading-[1.05] tracking-tight text-white/90 animate-fade-in lg:text-5xl">
             {headline}
           </h1>
-          {body && <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-white/85 max-w-3xl mx-auto animate-fade-in-up font-light">
+          {body && (
+            <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-white/85 max-w-3xl mx-auto animate-fade-in-up font-light">
               {body}
-            </p>}
+            </p>
+          )}
           {children}
-          {(cta || secondaryCta) && <div className="inline-block p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 animate-fade-in-up">
+          {(cta || secondaryCta) && (
+            <div className="inline-block p-6 md:p-8 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 animate-fade-in-up">
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                {cta && <Button variant={cta.variant || "accent"} size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6">
+                {cta && (
+                  <Button variant={cta.variant || "accent"} size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6">
                     <Link href={cta.href}>
                       {cta.text}
                       <ArrowRight className="ml-2" size={20} />
                     </Link>
-                  </Button>}
-                {secondaryCta && <Button size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/[0.06] backdrop-blur-sm text-white border border-white/20 hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98] transition-all">
+                  </Button>
+                )}
+                {secondaryCta && (
+                  <Button size="lg" asChild className="w-full sm:w-auto text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 bg-white/[0.06] backdrop-blur-sm text-white border border-white/20 hover:bg-white/10 hover:border-accent/50 hover:scale-[0.98] transition-all">
                     <Link href={secondaryCta.href}>{secondaryCta.text}</Link>
-                  </Button>}
+                  </Button>
+                )}
               </div>
-            </div>}
+            </div>
+          )}
         </div>
       </motion.div>
-    </section>;
+    </section>
+  );
 };
 
 // Simple section wrapper for consistent full-width backgrounds
@@ -248,20 +298,22 @@ export const SectionBand = ({
       {/* Image background with parallax */}
       {background === "image" && backgroundImage && (
         <>
-          <motion.div style={{ y }} className="absolute inset-0 scale-105">
-            <img 
+          <motion.div style={{ y }} className="absolute inset-0 scale-105 z-0">
+            <Image 
               src={backgroundImage} 
-              alt="" 
-              className="w-full h-full object-cover"
+              alt="Section background" 
+              fill 
+              className="object-cover"
+              sizes="100vw"
             />
           </motion.div>
-          <div className={cn("absolute inset-0", overlayClasses[backgroundOverlay])} />
+          <div className={cn("absolute inset-0 z-10", overlayClasses[backgroundOverlay])} />
         </>
       )}
 
-      {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60" />}
+      {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60 z-0" />}
       
-      <div className="container mx-auto px-4 sm:px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-20">
         {children}
       </div>
     </section>
@@ -301,4 +353,3 @@ export const ImageSectionBand = ({
 };
 
 export default ContentBand;
-

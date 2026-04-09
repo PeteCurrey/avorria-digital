@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { Resource } from "@/types/resource";
 
 export const resources: Resource[] = [
@@ -191,7 +191,7 @@ At Avorria, we run technical, content and competitive audits that show you:
 
 No 47-page PDFs. No jargon. Just a clear breakdown of what's worth fixing and what's not.
 
-**[Book a Strategy Call](#)** or **[Request a Free SEO Audit](#)**
+**[Book a Strategy Call](/contact)** or **[Request a Free SEO Audit](/free-seo-website-audit)**
 `,
   },
   {
@@ -437,7 +437,7 @@ If your current site isn't generating the leads it should be, or if you're plann
 - Show you what's working and what's leaking leads
 - Give you a prioritised action plan
 
-**[Book a Strategy Call](#)** or **[Request a Conversion Review](#)**
+**[Book a Strategy Call](/contact)** or **[Request a Conversion Review](/contact)**
 `,
   },
   {
@@ -585,7 +585,7 @@ At Avorria, we offer:
 
 We don't do this as an upsellÃ¢â‚¬â€it's often the first thing we do, because you can't optimise what you can't measure.
 
-**[Book a Strategy Call](#)** or **[Request a Free Analytics Audit](#)**
+**[Book a Strategy Call](/contact)** or **[Request a Free Analytics Audit](/contact)**
 `,
   },
   // ----------- NEW NON-PILLAR RESOURCES -----------

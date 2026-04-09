@@ -1,4 +1,3 @@
-﻿import Link from "next/link";
 /**
  * Central SEO metadata registry for all public routes.
  * Used by:
@@ -419,7 +418,7 @@ function generateIndustryRoutes(): Record<string, RouteMetadata> {
 // Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬ Service-Location (Geo) Pages Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬Ã¢â€â‚¬
 
 // Location data (standalone, no TS imports from @/ at build-time)
-const locationList = [
+export const locationList = [
   "london", "manchester", "birmingham", "leeds", "liverpool", "edinburgh", "glasgow",
   "bristol", "newcastle", "nottingham", "chesterfield", "derby", "derbyshire", "mansfield",
   "leicester", "cardiff", "sheffield", "yorkshire", "uk",

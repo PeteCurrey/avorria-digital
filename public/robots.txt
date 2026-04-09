@@ -2,10 +2,7 @@
 # https://avorria.com
 
 # Sitemaps (canonical URLs - proxied to edge functions via _redirects)
-Sitemap: https://avorria.com/sitemap-index.xml
 Sitemap: https://avorria.com/sitemap.xml
-Sitemap: https://avorria.com/sitemap-geo.xml
-Sitemap: https://avorria.com/sitemap-news.xml
 
 # Default rules
 User-agent: *
