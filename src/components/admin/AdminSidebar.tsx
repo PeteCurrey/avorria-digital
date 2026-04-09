@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import { useState, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
@@ -131,7 +131,7 @@ const navSections: NavSection[] = [
 ];
 
 const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps) => {
-  const [searchParams] = useSearchParams();
+  const searchParams = useSearchParams();
   const currentTab = searchParams.get("tab") || "overview";
 
   const getDefaultExpanded = useCallback(() => {
@@ -414,5 +414,3 @@ const AdminSidebar = ({ collapsed, onToggle, isDark = true }: AdminSidebarProps)
 };
 
 export default AdminSidebar;
-
-

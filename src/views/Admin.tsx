@@ -1,24 +1,24 @@
-﻿'use client';
+'use client';
 import Link from "next/link";import React, { useState } from "react";
-import { useSearchParams} from "next/navigation";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { 
   LayoutDashboard, 
   Users, 
   BarChart3, 
-  Search,
-  TrendingUp,
-  Mail,
-  Phone,
-  Calendar,
-  ArrowUpRight,
-  Download,
-  RefreshCw,
-  Trash2,
-  Globe,
-  Eye,
-  MousePointerClick,
+  Search, 
+  TrendingUp, 
+  Mail, 
+  Phone, 
+  Calendar, 
+  ArrowUpRight, 
+  Download, 
+  RefreshCw, 
+  Trash2, 
+  Globe, 
+  Eye, 
+  MousePointerClick, 
   Clock} from "lucide-react";
 import AdminLayout from "@/components/admin/AdminLayout";
 import KPISparkline from "@/components/admin/KPISparkline";
@@ -79,7 +79,9 @@ import { useClients } from "@/hooks/useClients";
 import { useAlerts } from "@/hooks/useAlerts";
 
 const Admin = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const activeTab = searchParams.get("tab") || "overview";
   const [leadsSearchQuery, setLeadsSearchQuery] = useState("");
 
@@ -115,7 +117,7 @@ const Admin = () => {
   const totalConversions = Object.values(conversions).reduce((sum, val) => sum + (val || 0), 0);
 
   const navigateToTab = (tab: string) => {
-    setSearchParams({ tab });
+    router.push(`${pathname}?tab=${tab}`);
   };
 
   const getStatusBadge = (status: string) => {
@@ -704,21 +706,10 @@ const Admin = () => {
   };
 
   return (
-    <>
-      
-        <title>{getPageTitle()} | Avorria Admin</title>
-        <meta name="robots" content="noindex, nofollow" />
-      
-
-      <AdminLayout title={getPageTitle()} subtitle={getPageSubtitle()}>
-        {renderContent()}
-      </AdminLayout>
-    </>
+    <AdminLayout title={getPageTitle()} subtitle={getPageSubtitle()}>
+      {renderContent()}
+    </AdminLayout>
   );
 };
 
 export default Admin;
-
-
-
-

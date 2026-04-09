@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useEffect, useState } from "react";
@@ -17,7 +17,7 @@ interface CommandPaletteProps {
 
 const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
   const router = useRouter();
-  const [, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
 
   const goTo = (tab: string) => {
     router.push(`/admin?tab=${tab}`);
@@ -85,5 +85,3 @@ const CommandPalette = ({ open, onOpenChange }: CommandPaletteProps) => {
 };
 
 export default CommandPalette;
-
-
