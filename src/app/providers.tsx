@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useState, useCallback, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -39,7 +39,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             <CookieConsent />
             <AIConsultantTrigger />
             <CustomCursor />
-            <Suspense fallback={<div className="flex min-h-screen items-center justify-center bg-background text-foreground animate-pulse">Loading Avorria...</div>}>
+            <Suspense fallback={null}>
               {children}
             </Suspense>
           </SmoothScrollProvider>

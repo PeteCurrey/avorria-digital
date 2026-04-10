@@ -5,19 +5,35 @@ import { Shell } from "./shell";
 
 export const metadata: Metadata = {
   title: {
-    default: "Avorria Digital — Performance Digital Marketing Agency",
-    template: "%s | Avorria Digital",
+    default: "Avorria – Performance Digital Marketing Agency",
+    template: "%s | Avorria",
   },
   description:
-    "Avorria Digital is a performance-driven digital marketing agency specialising in SEO, paid media, web design, and content marketing.",
+    "Avorria is a performance-driven digital marketing agency specialising in SEO, paid media, web design, and content marketing.",
   metadataBase: new URL("https://avorria.com"),
+  alternates: {
+    canonical: "/",
+    languages: {
+      "en-GB": "/",
+      "en-US": "/",
+      "en-AU": "/",
+      "en-CA": "/",
+    },
+  },
   openGraph: {
     type: "website",
-    siteName: "Avorria Digital",
+    siteName: "Avorria",
+    locale: "en_GB",
     images: ["/og-image.jpg"],
   },
   twitter: {
     card: "summary_large_image",
+  },
+  other: {
+    "geo.region": "GB",
+    "geo.placename": "Chesterfield",
+    "geo.position": "53.2350;-1.4210",
+    "ICBM": "53.2350, -1.4210",
   },
 };
 
@@ -27,7 +43,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-GB" suppressHydrationWarning>
+      <head>
+        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+      </head>
       <body suppressHydrationWarning>
         <Providers>
           <Shell>{children}</Shell>

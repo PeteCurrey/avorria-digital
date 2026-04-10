@@ -20,7 +20,12 @@ const CharacterReveal: React.FC<CharacterRevealProps> = ({
   emphasis = false,
   as: Component = 'span',
 }) => {
+  const [isHydrated, setIsHydrated] = React.useState(false);
   const words = text.split(' ');
+
+  React.useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   const containerVariants: Variants = {
     hidden: {},
@@ -81,7 +86,7 @@ const CharacterReveal: React.FC<CharacterRevealProps> = ({
     <motion.span
       className={`inline-block ${className}`}
       variants={containerVariants}
-      initial="hidden"
+      initial={isHydrated ? "hidden" : "visible"}
       whileInView="visible"
       viewport={{ once: true, margin: '-50px' }}
     >
@@ -92,6 +97,7 @@ const CharacterReveal: React.FC<CharacterRevealProps> = ({
               key={`${wordIndex}-${charIndex}`}
               className="inline-block"
               variants={emphasis ? emphasisVariants : characterVariants}
+              initial={isHydrated ? "hidden" : "visible"}
               style={{ willChange: 'transform, opacity, filter' }}
             >
               {char}

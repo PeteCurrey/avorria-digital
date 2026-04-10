@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useEffect, useRef, useState, ReactNode, CSSProperties } from "react";
 
 type AnimationVariant = "fade-up" | "fade-left" | "fade-right" | "scale" | "blur" | "slide-up";
@@ -67,7 +67,12 @@ export const ScrollReveal = ({
   duration = 600,
 }: ScrollRevealProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -87,7 +92,7 @@ export const ScrollReveal = ({
     return () => observer.disconnect();
   }, [delay]);
 
-  const variantStyles = getVariantStyles(variant, isVisible);
+  const variantStyles = getVariantStyles(variant, isVisible || !isHydrated);
 
   return (
     <div
@@ -117,7 +122,12 @@ export const ScrollRevealGrid = ({
   variant = "fade-up",
 }: ScrollRevealGridProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -138,11 +148,11 @@ export const ScrollRevealGrid = ({
   }, []);
 
   const getChildStyle = (index: number): CSSProperties => {
-    const baseStyles = getVariantStyles(variant, isVisible);
+    const baseStyles = getVariantStyles(variant, isVisible || !isHydrated);
     return {
       ...baseStyles,
       transitionDuration: "600ms",
-      transitionDelay: isVisible ? `${index * stagger}ms` : "0ms",
+      transitionDelay: (isVisible && isHydrated) ? `${index * stagger}ms` : "0ms",
     };
   };
 
@@ -295,8 +305,13 @@ interface TextRevealProps {
 
 export const TextReveal = ({ text, className = "", delay = 0, stagger = 30 }: TextRevealProps) => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
   const words = text.split(" ");
+
+  useEffect(() => {
+    setIsHydrated(true);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -323,10 +338,10 @@ export const TextReveal = ({ text, className = "", delay = 0, stagger = 30 }: Te
           key={index}
           className="inline-block"
           style={{
-            opacity: isVisible ? 1 : 0,
-            transform: isVisible ? "translateY(0)" : "translateY(16px)",
+            opacity: (isVisible || !isHydrated) ? 1 : 0,
+            transform: (isVisible || !isHydrated) ? "translateY(0)" : "translateY(16px)",
             transition: `opacity 400ms ease, transform 400ms ease`,
-            transitionDelay: isVisible ? `${index * stagger}ms` : "0ms",
+            transitionDelay: (isVisible && isHydrated) ? `${index * stagger}ms` : "0ms",
           }}
         >
           {word}
@@ -347,9 +362,17 @@ interface CountUpProps {
 }
 
 export const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", className = "" }: CountUpProps) => {
-  const [count, setCount] = useState(0);
+  // Start with 'end' for SSR visibility. On hydration, we'll reset to 0 and animate.
+  const [count, setCount] = useState(end);
   const [isVisible, setIsVisible] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
   const ref = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    setIsHydrated(true);
+    // On hydration, set count to 0 so animation can start from the beginning
+    setCount(0);
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -370,7 +393,7 @@ export const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", classN
   }, []);
 
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || !isHydrated) return;
 
     let startTime: number;
     const step = (timestamp: number) => {
@@ -384,7 +407,7 @@ export const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", classN
     };
 
     requestAnimationFrame(step);
-  }, [isVisible, end, duration]);
+  }, [isVisible, isHydrated, end, duration]);
 
   return (
     <span ref={ref} className={className}>
@@ -392,5 +415,3 @@ export const CountUp = ({ end, duration = 2000, suffix = "", prefix = "", classN
     </span>
   );
 };
-
-

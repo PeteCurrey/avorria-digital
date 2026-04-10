@@ -1,5 +1,6 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
+import React, { useState, useEffect } from "react";
 // Cache buster v4 - forces Vite HMR to serve fresh module
 import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -55,6 +56,10 @@ const homeSections = [
 const Home = () => {
   // Scroll spy for section navigation
   const activeSection = useScrollSpy(homeSections, 120);
+
+  // Track client-side hydration so animations only run after hydration
+  const [isHydrated, setIsHydrated] = useState(false);
+  useEffect(() => { setIsHydrated(true); }, []);
 
   // Fetch case studies from database
   const { data: dbCaseStudies, isLoading: caseStudiesLoading } = useCaseStudiesPublic();
@@ -472,8 +477,8 @@ const Home = () => {
               <div className="space-y-5 md:space-y-6">
                 <motion.span
                 className="inline-block text-xs sm:text-sm font-medium text-white/60 uppercase tracking-[0.2em]"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 1, y: 0 }}
+                animate={isHydrated ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 }}>
 
                   Performance-First Digital Agency
@@ -487,8 +492,8 @@ const Home = () => {
                 </h1>
                 <motion.p
                 className="text-base md:text-lg text-white/80 leading-relaxed max-w-xl font-light"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 1, y: 0 }}
+                animate={isHydrated ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 1.2 }}>
 
                   We combine high-end design, technical SEO & paid acquisition to turn traffic into pipeline – not just prettier dashboards.
@@ -514,19 +519,19 @@ const Home = () => {
               <div className="mt-12 pt-6 border-t border-white/20">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-xl">
                   <div>
-                    <div className="text-2xl font-light text-white">50+</div>
+                    <div className="text-2xl font-light text-white"><CountUp end={50} suffix="+" /></div>
                     <div className="text-xs text-white/60">Active clients</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-light text-white">£16.4M+</div>
+                    <div className="text-2xl font-light text-white">£<CountUp end={16} suffix=".4M+" /></div>
                     <div className="text-xs text-white/60">Pipeline generated</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-light text-white">92%</div>
+                    <div className="text-2xl font-light text-white"><CountUp end={92} suffix="%" /></div>
                     <div className="text-xs text-white/60">Client retention</div>
                   </div>
                   <div>
-                    <div className="text-2xl font-light text-white">10+ yrs</div>
+                    <div className="text-2xl font-light text-white"><CountUp end={10} suffix="+ yrs" /></div>
                     <div className="text-xs text-white/60">Avg. experience</div>
                   </div>
                 </div>
@@ -541,20 +546,7 @@ const Home = () => {
         </section>
 
 
-        {/* Trust Bar - Light */}
-        <section className="py-16 bg-gray-50 border-y border-gray-200">
-          <div className="container mx-auto px-4 sm:px-6">
-            <ScrollReveal variant="fade-up" duration={500}>
-              <h2 className="text-center text-base font-semibold text-gray-900 mb-2">
-                Trusted by teams who are done wasting budget on noise.
-              </h2>
-              <p className="text-center text-sm text-gray-500 mb-8 max-w-2xl mx-auto">
-                We work with growing service businesses, multi-site brands and high-ticket B2B teams.
-              </p>
-              <LogoWall type="clients" variant="light" />
-            </ScrollReveal>
-          </div>
-        </section>
+
 
         {/* Who We Are Section with Video Background */}
         <div id="about">
