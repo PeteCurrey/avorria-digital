@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 // Module version: v14 - standardized React imports
 import React, { useRef, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -86,7 +86,7 @@ export const ParallaxBackground = ({
             src={backgroundImage}
             alt=""
             className="w-full h-full object-cover"
-            loading="eager"
+            loading="lazy"
           />
         ) : null}
       </motion.div>

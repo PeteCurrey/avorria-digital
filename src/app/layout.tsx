@@ -18,6 +18,8 @@ export const metadata: Metadata = {
       "en-US": "/",
       "en-AU": "/",
       "en-CA": "/",
+      "en": "/",
+      "x-default": "/",
     },
   },
   openGraph: {
@@ -30,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   other: {
-    "geo.region": "GB",
+    "geo.region": "GB-DBY",
     "geo.placename": "Chesterfield",
     "geo.position": "53.2350;-1.4210",
     "ICBM": "53.2350, -1.4210",

@@ -20,7 +20,6 @@ import { ExitIntentPopover } from "@/components/ExitIntentPopover";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import ParallaxBackground from "@/components/ParallaxBackground";
 
-import { LogoWall } from "@/components/LogoWall";
 import { useCaseStudiesPublic, CaseStudyDB } from "@/hooks/useCaseStudies";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
 import CharacterReveal from "@/components/animations/CharacterReveal";
@@ -460,7 +459,9 @@ const Home = () => {
             <img
             src={heroPenthouse}
             alt="Luxury penthouse cityscape"
-            className="w-full h-full object-cover" />
+            className="w-full h-full object-cover"
+            fetchPriority="high"
+            loading="eager" />
 
           </div>
           
@@ -716,7 +717,7 @@ const Home = () => {
               <div className="text-center mb-16 md:mb-20">
                 <motion.span
                   className="inline-block text-sm font-semibold text-accent uppercase tracking-[0.2em] mb-4"
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 1, y: 0 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6 }}
                   viewport={{ once: true }}>
@@ -745,6 +746,7 @@ const Home = () => {
                         <img
                         src={service.image}
                         alt={service.title}
+                        loading="lazy"
                         className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
 
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
@@ -802,7 +804,7 @@ const Home = () => {
                   <div className="relative group p-6 bg-white/5 rounded-xl border border-white/10 hover:border-accent/40 transition-all duration-300">
                     <div className="space-y-4">
                       <div className="text-5xl sm:text-6xl font-extralight text-accent/60 group-hover:text-accent transition-colors duration-300">
-                        <CountUp end={parseInt(step.number)} suffix="" />
+                        {step.number}
                       </div>
                       <h3 className="text-lg font-semibold text-white group-hover:text-accent/90 transition-colors duration-300">{step.title}</h3>
                       <p className="text-sm text-white/70 leading-relaxed">{step.description}</p>
@@ -840,6 +842,7 @@ const Home = () => {
                       <img
                     src={study.image}
                     alt={study.client}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
 
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
@@ -975,6 +978,7 @@ const Home = () => {
                       <img
                     src={testimonial.avatar}
                     alt={testimonial.author}
+                    loading="lazy"
                     className="w-12 h-12 rounded-full object-cover border-2 border-accent/30" />
 
                       <div>
