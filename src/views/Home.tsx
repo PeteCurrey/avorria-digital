@@ -38,7 +38,6 @@ const ognCraneHero = "/assets/case-studies/ogn-crane-hero.jpg";
 const entirefmHero = "/assets/case-studies/entirefm-hero.jpg";
 const heroRaceCar = "/assets/hero-race-car.jpg";
 const heroPenthouse = "/assets/hero-penthouse.png";
-const heroNightCityscape = "/assets/hero-night-cityscape.png";
 const cityTimelapseVideo = "/assets/city-timelapse.mp4";
 const bgRaceCar = "/assets/bg-race-car.png";
 
@@ -465,21 +464,6 @@ const Home = () => {
             loading="eager" />
 
           </div>
-
-          {/* Night cityscape background (Fades in over time) */}
-          <motion.div 
-            className="absolute inset-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: isHydrated ? 1 : 0 }}
-            transition={{ duration: 6, delay: 2, ease: "easeInOut" }}
-          >
-            <img
-              src={heroNightCityscape}
-              alt="Night penthouse cityscape with stars"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-          </motion.div>
           
           {/* Gradient overlay for text legibility */}
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-black/20 z-[1]" />
