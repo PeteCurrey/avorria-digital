@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
@@ -33,50 +33,50 @@ const Navigation = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const navSections = [{
-    title: "Services",
-    description: "What we actually do",
-    links: [{
-      name: "Services Overview",
-      description: "All our digital services",
-      href: "/services",
-      icon: Layers
-    }, {
-      name: "SEO Services",
-      description: "Organic search growth",
-      href: "/services/seo",
-      icon: Search
-    }, {
-      name: "Paid Media",
-      description: "PPC & social advertising",
-      href: "/services/paid-media",
-      icon: Target
-    }, {
-      name: "Web Design",
-      description: "Conversion-focused websites",
-      href: "/services/web-design",
-      icon: Palette
-    }]
-  }, {
-    title: "Company",
-    description: "Who we are",
-    links: [{
-      name: "About Us",
-      description: "Meet the core team",
-      href: "/about",
-      icon: Users
-    }, {
-      name: "Case Studies",
-      description: "Client success stories",
-      href: "/case-studies",
-      icon: BarChart3
-    }, {
-      name: "Contact Us",
-      description: "Get in touch",
-      href: "/contact",
-      icon: Mail
-    }]
-  }];
+  const navSections = [
+    {
+      title: "Services",
+      description: "Strategic digital solutions",
+      links: [
+        { name: "Services Overview", description: "All our digital services", href: "/services", icon: Layers },
+        { name: "SEO Services", description: "Organic search growth", href: "/services/seo", icon: Search },
+        { name: "Paid Media", description: "PPC & social advertising", href: "/services/paid-media", icon: Target },
+        { name: "Web Design", description: "Conversion-focused sites", href: "/services/web-design", icon: Palette },
+        { name: "Content & Email", description: "Strategic communication", href: "/services/content-email", icon: Mail },
+        { name: "Website Studio", description: "Build your dream site", href: "/web-design/studio", icon: Sparkles, highlight: true }
+      ]
+    },
+    {
+      title: "Company",
+      description: "Who we are",
+      links: [
+        { name: "About Us", description: "Meet the core team", href: "/about", icon: Users },
+        { name: "Why Avorria", description: "What sets us apart", href: "/why-avorria", icon: Award },
+        { name: "Case Studies", description: "Our success stories", href: "/case-studies", icon: BarChart3 },
+        { name: "Reporting", description: "Transparent dashboards", href: "/reporting", icon: LineChart }
+      ]
+    },
+    {
+      title: "Resources",
+      description: "Learn and grow",
+      links: [
+        { name: "Resources Hub", description: "Guides & insights", href: "/resources", icon: BookOpen },
+        { name: "SEO Glossary", description: "Terms explained", href: "/resources/seo-glossary", icon: GraduationCap },
+        { name: "Free Tools", description: "SEO & marketing tools", href: "/tools", icon: Wrench },
+        { name: "Website Health", description: "Check your vitals", href: "/website-health-check", icon: Zap }
+      ]
+    },
+    {
+      title: "Get Started",
+      description: "Let's grow",
+      links: [
+        { name: "Pricing", description: "Transparent rates", href: "/pricing", icon: DollarSign },
+        { name: "FAQs", description: "Common questions", href: "/faqs", icon: HelpCircle },
+        { name: "Contact Us", description: "Get in touch", href: "/contact", icon: Mail },
+        { name: "Free SEO Audit", description: "Health check-up", href: "/free-seo-website-audit", icon: ClipboardCheck, highlight: true }
+      ]
+    }
+  ];
 
   const shouldBeTransparent = transparent && !isScrolled;
 
