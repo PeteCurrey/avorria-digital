@@ -85,12 +85,7 @@ const SEOAgencyPillar = () => {
         { name: "Home", url: "/" },
         { name: "SEO Agency", url: "/seo-agency" }
       ]} />
-      <SEOHead
-        title="SEO Agency | Performance-Focused SEO Services"
-        description="Expert SEO agency for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads."
-        canonical="/seo-agency"
-        keywords={["SEO agency", "SEO services", "technical SEO", "content strategy", "local SEO", "B2B SEO", "organic search"]}
-      />
+      
 
       <div className="min-h-screen">
         <HeroBand

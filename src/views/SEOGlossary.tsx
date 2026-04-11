@@ -40,12 +40,7 @@ const SEOGlossary = () => {
 
   return (
     <>
-      <SEOHead
-        title="Plain-English SEO & Marketing Glossary"
-        description="No jargon, no posturing. Just straight definitions and why each term actually matters to your pipeline. A-Z SEO and marketing reference."
-        canonical="/resources/seo-glossary"
-        keywords={["SEO glossary", "marketing glossary", "SEO terms", "digital marketing definitions", "SEO dictionary"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Resources", url: "https://avorria.com/resources" },

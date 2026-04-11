@@ -314,12 +314,7 @@ const WebsitesWeFire = () => {
 
   return (
     <>
-      <SEOHead
-        title="Websites We'd Fire (And How We'd Fix Them)"
-        description="A teardown of common website disasters and how Avorria rebuilds them for conversion. If your homepage is a vanity brochure instead of a sales asset, it's costing you."
-        canonical="/websites-we-fire"
-        keywords={["bad website examples", "website redesign", "conversion optimisation", "website mistakes", "web design tips"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Websites We'd Fire", url: "https://avorria.com/websites-we-fire" }

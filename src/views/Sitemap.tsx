@@ -210,12 +210,7 @@ const Sitemap = () => {
 
   return (
     <>
-      <SEOHead
-        title="XML Sitemap | Avorria.com"
-        description="Complete sitemap of Avorria.com with all pages, services, locations, and resources."
-        canonical="/sitemap"
-        noindex={true}
-      />
+      
 
       <div className="min-h-screen bg-background">
         {/* Header */}

@@ -8,12 +8,7 @@ import { Settings, Zap, CheckCircle } from "lucide-react";
 const TechnicalSEO = () => {
   return (
     <>
-      <SEOHead
-        title="Technical SEO Services – Fix What's Holding You Back"
-        description="Technical SEO that stops your site fighting itself. We fix crawl, speed, structure and duplication issues that quietly tax every campaign you run."
-        canonical="/services/seo/technical"
-        keywords={["technical SEO", "site speed", "crawl optimisation", "Core Web Vitals", "SEO audit", "site structure"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "SEO Services", url: "https://avorria.com/services/seo" },

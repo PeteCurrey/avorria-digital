@@ -48,12 +48,7 @@ const ContentEmail = () => {
     answer: "It depends on your audience and offer. We'll help you find the right cadence that keeps you top of mind without burning your list."
   }];
   return <>
-      <SEOHead
-        title="Content & Email Marketing That Drives Pipeline"
-        description="Strategic content marketing and email automation that attracts the right people and moves them through your funnel – not just blog posts and newsletters."
-        canonical="/services/content-email"
-        keywords={["content marketing", "email marketing", "email automation", "content strategy", "lead nurture", "B2B content"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Services", url: "https://avorria.com/services" },

@@ -6,12 +6,7 @@ import { SectionBand } from "@/components/ContentBand";
 const Terms = () => {
   return (
     <>
-      <SEOHead
-        title="Terms of Service"
-        description="Avorria's terms of service outline the rules and regulations for using our website and services."
-        canonical="/terms"
-        noindex
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Terms of Service", url: "https://avorria.com/terms" }

@@ -105,12 +105,7 @@ const Analytics = () => {
 
   return (
     <>
-      <SEOHead
-        title="Analytics & Conversion Optimisation"
-        description="Analytics setup, tracking and CRO that connects marketing activity to pipeline and revenue – not just dashboards full of vanity metrics."
-        canonical="/services/analytics"
-        keywords={["analytics", "conversion optimisation", "CRO", "GA4 setup", "tracking", "attribution modelling", "A/B testing"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Services", url: "https://avorria.com/services" },

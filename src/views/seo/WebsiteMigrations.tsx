@@ -9,12 +9,7 @@ import { AlertTriangle, Shield, CheckCircle } from "lucide-react";
 const WebsiteMigrations = () => {
   return (
     <>
-      <SEOHead
-        title="SEO-Safe Website Migrations – Protect Your Rankings"
-        description="SEO-safe website migrations. We plan and execute migrations so you don't lose rankings, traffic and leads when you relaunch."
-        canonical="/services/seo/migrations"
-        keywords={["website migration", "SEO migration", "site relaunch", "URL mapping", "redirect strategy", "migration checklist"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "SEO Services", url: "https://avorria.com/services/seo" },

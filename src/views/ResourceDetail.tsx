@@ -71,14 +71,7 @@ const ResourceDetail = () => {
 
   return (
     <>
-      <SEOHead
-        title={resource.metaTitle}
-        description={resource.metaDescription}
-        canonical={`/resources/${resource.slug}`}
-        type="article"
-        keywords={[resource.targetKeyword, resource.category]}
-        publishedTime={resource.publishedDate}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Resources", url: "https://avorria.com/resources" },

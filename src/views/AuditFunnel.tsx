@@ -29,12 +29,7 @@ export default function AuditFunnel() {
 
   return (
     <>
-      <SEOHead
-        title="Free SEO & Website Audit – Instant Results"
-        description="Get an instant, AI-powered audit of your website. Clear, actionable recommendations delivered in under 60 seconds – completely free."
-        canonical="/free-seo-website-audit"
-        keywords={["free SEO audit", "website audit", "SEO analysis", "site audit tool", "free website review"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Free SEO Audit", url: "https://avorria.com/free-seo-website-audit" }

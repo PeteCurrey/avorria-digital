@@ -154,20 +154,7 @@ const WebDesign = () => {
 
   return (
     <>
-      <SEOHead
-        title="Conversion-Led Web Design & Development | Avorria"
-        description="Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one."
-        canonical="/services/web-design"
-        keywords={[
-          "web design agency",
-          "conversion-focused web design",
-          "web development UK",
-          "landing page design",
-          "B2B web design",
-          "website redesign",
-          "CRO web design",
-        ]}
-      />
+      
       <ServiceSchema
         name="Web Design and Development"
         description="Websites, landing pages and funnels that look sharp and sell hard. Built on a modern stack with SEO, speed and CRO wired in from day one."

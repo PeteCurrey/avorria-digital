@@ -67,12 +67,7 @@ const PaidMediaAgencyPillar = () => {
         { name: "Home", url: "/" },
         { name: "Paid Media Agency", url: "/paid-media-agency" }
       ]} />
-      <SEOHead
-        title="Paid Media Agency | Google Ads, Meta Ads & LinkedIn"
-        description="Paid media agency focused on leads and revenue. Google Ads, Meta Ads and LinkedIn campaigns with proper tracking and clear ROI reporting."
-        canonical="/paid-media-agency"
-        keywords={["paid media agency", "Google Ads agency", "Meta Ads", "Facebook Ads", "LinkedIn Ads", "PPC agency"]}
-      />
+      
 
       <div className="min-h-screen">
         <HeroBand

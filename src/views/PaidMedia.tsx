@@ -155,20 +155,7 @@ const PaidMedia = () => {
 
   return (
     <>
-      <SEOHead
-        title="Paid Media that Ties Spend to Pipeline | Avorria"
-        description="Google, Meta and LinkedIn campaigns structured around offers, not random keywords. We cut any spend that can't justify itself in hard numbers."
-        canonical="/services/paid-media"
-        keywords={[
-          "paid media agency",
-          "PPC management UK",
-          "Google Ads agency",
-          "LinkedIn Ads management",
-          "Meta Ads agency",
-          "paid advertising",
-          "B2B paid media",
-        ]}
-      />
+      
       <ServiceSchema
         name="Paid Media Management"
         description="Google, Meta and LinkedIn campaigns structured around offers, not random keywords. We cut any spend that can't justify itself in hard numbers."

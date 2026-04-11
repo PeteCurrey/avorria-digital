@@ -241,12 +241,7 @@ const ProjectEstimator = () => {
   if (showResults) {
     return (
       <>
-      <SEOHead
-        title="Project Estimator – Get a Ballpark in Minutes"
-        description="Answer a few questions about your project and get a realistic budget estimate in minutes. No sales calls, no obligations."
-        canonical="/project-estimator"
-        keywords={["project estimator", "marketing budget", "web design cost", "SEO pricing", "agency pricing"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Project Estimator", url: "https://avorria.com/project-estimator" }
@@ -418,12 +413,7 @@ const ProjectEstimator = () => {
 
   return (
     <>
-      <SEOHead
-        title="Project Estimator – Get a Ballpark in Minutes"
-        description="Answer a few questions about your project and get a realistic budget estimate in minutes. No sales calls, no obligations."
-        canonical="/project-estimator"
-        keywords={["project estimator", "marketing budget", "web design cost", "SEO pricing", "agency pricing"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Project Estimator", url: "https://avorria.com/project-estimator" }

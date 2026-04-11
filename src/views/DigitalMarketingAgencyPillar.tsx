@@ -68,12 +68,7 @@ const DigitalMarketingAgencyPillar = () => {
         { name: "Home", url: "/" },
         { name: "Digital Marketing Agency", url: "/digital-marketing-agency" }
       ]} />
-      <SEOHead
-        title="Digital Marketing Agency | Full-Funnel Growth"
-        description="Integrated digital marketing agency for B2B and service businesses. SEO, paid media, web design and content strategy under one roof with clear tracking."
-        canonical="/digital-marketing-agency"
-        keywords={["digital marketing agency", "integrated marketing", "SEO", "paid media", "content marketing", "B2B marketing"]}
-      />
+      
 
       <div className="min-h-screen">
         <HeroBand

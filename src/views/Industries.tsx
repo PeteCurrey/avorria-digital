@@ -36,12 +36,7 @@ const Industries = () => {
 
   return (
     <>
-      <SEOHead
-        title="Industry-Specific Marketing Solutions"
-        description="Tailored digital marketing, SEO, web design and paid media for trades, professional services, SaaS, e-commerce and multi-location businesses."
-        canonical="/industries"
-        keywords={["industry marketing", "trades marketing", "SaaS marketing", "B2B marketing", "e-commerce marketing"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Industries", url: "https://avorria.com/industries" }

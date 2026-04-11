@@ -79,11 +79,7 @@ const Reporting = () => {
 
   return (
     <>
-      <SEOHead
-        title="Reporting & Dashboards that Treat You Like an Operator | Avorria"
-        description="Live-style dashboards and plain-English summaries that show traffic, leads, pipeline and ROI in one place – no 40-slide decks."
-        canonical="https://avorria.com/reporting"
-      />
+      
       <FAQSchema faqs={faqs} />
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },

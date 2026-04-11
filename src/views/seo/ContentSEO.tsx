@@ -9,12 +9,7 @@ import { FileText, Target, TrendingUp } from "lucide-react";
 const ContentSEO = () => {
   return (
     <>
-      <SEOHead
-        title="Content SEO Services – Content That Ranks & Converts"
-        description="Content that ranks, reads well and feeds your funnel. Strategic content systems built around topics and intent, not random blog posts."
-        canonical="/services/seo/content"
-        keywords={["content SEO", "content strategy", "topic clusters", "pillar content", "SEO content", "content marketing"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "SEO Services", url: "https://avorria.com/services/seo" },

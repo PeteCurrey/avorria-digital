@@ -161,23 +161,7 @@ const SEOServices = () => {
 
   return (
     <>
-      <SEOHead
-        title="SEO Agency Sheffield & London | Technical SEO"
-        description="Expert SEO services for B2B and service businesses. Technical SEO audits, content strategy, local SEO and on-page optimisation focused on commercial keywords that drive qualified leads."
-        canonical="/services/seo"
-        keywords={[
-          "SEO agency",
-          "SEO services",
-          "technical SEO",
-          "content strategy",
-          "local SEO",
-          "B2B SEO",
-          "Sheffield SEO agency",
-          "London SEO agency",
-          "organic search",
-          "keyword research",
-        ]}
-      />
+      
       <ServiceSchema
         name="SEO Services"
         description="Technical SEO, content strategy and organic search optimisation for B2B and service businesses. We focus on commercial keywords that drive qualified leads and revenue."

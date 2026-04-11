@@ -24,12 +24,7 @@ const FAQs = () => {
 
   return (
     <>
-      <SEOHead
-        title="FAQs – All Your Questions Answered"
-        description="Everything we're asked most often about strategy, pricing, process and working with Avorria – SEO, web design, paid media and analytics."
-        canonical="/faqs"
-        keywords={["avorria FAQ", "digital marketing questions", "SEO FAQ", "marketing agency FAQ", "web design FAQ"]}
-      />
+      
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "FAQs", url: "https://avorria.com/faqs" }]} />
       <FAQSchema faqs={allFaqItems} />
 

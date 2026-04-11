@@ -25,12 +25,7 @@ const Locations = () => {
 
   return (
     <>
-      <SEOHead
-        title="Service Locations | UK, USA, Australia & Canada"
-        description="Avorria provides SEO, digital marketing, paid media and web design services across the UK, USA, Australia, New Zealand and Canada. Find expert marketing in your city."
-        canonical="/locations"
-        keywords={["digital marketing agency locations", "SEO agency UK", "SEO agency USA", "marketing agency near me"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Locations", url: "https://avorria.com/locations" }

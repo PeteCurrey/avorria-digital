@@ -18,12 +18,7 @@ const Comparison = () => {
 
   return (
     <>
-      <SEOHead
-        title={comparison.metaTitle}
-        description={comparison.metaDescription}
-        canonical={`/why/${slug}`}
-        keywords={[comparison.primarySubject, comparison.secondarySubject, "comparison"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Why Avorria", url: "https://avorria.com/why-avorria" },

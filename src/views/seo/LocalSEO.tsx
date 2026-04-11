@@ -8,12 +8,7 @@ import { MapPin, Phone, TrendingUp } from "lucide-react";
 const LocalSEO = () => {
   return (
     <>
-      <SEOHead
-        title="Local SEO Services – Get the Phone Ringing"
-        description="Local SEO that actually gets the phone ringing. Show up in local results with optimised profiles and landing pages that convert."
-        canonical="/services/seo/local"
-        keywords={["local SEO", "Google Business Profile", "local search", "near me SEO", "local landing pages", "map pack"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "SEO Services", url: "https://avorria.com/services/seo" },

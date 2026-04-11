@@ -104,12 +104,7 @@ const SocialPersonalBrand = () => {
 
   return (
     <>
-      <SEOHead
-        title="Social & Personal Brand for Founders"
-        description="Done-for-you personal brand and social content for founders who want to be the obvious choice in their market – without spending hours on LinkedIn."
-        canonical="/services/social-personal-brand"
-        keywords={["personal branding", "LinkedIn content", "founder branding", "social media management", "thought leadership", "B2B social"]}
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Services", url: "https://avorria.com/services" },

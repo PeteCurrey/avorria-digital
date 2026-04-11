@@ -2,7 +2,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useMotionValue, useTransform, useSpring } from "framer-motion";
 import { ArrowLeft, ArrowRight, Volume2, VolumeX, Sparkles, MessageSquare, Loader2 } from "lucide-react";
-import { SEOHead } from "@/components/seo/SEOHead";
 import StudioNav from "@/components/studio/StudioNav";
 import PurposeStep from "@/components/studio/steps/PurposeStep";
 import AestheticStep from "@/components/studio/steps/AestheticStep";
@@ -251,11 +250,7 @@ const WebDesignStudioBuild = () => {
 
   return (
     <>
-      <SEOHead
-        title="Build Your Website | Web Design Studio | Avorria"
-        description="Configure your perfect website with our AI-powered studio."
-        canonical="/web-design/studio/build"
-      />
+      
 
       <div className="min-h-screen bg-black">
         {/* Navigation */}

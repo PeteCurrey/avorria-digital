@@ -6,12 +6,7 @@ import { SectionBand } from "@/components/ContentBand";
 const Privacy = () => {
   return (
     <>
-      <SEOHead
-        title="Privacy Policy"
-        description="Avorria's privacy policy explains how we collect, use and protect your personal information."
-        canonical="/privacy"
-        noindex
-      />
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Privacy Policy", url: "https://avorria.com/privacy" }
