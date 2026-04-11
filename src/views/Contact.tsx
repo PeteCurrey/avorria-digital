@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
@@ -12,7 +12,6 @@ import { Mail, Phone, MapPin, ArrowRight } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { trackEvent, EVENTS, trackFormStart } from "@/lib/tracking";
 import { useCreateLead } from "@/hooks/useLeads";
-import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 const heroContactOffice = "/assets/hero-contact-office.jpg";
 
@@ -103,12 +102,7 @@ const Contact = () => {
   };
 
   return <>
-      <SEOHead
-        title="Contact Avorria – Book a Strategy Call"
-        description="Get in touch with Avorria. Book a strategy call or request a proposal for SEO, paid media, web design and analytics services across the UK and USA."
-        canonical="/contact"
-        keywords={["contact avorria", "book strategy call", "digital marketing consultation", "SEO consultation"]}
-      />
+
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Contact", url: "https://avorria.com/contact" }]} />
       
     <div className="min-h-screen">
@@ -122,10 +116,10 @@ const Contact = () => {
         <div className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24">
           <h1 className="text-4xl sm:text-5xl font-light leading-tight mb-6 text-white animate-fade-in lg:text-5xl">
             Let's talk about{" "}
-            <span className="font-semibold text-accent">your growth goals</span>
+            <span className="font-semibold text-accent">what's not working.</span>
           </h1>
           <p className="text-lg sm:text-xl text-white/90 leading-relaxed mb-6 animate-fade-in-up">
-            Book a strategy call or request a proposal. We'll respond within 24 hours.
+            Book a strategy call or request a free SEO & website audit. We'll respond within 24 hours.
           </p>
         </div>
       </section>
@@ -277,10 +271,8 @@ const Contact = () => {
                       <div>
                         <h3 className="text-foreground mb-1 text-2xl font-normal">Call Us</h3>
                         <p className="text-muted-foreground text-sm mb-2">Monday - Friday, 9am - 5pm</p>
-                        <a href="tel:+44204586 5422" className="text-accent hover:text-accent/80 text-sm font-light">
-                          UK - (+44) 020 4586 5422 |
-  USA - (+1) 914 677 1280     
-      
+                        <a href="tel:+441246123456" className="text-accent hover:text-accent/80 text-sm font-light">
+                          +44 1246 123456
                         </a>
                       </div>
                     </CardContent>
@@ -294,11 +286,9 @@ const Contact = () => {
                       <div>
                         <h3 className="text-foreground mb-1 text-2xl font-normal">Visit Us</h3>
                         <p className="text-muted-foreground text-sm font-light">
-                          2 Old Brick Works Lane Chesterfield S41 7JD                  
-                          <br />
-                          37th Floor One Canada Square London E14 5AB       
-                          <br />
-                          555 N Michigan Ave Chicago IL 60611      
+                          Innovation Centre<br />
+                          Chesterfield, Derbyshire<br />
+                          S41 7QJ      
                         </p>
                       </div>
                     </CardContent>

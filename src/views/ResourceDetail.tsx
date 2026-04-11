@@ -2,7 +2,7 @@
 import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import { useParams } from "next/navigation";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ArticleSchema from "@/components/seo/ArticleSchema";
 import { useState, useEffect } from "react";
@@ -109,7 +109,7 @@ const ResourceDetail = () => {
             </Link>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
               className="max-w-4xl"
@@ -169,7 +169,7 @@ const ResourceDetail = () => {
 
               {/* Content with custom markdown */}
               <motion.div
-                initial={{ opacity: 0 }}
+                initial={{ opacity: 1}}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="prose prose-lg max-w-none prose-headings:text-foreground prose-p:text-muted-foreground prose-strong:text-foreground prose-li:text-muted-foreground prose-a:text-accent prose-a:no-underline hover:prose-a:underline"

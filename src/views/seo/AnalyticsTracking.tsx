@@ -1,4 +1,4 @@
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import { Button } from "@/components/ui/button";

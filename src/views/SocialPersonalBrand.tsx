@@ -1,6 +1,6 @@
 ﻿'use client';
 import Link from "next/link";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";

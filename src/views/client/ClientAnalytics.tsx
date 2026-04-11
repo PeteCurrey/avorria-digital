@@ -206,7 +206,7 @@ const ClientAnalytics = () => {
                   const Icon = stat.icon;
                   const isPositive = (stat as any).invertChange ? stat.change < 0 : stat.change > 0;
                   return (
-                    <motion.div key={stat.label} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}>
+                    <motion.div key={stat.label} initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.1 }}>
                       <Card>
                         <CardContent className="p-6">
                           <div className="flex items-center gap-2 mb-2">
@@ -233,7 +233,7 @@ const ClientAnalytics = () => {
 
               {/* Traffic Chart */}
               {chartData.length > 1 && (
-                <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
+                <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}>
                   <Card>
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
@@ -272,7 +272,7 @@ const ClientAnalytics = () => {
               <div className="grid md:grid-cols-2 gap-6">
                 {/* Top Pages */}
                 {topPages.length > 0 && (
-                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
+                  <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.5 }}>
                     <Card>
                       <CardHeader><CardTitle>Top Pages</CardTitle></CardHeader>
                       <CardContent>
@@ -298,7 +298,7 @@ const ClientAnalytics = () => {
 
                 {/* Conversions */}
                 {conversionEntries.length > 0 && (
-                  <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
+                  <motion.div initial={{ opacity: 1, y: 0 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.6 }}>
                     <Card>
                       <CardHeader><CardTitle>Conversions</CardTitle></CardHeader>
                       <CardContent>

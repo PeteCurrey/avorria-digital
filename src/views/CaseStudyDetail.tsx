@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -108,29 +108,7 @@ const CaseStudyDetail = () => {
 
   return (
     <>
-      <SEOHead
-        title={`${caseStudy.title} | Avorria Case Study`}
-        description={caseStudy.subheadline}
-        canonical={`/case-studies/${slug}`}
-        image={caseStudy.heroMedia?.src}
-        imageAlt={`${caseStudy.client} case study`}
-        keywords={[caseStudy.sector, ...caseStudy.services, "case study", "digital marketing results"]}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CreativeWork",
-            name: caseStudy.title,
-            description: caseStudy.subheadline,
-            url: `https://avorria.com/case-studies/${slug}`,
-            image: caseStudy.heroMedia?.src,
-            author: { "@type": "Organization", name: "Avorria", url: "https://avorria.com" },
-            publisher: { "@type": "Organization", name: "Avorria", url: "https://avorria.com", logo: { "@type": "ImageObject", url: "https://avorria.com/logo.png" } },
-            about: { "@type": "Thing", name: caseStudy.sector },
-            genre: "Case Study",
-          })}
-        </script>
-      </SEOHead>
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Case Studies", url: "https://avorria.com/case-studies" },
@@ -174,7 +152,7 @@ const CaseStudyDetail = () => {
           {/* Problem */}
           <section className="py-20 px-6 section-dark">
             <div className="container mx-auto max-w-4xl">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
+              <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
                 <span className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">The Challenge</span>
                 <div className="space-y-6">
                   {caseStudy.problem.split('\n\n').map((paragraph, index) => (
@@ -190,7 +168,7 @@ const CaseStudyDetail = () => {
           {/* Approach Timeline */}
           <section className="py-20 px-6 section-gradient">
             <div className="container mx-auto max-w-4xl">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+              <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
                 <span className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">Our Approach</span>
                 <h2 className="text-3xl md:text-4xl font-light text-white">How we delivered results</h2>
               </motion.div>
@@ -201,7 +179,7 @@ const CaseStudyDetail = () => {
           {/* Outcomes */}
           <section className="py-20 px-6 section-dark">
             <div className="container mx-auto max-w-5xl">
-              <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+              <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
                 <span className="text-accent text-sm font-medium tracking-widest uppercase mb-4 block">The Results</span>
                 <h2 className="text-3xl md:text-4xl font-light text-white">Measurable outcomes</h2>
               </motion.div>
@@ -213,7 +191,7 @@ const CaseStudyDetail = () => {
           {caseStudy.beforeAfterPairs && caseStudy.beforeAfterPairs.length > 0 ? (
             <section className="py-20 px-6 section-dark">
               <div className="container mx-auto max-w-4xl">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+                <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
                   <h2 className="text-3xl font-light text-white">Before & After</h2>
                   <p className="text-white/60 mt-2">Drag to compare the transformation</p>
                 </motion.div>
@@ -223,7 +201,7 @@ const CaseStudyDetail = () => {
           ) : caseStudy.beforeMedia && caseStudy.afterMedia ? (
             <section className="py-20 px-6 section-dark">
               <div className="container mx-auto max-w-4xl">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
+                <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
                   <h2 className="text-3xl font-light text-white">Before & After</h2>
                 </motion.div>
                 <BeforeAfterSlider beforeImage={caseStudy.beforeMedia} afterImage={caseStudy.afterMedia} />
@@ -235,7 +213,7 @@ const CaseStudyDetail = () => {
           {caseStudy.galleryMedia.length > 0 && (
             <section className="py-20 px-6 section-dark">
               <div className="container mx-auto max-w-5xl">
-                <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
+                <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="mb-12">
                   <h2 className="text-3xl font-light text-white text-center">Project Gallery</h2>
                 </motion.div>
                 <CaseGallery media={caseStudy.galleryMedia} />

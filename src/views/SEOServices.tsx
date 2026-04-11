@@ -13,7 +13,7 @@ import { motion } from "framer-motion";
 import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollReveal";
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import { SectionBand } from "@/components/ContentBand";
-import SEOHead from "@/components/seo/SEOHead";
+
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -218,7 +218,7 @@ const SEOServices = () => {
           <div className="relative z-10 flex flex-col justify-center min-h-[75vh] px-6">
             <div className="max-w-4xl mx-auto text-center">
               <motion.span
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="inline-block text-accent text-sm font-medium tracking-widest uppercase mb-6"
@@ -227,7 +227,7 @@ const SEOServices = () => {
               </motion.span>
 
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="text-4xl sm:text-5xl md:text-6xl font-light text-white mb-6 leading-[1.1]"
@@ -237,7 +237,7 @@ const SEOServices = () => {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10"
@@ -246,7 +246,7 @@ const SEOServices = () => {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -337,7 +337,7 @@ const SEOServices = () => {
                     {painPoints.map((point, index) => (
                       <motion.li
                         key={index}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 1, x: 0 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -411,7 +411,7 @@ const SEOServices = () => {
 
         {/* -- 6. PROCESS: Horizontal Scroll on Desktop -- */}
         <section id="process">
-          <SectionBand background="gradient" padding="large">
+          <SectionBand background="gradient" padding="large" overflowVisible={true}>
             <div className="max-w-6xl mx-auto">
               <ScrollReveal>
                 <div className="text-center mb-16">
@@ -482,7 +482,7 @@ const SEOServices = () => {
                 {deliverables.map((item, index) => (
                   <motion.li
                     key={index}
-                    initial={{ opacity: 0, x: -10 }}
+                    initial={{ opacity: 1, x: 0 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: index * 0.08 }}
@@ -597,7 +597,7 @@ const SEOServices = () => {
                   {testimonials.slice(0, 3).map((t, i) => (
                     <motion.div
                       key={t.id}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 1, y: 0 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.1 }}
@@ -628,38 +628,7 @@ const SEOServices = () => {
           </section>
         )}
 
-        {/* -- 12. SEO BY LOCATION -- */}
-        <SectionBand background="gradient" padding="large">
-          <div className="max-w-6xl mx-auto">
-            <ScrollReveal>
-              <div className="text-center mb-12">
-                <h2 className="text-3xl sm:text-4xl font-light text-white mb-4">SEO by location</h2>
-                <p className="text-lg text-white/70 max-w-2xl mx-auto">
-                  Prefer to work with a team who knows your patch?
-                </p>
-              </div>
-            </ScrollReveal>
-            <ScrollRevealGrid className="grid md:grid-cols-2 lg:grid-cols-3 gap-6" stagger={100}>
-              {[
-                { title: "SEO Agency Sheffield", desc: "Performance-focused SEO for Sheffield and South Yorkshire businesses.", href: "/seo-agency/sheffield" },
-                { title: "SEO Agency London", desc: "Pipeline-focused SEO strategy for London-based teams.", href: "/seo-agency/london" },
-                { title: "SEO Across the UK", desc: "Work with us wherever you're based in the UK.", href: "/digital-marketing-agency/uk" },
-              ].map((loc) => (
-                <Card key={loc.title} className="border-white/10 bg-white/5 hover:bg-white/10 transition-all duration-300">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-semibold mb-3 text-white">{loc.title}</h3>
-                    <p className="text-white/60 mb-4">{loc.desc}</p>
-                    <Button variant="outline-dark" size="sm" asChild>
-                      <Link href={loc.href}>
-                        Learn more <ArrowRight className="ml-2" size={16} />
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </ScrollRevealGrid>
-          </div>
-        </SectionBand>
+        
 
         {/* -- 13. FAQ -- */}
         <section id="faq">

@@ -264,7 +264,7 @@ const WebDesignStudioBuild = () => {
         {/* Sound Toggle - now controls both click sounds and ambient music */}
         <div className="fixed right-6 top-20 z-50 flex flex-col gap-2">
           <motion.button
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1}}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             onClick={() => {
@@ -285,7 +285,7 @@ const WebDesignStudioBuild = () => {
           
           {/* Music Toggle with Mood Display */}
           <motion.button
-            initial={{ opacity: 0 }}
+            initial={{ opacity: 1}}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
             onClick={toggleMusic}
@@ -368,7 +368,7 @@ const WebDesignStudioBuild = () => {
                 <AnimatePresence mode="wait" initial={false}>
                   <motion.div
                     key={`${config.purpose}-${config.palette}-${config.siteSize}`}
-                    initial={{ opacity: 0 }}
+                    initial={{ opacity: 1}}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.35, ease: "easeInOut" }}
@@ -385,7 +385,7 @@ const WebDesignStudioBuild = () => {
 
               {/* Configuration summary */}
               <motion.div
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
                 className="mt-8 text-center space-y-4"
@@ -401,7 +401,7 @@ const WebDesignStudioBuild = () => {
                 {/* Config stats */}
                 <motion.div
                   key={`${config.palette}-${config.siteSize}-${config.features.length}`}
-                  initial={{ opacity: 0, y: 5 }}
+                  initial={{ opacity: 1, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="space-y-2"
                 >
@@ -500,7 +500,7 @@ const WebDesignStudioBuild = () => {
         {/* AI Design Brief Floating Trigger */}
         {!isChatOpen && (
           <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 1, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 // Cache buster v4 - forces Vite HMR to serve fresh module
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import { motion } from "framer-motion";
@@ -393,56 +393,7 @@ const Home = () => {
   // FAQSchema is now handled by the FAQSchema component below
 
   return <>
-      <SEOHead
-      title="Avorria – Digital Marketing, SEO & Web Design Agency"
-      description="Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics. We help B2B and service businesses generate qualified leads and grow revenue."
-      canonical="/"
-      keywords={["digital marketing agency", "SEO agency", "web design agency", "paid media", "B2B marketing", "lead generation", "Google Ads management", "content marketing"]}>
       
-        <script type="application/ld+json">{JSON.stringify(organizationSchema)}</script>
-        <script type="application/ld+json">{JSON.stringify(localBusinessSchema)}</script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "@id": "https://avorria.com/#website",
-          "url": "https://avorria.com",
-          "name": "Avorria",
-          "description": "Performance-first digital marketing agency",
-          "publisher": { "@id": "https://avorria.com/#organization" },
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": "https://avorria.com/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-          }
-        })}
-        </script>
-        <script type="application/ld+json">
-          {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "@id": "https://avorria.com/#webpage",
-          "url": "https://avorria.com",
-          "name": "Avorria – Digital Marketing, SEO & Web Design Agency",
-          "description": "Performance-first digital marketing agency specialising in SEO, paid media, web design and analytics for B2B and service businesses.",
-          "isPartOf": { "@id": "https://avorria.com/#website" },
-          "about": { "@id": "https://avorria.com/#organization" },
-          "primaryImageOfPage": {
-            "@type": "ImageObject",
-            "url": "https://avorria.com/og-image.jpg"
-          },
-          "breadcrumb": {
-            "@type": "BreadcrumbList",
-            "itemListElement": [{
-              "@type": "ListItem",
-              "position": 1,
-              "name": "Home",
-              "item": "https://avorria.com"
-            }]
-          }
-        })}
-        </script>
-      </SEOHead>
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }]} />
       <FAQSchema faqs={faqs} />
 
@@ -935,30 +886,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* Local Expertise Callout */}
-        <section className="py-12 md:py-16 px-4 sm:px-6 bg-white border-y border-gray-200">
-          <div className="container mx-auto max-w-4xl text-center">
-            <p className="text-base text-gray-600">
-              Prefer to work with a team who knows your patch? See our{" "}
-              <Link href="/seo-agency/sheffield" className="text-accent hover:text-accent/80 font-medium">
-                SEO
-              </Link>
-              {" "}and{" "}
-              <Link href="/web-design/sheffield" className="text-accent hover:text-accent/80 font-medium">
-                web design services in Sheffield
-              </Link>
-              ,{" "}
-              <Link href="/digital-marketing-agency/yorkshire" className="text-accent hover:text-accent/80 font-medium">
-                Yorkshire
-              </Link>
-              {" "}and{" "}
-              <Link href="/digital-marketing-agency/uk" className="text-accent hover:text-accent/80 font-medium">
-                across the UK
-              </Link>
-              .
-            </p>
-          </div>
-        </section>
+
 
         {/* Testimonials */}
         <section id="testimonials" className="py-24 md:py-32 bg-gray-900 text-white">

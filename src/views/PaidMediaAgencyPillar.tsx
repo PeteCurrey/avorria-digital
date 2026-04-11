@@ -1,6 +1,6 @@
 ﻿'use client';
 import Link from "next/link";
-import SEOHead from "@/components/seo/SEOHead";
+
 import { Button } from "@/components/ui/button";
 import {
   Accordion,

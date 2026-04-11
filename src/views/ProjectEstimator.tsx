@@ -1,7 +1,7 @@
 'use client';
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";

@@ -1,36 +1,24 @@
 import { MetadataRoute } from 'next';
-import { routeMetadata, SITE_URL } from '@/data/routeMetadata';
-import { supabase } from '@/integrations/supabase/client';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-// ------------------------------ Registry ------------------------------
-  const registryRoutes = Object.keys(routeMetadata).map((path) => ({
-    url: `${SITE_URL}${path}`,
+const SITE_URL = "https://avorria.com";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const routes = [
+    { path: '/', priority: 1.0 },
+    { path: '/about', priority: 0.8 },
+    { path: '/contact', priority: 0.8 },
+    { path: '/services', priority: 0.8 },
+    { path: '/services/seo', priority: 0.7 },
+    { path: '/services/paid-media', priority: 0.7 },
+    { path: '/services/web-design', priority: 0.7 },
+    { path: '/privacy', priority: 0.5 },
+    { path: '/terms', priority: 0.5 },
+  ];
+
+  return routes.map((route) => ({
+    url: `${SITE_URL}${route.path}`,
     lastModified: new Date(),
     changeFrequency: 'monthly' as const,
-    priority: path === '/' ? 1 : 0.8,
+    priority: route.priority,
   }));
-
-  // 2. Fetch dynamic case studies from Supabase
-  let caseStudyRoutes: MetadataRoute.Sitemap = [];
-  try {
-    const { data: caseStudies } = await supabase
-      .from('case_studies')
-      .select('slug, updated_at')
-      .eq('is_published', true);
-
-    if (caseStudies) {
-      caseStudyRoutes = caseStudies.map((study) => ({
-        url: `${SITE_URL}/case-studies/${study.slug}`,
-        lastModified: new Date(study.updated_at),
-        changeFrequency: 'monthly' as const,
-        priority: 0.7,
-      }));
-    }
-  } catch (error) {
-    console.error('Error fetching case studies for sitemap:', error);
-  }
-
-  // 3. Combine and return
-  return [...registryRoutes, ...caseStudyRoutes];
 }

@@ -24,6 +24,25 @@ const nextConfig: NextConfig = {
   },
   // Transpile packages that use ESM-only modules
   transpilePackages: ["three", "@react-three/fiber", "@react-three/drei"],
+  async redirects() {
+    return [
+      {
+        source: '/web-design/for/trades',
+        destination: '/services/web-design',
+        permanent: true,
+      },
+      {
+        source: '/seo-agency/for/professional-services',
+        destination: '/services/seo',
+        permanent: true,
+      },
+      {
+        source: '/paid-media-agency/for/saas',
+        destination: '/services/paid-media',
+        permanent: true,
+      },
+    ]
+  },
 };
 
 export default nextConfig;

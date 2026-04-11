@@ -34,8 +34,8 @@ const Navigation = ({
   }, []);
 
   const navSections = [{
-    title: "What We Do",
-    description: "Strategic digital services",
+    title: "Services",
+    description: "What we actually do",
     links: [{
       name: "Services Overview",
       description: "All our digital services",
@@ -53,83 +53,28 @@ const Navigation = ({
       icon: Target
     }, {
       name: "Web Design",
-      description: "Conversion-focused sites",
-      href: "/web-design",
+      description: "Conversion-focused websites",
+      href: "/services/web-design",
       icon: Palette
-    }, {
-      name: "Website Studio",
-      description: "Build your dream site",
-      href: "/web-design/studio",
-      icon: Sparkles,
-      highlight: true
     }]
   }, {
-    title: "Why Avorria",
-    description: "Our story & results",
+    title: "Company",
+    description: "Who we are",
     links: [{
       name: "About Us",
-      description: "Meet the team",
+      description: "Meet the core team",
       href: "/about",
       icon: Users
-    }, {
-      name: "Why Choose Us",
-      description: "What sets us apart",
-      href: "/why-avorria",
-      icon: Award
     }, {
       name: "Case Studies",
       description: "Client success stories",
       href: "/case-studies",
       icon: BarChart3
     }, {
-      name: "Reporting",
-      description: "Transparent dashboards",
-      href: "/reporting",
-      icon: LineChart
-    }]
-  }, {
-    title: "Resources",
-    description: "Learn & grow",
-    links: [{
-      name: "Resources Hub",
-      description: "Guides & insights",
-      href: "/resources",
-      icon: BookOpen
-    }, {
-      name: "SEO Glossary",
-      description: "Terms explained",
-      href: "/resources/seo-glossary",
-      icon: GraduationCap
-    }, {
-      name: "Tools",
-      description: "Free SEO tools",
-      href: "/tools",
-      icon: Wrench
-    }]
-  }, {
-    title: "Get Started",
-    description: "Let's talk",
-    links: [{
-      name: "Pricing",
-      description: "Transparent pricing",
-      href: "/pricing",
-      icon: DollarSign
-    }, {
-      name: "Contact",
+      name: "Contact Us",
       description: "Get in touch",
       href: "/contact",
       icon: Mail
-    }, {
-      name: "Free Audit",
-      description: "Website health check",
-      href: "/free-seo-website-audit",
-      icon: ClipboardCheck,
-      highlight: true
-    }, {
-      name: "FAQs",
-      description: "Common questions",
-      href: "/faqs",
-      icon: HelpCircle
     }]
   }];
 

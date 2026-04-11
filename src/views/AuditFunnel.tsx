@@ -1,6 +1,6 @@
 ﻿'use client';
 import React, { useEffect } from "react";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { trackCTAClick, trackAuditFunnelView } from "@/lib/tracking";
 import { InlineLeadForm } from "@/components/InlineLeadForm";

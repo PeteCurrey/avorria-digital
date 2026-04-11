@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import { motion } from "framer-motion";
 import SectionReveal from "@/components/SectionReveal";
-import SEOHead from "@/components/seo/SEOHead";
+
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
@@ -162,7 +162,7 @@ const Reporting = () => {
             <div className="container mx-auto max-w-6xl">
               <div className="grid md:grid-cols-2 gap-16 items-start">
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 1, y: 0 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.5 }}
@@ -188,7 +188,7 @@ const Reporting = () => {
                   ].map((item, idx) => (
                     <motion.div
                       key={idx}
-                      initial={{ opacity: 0, x: 20 }}
+                      initial={{ opacity: 1, x: 0 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-40px" }}
                       transition={{ delay: idx * 0.1, duration: 0.4 }}
@@ -237,7 +237,7 @@ const Reporting = () => {
                 ].map((card, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ delay: idx * 0.1, duration: 0.45 }}
@@ -282,7 +282,7 @@ const Reporting = () => {
                 {reportingCadence.map((item, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ delay: idx * 0.15, duration: 0.5 }}
@@ -314,7 +314,7 @@ const Reporting = () => {
                 {questionCards.map((card, idx) => (
                   <motion.div
                     key={idx}
-                    initial={{ opacity: 0, y: 16 }}
+                    initial={{ opacity: 1, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-40px" }}
                     transition={{ delay: idx * 0.1, duration: 0.4 }}
@@ -374,7 +374,7 @@ const Reporting = () => {
         >
           <div className="container mx-auto max-w-4xl text-center">
             <motion.h2
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
@@ -383,7 +383,7 @@ const Reporting = () => {
               Want reporting that makes decisions easier, not harder?
             </motion.h2>
             <motion.div
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.15, duration: 0.45 }}

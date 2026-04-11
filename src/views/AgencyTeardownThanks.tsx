@@ -3,7 +3,7 @@ import Link from "next/link";
 import Navigate from '@/components/Navigate';
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import SEOHead from "@/components/seo/SEOHead";
+
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -92,7 +92,7 @@ const AgencyTeardownThanks = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
           
           <motion.div 
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             className="container mx-auto max-w-4xl text-center relative z-10 px-4 sm:px-6 py-24"
@@ -183,7 +183,7 @@ const AgencyTeardownThanks = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/40 to-black/60" />
           <div className="relative z-10 h-full flex items-center justify-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
+              initial={{ opacity: 1, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               className="text-center px-4"
@@ -199,7 +199,7 @@ const AgencyTeardownThanks = () => {
         <section className="py-20 px-4 bg-secondary/30">
           <div className="container mx-auto max-w-3xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center"
@@ -304,7 +304,7 @@ const AgencyTeardownThanks = () => {
           <div className="absolute inset-0 opacity-30" style={{ background: 'var(--gradient-mesh)' }} />
           
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="container mx-auto max-w-3xl text-center relative z-10"

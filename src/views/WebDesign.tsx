@@ -30,7 +30,7 @@ import FloatingElements from "@/components/FloatingElements";
 import { StickyImageSection } from "@/components/StickyImageSection";
 import { useScrollSpy } from "@/hooks/useScrollSpy";
 import { useTestimonialsPublic } from "@/hooks/useTestimonials";
-import SEOHead from "@/components/seo/SEOHead";
+
 import ServiceSchema from "@/components/seo/ServiceSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
@@ -212,7 +212,7 @@ const WebDesign = () => {
           <div className="relative z-10 flex flex-col justify-center min-h-[75vh] px-6">
             <div className="max-w-4xl mx-auto text-center">
               <motion.span
-                initial={{ opacity: 0, y: 10 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5 }}
                 className="inline-block text-accent text-sm font-medium tracking-widest uppercase mb-6"
@@ -221,7 +221,7 @@ const WebDesign = () => {
               </motion.span>
 
               <motion.h1
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.15 }}
                 className="text-4xl sm:text-5xl md:text-6xl font-light text-white mb-6 leading-[1.1]"
@@ -231,7 +231,7 @@ const WebDesign = () => {
               </motion.h1>
 
               <motion.p
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 className="text-lg md:text-xl text-white/80 max-w-2xl mx-auto mb-10"
@@ -241,7 +241,7 @@ const WebDesign = () => {
               </motion.p>
 
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.45 }}
                 className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -423,7 +423,7 @@ const WebDesign = () => {
 
         {/* 6. PROCESS: Horizontal Scroll */}
         <section id="process">
-          <SectionBand background="dark">
+          <SectionBand background="dark" overflowVisible={true}>
             <div className="max-w-6xl mx-auto">
               <ScrollReveal>
                 <div className="text-center mb-16">
@@ -463,7 +463,7 @@ const WebDesign = () => {
                 {processSteps.map((step, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -508,7 +508,7 @@ const WebDesign = () => {
                 ].map((item, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, y: 10 }}
+                    initial={{ opacity: 1, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.4, delay: i * 0.05 }}
@@ -527,7 +527,7 @@ const WebDesign = () => {
         <section id="comparison" className="py-24 md:py-32 bg-background">
           <div className="max-w-5xl mx-auto px-6">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
@@ -557,7 +557,7 @@ const WebDesign = () => {
               {webDesignComparisons.map((row, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 1, x: 0 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: index * 0.1 }}
@@ -706,7 +706,7 @@ const WebDesign = () => {
                   {testimonials.slice(0, 3).map((t, i) => (
                     <motion.div
                       key={t.id}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 1, y: 0 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.5, delay: i * 0.1 }}

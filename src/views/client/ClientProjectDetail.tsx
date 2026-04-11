@@ -189,7 +189,7 @@ const ClientProjectDetail = () => {
 
           {/* Gradient Header Banner */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 1, y: 0 }}
             animate={{ opacity: 1, y: 0 }}
             className={`relative overflow-hidden rounded-2xl bg-gradient-to-br ${status.gradient} border border-border p-8`}
           >
@@ -280,7 +280,7 @@ const ClientProjectDetail = () => {
                     {beforeAfterPairs.map((pair, pairIdx) => (
                       <motion.div
                         key={pair.id}
-                        initial={{ opacity: 0, y: 30 }}
+                        initial={{ opacity: 1, y: 0 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: pairIdx * 0.15 }}
                       >
@@ -299,7 +299,7 @@ const ClientProjectDetail = () => {
                         {/* Design Rationale */}
                         {pair.rationale && (
                           <motion.div
-                            initial={{ opacity: 0, y: 10 }}
+                            initial={{ opacity: 1, y: 0 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: pairIdx * 0.15 + 0.1 }}
                           >

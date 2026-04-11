@@ -253,7 +253,7 @@ const Admin = () => {
                   </div>
                   <motion.p 
                     className="text-2xl font-bold text-foreground"
-                    initial={{ opacity: 0, scale: 0.5 }}
+                    initial={{ opacity: 1, scale: 0.5 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ type: "spring", stiffness: 200 }}
                   >
@@ -274,7 +274,7 @@ const Admin = () => {
                   ) : (
                     <motion.p 
                       className="text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0 }}
+                      initial={{ opacity: 1}}
                       animate={{ opacity: 1 }}
                     >
                       {pageViews.toLocaleString()}
@@ -295,7 +295,7 @@ const Admin = () => {
                   ) : (
                     <motion.p 
                       className="text-2xl font-bold text-foreground"
-                      initial={{ opacity: 0 }}
+                      initial={{ opacity: 1}}
                       animate={{ opacity: 1 }}
                     >
                       {totalConversions || stats.converted}
@@ -313,7 +313,7 @@ const Admin = () => {
                   </div>
                   <motion.p 
                     className="text-2xl font-bold text-foreground"
-                    initial={{ opacity: 0 }}
+                    initial={{ opacity: 1}}
                     animate={{ opacity: 1 }}
                   >
                     {avgSessionDuration || '0m 0s'}
@@ -348,7 +348,7 @@ const Admin = () => {
                       leads?.slice(0, 4).map((lead, idx) => (
                         <motion.div 
                           key={lead.id} 
-                          initial={{ opacity: 0, x: -10 }}
+                          initial={{ opacity: 1, x: 0 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.05 * idx }}
                           className="flex items-center justify-between p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
@@ -393,7 +393,7 @@ const Admin = () => {
                       topPages.slice(0, 4).map((page, idx) => (
                         <motion.div 
                           key={idx} 
-                          initial={{ opacity: 0, x: -10 }}
+                          initial={{ opacity: 1, x: 0 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: 0.05 * idx }}
                           className="flex items-center justify-between p-3 bg-background/50 rounded-lg hover:bg-muted/30 transition-colors"
@@ -431,7 +431,7 @@ const Admin = () => {
                   ].map((stage, idx) => (
                     <motion.div
                       key={stage.label}
-                      initial={{ opacity: 0, x: -20 }}
+                      initial={{ opacity: 1, x: 0 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: 0.1 * idx }}
                     >

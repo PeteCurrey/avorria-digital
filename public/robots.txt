@@ -1,17 +1,4 @@
-# Robots.txt for Avorria
-# https://avorria.com
-
-# Sitemaps (canonical URLs - proxied to edge functions via _redirects)
-Sitemap: https://avorria.com/sitemap.xml
-
-# Default rules
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /platform
-Disallow: /client
-Disallow: /api/
-Disallow: /auth/
 
-# Host
-Host: https://avorria.com
+Sitemap: https://avorria.com/sitemap.xml

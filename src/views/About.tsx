@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Target, Lock, Pencil, MessageSquare, CheckCircle2, XCircle, Users, Globe, Award, TrendingUp, Linkedin, Mail } from "lucide-react";
 import { ScrollReveal, ScrollRevealGrid, CountUp } from "@/components/animations/ScrollReveal";
 import SectionReveal from "@/components/SectionReveal";
-import SEOHead from "@/components/seo/SEOHead";
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 const heroAboutTeam = "/assets/hero-about-team.jpg";
 import { useTeamMembers } from "@/hooks/useTeamMembers";
@@ -13,23 +12,23 @@ import { useTeamMembers } from "@/hooks/useTeamMembers";
 const principles = [
   {
     icon: Target,
-    title: "Pipeline or it doesn't count.",
-    description: "If we can't connect an activity to leads, opportunities or revenue, it doesn't belong in the plan.",
+    title: "Clarity over complexity",
+    description: "We don't hide behind confusing dashboards. If it's not clear what value an activity provides, we cut it.",
+  },
+  {
+    icon: TrendingUp,
+    title: "Revenue over vanity",
+    description: "Traffic, clicks, and impressions don't matter if they don't convert to pipeline and revenue.",
   },
   {
     icon: Lock,
-    title: "Tracking before tactics.",
-    description: "We fix the measurement mess first, otherwise every decision is just an opinion war.",
+    title: "Ownership over excuses",
+    description: "When things break, we don't blame algorithms. We fix them, report honestly, and pivot.",
   },
   {
-    icon: Pencil,
-    title: "Design serves decisions.",
-    description: "We love clean interfaces, but only when they make it easier for the right people to say 'yes'.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Radical clarity.",
-    description: "We'll tell you if something isn't working, even if it makes a nice slide.",
+    icon: Target,
+    title: "Speed over perfection",
+    description: "We prefer launching an 80% perfect campaign today than a 100% perfect campaign next quarter. Velocity wins.",
   },
 ];
 
@@ -53,12 +52,9 @@ const howWeWork = [
   { step: "03", title: "Execution & optimisation.", description: "We build, ship, and adjust based on actual numbers – not how everyone feels." },
 ];
 
-// Fallback data for when DB is loading or empty
+// Generic team placeholder as requested
 const fallbackTeam = [
-  { initials: "JH", full_name: "James Hartley", title: "Founder & Strategy Lead", bio: "Spent a decade inside B2B and SaaS businesses watching agencies burn budgets on vanity metrics. Started Avorria to build the agency he wished he'd hired – one that thinks like an owner, not a supplier.", photo_url: null, linkedin_url: null, email: null },
-  { initials: "SR", full_name: "Sophie Reynolds", title: "Head of SEO & Technical", bio: "Former in-house SEO lead for a £40M e-commerce brand. Obsessed with site architecture, Core Web Vitals and the kind of technical detail that actually moves rankings – not just blog posts.", photo_url: null, linkedin_url: null, email: null },
-  { initials: "MK", full_name: "Marcus Keane", title: "Head of Paid Media & CRO", bio: "Has managed over £8M in ad spend across Google, Meta and LinkedIn. Believes every pound should be accountable and that landing pages matter more than audience targeting.", photo_url: null, linkedin_url: null, email: null },
-  { initials: "AL", full_name: "Ava Linton", title: "Head of Design & Development", bio: "Designs websites that convert, not just look good. Background in UX research and front-end development means every layout decision is backed by data and built to perform.", photo_url: null, linkedin_url: null, email: null },
+  { initials: "AV", full_name: "Avorria Core Team", title: "Operator-Led Digital Experts", bio: "Senior strategists, developers and marketing specialists with 10+ years average experience. We don't employ juniors to learn on your budget.", photo_url: null, linkedin_url: null, email: null },
 ];
 
 const About = () => {
@@ -67,25 +63,6 @@ const About = () => {
 
   return (
     <>
-      <SEOHead
-        title="About Avorria – Your Operator-Level Growth Partner"
-        description="A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses across the UK and USA."
-        canonical="/about"
-        keywords={["about avorria", "digital marketing team", "growth partner", "marketing agency UK", "marketing agency USA"]}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "Avorria",
-            "url": "https://avorria.com",
-            "logo": "https://avorria.com/logo.png",
-            "description": "A senior, operator-led team that fixes messy marketing, broken tracking and underperforming websites for serious businesses.",
-            "address": { "@type": "PostalAddress", "addressLocality": "Sheffield", "addressRegion": "South Yorkshire", "addressCountry": "UK" },
-            "sameAs": ["https://www.linkedin.com/company/avorria"]
-          })}
-        </script>
-      </SEOHead>
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "About", url: "https://avorria.com/about" }]} />
 
       <div className="min-h-screen">
@@ -101,22 +78,21 @@ const About = () => {
           <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-transparent z-[1]" />
           <div className="container mx-auto px-6 relative z-10">
             <div className="max-w-2xl">
-              <motion.span className="inline-block text-xs sm:text-sm font-medium text-white/50 uppercase tracking-[0.2em] mb-4" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}>About Avorria</motion.span>
-              <motion.h1 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.1] tracking-tight text-white/95 mb-6" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.4 }}>
-                We started Avorria because we got tired of watching good businesses{" "}
-                <span className="text-accent font-normal">waste money on bad marketing.</span>
-              </motion.h1>
-              <motion.p className="text-base md:text-lg text-white/70 leading-relaxed max-w-xl mb-8" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.8 }}>
-                A small, senior team that has spent years inside real businesses – fixing what's broken, cutting what doesn't work, and building what actually drives revenue.
-              </motion.p>
-              <motion.div className="flex flex-col sm:flex-row gap-3" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 1.0 }}>
+              <span className="inline-block text-xs sm:text-sm font-medium text-white/50 uppercase tracking-[0.2em] mb-4">About Avorria</span>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-light leading-[1.1] tracking-tight text-white mb-6">
+                Built to be the opposite of <span className="text-accent font-normal">every agency you've worked with.</span>
+              </h1>
+              <p className="text-base md:text-lg text-white/70 leading-relaxed max-w-xl mb-8">
+                A small, senior team that has spent years inside real businesses – fixing what's broken, cutting what doesn't work, and building what actually drives revenue. We got tired of watching good businesses waste money on bad marketing.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
                 <Button variant="accent" size="default" className="text-sm sm:text-base px-6 py-5 shadow-lg" asChild>
-                  <Link href="/contact">Meet the team on a call<ArrowRight className="ml-2" size={18} /></Link>
+                  <Link href="/contact">Book a strategy call<ArrowRight className="ml-2" size={18} /></Link>
                 </Button>
                 <Button size="default" className="text-sm sm:text-base px-6 py-5 bg-white/10 backdrop-blur-sm text-white border border-white/20 hover:bg-white/20 shadow-lg" asChild>
-                  <a href="#our-approach">Our approach</a>
+                  <Link href="/contact">Request a free audit</Link>
                 </Button>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
@@ -212,37 +188,17 @@ const About = () => {
                   </div>
                 </ScrollReveal>
 
-                <ScrollRevealGrid className="grid sm:grid-cols-2 gap-6" stagger={100} variant="fade-up">
+                <ScrollRevealGrid className="grid gap-6 max-w-2xl mx-auto" stagger={100} variant="fade-up">
                   {team.map((member, index) => (
-                    <div key={index} className="p-8 rounded-xl border border-border/60 bg-card/50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg hover:shadow-black/5">
-                      <div className="flex items-start gap-5">
-                        {member.photo_url ? (
-                          <img
-                            src={member.photo_url}
-                            alt={member.full_name}
-                            className="w-16 h-16 rounded-full object-cover border-2 border-accent/20 flex-shrink-0"
-                          />
-                        ) : (
-                          <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-sm font-semibold flex-shrink-0">
-                            {member.initials}
-                          </div>
-                        )}
+                    <div key={index} className="p-8 rounded-xl border border-border/60 bg-card/50">
+                      <div className="flex flex-col md:flex-row items-center md:items-start gap-5 text-center md:text-left">
+                        <div className="w-16 h-16 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-accent text-sm font-semibold flex-shrink-0">
+                          {member.initials}
+                        </div>
                         <div className="flex-1 min-w-0">
                           <h3 className="text-lg font-semibold text-foreground">{member.full_name}</h3>
                           <p className="text-sm text-accent font-medium mb-3">{member.title}</p>
-                          <p className="text-sm text-muted-foreground leading-relaxed mb-4">{member.bio}</p>
-                          <div className="flex items-center gap-3">
-                            {member.linkedin_url && (
-                              <a href={member.linkedin_url} target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-accent transition-colors" aria-label={`${member.full_name} on LinkedIn`}>
-                                <Linkedin size={18} />
-                              </a>
-                            )}
-                            {member.email && (
-                              <a href={`mailto:${member.email}`} className="text-muted-foreground hover:text-accent transition-colors" aria-label={`Email ${member.full_name}`}>
-                                <Mail size={18} />
-                              </a>
-                            )}
-                          </div>
+                          <p className="text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
                         </div>
                       </div>
                     </div>

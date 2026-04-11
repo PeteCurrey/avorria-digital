@@ -1,6 +1,6 @@
 ﻿'use client';
 import Link from "next/link";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";

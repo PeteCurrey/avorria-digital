@@ -1,7 +1,7 @@
 ﻿'use client';
 import Link from "next/link";
 import React, { useState, useMemo } from "react";
-import SEOHead from "@/components/seo/SEOHead";
+
 import { ExternalLink, ArrowUp, ArrowDown, ArrowUpDown } from "lucide-react";
 import { locations } from "@/data/locations";
 import { industries } from "@/data/industries";

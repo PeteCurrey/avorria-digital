@@ -6,7 +6,7 @@ import { faqs, getFAQsByCategory, categoryLabels } from "@/data/faqs";
 import type { FAQ } from "@/data/faqs";
 import { ArrowRight } from "lucide-react";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 

@@ -1,5 +1,5 @@
 ﻿'use client';
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";

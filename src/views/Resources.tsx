@@ -12,7 +12,7 @@ import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "@/hooks/use-toast";
 import GradientMesh from "@/components/GradientMesh";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const categoryColors: Record<string, string> = {
@@ -66,26 +66,7 @@ const Resources = () => {
 
   return (
     <>
-      <SEOHead
-        title="Growth Playbooks & Guides | Avorria Resources"
-        description="Operator-level guides on SEO, paid media, web, content and analytics. Playbooks, field notes and deep dives used to run real growth systems."
-        canonical="/resources"
-        keywords={["SEO guides", "digital marketing playbooks", "marketing resources", "growth guides", "paid media guides"]}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "ItemList",
-            itemListElement: pillarGuides.map((guide, index) => ({
-              "@type": "Article",
-              position: index + 1,
-              name: guide.title,
-              description: guide.summary,
-              url: `https://avorria.com/resources/${guide.slug}`,
-            })),
-          })}
-        </script>
-      </SEOHead>
+      
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Resources", url: "https://avorria.com/resources" }]} />
 
       <div className="min-h-screen">

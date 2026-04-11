@@ -251,7 +251,8 @@ export const SectionBand = ({
   backgroundImage,
   backgroundOverlay = "dark",
   className,
-  padding = "default"
+  padding = "default",
+  overflowVisible = false
 }: {
   children: React.ReactNode;
   background?: "dark" | "gradient" | "subtle" | "mesh" | "light" | "image";
@@ -259,6 +260,7 @@ export const SectionBand = ({
   backgroundOverlay?: "dark" | "gradient" | "heavy" | "clean";
   className?: string;
   padding?: "default" | "large" | "hero";
+  overflowVisible?: boolean;
 }) => {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -292,25 +294,37 @@ export const SectionBand = ({
   return (
     <section 
       ref={ref}
-      className={cn("relative w-full overflow-hidden", bgClasses[background], paddingClasses[padding], className)}
-    >
-      {/* Image background with parallax */}
-      {background === "image" && backgroundImage && (
-        <>
-          <motion.div style={{ y }} className="absolute inset-0 scale-105 z-0">
-            <Image 
-              src={backgroundImage} 
-              alt="Section background" 
-              fill 
-              className="object-cover"
-              sizes="100vw"
-            />
-          </motion.div>
-          <div className={cn("absolute inset-0 z-10", overlayClasses[backgroundOverlay])} />
-        </>
+      className={cn(
+        "relative w-full", 
+        !overflowVisible && "overflow-hidden",
+        bgClasses[background], 
+        paddingClasses[padding], 
+        className
       )}
+    >
+      {/* Background container for clipping if parent allows overflow */}
+      <div className={cn(
+        "absolute inset-0 pointer-events-none z-0",
+        overflowVisible && "overflow-hidden"
+      )}>
+        {/* Image background with parallax */}
+        {background === "image" && backgroundImage && (
+          <>
+            <motion.div style={{ y }} className="absolute inset-0 scale-105 z-0">
+              <Image 
+                src={backgroundImage} 
+                alt="Section background" 
+                fill 
+                className="object-cover"
+                sizes="100vw"
+              />
+            </motion.div>
+            <div className={cn("absolute inset-0 z-10", overlayClasses[backgroundOverlay])} />
+          </>
+        )}
 
-      {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60 z-0" />}
+        {background === "mesh" && <div className="absolute inset-0 bg-[image:var(--gradient-mesh)] opacity-60 z-0" />}
+      </div>
       
       <div className="container mx-auto px-4 sm:px-6 relative z-20">
         {children}

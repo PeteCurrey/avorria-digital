@@ -2,7 +2,7 @@
 import Link from "next/link";
 // Enhanced Websites We'd Fire page v2 - All 10 UX Enhancements
 import React, { useState, useEffect } from "react";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -346,13 +346,13 @@ const WebsitesWeFire = () => {
             <div className="container mx-auto px-4 py-32 lg:py-40">
               <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[60vh]">
                 <motion.div
-                  initial={{ opacity: 0, x: -50 }}
+                  initial={{ opacity: 1, x: 0 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, ease: "easeOut" }}
                   className="space-y-6"
                 >
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
                     className="flex items-center gap-3"
@@ -364,7 +364,7 @@ const WebsitesWeFire = () => {
                   </motion.div>
 
                   <motion.h1
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.7 }}
                     className="text-4xl lg:text-6xl xl:text-7xl font-light text-white leading-tight"
@@ -376,7 +376,7 @@ const WebsitesWeFire = () => {
                   </motion.h1>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.6 }}
                     className="text-lg lg:text-xl text-white/70 max-w-xl"
@@ -393,7 +393,7 @@ const WebsitesWeFire = () => {
                   </motion.div>
 
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 1, y: 0 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.7, duration: 0.6 }}
                     className="flex flex-col sm:flex-row gap-4 pt-4"
@@ -424,7 +424,7 @@ const WebsitesWeFire = () => {
                 </motion.div>
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9 }}
+                  initial={{ opacity: 1, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
                   className="relative hidden lg:block"
@@ -450,7 +450,7 @@ const WebsitesWeFire = () => {
                         ].map((item, idx) => (
                           <motion.p
                             key={idx}
-                            initial={{ opacity: 0, x: 20 }}
+                            initial={{ opacity: 1, x: 0 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ delay: 0.6 + idx * 0.1, duration: 0.4 }}
                             className="flex items-center gap-3"
@@ -549,7 +549,7 @@ const WebsitesWeFire = () => {
                 return (
                   <SectionReveal key={archetype.number} type="fade-blur">
                     <motion.div
-                      initial={{ opacity: 0, y: 50 }}
+                      initial={{ opacity: 1, y: 0 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-100px" }}
                       transition={{ duration: 0.6, delay: 0.1 }}
@@ -751,7 +751,7 @@ const WebsitesWeFire = () => {
                     {fireChecklist.map((item, idx) => (
                       <motion.li
                         key={idx}
-                        initial={{ opacity: 0, x: -20 }}
+                        initial={{ opacity: 1, x: 0 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: idx * 0.1 }}
@@ -781,7 +781,7 @@ const WebsitesWeFire = () => {
                     {fixChecklist.map((item, idx) => (
                       <motion.li
                         key={idx}
-                        initial={{ opacity: 0, x: 20 }}
+                        initial={{ opacity: 1, x: 0 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ delay: idx * 0.1 }}
@@ -1033,7 +1033,7 @@ const WebsitesWeFire = () => {
           <div className="container mx-auto px-4 text-center">
             <ScrollReveal variant="scale">
               <motion.div
-                initial={{ opacity: 0, scale: 0.9 }}
+                initial={{ opacity: 1, scale: 0.9 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}

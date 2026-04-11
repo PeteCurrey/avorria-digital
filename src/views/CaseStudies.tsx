@@ -11,7 +11,7 @@ import { CaseHero } from "@/components/case-studies/CaseHero";
 import { CaseFeaturedCarousel } from "@/components/case-studies/CaseFeaturedCarousel";
 import { CaseFilterBar } from "@/components/case-studies/CaseFilterBar";
 import { CaseGrid } from "@/components/case-studies/CaseGrid";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 // Convert DB format to component format
@@ -140,34 +140,7 @@ const CaseStudies = () => {
 
   return (
     <>
-      <SEOHead
-        title="Digital Marketing Case Studies | Website Design Portfolio"
-        description="Explore Avorria's portfolio of digital marketing case studies. See real results from website redesigns, SEO campaigns, and marketing projects across facilities management, automotive, and specialist industries."
-        canonical="/case-studies"
-        keywords={["digital marketing case studies", "website design portfolio", "SEO case studies", "web design results", "marketing portfolio"]}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "CollectionPage",
-            "name": "Digital Marketing Case Studies",
-            "description": "Portfolio of digital marketing case studies showcasing website design, SEO, and marketing results",
-            "publisher": {
-              "@type": "Organization",
-              "name": "Avorria"
-            },
-            "mainEntity": {
-              "@type": "ItemList",
-              "itemListElement": caseStudies.slice(0, 5).map((cs, index) => ({
-                "@type": "ListItem",
-                "position": index + 1,
-                "name": cs.title,
-                "url": `https://avorria.com/case-studies/${cs.slug}`
-              }))
-            }
-          })}
-        </script>
-      </SEOHead>
+      
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Case Studies", url: "https://avorria.com/case-studies" }]} />
 
       <div className="min-h-screen bg-[hsl(220,25%,8%)]">
@@ -188,7 +161,7 @@ const CaseStudies = () => {
         <section className="py-16 px-6 border-b border-white/5">
           <div className="container mx-auto">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-center mb-12">
@@ -201,7 +174,7 @@ const CaseStudies = () => {
               {sectorHighlights.map((sector, index) =>
               <motion.div
                 key={sector.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 1, y: 0 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: index * 0.1 }}
@@ -240,7 +213,7 @@ const CaseStudies = () => {
         <section className="py-16 px-6 border-t border-white/5">
           <div className="container mx-auto">
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={{ opacity: 1}}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               className="flex flex-wrap justify-center gap-4 text-sm text-white/50">
@@ -266,7 +239,7 @@ const CaseStudies = () => {
         <section className="py-24 px-6 section-gradient">
           <div className="container mx-auto text-center max-w-3xl">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}>
 

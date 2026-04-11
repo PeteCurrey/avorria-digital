@@ -1,4 +1,4 @@
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { ScrollReveal } from "@/components/animations/ScrollReveal";
 import { SectionBand } from "@/components/ContentBand";

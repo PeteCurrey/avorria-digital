@@ -12,7 +12,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { trackEvent, EVENTS, trackCTAClick } from "@/lib/tracking";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const Pricing = () => {
@@ -112,26 +112,7 @@ const Pricing = () => {
 
   return (
     <>
-      <SEOHead
-        title="Pricing & Engagement Models"
-        description="No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions."
-        canonical="/pricing"
-        keywords={["digital marketing pricing", "SEO retainer pricing", "marketing agency costs", "web design pricing UK"]}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            "name": "Pricing & Engagement Models",
-            "description": "No £499 SEO packages. See how Avorria structures retainers, fixed-scope projects and advisory so investment matches your growth ambitions.",
-            "url": "https://avorria.com/pricing",
-            "about": {
-              "@type": "Service",
-              "serviceType": "Digital Marketing Services"
-            }
-          })}
-        </script>
-      </SEOHead>
+      
       <BreadcrumbSchema items={[{ name: "Home", url: "https://avorria.com" }, { name: "Pricing", url: "https://avorria.com/pricing" }]} />
 
       <div className="min-h-screen">

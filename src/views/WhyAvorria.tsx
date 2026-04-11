@@ -8,7 +8,7 @@ import { ScrollReveal, ScrollRevealGrid } from "@/components/animations/ScrollRe
 import { OpinionatedQuote } from "@/components/OpinionatedQuote";
 import SectionReveal from "@/components/SectionReveal";
 import ServiceComparisonGrid from "@/components/services/ServiceComparisonGrid";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 
 const WhyAvorria = () => {
@@ -62,27 +62,7 @@ const WhyAvorria = () => {
 
   return (
     <>
-      <SEOHead
-        title="Why Avorria | Performance-First Digital Marketing Agency"
-        description="Why ambitious teams who are done with agency noise choose Avorria. Pipeline-first strategy, conversion-obsessed design, and radical transparency in everything we do."
-        canonical="/why-avorria"
-        keywords={["why avorria", "digital marketing agency", "performance marketing", "pipeline-first agency", "revenue-focused marketing"]}
-      >
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "WebPage",
-            name: "Why Avorria",
-            description: "Why ambitious teams who are done with agency noise choose Avorria.",
-            url: "https://avorria.com/why-avorria",
-            publisher: {
-              "@type": "Organization",
-              name: "Avorria",
-              url: "https://avorria.com",
-            },
-          })}
-        </script>
-      </SEOHead>
+      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Why Avorria", url: "https://avorria.com/why-avorria" }
@@ -99,7 +79,7 @@ const WhyAvorria = () => {
 
           <div className="container mx-auto max-w-4xl text-center relative px-6 py-32">
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mb-6"
@@ -110,7 +90,7 @@ const WhyAvorria = () => {
             </motion.div>
 
             <motion.h1
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.2 }}
               className="text-4xl sm:text-5xl lg:text-6xl font-light leading-tight mb-6 text-white"
@@ -122,7 +102,7 @@ const WhyAvorria = () => {
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.35 }}
               className="text-lg sm:text-xl text-white/60 leading-relaxed mb-10 max-w-3xl mx-auto"
@@ -131,7 +111,7 @@ const WhyAvorria = () => {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.5 }}
               className="flex flex-col sm:flex-row gap-4 justify-center"
@@ -206,7 +186,7 @@ const WhyAvorria = () => {
                 {howWeWork.map((item, index) => (
                   <motion.div
                     key={index}
-                    initial={{ opacity: 0, y: 30 }}
+                    initial={{ opacity: 1, y: 0 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: index * 0.15 }}
@@ -308,7 +288,7 @@ const WhyAvorria = () => {
 
           <div className="container mx-auto max-w-4xl text-center relative">
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-3xl sm:text-4xl font-light mb-6 text-white"
@@ -316,7 +296,7 @@ const WhyAvorria = () => {
               If you want another hype deck, we're not it.
             </motion.h2>
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
@@ -325,7 +305,7 @@ const WhyAvorria = () => {
               If you want someone to help you hit numbers, clean up the mess and build a sane growth engine, we should talk.
             </motion.p>
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 1, y: 0 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}

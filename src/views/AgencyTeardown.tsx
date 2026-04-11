@@ -2,7 +2,7 @@
 import Navigate from '@/components/Navigate';
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import SEOHead from "@/components/seo/SEOHead";
+
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
