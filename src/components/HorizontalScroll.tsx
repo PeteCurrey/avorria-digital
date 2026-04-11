@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useRef, useState, useEffect } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 
@@ -66,16 +66,17 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
     };
   }, [children]);
 
-  // Calculate container height safely (avoid Infinity/NaN)
+  // Calculate container height based on scroll distance + viewport
+  // This ensures the "pinned" section lasts long enough to feel natural
   const calculatedHeight = containerWidth > 0 
-    ? Math.max(100, (scrollWidth / containerWidth) * 100) 
+    ? Math.max(100, (scrollWidth / containerWidth) * 120 + 50) 
     : 100;
 
-  // Conditional rendering (no early return before hooks)
+  // Conditional rendering
   if (isMobile) {
     return (
       <div className={`overflow-x-auto ${className}`}>
-        <div className="flex gap-6" ref={scrollRef}>
+        <div className="flex gap-6 pb-4" ref={scrollRef}>
           {children}
         </div>
       </div>
@@ -90,19 +91,45 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
         height: `${calculatedHeight}vh`,
       }}
     >
-      <div className="sticky top-0 h-screen overflow-hidden">
+      <div className="sticky top-0 h-screen overflow-hidden flex items-center">
         <motion.div
           ref={scrollRef}
-          className="flex items-center h-full gap-8 px-8"
+          className="flex items-center h-full gap-12 px-[10vw]"
           style={{ x }}
         >
-          {children}
+          {React.Children.map(children, (child, index) => (
+            <motion.div
+              style={{
+                // Subtle staggered entry/exit opacity for cards
+                opacity: useTransform(
+                  scrollYProgress,
+                  [
+                    index / (React.Children.count(children)), 
+                    (index + 0.5) / (React.Children.count(children)), 
+                    (index + 1) / (React.Children.count(children))
+                  ],
+                  [0.4, 1, 0.4]
+                ),
+                scale: useTransform(
+                  scrollYProgress,
+                  [
+                    index / (React.Children.count(children)), 
+                    (index + 0.5) / (React.Children.count(children)), 
+                    (index + 1) / (React.Children.count(children))
+                  ],
+                  [0.9, 1, 0.9]
+                ),
+              }}
+            >
+              {child}
+            </motion.div>
+          ))}
         </motion.div>
         
         {/* Progress indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 w-32 h-1 bg-muted/30 rounded-full overflow-hidden">
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-48 h-1 bg-white/10 rounded-full overflow-hidden">
           <motion.div 
-            className="h-full bg-primary rounded-full"
+            className="h-full bg-accent rounded-full"
             style={{ width: progressWidth }}
           />
         </div>
@@ -112,5 +139,3 @@ const HorizontalScroll: React.FC<HorizontalScrollProps> = ({
 };
 
 export default HorizontalScroll;
-
-

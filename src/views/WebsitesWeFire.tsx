@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 // Enhanced Websites We'd Fire page v2 - All 10 UX Enhancements
 import React, { useState, useEffect } from "react";
@@ -522,7 +522,7 @@ const WebsitesWeFire = () => {
         </section>
 
         {/* Archetype Teardowns with "Am I Guilty?" Toggles - Enhancement #5 */}
-        <section id="archetypes" className="py-20 bg-background">
+        <section id="archetypes" className="py-20 bg-background overflow-hidden">
           <div className="container mx-auto px-4">
             <ScrollReveal variant="fade-up">
               <div className="text-center mb-16">
@@ -535,125 +535,189 @@ const WebsitesWeFire = () => {
               </div>
             </ScrollReveal>
 
-            <div className="space-y-24">
+            <div className="space-y-32 lg:space-y-0">
               {archetypes.map((archetype, index) => {
                 const Icon = archetype.icon;
                 const isEven = index % 2 === 0;
                 const isGuilty = guiltyArchetypes[archetype.number] || false;
                 
                 return (
-                  <SectionReveal key={archetype.number} type="fade-blur">
-                    <motion.div
-                      initial={{ opacity: 1, y: 0 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true, margin: "-100px" }}
-                      transition={{ duration: 0.6, delay: 0.1 }}
-                    >
-                      <Card className={`overflow-hidden border-border/50 transition-all duration-500 ${
-                        isGuilty ? "border-destructive/50 shadow-lg shadow-destructive/10" : "hover:border-accent/30"
-                      }`}>
-                        <div className={`grid lg:grid-cols-2 ${isEven ? '' : 'lg:flex-row-reverse'}`}>
-                          {/* Image Side */}
-                          <div className={`relative h-64 lg:h-auto lg:min-h-[400px] ${isEven ? '' : 'lg:order-2'}`}>
+                  <div key={archetype.number} className="relative">
+                    <SplitSectionSticky
+                      stickySide={isEven ? "left" : "right"}
+                      className="mb-0"
+                      leftContent={
+                        isEven ? (
+                          <div className="relative w-full h-full min-h-[50vh] lg:min-h-screen">
                             <img
                               src={archetype.image}
-                              alt={`Bad website example: ${archetype.title}`}
+                              alt={archetype.title}
                               className="absolute inset-0 w-full h-full object-cover"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent lg:bg-gradient-to-r" />
-                            <div className="absolute bottom-4 left-4 flex items-center gap-2">
-                              <span className="px-3 py-1 bg-destructive/90 text-white text-sm font-medium rounded-full">
-                                ?? Fired
-                              </span>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                            <div className="absolute bottom-12 left-12 flex items-center gap-4">
+                              <Icon className="h-12 w-12 text-destructive" />
+                              <h3 className="text-3xl font-light text-white">{archetype.title}</h3>
                             </div>
                           </div>
-
-                          {/* Content Side */}
-                          <div className={`p-8 lg:p-12 ${isEven ? '' : 'lg:order-1'}`}>
-                            <div className="flex items-start justify-between gap-4 mb-6">
-                              <div className="flex items-start gap-4">
-                                <motion.div
-                                  whileHover={{ scale: 1.1, rotate: 5 }}
-                                  className="p-3 rounded-xl bg-accent/10 border border-accent/20"
-                                >
-                                  <Icon className="h-8 w-8 text-accent" />
-                                </motion.div>
-                                <div>
-                                  <span className="text-sm font-medium text-muted-foreground uppercase tracking-wider">
+                        ) : (
+                          <div className="p-8 lg:p-20 space-y-12">
+                             <div className="flex items-start justify-between gap-4">
+                                <div className="space-y-2">
+                                  <span className="text-sm font-medium text-destructive uppercase tracking-widest">
                                     Archetype #{archetype.number}
                                   </span>
-                                  <h3 className="text-2xl lg:text-3xl font-light text-foreground">
+                                  <h3 className="text-3xl lg:text-4xl font-light text-foreground leading-[1.1]">
                                     {archetype.title}
                                   </h3>
                                 </div>
-                              </div>
-                              
-                              {/* "Am I Guilty?" Toggle */}
-                              <ArchetypeGuiltyToggle
-                                archetypeNumber={archetype.number}
-                                isGuilty={isGuilty}
-                                onToggle={handleGuiltyToggle}
-                              />
-                            </div>
+                                <ArchetypeGuiltyToggle
+                                  archetypeNumber={archetype.number}
+                                  isGuilty={isGuilty}
+                                  onToggle={handleGuiltyToggle}
+                                />
+                             </div>
 
-                            <p className="text-lg text-muted-foreground italic mb-8 border-l-2 border-accent/30 pl-4">
-                              "{archetype.tagline}"
-                            </p>
+                             <p className="text-xl text-muted-foreground italic border-l-4 border-destructive/30 pl-6 py-2">
+                               "{archetype.tagline}"
+                             </p>
 
-                            <div className="grid md:grid-cols-3 gap-6">
-                              {/* What It Looks Like */}
-                              <div className="space-y-3">
-                                <div className="flex items-center gap-2 text-foreground">
-                                  <AlertCircle className="h-4 w-4 text-muted-foreground" />
-                                  <h4 className="font-medium text-sm uppercase tracking-wide">Symptoms</h4>
+                             <div className="space-y-10">
+                                <div className="space-y-4">
+                                  <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
+                                    <AlertCircle className="h-4 w-4 text-destructive" />
+                                    The Symptoms
+                                  </h4>
+                                  <ul className="space-y-3">
+                                    {archetype.looksLike.map((item, idx) => (
+                                      <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                                        <span className="text-destructive mt-1">↳</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
                                 </div>
-                                <ul className="space-y-2">
-                                  {archetype.looksLike.map((item, idx) => (
-                                    <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                                      <span className="text-destructive shrink-0">?</span>
-                                      <span>{item}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
 
-                              {/* Why This Gets Fired */}
-                              <div className="space-y-3">
-                                <div className="flex items-center gap-2 text-foreground">
-                                  <XCircle className="h-4 w-4 text-destructive" />
-                                  <h4 className="font-medium text-sm uppercase tracking-wide">Why It's Fired</h4>
+                                <div className="space-y-4">
+                                  <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
+                                    <XCircle className="h-4 w-4 text-destructive" />
+                                    Why It's Fired
+                                  </h4>
+                                  <ul className="space-y-3">
+                                    {archetype.whyFired.map((item, idx) => (
+                                      <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                                        <span className="text-destructive mt-1">↳</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
                                 </div>
-                                <ul className="space-y-2">
-                                  {archetype.whyFired.map((item, idx) => (
-                                    <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                                      <span className="text-destructive shrink-0">€¢</span>
-                                      <span>{item}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
 
-                              {/* Avorria Fix */}
-                              <div className="space-y-3">
-                                <div className="flex items-center gap-2 text-foreground">
-                                  <CheckCircle2 className="h-4 w-4 text-accent" />
-                                  <h4 className="font-medium text-sm uppercase tracking-wide">Avorria Fix</h4>
+                                <div className="p-6 rounded-xl bg-accent/5 border border-accent/20 space-y-4">
+                                  <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-accent">
+                                    <CheckCircle2 className="h-4 w-4" />
+                                    The Avorria Fix
+                                  </h4>
+                                  <ul className="space-y-3">
+                                    {archetype.avorriaFix.map((item, idx) => (
+                                      <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                                        <span className="text-accent mt-1">✓</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
                                 </div>
-                                <ul className="space-y-2">
-                                  {archetype.avorriaFix.map((item, idx) => (
-                                    <li key={idx} className="text-sm text-muted-foreground flex gap-2">
-                                      <span className="text-accent shrink-0">?</span>
-                                      <span>{item}</span>
-                                    </li>
-                                  ))}
-                                </ul>
-                              </div>
+                             </div>
+                          </div>
+                        )
+                      }
+                      rightContent={
+                        !isEven ? (
+                           <div className="relative w-full h-full min-h-[50vh] lg:min-h-screen">
+                            <img
+                              src={archetype.image}
+                              alt={archetype.title}
+                              className="absolute inset-0 w-full h-full object-cover"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                            <div className="absolute bottom-12 left-12 flex items-center gap-4">
+                              <Icon className="h-12 w-12 text-destructive" />
+                              <h3 className="text-3xl font-light text-white">{archetype.title}</h3>
                             </div>
                           </div>
-                        </div>
-                      </Card>
-                    </motion.div>
-                  </SectionReveal>
+                        ) : (
+                          <div className="p-8 lg:p-20 space-y-12">
+                             <div className="flex items-start justify-between gap-4">
+                                <div className="space-y-2">
+                                  <span className="text-sm font-medium text-destructive uppercase tracking-widest">
+                                    Archetype #{archetype.number}
+                                  </span>
+                                  <h3 className="text-3xl lg:text-4xl font-light text-foreground leading-[1.1]">
+                                    {archetype.title}
+                                  </h3>
+                                </div>
+                                <ArchetypeGuiltyToggle
+                                  archetypeNumber={archetype.number}
+                                  isGuilty={isGuilty}
+                                  onToggle={handleGuiltyToggle}
+                                />
+                             </div>
+
+                             <p className="text-xl text-muted-foreground italic border-l-4 border-destructive/30 pl-6 py-2">
+                               "{archetype.tagline}"
+                             </p>
+
+                             <div className="space-y-10">
+                                <div className="space-y-4">
+                                  <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
+                                    <AlertCircle className="h-4 w-4 text-destructive" />
+                                    The Symptoms
+                                  </h4>
+                                  <ul className="space-y-3">
+                                    {archetype.looksLike.map((item, idx) => (
+                                      <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                                        <span className="text-destructive mt-1">↳</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                <div className="space-y-4">
+                                  <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-foreground">
+                                    <XCircle className="h-4 w-4 text-destructive" />
+                                    Why It's Fired
+                                  </h4>
+                                  <ul className="space-y-3">
+                                    {archetype.whyFired.map((item, idx) => (
+                                      <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                                        <span className="text-destructive mt-1">↳</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+
+                                <div className="p-6 rounded-xl bg-accent/5 border border-accent/20 space-y-4">
+                                  <h4 className="flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-accent">
+                                    <CheckCircle2 className="h-4 w-4" />
+                                    The Avorria Fix
+                                  </h4>
+                                  <ul className="space-y-3">
+                                    {archetype.avorriaFix.map((item, idx) => (
+                                      <li key={idx} className="flex gap-3 text-muted-foreground leading-relaxed">
+                                        <span className="text-accent mt-1">✓</span>
+                                        <span>{item}</span>
+                                      </li>
+                                    ))}
+                                  </ul>
+                                </div>
+                             </div>
+                          </div>
+                        )
+                      }
+                    />
+                  </div>
                 );
               })}
             </div>
