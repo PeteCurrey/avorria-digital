@@ -2,6 +2,8 @@
 import Link from "next/link";
 // Enhanced Websites We'd Fire page v2 - All 10 UX Enhancements
 import React, { useState, useEffect } from "react";
+import { SplitSectionSticky } from "@/components/SplitSectionSticky";
+
 
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { motion } from "framer-motion";
