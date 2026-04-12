@@ -1,4 +1,4 @@
-'use client';
+ï»¿'use client';
 import Link from "next/link";
 import React, { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -117,12 +117,12 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
      <h1 className="text-lg font-semibold text-foreground">
      Avorria Client Dashboard
      </h1>
-     <p className="text-xs text-muted-foreground">Demo Mode · Last updated 2 hours ago</p>
+     <p className="text-xs text-muted-foreground">Demo Mode Â· Last updated 2 hours ago</p>
     </div>
     ) : (
     <div>
      <h1 className="text-lg font-semibold text-foreground">
-     {userName || "Client"} · Client Area
+     {userName || "Client"} Â· Client Area
      </h1>
      <p className="text-xs text-muted-foreground">
      Last updated 2 hours ago

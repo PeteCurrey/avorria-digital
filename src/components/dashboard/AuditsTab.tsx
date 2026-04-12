@@ -1,4 +1,4 @@
-'use client';
+ï»¿'use client';
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -25,7 +25,7 @@ interface Audit {
 const mockAudits: Audit[] = [
   {
     id: "1",
-    name: "SEO & Website Audit – Jan 2026",
+    name: "SEO & Website Audit â€“ Jan 2026",
     type: "SEO",
     status: "Completed",
     overallScore: 72,
@@ -33,7 +33,7 @@ const mockAudits: Audit[] = [
   },
   {
     id: "2",
-    name: "Agency Report Teardown – Dec 2025",
+    name: "Agency Report Teardown â€“ Dec 2025",
     type: "Agency Teardown",
     status: "Completed",
     overallScore: 45,
@@ -41,7 +41,7 @@ const mockAudits: Audit[] = [
   },
   {
     id: "3",
-    name: "Website Conversion Audit – Feb 2026",
+    name: "Website Conversion Audit â€“ Feb 2026",
     type: "Website",
     status: "In Review",
     date: "2026-02-01"
@@ -159,7 +159,7 @@ const AuditsTab = () => {
             <CardContent className="space-y-2">
               <div className="flex items-start gap-2">
                 <AlertTriangle className="text-yellow-500 mt-0.5 flex-shrink-0" size={20} />
-                <p className="text-muted-foreground">Missing H1 tags on 3 key pages – confusing search engines about page focus.</p>
+                <p className="text-muted-foreground">Missing H1 tags on 3 key pages â€“ confusing search engines about page focus.</p>
               </div>
               <div className="flex items-start gap-2">
                 <AlertTriangle className="text-yellow-500 mt-0.5 flex-shrink-0" size={20} />
@@ -167,18 +167,18 @@ const AuditsTab = () => {
               </div>
               <div className="flex items-start gap-2">
                 <AlertTriangle className="text-yellow-500 mt-0.5 flex-shrink-0" size={20} />
-                <p className="text-muted-foreground">Weak value proposition on homepage – visitors unsure what you do in first 3 seconds.</p>
+                <p className="text-muted-foreground">Weak value proposition on homepage â€“ visitors unsure what you do in first 3 seconds.</p>
               </div>
               <div className="flex items-start gap-2">
                 <AlertTriangle className="text-yellow-500 mt-0.5 flex-shrink-0" size={20} />
-                <p className="text-muted-foreground">GA4 events not configured – can't track form submissions or key user actions.</p>
+                <p className="text-muted-foreground">GA4 events not configured â€“ can't track form submissions or key user actions.</p>
               </div>
             </CardContent>
           </Card>
 
           <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all [transition-duration:var(--duration-normal)]">
             <CardHeader>
-              <CardTitle className="text-xl">Priority actions (0–30 days)</CardTitle>
+              <CardTitle className="text-xl">Priority actions (0â€“30 days)</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="border-l-4 border-primary pl-4">
@@ -187,7 +187,7 @@ const AuditsTab = () => {
               </div>
               <div className="border-l-4 border-primary pl-4">
                 <h4 className="font-medium text-foreground mb-1">2. Compress and optimize images</h4>
-                <p className="text-sm text-muted-foreground">Reduce image file sizes by 60–80% without quality loss – will improve load time and Core Web Vitals.</p>
+                <p className="text-sm text-muted-foreground">Reduce image file sizes by 60â€“80% without quality loss â€“ will improve load time and Core Web Vitals.</p>
               </div>
               <div className="border-l-4 border-primary pl-4">
                 <h4 className="font-medium text-foreground mb-1">3. Rewrite homepage hero</h4>
@@ -202,11 +202,11 @@ const AuditsTab = () => {
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-muted-foreground">
-                <li>€¢ Set up GA4 conversion events for form submissions and call clicks</li>
-                <li>€¢ Build out service-specific landing pages with proper SEO structure</li>
-                <li>€¢ Add trust signals (testimonials, case studies, certifications) to key pages</li>
-                <li>€¢ Implement structured data (schema) for better SERP visibility</li>
-                <li>€¢ Create content strategy around top 10 commercial keywords</li>
+                <li>â‚¬Â¢ Set up GA4 conversion events for form submissions and call clicks</li>
+                <li>â‚¬Â¢ Build out service-specific landing pages with proper SEO structure</li>
+                <li>â‚¬Â¢ Add trust signals (testimonials, case studies, certifications) to key pages</li>
+                <li>â‚¬Â¢ Implement structured data (schema) for better SERP visibility</li>
+                <li>â‚¬Â¢ Create content strategy around top 10 commercial keywords</li>
               </ul>
             </CardContent>
           </Card>
@@ -277,7 +277,7 @@ const AuditsTab = () => {
                       {audit.overallScore}/100
                     </span>
                   ) : (
-                    <span className="text-muted-foreground">–</span>
+                    <span className="text-muted-foreground">â€“</span>
                   )}
                 </TableCell>
                 <TableCell className="text-muted-foreground">{audit.date}</TableCell>
