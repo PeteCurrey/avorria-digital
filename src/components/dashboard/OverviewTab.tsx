@@ -129,7 +129,7 @@ const OverviewTab = () => {
 
       {/* Traffic †’ Leads Time Series */}
       <ScrollReveal>
-      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
+      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all [transition-duration:var(--duration-normal)]">
         <CardHeader>
           <CardTitle className="text-xl font-light">Traffic †’ Leads Trend</CardTitle>
         </CardHeader>
@@ -158,7 +158,7 @@ const OverviewTab = () => {
 
       {/* Channel Performance Table */}
       <ScrollReveal>
-      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
+      <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all [transition-duration:var(--duration-normal)]">
         <CardHeader>
           <CardTitle className="text-xl font-light">Channel Performance</CardTitle>
         </CardHeader>
@@ -198,7 +198,7 @@ const OverviewTab = () => {
       <ScrollRevealGrid>
       <div className="grid lg:grid-cols-2 gap-6">
         {/* Funnel Snapshot */}
-        <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
+        <Card className="border-border/50 shadow-soft hover:shadow-elevated transition-all [transition-duration:var(--duration-normal)]">
           <CardHeader>
             <CardTitle className="text-xl font-light">Funnel Snapshot</CardTitle>
           </CardHeader>
@@ -228,7 +228,7 @@ const OverviewTab = () => {
         </Card>
 
         {/* What We're Doing About It */}
-        <Card className="border-accent/20 bg-gradient-to-br from-accent/5 to-primary/5 shadow-soft hover:shadow-elevated transition-all duration-[var(--duration-normal)]">
+        <Card className="border-accent/20 bg-gradient-to-br from-accent/5 to-primary/5 shadow-soft hover:shadow-elevated transition-all [transition-duration:var(--duration-normal)]">
           <CardHeader>
             <CardTitle className="text-xl font-light">What We're Doing About It</CardTitle>
           </CardHeader>

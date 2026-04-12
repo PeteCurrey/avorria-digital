@@ -1,4 +1,4 @@
-ï»¿'use client';
+'use client';
 import Link from "next/link";
 import React, { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -47,7 +47,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
  <div className="min-h-screen bg-gradient-to-br from-background via-background to-secondary/10 flex w-full">
   {/* Sidebar */}
   <aside
-  className={`fixed lg:static inset-y-0 left-0 z-30 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all duration-[var(--duration-normal)] ${
+  className={`fixed lg:static inset-y-0 left-0 z-30 bg-card/95 backdrop-blur-sm border-r border-border/50 transition-all [transition-duration:var(--duration-normal)] ${
    sidebarOpen ? "w-64" : "w-0 lg:w-20"
   }`}
   >
@@ -64,7 +64,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
    )}
    <button
     onClick={() => setSidebarOpen(!sidebarOpen)}
-    className="p-2 hover:bg-secondary/50 rounded-md transition-all duration-[var(--duration-fast)] lg:hidden"
+    className="p-2 hover:bg-secondary/50 rounded-md transition-all [transition-duration:var(--duration-fast)] lg:hidden"
    >
     {sidebarOpen ? <X size={20} /> : <Menu size={20} />}
    </button>
@@ -76,7 +76,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
     <Link
     key={item.path}
     href={item.path}
-    className={`group flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-[var(--duration-fast)] ${
+    className={`group flex items-center gap-3 px-4 py-3 rounded-lg transition-all [transition-duration:var(--duration-fast)] ${
      isActive(item.path)
      ? "bg-gradient-to-r from-accent/10 to-primary/5 text-accent font-medium shadow-sm"
      : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground hover:-translate-y-0.5"
@@ -107,7 +107,7 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
    <div className="flex items-center gap-4">
    <button
     onClick={() => setSidebarOpen(!sidebarOpen)}
-    className="p-2 hover:bg-secondary/50 rounded-md transition-all duration-[var(--duration-fast)] lg:hidden"
+    className="p-2 hover:bg-secondary/50 rounded-md transition-all [transition-duration:var(--duration-fast)] lg:hidden"
    >
     <Menu size={20} />
    </button>
@@ -117,12 +117,12 @@ const DashboardLayout = ({ children, isDemoMode = false, userName }: DashboardLa
      <h1 className="text-lg font-semibold text-foreground">
      Avorria Client Dashboard
      </h1>
-     <p className="text-xs text-muted-foreground">Demo Mode Â· Last updated 2 hours ago</p>
+     <p className="text-xs text-muted-foreground">Demo Mode · Last updated 2 hours ago</p>
     </div>
     ) : (
     <div>
      <h1 className="text-lg font-semibold text-foreground">
-     {userName || "Client"} Â· Client Area
+     {userName || "Client"} · Client Area
      </h1>
      <p className="text-xs text-muted-foreground">
      Last updated 2 hours ago
