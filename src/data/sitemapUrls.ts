@@ -1,6 +1,10 @@
 import { landingPages } from "./landingPages";
 import { locations } from "./locations";
 import { resources } from "./resources";
+import { glossaryTerms } from "./glossary";
+import { industries } from "./industries";
+import { comparisonPages } from "./comparisonPages";
+import { supabase } from "@/integrations/supabase/client";
 
 export interface SitemapUrl {
   path: string;
@@ -91,14 +95,74 @@ export const getResourcePages = (): SitemapUrl[] => {
   }));
 };
 
-  // ------------------------------ Pillar Pages ------------------------------
+// Glossary terms
+export const getGlossaryPages = (): SitemapUrl[] => {
+  return glossaryTerms.map(term => ({
+    path: `/resources/seo-glossary#${term.term.toLowerCase().replace(/\s+/g, '-')}`,
+    name: `Glossary: ${term.term}`,
+    priority: 0.5,
+    changeFreq: "monthly" as const,
+    category: "Glossary",
+    status: "indexed" as const,
+  }));
+};
+
+// Industry pages
+export const getIndustryPages = (): SitemapUrl[] => {
+  return industries.map(industry => ({
+    path: `/industries/${industry.slug}`,
+    name: `${industry.name} Solutions`,
+    priority: 0.7,
+    changeFreq: "weekly" as const,
+    category: "Industries",
+    status: "indexed" as const,
+  }));
+};
+
+// Comparison pages
+export const getComparisonPages = (): SitemapUrl[] => {
+  return comparisonPages.map(page => ({
+    path: `/resources/${page.slug}`,
+    name: page.title,
+    priority: 0.6,
+    changeFreq: "monthly" as const,
+    category: "Comparisons",
+    status: "indexed" as const,
+  }));
+};
+
+// Case studies from database
+export const getCaseStudyPages = async (): Promise<SitemapUrl[]> => {
+  try {
+    const { data, error } = await supabase
+      .from("case_studies")
+      .select("slug, title")
+      .eq("is_published", true);
+
+    if (error) throw error;
+
+    return (data || []).map(cs => ({
+      path: `/case-studies/${cs.slug}`,
+      name: cs.title,
+      priority: 0.8,
+      changeFreq: "weekly" as const,
+      category: "Case Studies",
+      status: "indexed" as const,
+    }));
+  } catch (err) {
+    console.error("Error fetching case studies for sitemap:", err);
+    return [];
+  }
+};
+
+// ------------------------------ Pillar Pages ------------------------------
 export const pillarPages: SitemapUrl[] = [
   { path: "/seo-agency", name: "SEO Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
   { path: "/paid-media-agency", name: "Paid Media Agency Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
   { path: "/digital-marketing-agency", name: "Digital Marketing Pillar", priority: 0.9, changeFreq: "weekly", category: "Pillar", status: "indexed" },
 ];
 
-  // ------------------------------ Tool Pages ------------------------------
+// ------------------------------ Tool Pages ------------------------------
 export const toolPages: SitemapUrl[] = [
   { path: "/tools", name: "Free Tools", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
   { path: "/website-health-check", name: "Website Health Check", priority: 0.8, changeFreq: "monthly", category: "Tools", status: "indexed" },
@@ -108,17 +172,21 @@ export const toolPages: SitemapUrl[] = [
   { path: "/web-design/studio", name: "Web Design Studio", priority: 0.7, changeFreq: "monthly", category: "Tools", status: "indexed" },
 ];
 
-  // ------------------------------ Legal Pages ------------------------------
+// ------------------------------ Legal Pages ------------------------------
 export const legalPages: SitemapUrl[] = [
   { path: "/privacy", name: "Privacy Policy", priority: 0.3, changeFreq: "yearly", category: "Legal", status: "indexed" },
   { path: "/terms", name: "Terms of Service", priority: 0.3, changeFreq: "yearly", category: "Legal", status: "indexed" },
 ];
 
 // Get all sitemap URLs organized by category
-export const getAllSitemapUrls = () => {
+export const getAllSitemapUrls = async () => {
   const serviceIndustryPages = getServiceIndustryPages();
   const geoPages = getGeoPages();
   const resourcePages = getResourcePages();
+  const glossaryPages = getGlossaryPages();
+  const industryPages = getIndustryPages();
+  const comparisonPages = getComparisonPages();
+  const caseStudyPages = await getCaseStudyPages();
 
   return {
     core: corePages,
@@ -126,20 +194,28 @@ export const getAllSitemapUrls = () => {
     serviceIndustry: serviceIndustryPages,
     geo: geoPages,
     resources: resourcePages,
+    glossary: glossaryPages,
+    industries: industryPages,
+    comparisons: comparisonPages,
+    caseStudies: caseStudyPages,
     tools: toolPages,
     legal: legalPages,
   };
 };
 
 // Get total URL count
-export const getTotalUrlCount = () => {
-  const all = getAllSitemapUrls();
+export const getTotalUrlCount = async () => {
+  const all = await getAllSitemapUrls();
   return (
     all.core.length +
     all.pillar.length +
     all.serviceIndustry.length +
     all.geo.length +
     all.resources.length +
+    all.glossary.length +
+    all.industries.length +
+    all.comparisons.length +
+    all.caseStudies.length +
     all.tools.length +
     all.legal.length
   );
@@ -152,6 +228,10 @@ export const sitemapCategories = [
   { id: "serviceIndustry", name: "Service-Industry", icon: "Target", description: "Industry-specific landing pages" },
   { id: "geo", name: "Location Pages", icon: "MapPin", description: "City and region specific pages" },
   { id: "resources", name: "Resources", icon: "BookOpen", description: "Blog posts and guides" },
+  { id: "glossary", name: "Glossary", icon: "Book", description: "SEO terms and definitions" },
+  { id: "industries", name: "Industries", icon: "Building", description: "Sector-specific solutions" },
+  { id: "comparisons", name: "Comparisons", icon: "Scale", description: "Service and provider comparisons" },
+  { id: "caseStudies", name: "Case Studies", icon: "Briefcase", description: "Success stories and results" },
   { id: "tools", name: "Tools", icon: "Wrench", description: "Free tools and calculators" },
   { id: "legal", name: "Legal", icon: "Shield", description: "Privacy and terms pages" },
 ];

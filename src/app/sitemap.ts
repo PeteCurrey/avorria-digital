@@ -1,24 +1,30 @@
 import { MetadataRoute } from 'next';
+import { getAllSitemapUrls } from '@/data/sitemapUrls';
 
 const SITE_URL = "https://avorria.com";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const allUrls = await getAllSitemapUrls();
+  
+  // Flatten all categories into a single array
   const routes = [
-    { path: '/', priority: 1.0 },
-    { path: '/about', priority: 0.8 },
-    { path: '/contact', priority: 0.8 },
-    { path: '/services', priority: 0.8 },
-    { path: '/services/seo', priority: 0.7 },
-    { path: '/services/paid-media', priority: 0.7 },
-    { path: '/services/web-design', priority: 0.7 },
-    { path: '/privacy', priority: 0.5 },
-    { path: '/terms', priority: 0.5 },
+    ...allUrls.core,
+    ...allUrls.pillar,
+    ...allUrls.serviceIndustry,
+    ...allUrls.geo,
+    ...allUrls.resources,
+    ...allUrls.glossary,
+    ...allUrls.industries,
+    ...allUrls.comparisons,
+    ...allUrls.caseStudies,
+    ...allUrls.tools,
+    ...allUrls.legal,
   ];
 
   return routes.map((route) => ({
-    url: `${SITE_URL}${route.path}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
+    url: `${SITE_URL}${route.path.startsWith('/') ? route.path : '/' + route.path}`,
+    lastModified: route.lastMod ? new Date(route.lastMod) : new Date(),
+    changeFrequency: route.changeFreq,
     priority: route.priority,
   }));
 }

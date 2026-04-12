@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useEffect, useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import type { CaseMetric } from "@/data/caseStudies";
@@ -55,7 +55,7 @@ const AnimatedCounter = ({ value, highlight }: AnimatedCounterProps) => {
   return (
     <div
       ref={ref}
-      className={`text-5xl md:text-6xl font-light ${
+      className={`text-4xl sm:text-5xl md:text-5xl lg:text-6xl font-light tracking-tight break-words hyphens-auto ${
         highlight ? "text-accent" : "text-white"
       }`}
     >
@@ -94,5 +94,3 @@ export const CaseMetrics = ({ metrics }: CaseMetricsProps) => {
     </div>
   );
 };
-
-

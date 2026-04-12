@@ -53,6 +53,9 @@ import GoogleAdsTab from "@/components/admin/tabs/GoogleAdsTab";
 import MetaAdsTab from "@/components/admin/tabs/MetaAdsTab";
 import ClientPortalManager from "@/components/admin/ClientPortalManager";
 import LinkedInAdsTab from "@/components/admin/tabs/LinkedInAdsTab";
+import { AnimatedGridPattern } from "@/components/AnimatedGridPattern";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { LeadInbox } from "@/components/admin/LeadInbox";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -516,95 +519,8 @@ const Admin = () => {
               </Card>
             </div>
 
-            {/* Leads Table */}
-            <Card className="bg-card/50 border-border/50 backdrop-blur-sm">
-              <CardContent className="p-0">
-                {leadsLoading ? (
-                  <div className="p-8 text-center text-muted-foreground">Loading leads...</div>
-                ) : filteredLeads?.length === 0 ? (
-                  <div className="p-8 text-center text-muted-foreground">No leads found</div>
-                ) : (
-                  <Table>
-                    <TableHeader>
-                      <TableRow className="border-border/50">
-                        <TableHead>Name</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Source</TableHead>
-                        <TableHead>Status</TableHead>
-                        <TableHead>Date</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredLeads?.map((lead) => (
-                        <TableRow key={lead.id} className="border-border/50">
-                          <TableCell>
-                            <div>
-                              <p className="font-medium">{lead.name}</p>
-                              {lead.company && <p className="text-sm text-muted-foreground">{lead.company}</p>}
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <div className="space-y-1">
-                              <div className="flex items-center gap-2 text-sm">
-                                <Mail className="h-3 w-3 text-muted-foreground" />
-                                {lead.email}
-                              </div>
-                              {lead.phone && (
-                                <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                                  <Phone className="h-3 w-3" />
-                                  {lead.phone}
-                                </div>
-                              )}
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge variant="outline" className="capitalize">{lead.source}</Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Select
-                              value={lead.status}
-                              onValueChange={(value) => updateLead.mutate({ id: lead.id, updates: { status: value } })}
-                            >
-                              <SelectTrigger className="w-32 h-8">
-                                <SelectValue />
-                              </SelectTrigger>
-                              <SelectContent>
-                                <SelectItem value="new">New</SelectItem>
-                                <SelectItem value="contacted">Contacted</SelectItem>
-                                <SelectItem value="qualified">Qualified</SelectItem>
-                                <SelectItem value="converted">Converted</SelectItem>
-                                <SelectItem value="lost">Lost</SelectItem>
-                              </SelectContent>
-                            </Select>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                              <Calendar className="h-3 w-3" />
-                              {format(new Date(lead.created_at), 'MMM d, yyyy')}
-                            </div>
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <Button 
-                              variant="ghost" 
-                              size="icon"
-                              className="text-destructive hover:text-destructive"
-                              onClick={() => {
-                                if (confirm("Delete this lead?")) {
-                                  deleteLead.mutate(lead.id);
-                                }
-                              }}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                )}
-              </CardContent>
-            </Card>
+            {/* Leads Table - Migrated to LeadInbox Component */}
+            <LeadInbox />
           </div>
         );
 
