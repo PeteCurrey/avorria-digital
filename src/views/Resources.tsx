@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -206,7 +206,7 @@ const Resources = () => {
               {filteredResources.map((resource) => (
                 <Card
                   key={resource.id}
-                  className={`border-border border-l-4 ${categoryColors[resource.category] || "border-l-accent"} hover:shadow-[var(--shadow-card-hover)] transition-all duration-[var(--duration-base)] hover:-translate-y-0.5 group`}
+                  className={`border-border border-l-4 ${categoryColors[resource.category] || "border-l-accent"} hover:shadow-[var(--shadow-card-hover)] transition-all [transition-duration:var(--duration-base)] hover:-translate-y-0.5 group`}
                 >
                   <CardContent className="p-6">
                     <div className="flex items-start justify-between mb-3">
