@@ -1,8 +1,10 @@
-﻿'use client';
-import React from "react";
+'use client';
+import React, { useState } from "react";
 import { usePathname } from "next/navigation";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageLoader from "@/components/PageLoader";
+import { cn } from "@/lib/utils";
 
 const SELF_CONTAINED_PREFIXES = ["/client", "/admin", "/web-design/studio/build"];
 
@@ -24,6 +26,8 @@ const HERO_PAGES = [
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [isLoaded, setIsLoaded] = useState(false);
+  
   const isHomePage = pathname === "/";
 
   const isSelfContained = pathname && SELF_CONTAINED_PREFIXES.some(
@@ -46,10 +50,15 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <Navigation transparent={isHomePage || !!isHeroPage} />
-      {children}
-      <Footer />
+      <PageLoader onComplete={() => setIsLoaded(true)} />
+      <div className={cn(
+        "transition-opacity duration-700",
+        isLoaded ? "opacity-100" : "opacity-0"
+      )}>
+        <Navigation transparent={isHomePage || !!isHeroPage} />
+        {children}
+        <Footer />
+      </div>
     </>
   );
 }
-
