@@ -1,31 +1,23 @@
-﻿'use client';
-import Navigate from '@/components/Navigate';
-import { useParams,   } from "next/navigation";
+import { LandingPage } from "@/types/landingPage";
 import LandingPageTemplate from "@/components/LandingPageTemplate";
-import { getLandingPageBySlug } from "@/data/landingPages";
+import { notFound } from "next/navigation";
+
+interface LandingPageDetailProps {
+  landingPage: LandingPage | null;
+}
 
 /**
- * Handles /lp/:slug routes for service-industry landing pages
- * Maps slugs like "seo-trades-home-services" to the corresponding landing page
+ * Handles /lp/:slug routes for service-industry landing pages.
+ * Receives pre-resolved landing page data from the Server Component.
+ * This ensures content is present in SSR HTML for Googlebot to index.
  */
-const LandingPageDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  
-  if (!slug) {
-    return <Navigate href="/404" replace />;
-  }
-
-  // Try to find a landing page with this slug
-  const landingPage = getLandingPageBySlug(slug);
-
+const LandingPageDetail = ({ landingPage }: LandingPageDetailProps) => {
   if (!landingPage) {
-    // No matching landing page found
-    return <Navigate href="/404" replace />;
+    notFound();
+    return null;
   }
 
   return <LandingPageTemplate page={landingPage} />;
 };
 
 export default LandingPageDetail;
-
-

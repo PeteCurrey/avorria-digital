@@ -1,62 +1,29 @@
-﻿'use client';
+'use client';
 import Navigate from '@/components/Navigate';
-import { useParams, usePathname  } from "next/navigation";
 import LandingPageTemplate from "@/components/LandingPageTemplate";
-import { getLandingPageBySlug } from "@/data/landingPages";
-import { getServiceBySlug } from "@/data/services";
-import { getLocationBySlug } from "@/data/locations";
-import { getIndustryBySlug } from "@/data/industries";
-import { getServiceLocationPageBySlug } from "@/data/serviceLocationLandingPages";
+import { LandingPage } from "@/types/landingPage";
+import { Service } from "@/data/services";
+import { Location } from "@/data/locations";
 
-const DynamicLanding = () => {
-  const { locationSlug, industrySlug } = useParams();
-  
-  const pathname = usePathname();
-  
-  // Get service slug from URL path
-  const pathSegments = (pathname || "").split('/').filter(Boolean);
-  const urlServiceSlug = pathSegments[0];
+interface DynamicLandingProps {
+  landingPage?: LandingPage | null;
+  service?: Service | null;
+  location?: Location | null;
+}
 
-  // Map URL service slugs to internal service slugs
-  const serviceMapping: Record<string, string> = {
-    'seo-agency': 'seo',
-    'seo': 'seo',
-    'web-design': 'web-design',
-    'digital-marketing-agency': 'digital-marketing',
-    'digital-marketing': 'digital-marketing',
-    'paid-media': 'paid-media',
-    'paid-media-agency': 'paid-media',
-  };
-
-  const internalServiceSlug = serviceMapping[urlServiceSlug] || urlServiceSlug;
-
-  // Try to find a landing page
-  let landingPage = null;
-
-  if (locationSlug && internalServiceSlug) {
-    // Try service-location combo
-    const potentialSlug = `${internalServiceSlug}-${locationSlug}`;
-    landingPage = getServiceLocationPageBySlug(potentialSlug);
-    
-    if (!landingPage) {
-      landingPage = getLandingPageBySlug(potentialSlug);
-    }
-  } else if (industrySlug && internalServiceSlug) {
-    landingPage = getLandingPageBySlug(`${internalServiceSlug}-${industrySlug}`);
-  }
-
+/**
+ * Client component that renders a resolved landing page.
+ * Data must be resolved server-side and passed as props — NOT via useParams().
+ * This ensures content is present in SSR HTML for Google to index.
+ */
+const DynamicLanding = ({ landingPage, service, location }: DynamicLandingProps) => {
   // If landing page exists, render it
   if (landingPage) {
     return <LandingPageTemplate page={landingPage} />;
   }
 
-  // Verify components exist
-  const service = internalServiceSlug ? getServiceBySlug(internalServiceSlug) : null;
-  const location = locationSlug ? getLocationBySlug(locationSlug) : null;
-  const industry = industrySlug ? getIndustryBySlug(industrySlug) : null;
-
   // If components don't exist, show 404
-  if (!service || (locationSlug && !location) || (industrySlug && !industry)) {
+  if (!service || !location) {
     return <Navigate href="/404" replace />;
   }
 
@@ -65,5 +32,3 @@ const DynamicLanding = () => {
 };
 
 export default DynamicLanding;
-
-

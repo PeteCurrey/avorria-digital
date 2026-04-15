@@ -1,12 +1,11 @@
-﻿'use client';
+'use client';
 import Link from "next/link";
-import { useParams } from "next/navigation";
 import React, { useEffect, useMemo } from "react";
 
 import BreadcrumbSchema from "@/components/seo/BreadcrumbSchema";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, Quote, Loader2 } from "lucide-react";
+import { ArrowLeft, Quote } from "lucide-react";
 import { trackEvent } from "@/lib/tracking";
 import type { CaseStudy } from "@/data/caseStudies";
 import { useCaseStudyBySlug, useCaseStudiesPublic, CaseStudyDB, BeforeAfterPair } from "@/hooks/useCaseStudies";
@@ -21,6 +20,15 @@ import { RelatedProjects } from "@/components/case-studies/RelatedProjects";
 
 interface CaseStudyExtended extends CaseStudy {
   beforeAfterPairs?: BeforeAfterPair[];
+}
+
+interface CaseStudyDetailProps {
+  /** Pre-fetched case study from the Server Component — available immediately for SSR */
+  initialCaseStudy: CaseStudyDB | null;
+  /** Pre-fetched list of all published case studies for related projects */
+  initialAllCaseStudies: CaseStudyDB[];
+  /** The slug of the current case study */
+  slug: string;
 }
 
 // Convert DB format to component format
@@ -54,17 +62,18 @@ const dbToCaseStudy = (db: CaseStudyDB): CaseStudyExtended => ({
   isFeatured: db.is_featured,
 });
 
-const CaseStudyDetail = () => {
-  const { slug } = useParams<{ slug: string }>();
-  
-  // Fetch from database only
-  const { data: dbCaseStudy, isLoading } = useCaseStudyBySlug(slug || "");
-  
-  // Fetch all published case studies for related projects
-  const { data: allCaseStudies } = useCaseStudiesPublic();
+const CaseStudyDetail = ({ initialCaseStudy, initialAllCaseStudies, slug }: CaseStudyDetailProps) => {
+  // Use SSR data immediately (no loading spinner on first render — preserves SEO & UX).
+  // Client-side hooks run in the background to provide realtime updates after hydration.
+  const { data: liveCaseStudy } = useCaseStudyBySlug(slug || "");
+  const { data: liveAllCaseStudies } = useCaseStudiesPublic();
 
-  const caseStudy: CaseStudyExtended | null = dbCaseStudy 
-    ? dbToCaseStudy(dbCaseStudy) 
+  // Prefer live data once available, fall back to server-rendered initial data
+  const dbCaseStudy = liveCaseStudy !== undefined ? liveCaseStudy : initialCaseStudy;
+  const allCaseStudies = liveAllCaseStudies ?? initialAllCaseStudies;
+
+  const caseStudy: CaseStudyExtended | null = dbCaseStudy
+    ? dbToCaseStudy(dbCaseStudy)
     : null;
 
   // Get related projects from DB data
@@ -80,14 +89,6 @@ const CaseStudyDetail = () => {
       trackEvent("case_detail_viewed", { case_slug: slug, sector: caseStudy.sector });
     }
   }, [slug, caseStudy]);
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[hsl(220,25%,8%)]">
-        <Loader2 className="h-8 w-8 animate-spin text-accent" />
-      </div>
-    );
-  }
 
   if (!caseStudy) {
     return (
@@ -108,7 +109,6 @@ const CaseStudyDetail = () => {
 
   return (
     <>
-      
       <BreadcrumbSchema items={[
         { name: "Home", url: "https://avorria.com" },
         { name: "Case Studies", url: "https://avorria.com/case-studies" },
@@ -131,8 +131,8 @@ const CaseStudyDetail = () => {
 
         {/* Full-screen hero image */}
         {caseStudy.heroMedia?.src && (
-          <CaseHeroImage 
-            src={caseStudy.heroMedia.src} 
+          <CaseHeroImage
+            src={caseStudy.heroMedia.src}
             alt={`${caseStudy.client} website screenshot`}
           />
         )}
@@ -192,7 +192,7 @@ const CaseStudyDetail = () => {
             <section className="py-20 px-6 section-dark">
               <div className="container mx-auto max-w-4xl">
                 <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-                  <h2 className="text-3xl font-light text-white">Before & After</h2>
+                  <h2 className="text-3xl font-light text-white">Before &amp; After</h2>
                   <p className="text-white/60 mt-2">Drag to compare the transformation</p>
                 </motion.div>
                 <BeforeAfterSliderMulti pairs={caseStudy.beforeAfterPairs} />
@@ -202,7 +202,7 @@ const CaseStudyDetail = () => {
             <section className="py-20 px-6 section-dark">
               <div className="container mx-auto max-w-4xl">
                 <motion.div initial={{ opacity: 1, y: 0 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="text-center mb-12">
-                  <h2 className="text-3xl font-light text-white">Before & After</h2>
+                  <h2 className="text-3xl font-light text-white">Before &amp; After</h2>
                 </motion.div>
                 <BeforeAfterSlider beforeImage={caseStudy.beforeMedia} afterImage={caseStudy.afterMedia} />
               </div>
@@ -256,5 +256,3 @@ const CaseStudyDetail = () => {
 };
 
 export default CaseStudyDetail;
-
-

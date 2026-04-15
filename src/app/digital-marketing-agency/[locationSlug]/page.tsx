@@ -1,6 +1,10 @@
 import { Metadata } from 'next';
 import { routeMetadata, locationList } from '@/data/routeMetadata';
 import DynamicLanding from '@/views/DynamicLanding';
+import { getLandingPageBySlug } from '@/data/landingPages';
+import { getServiceLocationPageBySlug } from '@/data/serviceLocationLandingPages';
+import { getServiceBySlug } from '@/data/services';
+import { getLocationBySlug } from '@/data/locations';
 
 type Props = {
   params: Promise<{ locationSlug: string }>;
@@ -37,5 +41,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function DigitalMarketingLocationPage({ params }: Props) {
-  return <DynamicLanding />;
+  const { locationSlug } = await params;
+  const serviceSlug = 'digital-marketing';
+  const potentialSlug = `${serviceSlug}-${locationSlug}`;
+
+  // Resolve landing page server-side so content is in SSR HTML for Googlebot
+  const landingPage =
+    getServiceLocationPageBySlug(potentialSlug) ??
+    getLandingPageBySlug(potentialSlug) ??
+    null;
+
+  const service = getServiceBySlug(serviceSlug) ?? null;
+  const location = getLocationBySlug(locationSlug) ?? null;
+
+  return <DynamicLanding landingPage={landingPage} service={service} location={location} />;
 }

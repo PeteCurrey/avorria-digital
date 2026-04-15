@@ -14,7 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...allUrls.geo,
     ...allUrls.resources,
     ...allUrls.glossary,
-    ...allUrls.industries,
     ...allUrls.comparisons,
     ...allUrls.caseStudies,
     ...allUrls.tools,

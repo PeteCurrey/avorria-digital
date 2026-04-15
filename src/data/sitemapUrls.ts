@@ -26,11 +26,11 @@ export const corePages: SitemapUrl[] = [
   { path: "/services/content-email", name: "Content & Email", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
   { path: "/services/social-personal-brand", name: "Social & Personal Brand", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
   { path: "/services/analytics", name: "Analytics & CRO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
-  { path: "/services/seo/local", name: "Local SEO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
-  { path: "/services/seo/technical", name: "Technical SEO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
-  { path: "/services/seo/content", name: "Content SEO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
+  { path: "/services/seo/local-seo", name: "Local SEO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
+  { path: "/services/seo/technical-seo", name: "Technical SEO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
+  { path: "/services/seo/content-seo", name: "Content SEO", priority: 0.8, changeFreq: "weekly", category: "Core", status: "indexed" },
   { path: "/services/seo/analytics-tracking", name: "Analytics & Tracking", priority: 0.7, changeFreq: "monthly", category: "Core", status: "indexed" },
-  { path: "/services/seo/migrations", name: "Website Migrations", priority: 0.7, changeFreq: "monthly", category: "Core", status: "indexed" },
+  { path: "/services/seo/website-migrations", name: "Website Migrations", priority: 0.7, changeFreq: "monthly", category: "Core", status: "indexed" },
   { path: "/case-studies", name: "Case Studies", priority: 0.9, changeFreq: "weekly", category: "Core", status: "indexed" },
   { path: "/contact", name: "Contact", priority: 0.9, changeFreq: "monthly", category: "Core", status: "indexed" },
   { path: "/pricing", name: "Pricing", priority: 0.9, changeFreq: "weekly", category: "Core", status: "indexed" },
@@ -184,7 +184,7 @@ export const getAllSitemapUrls = async () => {
   const geoPages = getGeoPages();
   const resourcePages = getResourcePages();
   const glossaryPages = getGlossaryPages();
-  const industryPages = getIndustryPages();
+  // Note: getIndustryPages() excluded — /industries/[slug] routes don't exist yet
   const comparisonPages = getComparisonPages();
   const caseStudyPages = await getCaseStudyPages();
 
@@ -195,7 +195,6 @@ export const getAllSitemapUrls = async () => {
     geo: geoPages,
     resources: resourcePages,
     glossary: glossaryPages,
-    industries: industryPages,
     comparisons: comparisonPages,
     caseStudies: caseStudyPages,
     tools: toolPages,
@@ -213,7 +212,6 @@ export const getTotalUrlCount = async () => {
     all.geo.length +
     all.resources.length +
     all.glossary.length +
-    all.industries.length +
     all.comparisons.length +
     all.caseStudies.length +
     all.tools.length +

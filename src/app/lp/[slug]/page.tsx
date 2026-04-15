@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { routeMetadata } from '@/data/routeMetadata';
 import LandingPageDetail from '@/views/LandingPageDetail';
+import { getLandingPageBySlug } from '@/data/landingPages';
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -40,5 +41,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function LandingPage({ params }: Props) {
-  return <LandingPageDetail />;
+  const { slug } = await params;
+
+  // Resolve landing page server-side so content is in SSR HTML for Googlebot
+  const landingPage = getLandingPageBySlug(slug) ?? null;
+
+  return <LandingPageDetail landingPage={landingPage} />;
 }

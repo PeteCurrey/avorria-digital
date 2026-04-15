@@ -11,17 +11,6 @@ export const metadata: Metadata = {
   description:
     "Avorria is a performance-driven digital marketing agency specialising in SEO, paid media, web design, and content marketing.",
   metadataBase: new URL("https://avorria.com"),
-  alternates: {
-    canonical: "/",
-    languages: {
-      "en-GB": "/",
-      "en-US": "/",
-      "en-AU": "/",
-      "en-CA": "/",
-      "en": "/",
-      "x-default": "/",
-    },
-  },
   openGraph: {
     type: "website",
     siteName: "Avorria",
@@ -47,7 +36,6 @@ export default function RootLayout({
   return (
     <html lang="en-GB" suppressHydrationWarning>
       <head>
-        <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
       </head>
       <body suppressHydrationWarning>
         <Providers>

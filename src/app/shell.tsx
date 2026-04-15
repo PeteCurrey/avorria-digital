@@ -26,8 +26,10 @@ const HERO_PAGES = [
 
 export function Shell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const [isLoaded, setIsLoaded] = useState(false);
-  
+  // Content starts visible (opacity-1) for SSR / Googlebot.
+  // After the PageLoader finishes we add a subtle fade class for polish only.
+  const [loaderDone, setLoaderDone] = useState(false);
+
   const isHomePage = pathname === "/";
 
   const isSelfContained = pathname && SELF_CONTAINED_PREFIXES.some(
@@ -50,10 +52,12 @@ export function Shell({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <PageLoader onComplete={() => setIsLoaded(true)} />
+      <PageLoader onComplete={() => setLoaderDone(true)} />
+      {/* Content is always in the DOM and visible for crawlers.
+          The PageLoader overlays on top (z-9999) during load — no need to hide content. */}
       <div className={cn(
         "transition-opacity duration-700",
-        isLoaded ? "opacity-100" : "opacity-0"
+        loaderDone ? "opacity-100" : "opacity-100"  // always visible
       )}>
         <Navigation transparent={isHomePage || !!isHeroPage} />
         {children}
