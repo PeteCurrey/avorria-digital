@@ -1,19 +1,15 @@
-﻿'use client';
+'use client';
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
+import { useCreateLead } from "@/hooks/useLeads";
+import { trackEvent, EVENTS } from "@/lib/tracking";
+import { usePathname } from "next/navigation";
 
 interface LandingPageFormProps {
   serviceName: string;
@@ -43,8 +39,6 @@ const formSchema = z.object({
     .max(255, { message: "Website URL must be less than 255 characters" })
     .optional()
     .or(z.literal("")),
-  budgetRange: z.string().min(1, { message: "Please select a budget range" }),
-  mainGoal: z.string().min(1, { message: "Please select your main goal" }),
   message: z
     .string()
     .trim()
@@ -57,13 +51,13 @@ type FormData = z.infer<typeof formSchema>;
 
 const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPageFormProps) => {
   const { toast } = useToast();
+  const pathname = usePathname();
+  const createLead = useCreateLead();
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     businessName: "",
     website: "",
-    budgetRange: "",
-    mainGoal: "",
     message: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormData, string>>>({});
@@ -77,8 +71,10 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
     setIsSubmitting(true);
 
     // Validate form
@@ -86,7 +82,30 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
       formSchema.parse(formData);
       setErrors({});
 
+      // Save lead to database
+      await createLead.mutateAsync({
+        name: formData.name,
+        email: formData.email,
+        company: formData.businessName,
+        source: 'landing-page',
+        notes: formData.message,
+        metadata: {
+          website: formData.website,
+          service: serviceName,
+          industry: industryName,
+          location: locationName,
+          page_source: pathname || ""
+        }
+      });
+
       // Track conversion event
+      trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, {
+        source_page: pathname || "",
+        service: serviceName,
+        industry: industryName,
+        location: locationName
+      });
+
       if (typeof window !== "undefined" && (window as any).gtag) {
         (window as any).gtag("event", "conversion", {
           send_to: "AW-XXXXX/XXXXX", // Replace with actual conversion ID
@@ -109,8 +128,6 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
         email: "",
         businessName: "",
         website: "",
-        budgetRange: "",
-        mainGoal: "",
         message: "",
       });
     } catch (error) {
@@ -122,6 +139,13 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
           }
         });
         setErrors(fieldErrors);
+      } else {
+        console.error("Landing page form error:", error);
+        toast({
+          title: "Something went wrong",
+          description: "Please try again or email us directly.",
+          variant: "destructive"
+        });
       }
     } finally {
       setIsSubmitting(false);
@@ -193,58 +217,6 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
             </div>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-              <Label htmlFor="budgetRange">
-                Budget Range <span className="text-accent">*</span>
-              </Label>
-              <Select
-                value={formData.budgetRange}
-                onValueChange={(value) => handleInputChange("budgetRange", value)}
-              >
-                <SelectTrigger className="mt-2">
-                  <SelectValue placeholder="Select budget" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="under-2500">Under £2,500/month</SelectItem>
-                  <SelectItem value="2500-5000">£2,500 - £5,000/month</SelectItem>
-                  <SelectItem value="5000-10000">£5,000 - £10,000/month</SelectItem>
-                  <SelectItem value="10000+">£10,000+/month</SelectItem>
-                  <SelectItem value="project">One-off project</SelectItem>
-                  <SelectItem value="unsure">Not sure yet</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.budgetRange && (
-                <p className="text-sm text-destructive mt-1">{errors.budgetRange}</p>
-              )}
-            </div>
-            <div>
-              <Label htmlFor="mainGoal">
-                Main Goal <span className="text-accent">*</span>
-              </Label>
-              <Select
-                value={formData.mainGoal}
-                onValueChange={(value) => handleInputChange("mainGoal", value)}
-              >
-                <SelectTrigger className="mt-2">
-                  <SelectValue placeholder="Select your goal" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="more-leads">More qualified leads</SelectItem>
-                  <SelectItem value="lead-quality">Better lead quality</SelectItem>
-                  <SelectItem value="lower-cpa">Lower cost per acquisition</SelectItem>
-                  <SelectItem value="improve-roas">Improve ROAS/efficiency</SelectItem>
-                  <SelectItem value="new-website">New website or redesign</SelectItem>
-                  <SelectItem value="fix-tracking">Fix tracking & attribution</SelectItem>
-                  <SelectItem value="full-strategy">Full marketing strategy</SelectItem>
-                </SelectContent>
-              </Select>
-              {errors.mainGoal && (
-                <p className="text-sm text-destructive mt-1">{errors.mainGoal}</p>
-              )}
-            </div>
-          </div>
-
           <div>
             <Label htmlFor="message">Additional Details</Label>
             <Textarea
@@ -277,5 +249,3 @@ const LandingPageForm = ({ serviceName, industryName, locationName }: LandingPag
 };
 
 export default LandingPageForm;
-
-

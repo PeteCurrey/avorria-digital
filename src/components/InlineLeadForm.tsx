@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchParams, usePathname } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -7,19 +7,12 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card } from "@/components/ui/card";
 import { trackEvent, EVENTS, trackFormStart, trackAuditReportGenerated, trackAuditReportView, trackAuditCTAClick } from "@/lib/tracking";
 
 import { supabase } from "@/integrations/supabase/client";
-import { Loader2, CheckCircle, FileText, AlertCircle, Download } from "lucide-react";
+import { Loader2, CheckCircle, AlertCircle, Download } from "lucide-react";
 import { generateAuditPDF, type AuditPDFData } from "@/lib/audit-pdf-generator";
 
 const formSchema = z.object({
@@ -27,30 +20,12 @@ const formSchema = z.object({
   email: z.string().email("Invalid email address").max(255),
   company: z.string().min(2, "Company name is required").max(100),
   website: z.string().url("Please enter a valid URL").max(255),
-  budget: z.string().min(1, "Please select a budget range"),
-  priorities: z.array(z.string()).min(1, "Select at least one priority"),
   consent: z.boolean().refine((val) => val === true, {
     message: "You must agree to receive emails",
   }),
 });
 
 type FormData = z.infer<typeof formSchema>;
-
-const budgetRanges = [
-  "Under —2,000/month",
-  "—2,000 - —5,000/month",
-  "—5,000 - —10,000/month",
-  "—10,000 - —25,000/month",
-  "—25,000+/month",
-];
-
-const priorities = [
-  "More leads",
-  "Better lead quality",
-  "Fix tracking",
-  "Website rebuild",
-  "All of the above",
-];
 
 interface InlineLeadFormProps {
   source?: string;
@@ -78,10 +53,9 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
   const [status, setStatus] = useState<FormStatus>("idle");
   const [auditResult, setAuditResult] = useState<AuditResult | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [selectedPriorities, setSelectedPriorities] = useState<string[]>([]);
   const [formStarted, setFormStarted] = useState(false);
 
-  // Pre-fill from URL params (from exit intent popup)
+  // Pre-fill from URL params
   const prefillWebsite = searchParams.get("website") || "";
   const prefillEmail = searchParams.get("email") || "";
   const prefillSource = searchParams.get("source") || source;
@@ -89,14 +63,14 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     setValue,
-    watch,
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       website: prefillWebsite,
       email: prefillEmail,
+      consent: true,
     },
   });
 
@@ -124,7 +98,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     let leadId: string | undefined;
     
     try {
-      // Step 1: Save lead to database (don't block on failure)
+      // Step 1: Save lead to database
       try {
         const { data: leadData, error: leadError } = await supabase
           .from("leads")
@@ -135,8 +109,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
             source: prefillSource === 'exit-intent' ? 'exit-intent' : 'audit',
             metadata: {
               website: data.website,
-              budget: data.budget,
-              priorities: data.priorities,
+              page_source: pathname || "",
             },
           }])
           .select("id")
@@ -146,7 +119,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
           leadId = leadData.id;
         }
       } catch (e) {
-        // Lead creation failed due to RLS - continue anyway
         console.warn("Lead creation issue (continuing):", e);
       }
 
@@ -155,7 +127,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
         source_page: pathname || "",
         form_variant: prefillSource,
         has_website_url: !!data.website,
-        budget_band: data.budget,
       });
 
       // Step 2: Generate the audit PDF
@@ -175,7 +146,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
       );
 
       if (auditError) {
-        console.error("Audit generation error:", auditError);
         throw new Error(auditError.message || "Failed to generate audit");
       }
 
@@ -216,15 +186,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
         error_type: 'submission',
       });
     }
-  };
-
-  const handlePriorityChange = (priority: string, checked: boolean) => {
-    const updated = checked
-      ? [...selectedPriorities, priority]
-      : selectedPriorities.filter((p) => p !== priority);
-    
-    setSelectedPriorities(updated);
-    setValue("priorities", updated, { shouldValidate: true });
   };
 
   // Success state
@@ -311,7 +272,7 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     );
   }
 
-  // Error state with retry option
+  // Error state
   if (status === "error") {
     return (
       <Card className="p-8 bg-card border-border">
@@ -340,7 +301,6 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     );
   }
 
-  // Default form state
   return (
     <Card className="p-8 bg-card border-border">
       <div className="max-w-2xl mx-auto space-y-6">
@@ -410,55 +370,10 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
             </div>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="budget">Monthly Marketing Budget *</Label>
-            <Select onValueChange={(value) => setValue("budget", value, { shouldValidate: true })}>
-              <SelectTrigger className={errors.budget ? "border-destructive" : ""}>
-                <SelectValue placeholder="Select budget range" />
-              </SelectTrigger>
-              <SelectContent>
-                {budgetRanges.map((range) => (
-                  <SelectItem key={range} value={range}>
-                    {range}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {errors.budget && (
-              <p className="text-sm text-destructive">{errors.budget.message}</p>
-            )}
-          </div>
-
-          <div className="space-y-3">
-            <Label>Main Priority * (select all that apply)</Label>
-            <div className="space-y-2">
-              {priorities.map((priority) => (
-                <div key={priority} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={priority}
-                    checked={selectedPriorities.includes(priority)}
-                    onCheckedChange={(checked) =>
-                      handlePriorityChange(priority, checked as boolean)
-                    }
-                  />
-                  <label
-                    htmlFor={priority}
-                    className="text-sm font-normal cursor-pointer text-foreground"
-                  >
-                    {priority}
-                  </label>
-                </div>
-              ))}
-            </div>
-            {errors.priorities && (
-              <p className="text-sm text-destructive">{errors.priorities.message}</p>
-            )}
-          </div>
-
           <div className="flex items-start space-x-2">
             <Checkbox
               id="consent"
-              {...register("consent")}
+              defaultChecked={true}
               onCheckedChange={(checked) => setValue("consent", checked as boolean, { shouldValidate: true })}
             />
             <label htmlFor="consent" className="text-sm text-muted-foreground cursor-pointer">
@@ -494,4 +409,3 @@ export function InlineLeadForm({ source = "inline", variant = "default" }: Inlin
     </Card>
   );
 }
-

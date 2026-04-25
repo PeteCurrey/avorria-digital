@@ -21,7 +21,6 @@ const Contact = () => {
     toast
   } = useToast();
   const createLead = useCreateLead();
-  const [step, setStep] = useState(1);
   const [formStarted, setFormStarted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
@@ -29,10 +28,6 @@ const Contact = () => {
     email: "",
     company: "",
     website: "",
-    monthlySpend: "",
-    channels: "",
-    mainGoal: "",
-    timeline: "",
     message: ""
   });
 
@@ -49,6 +44,8 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    
     setIsSubmitting(true);
     try {
       // Save lead to database
@@ -60,18 +57,14 @@ const Contact = () => {
         notes: formData.message,
         metadata: {
           website: formData.website,
-          monthlySpend: formData.monthlySpend,
-          channels: formData.channels,
-          mainGoal: formData.mainGoal,
-          timeline: formData.timeline
+          page_source: pathname || ""
         }
       });
+
       trackEvent(EVENTS.CONTACT_FORM_SUBMITTED, {
-        reason: formData.mainGoal || 'general',
-        monthly_spend: formData.monthlySpend,
-        channels: formData.channels,
         source_page: pathname || ""
       });
+
       toast({
         title: "Thank you for reaching out!",
         description: "We'll review your information and get back to you within 24 hours."
@@ -83,14 +76,10 @@ const Contact = () => {
         email: "",
         company: "",
         website: "",
-        monthlySpend: "",
-        channels: "",
-        mainGoal: "",
-        timeline: "",
         message: ""
       });
-      setStep(1);
     } catch (error) {
+      console.error("Contact form error:", error);
       toast({
         title: "Something went wrong",
         description: "Please try again or email us directly.",
@@ -134,102 +123,32 @@ const Contact = () => {
               <Card className="border-border">
                 <CardContent className="p-8">
                   <form onSubmit={handleSubmit} className="space-y-6">
-                    {step === 1 && <div className="space-y-6 animate-fade-in">
-                        <div>
-                          <Label htmlFor="name">Full Name *</Label>
-                          <Input id="name" value={formData.name} onChange={e => handleInputChange("name", e.target.value)} required className="mt-2" />
-                        </div>
-                        <div>
-                          <Label htmlFor="email">Email Address *</Label>
-                          <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange("email", e.target.value)} required className="mt-2" />
-                        </div>
-                        <div>
-                          <Label htmlFor="company">Company Name *</Label>
-                          <Input id="company" value={formData.company} onChange={e => handleInputChange("company", e.target.value)} required className="mt-2" />
-                        </div>
-                        <div>
-                          <Label htmlFor="website">Website URL</Label>
-                          <Input id="website" type="url" value={formData.website} onChange={e => handleInputChange("website", e.target.value)} placeholder="https://" className="mt-2" />
-                        </div>
-                        <div>
-                          <Label htmlFor="message">How can we help? *</Label>
-                          <Textarea id="message" value={formData.message} onChange={e => handleInputChange("message", e.target.value)} rows={4} required placeholder="Tell us about your goals, challenges, or questions..." className="mt-2" />
-                        </div>
-                        <Button type="button" variant="accent" className="w-full" onClick={() => setStep(2)} disabled={!formData.name || !formData.email || !formData.company || !formData.message}>
-                          Continue
-                          <ArrowRight className="ml-2" size={18} />
-                        </Button>
-                      </div>}
-
-                    {step === 2 && <div className="space-y-6 animate-fade-in">
-                        <div>
-                          <Label htmlFor="monthlySpend">Current Monthly Marketing Spend</Label>
-                          <Select value={formData.monthlySpend} onValueChange={value => handleInputChange("monthlySpend", value)}>
-                            <SelectTrigger className="mt-2">
-                              <SelectValue placeholder="Select range" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="0-2500">£0 - £2,500</SelectItem>
-                              <SelectItem value="2500-5000">£2,500 - £5,000</SelectItem>
-                              <SelectItem value="5000-10000">£5,000 - £10,000</SelectItem>
-                              <SelectItem value="10000+">£10,000+</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label htmlFor="channels">Current Marketing Channels</Label>
-                          <Select value={formData.channels} onValueChange={value => handleInputChange("channels", value)}>
-                            <SelectTrigger className="mt-2">
-                              <SelectValue placeholder="Select primary channel" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="seo">Organic/SEO</SelectItem>
-                              <SelectItem value="paid">Paid Advertising</SelectItem>
-                              <SelectItem value="social">Social Media</SelectItem>
-                              <SelectItem value="email">Email Marketing</SelectItem>
-                              <SelectItem value="multiple">Multiple Channels</SelectItem>
-                              <SelectItem value="none">Not Currently Marketing</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label htmlFor="mainGoal">Main Marketing Goal *</Label>
-                          <Select value={formData.mainGoal} onValueChange={value => handleInputChange("mainGoal", value)} required>
-                            <SelectTrigger className="mt-2">
-                              <SelectValue placeholder="Select your goal" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="leads">More qualified leads</SelectItem>
-                              <SelectItem value="quality">Better lead quality</SelectItem>
-                              <SelectItem value="roas">Improve ROAS/efficiency</SelectItem>
-                              <SelectItem value="website">New website or redesign</SelectItem>
-                              <SelectItem value="strategy">Full marketing strategy</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div>
-                          <Label htmlFor="timeline">Timeline & Urgency</Label>
-                          <Select value={formData.timeline} onValueChange={value => handleInputChange("timeline", value)}>
-                            <SelectTrigger className="mt-2">
-                              <SelectValue placeholder="When do you want to start?" />
-                            </SelectTrigger>
-                            <SelectContent>
-                              <SelectItem value="asap">As soon as possible</SelectItem>
-                              <SelectItem value="month">Within a month</SelectItem>
-                              <SelectItem value="quarter">Within 3 months</SelectItem>
-                              <SelectItem value="planning">Just planning ahead</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        <div className="flex gap-4">
-                          <Button type="button" variant="outline" className="flex-1" onClick={() => setStep(1)}>
-                            Back
-                          </Button>
-                          <Button type="submit" variant="accent" className="flex-1" disabled={isSubmitting}>
-                            {isSubmitting ? "Submitting..." : "Submit Request"}
-                          </Button>
-                        </div>
-                      </div>}
+                    <div className="space-y-6 animate-fade-in">
+                      <div>
+                        <Label htmlFor="name">Full Name *</Label>
+                        <Input id="name" value={formData.name} onChange={e => handleInputChange("name", e.target.value)} required className="mt-2" />
+                      </div>
+                      <div>
+                        <Label htmlFor="email">Email Address *</Label>
+                        <Input id="email" type="email" value={formData.email} onChange={e => handleInputChange("email", e.target.value)} required className="mt-2" />
+                      </div>
+                      <div>
+                        <Label htmlFor="company">Company Name *</Label>
+                        <Input id="company" value={formData.company} onChange={e => handleInputChange("company", e.target.value)} required className="mt-2" />
+                      </div>
+                      <div>
+                        <Label htmlFor="website">Website URL</Label>
+                        <Input id="website" type="url" value={formData.website} onChange={e => handleInputChange("website", e.target.value)} placeholder="https://" className="mt-2" />
+                      </div>
+                      <div>
+                        <Label htmlFor="message">How can we help? *</Label>
+                        <Textarea id="message" value={formData.message} onChange={e => handleInputChange("message", e.target.value)} rows={4} required placeholder="Tell us about your goals, challenges, or questions..." className="mt-2" />
+                      </div>
+                      <Button type="submit" variant="accent" className="w-full" disabled={isSubmitting}>
+                        {isSubmitting ? "Submitting..." : "Send Message"}
+                        <ArrowRight className="ml-2" size={18} />
+                      </Button>
+                    </div>
                   </form>
                   <p className="text-xs text-center text-muted-foreground mt-4">
                     Need help scoping this properly?{" "}
