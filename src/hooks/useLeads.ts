@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import React, { useCallback, useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
@@ -137,11 +137,13 @@ export function useCreateLead(): MutationResult<LeadInsert, Lead> {
       const { data, error } = await supabase
         .from("leads")
         .insert([lead])
-        .select()
-        .single();
+        .select();
 
       if (error) throw error;
-      return data as Lead;
+      
+      // If we have data (select permission granted), return it
+      // Otherwise return a minimal object with the provided lead data
+      return (data?.[0] || lead) as Lead;
     } catch (err) {
       console.error("Error creating lead:", err);
       setError(err as Error);
@@ -276,5 +278,3 @@ export function useLeadStats(): QueryResult<{ total: number; byStatus: Record<st
 
   return { data, isLoading, error, refetch: fetchStats };
 }
-
-
